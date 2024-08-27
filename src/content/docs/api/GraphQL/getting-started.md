@@ -18,7 +18,7 @@ API tokens are not meant to be shared, and should be kept private, as they can b
 After you have your token, you can start making requests to the API.
 
 ## Making Your First Request
-After you have your token, you can head over to the GraphQL console.
+After you have your token, you can head over to the [GraphQL console](https://cloud.hasura.io/public/graphiql?endpoint=https://api.hardcover.app/v1/graphql).
 Next, add a header just called "authorization" (no quotes) with your token as the value.
 
 Tab out of the field, and you should see a list of available resources.
