@@ -4,9 +4,13 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://hardcover.revelryplay.com',
 	integrations: [
 		starlight({
-			title: 'Docs with Tailwind',
+			logo: {
+				src: './src/assets/hardcover.svg'
+			},
+			title: 'API Documentation',
 			social: {
 				github: 'https://github.com/withastro/starlight',
 			},
@@ -15,12 +19,12 @@ export default defineConfig({
 					label: 'Guides',
 					items: [
 						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'Example Request', slug: 'guides/example' },
 					],
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'API Reference',
+					autogenerate: { directory: 'api/GraphQL' },
 				},
 			],
 			customCss: ['./src/tailwind.css'],
