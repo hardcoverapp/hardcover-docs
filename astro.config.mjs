@@ -12,7 +12,7 @@ export default defineConfig({
 			},
 			title: 'API Documentation',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: 'https://github.com/RevelryPlay/hardcover-doc',
 			},
 			sidebar: [
 				{
