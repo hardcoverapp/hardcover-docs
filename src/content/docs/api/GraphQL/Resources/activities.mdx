@@ -1,0 +1,40 @@
+---
+title: Activities
+---
+
+import {Aside} from '@astrojs/starlight/components';
+import GraphQLExplorer from '../../../../../components/GraphQLExplorer.astro';
+
+<Aside type="caution" title="Disclaimer">
+    This API is currently in development and may change or break at any time with out notice.
+</Aside>
+
+## Info
+This endpoint provides access to the activities occurring on the platform.
+
+## Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>String</td>
+        <td>The unique identifier of the activity.</td>
+    </tr>
+    <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>The type of activity.</td>
+    </tr>
+    </tbody>
+</table>
+
+## Example
+<GraphQLExplorer/>
