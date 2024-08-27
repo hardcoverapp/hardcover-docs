@@ -1,5 +1,8 @@
 {
-  "name": "",
+  "name": "hardcover-docs",
+  "description": "Documentation for the Hardcover APIs",
+  "repository": "https://github.com/RevelryPlay/hardcover-doc",
+  "author": "RevelryPlay",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

@@ -13,6 +13,9 @@ export default defineConfig({
 			title: 'API Documentation',
 			social: {
 				github: 'https://github.com/RevelryPlay/hardcover-doc',
+				discord: 'https://discord.gg/edGpYN8ym8',
+				mastodon: 'https://mastodon.hardcover.app/@hardcover',
+				instagram: 'https://instagram.com/hardcover.app',
 			},
 			sidebar: [
 				{
