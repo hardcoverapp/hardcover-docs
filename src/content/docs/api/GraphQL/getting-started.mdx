@@ -3,6 +3,7 @@ title: Getting Started with the GraphQL API
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import GraphQLExplorer from '../../../../components/GraphQLExplorer.astro';
 
 <Aside type="caution" title="Disclaimer">
     This API is currently in development and may change or break at any time with out notice.
@@ -32,13 +33,12 @@ Tab out of the field, and you should see a list of available resources.
 ### Example Request
 To test that it's working, try the following GraphQL query:
 
-```graphql
-query Test {
+<GraphQLExplorer query={`query Test {
   me {
     username
   }
-} 
-```
+} `}/>
+
 Click the play button and you should see your username!
 
 ## Important Notes About the Hardcover API

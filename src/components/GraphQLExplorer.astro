@@ -1,37 +1,27 @@
 ---
-interface props {
-    query: string;
-}
-
-import {Tabs, TabItem} from '@astrojs/starlight/components';
+import {Code, Tabs, TabItem} from '@astrojs/starlight/components';
+const {query} = Astro.props;
 ---
 
 <Tabs>
-    <TabItem label="Query">
-        <pre>{`
-         query {
-            activities {
-                id
-                title
-            }
-          }
-        `}</pre>
-
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Try it yourself
-        </button>
+    <TabItem label="Query" icon="document">
+        <Code lang="graphql" title="Example Query" code={query}/>
     </TabItem>
-    <TabItem label="Settings">
+    <TabItem label="Try it Yourself" icon="seti:graphql">
         <div>
             <label for="auth_token" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Authorization
                 Token</label>
+
             <input type="text"
                    id="auth_token"
-                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 mb-4
                                 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                    placeholder=""
                    required/>
+
+            <Code lang="graphql" code={query}/>
         </div>
     </TabItem>
 </Tabs>
+

@@ -37,4 +37,9 @@ This endpoint provides access to the activities occurring on the platform.
 </table>
 
 ## Example
-<GraphQLExplorer/>
+<GraphQLExplorer query={`{
+    activities {
+        id
+        type
+    }
+}`}/>
