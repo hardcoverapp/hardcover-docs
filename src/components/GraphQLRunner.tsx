@@ -1,8 +1,9 @@
-export const GraphQLRunner = (props: {query: string}) => {
+export const GraphQLRunner = (props: { query: string }) => {
     return (
         <>
-            <label htmlFor="auth_token" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Authorization
-                Token</label>
+            <label htmlFor="auth_token" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Authorization Token
+            </label>
 
             <input type="text"
                    id="auth_token"
@@ -12,7 +13,8 @@ export const GraphQLRunner = (props: {query: string}) => {
                    placeholder=""
                    required/>
 
-            <pre>
+            <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
+                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                 {props.query}
             </pre>
         </>

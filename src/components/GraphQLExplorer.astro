@@ -10,6 +10,8 @@ const {query} = Astro.props;
         <Code lang="graphql" title="Example Query" code={query}/>
     </TabItem>
     <TabItem label="Try it Yourself" icon="seti:graphql">
-        <GraphQLRunner query={query}/>
+        <div class="not-content">
+            <GraphQLRunner query={query} client:visible />
+        </div>
     </TabItem>
 </Tabs>
