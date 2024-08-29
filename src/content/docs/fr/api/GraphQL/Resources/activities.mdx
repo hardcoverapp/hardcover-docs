@@ -1,0 +1,49 @@
+---
+title: Activities
+---
+
+import {Aside} from '@astrojs/starlight/components';
+import GraphQLExplorer from '../../../../../../components/GraphQLExplorer.astro';
+
+<Aside type="note" title="Translation in progress">
+    This page is currently being translated into French. Please check back later for the completed version.
+</Aside>
+
+<Aside type="caution" title="Clause de non-responsabilité">
+    Cette API est actuellement en développement et peut changer ou être interrompue à tout moment sans préavis.
+</Aside>
+
+## Informations
+Ce point de terminaison donne accès aux activités se déroulant sur la plateforme.
+
+## Champs
+
+<table>
+    <thead>
+    <tr>
+        <th>Champs</th>
+        <th>Taper</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>Texte</td>
+        <td>L'identifiant unique de l'activité.</td>
+    </tr>
+    <tr>
+        <td>type</td>
+        <td>Texte</td>
+        <td>Le type d'activité.</td>
+    </tr>
+    </tbody>
+</table>
+
+## Example
+<GraphQLExplorer query={`{
+    activities {
+        id
+        type
+    }
+}`}/>
