@@ -34,6 +34,9 @@ export default defineConfig({
       src: './src/assets/hardcover.svg'
     },
     sidebar: [{
+      slug: 'getting-started',
+    },
+        {
         autogenerate: {
             directory: 'guides'
         },
