@@ -13,11 +13,6 @@ hero:
           icon: right-arrow
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { LinkCard } from '@astrojs/starlight/components';
 
-
-<CardGrid stagger>
-	<Card title="Return to Hardcover App" icon="open-book">
-		[Hardcover](https://hardcover.app/).
-	</Card>
-</CardGrid>
+<LinkCard title="Return to Hardcover App" href="https://hardcover.app/" target="_blank" />
