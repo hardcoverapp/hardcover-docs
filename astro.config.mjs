@@ -6,69 +6,68 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://hardcover.revelryplay.com',
   favicon: './src/assets/hardcover.svg',
   integrations: [starlight({
-
+    customCss: ['./src/tailwind.css'],
     defaultLocale: 'root',
+
     locales: {
       'fr': {
         label: 'Français',
         lang: 'fr'
       },
-      'sp': {
-        label: 'Español',
-        lang: 'es'
-      },
       root: {
         label: 'English',
         lang: 'en'
+      },
+      'sp': {
+        label: 'Español',
+        lang: 'es'
       }
     },
-
     logo: {
       src: './src/assets/hardcover.svg'
     },
-    title: {
-      en: 'API Documentation',
-      fr: 'Documentation de l\'API',
-      es: 'Documentación de la API'
-    },
-    social: {
-      github: 'https://github.com/RevelryPlay/hardcover-doc',
-      discord: 'https://discord.gg/edGpYN8ym8',
-      mastodon: 'https://mastodon.hardcover.app/@hardcover',
-      instagram: 'https://instagram.com/hardcover.app'
-    },
     sidebar: [{
-      label: 'Guides',
-      translations: {
-        fr: 'Guides',
-        es: 'Guías'
-      },
       items: [
         // Each item here is one entry in the navigation menu.
         {
           label: 'Example Request',
           slug: 'guides/example',
           translations: {
-            fr: 'Exemple de demande',
-            es: 'Ejemplo de solicitud'
+            es: 'Ejemplo de solicitud',
+            fr: 'Exemple de demande'
           },
         },
-      ]
-    }, {
-      label: 'API Reference',
+      ],
+      label: 'Guides',
       translations: {
-        fr: 'Référence de l\'API',
-        es: 'Referencia de la API'
-      },
+        es: 'Guías',
+        fr: 'Guides'
+      }
+    }, {
       autogenerate: {
         directory: 'api/GraphQL'
+      },
+      label: 'API Reference',
+      translations: {
+        es: 'Referencia de la API',
+        fr: 'Référence de l\'API'
       }
     }],
-    customCss: ['./src/tailwind.css']
+    social: {
+      discord: 'https://discord.gg/edGpYN8ym8',
+      github: 'https://github.com/RevelryPlay/hardcover-doc',
+      instagram: 'https://instagram.com/hardcover.app',
+      mastodon: 'https://mastodon.hardcover.app/@hardcover'
+    },
+    title: {
+      en: 'API Documentation',
+      es: 'Documentación de la API',
+      fr: 'Documentation de l\'API'
+    }
   }), tailwind({
     applyBaseStyles: false
-  }), react()]
+  }), react()],
+  site: 'https://hardcover.revelryplay.com'
 });
