@@ -10,7 +10,9 @@ export default defineConfig({
   integrations: [starlight({
     customCss: ['./src/tailwind.css'],
     defaultLocale: 'root',
-
+    editLink: {
+      baseUrl: 'https://github.com/RevelryPlay/hardcover-doc/tree/main/'
+    },
     locales: {
       'fr': {
         label: 'Français',
@@ -29,17 +31,9 @@ export default defineConfig({
       src: './src/assets/hardcover.svg'
     },
     sidebar: [{
-      items: [
-        // Each item here is one entry in the navigation menu.
-        {
-          label: 'Example Request',
-          slug: 'guides/example',
-          translations: {
-            es: 'Ejemplo de solicitud',
-            fr: 'Exemple de demande'
-          },
+        autogenerate: {
+            directory: 'guides'
         },
-      ],
       label: 'Guides',
       translations: {
         es: 'Guías',
