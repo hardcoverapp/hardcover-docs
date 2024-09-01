@@ -2,16 +2,16 @@
 import {Code, Tabs, TabItem} from '@astrojs/starlight/components';
 import {GraphQLRunner} from './GraphQLRunner.tsx';
 
-const {query} = Astro.props;
+const {query, canTry = true} = Astro.props;
 ---
 
 <Tabs>
     <TabItem label="Query" icon="document">
         <Code lang="graphql" title="Example Query" code={query}/>
     </TabItem>
-    <TabItem label="Try it Yourself" icon="seti:graphql">
+    {canTry && (<TabItem label="Try it Yourself" icon="seti:graphql">
         <div class="not-content">
             <GraphQLRunner query={query} client:visible />
         </div>
-    </TabItem>
+    </TabItem>)}
 </Tabs>
