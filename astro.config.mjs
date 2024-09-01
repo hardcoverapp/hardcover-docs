@@ -8,6 +8,9 @@ import react from "@astrojs/react";
 export default defineConfig({
   favicon: './src/assets/hardcover.svg',
   integrations: [starlight({
+    components: {
+      SocialIcons: './src/components/SocialIcons.astro'
+    },
     customCss: ['./src/tailwind.css'],
     defaultLocale: 'root',
     editLink: {
