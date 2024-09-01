@@ -46,9 +46,16 @@ export default defineConfig({
                     fr: 'Guides'
                 }
             }, {
-                autogenerate: {
-                    directory: 'api/GraphQL'
-                },
+                items: [{
+                    label: 'Schemas',
+                    autogenerate: {
+                        directory: 'api/GraphQL/Schemas'
+                    },
+                    translations: {
+                        es: 'Esquemas',
+                        fr: 'Schémas'
+                    }
+                }],
                 label: 'API Reference',
                 translations: {
                     es: 'Referencia de la API',
