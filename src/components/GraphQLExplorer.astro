@@ -15,7 +15,7 @@ const {query, canTry = true} = Astro.props;
     {canTry && (
             <TabItem label="Try it Yourself" icon="seti:graphql">
                 <div class="not-content">
-                    <GraphQLRunner query={query} client:visible/>
+                    <GraphQLRunner query={query} client:only />
                 </div>
             </TabItem>
     )}

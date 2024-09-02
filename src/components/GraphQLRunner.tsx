@@ -1,4 +1,14 @@
+import React, {useState} from "react";
+
 export const GraphQLRunner = (props: { query: string }) => {
+    const localAuthToken = window.localStorage.getItem('auth_token');
+    const [authToken, setAuthToken] = useState(localAuthToken || '');
+
+    const handleAuthTokenChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAuthToken(event.target.value);
+        window.localStorage.setItem('auth_token', event.target.value);
+    }
+
     return (
         <>
             <label htmlFor="auth_token" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -10,16 +20,19 @@ export const GraphQLRunner = (props: { query: string }) => {
                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 mb-4
                                 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                   placeholder=""
+                   onChange={handleAuthTokenChange}
                    title="This is your authorization token. You can find this in your account settings."
+                   value={authToken}
                    required/>
 
             <label htmlFor="justMe" className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Limit to my account
             </label>
-            <input type="checkbox" id="justMe" className="mx-4" title="This will filter the results to just your account where possible" />
+            <input type="checkbox" id="justMe" className="mx-4"
+                   title="This will filter the results to just your account where possible"/>
 
-            <label htmlFor="resultsLength" className="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label htmlFor="resultsLength"
+                   className="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Results Length
             </label>
 
@@ -36,7 +49,7 @@ export const GraphQLRunner = (props: { query: string }) => {
             </button>
 
             <div className="my-4 w-full bg-accent-200 text-gray-900 p-3 rounded-lg">
-                This will run against your account.<br />
+                This will run against your account.<br/>
                 You are responsible for the content of any queries ran on your account.
             </div>
 
