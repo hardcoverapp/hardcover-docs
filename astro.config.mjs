@@ -50,11 +50,12 @@ export default defineConfig({
                     variant: 'caution',
                     text: 'Beta',
                 },
+                collapsed: true,
                 items: [{
-                    label: 'Schemas',
                     autogenerate: {
                         directory: 'api/GraphQL/Schemas'
                     },
+                    label: 'Schemas',
                     translations: {
                         es: 'Esquemas',
                         fr: 'Schémas'
@@ -65,7 +66,11 @@ export default defineConfig({
                     es: 'Referencia de la API',
                     fr: 'Référence de l\'API'
                 }
-            }],
+            },
+            {
+                slug: 'contributing'
+            }
+        ],
         social: {
             discord: 'https://discord.gg/edGpYN8ym8',
             github: 'https://github.com/RevelryPlay/hardcover-doc',
