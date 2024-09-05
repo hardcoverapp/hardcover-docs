@@ -16,6 +16,7 @@ export default defineConfig({
         editLink: {
             baseUrl: 'https://github.com/RevelryPlay/hardcover-doc/tree/main/'
         },
+        lastUpdated: true,
         locales: {
             'fr': {
                 label: 'Français',
