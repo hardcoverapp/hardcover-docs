@@ -105,14 +105,12 @@ import GraphQLExplorer from '/src/components/GraphQLExplorer.astro';
 
 ### How do I add a new language to the language dropdown?
 
-The root language should NOT be changed from English. <br>
-To add a new language see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
+The root language should **not** be changed from English. To add a new language see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
 
 ### How do I add a translation for an existing language?
 
 Once a language has been added to the astro config file you can create a new file in the `src/content/docs/` directory
-inside a folder named with the language code. <br>
-This new file should have the same name as the original file you are translating.
+inside a folder named with the language code. This new file should have the same name as the original file you are translating.
 
 For example, if you are translating the `src/content/docs/getting-started.mdx` file into Spanish you would create a new
 file at `src/content/docs/es/getting-started.mdx` with the Spanish translation of the content.
