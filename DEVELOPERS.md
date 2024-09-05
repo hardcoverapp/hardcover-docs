@@ -66,6 +66,8 @@ All commands are run from the root of the project, from a terminal:
 2. Give the file a name that describes the content.
 3. Add frontmatter to the top of the file.
     - At a minimum, include both `title` and `category`.
+      - Both `title` and `category` are strings.
+      - Current categories are `guide` or `reference`.
     - optionally include other fields from
       the [Starlight - Frontmatter Reference](https://starlight.astro.build/reference/frontmatter/) page.
 4. Add content to the file using Markdown or MDX syntax.
