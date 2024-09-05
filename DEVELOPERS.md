@@ -24,6 +24,7 @@ Static assets, like favicons, can be placed in the `public/` directory.
 ### How do I run the project locally?
 
 #### 🚀 Quick Start
+
 1. **Clone the repo:**
    ```bash
    git clone https://github.com/RevelryPlay/hardcover-doc.git
@@ -57,11 +58,57 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-### How do I add a new page?
+### How do I add a new page or update an existing page?
+
+#### Adding a New Page
+
+1. Create a new `.mdx` file in the `src/content/docs/` directory.
+2. Give the file a name that describes the content.
+3. Add frontmatter to the top of the file.
+    - At a minimum, include both `title` and `category`.
+    - optionally include other fields from
+      the [Starlight - Frontmatter Reference](https://starlight.astro.build/reference/frontmatter/) page.
+4. Add content to the file using Markdown or MDX syntax.
+5. Add the new page to the sidebar
+    - If the page is part of the `api/GraphQL/Schema` section the sidebar will automatically update with the new page.
+    - If the page is part of the `guides` section the sidebar will automatically update with the new page.
+    - All other pages will need to be added to the astro config file
+      see [Starlight - Add links and link groups](https://starlight.astro.build/guides/sidebar/#add-links-and-link-groups)
+      for more information.
+
+#### Available Components
+
+In addition to the standard Starlight components, the Hardcover documentation site includes the following custom
+components:
+
+##### GraphQLExplorer
+
+This component allows a user to view GraphQL queries and experiment by running them against the API.
+
+**Parameters:**
+
+- `query` - A string containing the GraphQL query to be displayed in the explorer.
+- `canTry` - A boolean value that determines whether the user can run the query in the explorer. Default is `true`.
+
+**Usage:**
+
+    ```mdx
+    <GraphQLExplorer query={query} />
+    ```
 
 ### How do I add a new language to the language dropdown?
 
+The root language should NOT be changed from English. <br>
+To add a new language see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
+
 ### How do I add a translation for an existing language?
+
+Once a language has been added to the astro config file you can create a new file in the `src/content/docs/` directory
+inside a folder named with the language code. <br>
+This new file should have the same name as the original file you are translating.
+
+For example, if you are translating the `src/content/docs/getting-started.mdx` file into Spanish you would create a new
+file at `src/content/docs/es/getting-started.mdx` with the Spanish translation of the content.
 
 ## Support Resources
 
