@@ -14,8 +14,8 @@
 
 #### File Structure
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on
-its file name.
+Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. 
+Each file is exposed as a route based on its file name.
 
 Images can be added to `src/assets/` and embedded in Markdown with a relative link.
 
@@ -65,11 +65,16 @@ All commands are run from the root of the project, from a terminal:
 1. Create a new `.mdx` file in the `src/content/docs/` directory.
 2. Give the file a name that describes the content.
 3. Add frontmatter to the top of the file.
-    - At a minimum, include both `title` and `category`.
+    - At a minimum, include `title`, `category`, and `layout`.
       - Both `title` and `category` are strings.
       - Current categories are `guide` or `reference`.
-    - optionally include other fields from
+      - `layout` should be set to the relative path to `/src/layouts/documentation.astro`.
+    - We would also recommend including `description` and `lastUpdated`.
+      - `description` is a string that will be used as the meta description for the page.
+      - `lastUpdated` is a string in the format `YYYY-MM-DD` that will be displayed on the page.
+    - Optionally include other fields from
       the [Starlight - Frontmatter Reference](https://starlight.astro.build/reference/frontmatter/) page.
+    - See `src/content/docs/getting-started.mdx` for an example.
 4. Add content to the file using Markdown or MDX syntax.
 5. Add the new page to the sidebar
     - If the page is part of the `api/GraphQL/Schema` section the sidebar will automatically update with the new page.
@@ -89,6 +94,8 @@ components:
 This component allows a user to view GraphQL queries and experiment by running them against the API.
 
 **Import Path:**
+
+This should be a relative path to the following file:
 
 ```js
 import GraphQLExplorer from '/src/components/GraphQLExplorer.astro';
