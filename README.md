@@ -26,3 +26,22 @@ Use our set of amazing stats and tools, including AI, to discover new horizons i
 - [Contributing Guidelines](CONTRIBUTING.md)
 - [Developer Guidelines](DEVELOPERS.md)
 
+### 🚀 Quick Start
+1. **Clone the repo:**
+   ```bash
+   git clone https://github.com/RevelryPlay/hardcover-doc.git
+    ```
+2. **Navigate to the project directory:**
+   ```bash
+   cd hardcover-doc
+   ```
+3. **Install dependencies:**
+    ```bash
+    npm install
+    ```
+4. **Start the dev server:**
+    ```bash
+    npm run dev
+    ```
+5. **Open your browser**
+6. **Navigate to `http://localhost:4321`**
