@@ -116,6 +116,8 @@ import GraphQLExplorer from '/src/components/GraphQLExplorer.astro';
 
 The root language should **not** be changed from English. To add a new language see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
 
+When adding a new language you should also update the existing translations in the astro config file to include the new language.
+
 ### How do I add a translation for an existing language?
 
 Once a language has been added to the astro config file you can create a new file in the `src/content/docs/` directory
