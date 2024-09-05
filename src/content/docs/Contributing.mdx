@@ -63,12 +63,12 @@ All commands are run from the root of the project, from a terminal:
 2. Give the file a name that describes the content.
 3. Add frontmatter to the top of the file.
  - At a minimum, include `title`, `category`, and `layout`.
-- Both `title` and `category` are strings.
-- Current categories are `guide` or `reference`.
-- `layout` should be set to the relative path to `/src/layouts/documentation.astro`.
+  - Both `title` and `category` are strings.
+  - Current categories are `guide` or `reference`.
+  - `layout` should be the relative path to `/src/layouts/documentation.astro`.
  - We would also recommend including `description` and `lastUpdated`.
-- `description` is a string that will be used as the meta description for the page.
-- `lastUpdated` is a string in the format `YYYY-MM-DD` that will be displayed on the page.
+  - `description` is a string that will be used as the meta description for the page.
+  - `lastUpdated` is a string in the format `YYYY-MM-DD` that will be displayed on the page.
  - Optionally include other fields from
 the [Starlight - Frontmatter Reference](https://starlight.astro.build/reference/frontmatter/) page.
  - See `src/content/docs/getting-started.mdx` for an example.
@@ -101,7 +101,7 @@ import GraphQLExplorer from '/src/components/GraphQLExplorer.astro';
 **Parameters:**
 
 - `query` - A string containing the GraphQL query to be displayed in the explorer.
-- `canTry` - A boolean value that determines whether the user can run the query in the explorer. Default is `true`.
+- `canTry` - A boolean value determining whether the user can run the query in the explorer. The default is `true`.
 
 **Usage:**
 
