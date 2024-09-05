@@ -3,12 +3,12 @@
 <img src="src/assets/hardcover.svg" alt="Hardcover Logo" width="200">
 
 # Hardcover API Documentation
-[Discover Hardcover](https://hardcover.app/) - [Connect with us on Discord](https://discord.gg/edGpYN8ym8)
+[Discover Hardcover](https://hardcover.app/) - [View Documentation](https://hardcover.revelryplay.com/) - [Connect with us on Discord](https://discord.gg/edGpYN8ym8)
 
 [![Deploy to GitHub Pages](https://github.com/RevelryPlay/hardcover-doc/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/RevelryPlay/hardcover-doc/actions/workflows/deploy.yml)
 
 ## Book Smart
-Track every book, share them with the world (or don't)and find new life-changing reads.
+Track every book, share them with the world (or don't) and find new life-changing reads.
 
 ### Find
 Search and browse for new books – or find inspiration in other reader's libraries.

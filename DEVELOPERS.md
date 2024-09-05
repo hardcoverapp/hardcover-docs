@@ -78,12 +78,19 @@ All commands are run from the root of the project, from a terminal:
 
 #### Available Components
 
-In addition to the standard Starlight components, the Hardcover documentation site includes the following custom
+In addition to the standard [Starlight - Components](https://starlight.astro.build/guides/components/), the Hardcover
+documentation site includes the following custom
 components:
 
 ##### GraphQLExplorer
 
 This component allows a user to view GraphQL queries and experiment by running them against the API.
+
+**Import Path:**
+
+```js
+import GraphQLExplorer from '/src/components/GraphQLExplorer.astro';
+```
 
 **Parameters:**
 
@@ -92,9 +99,9 @@ This component allows a user to view GraphQL queries and experiment by running t
 
 **Usage:**
 
-    ```mdx
-    <GraphQLExplorer query={query} />
-    ```
+```mdx
+<GraphQLExplorer query={query} />
+```
 
 ### How do I add a new language to the language dropdown?
 
@@ -117,3 +124,4 @@ file at `src/content/docs/es/getting-started.mdx` with the Spanish translation o
 ### Requesting a Feature
 
 ### Finding Help on Discord
+Connect with us on [Discord](https://discord.gg/edGpYN8ym8)
