@@ -2,7 +2,7 @@
 
 ## Contributing to the Hardcover Documentation
 
-### [Contributing Guidelines](CONTRIBUTING.md)
+### [Contributing Guidelines](CONTRIBUTING)
 
 ### Developer Code of Conduct
 

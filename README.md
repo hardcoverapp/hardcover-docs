@@ -23,7 +23,7 @@ Explore others reader's bookshelves and follow for their next reads.
 Use our set of amazing stats and tools, including AI, to discover new horizons in your reading journey.
 
 ## Contributing to the Hardcover Documentation
-- [Contributing Guidelines](CONTRIBUTING.md)
+- [Contributing Guidelines](CONTRIBUTING)
 - [Developer Guidelines](DEVELOPERS.md)
 
 ### 🚀 Quick Start
