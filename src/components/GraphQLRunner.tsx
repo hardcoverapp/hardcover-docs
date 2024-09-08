@@ -276,7 +276,7 @@ export const GraphQLRunner = (props: {
 
                     {queryStatus == "success" && (
                         <div className="my-4 w-full bg-green-100 border border-green-400 text-green-700 p-3 rounded-lg">
-                            Query ran successfully
+                            Success!
                         </div>
                     )}
 

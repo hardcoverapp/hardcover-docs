@@ -30,7 +30,11 @@ Next, add a header just called "authorization" (no quotes) with your token as th
 Tab out of the field, and you should see a list of available resources.
 
 ### Example Request
-To test that it's working, try the following GraphQL query:
+To test that it's working, go to the `Try it Yourself` tab below
+- Add your token to the `Authorization Token` field.
+- Then click the `Run Query` button.
+
+You should see your user ID and username in the Results section.
 
 <GraphQLExplorer query={`
 query {
@@ -40,8 +44,6 @@ query {
   }
 }
 `}/>
-
-Click the play button and you should see your username!
 
 ## Important Notes About the Hardcover API
 - The API is still heavily in flux right now. Anything you build using it could break in the future.
