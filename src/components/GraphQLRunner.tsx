@@ -78,8 +78,21 @@ export const GraphQLRunner = (props: {
                     // Parse the JSON response
                     res.json().then(data => {
                         // If there is an error in the response, reject the promise
-                        if (data.error || data.errors) {
-                            console.error({error: data.error, errors: data.errors});
+                        if (data.error) {
+                            console.error({error: data.error});
+                            reject(new Error(data.error));
+                        }
+
+                        if (data.errors) {
+                            console.error({errors: data.errors});
+
+                            // If there is a message in the errors, reject the promise with the message
+                            if (data.errors[0].message) {
+                                reject(new Error(data.errors[0].message));
+                                return;
+                            }
+
+                            // If there is no message, reject the promise a generic error message
                             reject(new Error('Error running query'));
                         }
 
@@ -242,10 +255,30 @@ export const GraphQLRunner = (props: {
                         Run Query
                     </button>
 
-                    <div className="my-4 w-full bg-accent-200 text-gray-900 p-3 rounded-lg">
-                        This will run against your account.<br/>
-                        You are responsible for the content of any queries ran on your account.
-                    </div>
+                    {(queryStatus == "idle" || !queryStatus) && (
+                        <div className="my-4 w-full bg-accent-200 text-gray-900 p-3 rounded-lg">
+                            This will run against your account.<br/>
+                            You are responsible for the content of any queries ran on your account.
+                        </div>
+                    )}
+
+                    {queryStatus == "running" && (
+                        <div className="my-4 w-full bg-accent-200 text-gray-900 p-3 rounded-lg">
+                            Loading...
+                        </div>
+                    )}
+
+                    {queryStatus == "error" && (
+                        <div className="my-4 w-full bg-red-100 border border-red-400 text-red-700 p-3 rounded-lg">
+                            <strong>Error: </strong> {queryError}
+                        </div>
+                    )}
+
+                    {queryStatus == "success" && (
+                        <div className="my-4 w-full bg-green-100 border border-green-400 text-green-700 p-3 rounded-lg">
+                            Query ran successfully
+                        </div>
+                    )}
 
                     <div className="">
                         <h2 className="text-lg my-4 font-semibold text-gray-900 dark:text-white">Query</h2>
