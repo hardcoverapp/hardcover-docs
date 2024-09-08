@@ -1,11 +1,15 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {GRAPHQL_URL} from "../Consts";
 
 export const GraphQLRunner = (props: {
     query: string,
+    description?: string,
     presentation?: 'auto' | 'json' | 'table',
 }) => {
-    const {query} = props;
+    const {description} = props;
+
+    // Get the query from props so we can modify it
+    const [query, setQuery] = useState(props.query);
 
     // // Define the tables that have a user_id column
     // const TablesWithUserId: string | string[] = [];
@@ -19,7 +23,7 @@ export const GraphQLRunner = (props: {
 
     // Get the auth token and user_id from local storage if it exists
     const localAuthToken = window.localStorage.getItem('auth_token');
-    // const [user_id, setUserId] = useState(window.localStorage.getItem('user_id') || '');
+    const [userId, setUserId] = useState(window.localStorage.getItem('user_id') || '');
     const [authToken, setAuthToken] = useState(localAuthToken || '');
 
     // If the query is a mutation, we don't allow it to be run here, and instead we will show a message to the user
@@ -29,6 +33,23 @@ export const GraphQLRunner = (props: {
     const [queryStatus, setQueryStatus] = useState<'running' | 'success' | 'error' | 'idle'>('idle');
     const [queryError, setQueryError] = useState<string | undefined>();
     const [queryResults, setQueryResults] = useState<any>(null);
+
+    /**
+     * This function will replace the ##USER_ID## token in the query with the actual user_id.
+     * Additional tokens can be added here as needed.
+     * @param query - string
+     * @returns {string}
+     */
+    const ReplaceQueryTokens = (query: string): string => {
+        // Replace the user_id token with the actual user_id
+        return query.replace(/##USER_ID##/g, userId);
+    }
+
+    useEffect(() => {
+        // Replace the tokens in the query
+        // Use the original query from props to ensure can this can be re-run if data changes
+        setQuery(ReplaceQueryTokens(props.query));
+    }, [userId]);
 
     /**
      * This function will handle the query using fetch.
@@ -157,7 +178,8 @@ export const GraphQLRunner = (props: {
             window.localStorage.setItem('user_id', res.data.me[0].id);
 
             // Update the React state with the user's ID, so we can use it for the limit to my account filter
-            // setUserId(res.data.me[0].id);
+            setUserId(res.data.me[0].id);
+
         }, (err: { message: string; }) => {
             console.error('Error running query to test auth token', {err: err.message});
         });
@@ -283,9 +305,13 @@ export const GraphQLRunner = (props: {
                     <div className="">
                         <h2 className="text-lg my-4 font-semibold text-gray-900 dark:text-white">Query</h2>
 
+                        {description && (
+                            <p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>
+                        )}
+
                         <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                    {props.query}
+                    {query}
                 </pre>
 
                         <h2 className="text-lg my-4 font-semibold text-gray-900 dark:text-white">Results</h2>

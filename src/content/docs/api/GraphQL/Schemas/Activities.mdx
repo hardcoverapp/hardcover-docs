@@ -22,31 +22,85 @@ This endpoint provides access to the activities occurring on the platform.
     </thead>
     <tbody>
     <tr>
-        <td>id</td>
-        <td>String</td>
-        <td>The unique identifier of the activity.</td>
+        <td>book</td>
+        <td>Object</td>
+        <td>The book details of the activity</td>
     </tr>
     <tr>
-        <td>event</td>
+        <td>book_id</td>
         <td>String</td>
-        <td>The type of activity.</td>
+        <td>The unique identifier of the book that the activity is related to</td>
     </tr>
     <tr>
         <td>created_at</td>
         <td>String</td>
-        <td>The date and time the activity occurred.</td>
+        <td>The timestamp of when the activity occurred.</td>
+    </tr>
+    <tr>
+        <td>data</td>
+        <td>Object</td>
+        <td>The payload of the activity</td>
+    </tr>
+    <tr>
+        <td>event</td>
+        <td>String</td>
+        <td>The type of activity</td>
+    </tr>
+    <tr>
+        <td>followers</td>
+        <td>Object</td>
+        <td>List of users who have followed this activity</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>String</td>
+        <td>The unique identifier of the activity</td>
+    </tr>
+    <tr>
+        <td>likes</td>
+        <td>Object</td>
+        <td>List of users who have liked this activity</td>
+    </tr>
+    <tr>
+        <td>likes_count</td>
+        <td>Number</td>
+        <td>The number of users who have liked this activity</td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String</td>
+        <td>'Activity'</td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>Object</td>
+        <td>User object for the user who performed the activity</td>
     </tr>
     <tr>
         <td>user_id</td>
         <td>String</td>
-        <td>The unique identifier of the user who performed the activity.</td>
+        <td>The unique identifier of the user who performed the activity</td>
     </tr>
     </tbody>
 </table>
 
-## Example
+## Get Distinct Activity Types
 <GraphQLExplorer query={`{
     activities(distinct_on: event) {
         event
     }
-}`}/>
+}`} description={`
+    This query will return a list of distinct activity events that have occurred.
+`}/>
+
+## Get My Activities
+<GraphQLExplorer query={`{
+    activities(where: {user_id: {_eq: ##USER_ID##}}, limit: 10) {
+        event
+        likes_count
+        book_id
+        created_at
+    }
+}`} description={`
+    This query will return a list of 10 activities that the current user has performed.
+`}/>
