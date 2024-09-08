@@ -211,30 +211,30 @@ export const GraphQLRunner = (props: {
                            value={authToken}
                            required/>
 
-                    <label htmlFor="justMe" className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Limit to my account
-                    </label>
-                    <input type="checkbox" id="justMe" className="mx-4"
-                           onChange={event => setJustMeFilter(event.target.checked)}
-                           checked={justMeFilter}
-                           title="This will filter the results to just your account where possible"/>
+                    {/*<label htmlFor="justMe" className="mb-2 text-sm font-medium text-gray-900 dark:text-white">*/}
+                    {/*    Limit to my account*/}
+                    {/*</label>*/}
+                    {/*<input type="checkbox" id="justMe" className="mx-4"*/}
+                    {/*       onChange={event => setJustMeFilter(event.target.checked)}*/}
+                    {/*       checked={justMeFilter}*/}
+                    {/*       title="This will filter the results to just your account where possible"/>*/}
 
-                    <label htmlFor="resultsLength"
-                           className="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Results Length
-                    </label>
+                    {/*<label htmlFor="resultsLength"*/}
+                    {/*       className="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">*/}
+                    {/*    Results Length*/}
+                    {/*</label>*/}
 
-                    <select id="resultsLength" className="mx-4"
-                            onChange={event => setSelectedResultsLength(parseInt(event.target.value))}
-                            title="Limit the results to the selected number of rows"
-                            value={selectedResultsLength}
-                    >
-                        {ResultsLengthOptions.map(option => (
-                            <option key={option} value={option}>
-                                {option}
-                            </option>
-                        ))}
-                    </select>
+                    {/*<select id="resultsLength" className="mx-4"*/}
+                    {/*        onChange={event => setSelectedResultsLength(parseInt(event.target.value))}*/}
+                    {/*        title="Limit the results to the selected number of rows"*/}
+                    {/*        value={selectedResultsLength}*/}
+                    {/*>*/}
+                    {/*    {ResultsLengthOptions.map(option => (*/}
+                    {/*        <option key={option} value={option}>*/}
+                    {/*            {option}*/}
+                    {/*        </option>*/}
+                    {/*    ))}*/}
+                    {/*</select>*/}
 
                     <button className="px-4 py-2 rounded"
                             onClick={handleRunQuery}
