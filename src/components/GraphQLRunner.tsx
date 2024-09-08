@@ -7,19 +7,19 @@ export const GraphQLRunner = (props: {
 }) => {
     const {query} = props;
 
-    // Define the tables that have a user_id column
-    const TablesWithUserId: string | string[] = [];
-
-    // Define the options for the result length filter
-    const ResultsLengthOptions = [1, 2, 5, 10, 25];
-
-    // Set the initial state for the filters
-    const [justMeFilter, setJustMeFilter] = useState(false);
-    const [selectedResultsLength, setSelectedResultsLength] = useState(1);
+    // // Define the tables that have a user_id column
+    // const TablesWithUserId: string | string[] = [];
+    //
+    // // Define the options for the result length filter
+    // const ResultsLengthOptions = [1, 2, 5, 10, 25];
+    //
+    // // Set the initial state for the filters
+    // const [justMeFilter, setJustMeFilter] = useState(false);
+    // const [selectedResultsLength, setSelectedResultsLength] = useState(1);
 
     // Get the auth token and user_id from local storage if it exists
     const localAuthToken = window.localStorage.getItem('auth_token');
-    const [user_id, setUserId] = useState(window.localStorage.getItem('user_id') || '');
+    // const [user_id, setUserId] = useState(window.localStorage.getItem('user_id') || '');
     const [authToken, setAuthToken] = useState(localAuthToken || '');
 
     // If the query is a mutation, we don't allow it to be run here, and instead we will show a message to the user
@@ -157,7 +157,7 @@ export const GraphQLRunner = (props: {
             window.localStorage.setItem('user_id', res.data.me[0].id);
 
             // Update the React state with the user's ID, so we can use it for the limit to my account filter
-            setUserId(res.data.me[0].id);
+            // setUserId(res.data.me[0].id);
         }, (err: { message: string; }) => {
             console.error('Error running query to test auth token', {err: err.message});
         });
