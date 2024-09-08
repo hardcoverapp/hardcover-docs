@@ -3,3 +3,20 @@ title: Books
 category: reference
 layout: ../../../../../layouts/documentation.astro
 ---
+
+import GraphQLExplorer from '../../../../../components/GraphQLExplorer.astro';
+
+<GraphQLExplorer query={`
+mutation {
+  createBook(input: {
+    title: "My First Book",
+    description: "This is my first book"
+    }) {
+    book {
+      id
+      title
+      description
+    }
+  }
+}
+`}/>

@@ -4,6 +4,7 @@ category: reference
 layout: ../../../../../layouts/documentation.astro
 ---
 
+
 import GraphQLExplorer from '../../../../../components/GraphQLExplorer.astro';
 
 ## Info
@@ -26,17 +27,26 @@ This endpoint provides access to the activities occurring on the platform.
         <td>The unique identifier of the activity.</td>
     </tr>
     <tr>
-        <td>type</td>
+        <td>event</td>
         <td>String</td>
         <td>The type of activity.</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>String</td>
+        <td>The date and time the activity occurred.</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>String</td>
+        <td>The unique identifier of the user who performed the activity.</td>
     </tr>
     </tbody>
 </table>
 
 ## Example
 <GraphQLExplorer query={`{
-    activities {
-        id
-        type
+    activities(distinct_on: event) {
+        event
     }
 }`}/>

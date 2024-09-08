@@ -3,6 +3,11 @@ import {Code, Tabs, TabItem} from '@astrojs/starlight/components';
 import {GraphQLRunner} from './GraphQLRunner.tsx';
 
 const {query, canTry = true} = Astro.props;
+
+// Is the query a mutation?
+// If so, we don't allow it to run it in the explorer,
+// and we don't show the "Try it Yourself" tab
+const isMutation = query.trim().startsWith('mutation');
 ---
 
 <Tabs>
@@ -12,10 +17,10 @@ const {query, canTry = true} = Astro.props;
 
         <Code lang="graphql" title="Example Query" code={query}/>
     </TabItem>
-    {canTry && (
+    {canTry && !isMutation && (
             <TabItem label="Try it Yourself" icon="seti:graphql">
                 <div class="not-content">
-                    <GraphQLRunner query={query} client:only="react" />
+                    <GraphQLRunner query={query} client:only="react"/>
                 </div>
             </TabItem>
     )}

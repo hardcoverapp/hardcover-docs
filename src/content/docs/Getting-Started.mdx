@@ -12,7 +12,7 @@ import GraphQLExplorer from '../../components/GraphQLExplorer.astro';
 Our API is accessible using GraphQL. The API that you can use is exactly the same API used by the website, iOS and Android apps.
 This means that you can build your own tools and services that interact with the same data that you see on the website.
 
-The API is currently in beta, and we are actively working on it. 
+The API is currently in beta, and we are actively working on it.
 We are currently looking for feedback on this API.
 
 ## Getting an API Key
@@ -32,22 +32,30 @@ Tab out of the field, and you should see a list of available resources.
 ### Example Request
 To test that it's working, try the following GraphQL query:
 
-<GraphQLExplorer query={`query Test {
-  me {
+<GraphQLExplorer query={`
+query {
+  user {
     username
   }
-} `}/>
+}
+`}/>
 
 Click the play button and you should see your username!
 
 ## Important Notes About the Hardcover API
 - The API is still heavily in flux right now. Anything you build using it could break in the future.
 - We may reset tokens without notice while in beta.
-- The same ownership rights exist for this as anything on the site. You own your data. This means you can't use the API to access and use someone elses data.
+- The same ownership rights exist for this as anything on the site.
+You own your data.
+This means you can't use the API
+to access and use someone else's data.
 - This API is running the same as if you were using the browser. Any actions you take will be under your user.
 - #### <span style="color:red">Don't share your token! Someone could delete your account with it.</span>
 - This should only be used from a code backend - never from a browser.
-- This is only for offline use at this time. You can only access this API from localhost or APIs. Later on we hope to allow developers to join a group that whitelists specific sites, but that's a ways down the line.
+- This is only for offline use at this time.
+You can only access this API from localhost or APIs.
+Later on, we hope to
+allow developers to join a group that whitelists specific sites, but that's a ways down the line.
 
 ## Further Reading
 - [GraphQL API Reference](https://graphql.org/learn/)
