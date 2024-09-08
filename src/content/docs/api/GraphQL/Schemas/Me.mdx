@@ -3,3 +3,25 @@ title: Me
 category: reference
 layout: ../../../../../layouts/documentation.astro
 ---
+
+import GraphQLExplorer from '../../../../../components/GraphQLExplorer.astro';
+
+# Get my user information
+<GraphQLExplorer query={`
+{
+  me {
+    id
+    username
+    birthdate
+    books_count
+    flair
+    followers_count
+    followed_users_count
+    location
+    name
+    pro
+    pronoun_personal
+    pronoun_possessive
+    sign_in_count
+  }
+}`} description={`Get information for the current user`} />

@@ -7,16 +7,21 @@ layout: ../../../../../layouts/documentation.astro
 import GraphQLExplorer from '../../../../../components/GraphQLExplorer.astro';
 
 <GraphQLExplorer query={`
-mutation {
-  createBook(input: {
-    title: "My First Book",
-    description: "This is my first book"
-    }) {
+{
+  list_books(
+    where: {user_books: {user_id: {_eq: ##USER_ID##}}},
+    distinct_on: book_id
+    limit: 5
+    offset: 0
+  ) {
     book {
-      id
       title
-      description
+      pages
+      release_date
     }
   }
 }
-`}/>
+`} description={`
+    This query will return a list of books that the user has added to their collection.
+`} />
+
