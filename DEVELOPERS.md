@@ -27,7 +27,7 @@ Static assets, like favicons, can be placed in the `public/` directory.
 
 1. **Clone the repo:**
    ```bash
-   git clone https://github.com/RevelryPlay/hardcover-doc.git
+   git clone https://github.com/hardcoverapp/hardcover-docs.git
     ```
 2. **Navigate to the project directory:**
    ```bash
@@ -104,7 +104,7 @@ import GraphQLExplorer from '/src/components/GraphQLExplorer.astro';
 **Parameters:**
 
 - `query` - A string containing the GraphQL query to be displayed in the explorer.
-- `canTry` - A boolean value that determines whether the user can run the query in the explorer. Default is `true`.
+- `canTry` - A boolean value determining whether the user can run the query in the explorer. The default is `true`.
 
 **Usage:**
 
@@ -120,7 +120,7 @@ When adding a new language you should also update the existing translations in t
 
 ### How do I add a translation for an existing language?
 
-Once a language has been added to the astro config file you can create a new file in the `src/content/docs/` directory
+Once a language has been added to the Astro config file you can create a new file in the `src/content/docs/` directory
 inside a folder named with the language code. This new file should have the same name as the original file you are translating.
 
 For example, if you are translating the `src/content/docs/getting-started.mdx` file into Spanish you would create a new
