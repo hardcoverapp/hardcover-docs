@@ -1,11 +1,13 @@
 ---
 title: Books
 category: reference
-lastUpdated: 2024-09-07
+lastUpdated: 2024-09-10
 layout: ../../../../../layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '../../../../../components/GraphQLExplorer.astro';
+
+# Get a list of books belonging to the current user
 
 <GraphQLExplorer query={`
 {
@@ -24,5 +26,47 @@ import GraphQLExplorer from '../../../../../components/GraphQLExplorer.astro';
 }
 `} description={`
     This query will return a list of books that the user has added to their collection.
-`} />
+`}/>
+
+# Get a list of books by a specific author
+
+<GraphQLExplorer query={`
+query BooksByUserCount {
+  books(
+    where: {contributions: {author: {name: {_eq: "Brandon Sanderson"}}}}
+    limit: 10
+    order_by: {users_count: desc}
+  ) {
+    pages
+    title
+    id
+  }
+}
+`} description={`
+    This query will return a list of the top 10 books by the author Brandon Sanderson, ordered by the number of users who have added the book to their collection.
+`}/>
+
+
+# Create a new book
+
+<GraphQLExplorer query={`
+mutation {
+  createBook(input: {
+    title: "My First Book",
+    pages: 300,
+    release_date: "2024-09-07"
+    description: "This is my first book."
+    }) {
+    book {
+      title
+      pages
+      release_date
+      description
+    }
+  }
+}
+`} description={`
+    This mutation will create a new book with the specified title, number of pages, release date, and description.
+`}/>
+
 

@@ -12,9 +12,6 @@ const isMutation = query.trim().startsWith('mutation');
 
 <Tabs>
     <TabItem label="Query" icon="document">
-        <a href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.hardcover.app/v1/graphql"
-           target="_blank" class="mb-4 block">GraphQL Console</a>
-
         <Code lang="graphql" title="Example Query" code={query}/>
     </TabItem>
     {canTry && !isMutation && (
