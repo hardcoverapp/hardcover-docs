@@ -27,7 +27,7 @@ Use our amazing stats and tools, including AI, to discover new horizons in your 
 ### 🚀 Quick Start
 1. **Clone the repo:**
    ```bash
-   git clone https://github.com/RevelryPlay/hardcover-doc.git
+   git clone https://github.com/hardcoverapp/hardcover-docs.git
     ```
 2. **Navigate to the project directory:**
    ```bash
