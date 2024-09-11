@@ -14,7 +14,7 @@ export default defineConfig({
         customCss: ['./src/tailwind.css'],
         defaultLocale: 'root',
         editLink: {
-            baseUrl: 'https://github.com/RevelryPlay/hardcover-doc/tree/main/'
+            baseUrl: 'https://github.com/hardcoverapp/hardcover-docs/tree/main/'
         },
         lastUpdated: true,
         locales: {
@@ -74,7 +74,7 @@ export default defineConfig({
         ],
         social: {
             discord: 'https://discord.gg/edGpYN8ym8',
-            github: 'https://github.com/RevelryPlay/hardcover-doc',
+            github: 'https://github.com/hardcoverapp/hardcover-docs/tree/main',
             instagram: 'https://instagram.com/hardcover.app',
             mastodon: 'https://mastodon.hardcover.app/@hardcover'
         },
@@ -86,5 +86,5 @@ export default defineConfig({
     }), tailwind({
         applyBaseStyles: false
     }), react()],
-    site: 'https://hardcover.revelryplay.com'
+    site: 'https://docs.hardcover.app'
 });
