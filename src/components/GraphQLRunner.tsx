@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {GRAPHQL_URL} from "../Consts";
 
+import {Button} from "@/components/ui/button.tsx";
+
 export const GraphQLRunner = (props: {
     query: string,
     description?: string,
@@ -238,11 +240,13 @@ export const GraphQLRunner = (props: {
                            value={authToken}
                            required/>
 
-                    <button className="rounded px-4 py-2"
+                    <Button
                             onClick={handleRunQuery}
-                            title="Run the query displayed below">
+                            title="Run the query displayed below"
+                            variant="default"
+                    >
                         Run Query
-                    </button>
+                    </Button>
 
                     {(queryStatus == "idle" || !queryStatus) && (
                         <div className="my-4 w-full rounded-lg p-3 text-gray-900 bg-accent-200">
