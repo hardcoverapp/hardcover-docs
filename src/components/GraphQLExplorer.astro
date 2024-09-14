@@ -7,7 +7,7 @@ const {query, description = '', canTry = true} = Astro.props;
 // Is the query a mutation?
 // If so, we don't allow it to run it in the explorer,
 // and we don't show the "Try it Yourself" tab
-const isMutation = query.trim().startsWith('mutation');
+const isMutation = query.trim().includes('mutation');
 ---
 
 <Tabs>

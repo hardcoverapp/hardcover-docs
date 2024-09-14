@@ -11,23 +11,13 @@ export const GraphQLRunner = (props: {
     // Get the query from props so we can modify it
     const [query, setQuery] = useState(props.query);
 
-    // // Define the tables that have a user_id column
-    // const TablesWithUserId: string | string[] = [];
-    //
-    // // Define the options for the result length filter
-    // const ResultsLengthOptions = [1, 2, 5, 10, 25];
-    //
-    // // Set the initial state for the filters
-    // const [justMeFilter, setJustMeFilter] = useState(false);
-    // const [selectedResultsLength, setSelectedResultsLength] = useState(1);
-
     // Get the auth token and user_id from local storage if it exists
     const localAuthToken = window.localStorage.getItem('auth_token');
     const [userId, setUserId] = useState(window.localStorage.getItem('user_id') || '');
     const [authToken, setAuthToken] = useState(localAuthToken || '');
 
     // If the query is a mutation, we don't allow it to be run here, and instead we will show a message to the user
-    const isMutation = query.trim().toLowerCase().startsWith('mutation');
+    const isMutation = query.trim().toLowerCase().includes('mutation');
 
     // If the query has been run, we need to store the results in the React state
     const [queryStatus, setQueryStatus] = useState<'running' | 'success' | 'error' | 'idle'>('idle');
@@ -203,9 +193,6 @@ export const GraphQLRunner = (props: {
                 // Update the React state with the results
                 setQueryResults(res.data);
 
-                // Log the results to the console
-                console.table(res.data[Object.keys(res.data)[0]]);
-
                 // Set the query status to success
                 setQueryStatus('success');
             },
@@ -245,31 +232,6 @@ export const GraphQLRunner = (props: {
                            title="This is your authorization token. You can find this in your account settings."
                            value={authToken}
                            required/>
-
-                    {/*<label htmlFor="justMe" className="mb-2 text-sm font-medium text-gray-900 dark:text-white">*/}
-                    {/*    Limit to my account*/}
-                    {/*</label>*/}
-                    {/*<input type="checkbox" id="justMe" className="mx-4"*/}
-                    {/*       onChange={event => setJustMeFilter(event.target.checked)}*/}
-                    {/*       checked={justMeFilter}*/}
-                    {/*       title="This will filter the results to just your account where possible"/>*/}
-
-                    {/*<label htmlFor="resultsLength"*/}
-                    {/*       className="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-white">*/}
-                    {/*    Results Length*/}
-                    {/*</label>*/}
-
-                    {/*<select id="resultsLength" className="mx-4"*/}
-                    {/*        onChange={event => setSelectedResultsLength(parseInt(event.target.value))}*/}
-                    {/*        title="Limit the results to the selected number of rows"*/}
-                    {/*        value={selectedResultsLength}*/}
-                    {/*>*/}
-                    {/*    {ResultsLengthOptions.map(option => (*/}
-                    {/*        <option key={option} value={option}>*/}
-                    {/*            {option}*/}
-                    {/*        </option>*/}
-                    {/*    ))}*/}
-                    {/*</select>*/}
 
                     <button className="px-4 py-2 rounded"
                             onClick={handleRunQuery}
