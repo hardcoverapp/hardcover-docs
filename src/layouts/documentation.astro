@@ -13,7 +13,6 @@ const {
     hero,
     lastUpdated,
     next,
-    pagefind,
     prev,
     sidebar,
     slug,
@@ -21,7 +20,7 @@ const {
     title,
 } = Astro.props.frontmatter as FrontmatterConfig;
 
-const UCFirst = (str: string) => {
+const uCFirst = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 ---
@@ -37,7 +36,7 @@ const UCFirst = (str: string) => {
         )}
     </p>
     {category && (
-            <Badge text={UCFirst(category)} variant="note" class="w-fit"/>
+            <Badge text={uCFirst(category)} variant="note" class="w-fit"/>
     )}
 </div>
 

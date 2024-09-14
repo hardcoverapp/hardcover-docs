@@ -31,8 +31,12 @@ export const GraphQLRunner = (props: {
      * @returns {string}
      */
     const ReplaceQueryTokens = (query: string): string => {
-        // Replace the user_id token with the actual user_id
-        return query.replace(/##USER_ID##/g, userId);
+        if (!!userId) {
+            // Replace the user_id token with the actual user_id
+            query.replace(/##USER_ID##/g, userId);
+        }
+
+        return query;
     }
 
     useEffect(() => {
@@ -210,15 +214,14 @@ export const GraphQLRunner = (props: {
     return (
         <>
             {isMutation && (
-
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative my-4"
+                <div className="relative my-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
                      role="alert">
                     <strong className="font-bold">Warning!</strong>
                     <span className="block sm:inline"> This is a mutation query. You cannot run this query here.</span>
                 </div>
             )}
             {!isMutation && (
-                <><label htmlFor="auth_token" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <><label htmlFor="auth_token" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                     Authorization Token
                 </label>
 
@@ -233,39 +236,39 @@ export const GraphQLRunner = (props: {
                            value={authToken}
                            required/>
 
-                    <button className="px-4 py-2 rounded"
+                    <button className="rounded px-4 py-2"
                             onClick={handleRunQuery}
                             title="Run the query displayed below">
                         Run Query
                     </button>
 
                     {(queryStatus == "idle" || !queryStatus) && (
-                        <div className="my-4 w-full bg-accent-200 text-gray-900 p-3 rounded-lg">
+                        <div className="my-4 w-full rounded-lg p-3 text-gray-900 bg-accent-200">
                             This will run against your account.<br/>
                             You are responsible for the content of any queries ran on your account.
                         </div>
                     )}
 
                     {queryStatus == "running" && (
-                        <div className="my-4 w-full bg-accent-200 text-gray-900 p-3 rounded-lg">
+                        <div className="my-4 w-full rounded-lg p-3 text-gray-900 bg-accent-200">
                             Loading...
                         </div>
                     )}
 
                     {queryStatus == "error" && (
-                        <div className="my-4 w-full bg-red-100 border border-red-400 text-red-700 p-3 rounded-lg">
+                        <div className="my-4 w-full rounded-lg border border-red-400 bg-red-100 p-3 text-red-700">
                             <strong>Error: </strong> {queryError}
                         </div>
                     )}
 
                     {queryStatus == "success" && (
-                        <div className="my-4 w-full bg-green-100 border border-green-400 text-green-700 p-3 rounded-lg">
+                        <div className="my-4 w-full rounded-lg border border-green-400 bg-green-100 p-3 text-green-700">
                             Success!
                         </div>
                     )}
 
                     <div className="">
-                        <h2 className="text-lg my-4 font-semibold text-gray-900 dark:text-white">Query</h2>
+                        <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Query</h2>
 
                         {description && (
                             <p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>
@@ -276,7 +279,7 @@ export const GraphQLRunner = (props: {
                     {query}
                 </pre>
 
-                        <h2 className="text-lg my-4 font-semibold text-gray-900 dark:text-white">Results</h2>
+                        <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
 
                         <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
