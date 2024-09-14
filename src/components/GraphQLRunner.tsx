@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {GRAPHQL_URL} from "../Consts";
 
 import {Button} from "@/components/ui/button.tsx";
+import {Label} from "@/components/ui/label.tsx";
+import {Textarea} from "@/components/ui/textarea.tsx";
 
 export const GraphQLRunner = (props: {
     query: string,
@@ -130,7 +132,7 @@ export const GraphQLRunner = (props: {
      * @param event - React.ChangeEvent<HTMLInputElement>
      * @returns {void}
      */
-    const updateAuthTokenUI = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const updateAuthTokenUI = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
         // Get the new auth token from the input field and trim it
         const newAuthToken = event.target?.value?.trim();
 
@@ -144,7 +146,7 @@ export const GraphQLRunner = (props: {
      * @param event - React.ChangeEvent<HTMLInputElement>
      * @returns {void}
      */
-    const handleAuthTokenChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const handleAuthTokenChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
         // Get the new auth token from the input field and trim it
         // This should be handled by the updateAuthTokenUI function,
         // but we are doing it here as well to be safe
@@ -224,26 +226,25 @@ export const GraphQLRunner = (props: {
             )}
             {!isMutation && (
                 <>
-                    <label htmlFor="auth_token"
-                           className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                        Authorization Token
-                    </label>
+                    <div className="my-4 mb-2 grid w-full gap-1.5">
+                        <Label htmlFor="auth_token">
+                            Authorization Token
+                        </Label>
 
-                    <input type="text"
-                           id="auth_token"
-                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 mb-4
-                                focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-                                dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           onChange={updateAuthTokenUI}
-                           onBlur={handleAuthTokenChange}
-                           title="This is your authorization token. You can find this in your account settings."
-                           value={authToken}
-                           required/>
+                        <Textarea
+                            className="block w-full min-h-40 mb-2"
+                            id="auth_token"
+                            onChange={updateAuthTokenUI}
+                            onBlur={handleAuthTokenChange}
+                            title="This is your authorization token. You can find this in your account settings."
+                            value={authToken}
+                            required />
+                    </div>
 
                     <Button
-                            onClick={handleRunQuery}
-                            title="Run the query displayed below"
-                            variant="default"
+                        onClick={handleRunQuery}
+                        title="Run the query displayed below"
+                        variant="default"
                     >
                         Run Query
                     </Button>
@@ -268,7 +269,8 @@ export const GraphQLRunner = (props: {
                     )}
 
                     {queryStatus == "success" && (
-                        <div className="my-4 w-full rounded-lg border border-green-400 bg-green-100 p-3 text-green-700">
+                        <div
+                            className="my-4 w-full rounded-lg border border-green-400 bg-green-100 p-3 text-green-700">
                             Success!
                         </div>
                     )}
