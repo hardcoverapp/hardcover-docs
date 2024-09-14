@@ -7,14 +7,20 @@ const gray = { 100: '#f6f6f8', 200: '#ededf2', 300: '#c1c1c7', 400: '#898b95', 5
 
 /** @type {import('tailwindcss').Config} */
 export default {
-	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+    // darkMode: ['class'],
+    content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
-		extend: {
-			colors: {
+    	extend: {
+    		colors: {
 				accent,
 				gray,
 			},
-		},
-	},
-	plugins: [starlightPlugin()],
+    		borderRadius: {
+    			lg: 'var(--radius)',
+    			md: 'calc(var(--radius) - 2px)',
+    			sm: 'calc(var(--radius) - 4px)'
+    		}
+    	}
+    },
+	plugins: [starlightPlugin(), require("tailwindcss-animate")],
 };

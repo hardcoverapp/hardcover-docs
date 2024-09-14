@@ -221,9 +221,11 @@ export const GraphQLRunner = (props: {
                 </div>
             )}
             {!isMutation && (
-                <><label htmlFor="auth_token" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                    Authorization Token
-                </label>
+                <>
+                    <label htmlFor="auth_token"
+                           className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                        Authorization Token
+                    </label>
 
                     <input type="text"
                            id="auth_token"
@@ -276,15 +278,15 @@ export const GraphQLRunner = (props: {
 
                         <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                    {query}
-                </pre>
+                            {query}
+                        </pre>
 
                         <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
 
                         <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                    {queryResults ? JSON.stringify(queryResults, null, 2) : "No results yet"}
-                </pre>
+                            {queryResults ? JSON.stringify(queryResults, null, 2) : "No results yet"}
+                        </pre>
                     </div>
                 </>
             )}
