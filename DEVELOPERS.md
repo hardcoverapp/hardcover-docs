@@ -98,7 +98,7 @@ This component allows a user to view GraphQL queries and experiment by running t
 This should be a relative path to the following file:
 
 ```js
-import GraphQLExplorer from '/src/components/GraphQLExplorer.astro';
+import GraphQLExplorer from '/src/components/GraphQLExplorer/GraphQLExplorer.astro';
 ```
 
 **Parameters:**

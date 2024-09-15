@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {GRAPHQL_URL} from "../Consts";
+import {GRAPHQL_URL} from "../../Consts";
 
 import {Button} from "@/components/ui/button.tsx";
 import {Label} from "@/components/ui/label.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
+import {StatusMessages} from "@/components/GraphQLExplorer/StatusMessages.tsx";
+import {JSONResults} from "@/components/GraphQLExplorer/JSONResults.tsx";
+import {TableResults} from "@/components/GraphQLExplorer/TableResults.tsx";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export const GraphQLRunner = (props: {
-    query: string,
-    description?: string,
-    presentation?: 'auto' | 'json' | 'table',
+    query: string, description?: string, presentation?: 'auto' | 'json' | 'table',
 }) => {
     const {description} = props;
 
@@ -37,7 +39,7 @@ export const GraphQLRunner = (props: {
     const ReplaceQueryTokens = (query: string): string => {
         if (!!userId) {
             // Replace the user_id token with the actual user_id
-            query.replace(/##USER_ID##/g, userId);
+            query = query.replace(/##USER_ID##/g, userId);
         }
 
         return query;
@@ -78,13 +80,10 @@ export const GraphQLRunner = (props: {
 
                 // Call the GraphQL endpoint with the query using fetch
                 fetch(GRAPHQL_URL, {
-                    method: 'POST',
-                    headers: {
+                    method: 'POST', headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': authToken.startsWith('Bearer')
-                            ? authToken : `Bearer ${authToken}`
-                    },
-                    body: JSON.stringify({
+                        'Authorization': authToken.startsWith('Bearer') ? authToken : `Bearer ${authToken}`
+                    }, body: JSON.stringify({
                         query: runningQuery
                     })
                 }).then(res => {
@@ -198,104 +197,82 @@ export const GraphQLRunner = (props: {
 
         // Run the query using fetch
         handleQueryWithFetch(query).then((res: any) => {
-                // Update the React state with the results
-                setQueryResults(res.data);
+            // Update the React state with the results
+            setQueryResults(res.data);
 
-                // Set the query status to success
-                setQueryStatus('success');
-            },
-            (err: { message: string; }) => {
-                // Update the React state with the error message
-                setQueryError(err.message);
+            // Set the query status to success
+            setQueryStatus('success');
+        }, (err: { message: string; }) => {
+            // Update the React state with the error message
+            setQueryError(err.message);
 
-                // Set the query status to error
-                setQueryStatus('error');
-            });
+            // Set the query status to error
+            setQueryStatus('error');
+        });
     };
 
     // Render the component
     // This is a first draft and will be updated as we go along
-    return (
-        <>
-            {isMutation && (
-                <div className="relative my-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
-                     role="alert">
-                    <strong className="font-bold">Warning!</strong>
-                    <span className="block sm:inline"> This is a mutation query. You cannot run this query here.</span>
-                </div>
-            )}
-            {!isMutation && (
-                <>
-                    <div className="my-4 mb-2 grid w-full gap-1.5">
-                        <Label htmlFor="auth_token">
-                            Authorization Token
-                        </Label>
+    return (<>
+        {isMutation && (<div className="relative my-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+                             role="alert">
+            <strong className="font-bold">Warning!</strong>
+            <span className="block sm:inline"> This is a mutation query. You cannot run this query here.</span>
+        </div>)}
+        {!isMutation && (<>
+            <div className="my-4 mb-2 grid w-full gap-1.5">
+                <Label htmlFor="auth_token">
+                    Authorization Token
+                </Label>
 
-                        <Textarea
-                            className="block w-full min-h-40 mb-2"
-                            id="auth_token"
-                            onChange={updateAuthTokenUI}
-                            onBlur={handleAuthTokenChange}
-                            title="This is your authorization token. You can find this in your account settings."
-                            value={authToken}
-                            required />
-                    </div>
+                <Textarea
+                    className="mb-2 block w-full rounded-lg bg-gray-50 text-sm min-h-24 p-2.5 dark:bg-gray-700"
+                    id="auth_token"
+                    onChange={updateAuthTokenUI}
+                    onBlur={handleAuthTokenChange}
+                    title="This is your authorization token. You can find this in your account settings."
+                    value={authToken}
+                    required/>
+            </div>
 
-                    <Button
-                        onClick={handleRunQuery}
-                        title="Run the query displayed below"
-                        variant="default"
-                    >
-                        Run Query
-                    </Button>
+            <Button
+                onClick={handleRunQuery}
+                title="Run the query displayed below"
+                variant="ghost"
+            >
+                Run Query
+            </Button>
 
-                    {(queryStatus == "idle" || !queryStatus) && (
-                        <div className="my-4 w-full rounded-lg p-3 text-gray-900 bg-accent-200">
-                            This will run against your account.<br/>
-                            You are responsible for the content of any queries ran on your account.
-                        </div>
-                    )}
+            <StatusMessages queryStatus={queryStatus} queryError={queryError}/>
 
-                    {queryStatus == "running" && (
-                        <div className="my-4 w-full rounded-lg p-3 text-gray-900 bg-accent-200">
-                            Loading...
-                        </div>
-                    )}
+            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Query</h2>
 
-                    {queryStatus == "error" && (
-                        <div className="my-4 w-full rounded-lg border border-red-400 bg-red-100 p-3 text-red-700">
-                            <strong>Error: </strong> {queryError}
-                        </div>
-                    )}
+            {description && (<p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>)}
 
-                    {queryStatus == "success" && (
-                        <div
-                            className="my-4 w-full rounded-lg border border-green-400 bg-green-100 p-3 text-green-700">
-                            Success!
-                        </div>
-                    )}
-
-                    <div className="">
-                        <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Query</h2>
-
-                        {description && (
-                            <p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>
-                        )}
-
-                        <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
+            <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                            {query}
-                        </pre>
+                        {query}
+                    </pre>
 
-                        <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
+            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
 
-                        <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
-                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                            {queryResults ? JSON.stringify(queryResults, null, 2) : "No results yet"}
-                        </pre>
-                    </div>
-                </>
+            <div className="my-4 w-full rounded-lg p-3 text-gray-900 bg-accent-200">
+                Table view is still a work in progress and does not render if the results have nested objects.
+            </div>
+
+                <Tabs defaultValue="json">
+                    <TabsList>
+                        <TabsTrigger value="json">JSON</TabsTrigger>
+                        <TabsTrigger value="table">Table</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="json">
+                        <JSONResults results={queryResults}/>
+                    </TabsContent>
+                    <TabsContent value="table">
+                        <TableResults results={queryResults}/>
+                    </TabsContent>
+                </Tabs>
+            </>
             )}
-        </>
-    );
-};
+        </>);
+        };
