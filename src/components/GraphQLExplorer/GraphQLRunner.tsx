@@ -1,18 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {GRAPHQL_URL} from "@/Consts";
+import {JSONResults} from "@/components/GraphQLExplorer/JSONResults.tsx";
+import {StatusMessages} from "@/components/GraphQLExplorer/StatusMessages.tsx";
+import {TableResults} from "@/components/GraphQLExplorer/TableResults.tsx";
 
 import {Button} from "@/components/ui/button.tsx";
 import {Label} from "@/components/ui/label.tsx";
-import {Textarea} from "@/components/ui/textarea.tsx";
-import {StatusMessages} from "@/components/GraphQLExplorer/StatusMessages.tsx";
-import {JSONResults} from "@/components/GraphQLExplorer/JSONResults.tsx";
-import {TableResults} from "@/components/GraphQLExplorer/TableResults.tsx";
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
+import {Textarea} from "@/components/ui/textarea.tsx";
+import {GRAPHQL_URL} from "@/Consts";
+import React, {useEffect, useState} from "react";
 
 export const GraphQLRunner = (props: {
-    query: string, description?: string, presentation?: 'auto' | 'json' | 'table',
+    query: string, description?: string, presentation?: 'json' | 'table',
 }) => {
-    const {description} = props;
+    const {description, presentation} = props;
 
     // Get the query from props so we can modify it
     const [query, setQuery] = useState(props.query);
@@ -29,6 +30,8 @@ export const GraphQLRunner = (props: {
     const [queryStatus, setQueryStatus] = useState<'running' | 'success' | 'error' | 'idle'>('idle');
     const [queryError, setQueryError] = useState<string | undefined>();
     const [queryResults, setQueryResults] = useState<any>(null);
+
+    const defaultPresentation = presentation || 'json';
 
     /**
      * This function will replace the ##USER_ID## token in the query with the actual user_id.
@@ -249,14 +252,15 @@ export const GraphQLRunner = (props: {
 
                 {description && (<p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>)}
 
-                <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
+                <ScrollArea className="w-full h-48 bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                        {query}
-                    </pre>
+                    <pre className="">{query}</pre>
+                </ScrollArea>
+
 
                 <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
 
-                <Tabs defaultValue="json">
+                <Tabs defaultValue={defaultPresentation}>
                     <TabsList>
                         <TabsTrigger value="json">JSON</TabsTrigger>
                         <TabsTrigger value="table">Table</TabsTrigger>
