@@ -1,7 +1,3 @@
-import {JSONResults} from "@/components/GraphQLExplorer/JSONResults.tsx";
-import {StatusMessages} from "@/components/GraphQLExplorer/StatusMessages.tsx";
-import {TableResults} from "@/components/GraphQLExplorer/TableResults.tsx";
-
 import {Button} from "@/components/ui/button.tsx";
 import {Label} from "@/components/ui/label.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
@@ -9,6 +5,9 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {GRAPHQL_URL} from "@/Consts";
 import React, {useEffect, useState} from "react";
+import {JSONResults} from "./JSONResults.tsx";
+import {StatusMessages} from "./StatusMessages.tsx";
+import {TableResults} from "./TableResults.tsx";
 
 export const GraphQLRunner = (props: {
     query: string, description?: string, presentation?: 'json' | 'table',

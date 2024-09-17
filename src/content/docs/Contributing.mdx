@@ -4,6 +4,7 @@ category: guide
 lastUpdated: 2024-09-04
 layout: ../../layouts/documentation.astro
 ---
+import { FileTree } from '@astrojs/starlight/components';
 
 ## Developer FAQs
 
@@ -17,6 +18,62 @@ Each file is exposed as a route based on its file name.
 Images can be added to `src/assets/` and embedded in Markdown with a relative link.
 
 Static assets, like favicons, can be placed in the `public/` directory.
+
+<FileTree>
+    - public favicons and other static assets
+        - ...
+    - src
+        - assets Images for doc pages
+            - ...
+        - components Custom components
+            - GraphQLExplorer GraphQL Explorer component
+            - ...
+        - content
+            - docs mdx files that generates doc pages
+                - api
+                    - GraphQL
+                        - Schema Data schemas
+                            - ...
+                    - ...
+                - es Spanish translations
+                    - api
+                        - GraphQL
+                            - Schema Data schemas
+                                - ...
+                        - ...
+                        - guides Guides and tutorials
+                        - ...
+                    - getting-started.mdx
+                    - ...
+                - fr French translations
+                    - api
+                        - GraphQL
+                            - Schema Data schemas
+                                - ...
+                        - ...
+                        - guides Guides and tutorials
+                        - ...
+                    - getting-started.mdx
+                    - ...
+                - guides Guides and tutorials
+                    - ...
+                - getting-started.mdx
+                - ...
+
+        - layouts Layouts for doc pages
+            - documentation.astro Main layout for doc pages
+            - ...
+    - astro.config.mjs Astro configuration file
+    - components.json shadcn/ui components
+    - CONTRIBUTING Contributing guidelines
+    - DEVELOPERS.md Developer FAQs
+    - LICENSE.md
+    - package.json
+    - README.md
+    - tailwind.config.mjs Tailwind CSS configuration
+    - tsconfig.json TypeScript configuration
+</FileTree>
+
 
 ### How do I run the project locally?
 
