@@ -7,7 +7,3 @@ test('uCFirst', () => {
   expect(uCFirst('')).toBe('');
   expect(uCFirst('hello world!')).toBe('Hello world!');
 });
-
-test('should fail', () => {
-  expect(uCFirst('hello')).toBe('hello');
-});
