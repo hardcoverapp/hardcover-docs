@@ -1,13 +1,11 @@
 ---
 title: Activities
 category: reference
-lastUpdated: 2024-09-07
+lastUpdated: 2024-09-16
 layout: ../../../../../layouts/documentation.astro
 ---
 
-
-
-import GraphQLExplorer from '../../../../../components/GraphQLExplorer/GraphQLExplorer.astro';
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
 ## Info
 This endpoint provides access to the activities occurring on the platform.
@@ -105,4 +103,4 @@ This endpoint provides access to the activities occurring on the platform.
     }
 }`} description={`
     This query will return a list of 10 activities that the current user has performed.
-`}/>
+`} presentation='table' />

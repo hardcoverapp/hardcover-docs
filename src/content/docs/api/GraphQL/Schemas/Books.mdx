@@ -1,11 +1,12 @@
 ---
 title: Books
 category: reference
-lastUpdated: 2024-09-10
+lastUpdated: 2024-09-17
 layout: ../../../../../layouts/documentation.astro
 ---
 
-import GraphQLExplorer from '../../../../../components/GraphQLExplorer/GraphQLExplorer.astro';
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
 ## Get a list of books belonging to the current user
 
@@ -26,7 +27,7 @@ import GraphQLExplorer from '../../../../../components/GraphQLExplorer/GraphQLEx
 }
 `} description={`
     This query will return a list of books that the user has added to their collection.
-`}/>
+`} presentation='json'/>
 
 ## Get a list of books by a specific author
 
@@ -44,7 +45,7 @@ query BooksByUserCount {
 }
 `} description={`
     This query will return a list of the top 10 books by the author Brandon Sanderson, ordered by the number of users who have added the book to their collection.
-`}/>
+`} presentation='table'/>
 
 
 ## Create a new book

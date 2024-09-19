@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {GRAPHQL_URL} from "../../Consts";
-
 import {Button} from "@/components/ui/button.tsx";
 import {Label} from "@/components/ui/label.tsx";
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {Textarea} from "@/components/ui/textarea.tsx";
-import {StatusMessages} from "@/components/GraphQLExplorer/StatusMessages.tsx";
-import {JSONResults} from "@/components/GraphQLExplorer/JSONResults.tsx";
-import {TableResults} from "@/components/GraphQLExplorer/TableResults.tsx";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {GRAPHQL_URL} from "@/Consts";
+import React, {useEffect, useState} from "react";
+import {JSONResults} from "./JSONResults.tsx";
+import {StatusMessages} from "./StatusMessages.tsx";
+import {TableResults} from "./TableResults.tsx";
 
 export const GraphQLRunner = (props: {
-    query: string, description?: string, presentation?: 'auto' | 'json' | 'table',
+    query: string, description?: string, presentation?: 'json' | 'table',
 }) => {
-    const {description} = props;
+    const {description, presentation} = props;
 
     // Get the query from props so we can modify it
     const [query, setQuery] = useState(props.query);
@@ -29,6 +29,8 @@ export const GraphQLRunner = (props: {
     const [queryStatus, setQueryStatus] = useState<'running' | 'success' | 'error' | 'idle'>('idle');
     const [queryError, setQueryError] = useState<string | undefined>();
     const [queryResults, setQueryResults] = useState<any>(null);
+
+    const defaultPresentation = presentation || 'json';
 
     /**
      * This function will replace the ##USER_ID## token in the query with the actual user_id.
@@ -220,47 +222,44 @@ export const GraphQLRunner = (props: {
             <span className="block sm:inline"> This is a mutation query. You cannot run this query here.</span>
         </div>)}
         {!isMutation && (<>
-            <div className="my-4 mb-2 grid w-full gap-1.5">
-                <Label htmlFor="auth_token">
-                    Authorization Token
-                </Label>
+                <div className="my-4 mb-2 grid w-full gap-1.5">
+                    <Label htmlFor="auth_token">
+                        Authorization Token
+                    </Label>
 
-                <Textarea
-                    className="mb-2 block w-full rounded-lg bg-gray-50 text-sm min-h-24 p-2.5 dark:bg-gray-700"
-                    id="auth_token"
-                    onChange={updateAuthTokenUI}
-                    onBlur={handleAuthTokenChange}
-                    title="This is your authorization token. You can find this in your account settings."
-                    value={authToken}
-                    required/>
-            </div>
+                    <Textarea
+                        className="mb-2 block w-full rounded-lg bg-gray-50 text-sm min-h-24 p-2.5 dark:bg-gray-700"
+                        id="auth_token"
+                        onChange={updateAuthTokenUI}
+                        onBlur={handleAuthTokenChange}
+                        title="This is your authorization token. You can find this in your account settings."
+                        value={authToken}
+                        required/>
+                </div>
 
-            <Button
-                onClick={handleRunQuery}
-                title="Run the query displayed below"
-                variant="ghost"
-            >
-                Run Query
-            </Button>
+                <Button
+                    onClick={handleRunQuery}
+                    title="Run the query displayed below"
+                    variant="ghost"
+                >
+                    Run Query
+                </Button>
 
-            <StatusMessages queryStatus={queryStatus} queryError={queryError}/>
+                <StatusMessages queryStatus={queryStatus} queryError={queryError}/>
 
-            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Query</h2>
+                <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Query</h2>
 
-            {description && (<p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>)}
+                {description && (<p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>)}
 
-            <pre className="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5
+                <ScrollArea className="w-full h-48 bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                        {query}
-                    </pre>
+                    <pre className="">{query}</pre>
+                </ScrollArea>
 
-            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
 
-            <div className="my-4 w-full rounded-lg p-3 text-gray-900 bg-accent-200">
-                Table view is still a work in progress and does not render if the results have nested objects.
-            </div>
+                <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
 
-                <Tabs defaultValue="json">
+                <Tabs defaultValue={defaultPresentation}>
                     <TabsList>
                         <TabsTrigger value="json">JSON</TabsTrigger>
                         <TabsTrigger value="table">Table</TabsTrigger>
@@ -273,6 +272,6 @@ export const GraphQLRunner = (props: {
                     </TabsContent>
                 </Tabs>
             </>
-            )}
-        </>);
-        };
+        )}
+    </>);
+};

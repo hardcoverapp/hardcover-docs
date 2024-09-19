@@ -1,9 +1,10 @@
 ---
 title: Contributing
 category: guide
-lastUpdated: 2024-09-04
+lastUpdated: 2024-09-17
 layout: ../../layouts/documentation.astro
 ---
+import { FileTree } from '@astrojs/starlight/components';
 
 ## Developer FAQs
 
@@ -17,6 +18,62 @@ Each file is exposed as a route based on its file name.
 Images can be added to `src/assets/` and embedded in Markdown with a relative link.
 
 Static assets, like favicons, can be placed in the `public/` directory.
+
+<FileTree>
+    - public favicons and other static assets
+        - ...
+    - src
+        - assets Images for doc pages
+            - ...
+        - components Custom components
+            - GraphQLExplorer
+                - GraphQLExplorer.astro Main file of the GraphQL Explorer component
+                - ...
+            - ui shadcn/ui components
+                - ...
+            - ...
+        - content
+            - docs mdx files that generates doc pages
+                - api
+                    - GraphQL
+                        - Schema Data schemas
+                            - ...
+                    - ...
+                - es Spanish translations
+                    - api
+                        - GraphQL
+                            - Schema Data schemas
+                                - ...
+                        - ...
+                        - guides Guides and tutorials
+                            - ...
+                    - getting-started.mdx
+                    - ...
+                - fr French translations
+                    - api
+                        - GraphQL
+                            - Schema Data schemas
+                                - ...
+                        - ...
+                        - guides Guides and tutorials
+                            - ...
+                    - getting-started.mdx
+                    - ...
+                - guides Guides and tutorials
+                    - ...
+                - getting-started.mdx
+                - ...
+        - layouts Layouts for doc pages
+            - documentation.astro Main layout for doc pages
+            - ...
+    - astro.config.mjs Astro configuration file
+    - components.json shadcn/ui components
+    - CONTRIBUTING Contributing guidelines
+    - DEVELOPERS.md Developer FAQs
+    - tailwind.config.mjs Tailwind CSS configuration
+    - ...
+</FileTree>
+
 
 ### How do I run the project locally?
 
@@ -95,13 +152,15 @@ This component allows a user to view GraphQL queries and experiment by running t
 This should be a relative path to the following file:
 
 ```js
-import GraphQLExplorer from '/src/components/GraphQLExplorer/GraphQLExplorer.astro';
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 ```
 
 **Parameters:**
 
-- `query` - A string containing the GraphQL query to be displayed in the explorer.
 - `canTry` - A boolean value determining whether the user can run the query in the explorer. The default is `true`.
+- `description` - A string describing the query.
+- `presentation` - The default presentation of the response, either `json` or `table`. The default is `json`.
+- `query` - A string containing the GraphQL query to be displayed in the explorer.
 
 **Usage:**
 
@@ -111,9 +170,11 @@ import GraphQLExplorer from '/src/components/GraphQLExplorer/GraphQLExplorer.ast
 
 ### How do I add a new language to the language dropdown?
 
-The root language should **not** be changed from English. To add a new language see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
+The root language should **not** be changed from English.
+To add a new language, see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
 
-When adding a new language you should also update the existing translations in the astro config file to include the new language.
+When adding a new language,
+you should also update the existing translations in the astro config file to include the new language.
 
 ### How do I add a translation for an existing language?
 
