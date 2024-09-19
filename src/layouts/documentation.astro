@@ -1,6 +1,7 @@
 ---
 import {Aside, Badge} from '@astrojs/starlight/components';
-import type {FrontmatterConfig} from '../types';
+import {uCFirst} from "@/lib/utils";
+import type {FrontmatterConfig} from '@/types';
 
 const {
     author,
@@ -20,9 +21,6 @@ const {
     title,
 } = Astro.props.frontmatter as FrontmatterConfig;
 
-const uCFirst = (str: string) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-};
 ---
 
 <div class="flex flex-auto flex-row justify-between mb-4">
