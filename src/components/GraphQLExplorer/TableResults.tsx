@@ -41,21 +41,21 @@ export const TableResults = (props: {
                     </TableHeader>
                     <TableBody>
                         {tableRows.map((row, i) => (
-                            <TableRow>
+                            <TableRow role="row">
                                 {tableColumns.map((col, x) => (
-                                    <TableCell key={`row-${i}-col-${x}`}>{row[col]}</TableCell>))}
+                                    <TableCell key={`row-${i}-col-${x}`} role="cell">{row[col]}</TableCell>))}
                             </TableRow>
                         ))}
 
                     </TableBody>
                 </Table>)}
 
-            {!results && canRender && (
-                <pre>No results yet</pre>
+            {(!results || Object.values(results).length > 0) && canRender && (
+                <pre role="log">No results yet</pre>
             )}
 
             {!canRender && (
-                <pre>Tables are still a work in progress and can not currently render nested results.</pre>
+                <pre role="log">Tables are still a work in progress and can not currently render nested results.</pre>
             )}
         </div>
 

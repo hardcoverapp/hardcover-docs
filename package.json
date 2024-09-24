@@ -24,8 +24,6 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
-    "@types/react": "^18.3.4",
-    "@types/react-dom": "^18.3.0",
     "astro": "^4.15.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -39,7 +37,14 @@
     "typescript": "^5.5.4"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/react": "^18.3.8",
+    "@types/react-dom": "^18.3.0",
     "@vitest/coverage-v8": "^2.1.1",
+    "jsdom": "^25.0.1",
     "vitest": "^2.1.1"
   }
 }
