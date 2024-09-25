@@ -1,5 +1,81 @@
 ---
 title: Authors
 category: reference
+lastUpdated: 2024-09-25
 layout: ../../../../../layouts/documentation.astro
 ---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+
+## Author Schema
+
+The author schema contains the following fields:
+
+### Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>String</td>
+        <td>The unique identifier of the author</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>The name of the author</td>
+    </tr>
+    <tr>
+        <td>bio</td>
+        <td>String</td>
+        <td>The biography of the author</td>
+    </tr>
+    <tr>
+        <td>books</td>
+        <td>[Book](../Books)</td>
+        <td>The books that the author has written</td>
+    </tr>
+    </tbody>
+</table>
+
+## Example Queries
+
+### Get an Author by ID
+
+<GraphQLExplorer query={`
+query {
+    authors(where: {id: {_eq: "80626"}}, limit: 1) {
+        id,
+        name
+    }
+}
+`}/>
+
+### Get an Author by Name
+
+<GraphQLExplorer query={`
+query {
+    authors(where: {name: {_ilike: "%Rowling%"}}, limit: 5) {
+        id,
+        name
+    }
+}
+`} presentation="table" />
+
+### Get all Authors
+
+<GraphQLExplorer query={`
+query {
+    authors(limit: 10) {
+        id,
+        name
+    }
+}
+`} presentation="table" />

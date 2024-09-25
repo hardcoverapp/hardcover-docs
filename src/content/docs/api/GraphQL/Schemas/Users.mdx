@@ -1,0 +1,72 @@
+---
+title: Users
+category: reference
+lastUpdated: 2024-09-25
+layout: ../../../../../layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import { LinkCard } from '@astrojs/starlight/components';
+
+## What is a User?
+
+Users are the people who use the Hardcover platform. Users can perform actions like adding books to their shelves, following other users, and writing reviews.
+
+<LinkCard title="See Also: Me" href="../me" />
+
+## User Schema
+
+The user schema contains the following fields:
+
+### Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>String</td>
+        <td>The unique identifier of the user</td>
+    </tr>
+    <tr>
+        <td>username</td>
+        <td>String</td>
+        <td>The username of the user</td>
+    </tr>
+    <tr>
+        <td>email</td>
+        <td>String</td>
+        <td>The email address of the user</td>
+    </tr>
+    </tbody>
+</table>
+
+## Example Queries
+
+### Get a User by ID
+
+<GraphQLExplorer query={`
+query {
+    users(where: {id: {_eq: "1"}}, limit: 1) {
+        id,
+        username
+    }
+}
+`}/>
+
+### Get a User by Username
+
+<GraphQLExplorer query={`
+query {
+    users(where: {username: {_eq: "adam"}}, limit: 1) {
+        id,
+        username
+    }
+}
+`}/>

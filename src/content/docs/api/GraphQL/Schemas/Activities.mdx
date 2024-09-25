@@ -1,16 +1,37 @@
 ---
 title: Activities
 category: reference
-lastUpdated: 2024-09-16
+lastUpdated: 2024-09-25
 layout: ../../../../../layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
-## Info
-This endpoint provides access to the activities occurring on the platform.
+## What is an Activity?
 
-## Fields
+Activities are actions that users perform on the platform.
+These actions include things like liking a book, following a user, or adding a book to a shelf.
+Activities are used to show what users are doing on the platform and to help users discover new content.
+
+## Types of Activities
+
+There are many types of activities that can be performed on the platform.
+Some examples of activities include:
+
+- `like_book`: A user likes a book
+- `follow_user`: A user follows another user
+- `add_book_to_shelf`: A user adds a book to a shelf
+- `create_list`: A user creates a list
+- `add_book_to_list`: A user adds a book to a list
+- `review_book`: A user reviews a book
+- `read_book`: A user marks a book as read
+- `answer_prompt`: A user answers a prompt
+
+## Activity Schema
+
+The activity schema contains the following fields:
+
+### Fields
 
 <table>
     <thead>
@@ -22,8 +43,8 @@ This endpoint provides access to the activities occurring on the platform.
     </thead>
     <tbody>
     <tr>
-        <td>book</td>
-        <td>Object</td>
+        <td>[book](../books)</td>
+        <td>Relation</td>
         <td>The book details of the activity</td>
     </tr>
     <tr>
@@ -42,13 +63,13 @@ This endpoint provides access to the activities occurring on the platform.
         <td>The payload of the activity</td>
     </tr>
     <tr>
-        <td>event</td>
+        <td>[event](#event-types)</td>
         <td>String</td>
         <td>The type of activity</td>
     </tr>
     <tr>
-        <td>followers</td>
-        <td>Object</td>
+        <td>[followers](../users)</td>
+        <td>Relation</td>
         <td>List of users who have followed this activity</td>
     </tr>
     <tr>
@@ -57,8 +78,8 @@ This endpoint provides access to the activities occurring on the platform.
         <td>The unique identifier of the activity</td>
     </tr>
     <tr>
-        <td>likes</td>
-        <td>Object</td>
+        <td>[likes](../users)</td>
+        <td>Relation</td>
         <td>List of users who have liked this activity</td>
     </tr>
     <tr>
@@ -72,8 +93,8 @@ This endpoint provides access to the activities occurring on the platform.
         <td>'Activity'</td>
     </tr>
     <tr>
-        <td>user</td>
-        <td>Object</td>
+        <td>[user](../users)</td>
+        <td>Relation</td>
         <td>User object for the user who performed the activity</td>
     </tr>
     <tr>
@@ -84,7 +105,17 @@ This endpoint provides access to the activities occurring on the platform.
     </tbody>
 </table>
 
-## Get Distinct Activity Types
+### Event Types
+- GoalActivity
+- ListActivity
+- PromptActivity
+- UserBookActivity
+
+## Example Queries
+
+Let's take a look at some example queries that you can use to interact with the activities' schema.
+
+### Get Distinct Activity Types
 <GraphQLExplorer query={`{
     activities(distinct_on: event) {
         event
@@ -93,7 +124,7 @@ This endpoint provides access to the activities occurring on the platform.
     This query will return a list of distinct activity events that have occurred.
 `}/>
 
-## Get My Activities
+### Get My Activities
 <GraphQLExplorer query={`{
     activities(where: {user_id: {_eq: ##USER_ID##}}, limit: 10) {
         event
