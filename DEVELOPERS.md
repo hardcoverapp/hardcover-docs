@@ -105,13 +105,16 @@ import GraphQLExplorer from '/src/components/GraphQLExplorer/GraphQLExplorer.ast
 
 **Parameters:**
 
-- `query` - A string containing the GraphQL query to be displayed in the explorer.
 - `canTry` - A boolean value determining whether the user can run the query in the explorer. The default is `true`.
+- `description` - A string describing the query.
+- `presentation` - The default presentation of the response, either `json` or `table`. The default is `json`.
+- `query` - A string containing the GraphQL query to be displayed in the explorer.
+- `title` - A string for the title of the query shown in the explorer. The default is `Example Query`. Change this when translating the page to another language.
 
 **Usage:**
 
 ```mdx
-<GraphQLExplorer query={query} />
+<GraphQLExplorer query={query} description="An example query presentation='table' title="Example" />
 ```
 
 ### How do I add a new language to the language dropdown?
