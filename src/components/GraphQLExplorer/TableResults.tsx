@@ -10,6 +10,7 @@ export const TableResults = (props: {
     const [tableRows, setTableRows] = useState([]);
 
     const [canRender, setCanRender] = useState(true);
+    const [hasResults, setHasResults] = useState(false);
 
     useEffect(() => {
         if (results) {
@@ -19,6 +20,10 @@ export const TableResults = (props: {
                 const firstRow = value[0];
                 const keys = Object.keys(firstRow);
                 setTableColumns(keys);
+
+                if (keys.length > 0) {
+                    setHasResults(true);
+                }
 
                 Object.values(firstRow).forEach(val => {
                     if (typeof val === 'object') {
@@ -32,7 +37,7 @@ export const TableResults = (props: {
     return (
         <div className="rounded-lg bg-slate-50 border border-gray-300 text-gray-900 text-sm block w-full min-h-64 p-2.5
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-            {canRender && !!results && (
+            {canRender && hasResults && (
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -50,7 +55,7 @@ export const TableResults = (props: {
                     </TableBody>
                 </Table>)}
 
-            {(!results || Object.values(results).length > 0) && canRender && (
+            {!hasResults && canRender && (
                 <pre role="log">No results yet</pre>
             )}
 

@@ -1,10 +1,10 @@
 import {Button} from "@/components/ui/button.tsx";
 import {Label} from "@/components/ui/label.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {GRAPHQL_URL} from "@/Consts";
 import React, {useEffect, useState} from "react";
+import {LuCode2, LuKeyRound, LuLoader2, LuTable, LuTerminal} from "react-icons/lu";
 import {JSONResults} from "./JSONResults.tsx";
 import {StatusMessages} from "./StatusMessages.tsx";
 import {TableResults} from "./TableResults.tsx";
@@ -30,7 +30,11 @@ export const GraphQLRunner = (props: {
     const [queryError, setQueryError] = useState<string | undefined>();
     const [queryResults, setQueryResults] = useState<any>(null);
 
-    const defaultPresentation = presentation || 'json';
+    const [showAuthToken, setShowAuthToken] = useState(!authToken);
+    const [showQuery, setShowQuery] = useState(true);
+    const [explicitQuery, setExplicitQuery] = useState(false);
+
+    const [currentPresentation, setCurrentPresentation] = useState(presentation || 'json');
 
     /**
      * This function will replace the ##USER_ID## token in the query with the actual user_id.
@@ -57,9 +61,12 @@ export const GraphQLRunner = (props: {
      * This function will handle the query using fetch.
      * In an actual application, you would want to use something like apollo-client to handle this.
      * @param runningQuery - string
+     * @param keepQuery - boolean
      * @returns {Promise<any>}
      */
-    const handleQueryWithFetch = (runningQuery: string | undefined): { then(resolve: any, reject: any): void; } => {
+    const handleQueryWithFetch = (runningQuery: string | undefined, keepQuery = false): {
+        then(resolve: any, reject: any): void;
+    } => {
         return {
             then(resolve: any, reject: any) {
                 // Ensure the auth token is provided
@@ -116,6 +123,11 @@ export const GraphQLRunner = (props: {
                             reject(new Error('Error running query'));
                         }
 
+                        if (!explicitQuery && !keepQuery) {
+                            // If the query was not explicitly set, hide the query
+                            setShowQuery(false);
+                        }
+
                         // Return the data from the query
                         resolve(data);
                     });
@@ -163,7 +175,7 @@ export const GraphQLRunner = (props: {
         `;
 
         // Test the auth token to ensure it is valid and get the user's ID while we are at it
-        handleQueryWithFetch(userIdQuery).then((res: any) => {
+        handleQueryWithFetch(userIdQuery, true).then((res: any) => {
             // If the return data does not have the "me" object, the auth token is invalid
             if (!res?.data?.me) {
                 console.error('Invalid auth token');
@@ -216,62 +228,122 @@ export const GraphQLRunner = (props: {
     // Render the component
     // This is a first draft and will be updated as we go along
     return (<>
-        {isMutation && (<div className="relative my-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
-                             role="alert">
-            <strong className="font-bold">Warning!</strong>
-            <span className="block sm:inline"> This is a mutation query. You cannot run this query here.</span>
-        </div>)}
-        {!isMutation && (<>
-                <div className="my-4 mb-2 grid w-full gap-1.5">
-                    <Label htmlFor="auth_token">
-                        Authorization Token
-                    </Label>
+            {isMutation && (
+                <div className="relative my-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+                     role="alert">
+                    <strong className="font-bold">Warning!</strong>
+                    <span className="block sm:inline"> This is a mutation query. You cannot run this query here.</span>
+                </div>)}
+            {!isMutation && (
+                <>
+                    <div className="my-4 flex row justify-between items-center flex-wrap gap-2">
+                        <div className={`flex flex-row items-center space-x-2 gap-2`}>
+                            <Button
+                                onClick={() => {
+                                    setShowAuthToken(!showAuthToken);
+                                }}
+                                title="Authorization Token"
+                                variant="ghost"
+                            >
+                                <LuKeyRound/>
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    setShowQuery(!showQuery);
+                                    setExplicitQuery(!explicitQuery);
+                                }}
+                                title="View Query"
+                                variant="ghost"
+                            >
+                                <LuTerminal/>
+                            </Button>
+                        </div>
 
-                    <Textarea
-                        className="mb-2 block w-full rounded-lg bg-gray-50 text-sm min-h-24 p-2.5 dark:bg-gray-700"
-                        id="auth_token"
-                        onChange={updateAuthTokenUI}
-                        onBlur={handleAuthTokenChange}
-                        title="This is your authorization token. You can find this in your account settings."
-                        value={authToken}
-                        required/>
-                </div>
+                        <div className={`flex flex-row items-center space-x-2 gap-2`}>
+                            <Button
+                                onClick={() => {
+                                    setCurrentPresentation('json');
+                                }}
+                                title="JSON View"
+                                variant='ghost'
+                                disabled={!queryResults || currentPresentation === 'json'}
+                            >
+                                <LuCode2/> JSON View
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    setCurrentPresentation('table');
+                                }}
+                                title="Table View"
+                                variant='ghost'
+                                disabled={!queryResults || currentPresentation === 'table'}
+                            >
+                                <LuTable/> Table View
+                            </Button>
+                        </div>
 
-                <Button
-                    onClick={handleRunQuery}
-                    title="Run the query displayed below"
-                    variant="ghost"
-                >
-                    Run Query
-                </Button>
+                        <Button
+                            onClick={handleRunQuery}
+                            title="Run the query displayed below"
+                            variant="default"
+                            disabled={queryStatus === 'running'}
+                        >
+                            {queryStatus === 'running' ? (
+                                <><LuLoader2 className="animate-spin h-5 w-5 mr-3"/> Loading...</>
+                            ) : (
+                                'Run Query'
+                            )}
+                        </Button>
+                    </div>
 
-                <StatusMessages queryStatus={queryStatus} queryError={queryError}/>
+                    {showAuthToken && (
+                        <div className="my-4 mb-2 grid w-full gap-1.5">
+                            <Label htmlFor="auth_token">
+                                Authorization Token
+                            </Label>
 
-                <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Query</h2>
+                            <Textarea
+                                className="mb-2 block w-full rounded-lg bg-gray-50 text-sm min-h-24 p-2.5 dark:bg-gray-700"
+                                id="auth_token"
+                                onChange={updateAuthTokenUI}
+                                onBlur={handleAuthTokenChange}
+                                title="This is your authorization token. You can find this in your account settings."
+                                value={authToken}
+                                required/>
+                        </div>
+                    )}
 
-                {description && (<p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>)}
+                    <StatusMessages queryStatus={queryStatus} queryError={queryError}/>
 
-                <ScrollArea className="w-full h-48 bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5
+                    {showQuery && (
+                        <>
+                            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Query</h2>
+
+                            {description && (
+                                <p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>)}
+
+                            <ScrollArea className="w-full h-48 bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                    <pre className="">{query}</pre>
-                </ScrollArea>
+                                <pre className="">{query}</pre>
+                            </ScrollArea>
+                        </>
+                    )}
 
+                    {queryStatus === 'success' && (
+                        <>
+                            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
 
-                <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
+                            {currentPresentation === 'json' && (
+                                <JSONResults results={queryResults}/>
+                            )}
 
-                <Tabs defaultValue={defaultPresentation}>
-                    <TabsList>
-                        <TabsTrigger value="json">JSON</TabsTrigger>
-                        <TabsTrigger value="table">Table</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="json">
-                        <JSONResults results={queryResults}/>
-                    </TabsContent>
-                    <TabsContent value="table">
-                        <TableResults results={queryResults}/>
-                    </TabsContent>
-                </Tabs>
-            </>
-        )}
-    </>);
+                            {currentPresentation === 'table' && (
+                                <TableResults results={queryResults}/>
+                            )}
+                        </>
+                    )}
+                </>
+            )}
+        </>
+    );
 };

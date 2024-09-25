@@ -11,7 +11,7 @@ describe("JSONResults", () => {
             />
         );
 
-        expect(getByRole("log")).toBeInTheDOM();
+        expect(getByRole("log")).toBeInTheDocument();
         expect(getByRole("log")).toHaveTextContent('{ "data": { "test": "test" } }');
     });
 
@@ -20,7 +20,7 @@ describe("JSONResults", () => {
             <JSONResults results={undefined} />
         );
 
-        expect(getByRole("log")).toBeInTheDOM();
+        expect(getByRole("log")).toBeInTheDocument();
         expect(getByRole("log")).toHaveTextContent('No results yet');
     });
 });

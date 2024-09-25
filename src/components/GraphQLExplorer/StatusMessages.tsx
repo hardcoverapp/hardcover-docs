@@ -15,10 +15,6 @@ export const StatusMessages = (props: {
                     You are responsible for the content of any queries ran on your account.
                 </div>)}
 
-            {queryStatus == "running" && (<div className="my-4 w-full rounded-lg p-3 text-gray-900 bg-accent-200">
-                Loading...
-            </div>)}
-
             {queryStatus == "error" && (
                 <div className="my-4 w-full rounded-lg border border-red-400 bg-red-100 p-3 text-red-700">
                     <strong>Error: </strong> {queryError}
