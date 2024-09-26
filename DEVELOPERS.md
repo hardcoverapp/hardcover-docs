@@ -114,7 +114,12 @@ import GraphQLExplorer from '/src/components/GraphQLExplorer/GraphQLExplorer.ast
 **Usage:**
 
 ```mdx
-<GraphQLExplorer query={query} description="An example query presentation='table' title="Example" />
+<GraphQLExplorer
+    query={query}
+    description="An example query"
+    presentation='table'
+    title="Example"
+/>
 ```
 
 ### How do I add a new language to the language dropdown?
