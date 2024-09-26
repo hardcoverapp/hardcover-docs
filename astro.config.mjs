@@ -51,7 +51,7 @@ export default defineConfig({
                     variant: 'caution',
                     text: 'Beta',
                 },
-                collapsed: true,
+                collapsed: false,
                 items: [{
                     autogenerate: {
                         directory: 'api/GraphQL/Schemas'
