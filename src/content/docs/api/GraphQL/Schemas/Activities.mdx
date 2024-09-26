@@ -282,15 +282,6 @@ These schemas use the same fields as the activities schema, and are used to help
 
 Let's take a look at some example queries that you can use to interact with the activities' schema.
 
-### Get Distinct Activity Types
-<GraphQLExplorer query={`{
-    activities(distinct_on: event) {
-        event
-    }
-}`} description={`
-    This query will return a list of distinct activity events that have occurred.
-`}/>
-
 ### Get My Activities
 <GraphQLExplorer query={`{
     activities(where: {user_id: {_eq: ##USER_ID##}}, limit: 10) {
