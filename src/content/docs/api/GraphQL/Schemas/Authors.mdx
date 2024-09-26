@@ -62,8 +62,9 @@ query {
 
 <GraphQLExplorer query={`
 query {
-    authors(where: {name: {_ilike: "%Rowling%"}}, limit: 5) {
-        id,
+    authors(where: {name: {_eq: "J.K. Rowling"}}) {
+        books_count
+        identifiers
         name
     }
 }
