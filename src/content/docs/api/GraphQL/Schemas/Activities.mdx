@@ -2,7 +2,7 @@
 title: Activities
 description: Learn about the activities schema in the Hardcover API.
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2024-10-07
 layout: ../../../../../layouts/documentation.astro
 ---
 
@@ -169,7 +169,8 @@ These schemas use the same fields as the activities schema, and are used to help
 
 #### User added a review to a book
 <Code
-    code={`{
+    code={`
+    {
         "id": 1234,
         "event": "UserBookActivity",
         "data": {
@@ -184,14 +185,16 @@ These schemas use the same fields as the activities schema, and are used to help
         "book_id": 10257,
         "object_type": "Activity"
       }
-}`}
+    }
+`}
     lang="graphql"
     title="User Added Review"
 />
 
 #### Goal Activity
 <Code
-    code={`{
+    code={`
+    {
         "data": {
           "goal": {
             "id": 12345,
@@ -209,7 +212,8 @@ These schemas use the same fields as the activities schema, and are used to help
         "event": "GoalActivity",
         "object_type": "Activity"
      },
-}`}
+    }
+`}
     lang="graphql"
     title="Goal Activity"
 />
@@ -252,7 +256,8 @@ These schemas use the same fields as the activities schema, and are used to help
 
 #### Prompt Activity
 <Code
-    code={`{
+    code={`
+    {
         "data": {
           "prompt": {
             "id": 1,
@@ -271,9 +276,8 @@ These schemas use the same fields as the activities schema, and are used to help
         "event": "PromptActivity",
         "object_type": "Activity",
         "book_id": 370893
-      },
-    },
-}`}
+    }
+`}
     lang="graphql"
     title="Prompt Activity"
 />
@@ -283,29 +287,33 @@ These schemas use the same fields as the activities schema, and are used to help
 Let's take a look at some example queries that you can use to interact with the activities' schema.
 
 ### Get My Activities
-<GraphQLExplorer query={`{
+<GraphQLExplorer query={`
+{
     activities(where: {user_id: {_eq: ##USER_ID##}}, limit: 10) {
         event
         likes_count
         book_id
         created_at
     }
-}`} description={`
+}
+`} description={`
     This query will return a list of 10 activities that the current user has performed.
 `} presentation='table'/>
 
 ### Get Activities for a specific Book
-<GraphQLExplorer query={`{
+<GraphQLExplorer query={`
+{
       activities(
-        order_by: {created_at: desc}
-        where: {book_id: {_eq: 10257}, event: {_eq: "UserBookActivity"}}
-        limit: 10
+            order_by: {created_at: desc}
+            where: {book_id: {_eq: 10257}, event: {_eq: "UserBookActivity"}}
+            limit: 10
       ) {
-        data
-        event
-        object_type
-        book_id
+            data
+            event
+            object_type
+            book_id
       }
-}`} description={`
+}
+`} description={`
     This query will return a list of 10 activities that have occurred for a specific book.
 `}/>

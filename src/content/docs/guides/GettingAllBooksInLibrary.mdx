@@ -1,12 +1,40 @@
 ---
-title: Getting All Books in Library
+title: Getting All Books in Your Library
 category: guide
-lastUpdated: 2024-09-17
+lastUpdated: 2024-10-07
 layout: ../../../layouts/documentation.astro
 ---
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
 ## Introduction
 
-### Example Request
-<GraphQLExplorer query={``} description='' />
+This guide will show you how to get all the books in your library using the Hardcover API.
+
+## Related Schemas
+
+- [Books](../../api/graphql/schemas/books)
+
+## Get a list of books belonging to the current user
+
+<GraphQLExplorer query={`
+{
+      list_books(
+            where: {
+                user_books: {
+                    user_id: {_eq: ##USER_ID##}
+                }
+            },
+            distinct_on: book_id
+            limit: 5
+            offset: 0
+      ) {
+        book {
+              title
+              pages
+              release_date
+        }
+      }
+}
+`} description={`
+    This query will return a list of books that the user has added to their collection.
+`} presentation='json'/>

@@ -47,10 +47,6 @@ export default defineConfig({
                     fr: 'Guides'
                 }
             }, {
-                badge: {
-                    variant: 'caution',
-                    text: 'Beta',
-                },
                 collapsed: false,
                 items: [{
                     autogenerate: {
