@@ -17,15 +17,15 @@ Additional search options will be added in the future.
 ## Search options
 
 - `query` - The search term
-- `query_type` - The type of content to search for one of (default `book`)
-                    - `Author`
-                    - `Book`
-                    - `Character`
-                    - `List`
-                    - `Prompt`
-                    - `Publisher`
-                    - `Series`
-                    - `User`
+- `query_type` - The type of content to search for one of (case-insensitive; default `book`)
+                    - `author`
+                    - `book`
+                    - `character`
+                    - `list`
+                    - `prompt`
+                    - `publisher`
+                    - `series`
+                    - `user`
 - `per_page` - The number of results to return per page (default 25)
 - `page` - The page number to return (default 1)
 
@@ -106,7 +106,44 @@ When searching characters, we use the following fields:
 `} title="Search characters" presentation='json'/>
 
 ### Lists
+When searching lists, we use the following fields:
+
+- `description` - The description of the list
+- `books` - A list of books in the list
+- `name` - The name of the list
+
+<GraphQLExplorer query={`
+    query ListsNamedBest {
+        search(
+            query: "best",
+            query_type: "List",
+            per_page: 5,
+            page:1
+        ) {
+            results
+        }
+    }
+`} description={`
+    Get a list of lists with the word "best" in the name.
+`} title="Search lists" presentation='json'/>
+
 ### Prompts
+When searching prompts, we use the following fields:
+- `books` - A list of books for the matching prompt
+- `question` - The prompt question
+
 ### Publishers
+When searching publishers, we use the following fields:
+- `name` - The name of the publisher
+
 ### Series
+When searching series, we use the following fields:
+- `author_name` - The name of the author who wrote the series
+- `books` - A list of books in the series
+- `name` - The name of the series
+
 ### Users
+When searching users, we use the following fields:
+- `location` - The location of the user
+- `name` - The name of the user
+- `username` - The username of the user
