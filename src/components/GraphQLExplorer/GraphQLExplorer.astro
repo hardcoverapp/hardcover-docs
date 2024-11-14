@@ -7,6 +7,7 @@ const {
     description = '',
     canTry = true,
     presentation = 'json',
+    forcePresentation = false,
     title = 'Example Query'
 } = Astro.props;
 
@@ -31,6 +32,7 @@ const isMutation = query.trim().includes('mutation');
                     <GraphQLRunner query={query}
                                    description={description}
                                    presentation={presentation}
+                                   forcePresentation={forcePresentation ? presentation : null}
                                    client:only="react" />
                 </div>
             </TabItem>

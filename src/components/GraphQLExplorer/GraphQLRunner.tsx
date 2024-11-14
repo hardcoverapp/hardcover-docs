@@ -10,9 +10,11 @@ import {StatusMessages} from "./StatusMessages.tsx";
 import {TableResults} from "./TableResults.tsx";
 
 export const GraphQLRunner = (props: {
-    query: string, description?: string, presentation?: 'json' | 'table',
+    query: string, description?: string,
+    presentation?: 'json' | 'table',
+    forcePresentation?: 'json' | 'table' | undefined
 }) => {
-    const {description, presentation} = props;
+    const {description, presentation, forcePresentation} = props;
 
     // Get the query from props so we can modify it
     const [query, setQuery] = useState(props.query);
@@ -34,7 +36,7 @@ export const GraphQLRunner = (props: {
     const [showQuery, setShowQuery] = useState(true);
     const [explicitQuery, setExplicitQuery] = useState(false);
 
-    const [currentPresentation, setCurrentPresentation] = useState(presentation || 'json');
+    const [currentPresentation, setCurrentPresentation] = useState(forcePresentation ? forcePresentation : presentation || 'json');
 
     /**
      * This function will replace the ##USER_ID## token in the query with the actual user_id.
@@ -259,28 +261,30 @@ export const GraphQLRunner = (props: {
                             </Button>
                         </div>
 
-                        <div className={`flex flex-row items-center space-x-2 gap-2`}>
-                            <Button
-                                onClick={() => {
-                                    setCurrentPresentation('json');
-                                }}
-                                title="JSON View"
-                                variant='ghost'
-                                disabled={!queryResults || currentPresentation === 'json'}
-                            >
-                                <LuCode2/> JSON View
-                            </Button>
-                            <Button
-                                onClick={() => {
-                                    setCurrentPresentation('table');
-                                }}
-                                title="Table View"
-                                variant='ghost'
-                                disabled={!queryResults || currentPresentation === 'table'}
-                            >
-                                <LuTable/> Table View
-                            </Button>
-                        </div>
+                        {!forcePresentation && (
+                            <div className={`flex flex-row items-center space-x-2 gap-2`}>
+                                <Button
+                                    onClick={() => {
+                                        setCurrentPresentation('json');
+                                    }}
+                                    title="JSON View"
+                                    variant='ghost'
+                                    disabled={!queryResults || currentPresentation === 'json'}
+                                >
+                                    <LuCode2/> JSON View
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        setCurrentPresentation('table');
+                                    }}
+                                    title="Table View"
+                                    variant='ghost'
+                                    disabled={!queryResults || currentPresentation === 'table'}
+                                >
+                                    <LuTable/> Table View
+                                </Button>
+                            </div>
+                        )}
 
                         <Button
                             onClick={handleRunQuery}
