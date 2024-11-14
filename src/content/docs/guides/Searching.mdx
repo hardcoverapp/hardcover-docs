@@ -4,7 +4,6 @@ description: Search for books, authors, and other content using the Hardcover Gr
 category: guide
 lastUpdated: 2024-11-13 21:00:00
 layout: ../../../layouts/documentation.astro
-template: splash
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
@@ -51,7 +50,7 @@ When searching authors, we use the following fields:
             query: "rowling",
             query_type: "Author",
             per_page: 5,
-            page:1
+            page: 1
         ) {
             results
         }
@@ -74,7 +73,7 @@ When searching books, we use the following fields:
             query: "lord of the rings",
             query_type: "Book",
             per_page: 5,
-            page:1
+            page: 1
         ) {
             results
         }
@@ -96,7 +95,7 @@ When searching characters, we use the following fields:
             query: "peter",
             query_type: "Character",
             per_page: 5,
-            page:1
+            page: 1
         ) {
             results
         }
@@ -118,7 +117,7 @@ When searching lists, we use the following fields:
             query: "best",
             query_type: "List",
             per_page: 5,
-            page:1
+            page: 1
         ) {
             results
         }
@@ -132,9 +131,39 @@ When searching prompts, we use the following fields:
 - `books` - A list of books for the matching prompt
 - `question` - The prompt question
 
+<GraphQLExplorer query={`
+    query PromptsAboutLearning {
+        search(
+            query: "learn from",
+            query_type: "Prompt",
+            per_page: 5,
+            page: 1
+        ) {
+            results
+        }
+    }
+`} description={`
+    Get a list of prompts about learning from books.
+`} title="Search prompts" presentation='json'/>
+
 ### Publishers
 When searching publishers, we use the following fields:
 - `name` - The name of the publisher
+
+<GraphQLExplorer query={`
+    query PublishersNamedPenguin {
+        search(
+            query: "penguin",
+            query_type: "Publisher",
+            per_page: 5,
+            page: 1
+        ) {
+            results
+        }
+    }
+`} description={`
+    Get a list of publishers with the word "penguin" in the name.
+`} title="Search publishers" presentation='json'/>
 
 ### Series
 When searching series, we use the following fields:
@@ -142,8 +171,38 @@ When searching series, we use the following fields:
 - `books` - A list of books in the series
 - `name` - The name of the series
 
+<GraphQLExplorer query={`
+    query SeriesNamedHarryPotter {
+        search(
+            query: "harry potter",
+            query_type: "Series",
+            per_page: 7,
+            page: 1
+        ) {
+            results
+        }
+    }
+`} description={`
+    Get a list of series with the words "harry potter" in the name.
+`} title="Search series" presentation='json'/>
+
 ### Users
 When searching users, we use the following fields:
 - `location` - The location of the user
 - `name` - The name of the user
 - `username` - The username of the user
+
+<GraphQLExplorer query={`
+    query UsersNamedAdam {
+        search(
+            query: "adam",
+            query_type: "User",
+            per_page: 5,
+            page: 1
+        ) {
+            results
+        }
+    }
+`} description={`
+    Get a list of users with the name "adam".
+`} title="Search users" presentation='json'/>
