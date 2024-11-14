@@ -1,0 +1,112 @@
+---
+title: Searching for content in the API
+description: Search for books, authors, and other content using the Hardcover GraphQL API.
+category: guide
+lastUpdated: 2024-11-13 21:00:00
+layout: ../../../layouts/documentation.astro
+template: splash
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+
+## What can I search for?
+
+Currently, you can search for authors, books, characters, lists, prompts, publishers, series, and users.
+Additional search options will be added in the future.
+
+## Search options
+
+- `query` - The search term
+- `query_type` - The type of content to search for one of (default `book`)
+                    - `Author`
+                    - `Book`
+                    - `Character`
+                    - `List`
+                    - `Prompt`
+                    - `Publisher`
+                    - `Series`
+                    - `User`
+- `per_page` - The number of results to return per page (default 25)
+- `page` - The page number to return (default 1)
+
+## Available fields
+
+- `id`
+- `results`
+
+## Example searches
+
+### Authors
+When searching authors, we use the following fields:
+
+- `alternate_names` - Alternative names for the author
+- `books` - A list of books written by the author
+- `name` - The name of the author
+- `name_personal` - The personal name of the author
+- `series_names` - The names of the different series the author has written
+
+<GraphQLExplorer query={`
+    query BooksByRowling {
+        search(
+            query: "rowling",
+            query_type: "Author",
+            per_page: 5,
+            page:1
+        ) {
+            results
+        }
+    }
+`} description={`
+    Get a list of books written by Rowling.
+`} title="Search Authors" presentation='json'/>
+
+### Books
+When searching books, we use the following fields:
+- `alternative_titles` - Alternative titles for the book
+- `author_names` - The name of the authors or contributors of the book
+- `isbns` - The ISBNs of the book
+- `series_names` - The name of the series the book belongs to
+- `title` - The title of the book
+
+<GraphQLExplorer query={`
+    query LordOfTheRingsBooks {
+        search(
+            query: "lord of the rings",
+            query_type: "Book",
+            per_page: 5,
+            page:1
+        ) {
+            results
+        }
+    }
+`} description={`
+    Get a list of books belonging to the Lord of the Rings series.
+`} title="Search books" presentation='json'/>
+
+### Characters
+When searching characters, we use the following fields:
+
+- `author_names` - The name of the author who wrote the books the character appears in
+- `books` - A list of books the character appears in
+- `name` - The name of the character
+
+<GraphQLExplorer query={`
+    query CharactersNamedPeter {
+        search(
+            query: "peter",
+            query_type: "Character",
+            per_page: 5,
+            page:1
+        ) {
+            results
+        }
+    }
+`} description={`
+    Get a list of characters named Peter.
+`} title="Search characters" presentation='json'/>
+
+### Lists
+### Prompts
+### Publishers
+### Series
+### Users

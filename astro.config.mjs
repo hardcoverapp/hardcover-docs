@@ -47,7 +47,7 @@ export default defineConfig({
                     fr: 'Guides'
                 }
             }, {
-                collapsed: false,
+                collapsed: true,
                 items: [{
                     autogenerate: {
                         directory: 'api/GraphQL/Schemas'
