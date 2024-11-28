@@ -18,18 +18,18 @@ export default defineConfig({
         },
         lastUpdated: true,
         locales: {
-            'fr': {
-                label: 'Français',
-                lang: 'fr'
-            },
+            // 'fr': {
+            //     label: 'Français',
+            //     lang: 'fr'
+            // },
             root: {
                 label: 'English',
                 lang: 'en'
             },
-            'sp': {
-                label: 'Español',
-                lang: 'es'
-            }
+            // 'sp': {
+            //     label: 'Español',
+            //     lang: 'es'
+            // }
         },
         logo: {
             src: './src/assets/hardcover.svg'
@@ -42,10 +42,10 @@ export default defineConfig({
                     directory: 'guides'
                 },
                 label: 'Guides',
-                translations: {
-                    es: 'Guías',
-                    fr: 'Guides'
-                }
+                // translations: {
+                //     es: 'Guías',
+                //     fr: 'Guides'
+                // }
             }, {
                 collapsed: true,
                 items: [{
@@ -53,16 +53,16 @@ export default defineConfig({
                         directory: 'api/GraphQL/Schemas'
                     },
                     label: 'Schemas',
-                    translations: {
-                        es: 'Esquemas',
-                        fr: 'Schémas'
-                    }
+                    // translations: {
+                    //     es: 'Esquemas',
+                    //     fr: 'Schémas'
+                    // }
                 }],
                 label: 'API Reference',
-                translations: {
-                    es: 'Referencia de la API',
-                    fr: 'Référence de l\'API'
-                }
+                // translations: {
+                //     es: 'Referencia de la API',
+                //     fr: 'Référence de l\'API'
+                // }
             },
             {
                 slug: 'contributing'
@@ -76,8 +76,8 @@ export default defineConfig({
         },
         title: {
             en: 'API Documentation',
-            es: 'Documentación de la API',
-            fr: 'Documentation de l\'API'
+            // es: 'Documentación de la API',
+            // fr: 'Documentation de l\'API'
         }
     }), tailwind({
         applyBaseStyles: false
