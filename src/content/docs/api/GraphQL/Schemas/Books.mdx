@@ -1,7 +1,7 @@
 ---
 title: Books
 category: reference
-lastUpdated: 2024-10-07
+lastUpdated: 2024-12-29 22:49:00
 layout: ../../../../../layouts/documentation.astro
 ---
 
@@ -56,9 +56,25 @@ query BooksByUserCount {
     This query will return a list of the top 10 books by the author Brandon Sanderson, ordered by the number of users who have added the book to their collection.
 `} presentation='table'/>
 
+## Getting All Editions of a Book
+<GraphQLExplorer query={`
+query GetEditionsFromTitle {
+    editions(where: {title: {_eq: "Oathbringer"}}) {
+        id
+        title
+        edition_format
+        pages
+        release_date
+        isbn_10
+        isbn_13
+        publisher {
+            name
+        }
+    }
+}
+`} description='Get all of the editions for the specific title of `Oathbringer`' presentation='json' forcePresentation />
 
 ## Create a new book
-
 <GraphQLExplorer query={`
 mutation {
       createBook(input: {
