@@ -4,7 +4,7 @@ import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {GRAPHQL_URL} from "@/Consts";
 import React, {useEffect, useState} from "react";
-import {LuCode2, LuKeyRound, LuLoader2, LuTable, LuTerminal} from "react-icons/lu";
+import {LuCode, LuKeyRound, LuLoader, LuTable, LuTerminal} from "react-icons/lu";
 import {JSONResults} from "./JSONResults.tsx";
 import {StatusMessages} from "./StatusMessages.tsx";
 import {TableResults} from "./TableResults.tsx";
@@ -271,7 +271,7 @@ export const GraphQLRunner = (props: {
                                     variant='ghost'
                                     disabled={!queryResults || currentPresentation === 'json'}
                                 >
-                                    <LuCode2/> JSON View
+                                    <LuCode/> JSON View
                                 </Button>
                                 <Button
                                     onClick={() => {
@@ -293,7 +293,7 @@ export const GraphQLRunner = (props: {
                             disabled={queryStatus === 'running'}
                         >
                             {queryStatus === 'running' ? (
-                                <><LuLoader2 className="animate-spin h-5 w-5 mr-3"/> Loading...</>
+                                <><LuLoader className="animate-spin h-5 w-5 mr-3"/> Loading...</>
                             ) : (
                                 'Run Query'
                             )}

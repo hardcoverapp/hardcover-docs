@@ -1,11 +1,10 @@
 /// <reference types="vitest" />
-import {getViteConfig} from 'astro/config';
+import {defineConfig} from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
-export default getViteConfig(
+export default defineConfig(
     {
-        plugins: [react()],
         test: {
             coverage: {
                 reporter: ['text', 'json-summary', 'json'],
@@ -20,9 +19,5 @@ export default getViteConfig(
                 '@': resolve(__dirname, 'src'),
             },
         }
-    },
-    {
-        site: 'https://docs.hardcover.app',
-        trailingSlash: 'always',
-    },
+    }
 );
