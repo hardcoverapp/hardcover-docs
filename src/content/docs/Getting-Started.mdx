@@ -2,11 +2,11 @@
 title: Getting Started with the API
 description: Get started with the Hardcover GraphQL API.
 category: guide
-lastUpdated: 2024-10-14
+lastUpdated: 2025-01-01 13:42:00
 layout: ../../layouts/documentation.astro
 ---
 
-import {Steps} from "@astrojs/starlight/components";
+import {Badge, Steps} from "@astrojs/starlight/components";
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
 ## Introduction
@@ -71,6 +71,23 @@ to access and use someone else's data.
 You can only access this API from localhost or APIs.
 Later on, we hope to
 allow developers to join a group that allowlists specific sites, but that's a ways down the line.
+
+## Limitations
+- API tokens automatically expire after 1 year, and reset on January 1st.
+- <Badge text="Dec 2024" variant="success" /> API is rate-limited to 60 requests per minute.
+- <Badge text="Dec 2024" variant="success" /> The following queries are disabled:
+    - `_like`
+    - `_nlike`
+    - `_ilike`
+    - `_nregex`
+    - `_iregex`
+    - `_regex`
+    - `_nsimilar`
+    - `_similar`
+- <Badge text="Jan 2025" variant="tip" /> have a max timeout of 30 seconds.
+- <Badge text="Feb 2025" variant="caution" />have a maximum depth of 3.
+- <Badge text="Feb 2025" variant="caution" /> are limited to your own user data, public data, and user data of users you follow.
+- <Badge text="Early 2025" variant="note" /> OAuth support will be added for external applications.
 
 ## Want to Contribute?
 We are actively looking for contributors to help us improve the API documentation.
