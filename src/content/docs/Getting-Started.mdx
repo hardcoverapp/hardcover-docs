@@ -59,14 +59,15 @@ query {
 
 ## API Response Codes
 The API will return the following response codes:
-| Code | Description | Example Body |
-| ---- | ----------- | ------------ |
-| 200  | The request was successful          | |
-| 401  | Expired or invalid token | `{ error: "Unable to verify token" }` |
-| 403  | User does not have access to the requested resource or query   | `{ error: "Message describing the error" }` |
-| 404  | Not Found   | |
-| 429  | Too Many Requests, try again later | `{ error: "Throttled" }` |
-| 500  | Internal Server Error | `{ error: "An unknown error occurred" }` |
+
+| Code | Description                                                  | Example Body                                |
+|------|--------------------------------------------------------------|---------------------------------------------|
+| 200  | The request was successful                                   |                                             |
+| 401  | Expired or invalid token                                     | `{ error: "Unable to verify token" }`       |
+| 403  | User does not have access to the requested resource or query | `{ error: "Message describing the error" }` |
+| 404  | Not Found                                                    |                                             |
+| 429  | Too Many Requests, try again later                           | `{ error: "Throttled" }`                    |
+| 500  | Internal Server Error                                        | `{ error: "An unknown error occurred" }`    |
 
 ## Important Notes About the Hardcover API
 - The API is still heavily in flux right now. Anything you build using it could break in the future.

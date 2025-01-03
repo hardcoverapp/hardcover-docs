@@ -1,7 +1,7 @@
 ---
 title: Contributing
 category: guide
-lastUpdated: 2024-09-25
+lastUpdated: 2025-02-01 17:03:00
 layout: ../../layouts/documentation.astro
 ---
 import { FileTree } from '@astrojs/starlight/components';
@@ -120,24 +120,44 @@ All commands are run from the root of the project, from a terminal:
 
 1. Create a new `.mdx` file in the `src/content/docs/` directory.
 2. Give the file a name that describes the content.
-3. Add frontmatter to the top of the file.
- - At a minimum, include `title`, `category`, and `layout`.
-  - Both `title` and `category` are strings.
-  - Current categories are `guide` or `reference`.
-  - `layout` should be the relative path to `/src/layouts/documentation.astro`.
- - We would also recommend including `description` and `lastUpdated`.
-  - `description` is a string that will be used as the meta description for the page.
-  - `lastUpdated` is a string in the format `YYYY-MM-DD` that will be displayed on the page.
- - Optionally include other fields from
-the [Starlight - Frontmatter Reference](https://starlight.astro.build/reference/frontmatter/) page.
- - See `src/content/docs/getting-started.mdx` for an example.
+3. Add [frontmatter](#page-frontmatter) to the top of the file.
 4. Add content to the file using Markdown or MDX syntax.
 5. Add the new page to the sidebar
- - If the page is part of the `api/GraphQL/Schema` section the sidebar will automatically update with the new page.
- - If the page is part of the `guides` section the sidebar will automatically update with the new page.
+ - If the page is part of the `api/GraphQL/Schema` or `guides` sections the sidebar will automatically update with the new page.
  - All other pages will need to be added to the astro config file
 see [Starlight - Add links and link groups](https://starlight.astro.build/guides/sidebar/#add-links-and-link-groups)
 for more information.
+
+##### Page Frontmatter
+
+| Field           | Description                                                                                                                                                                             | Required    |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| title           | String containing the title of the page                                                                                                                                                 | Yes         |
+| category        | String of the category the page should be included in `guide` or `reference`                                                                                                            | Yes         |
+| layout          | relative path to `/src/layouts/documentation.astro`                                                                                                                                     | Yes         |
+| description     | String containing the descriptive text to use in HTML meta tags                                                                                                                         | Recommended |
+| lastUpdated     | String in the format `YYYY-MM-DD HH:MM:SS`                                                                                                                                              | Recommended |
+| draft           | Boolean value determining whether the page should be hidden from the production site                                                                                                    | No          |
+| slug            | String containing the URL slug for the page                                                                                                                                             | No          |
+| tableOfContents | Boolean value determining whether a table of contents should be generated                                                                                                               | No          |
+| template        | `doc` or `splash` default is `doc`. `splash` is a wider layout without the normal sidebars                                                                                              | No          |
+| hero            | See [Starlight - Frontmatter HeroConfig](https://starlight.astro.build/reference/frontmatter/#heroconfig) for more information                                                          | No          |
+| banner          | See [Starlight - Frontmatter Banner](https://starlight.astro.build/reference/frontmatter/#banner) for more information                                                                  | No          |
+| prev            | Boolean value determining whether a previous button should be shown. See [Starlight - Frontmatter Prev](https://starlight.astro.build/reference/frontmatter/#prev) for more information | No          |
+| next            | Boolean value determining whether a next button should be shown. See [Starlight - Frontmatter Next](https://starlight.astro.build/reference/frontmatter/#next) for more information     | No          |
+| sidebar         | Control how the page is displayed in the sidebar. See [Starlight - Frontmatter Sidebar](https://starlight.astro.build/reference/frontmatter/#sidebarconfig) for more information        | No          |
+
+###### Example Frontmatter
+
+```md
+---
+title: Getting Started with the API
+description: Get started with the Hardcover GraphQL API.
+category: guide
+lastUpdated: 2025-02-01 17:03:00
+layout: ../../layouts/documentation.astro
+---
+```
 
 #### Available Components
 
@@ -151,8 +171,6 @@ This component allows a user to view GraphQL queries and experiment by running t
 
 **Import Path:**
 
-This should be a relative path to the following file:
-
 ```js
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 ```
@@ -161,6 +179,7 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
 
 - `canTry` - A boolean value determining whether the user can run the query in the explorer. The default is `true`.
 - `description` - A string describing the query.
+- `forcePresentation` - A boolean value determining whether the presentation options should be hidden. The default is `false`.
 - `presentation` - The default presentation of the response, either `json` or `table`. The default is `json`.
 - `query` - A string containing the GraphQL query to be displayed in the explorer.
 - `title` - A string for the title of the query shown in the explorer. The default is `Example Query`. Change this when translating the page to another language.
