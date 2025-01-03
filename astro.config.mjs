@@ -65,7 +65,7 @@ export default defineConfig({
                 // }
             },
             {
-                slug: 'contributing'
+                slug: 'contributing',
             }
         ],
         social: {

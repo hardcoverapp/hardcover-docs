@@ -142,9 +142,9 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
 
 ### How do I add a new language to the language dropdown?
 
-The root language should **not** be changed from English. To add a new language see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
+The root language should **not** be changed from English. To add a new language, see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
 
-When adding a new language you should also update the existing translations in the astro config file to include the new language.
+When adding a new language, you should also update the existing translations in the astro config file to include the new language.
 
 ### How do I add a translation for an existing language?
 
