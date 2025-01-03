@@ -2,7 +2,7 @@
 title: Getting Started with the API
 description: Get started with the Hardcover GraphQL API.
 category: guide
-lastUpdated: 2025-01-01 16:52:00
+lastUpdated: 2025-02-01 17:03:00
 layout: ../../layouts/documentation.astro
 ---
 
@@ -57,6 +57,17 @@ query {
 }
 `}/>
 
+## API Response Codes
+The API will return the following response codes:
+| Code | Description | Example Body |
+| ---- | ----------- | ------------ |
+| 200  | The request was successful          | |
+| 401  | Expired or invalid token | `{ error: "Unable to verify token" }` |
+| 403  | User does not have access to the requested resource or query   | `{ error: "Message describing the error" }` |
+| 404  | Not Found   | |
+| 429  | Too Many Requests, try again later | `{ error: "Throttled" }` |
+| 500  | Internal Server Error | `{ error: "An unknown error occurred" }` |
+
 ## Important Notes About the Hardcover API
 - The API is still heavily in flux right now. Anything you build using it could break in the future.
 - We may reset tokens without notice while in beta.
@@ -79,13 +90,14 @@ allow developers to join a group that allowlists specific sites, but that's a wa
     - `_like`
     - `_nlike`
     - `_ilike`
-    - `_nregex`
     - `_niregex`
+    - `_nregex`
     - `_iregex`
     - `_regex`
     - `_nsimilar`
     - `_similar`
 - <Badge text="Dec 2024" variant="success" /> Queries have a max timeout of 30 seconds.
+- <Badge text="Dec 2024" variant="success" /> Queries are not allowed to run in the browser, they must be run in an environment where the token can be kept secure.
 - <Badge text="Feb 2025" variant="caution" /> Queries have a maximum depth of 3.
 - <Badge text="Feb 2025" variant="caution" /> Queries are limited to your own user data, public data, and user data of users you follow.
 - <Badge text="Early 2025" variant="note" /> OAuth support will be added for external applications.
