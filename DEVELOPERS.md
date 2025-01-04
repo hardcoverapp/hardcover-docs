@@ -1,4 +1,4 @@
-# Hardcover API Documentation Developer Guide
+# Hardcover Documentation Developer Guide
 
 ## Contributing to the Hardcover Documentation
 
