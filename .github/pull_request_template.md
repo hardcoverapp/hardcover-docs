@@ -26,7 +26,7 @@ Include your Hardcover and discord usernames so we can find you and follow up if
 - If this is other, describe the change and why it should be made.
 
 # Checklist:
-- [ ] I have read the [CONTRIBUTING](/CONTRIBUTING.md) document.
+- [ ] I have read the [CONTRIBUTING](https://github.com/hardcoverapp/hardcover-docs/blob/main/CONTRIBUTING) document.
 - [ ] I have added the new content to the sidebar if necessary.
 - [ ] I have explained why the change is necessary and how it fits into the existing content.
 - [ ] I have communicated this change in the [#API](https://discord.com/channels/835558721115389962/1278040045324075050) or [#librarians](https://discord.com/channels/835558721115389962/1105918193022812282) discord channels.

@@ -1,0 +1,43 @@
+---
+import {Aside, Badge} from '@astrojs/starlight/components';
+import {uCFirst} from "@/lib/utils";
+import type {FrontmatterConfig} from '@/types';
+
+const {
+    author,
+    banner,
+    category,
+    description,
+    draft,
+    editUrl,
+    head,
+    hero,
+    lastUpdated,
+    next,
+    prev,
+    sidebar,
+    slug,
+    template,
+    title,
+} = Astro.props.frontmatter as FrontmatterConfig;
+
+---
+
+<div class="flex flex-auto flex-row justify-between mb-4">
+    <p class="text-sm inline-block self-start">
+        {lastUpdated && (
+                <>
+                    Last updated on {new Date(lastUpdated).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                })}
+                </>
+        )}
+    </p>
+    {category && (
+            <Badge text={uCFirst(category)} variant="note" class="w-fit"/>
+    )}
+</div>
+
+<slot/>
