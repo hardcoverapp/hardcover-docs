@@ -1,0 +1,84 @@
+---
+title: Book Standards
+description: Standards for adding and editing books in Hardcover.
+category: guide
+lastUpdated: 2025-01-03 19:42:00
+layout: ../../../../layouts/librarians.astro
+---
+
+import {Badge} from "@astrojs/starlight/components";
+
+## How do I add a book if I can't find it on Hardcover?
+If you search for a book and don’t see it in the results, head over to the Add Book to Hardcover page. On there you can add a book by ISBN 10, ISBN 13 or Goodreads ID. This is the best place to start, since there’s a chance the book wasn’t showing up in search for a number of reasons (the top being that this search cache out of date, this book has recently been manually added by a user and hasn’t been approved).
+
+If this book doesn’t have an ISBN and isn’t on Goodreads, then you can head over to the New Edition form. This will create a new Book with this as the one new edition for it. When librarians add books using this form they’ll show up for everyone right away. When guests and non-librarians add books using this form they’ll have a “user added” boolean added to that book behind the scenes that prevents it from showing up in search. An admin (Jeff or Adam) periodically review and remove this boolean to approve these books and allow them to show up for everyone.
+
+## What title should we use for the book?
+We should use the official English title the book was released with whenever possible.
+
+For example, the original title of “War and Peace” is “Война и миръ”. We should use “Война и миръ” as the title of the Russian edition, but “War and Peace” as the title of the book. This could be done from the Edit Book page where we override the edition’s title. Alternatively, we could set the “Default Physical Edition” to the English edition. That would also set the title to the English title.
+
+If books have multiple English titles (ex: “Harry Potter and the Sorcerer's Stone” vs “Harry Potter and the Philosopher's Stone”), we should use the title localized for the USA (Sorcerers stone in this case).
+
+In the future, we want to allow people to set their language and have it automatically use the localized version, but for now we’re aiming to use the US title as the default.
+
+## What about franchise books, like “Brotherhood”, which is in the Star Wars universe?
+In this case, the official title of the book according to the publisher is “Star Wars: Brotherhood”, and we should use that.
+
+In other cases where there’s a series, we should leave it off unless it is part of the name (ex: Harry Potter and the Sorcerer's Stone). When left off (ex: The Fellowship of the Ring), we should make sure to set the featured series to be the primary series we know this title from (“The Lord of the Rings”).
+
+## What if the official title also has the series in it?
+This will depend on where and how the series is part of the title. If it’s b
+
+## How should we handle books with long titles with a “:” in them? Ex: “Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution”
+Set the title of this book to whatever the publisher named it. In this case, that would be “Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution”.
+
+On the book page, we’ll break the title up by “:” and wrap it into multiple lines if it has a very long title.
+<img src="/librarians/long-title-example.png" alt="Example of a long title on Hardcover" />
+
+For books with a very long title, but a smaller, well-known title, we should use the shorter title as the URL slug. This allows the book to live at the URL https://hardcover.app/books/babel while maintaining a longer name. Book slugs can only be edited by the original person who added the book, Adam and Jeff right now.
+
+### What about subtitle?
+You’ll notice there’s a field for subtitle in the edit book form. We currently do not use this field for anything. We do split the title into title and subtitle when creating books. For example:
+
+- Full title: “Wallet Activism: How to Use Every Dollar You Spend, Earn, and Save as a Force for Change”.
+- Title: “Wallet Activism: How to Use Every Dollar You Spend, Earn, and Save as a Force for Change”
+- Subtitle: “How to Use Every Dollar You Spend, Earn, and Save as a Force for Change”
+- Slug: “wallet-activism”
+
+
+## Is there a preferred file type for cover images?
+PNG and JPEG work the best. It shouldn’t have any transparency to it. We’ll convert this image to a webp file before we show it regardless of what you upload.
+
+## Is there a preferred file size? What dimensions qualify for red, yellow and green?
+The larger the cover the better! If you want to upload a 15mb file, go for it. We’ll resize it down and show a smaller version everywhere.
+
+The covers we show on Hardcover (as of March 22, 2024) max out at 200px wide by 300px high. Any smaller than that and we’ll show a blurry image due to resizing it up. Any covers you upload to Hardcover should be at least 300px wide by 450px high.
+
+We show three different quality scores for covers today. This is calculated using `height x width`.
+
+0 - 32,999: <Badge text="Bad Quality" variant="danger" /> (ex 133 x 200)
+
+33,000 - 99,999: <Badge text="Ok Quality" variant="caution" /> (ex: 200 x 300)
+
+100,000 +: <Badge text="Good Quality" variant="success" /> (ex: 300 x 450)
+
+We’d like to start showing larger covers on the book page, which will require more covers in the Great Quality range.
+
+## How do I merge books?
+On the book page, click the “Flag” dropdown and select “Mark as Duplicate”. This will open up a modal (or an overlay on mobile) that allows you to search for and select which book the current book is a duplicate of. Select that book and click button to mark it as a duplicate.
+
+If your access level is greater than the impact of the merge, it’ll be merged immediately. If you try to merge a popular book into another book, the merge will be sent to an admin to double check before being run. Once it’s run you’ll receive a notification.
+
+## Edition Standards
+### What's the difference between 'Edition Format' and 'Reading Format' when editing a book?
+On the edit edition form, we ask for both of these, but only “Reading Format” is required. Reading format has three options: “Audiobook”, “Physical Book” and “Ebook”.
+
+“Edition Format” is a text field that is used to elaborate on this specific edition. For example: “Hardcover”, “Mass market paperback”, “Full cast audiobook”, “Kickstarter Version”, etc.
+
+This represents that specific edition of the book, not where you accessed it from. It’s unlikely you’d put “Kindle Edition” here, unless this edition was originally created for Kindle and is different from other versions.
+
+When in doubt, and in most cases, you can leave this field blank.
+
+### What order should contributors be listed in?
+Add the primary authors in the same order as they appear on the cover of the book. For additional contributors (editors, illustrators, etc), those can be added in any order.
