@@ -21,51 +21,51 @@ Static assets, like favicons, can be placed in the `public/` directory.
 
 <FileTree>
     - public favicons and other static assets
-    - ...
+        - ...
     - src
-    - assets Images for doc pages
-    - ...
-    - components Custom components
-    - GraphQLExplorer
-    - GraphQLExplorer.astro Main file of the GraphQL Explorer component
-    - ...
-    - ui shadcn/ui components
-    - ...
-    - ...
-    - content
-    - docs mdx files that generates doc pages
-    - api
-    - GraphQL
-    - Schema Data schemas
-    - ...
-    - ...
-    - guides Guides and tutorials
-    - ...
-    - getting-started.mdx
-    - ...
-    - es Spanish translations
-    - api
-    - GraphQL
-    - Schema Data schemas
-    - ...
-    - guides Guides and tutorials
-    - ...
-    - getting-started.mdx
-    - ...
-    - ...
-    - fr French translations
-    - api
-    - GraphQL
-    - Schema Data schemas
-    - ...
-    - guides Guides and tutorials
-    - ...
-    - getting-started.mdx
-    - ...
-    - ...
-    - layouts Layouts for doc pages
-    - documentation.astro Main layout for doc pages
-    - ...
+        - assets Images for doc pages
+            - ...
+        - components Custom components
+            - GraphQLExplorer
+                - GraphQLExplorer.astro Main file of the GraphQL Explorer component
+                - ...
+            - ui shadcn/ui components
+                - ...
+            - ...
+        - content
+            - docs mdx files that generates doc pages
+                - api
+                    - GraphQL
+                        - Schema Data schemas
+                            - ...
+                    - ...
+                    - guides Guides and tutorials
+                        - ...
+                    - getting-started.mdx
+                    - ...
+                - es Spanish translations
+                    - api
+                        - GraphQL
+                            - Schema Data schemas
+                                - ...
+                        - guides Guides and tutorials
+                            - ...
+                        - getting-started.mdx
+                        - ...
+                    - ...
+                - fr French translations
+                    - api
+                        - GraphQL
+                            - Schema Data schemas
+                                - ...
+                        - guides Guides and tutorials
+                            - ...
+                        - getting-started.mdx
+                        - ...
+                    - ...
+        - layouts Layouts for doc pages
+            - documentation.astro Main layout for doc pages
+            - ...
     - astro.config.mjs Astro configuration file
     - components.json shadcn/ui components
     - CONTRIBUTING Contributing guidelines
@@ -73,46 +73,6 @@ Static assets, like favicons, can be placed in the `public/` directory.
     - tailwind.config.mjs Tailwind CSS configuration
     - ...
 </FileTree>
-
-
-### How do I run the project locally?
-
-#### 🚀 Quick Start
-
-1. **Clone the repo:**
-```bash
-git clone https://github.com/hardcoverapp/hardcover-docs.git
-```
-2. **Navigate to the project directory:**
-```bash
-cd hardcover-doc
-```
-3. **Install dependencies:**
- ```bash
- npm install
-  ```
-4. **Start the dev server:**
- ```bash
- npm run dev
-  ```
-5. **Open your browser**
-6. **Navigate to `http://localhost:4321`**
-
-#### 🧞 Commands
-
-The Hardcover documentation site is built with [Astro](https://astro.build/).
-All commands are run from the root of the project, from a terminal:
-
-| Command                              | Action                                           |
-|:-------------------------------------|:-------------------------------------------------|
-| `npm install`                        | Installs dependencies                            |
-| `npm run dev`                        | Starts local dev server at `localhost:4321`      |
-| `npm run build`                      | Build your production site to `./dist/`          |
-| `npm run preview`                    | Preview your build locally, before deploying     |
-| `npm run astro ...`                  | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help`            | Get help using the Astro CLI                     |
-| `npx vitest`                         | Run the unit tests for the project               |
-| `npx vitest --coverage.enabled true` | Run the unit tests with code coverage            |
 
 ### How do I add a new page or update an existing page?
 
@@ -159,50 +119,6 @@ layout: ../../layouts/documentation.astro
 ---
 ```
 
-#### Available Components
-
-In addition to the standard [Starlight - Components](https://starlight.astro.build/guides/components/), the Hardcover
-documentation site includes the following custom
-components:
-
-##### GraphQLExplorer
-
-This component allows a user to view GraphQL queries and experiment by running them against the API.
-
-**Import Path:**
-
-```js
-import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
-```
-
-**Parameters:**
-
-- `canTry` - A boolean value determining whether the user can run the query in the explorer. The default is `true`.
-- `description` - A string describing the query.
-- `forcePresentation` - A boolean value determining whether the presentation options should be hidden. The default is `false`.
-- `presentation` - The default presentation of the response, either `json` or `table`. The default is `json`.
-- `query` - A string containing the GraphQL query to be displayed in the explorer.
-- `title` - A string for the title of the query shown in the explorer. The default is `Example Query`. Change this when translating the page to another language.
-
-**Usage:**
-
-```mdx
-<GraphQLExplorer
-    query={query}
-    description="An example query"
-    presentation='table'
-    title="Example"
-/>
-```
-
-### How do I add a new language to the language dropdown?
-
-The root language should **not** be changed from English.
-To add a new language, see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
-
-When adding a new language,
-you should also update the existing translations in the astro config file to include the new language.
-
 ### How do I add a translation for an existing language?
 
 Once a language has been added to the astro config file you can create a new file in the `src/content/docs/` directory
@@ -212,10 +128,6 @@ For example, if you are translating the `src/content/docs/getting-started.mdx` f
 file at `src/content/docs/es/getting-started.mdx` with the Spanish translation of the content.
 
 ## Support Resources
-
-### Submitting a Bug Report
-
-### Requesting a Feature
 
 ### Finding Help on Discord
 Connect with us on [Discord](https://discord.gg/edGpYN8ym8)
