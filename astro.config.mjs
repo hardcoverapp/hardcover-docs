@@ -34,38 +34,41 @@ export default defineConfig({
         logo: {
             src: './src/assets/hardcover.svg'
         },
-        sidebar: [{
-            slug: 'getting-started',
-        },
+        sidebar: [
             {
-                autogenerate: {
-                    directory: 'guides'
-                },
-                label: 'Guides',
-                // translations: {
-                //     es: 'Guías',
-                //     fr: 'Guides'
-                // }
-            }, {
+                label: 'API Docs',
                 collapsed: true,
-                items: [{
-                    autogenerate: {
-                        directory: 'api/GraphQL/Schemas'
+                items: [
+                    {
+                        slug: 'api/getting-started',
                     },
-                    label: 'Schemas',
-                    // translations: {
-                    //     es: 'Esquemas',
-                    //     fr: 'Schémas'
-                    // }
-                }],
-                label: 'API Reference',
-                // translations: {
-                //     es: 'Referencia de la API',
-                //     fr: 'Référence de l\'API'
-                // }
+                    {
+                        slug: 'api/contributing',
+                    },
+                    {
+                        label: 'Guides',
+                        translations: {
+                            // fr: 'Guides',
+                            // es: 'Guías'
+                        },
+                        autogenerate: { directory: 'api/guides'},
+                        collapsed: true,
+                    },
+                    {
+                        label: 'Schemas',
+                        translations: {
+                            // fr: 'Schémas',
+                            // es: 'Esquemas'
+                        },
+                        autogenerate: { directory: 'api/GraphQL/Schemas'},
+                        collapsed: true,
+                    }
+                ]
             },
             {
-                slug: 'contributing',
+                label: 'Librarian Guides',
+                collapsed: true,
+                autogenerate: { directory: 'librarians'}
             }
         ],
         social: {
@@ -75,7 +78,7 @@ export default defineConfig({
             mastodon: 'https://mastodon.hardcover.app/@hardcover'
         },
         title: {
-            en: 'API Documentation',
+            en: 'Hardcover',
             // es: 'Documentación de la API',
             // fr: 'Documentation de l\'API'
         }
