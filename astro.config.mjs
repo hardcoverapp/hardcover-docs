@@ -51,7 +51,7 @@ export default defineConfig({
                             // fr: 'Guides',
                             // es: 'Guías'
                         },
-                        autogenerate: { directory: 'api/guides'},
+                        autogenerate: {directory: 'api/guides'},
                         collapsed: true,
                     },
                     {
@@ -60,7 +60,7 @@ export default defineConfig({
                             // fr: 'Schémas',
                             // es: 'Esquemas'
                         },
-                        autogenerate: { directory: 'api/GraphQL/Schemas'},
+                        autogenerate: {directory: 'api/GraphQL/Schemas'},
                         collapsed: true,
                     }
                 ]
@@ -68,7 +68,7 @@ export default defineConfig({
             {
                 label: 'Librarian Guides',
                 collapsed: true,
-                autogenerate: { directory: 'librarians'}
+                autogenerate: {directory: 'librarians'}
             }
         ],
         social: {
