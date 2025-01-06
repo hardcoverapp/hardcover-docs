@@ -4,96 +4,75 @@ category: guide
 lastUpdated: 2025-01-03 19:42:00
 layout: ../../../layouts/librarians.astro
 ---
-import { FileTree, Aside } from '@astrojs/starlight/components';
-
-<Aside type="caution" title="Work in Progress">
-    This page is largely a copy of the API contribution guide.<br />
-    It will be updated with librarian-specific information soon.
-</Aside>
 
 ## Librarian Contribution Guide
-
-### How is the project structured?
-
-#### File Structure
-
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory.
-Each file is exposed as a route based on its file name.
-
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
-
-Static assets, like favicons, can be placed in the `public/` directory.
-
-<FileTree>
-    - public favicons and other static assets
-        - ...
-    - src
-        - assets Images for doc pages
-            - ...
-        - components Custom components
-            - GraphQLExplorer
-                - GraphQLExplorer.astro Main file of the GraphQL Explorer component
-                - ...
-            - ui shadcn/ui components
-                - ...
-            - ...
-        - content
-            - docs mdx files that generates doc pages
-                - api
-                    - GraphQL
-                        - Schema Data schemas
-                            - ...
-                    - ...
-                    - guides Guides and tutorials
-                        - ...
-                    - getting-started.mdx
-                    - ...
-                - es Spanish translations
-                    - api
-                        - GraphQL
-                            - Schema Data schemas
-                                - ...
-                        - guides Guides and tutorials
-                            - ...
-                        - getting-started.mdx
-                        - ...
-                    - ...
-                - fr French translations
-                    - api
-                        - GraphQL
-                            - Schema Data schemas
-                                - ...
-                        - guides Guides and tutorials
-                            - ...
-                        - getting-started.mdx
-                        - ...
-                    - ...
-        - layouts Layouts for doc pages
-            - documentation.astro Main layout for doc pages
-            - ...
-    - astro.config.mjs Astro configuration file
-    - components.json shadcn/ui components
-    - CONTRIBUTING Contributing guidelines
-    - DEVELOPERS.md Developer FAQs
-    - tailwind.config.mjs Tailwind CSS configuration
-    - ...
-</FileTree>
-
 ### How do I add a new page or update an existing page?
 
 #### Adding a New Page
+1. Navigate to the [Hardcover Docs GitHub repository](https://github.com/hardcoverapp/hardcover-docs/)
+2. Navigate to the `src/content/docs/` directory.
+3. Navigate to the appropriate subdirectory for the page you want to add.
+4. Click the "Add file" button near the top right of the file list.
+5. Click the "Create new file" option.
+6. In the editor that opens, give the new file a meaningful name ending in `.mdx`, see the existing files for examples.
+7. Add the [frontmatter](#page-frontmater) to the new page using the template below.
+8. Provide the content for the new page using [Markdown](https://www.markdownguide.org/cheat-sheet/) or [MDX](https://mdxjs.com/guides/) syntax.
+9. Preview your changes for formatting and accuracy.
+10. Click the "Commit changes..." button at the top of the page.
+11. In the dialog that opens, provide a title and description for your changes.
+12. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
+13. Give your branch a short, descriptive name.
+14. Click the "Propose changes" button to save your changes.
+15. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have submitted a pull request.
+16. Wait for feedback and review from the Hardcover team.
+17. Make any requested changes.
+18. Once your pull request is approved, it will be merged into the main branch.
+19. Celebrate your contribution!
+20. Continue contributing to Hardcover!
 
-1. Create a new `.mdx` file in the `src/content/docs/` directory.
-2. Give the file a name that describes the content.
-3. Add [frontmatter](#page-frontmatter) to the top of the file.
-4. Add content to the file using Markdown or MDX syntax.
-5. Add the new page to the sidebar
- - If the page is part of the `api/GraphQL/Schema` or `guides` sections the sidebar will automatically update with the new page.
- - All other pages will need to be added to the astro config file
-see [Starlight - Add links and link groups](https://starlight.astro.build/guides/sidebar/#add-links-and-link-groups)
-for more information.
+#### Editing an Existing Page
+1. Using the UI navigate to the page, you want to edit.
+2. Click the "Edit page" button near the bottom of the content.
+3. In the GitHub page that opens, click the pencil icon on the top right of the file to start editing.
+4. Make your changes in the editor using [Markdown](https://www.markdownguide.org/cheat-sheet/) or [MDX](https://mdxjs.com/guides/) syntax.
+5. Update the [frontmatter](#page-frontmater) as needed using the template below, make sure to update the `lastUpdated` field.
+6. Preview your changes for formatting and accuracy.
+7. Click the "Commit changes..." button at the top of the page.
+8. In the dialog that opens, provide a title and description for your changes.
+9. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
+10. Give your branch a short, descriptive name.
+11. Click the "Propose changes" button to save your changes.
+12. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have submitted a pull request.
+13. Wait for feedback and review from the Hardcover team.
+14. Make any requested changes.
+15. Once your pull request is approved, it will be merged into the main branch.
+16. Celebrate your contribution!
+17. Continue contributing to Hardcover!
 
-##### Page Frontmatter
+### Adding Images
+Currently, images have to be added as a separate pull request. To add an image:
+
+1. Navigate to the [Hardcover Docs GitHub repository](https://github.com/hardcoverapp/hardcover-docs/)
+2. Navigate to the `public/images/` directory.
+3. Navigate to the appropriate subdirectory `api` or `librarians` depending on where the image will be used.
+4. Click the "Add file" button near the top right of the file list.
+5. Click the "Upload files" option.
+6. Drag and drop the image file(s) into the upload area.
+7. In the Commit changes section, provide a title and description for your changes.
+8. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
+9. Give your branch a short, descriptive name.
+10. Click the "Propose changes" button to save your changes.
+11. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have submitted a pull request.
+12. Wait for feedback and review from the Hardcover team.
+13. Make any requested changes.
+14. Once your pull request is approved, it will be merged into the main branch.
+15. After the image is merged, follow the steps in the [Editing an Existing Page](#editing-an-existing-page) section to add the image to and reference it using the relative path: `/images/subdirectory/your-image.png`.
+
+```md
+<img src="/images/librarians/long-title-example.png" alt="Example of a long title on Hardcover" />
+```
+
+### Page Frontmatter
 
 | Field           | Description                                                                                                                                                                             | Required    |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
@@ -112,7 +91,7 @@ for more information.
 | next            | Boolean value determining whether a next button should be shown. See [Starlight - Frontmatter Next](https://starlight.astro.build/reference/frontmatter/#next) for more information     | No          |
 | sidebar         | Control how the page is displayed in the sidebar. See [Starlight - Frontmatter Sidebar](https://starlight.astro.build/reference/frontmatter/#sidebarconfig) for more information        | No          |
 
-###### Example Frontmatter
+#### Example Frontmatter
 
 ```md
 ---
@@ -124,13 +103,10 @@ layout: ../../layouts/documentation.astro
 ---
 ```
 
-### How do I add a translation for an existing language?
-
-Once a language has been added to the astro config file you can create a new file in the `src/content/docs/` directory
-inside a folder named with the language code. This new file should have the same name as the original file you are translating.
-
-For example, if you are translating the `src/content/docs/getting-started.mdx` file into Spanish you would create a new
-file at `src/content/docs/es/getting-started.mdx` with the Spanish translation of the content.
+### Translation Support
+While we currently only support English, we are open to adding translations in the future.
+If you are interested in contributing translations, please reach out to the Hardcover team in the [#API](https://discord.com/channels/835558721115389962/1278040045324075050)
+or [#librarians](https://discord.com/channels/835558721115389962/1105918193022812282) channels on the [Hardcover Discord](https://discord.gg/edGpYN8ym8).
 
 ## Support Resources
 
