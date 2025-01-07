@@ -2,7 +2,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {Label} from "@/components/ui/label.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
-import {GRAPHQL_URL} from "@/Consts";
+import {URLS} from "@/Consts";
 import React, {useEffect, useState} from "react";
 import {LuCode, LuKeyRound, LuLoader, LuTable, LuTerminal} from "react-icons/lu";
 import {JSONResults} from "./JSONResults.tsx";
@@ -90,7 +90,7 @@ export const GraphQLRunner = (props: {
                 }
 
                 // Call the GraphQL endpoint with the query using fetch
-                fetch(GRAPHQL_URL, {
+                fetch(URLS.GRAPHQL_URL, {
                     method: 'POST', headers: {
                         'Content-Type': 'application/json',
                         'Authorization': authToken.startsWith('Bearer') ? authToken : `Bearer ${authToken}`

@@ -8,6 +8,7 @@ hero:
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
+import { URLS } from '@/Consts.js';
 
 
 <LinkCard title="Documentation Home"
@@ -17,6 +18,6 @@ import { LinkCard } from '@astrojs/starlight/components';
 
 <LinkCard title="Hardcover App"
           description="Go to the Hardcover app"
-          href="https://hardcover.app/"
+          href={URLS.APP}
           target="_blank"
 />

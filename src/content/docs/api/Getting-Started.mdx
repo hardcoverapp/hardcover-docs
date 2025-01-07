@@ -8,6 +8,7 @@ layout: ../../../layouts/documentation.astro
 
 import {Badge, Steps} from "@astrojs/starlight/components";
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import { URLS } from "@/Consts.js";
 
 ## Introduction
 Our API is accessible using GraphQL. The API that you can use is exactly the same API used by the website, iOS and Android apps.
@@ -21,11 +22,11 @@ We are currently looking for feedback on this API.
     1. Get your API key
     2. Make your first request
     3. Read the API references and Guides on this site
-    4. Build something awesome and share it with us on [Discord](https://discord.gg/edGpYN8ym8)!
+    4. Build something awesome and share it with us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>!
 </Steps>
 
 ## Getting Help
-If you have any questions or need help, please reach out to us on [Discord](https://discord.gg/edGpYN8ym8).
+If you have any questions or need help, please reach out to us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>.
 
 ## Getting an API Key
 To get an API token, you need to go to your account settings page and click on the "Hardcover API" link,

@@ -5,6 +5,8 @@ lastUpdated: 2025-01-06 16:01:00
 layout: ../../../layouts/librarians.astro
 ---
 
+import { URLS } from "@/Consts.js";
+
 # Librarian Contribution Guide
 ## Ways to Contribute
 We are currently looking for contributions in the following areas:
@@ -12,14 +14,16 @@ We are currently looking for contributions in the following areas:
 - API Documentation: Help us improve the API documentation by adding new pages or updating existing content.
 - API Guides: Share your knowledge by writing guides on how to use the Hardcover API.
 - Bug Fixes: Help us fix bugs in the documentation site.
-- Reporting Issues: Report any issues you encounter with the documentation site. [Create an Issue](https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=)
-- Feature Requests: Share your ideas for new features or improvements to the documentation site. [Suggest a Feature](https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=)
+- Reporting Issues: Report any issues you encounter with the documentation site. <a href={URLS.CREATE_ISSUE} target="_blank" rel="noreferrer noopener">Create Issue</a>
+- Feature Requests: Share your ideas for new features or improvements to the documentation site. [<a href={URLS.SUGGEST_FEATURE} target="_blank" rel="noreferrer noopener">Suggest Feature</a>
 - Librarian Guides: Share your expertise by writing guides on how to use the Librarian tools.
 
 ## Finding Something to Work On
 You can find issues to work on
-by looking at the [Issues Board](https://github.com/hardcoverapp/hardcover-docs/issues) on GitHub
-or by joining the [Hardcover Discord](https://discord.gg/edGpYN8ym8) and asking for suggestions in the [#API](https://discord.com/channels/835558721115389962/1278040045324075050) or [#librarians](https://discord.com/channels/835558721115389962/1105918193022812282) channels.
+by looking at the <a href={URLS.ISSUES} target="_blank" rel="noreferrer noopener">Issues Board</a> on GitHub
+or by joining the [Hardcover Discord](https://discord.gg/edGpYN8ym8) and asking for suggestions in the <a href={URLS.API_DISCORD} target="_blank"
+rel="noreferrer noopener">#API</a> or <a href={URLS.LIBRARIAN_DISCORD} target="_blank"
+rel="noreferrer noopener">#librarians</a> channels.
 
 ## Being a Good Contributor
 When contributing to Hardcover, please follow these guidelines:
@@ -36,7 +40,7 @@ When contributing to Hardcover, please follow these guidelines:
 
 ## How do I add a new page or update an existing page?
 ### Adding a New Page
-1. Navigate to the [Hardcover Docs GitHub repository](https://github.com/hardcoverapp/hardcover-docs/)
+1. Navigate to the <a href={URLS.GITHUB} target="_blank" rel="noreferrer noopener">Hardcover Docs GitHub</a>
 2. Navigate to the `src/content/docs/` directory.
 3. Navigate to the appropriate subdirectory for the page you want to add.
 4. Click the "Add file" button near the top right of the file list.
@@ -50,7 +54,7 @@ When contributing to Hardcover, please follow these guidelines:
 12. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
 13. Give your branch a short, descriptive name.
 14. Click the "Propose changes" button to save your changes.
-15. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have submitted a pull request.
+15. Notify the Hardcover team, namely `@revelry` in the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> that you have submitted a pull request.
 16. Wait for feedback and review from the Hardcover team.
 17. Make any requested changes.
 18. Once your pull request is approved, it will be merged into the main branch.
@@ -69,7 +73,7 @@ When contributing to Hardcover, please follow these guidelines:
 9. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
 10. Give your branch a short, descriptive name.
 11. Click the "Propose changes" button to save your changes.
-12. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have submitted a pull request.
+12. Notify the Hardcover team, namely `@revelry` in the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> that you have submitted a pull request.
 13. Wait for feedback and review from the Hardcover team.
 14. Make any requested changes.
 15. Once your pull request is approved, it will be merged into the main branch.
@@ -79,7 +83,7 @@ When contributing to Hardcover, please follow these guidelines:
 ## Adding Images
 Currently, images have to be added as a separate pull request. To add an image:
 
-1. Navigate to the [Hardcover Docs GitHub repository](https://github.com/hardcoverapp/hardcover-docs/)
+1. Navigate to the <a href={URLS.GITHUB} target="_blank" rel="noreferrer noopener">Hardcover Docs Github</a>
 2. Navigate to the `public/images/` directory.
 3. Navigate to the appropriate subdirectory `api` or `librarians` depending on where the image will be used.
 4. Click the "Add file" button near the top right of the file list.
@@ -89,7 +93,7 @@ Currently, images have to be added as a separate pull request. To add an image:
 8. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
 9. Give your branch a short, descriptive name.
 10. Click the "Propose changes" button to save your changes.
-11. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have submitted a pull request.
+11. Notify the Hardcover team, namely `@revelry` in the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> that you have submitted a pull request.
 12. Wait for feedback and review from the Hardcover team.
 13. Make any requested changes.
 14. Once your pull request is approved, it will be merged into the main branch.
@@ -132,10 +136,12 @@ layout: ../../layouts/documentation.astro
 
 ## Translation Support
 While we currently only support English, we are open to adding translations in the future.
-If you are interested in contributing translations, please reach out to the Hardcover team in the [#API](https://discord.com/channels/835558721115389962/1278040045324075050)
-or [#librarians](https://discord.com/channels/835558721115389962/1105918193022812282) channels on the [Hardcover Discord](https://discord.gg/edGpYN8ym8).
+If you are interested in contributing translations,
+please reach out to the Hardcover team in the <a href={URLS.API_DISCORD} target="_blank" rel="noreferrer noopener">#API</a>
+or <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> channels on the <a href={URLS.DISCORD} target="_blank"
+rel="noreferrer noopener">Hardcover Discord</a>.
 
 ## Support Resources
 
 ### Finding Help on Discord
-Connect with us on [Discord](https://discord.gg/edGpYN8ym8)
+Connect with us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>

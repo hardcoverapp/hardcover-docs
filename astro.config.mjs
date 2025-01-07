@@ -4,6 +4,8 @@ import tailwind from '@astrojs/tailwind';
 
 import react from "@astrojs/react";
 
+import { URLS } from './src/Consts';
+
 // https://astro.build/config
 export default defineConfig({
     favicon: './src/assets/hardcover.svg',
@@ -72,10 +74,10 @@ export default defineConfig({
             }
         ],
         social: {
-            discord: 'https://discord.gg/edGpYN8ym8',
-            github: 'https://github.com/hardcoverapp/hardcover-docs/tree/main',
-            instagram: 'https://instagram.com/hardcover.app',
-            mastodon: 'https://mastodon.hardcover.app/@hardcover'
+            discord: URLS.DISCORD,
+            github: URLS.GITHUB,
+            instagram: URLS.INSTAGRAM,
+            mastodon: URLS.MASTODON,
         },
         title: {
             en: 'Hardcover',
@@ -85,5 +87,5 @@ export default defineConfig({
     }), tailwind({
         applyBaseStyles: false
     }), react()],
-    site: 'https://docs.hardcover.app'
+    site: URLS.DOCS
 });

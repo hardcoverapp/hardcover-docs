@@ -1,14 +1,15 @@
 ---
 import type {Props} from '@astrojs/starlight/props';
 import Default from '@astrojs/starlight/components/SocialIcons.astro';
+import { URLS } from '@/Consts';
 
 const {iconSize = '16px'} = Astro.props;
 ---
 
-<!-- Unfortunately the default Social Icons component doesn't have any support for app stores or svg icons,
+<!-- Unfortunately, the default Social Icons component doesn't have any support for app stores or svg icons,
 so we'll need to create our own. -->
 
-<a href="https://hardcover.app/" rel="me" class="sl-flex" target="_blank">
+<a href={URLS.APP} rel="me" class="sl-flex" target="_blank">
     <span class="sr-only">Hardcover</span>
 
     <svg xmlns="http://www.w3.org/2000/svg" class="w-9 transition-all duration-300 group-hover:rotate-12" fill="none"
@@ -48,7 +49,7 @@ so we'll need to create our own. -->
     </svg>
 </a>
 
-<a href="https://apps.apple.com/us/app/hardcover-app/id1663379893" rel="me" class="sl-flex" target="_blank">
+<a href={URLS.APP_STORE} rel="me" class="sl-flex" target="_blank">
     <span class="sr-only">App Store</span>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="1em" height="1em" fill="currentColor"
          role="img" aria-labelledby="appleSvgTitle appleSvgDescription">
@@ -64,7 +65,7 @@ so we'll need to create our own. -->
     </svg>
 </a>
 
-<a href="https://play.google.com/store/apps/details?id=hardcover.app" rel="me" class="sl-flex" target="_blank">
+<a href={URLS.PLAY_STORE} rel="me" class="sl-flex" target="_blank">
     <span class="sr-only">Google Play</span>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="1em" height="1em" fill="currentColor"
          role="img" aria-labelledby="googleSvgTitle googleSvgDescription">
