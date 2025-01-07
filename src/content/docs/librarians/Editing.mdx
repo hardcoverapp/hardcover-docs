@@ -2,21 +2,20 @@
 title: Editing FAQ
 description: Frequently asked questions for editing books / editions.
 category: guide
-lastUpdated: 2025-01-04 23:21:00
+lastUpdated: 2025-01-07 08:00:00
 layout: ../../../layouts/librarians.astro
 ---
 
 ## General
-### What is the authoratative source for book descriptions / other information?
-In order of preference:
-1. Publisher
-2. Author Official Website
-3. BookBub / WorldCat
-4. Bookstore (Barnes & Noble, Amazon, etc)
-5. Other Book Site (Open Library, Google Books, etc)
+### How do I add a book if I can't find it on Hardcover?
+If you search for a book and don’t see it in the results, head over to the Add Book to Hardcover page. On there you can add a book by ISBN 10, ISBN 13 or Goodreads ID. This is the best place to start, since there’s a chance the book wasn’t showing up in search for a number of reasons (the top being that this search cache out of date, this book has recently been manually added by a user and hasn’t been approved).
 
-### My update didn’t work? What’s going on?
-This is a bug Adam’s currently working on getting to the bottom of. If you run into this, you can either skip that book for now, or start a thread in the librarian channel with as much information as possible to help reproduce the error (link to the page you were editing, what fields you changed).
+If this book doesn’t have an ISBN and isn’t on Goodreads, then you can head over to the New Edition form. This will create a new Book with this as the one new edition for it. When librarians add books using this form they’ll show up for everyone right away. When guests and non-librarians add books using this form they’ll have a “user added” boolean added to that book behind the scenes that prevents it from showing up in search.
+
+### How do I merge books?
+On the book page, click the “Flag” dropdown and select “Mark as Duplicate”. This will open up a modal (or an overlay on mobile) that allows you to search for and select which book the current book is a duplicate of. Select that book and click button to mark it as a duplicate.
+
+If your access level is greater than the impact of the merge, it’ll be merged immediately. If you try to merge a popular book into another book, the merge will be sent to an admin to double check before being run. Once it’s run you’ll receive a notification.
 
 ### When combining duplicate books/series/authors, which version should you keep?
 In the case of Authors, series and characters, keep the one with the canonical English name.
@@ -30,6 +29,19 @@ Check to make sure the file is not a webp (sometimes webp files from publishers 
 ### An ISBN is already in use incorrectly on another edition
 Remove the ISBN from the wrong book using the "Hard Reset" button, then add it to the correct edition.
 
+### What's the difference between 'Edition Format' and 'Reading Format' when editing a book?
+On the edit edition form, we ask for both of these, but only “Reading Format” is required. Reading format has three options: “Audiobook”, “Physical Book” and “Ebook”.
+
+“Edition Format” is a text field that is used to elaborate on this specific edition. For example: “Hardcover”, “Mass market paperback”, “Full cast audiobook”, “Kickstarter Version”, etc.
+
+This represents that specific edition of the book, not where you accessed it from. It’s unlikely you’d put “Kindle Edition” here, unless this edition was originally created for Kindle and is different from other versions.
+
+When in doubt, and in most cases, you can leave this field blank.
+
 ## Series
 ### Series book count numbers low or thumbnails missing from series on author/book pages
 The series book count and series previews only consider books with a published date. Check to make sure that at least one edition for all books in the series has a valid published date.
+
+## Other
+### My update didn’t work? What’s going on?
+If you run into a bug, or start a thread in the bugs and questions channel with as much information as possible to help reproduce the error (link to the page you were editing, what fields you changed).
