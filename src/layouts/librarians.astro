@@ -1,7 +1,9 @@
 ---
-import {Aside, Badge} from '@astrojs/starlight/components';
+import {Badge} from '@astrojs/starlight/components';
 import {uCFirst} from "@/lib/utils";
 import type {FrontmatterConfig} from '@/types';
+
+import { LibrarianBanners } from '@/components/LibrarianBanners';
 
 const {
     author,
@@ -39,5 +41,7 @@ const {
             <Badge text={uCFirst(category)} variant="note" class="w-fit"/>
     )}
 </div>
+
+<LibrarianBanners client:only="react" />
 
 <slot/>
