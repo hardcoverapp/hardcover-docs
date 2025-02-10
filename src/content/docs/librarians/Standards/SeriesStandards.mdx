@@ -2,7 +2,7 @@
 title: Series Standards
 description: Standards for adding and editing series in Hardcover.
 category: guide
-lastUpdated: 2025-01-07 08:00:00
+lastUpdated: 2025-02-08 09:57:47
 layout: ../../../../layouts/librarians.astro
 ---
 
@@ -10,6 +10,12 @@ layout: ../../../../layouts/librarians.astro
 For multiple series with the same name, adjust the additional series as follows:
   - Append `(Author Name)` to the series name 
   - Append `-AuthorName` to the slug
+
+When a series has been adapted into a different format (e.g., a manga that was novelized), we create a separate series for the adaptation:
+  - The source format retains the series name (e.g., `The Summer Hikaru Died`)
+  - For the adaptation, append `(Format)` to the series name (e.g., `The Summer Hikaru Died (Light Novel)`
+  - For the adaptation, append `-format` to the slug (e.g., `the-summer-hikaru-died-lightnovel`)
+
 
 ## Publisher Collections (E.g., Penguin Little Black Classics)
 For publisher or other collections where only a specific edition of a book is part of the series, a Hardcover series should not be created. The book may be instead added to a list.
