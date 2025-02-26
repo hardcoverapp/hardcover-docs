@@ -1,0 +1,111 @@
+---
+title: Comic Standards
+description: Standards for adding and editing comics in Hardcover.
+category: guide
+lastUpdated: 2025-01-07 13:00:00
+layout: ../../../../../layouts/librarians.astro
+---
+
+# Comic Books
+## Book Title
+### Individual Issue
+
+`{Series} #{Num}: {Title}`
+
+    <details>
+        <summary>Examples:</summary>
+        The Sandman #1: Sleep of the Just
+
+        Sage #50
+
+        The Amazing Spider-Man #92
+    </details>
+
+### Trade Paperbacks (TPB / TP)
+
+`{Series}, Vol. {num}: {Title}`
+
+    <details>
+        <summary>Examples:</summary>
+        The Sandman, Vol. 1: Preludes & Nocturnes
+
+        Saga, Vol. 10
+
+        The Amazing Spider-Man, Vol. 5
+    </details>
+
+### Other Collections (Hardcover, Omnibus, Book, etc)
+
+`{Series}: {Collection Title}`
+
+    <details>
+        <summary>Examples:</summary>
+        The Sandman: Book One
+
+        Saga: Book Three Deluxe HC
+
+        The Amazing Spider-Man: Omnibus Vol. 1
+    </details>
+
+Issue / Volume Numbers are not added to One Shots / Standalones that do not have multiple works in the series.
+
+Title is optional for individual issues or TPBs as not all works include them but should generally follow how the publisher lists the work. If a title is used on one book, it should be included for all books in the series.
+
+Publication years are not added to book names unless explicitly part of the series or title from the publisher as this information in included in the series name displayed above the book.
+
+    <details>
+        <summary>Examples:</summary>
+        The Amazing Spider-Man (2018) #92 -> The Amazing Spider-Man #92
+
+        Abbott: 1979 -> Abbott: 1979
+    </details>
+
+# Comic Series
+
+## Series Titles
+
+### Issues
+
+`{Series} ({Year})`
+
+    <details>
+        <summary>Examples:</summary>
+        Saga
+
+        The Amazing Spider-Man (2018-2022)
+
+        The Amazing Spider-Man (2022-)
+    </details>
+
+### Trade Paperbacks
+
+`{Series} ({Year}) (TPBs)`
+
+    <details>
+        <summary>Examples:</summary>
+        The Sandman (TBPs)
+
+        The Amazing Spider-Man (2012-2022) (TBP)
+    </details>
+
+### Other Collections (Hardcover, Omnibus, Book, etc)
+
+`{Series} ({Year}) (Collection Name)`
+
+    <details>
+        <summary>Examples:</summary>
+        Saga (Compendiums)
+    </details>
+
+The "primary" series (aka the series name with no additional qualifiers in the name and the shortest slug) is the most regularly released format of the series. For series that release in issues, the issues would be the primary series. If a series is released only in TPBs or Volumes, this would be the primary series.
+
+Year is an optional field used to differentiate different comic runs under the same series name. Years for series names should use the full range of the series for completed runs or the first year and a hypen for ongoing runs.
+
+    <details>
+        <summary>Examples:</summary>
+        Wonder Woman (1987-2006)
+
+        Wonder Woman (2003-)
+    </details>
+
+Collections of works (such as TBPs for series released as issues and all other collections) should be marked as a "Compilation" with the contained issues added. The collections should be added as a "Featured" series of that format of work but not to any of the series of the books comprising the collection (E.g., The Sandman: Book Two would be added as the second item in "The Sandman (Books)" but not to "The Sandman" or "Vertigo: Winder's Edge").

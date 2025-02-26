@@ -1,0 +1,50 @@
+---
+title: Getting Book Details
+category: guide
+lastUpdated: 2024-12-29 22:49:00
+layout: ../../../../../layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+
+## Related Schemas
+- [Books](/api/graphql/schemas/books)
+- [Editions](/api/graphql/schemas/editions)
+
+## Getting All Editions of a Book
+### Example Request
+<GraphQLExplorer query={`
+query GetEditionsFromTitle {
+    editions(where: {title: {_eq: "Oathbringer"}}) {
+        id
+        title
+        edition_format
+        pages
+        release_date
+        isbn_10
+        isbn_13
+        publisher {
+            name
+        }
+    }
+}
+`} description='Get all of the editions for the specific title of `Oathbringer`' presentation='json' forcePresentation />
+
+## Getting Details of a Specific Edition
+### Example Request
+<GraphQLExplorer query={
+`query GetSpecificEdition {
+    editions(where: {id: {_eq: 21953653}}) {
+        book {
+            title
+            release_date
+            slug
+            subtitle
+            contributions {
+                author {
+                    name
+                }
+            }
+        }
+    }
+}`} description='Get the details of the specific edition of Oathbringer as a physical book published by Tor'/>

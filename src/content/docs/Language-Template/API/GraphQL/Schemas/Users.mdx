@@ -1,0 +1,144 @@
+---
+title: Users
+category: reference
+lastUpdated: 2024-09-25
+layout: ../../../../../../layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+
+## What is a User?
+
+Users are the people who use the Hardcover platform.
+Users can perform actions like adding books to their shelves, following other users, and writing reviews.
+
+## User Schema
+
+The user schema contains the following fields:
+
+### Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>String</td>
+        <td>The unique identifier of the user</td>
+    </tr>
+    <tr>
+        <td>username</td>
+        <td>String</td>
+        <td>The username of the user</td>
+    </tr>
+    <tr>
+        <td>birthdate</td>
+        <td>String</td>
+        <td>The birthdate of the user</td>
+    </tr>
+    <tr>
+        <td>books_count</td>
+        <td>Int</td>
+        <td>The number of books the user has added</td>
+    </tr>
+    <tr>
+        <td>flair</td>
+        <td>String</td>
+        <td>The flair of the user</td>
+    </tr>
+    <tr>
+        <td>followers_count</td>
+        <td>Int</td>
+        <td>The number of followers the user has</td>
+    </tr>
+    <tr>
+        <td>followed_users_count</td>
+        <td>Int</td>
+        <td>The number of users the user follows</td>
+    </tr>
+    <tr>
+        <td>location</td>
+        <td>String</td>
+        <td>The location of the user</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>The name of the user</td>
+    </tr>
+    <tr>
+        <td>pro</td>
+        <td>Boolean</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>pronoun_personal</td>
+        <td>String</td>
+        <td>The personal pronoun of the user</td>
+    </tr>
+    <tr>
+        <td>pronoun_possessive</td>
+        <td>String</td>
+        <td>The possessive pronoun of the user</td>
+    </tr>
+    <tr>
+        <td>sign_in_count</td>
+        <td>Int</td>
+        <td>The number of times the user has signed in</td>
+    </tr>
+    </tbody>
+</table>
+
+## Related Schemas
+
+- me &mdash; The currently authenticated user
+
+## Example Queries
+
+### Get my user information
+<GraphQLExplorer query={`
+query {
+      me {
+            id
+            username
+            birthdate
+            books_count
+            flair
+            followers_count
+            followed_users_count
+            location
+            name
+            pro
+            pronoun_personal
+            pronoun_possessive
+            sign_in_count
+      }
+}`} description={`Get information for the current user`}/>
+
+### Get a User by ID
+
+<GraphQLExplorer query={`
+query {
+    users(where: {id: {_eq: "1"}}, limit: 1) {
+        id,
+        username
+    }
+}
+`}/>
+
+### Get a User by Username
+
+<GraphQLExplorer query={`
+query {
+    users(where: {username: {_eq: "adam"}}, limit: 1) {
+        id,
+        username
+    }
+}
+`}/>

@@ -1,0 +1,23 @@
+---
+title: Welcome to the Hardcover docs!
+description: Get started contributing to Hardcover
+template: splash
+hero:
+    title: Welcome to the Hardcover docs!
+    tagline: Get started contributing to Hardcover
+    image:
+        file: ../../../assets/hardcover.svg
+        alt: Hardcover logo
+    actions:
+        - text: API Docs
+          link: ./api/getting-started
+          variant: primary
+        - text: Librarian Guides
+          link: ./librarians/faq
+          variant: primary
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+import { URLS } from '@/Consts';
+
+<LinkCard title="Return to Hardcover App" href={URLS.APP} target="_blank" rel="noreferrer noopener" />
