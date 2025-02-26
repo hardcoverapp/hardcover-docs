@@ -59,15 +59,6 @@ export default defineConfig({
                         }
                     },
                     {
-                        slug: 'api/contributing',
-                        translations: {
-                            es: 'Contribuir',
-                            fr: 'Contribuer',
-                            it: 'Contribuire',
-                            pl: 'Współpraca'
-                        }
-                    },
-                    {
                         label: 'Guides',
                         translations: {
                             es: 'Guías',
@@ -90,6 +81,17 @@ export default defineConfig({
                         collapsed: true,
                     }
                 ]
+            },
+            {
+                label: 'Contributing Guides',
+                collapsed: true,
+                autogenerate: {directory: 'contributing'},
+                translations: {
+                    es: 'Guías de contribución',
+                    fr: 'Guides de contribution',
+                    it: 'Guide alla contribuzione',
+                    pl: 'Przewodniki dla współtwórców'
+                }
             },
             {
                 label: 'Librarian Guides',
