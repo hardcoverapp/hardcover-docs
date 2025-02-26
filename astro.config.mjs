@@ -20,10 +20,10 @@ export default defineConfig({
         },
         lastUpdated: true,
         locales: {
-            // 'fr': {
-            //     label: 'Français',
-            //     lang: 'fr'
-            // },
+             'fr': {
+                 label: 'Français',
+                 lang: 'fr'
+             },
             root: {
                 label: 'English',
                 lang: 'en'
@@ -50,7 +50,7 @@ export default defineConfig({
                     {
                         label: 'Guides',
                         translations: {
-                            // fr: 'Guides',
+                             fr: 'Guides',
                             // es: 'Guías'
                         },
                         autogenerate: {directory: 'api/guides'},
@@ -59,7 +59,7 @@ export default defineConfig({
                     {
                         label: 'Schemas',
                         translations: {
-                            // fr: 'Schémas',
+                             fr: 'Schémas',
                             // es: 'Esquemas'
                         },
                         autogenerate: {directory: 'api/GraphQL/Schemas'},
