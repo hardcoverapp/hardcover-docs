@@ -1,0 +1,113 @@
+---
+title: Getting Started with the API
+description: Get started with the Hardcover GraphQL API.
+category: guide
+lastUpdated: 2025-01-02 17:03:00
+layout: ../../../layouts/documentation.astro
+---
+
+import {Badge, Steps} from "@astrojs/starlight/components";
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import { URLS } from "@/Consts.js";
+
+## Introduction
+Our API is accessible using GraphQL. The API that you can use is exactly the same API used by the website, iOS and Android apps.
+This means that you can build your own tools and services that interact with the same data that you see on the website.
+
+The API is currently in beta, and we are actively working on it.
+We are currently looking for feedback on this API.
+
+### Getting Started Quick Guide
+<Steps>
+    1. Get your API key
+    2. Make your first request
+    3. Read the API references and Guides on this site
+    4. Build something awesome and share it with us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>!
+</Steps>
+
+## Getting Help
+If you have any questions or need help, please reach out to us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>.
+
+## Getting an API Key
+To get an API token, you need to go to your account settings page and click on the "Hardcover API" link,
+the token will be available at the top of the page.
+
+API tokens are not meant to be shared, and should be kept private, as they can be used to access your account and data.
+
+After you have your token, you can start making requests to the API.
+
+## Making Your First Request
+After you have your token, you can head over to the [GraphQL console](https://cloud.hasura.io/public/graphiql?endpoint=https://api.hardcover.app/v1/graphql).
+Next, add a header just called "authorization" (no quotes) with your token as the value.
+
+Tab out of the field, and you should see a list of available resources.
+
+### Example Request
+To test that it's working, go to the `Try it Yourself` tab below
+- Add your token to the `Authorization Token` field.
+- Then click the `Run Query` button.
+
+You should see your user ID and username in the Results section.
+
+<GraphQLExplorer query={`
+query {
+    me {
+        id,
+        username
+    }
+}
+`}/>
+
+## API Response Codes
+The API will return the following response codes:
+
+| Code | Description                                                  | Example Body                                |
+|------|--------------------------------------------------------------|---------------------------------------------|
+| 200  | The request was successful                                   |                                             |
+| 401  | Expired or invalid token                                     | `{ error: "Unable to verify token" }`       |
+| 403  | User does not have access to the requested resource or query | `{ error: "Message describing the error" }` |
+| 404  | Not Found                                                    |                                             |
+| 429  | Too Many Requests, try again later                           | `{ error: "Throttled" }`                    |
+| 500  | Internal Server Error                                        | `{ error: "An unknown error occurred" }`    |
+
+## Important Notes About the Hardcover API
+- The API is still heavily in flux right now. Anything you build using it could break in the future.
+- We may reset tokens without notice while in beta.
+- The same ownership rights exist for this as anything on the site.
+You own your data.
+This means you can't use the API
+to access and use someone else's data.
+- This API is running the same as if you were using the browser. Any actions you take will be under your user.
+- #### <span style="color:red">Don't share your token! Someone could delete your account with it.</span>
+- This should only be used from a code backend — never from a browser.
+- This is only for offline use at this time.
+You can only access this API from localhost or APIs.
+Later on, we hope to
+allow developers to join a group that allowlists specific sites, but that's a way down the line.
+
+## Limitations
+- API tokens automatically expire after 1 year, and reset on January 1st.
+- <Badge text="Dec 2024" variant="success" /> API is rate-limited to 60 requests per minute.
+- <Badge text="Dec 2024" variant="success" /> The following queries are disabled:
+    - `_like`
+    - `_nlike`
+    - `_ilike`
+    - `_niregex`
+    - `_nregex`
+    - `_iregex`
+    - `_regex`
+    - `_nsimilar`
+    - `_similar`
+- <Badge text="Dec 2024" variant="success" /> Queries have a max timeout of 30 seconds.
+- <Badge text="Dec 2024" variant="success" /> Queries are not allowed to run in the browser, they must be run in an environment where the token can be kept secure.
+- <Badge text="Feb 2025" variant="caution" /> Queries have a maximum depth of 3.
+- <Badge text="Feb 2025" variant="caution" /> Queries are limited to your own user data, public data, and user data of users you follow.
+- <Badge text="Early 2025" variant="note" /> OAuth support will be added for external applications.
+
+## Want to Contribute?
+We are actively looking for contributors to help us improve the API documentation.
+
+For more information about how to contribute to the API Documentation, please see the [Contributing Guide](/api/contributing).
+
+## Further Reading
+- [GraphQL API Reference](https://graphql.org/learn/)

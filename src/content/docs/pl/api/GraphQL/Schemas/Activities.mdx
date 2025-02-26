@@ -1,0 +1,319 @@
+---
+title: Activities
+description: Learn about the activities schema in the Hardcover API.
+category: reference
+lastUpdated: 2024-10-07
+layout: ../../../../../layouts/documentation.astro
+---
+
+import {Code} from '@astrojs/starlight/components';
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+
+## What is an Activity?
+
+Activities are actions that users perform on the platform.
+These actions include things like liking a book, following a user, or adding a book to a shelf.
+Activities are used to show what users are doing on the platform and to help users discover new content.
+
+## Types of Activities
+
+There are many types of activities that can be performed on the platform.
+Some examples of activities include:
+
+- A user adds a book to a shelf
+- A user creates a list
+- A user adds a book to a list
+- A user reviews a book
+- A user marks a book as read
+- A user answers a prompt
+
+See some [example payloads below](#example-payloads) for more information on the different types of activities.
+
+## Activity Schema
+
+The activity schema contains the following fields:
+
+### Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>[book](../books)</td>
+        <td>Relation</td>
+        <td>The book details of the activity</td>
+    </tr>
+    <tr>
+        <td>book_id</td>
+        <td>String</td>
+        <td>The unique identifier of the book that the activity is related to</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>String</td>
+        <td>The timestamp of when the activity occurred.</td>
+    </tr>
+    <tr>
+        <td>[data](#example-payloads)</td>
+        <td>Object</td>
+        <td>The payload of the activity</td>
+    </tr>
+    <tr>
+        <td>[event](#event-types)</td>
+        <td>String</td>
+        <td>The type of activity</td>
+    </tr>
+    <tr>
+        <td>[followers](../users)</td>
+        <td>Relation</td>
+        <td>List of users who have followed this activity</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>String</td>
+        <td>The unique identifier of the activity</td>
+    </tr>
+    <tr>
+        <td>[likes](../users)</td>
+        <td>Relation</td>
+        <td>List of users who have liked this activity</td>
+    </tr>
+    <tr>
+        <td>likes_count</td>
+        <td>Number</td>
+        <td>The number of users who have liked this activity</td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String</td>
+        <td>'Activity'</td>
+    </tr>
+    <tr>
+        <td>[user](../users)</td>
+        <td>Relation</td>
+        <td>User object for the user who performed the activity</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>String</td>
+        <td>The unique identifier of the user who performed the activity</td>
+    </tr>
+    </tbody>
+</table>
+
+### Related Schemas
+These schemas use the same fields as the activities schema, and are used to help filter and query the activities.
+
+- activity_feed
+- activity_foryou_feed
+
+### Event Types
+- GoalActivity
+- ListActivity
+- PromptActivity
+- UserBookActivity
+
+### Example Payloads
+
+#### User added a rating to a book
+<Code
+    code={`
+      {
+        "id": 3,
+        "event": "UserBookActivity",
+        "data": {
+          "userBook": {
+            "rating": "4.5",
+            "review": null,
+            "statusId": 3,
+            "readingFormatId": 1,
+            "reviewHasSpoilers": false
+          }
+        },
+        "book_id": 10257,
+        "object_type": "Activity"
+      }
+`}
+    lang="graphql"
+    title="UserBookActivity"
+/>
+
+#### User started reading a book
+<Code
+    code={`
+      {
+        "id": 4,
+        "event": "UserBookActivity",
+        "data": {
+          "userBook": {
+            "rating": null,
+            "review": "",
+            "statusId": 1,
+            "readingFormatId": 1,
+            "reviewHasSpoilers": false
+          }
+        },
+        "book_id": 10257,
+        "object_type": "Activity"
+      }
+`}
+    lang="graphql"
+    title="User Started Reading"
+/>
+
+#### User added a review to a book
+<Code
+    code={`
+    {
+        "id": 1234,
+        "event": "UserBookActivity",
+        "data": {
+          "userBook": {
+            "rating": "4.5",
+            "review": "This is a great book!",
+            "statusId": 3,
+            "readingFormatId": 1,
+            "reviewHasSpoilers": false
+          }
+        },
+        "book_id": 10257,
+        "object_type": "Activity"
+      }
+    }
+`}
+    lang="graphql"
+    title="User Added Review"
+/>
+
+#### Goal Activity
+<Code
+    code={`
+    {
+        "data": {
+          "goal": {
+            "id": 12345,
+            "goal": 40,
+            "metric": "book",
+            "endDate": "2024-12-31",
+            "progress": 30,
+            "startDate": "2024-01-01",
+            "conditions": {},
+            "description": "2024 Reading Goal",
+            "percentComplete": 0.75,
+            "privacySettingId": 1
+          }
+        },
+        "event": "GoalActivity",
+        "object_type": "Activity"
+     },
+    }
+`}
+    lang="graphql"
+    title="Goal Activity"
+/>
+
+#### List Activity
+<Code
+    code={`
+      {
+        "data": {
+          "list": {
+            "id": 1234,
+            "url": null,
+            "name": "Owned",
+            "path": "@user/lists/owned",
+            "ranked": false,
+            "featured": false,
+            "listBooks": [
+              {
+                "book": ... See Book schema,
+                "position": null,
+                "updatedAt": "2024-09-23T23:58:14.027Z"
+              }
+            ],
+            "updatedAt": "2024-09-23T23:58:14.040Z",
+            "booksCount": 1,
+            "description": "Any editions of books you've marked as 'owned' will show up in this list.",
+            "followersCount": 0,
+            "privacySettingId": 1
+          }
+        },
+      },
+      "event": "ListActivity",
+      "object_type": "Activity",
+      "book_id": 1108457
+    }
+}`}
+    lang="graphql"
+    title="List Activity"
+/>
+
+#### Prompt Activity
+<Code
+    code={`
+    {
+        "data": {
+          "prompt": {
+            "id": 1,
+            "slug": "what-are-your-favorite-books-of-all-time",
+            "user": {
+                ... See User schema
+            },
+            "answers": [{
+                "book": ... See Book schema
+              }
+            ],
+            "question": "What are your favorite books of all time?",
+            "description": "What are some of your favorites? These can be from any time of your life."
+          }
+        },
+        "event": "PromptActivity",
+        "object_type": "Activity",
+        "book_id": 370893
+    }
+`}
+    lang="graphql"
+    title="Prompt Activity"
+/>
+
+## Example Queries
+
+Let's take a look at some example queries that you can use to interact with the activities' schema.
+
+### Get My Activities
+<GraphQLExplorer query={`
+{
+    activities(where: {user_id: {_eq: ##USER_ID##}}, limit: 10) {
+        event
+        likes_count
+        book_id
+        created_at
+    }
+}
+`} description={`
+    This query will return a list of 10 activities that the current user has performed.
+`} presentation='table'/>
+
+### Get Activities for a specific Book
+<GraphQLExplorer query={`
+{
+      activities(
+            order_by: {created_at: desc}
+            where: {book_id: {_eq: 10257}, event: {_eq: "UserBookActivity"}}
+            limit: 10
+      ) {
+            data
+            event
+            object_type
+            book_id
+      }
+}
+`} description={`
+    This query will return a list of 10 activities that have occurred for a specific book.
+`}/>

@@ -20,18 +20,26 @@ export default defineConfig({
         },
         lastUpdated: true,
         locales: {
-             'fr': {
+            'es': {
+                label: 'Español',
+                lang: 'es'
+            },
+            'fr': {
                  label: 'Français',
                  lang: 'fr'
              },
+            'it': {
+                label: 'Italiano',
+                lang: 'it'
+            },
+            'pl': {
+                label: 'Polski',
+                lang: 'pl'
+            },
             root: {
                 label: 'English',
                 lang: 'en'
             },
-            // 'sp': {
-            //     label: 'Español',
-            //     lang: 'es'
-            // }
         },
         logo: {
             src: './src/assets/hardcover.svg'
@@ -43,15 +51,29 @@ export default defineConfig({
                 items: [
                     {
                         slug: 'api/getting-started',
+                        translations: {
+                            es: 'Empezando',
+                            fr: 'Commencer',
+                            it: 'Iniziare',
+                            pl: 'Zaczynając'
+                        }
                     },
                     {
                         slug: 'api/contributing',
+                        translations: {
+                            es: 'Contribuir',
+                            fr: 'Contribuer',
+                            it: 'Contribuire',
+                            pl: 'Współpraca'
+                        }
                     },
                     {
                         label: 'Guides',
                         translations: {
-                             fr: 'Guides',
-                            // es: 'Guías'
+                            es: 'Guías',
+                            fr: 'Guides',
+                            it: 'Guide',
+                            pl: 'Przewodniki'
                         },
                         autogenerate: {directory: 'api/guides'},
                         collapsed: true,
@@ -59,8 +81,10 @@ export default defineConfig({
                     {
                         label: 'Schemas',
                         translations: {
-                             fr: 'Schémas',
-                            // es: 'Esquemas'
+                            es: 'Esquemas',
+                            fr: 'Schémas',
+                            it: 'Schemi',
+                            pl: 'Schematy'
                         },
                         autogenerate: {directory: 'api/GraphQL/Schemas'},
                         collapsed: true,
@@ -70,7 +94,13 @@ export default defineConfig({
             {
                 label: 'Librarian Guides',
                 collapsed: true,
-                autogenerate: {directory: 'librarians'}
+                autogenerate: {directory: 'librarians'},
+                translations: {
+                    es: 'Guías del bibliotecario',
+                    fr: 'Guides du bibliothécaire',
+                    it: 'Guide del bibliotecario',
+                    pl: 'Przewodniki bibliotekarza'
+                }
             }
         ],
         social: {
@@ -81,8 +111,10 @@ export default defineConfig({
         },
         title: {
             en: 'Hardcover',
-            // es: 'Documentación de la API',
-            // fr: 'Documentation de l\'API'
+            es: 'Hardcover',
+            fr: 'Hardcover',
+            it: 'Hardcover',
+            pl: 'Hardcover'
         }
     }), tailwind({
         applyBaseStyles: false

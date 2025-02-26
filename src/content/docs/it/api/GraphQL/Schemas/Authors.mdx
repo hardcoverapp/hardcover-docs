@@ -1,0 +1,152 @@
+---
+title: Authors
+category: reference
+lastUpdated: 2024-12-29 22:49:00
+layout: ../../../../../layouts/documentation.astro
+---
+
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+
+## Author Schema
+
+The author schema contains the following fields:
+
+### Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>alternate_names</td>
+        <td>Array of Strings</td>
+        <td>Alternate names for the author</td>
+    </tr>
+    <tr>
+        <td>bio</td>
+        <td>String</td>
+        <td>The biography of the author</td>
+    </tr>
+    <tr>
+        <td>books_count</td>
+        <td>Int</td>
+        <td>The number of books the author has contributed to</td>
+    </tr>
+    <tr>
+        <td>born_date</td>
+        <td>Date</td>
+        <td>The date the author was born</td>
+    </tr>
+    <tr>
+        <td>born_year</td>
+        <td>Int</td>
+        <td>The year the author was born</td>
+    </tr>
+    <tr>
+        <td>cached_image</td>
+        <td>Object</td>
+        <td>Metadata for the authors image. This includes the image id, url, primary color, width, and height</td>
+    </tr>
+    <tr>
+        <td>contributions</td>
+        <td>[Contribution](../contributions)</td>
+        <td>The contributions the author is listed on</td>
+    </tr>
+    <tr>
+        <td>death_date</td>
+        <td>Date</td>
+        <td>The date the author died</td>
+    </tr>
+    <tr>
+        <td>death_year</td>
+        <td>Int</td>
+        <td>The year the author died</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>String</td>
+        <td>The unique identifier of the author</td>
+    </tr>
+    <tr>
+        <td>identifiers</td>
+        <td>Array of objects</td>
+        <td>IDs for the author on other platforms</td>
+    </tr>
+    <tr>
+        <td>is_bipoc</td>
+        <td>Boolean</td>
+        <td>Whether the author is Black, Indigenous, or a Person of Color</td>
+    </tr>
+    <tr>
+        <td>is_lgbtq</td>
+        <td>Boolean</td>
+        <td>Whether the author is LGBTQ+</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>The name of the author</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String</td>
+        <td>The Hardcover URL slug</td>
+    </tr>
+    </tbody>
+</table>
+
+## Example Queries
+
+### Get an Author by ID
+
+<GraphQLExplorer query={`
+query {
+    authors(where: {id: {_eq: "80626"}}, limit: 1) {
+        id,
+        name
+    }
+}
+`} presentation="table"/>
+
+### Get an Author by Name
+
+<GraphQLExplorer query={`
+query {
+    authors(where: {name: {_eq: "J.K. Rowling"}}) {
+        books_count
+        identifiers
+        name
+    }
+}
+`} presentation='json' forcePresentation/>
+
+### Get all Authors
+<GraphQLExplorer query={`
+query {
+    authors(limit: 10) {
+        id,
+        name
+    }
+}
+`} presentation="table"/>
+
+### Get books by an Author
+<GraphQLExplorer query={`
+query GetBooksByAuthor {
+    authors(where: {name: {_eq: "Dan Wells"}}) {
+        books_count
+        name
+        contributions(where: {contributable_type: {_eq: "Book"}}) {
+            book {
+                title
+            }
+        }
+    }
+}
+`} description={``} presentation='json' forcePresentation/>
