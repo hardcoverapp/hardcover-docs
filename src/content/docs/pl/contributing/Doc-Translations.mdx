@@ -13,7 +13,7 @@ import { Steps } from '@astrojs/starlight/components';
 
     2. Using the language dropdown at the top of the page, select the language you want to translate the document into.
 
-    3. Click the "Edit this page" button at the bottom of the page.
+    3. Click the "Edit page" button at the bottom of the page.
 
     4. Translate the content into the selected language.
 
@@ -24,6 +24,26 @@ import { Steps } from '@astrojs/starlight/components';
     7. In Discord ping @Revelry to review your changes.
 
 </Steps>
+
+
+# How to reference UI elements in translations
+
+Since the Hardcover app is currently only available in English,
+you should write the documentation pages with the English labels but also include what the translation should be.
+
+For example, if you are translating a page that references a button with the label "Save",
+you should write the page with the button labeled as "Save" and include the translation in the page content like so:
+
+```
+Click the <kbd>Save</kbd> button to save your changes.
+```
+
+Would become:
+
+```
+Haga clic en el botón <kbd>Save</kbd> "Guardar" para guardar los cambios.
+
+```
 
 # Adding new languages to the language dropdown
 
