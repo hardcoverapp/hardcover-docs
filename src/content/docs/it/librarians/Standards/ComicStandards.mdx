@@ -1,111 +1,111 @@
 ---
-title: Comic Standards
-description: Standards for adding and editing comics in Hardcover.
+title: Standard per i fumetti
+description: Standard per aggiungere e modificare fumetti su Hardcover.
 category: guide
 lastUpdated: 2025-01-07 13:00:00
 layout: /src/layouts/librarians.astro
 ---
 
-# Comic Books
-## Book Title
-### Individual Issue
+# Fumetti
+## Titolo del Libro
+### Numero Singolo
 
-`{Series} #{Num}: {Title}`
+`{Serie} #{Num}: {Titolo}`
 
-    <details>
-        <summary>Examples:</summary>
-        The Sandman #1: Sleep of the Just
+   <details>
+       <summary>Esempi:</summary>
+       The Sandman #1: Sleep of the Just
 
-        Sage #50
+       Sage #50
 
-        The Amazing Spider-Man #92
-    </details>
+       The Amazing Spider-Man #92
+   </details>
 
 ### Trade Paperbacks (TPB / TP)
 
-`{Series}, Vol. {num}: {Title}`
+`{Serie}, Vol. {num}: {Titolo}`
 
-    <details>
-        <summary>Examples:</summary>
-        The Sandman, Vol. 1: Preludes & Nocturnes
+   <details>
+       <summary>Esempi:</summary>
+       The Sandman, Vol. 1: Preludes & Nocturnes
 
-        Saga, Vol. 10
+       Saga, Vol. 10
 
-        The Amazing Spider-Man, Vol. 5
-    </details>
+       The Amazing Spider-Man, Vol. 5
+   </details>
 
-### Other Collections (Hardcover, Omnibus, Book, etc)
+### Altre Collezioni (Copertina Rigida, Omnibus, Libro, ecc)
 
-`{Series}: {Collection Title}`
+`{Serie}: {Titolo della Collezione}`
 
-    <details>
-        <summary>Examples:</summary>
-        The Sandman: Book One
+   <details>
+       <summary>Esempi:</summary>
+       The Sandman: Book One
 
-        Saga: Book Three Deluxe HC
+       Saga: Book Three Deluxe HC
 
-        The Amazing Spider-Man: Omnibus Vol. 1
-    </details>
+       The Amazing Spider-Man: Omnibus Vol. 1
+   </details>
 
-Issue / Volume Numbers are not added to One Shots / Standalones that do not have multiple works in the series.
+I numeri di uscita / volume non vengono aggiunti agli One Shot / Standalone che non hanno più opere nella serie.
 
-Title is optional for individual issues or TPBs as not all works include them but should generally follow how the publisher lists the work. If a title is used on one book, it should be included for all books in the series.
+Il titolo è opzionale per i numeri singoli o TPB poiché non tutte le opere li includono, ma in generale dovrebbe seguire come l'editore elenca l'opera. Se un titolo viene utilizzato su un libro, dovrebbe essere incluso per tutti i libri della serie.
 
-Publication years are not added to book names unless explicitly part of the series or title from the publisher as this information in included in the series name displayed above the book.
+Gli anni di pubblicazione non vengono aggiunti ai nomi dei libri a meno che non facciano esplicitamente parte della serie o del titolo dall'editore, poiché queste informazioni sono incluse nel nome della serie visualizzato sopra il libro.
 
-    <details>
-        <summary>Examples:</summary>
-        The Amazing Spider-Man (2018) #92 -> The Amazing Spider-Man #92
+   <details>
+       <summary>Esempi:</summary>
+       The Amazing Spider-Man (2018) #92 -> The Amazing Spider-Man #92
 
-        Abbott: 1979 -> Abbott: 1979
-    </details>
+       Abbott: 1979 -> Abbott: 1979
+   </details>
 
-# Comic Series
+# Serie di Fumetti
 
-## Series Titles
+## Titoli delle serie
 
-### Issues
+### Numeri
 
-`{Series} ({Year})`
+`{Serie} ({Anno})`
 
-    <details>
-        <summary>Examples:</summary>
-        Saga
+   <details>
+       <summary>Esempi:</summary>
+       Saga
 
-        The Amazing Spider-Man (2018-2022)
+       The Amazing Spider-Man (2018-2022)
 
-        The Amazing Spider-Man (2022-)
-    </details>
+       The Amazing Spider-Man (2022-)
+   </details>
 
 ### Trade Paperbacks
 
-`{Series} ({Year}) (TPBs)`
+`{Serie} ({Anno}) (TPBs)`
 
-    <details>
-        <summary>Examples:</summary>
-        The Sandman (TBPs)
+   <details>
+       <summary>Esempi:</summary>
+       The Sandman (TBPs)
 
-        The Amazing Spider-Man (2012-2022) (TBP)
-    </details>
+       The Amazing Spider-Man (2012-2022) (TBP)
+   </details>
 
-### Other Collections (Hardcover, Omnibus, Book, etc)
+### Altre Collezioni (Copertina Rigida, Omnibus, Libro, ecc)
 
-`{Series} ({Year}) (Collection Name)`
+`{Serie} ({Anno}) (Nome Collezione)`
 
-    <details>
-        <summary>Examples:</summary>
-        Saga (Compendiums)
-    </details>
+   <details>
+       <summary>Esempi:</summary>
+       Saga (Compendiums)
+   </details>
 
-The "primary" series (aka the series name with no additional qualifiers in the name and the shortest slug) is the most regularly released format of the series. For series that release in issues, the issues would be the primary series. If a series is released only in TPBs or Volumes, this would be the primary series.
+La serie "primaria" (cioè il nome della serie senza qualificatori aggiuntivi nel nome e con lo slug più breve) è il formato più regolarmente pubblicato della serie. Per le serie che escono in numeri singoli, questi rappresenterebbero la serie primaria. Se una serie viene pubblicata solo in TPB o Volumi, questa sarebbe la serie primaria.
 
-Year is an optional field used to differentiate different comic runs under the same series name. Years for series names should use the full range of the series for completed runs or the first year and a hypen for ongoing runs.
+L'anno è un campo opzionale utilizzato per differenziare diverse pubblicazioni di fumetti sotto lo stesso nome di serie. Gli anni per i nomi delle serie dovrebbero utilizzare l'intervallo completo della serie per le pubblicazioni completate o il primo anno e un trattino per le serie in corso.
 
-    <details>
-        <summary>Examples:</summary>
-        Wonder Woman (1987-2006)
+   <details>
+       <summary>Esempi:</summary>
+       Wonder Woman (1987-2006)
 
-        Wonder Woman (2003-)
-    </details>
+       Wonder Woman (2003-)
+   </details>
 
-Collections of works (such as TBPs for series released as issues and all other collections) should be marked as a "Compilation" with the contained issues added. The collections should be added as a "Featured" series of that format of work but not to any of the series of the books comprising the collection (E.g., The Sandman: Book Two would be added as the second item in "The Sandman (Books)" but not to "The Sandman" or "Vertigo: Winder's Edge").
+Le collezioni di opere (come i TPB per serie pubblicate come numeri singoli e tutte le altre collezioni) dovrebbero essere contrassegnate come "Compilation" (Raccolta) con i numeri contenuti aggiunti. Le collezioni dovrebbero essere aggiunte come serie "Featured" (In Evidenza) di quel formato di opera, ma non alle serie dei libri che compongono la collezione (ad es., The Sandman: Book Two verrebbe aggiunto come secondo elemento in "The Sandman (Books)" ma non a "The Sandman" o "Vertigo: Winder's Edge").
