@@ -1,0 +1,31 @@
+{
+  "lang": {
+    "label": "Français",
+    "code": "fr"
+  },
+  "sidebar": {
+    "api": {
+      "title": "API Docs",
+      "gettingStarted": "Getting Started",
+      "guides": "Guides",
+      "schemas": "Schemas"
+    },
+    "contributing": {
+      "title": "Contributing Guides",
+      "api": "API Documentation Guide",
+      "librarian": "Librarian Contribution Guide",
+      "translations": "Translating Documentation Guide"
+    },
+    "librarians": {
+      "title": "Librarian Guides",
+      "editing": "Editing FAQ",
+      "faq": "Librarian FAQ",
+      "gettingStarted": "Getting Started as a Librarian",
+      "resources": "Resources",
+      "standards": "Standards"
+    }
+  },
+  "site": {
+    "title": "Hardcover"
+  }
+}
