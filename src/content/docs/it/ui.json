@@ -5,24 +5,24 @@
   },
   "sidebar": {
     "api": {
-      "title": "API Docs",
-      "gettingStarted": "Getting Started",
-      "guides": "Guides",
-      "schemas": "Schemas"
+      "title": "Documentazione API",
+      "gettingStarted": "Primi Passi",
+      "guides": "Guide",
+      "schemas": "Schemi"
     },
     "contributing": {
-      "title": "Contributing Guides",
-      "api": "API Documentation Guide",
-      "librarian": "Librarian Contribution Guide",
-      "translations": "Translating Documentation Guide"
+      "title": "Guide alla Contribuzione",
+      "api": "Guida alla Documentazione API",
+      "librarian": "Guida alle Contribuzioni dei Bibliotecari",
+      "translations": "Guida alla Traduzione della Documentazione"
     },
     "librarians": {
-      "title": "Librarian Guides",
-      "editing": "Editing FAQ",
-      "faq": "Librarian FAQ",
-      "gettingStarted": "Getting Started as a Librarian",
-      "resources": "Resources",
-      "standards": "Standards"
+      "title": "Guide per Bibliotecari",
+      "editing": "FAQ Modifiche",
+      "faq": "FAQ Bibliotecari",
+      "gettingStarted": "Primi Passi come Bibliotecario",
+      "resources": "Risorse",
+      "standards": "Standard"
     }
   },
   "site": {
