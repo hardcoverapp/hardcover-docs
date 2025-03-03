@@ -1,47 +1,47 @@
 ---
-title: Editing FAQ
-description: Frequently asked questions for editing books / editions.
+title: FAQ Modifiche
+description: Domande frequenti sulla modifica di libri / edizioni.
 category: guide
-lastUpdated: 2025-01-07 08:00:00
+lastUpdated: 2025-03-02 19:57:15
 layout: /src/layouts/librarians.astro
 ---
 
-## General
-### How do I add a book if I can't find it on Hardcover?
-If you search for a book and don’t see it in the results, head over to the Add Book to Hardcover page. On there you can add a book by ISBN 10, ISBN 13 or Goodreads ID. This is the best place to start, since there’s a chance the book wasn’t showing up in search for a number of reasons (the top being that this search cache out of date, this book has recently been manually added by a user and hasn’t been approved).
+## Generale
+### Come posso aggiungere un libro se non lo trovo su Hardcover?
+Se cerchi un libro e non lo vedi nei risultati, vai alla pagina Add Book to Hardcover (Aggiungi Libro a Hardcover). Lì puoi aggiungere un libro tramite ISBN 10, ISBN 13 o Goodreads ID. Questo è il miglior modo per iniziare, poiché è possibile che il libro non appaia nella ricerca per vari motivi (principalmente perché la cache di ricerca è obsoleta, o questo libro è stato aggiunto manualmente da un utente di recente e non è  stato ancora approvato).
 
-If this book doesn’t have an ISBN and isn’t on Goodreads, then you can head over to the New Edition form. This will create a new Book with this as the one new edition for it. When librarians add books using this form they’ll show up for everyone right away. When guests and non-librarians add books using this form they’ll have a “user added” boolean added to that book behind the scenes that prevents it from showing up in search.
+Se questo libro non ha un ISBN e non è su Goodreads, allora puoi utilizzare il modulo New Edition (Nuova Edizione). Questo creerà un nuovo libro con questa come unica nuova edizione. Quando i bibliotecari aggiungono libri usando questo modulo, questi appariranno subito per tutti. Quando ospiti e non-bibliotecari aggiungono libri usando questo modulo, a quei libri verrà assegnato un valore "aggiunto dall'utente" dietro le quinte che impedisce che appaiano nella ricerca.
 
-### How do I merge books?
-On the book page, click the “Flag” dropdown and select “Mark as Duplicate”. This will open up a modal (or an overlay on mobile) that allows you to search for and select which book the current book is a duplicate of. Select that book and click button to mark it as a duplicate.
+### Come posso unire i libri?
+Nella pagina del libro, clicca sul pulsante <kbd>Flag</kbd> (Segnala) e dal menu a discesa seleziona <kbd>Mark as Duplicate</kbd> (Segna come Duplicato). Questo aprirà una modale (o un overlay su mobile) che ti permetterà di cercare e selezionare di quale libro l'attuale libro è un duplicato. Seleziona quel libro e clicca sul pulsante per segnalarlo come duplicato.
 
-If your access level is greater than the impact of the merge, it’ll be merged immediately. If you try to merge a popular book into another book, the merge will be sent to an admin to double check before being run. Once it’s run you’ll receive a notification.
+Se hai un livello di accesso superiore all'impatto che l'unione dei libri comporterebbe, i libri verranno uniti immediatamente. Se cerchi di unire un libro popolare con un altro libro, un amministratore riceverà la richiesta di unione per controllarla prima di eseguirla. Una volta eseguita, riceverai una notifica.
 
-### When combining duplicate books/series/authors, which version should you keep?
-In the case of Authors, series and characters, keep the one with the canonical English name.
+### Quando si combinano libri/serie/autori duplicati, quale versione dovrei mantenere?
+Nel caso di autori, serie e personaggi, mantieni quello con il nome canonico inglese.
 
-For books, choose the one with the most readers using it. When another reader selects that book to read, we’ll default the “edition” that reader read to be the primary edition for this book. By selecting the book with the most readers, that means the next people who read it will also be assigned the same popular edition.
+Per i libri, scegli quello con il maggior numero di lettori. Quando un altro lettore seleziona quel libro da leggere, l'"edizione" che il lettore ha letto sarà per impostazione predefinita l'edizione principale di questo libro. Selezionare il libro con più lettori fa in modo che le prossime persone che lo leggeranno saranno assegnate alla stessa edizione popolare.
 
-### The book cover is blurry even though the cover edition has a high resolution image
-Check to make sure the file is not a webp (sometimes webp files from publishers or authors are even incorrectly marked with a .jpg extension). If this is the case you can save as in any image editor to convert to a true jpg or png before uploading to hardcover.
+### La copertina del libro è sfocata anche se l'edizione ha un'immagine ad alta risoluzione
+Verifica che il file non sia un webp (a volte i file webp provenienti da editori o autori sono erroneamente contrassegnati con l'estensione .jpg). In questo caso puoi risalvarlo con qualsiasi editor di immagini per convertirlo in un reale jpg o png prima di caricarlo su Hardcover.
 
-## Editions
-### An ISBN is already in use incorrectly on another edition
-Remove the ISBN from the wrong book using the "Hard Reset" button, then add it to the correct edition.
+## Edizioni
+### Un ISBN è già erroneamente in uso su un'altra edizione
+Rimuovi l'ISBN dal libro sbagliato usando il pulsante <kbd>Hard Reset</kbd>, quindi aggiungilo all'edizione corretta.
 
-### What's the difference between 'Edition Format' and 'Reading Format' when editing a book?
-On the edit edition form, we ask for both of these, but only “Reading Format” is required. Reading format has three options: “Audiobook”, “Physical Book” and “Ebook”.
+### Qual è la differenza tra 'Edition Format' (Formato Edizione) e 'Reading Format' (Formato di Lettura) quando si modifica un libro?
+Nel modulo di modifica dell'edizione chiediamo entrambi, ma solo "Reading Format" è obbligatorio. Il formato di lettura ha tre opzioni: <kbd>Audiobook</kbd> (Audiolibro), <kbd>Physical Book</kbd> (Libro fisico) e <kbd>Ebook</kbd>.
 
-“Edition Format” is a text field that is used to elaborate on this specific edition. For example: “Hardcover”, “Mass market paperback”, “Full cast audiobook”, “Kickstarter Version”, etc.
+<kbd>Edition Format</kbd> è un campo di testo utilizzato per aggiungere dettagli su questa specifica edizione. Ad esempio: <kbd>Hardcover</kbd> (Copertina rigida), <kbd>Mass market paperback</kbd> (Tascabile), <kbd>Full cast audiobook</kbd> (Audiolibro con cast completo), <kbd>Kickstarter Version</kbd> (Versione Kickstarter), ecc.
 
-This represents that specific edition of the book, not where you accessed it from. It’s unlikely you’d put “Kindle Edition” here, unless this edition was originally created for Kindle and is different from other versions.
+Questo rappresenta quella specifica edizione del libro, non da dove l'hai letto. È improbabile che si inserisca <kbd>Kindle Edition</kbd> (Edizione Kindle), a meno che questa edizione non sia stata originariamente creata per Kindle e sia diversa da altre versioni.
 
-When in doubt, and in most cases, you can leave this field blank.
+Nella maggior parte dei casi, oppure se hai dubbi, puoi lasciare questo campo vuoto.
 
-## Series
-### Series book count numbers low or thumbnails missing from series on author/book pages
-The series book count and series previews only consider books with a published date. Check to make sure that at least one edition for all books in the series has a valid published date.
+## Serie
+### Il conteggio dei libri della serie è basso o nelle pagine di autori/libri mancano le miniature delle serie
+Il conteggio dei libri della serie e le anteprime della serie considerano solo i libri con una data di pubblicazione. Verifica che almeno un'edizione per tutti i libri della serie abbia una data di pubblicazione valida.
 
-## Other
-### My update didn’t work? What’s going on?
-If you run into a bug, or start a thread in the bugs and questions channel with as much information as possible to help reproduce the error (link to the page you were editing, what fields you changed).
+## Altro
+### Il mio aggiornamento non ha funzionato. Cosa sta succedendo?
+Se riscontri un bug, avvia una discussione nel canale bugs and questions (bug e domande) con più informazioni possibili per aiutare a riprodurre l'errore (link alla pagina che stavi modificando, quali campi hai modificato).

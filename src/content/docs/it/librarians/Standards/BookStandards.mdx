@@ -1,73 +1,73 @@
 ---
-title: Book Standards
-description: Standards for adding and editing books in Hardcover.
+title: Standard per i libri
+description: Standard per aggiungere e modificare libri su Hardcover.
 category: guide
-lastUpdated: 2025-01-07 08:00:00
+lastUpdated: 2025-03-01 14:15:49
 layout: /src/layouts/librarians.astro
 ---
 
 import {Badge} from "@astrojs/starlight/components";
 
-## Titles
-### What title should we use for the book?
-We should use the official English title the book was released with whenever possible.
+## Titoli
+### Quale titolo dovremmo usare per il libro?
+Quando possibile, dovremmo usare il titolo ufficiale in inglese con cui il libro è stato pubblicato.
 
-For example, the original title of “War and Peace” is “Война и миръ”. We should use “Война и миръ” as the title of the Russian edition, but “War and Peace” as the title of the book. This could be done from the Edit Book page where we override the edition’s title. Alternatively, we could set the “Default Physical Edition” to the English edition. That would also set the title to the English title.
+Ad esempio, il titolo originale di "Guerra e Pace" è "Война и миръ". Dovremmo usare "Война и миръ" come titolo dell'edizione russa, ma "War and Peace" come titolo del libro. Questo può essere fatto dalla pagina Edit Book (Modifica Libro) dove sovrascriviamo il titolo dell'edizione. In alternativa, potremmo impostare l'edizione inglese come "Default Physical Edition" (Edizione Fisica Predefinita). Ciò imposterà anche il titolo inglese come titolo.
 
-If books have multiple English titles (ex: “Harry Potter and the Sorcerer's Stone” vs “Harry Potter and the Philosopher's Stone”), we should use the title localized for the USA (Sorcerers stone in this case).
+Se i libri hanno più titoli in inglese (es: "Harry Potter and the Sorcerer's Stone" vs "Harry Potter and the Philosopher's Stone"), dovremmo usare il titolo localizzato per gli USA (Sorcerer's Stone in questo caso).
 
-In the future, we want to allow people to set their language and have it automatically use the localized version, but for now we’re aiming to use the US title as the default.
+In futuro, vogliamo permettere alle persone di impostare la loro lingua e far utilizzare automaticamente la versione localizzata, ma per ora puntiamo a usare il titolo USA come predefinito.
 
-### What about franchise books, like “Brotherhood”, which is in the Star Wars universe?
-In this case, the official title of the book according to the publisher is “Star Wars: Brotherhood”, and we should use that.
+### Come gestire invece i libri dei franchise, come "Brotherhood", che fa parte dell'universo di Star Wars?
+In questo caso, il titolo ufficiale del libro secondo l'editore è "Star Wars: Brotherhood", e dovremmo usare quello.
 
-In other cases where there’s a series, we should leave it off unless it is part of the name (ex: Harry Potter and the Sorcerer's Stone). When left off (ex: The Fellowship of the Ring), we should make sure to set the featured series to be the primary series we know this title from (“The Lord of the Rings”).
+In altri casi in cui c'è una serie, dovremmo omettere il nome della serie a meno che non faccia parte del nome (es: Harry Potter and the Sorcerer's Stone). Quando viene omesso (es: The Fellowship of the Ring), dovremmo assicurarci di impostare la serie principale per cui conosciamo questo titolo ("The Lord of the Rings") come serie in evidenza.
 
-### What if the official title also has the series in it?
-This will depend on where and how the series is part of the title. If it’s b
+### E se il titolo ufficiale include anche la serie?
+Questo dipenderà da dove e come la serie fa parte del titolo.
 
-### How should we handle books with long titles with a “:” in them? Ex: “Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution”
-Set the title of this book to whatever the publisher named it. In this case, that would be “Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution”.
+### Come dovremmo gestire i libri con titoli lunghi che contengono i ":" ? Es: "Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution"
+Imposta il titolo di questo libro su quello dato dall'editore. In questo caso, sarebbe "Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution".
 
-On the book page, we’ll break the title up by “:” and wrap it into multiple lines if it has a very long title.
-<img src="/images/librarians/long-title-example.png" alt="Example of a long title on Hardcover" />
+Nella pagina del libro, divideremo il titolo per ":" e lo disporremo su più righe se ha un titolo molto lungo.
+<img src="/images/librarians/long-title-example.png" alt="Esempio di un titolo lungo su Hardcover" />
 
-For books with a very long title, but a smaller, well-known title, we should use the shorter title as the URL slug. This allows the book to live at the URL https://hardcover.app/books/babel while maintaining a longer name. Book slugs can only be edited by the original person who added the book, Adam and Jeff right now.
+Per i libri con un titolo molto lungo, ma un titolo più piccolo e ben noto, dovremmo usare il titolo più breve come slug dell'URL. Questo permette al libro di esistere all'URL https://hardcover.app/books/babel mantenendo un nome più lungo. Gli slug dei libri possono essere modificati solo dalla persona che ha originariamente aggiunto il libro, al moment Adam e Jeff.
 
-### What about subtitle?
-You’ll notice there’s a field for subtitle in the edit book form. We currently do not use this field for anything. We do split the title into title and subtitle when creating books. For example:
+### E per il sottotitolo?
+Noterai che c'è un campo per il sottotitolo nel modulo di modifica del libro. Attualmente non utilizziamo questo campo per nulla. Ciò che facciamo è dividere il titolo in titolo e sottotitolo quando creiamo i libri. Per esempio:
 
-- Full title: “Wallet Activism: How to Use Every Dollar You Spend, Earn, and Save as a Force for Change”.
-- Title: “Wallet Activism: How to Use Every Dollar You Spend, Earn, and Save as a Force for Change”
-- Subtitle: “How to Use Every Dollar You Spend, Earn, and Save as a Force for Change”
-- Slug: “wallet-activism”
+- Titolo completo: "Wallet Activism: How to Use Every Dollar You Spend, Earn, and Save as a Force for Change".
+- Titolo: "Wallet Activism"
+- Sottotitolo: "How to Use Every Dollar You Spend, Earn, and Save as a Force for Change"
+- Slug: "wallet-activism"
 
-## Descriptions
-### Authoratative Source for Book Descriptions / Other Information
-In order of preference:
+## Descrizioni
+### Fonte autorevole per le descrizioni dei libri / Altre informazioni
+In ordine di preferenza:
 
-1. Publisher
-2. Author Official Website
+1. Editore
+2. Sito web ufficiale dell'autore
 3. BookBub / WorldCat
-4. Bookstore (Barnes & Noble, Amazon, etc)
-5. Other Book Site (Open Library, Google Books, etc)
+4. Libreria (Barnes & Noble, Amazon, ecc)
+5. Altri siti di libri (Open Library, Google Books, ecc)
 
-### Promontional Content / Reviews / Author Bios / Edition Info in Descriptions
-Book descriptions should be constrained to a spoiler-free introduction / summary of the book. Additional promotional information should be removed, even if it is present in the description on the authoratative source.
+### Contenuti promozionali / Recensioni / Biografie degli autori / Informazioni sull'edizione nelle descrizioni
+Le descrizioni dei libri dovrebbero limitarsi a un'introduzione / riassunto del libro senza spoiler. Le informazioni promozionali aggiuntive dovrebbero essere rimosse, anche se presenti nella descrizione sulla fonte autorevole.
 
-Examples of content to remove:
-    "From the author of xxx bestselling series"
-    "This book is a book -Famous Author"
-    "Reprinted for the first time in genuine leather"
+Esempi di contenuti da rimuovere:
+    "Dall'autore della serie bestseller xxx"
+    "Questo libro è un libro -Autore Famoso"
+    "Ristampato per la prima volta in vera pelle"
 
-### Description Headlines
-If available, use a headline from the publisher
-If the a specific headline is not provided, there are several possible options:
+### Intestazioni delle descrizioni
+Se disponibile, usa un'intestazione dell'editore.
+Se non viene fornita un'intestazione specifica, ci sono diverse opzioni possibili:
 
-1. Move the first paragraph of the description if it fits and is appropriate as a standalone
-2. Copy a key sentance or phrase from the description
-3. Leave it blank
+1. Sposta il primo paragrafo della descrizione se è adatto ed è appropriato come elemento autonomo
+2. Copia una frase o un'espressione chiave dalla descrizione
+3. Lascialo vuoto
 
-## Default Editions
-### Cover Edition
-Generally, the cover edition should be the most recently published hardcover edition of the book with a "Good" quality cover available; however, there may be cases such as special or limited printings where another edition may be more appropriate.
+## Edizioni predefinite
+### Edizione della copertina
+Generalmente, l'edizione della copertina dovrebbe essere l'edizione con copertina rigida pubblicata più recentemente del libro con una copertina di qualità "Buona" disponibile; tuttavia, potrebbero esserci casi come stampe speciali o limitate in cui un'altra edizione potrebbe essere più appropriata.

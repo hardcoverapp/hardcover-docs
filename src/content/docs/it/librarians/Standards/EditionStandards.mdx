@@ -1,67 +1,65 @@
 ---
-title: Edition Standards
-description: Standards for adding and editing editions in Hardcover.
+title: Standard per le edizioni
+description: Standard per aggiungere e modificare edizioni su Hardcover.
 category: guide
-lastUpdated: 2025-01-07 08:00:00
+lastUpdated: 2025-03-02 11:56:45
 layout: /src/layouts/librarians.astro
 ---
 
 import {Badge} from "@astrojs/starlight/components";
 
-## Covers
-### Preferred file type for cover images
-PNG and JPEG work the best. Webp files are not currently supported. The cover shouldn’t have any transparency to it. The image is converted to a webp file before we show it regardless of what you upload.
+## Copertine
+### Tipo di file preferito per le immagini di copertina
+PNG e JPEG funzionano meglio. I file Webp non sono attualmente supportati. La copertina non dovrebbe avere alcuna trasparenza. L'immagine viene convertita in un file webp prima di essere mostrata, indipendentemente da ciò che carichi.
 
-### Preferred file size
-The larger the cover the better! If you want to upload a 15mb file, go for it. We’ll resize it down and show a smaller version everywhere.
+### Dimensione del file preferita
+Più grande è la copertina, meglio è! Se vuoi caricare un file da 15 MB, vai pure. Lo ridimensioneremo e mostreremo una versione più piccola ovunque.
 
-The covers we show on Hardcover (as of March 22, 2024) max out at 200px wide by 300px high. Any smaller than that and we’ll show a blurry image due to resizing it up. Any covers you upload to Hardcover should be at least 300px wide by 450px high.
+Le copertine che mostriamo su Hardcover (aggiornato al 22 marzo 2024) hanno una dimensione massima di 200px di larghezza per 300px di altezza. Qualsiasi dimensione inferiore a questa mostrerà un'immagine sfocata a causa del ridimensionamento. Qualsiasi copertina che carichi su Hardcover dovrebbe essere almeno 300px di larghezza per 450px di altezza.
 
-### What dimensions qualify for red, yellow and green?
-We show three different quality scores for covers today. This is calculated using `height x width`.
+### Quali dimensioni sono identificate con rosso, giallo e verde?
+Ad oggi mostriamo tre diversi punteggi di qualità per le copertine. Questo viene calcolato usando `altezza x larghezza`.
 
-0 - 32,999: <Badge text="Bad Quality" variant="danger" /> (ex 133 x 200)
+0 - 32.999: <Badge text="Qualità scarsa" variant="danger" /> (es. 133 x 200)
 
-33,000 - 99,999: <Badge text="Ok Quality" variant="caution" /> (ex: 200 x 300)
+33.000 - 99.999: <Badge text="Qualità accettabile" variant="caution" /> (es: 200 x 300)
 
-100,000 +: <Badge text="Good Quality" variant="success" /> (ex: 300 x 450)
+100.000 +: <Badge text="Buona qualità" variant="success" /> (es: 300 x 450)
 
-We’d like to start showing larger covers on the book page, which will require more covers in the Great Quality range.
+Vorremmo iniziare a mostrare copertine più grandi nella pagina del libro, il che richiederà più copertine nel range di Qualità eccellente.
 
-## Contributors
-### Order of Listing Edition Contributors
-Add the primary authors in the same order as they appear on the cover of the book. Additional contributors (editors, illustrators, etc) can be added in any order.
+## Collaboratori
+### Ordine di elenco dei collaboratori dell'edizione
+Aggiungi gli autori principali nello stesso ordine in cui appaiono sulla copertina del libro. I collaboratori aggiuntivi (editori, illustratori, ecc.) possono essere aggiunti in qualsiasi ordine.
 
-### Anthologies with Multiple Authors
-For works containing numerous authors, such as anthologies of short stories, all contributing authors should be listed under the author role.
+### Antologie con più autori
+Per opere contenenti numerosi autori, come antologie di racconti brevi, tutti gli autori contributori dovrebbero essere elencati con il ruolo di autore.
 
-    <details>
-        <summary>Examples:</summary>
-        Unbound, published by Grim Oak Press shows the Author as "Multiple" and lists the Authors and their contributed works in the description.
+   <details>
+       <summary>Esempi:</summary>
+       Unbound, pubblicato da Grim Oak Press mostra l'Autore come "Multiple" (Multipli) ed elenca gli Autori e le loro contribuzioni nella descrizione.
 
-        In this case, all 23 of the contributing authors should be listed as an Author on the edition.
-    </details>
+       In questo caso, tutti i 23 autori contributori dovrebbero essere elencati come Autore dell'edizione.
+   </details>
 
-## Publishing Information
-### Publisher Name
-List the name of the company that published this edition.
+## Informazioni di pubblicazione
+### Nome dell'editore
+Elenca il nome dell'azienda che ha pubblicato questa edizione.
 
-Authors self-publishing under their own name should be entered as "Independently Published". Small companies, including LLCs established by the author that only publish that author's works, are still have the company name listed.
+Gli autori che si autopubblicano sotto il proprio nome dovrebbero essere inseriti come "Independently Published" (Pubblicato in modo indipendente). Le piccole aziende, incluse le LLC stabilite dall'autore che pubblicano solo le opere di quell'autore, hanno comunque elencato il nome dell'azienda.
 
-Do not include commas or periods around business entity acronyms.
+Non includere virgole o punti intorno agli acronimi di entità commerciali.
 
-    <details>
-        <summary>Examples:</summary>
-        Julie Carobini -> Indepenently Published
+   <details>
+       <summary>Esempi:</summary>
+       Julie Carobini -> Pubblicato in modo indipendente
 
-        Julie Carobini, LLC -> Julie Carobini LLC
+       Julie Carobini, LLC -> Julie Carobini LLC
 
-        Julie Carobini Inc. -> Julie Carobini Inc
-    </details>
+       Julie Carobini Inc. -> Julie Carobini Inc
+   </details>
 
-### Published Date
-List the date of publication for the edition provided by the publisher. It is important that at least one edition of a book have a valid publishing date for proper book display in series or other places. Hardcover will automatically select the earliest publication date for display on the book.
+### Data di pubblicazione
+Elenca la data di pubblicazione dell'edizione fornita dall'editore. È importante che almeno un'edizione di un libro abbia una data di pubblicazione valida per la corretta visualizzazione del libro nelle serie o in altri luoghi. Hardcover selezionerà automaticamente la data di pubblicazione più antica da visualizzare sulla pagina libro.
 
-If a specific date of publishing does not exist or cannot be found, list the date as Jan 1 of that year. If a month but not day is available, list it as the first day of that month: 1/1/year
-
-
+Se non esiste una data specifica di pubblicazione o non si trova, elenca la data come 1 gennaio di quell'anno. Se è disponibile il mese ma non il giorno, elencalo come il primo giorno di quel mese: 1/1/anno

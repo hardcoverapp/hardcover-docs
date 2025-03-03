@@ -1,113 +1,109 @@
 ---
-title: ISBN and ASIN
-description: An overview of ISBN and ASIN, along with helpful resources.
+title: ISBN e ASIN
+description: Una panoramica su ISBN e ASIN, e risorse utili.
 category: guide
-lastUpdated: 2025-01-05 21:18:23
+lastUpdated: 2025-03-02 14:05:37
 layout: /src/layouts/librarians.astro
 ---
 
 import {Aside} from "@astrojs/starlight/components";
 
-# Working with ISBN
+# Lavorare con l'ISBN
 
-The **International Standard Book Number** (ISBN) of a book is a unique number
-which helps identify information about published works. While Hardcover will
-pull most information associated with an ISBN automatically, it can still be
-helpful to know how to use an ISBN to retrieve data about an edition you're
-intending to add to the database.
+L'**International Standard Book Number** (ISBN) di un libro è un numero univoco
+che aiuta a identificare informazioni sulle opere pubblicate. Hardcover estrarrà
+automaticamente la maggior parte delle informazioni associate a un ISBN, tuttavia può essere comunque
+utile sapere come utilizzare un ISBN per recuperare dati su un'edizione che vuoi aggiungere al database.
 
-**Note:** Some retailers may refer to an ISBN as *European Article Number* (EAN).
+**Nota:** Alcuni rivenditori potrebbero fare riferimento a un ISBN come *European Article Number* (EAN).
 
-## Dissecting an ISBN
+## Anatomia di un ISBN
 
-An ISBN consists of 5 distinct blocks:
+Un ISBN è composto da 5 blocchi distinti:
 
-| EAN | Group | Publisher | Title | Check digit |
+| EAN | Gruppo | Editore | Titolo | Cifra di controllo |
 | --- | ----- | --------- | ----- | ----------- |
 | 978 | 1     | 9747      | 3463  | 4           |
 
-**EAN**: Almost always 978 or 979.
+**EAN**: Quasi sempre 978 o 979.
 
-**Registration Group**: Either a language-sharing country group, individual
-country or territory.
+**Gruppo di registrazione**: Può essere un gruppo di paesi che condividono una lingua, un singolo
+paese o territorio.
 
-**Publisher**: A unique number issued to a registered publisher by their local
-or national ISBN registration agency.
+**Editore**: Un numero univoco assegnato a un editore registrato dalla propria agenzia
+locale o nazionale di registrazione ISBN.
 
-**Title / Publication Element**: A unique number assigned by the publisher which is
-associated with a specific edition of a book.
+**Elemento Titolo / Pubblicazione**: Un numero univoco assegnato dall'editore che è
+associato a una specifica edizione di un libro.
 
-**Check digit**: A checksum character or digit, validating the ISBN.
+**Cifra di controllo**: Un carattere o cifra di checksum, che convalida l'ISBN.
 
-Most blocks do not have a fixed number of digits, making it difficult to split an ISBN into its parts. However, publishers often separate them with hyphens. When you add an ISBN to Hardcover, the hyphens are automatically removed.
+La maggior parte dei blocchi non ha un numero fisso di cifre, rendendo difficile dividere un ISBN nelle sue parti. Tuttavia, gli editori spesso li separano con trattini. Quando aggiungi un ISBN a Hardcover, i trattini vengono rimossi automaticamente.
 
-### Identifying the publisher of a book
+### Identificare l'editore di un libro
 
-With the help of the first three blocks it is possible to look up the publisher of a
-specific edition. The International ISBN Agency maintains an annually updated and searchable database of all registered publishers: The <a href="https://grp.isbn-international.org/" target="_blank" rel="noreferrer noopener">Global Register of Publishers</a>.
-In the example above the registered publisher for any works starting with `978-1-9747` is `Viz Media, United States of America`.
+Con l'aiuto dei primi tre blocchi è possibile cercare l'editore di una
+specifica edizione. L'International ISBN Agency (Agenzia Internazionale ISBN) mantiene un database aggiornato annualmente e consultabile di tutti gli editori registrati: Il <a href="https://grp.isbn-international.org/" target="_blank" rel="noreferrer noopener">Global Register of Publisher</a> (Registro Globale degli Editori).
+Nell'esempio sopra, l'editore registrato per qualsiasi opera che inizia con `978-1-9747` è `Viz Media, Stati Uniti d'America`.
 
-### Identifying a `Country`/`ISBN` mismatch
+### Identificare una discrepanza tra `Paese`/`ISBN`
 
-You will often find that Hardcover has pulled the wrong information for the
-`Country` field of an edition. The second block of an ISBN will make that obvious
-at a glance. 
+Spesso troverai che Hardcover ha estratto l'informazione errata per il campo
+`Paese` di un'edizione. Il secondo blocco di un ISBN renderà questo evidente
+a colpo d'occhio.
 
-| Group | Region / Language Area / Country     |
+| Gruppo | Regione / Area linguistica / Paese     |
 | ----- | ------------------------------------ |
-| 0     | English                              |
-| 1     | English                              |
-| 2     | French                               |
-| 3     | German                               |
-| 4     | Japan                                |
-| 5     | Former USSR                          |
-| 6     | Prefixes of length 2 or 3            |
-| 7     | China                                |
-| 8     | Prefixes of length 2                 |
-| 9     | Prefixes of length 2, 3, 4 or 5      |
+| 0     | Inglese                              |
+| 1     | Inglese                              |
+| 2     | Francese                             |
+| 3     | Tedesco                              |
+| 4     | Giappone                             |
+| 5     | Ex URSS                              |
+| 6     | Prefissi di lunghezza 2 o 3          |
+| 7     | Cina                                 |
+| 8     | Prefissi di lunghezza 2              |
+| 9     | Prefissi di lunghezza 2, 3, 4 o 5    |
 
-*For a complete list, refer to <a href="https://en.wikipedia.org/wiki/List_of_ISBN_registration_groups" target="_blank" rel="noreferrer noopener">Wikipedia</a>*
+*Per un elenco completo, consulta <a href="https://en.wikipedia.org/wiki/List_of_ISBN_registration_groups" target="_blank" rel="noreferrer noopener">Wikipedia</a>*
 
-If you see ISBN `9782820344960` with the `Country` listed as `United States of
-America` you will immediately know that this edition needs editing!
+Se vedi un ISBN `9782820344960` con il `Paese` indicato come `Stati Uniti d'America`, saprai immediatamente che questa edizione necessita di modifiche!
 
-We can also use the group block to identify whether an edition with a Portuguese title was published in Portugal (972) or Brazil (85).
+Possiamo anche utilizzare il blocco del gruppo per identificare se un'edizione con un titolo in portoghese è stata pubblicata in Portogallo (972) o in Brasile (85).
 
-## Calculating ISBN-10 and ISBN-13
+## Calcolare ISBN-10 e ISBN-13
 
-Books published before 2007 will most likely use a ten-digit long ISBN. Similarly,
-books published after 2007 often lack an ISBN-10. You can calculate the
-corresponding ISBN with an [online
-tool](http://www.hahnlibrary.net/libraries/isbncalc.html).
+I libri pubblicati prima del 2007 molto probabilmente utilizzano un ISBN di dieci cifre. Allo stesso modo,
+i libri pubblicati dopo il 2007 spesso non hanno un ISBN-10. È possibile calcolare il
+corrispondente ISBN con uno [strumento online](http://www.hahnlibrary.net/libraries/isbncalc.html).
 
-<Aside type="caution">Simply adding or removing ``978`` in
-front of an ISBN will not result in a valid number! The checksum block is algorithmically calculated.</Aside>
+<Aside type="caution">Aggiungere o rimuovere semplicemente ``978`` davanti a un ISBN non produrrà un numero valido! Il blocco di checksum viene calcolato algoritmicamente.</Aside>
 
-## Retrieving information about a book
+## Recuperare informazioni su un libro
 
-The ISBN does not encode information such as title or author of a book.
-Hardcover will pull these fields from various databases automatically. We can
-verify this data with the help of a few websites:
+L'ISBN non codifica informazioni come il titolo o l'autore di un libro.
+Hardcover estrarrà automaticamente questi campi da vari database. Possiamo
+verificare questi dati con l'aiuto di alcuni siti web:
 
-* <a href="https://isbnsearch.org" target="_blank" rel="noreferrer noopener">ISBNsearch.org</a>: Quickly check the binding,
-publication date and associated cover.
-* <a href="https://search.worldcat.org/" target="_blank" rel="noreferrer noopener">WorldCat</a>: WorldCat will often include physical
-descriptions of a book, including the page count.
-* <a href="https://amazon.com" target="_blank" rel="noreferrer noopener">Amazon</a>: Searching for an ISBN will return the product
-page associated with the book. Amazon has high resolution covers and often a
-complete list of series information.
-* <a href="https://books.google.com" target="_blank" rel="noreferrer noopener">Google Books</a>: You can search through Google's
-database for a specific book by appending `isbn:` in front of the ISBN. Example:
-<a href="https://www.google.com/search?udm=36&q=isbn%3A9782820344960" target="_blank" rel="noreferrer noopener">`isbn:9782820344960`</a>. 
+* <a href="https://isbnsearch.org" target="_blank" rel="noreferrer noopener">ISBNsearch.org</a>: Controlla rapidamente la rilegatura,
+la data di pubblicazione e la copertina associata.
+* <a href="https://search.worldcat.org/" target="_blank" rel="noreferrer noopener">WorldCat</a>: WorldCat spesso include descrizioni
+fisiche di un libro, incluso il numero di pagine.
+* <a href="https://amazon.com" target="_blank" rel="noreferrer noopener">Amazon</a>: La ricerca di un ISBN restituirà la pagina
+del prodotto associata al libro. Amazon ha copertine ad alta risoluzione e spesso un
+elenco completo di informazioni sulla serie.
+* <a href="https://books.google.com" target="_blank" rel="noreferrer noopener">Google Libri</a>: Puoi cercare un libro specifico nel database
+di Google aggiungendo `isbn:` davanti all'ISBN. Esempio:
+<a href="https://www.google.com/search?udm=36&q=isbn%3A9782820344960" target="_blank" rel="noreferrer noopener">`isbn:9782820344960`</a>.
 
-**Careful:** Google tends to auto-translate. The result above shows ``Band 1`` for users in Germany, but the edition is actually from France and should be labeled as ``Tome 1``!
+**Attenzione:** Google tende ad auto-tradurre. Il risultato sopra mostra ``Band 1`` per gli utenti in Germania, ma l'edizione è in realtà francese e dovrebbe essere etichettata come ``Tome 1``!
 
-Finally, you can look up information directly on a publisher's website, which
-will often feature the most accurate and up-to-date data.
+Infine, puoi cercare informazioni direttamente sul sito web di un editore, che
+spesso presenta i dati più accurati e aggiornati.
 
-### National Libraries
+### Biblioteche Nazionali
 
-National libraries are tasked with the preservation of documents and works published in their respective countries. This makes them a good source of information about international editions of a book.
+Le biblioteche nazionali hanno il compito di preservare documenti e opere pubblicate nei rispettivi paesi. Ciò le rende una buona fonte di informazioni sulle edizioni internazionali di un libro.
 
 | Country | Website                                                                                                                                                    |
 |---------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -127,68 +123,64 @@ National libraries are tasked with the preservation of documents and works publi
 | 🇺🇸 US | <a href="https://www.loc.gov/" target="_blank" rel="noreferrer noopener">Library of Congress</a>                                                           |
 
 
-### Retailers
+### Rivenditori
 
-Retailers are also a good source for information, for example:
+Anche i rivenditori sono una buona fonte di informazioni, ad esempio:
 
-* <a href="https://www.agapea.com/" target="_blank" rel="noreferrer noopener">Agapea</a> (Spain)
-* <a href="https://www.barnesandnoble.com/" target="_blank" rel="noreferrer noopener">Barnes & Noble</a>, <a href="https://www.powells.com/" target="_blank" rel="noreferrer noopener">Powells</a> (United States of America)
-* <a href="https://www.cultura.com/" target="_blank" rel="noreferrer noopener">Cultura</a>, <a href="https://www.fnac.com" target="_blank" rel="noreferrer noopener">fnac</a> (France)
-* <a href="https://www.thalia.de/" target="_blank" rel="noreferrer noopener">Thalia</a>, <a href="https://www.buecher.de/" target="_blank" rel="noreferrer noopener">Bücher.de</a> (Germany)
+* <a href="https://www.agapea.com/" target="_blank" rel="noreferrer noopener">Agapea</a> (Spagna)
+* <a href="https://www.barnesandnoble.com/" target="_blank" rel="noreferrer noopener">Barnes & Noble</a>, <a href="https://www.powells.com/" target="_blank" rel="noreferrer noopener">Powells</a> (Stati Uniti d'America)
+* <a href="https://www.cultura.com/" target="_blank" rel="noreferrer noopener">Cultura</a>, <a href="https://www.fnac.com" target="_blank" rel="noreferrer noopener">fnac</a> (Francia)
+* <a href="https://www.thalia.de/" target="_blank" rel="noreferrer noopener">Thalia</a>, <a href="https://www.buecher.de/" target="_blank" rel="noreferrer noopener">Bücher.de</a> (Germania)
 
 ## ASIN
 
-Amazon uses the **Amazon Standard Identification Number** (ASIN) for product
-identification within their internal system. ASIN is not an international
-standard. You can view the ASIN of a book on the associated product page on
-Amazon's website. The quickest way to find the ASIN is to look at the URL:
+Amazon utilizza l'**Amazon Standard Identification Number** (ASIN) per l'identificazione
+dei prodotti nel loro sistema interno. L'ASIN non è uno standard internazionale. Puoi visualizzare l'ASIN di un libro nella relativa pagina del prodotto sul
+sito web di Amazon. Il modo più veloce per trovare l'ASIN è guardare l'URL:
 
 `https://www.amazon.com/dp/0143105434`
 
-The ASIN usually follows directly after `dp`. For *Wuthering Heights* the ASIN
-is thus `0141439556`. 
+L'ASIN di solito segue direttamente dopo `dp`. Per *Wuthering Heights* l'ASIN
+è quindi `0141439556`.
 
-**Note:** For printed books, the ISBN-10 is usually the same as the ASIN.
+**Nota:** Per i libri stampati, l'ISBN-10 è solitamente lo stesso dell'ASIN.
 
-* <a href="https://addons.mozilla.org/en-US/firefox/addon/asin-collector/" target="_blank" rel="noreferrer noopener">ASIN Collector</a> is a Firefox extension that can bulk-extract ASIN's for all available editions of a book.
+* <a href="https://addons.mozilla.org/en-US/firefox/addon/asin-collector/" target="_blank" rel="noreferrer noopener">ASIN Collector</a> è un'estensione di Firefox che può estrarre in bulk gli ASIN per tutte le edizioni disponibili di un libro.
 
-### eBook ASIN
+### ASIN per gli eBook
 
-For eBooks the ASIN usually starts with a `B` and is listed under *Product
-details*.
+Per gli eBook l'ASIN di solito inizia con una `B` ed è elencato sotto *Dettagli del prodotto*.
 
-For example, the ASIN for *Wuthering Heights - (Penguin Classics Deluxe
-Edition)* is `B0768ZM5QH`.
+Ad esempio, l'ASIN per *Wuthering Heights - (Penguin Classics Deluxe Edition)* è `B0768ZM5QH`.
 
-<Aside type="caution" title="eBook ISBN">Don't get tricked by Amazon: An
-eBook product page will almost always omit the ISBN of an eBook
-in favor of an ASIN. That doesn't mean that the eBook of *Wuthering Heights* is
-Kindle-exclusive. You can find the associated ISBN by visiting the publisher's
-website: <a
-href="https://www.penguinrandomhouse.com/books/286389/wuthering-heights-by-emily-bronte/"
-target="_blank" rel="noreferrer noopener">Wuthering Heights</a>' eBook ISBN is `9780525505143`.</Aside>
+<Aside type="caution" title="ISBN per gli eBook">Non farti ingannare da Amazon: una
+pagina di prodotto eBook quasi sempre ometterà l'ISBN dell'eBook
+in favore di un ASIN. Ciò non significa che l'eBook di *Wuthering Heights* sia
+un'esclusiva Kindle. Puoi trovare l'ISBN associato visitando il sito web dell'editore: l'ISBN dell'eBook di 
+<a href="https://www.penguinrandomhouse.com/books/286389/wuthering-heights-by-emily-bronte/"
+target="_blank" rel="noreferrer noopener">Wuthering Heights</a> è `9780525505143`.</Aside>
 
-## Other available tools
+## Altri strumenti disponibili
 
 ### isbntools
-* <a href="https://pypi.org/project/isbntools/" target="_blank" rel="noreferrer noopener">isbntools</a> is a python CLI application
-capable of retrieving ISBN information from various sources. It can also process
-multiple ISBN provided by a text-file or even other CLI programs.
+* <a href="https://pypi.org/project/isbntools/" target="_blank" rel="noreferrer noopener">isbntools</a> è un'applicazione CLI Python
+in grado di recuperare informazioni ISBN da varie fonti. Può anche elaborare
+più ISBN forniti da un file di testo o anche da altri programmi CLI.
 
-Please refer to the official documentation for install instructions. Some useful commands:
+Per favore, consulta la documentazione ufficiale per le istruzioni di installazione. Alcuni comandi utili:
 
 ```bash
-# Fuzzy find an ISBN from the title (always confirm the result!)
+# Ricerca fuzzy di un ISBN dal titolo (conferma sempre il risultato!)
 $ isbn_from_words "mistborn final empire"
 9780765311788
 
-# Return a collection of ISBN's associated with a book
+# Restituisce una raccolta di ISBN associati a un libro
 $ isbn_editions 9780765311788
 9788413143194
 9784150204990
 9784150204952
 
-# Get basic meta information
+# Ottiene informazioni meta di base
 $ isbn_meta 9780765311788
 Type:      BOOK
 Title:     Mistborn - The Final Empire
@@ -197,15 +189,15 @@ ISBN:      9780765311788
 Year:      2006
 Publisher: Macmillan
 
-# Calculate ISBN-10
+# Calcola l'ISBN-10
 $ to_isbn10 9780765311788
 076531178X
 
-# Split ISBN into its elements
+# Divide l'ISBN nei suoi elementi
 $ isbn_mask 9780765311788
 978-0-7653-1178-8
 
-# Use a specific service and output-format
+# Usa un servizio e un formato di output specifici
 $ isbn_meta 9780525505143 goob json
 {"type": "book",
  "title": "Wuthering Heights - (Penguin Classics Deluxe Edition)",
