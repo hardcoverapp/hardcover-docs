@@ -44,6 +44,6 @@ const locale = Astro.currentLocale;
     )}
 </div>
 
-<LibrarianBanners client:only="react" />
+<LibrarianBanners locale={locale} client:only="react" />
 
 <slot/>
