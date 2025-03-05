@@ -1,8 +1,8 @@
-import * as ES from './content/docs/es/ui.json';
-import * as FR from './content/docs/fr/ui.json';
-import * as IT from './content/docs/it/ui.json';
-import * as PL from './content/docs/pl/ui.json';
-import * as EN from './content/docs/ui.json';
+import * as ES from '../content/docs/es/ui.json';
+import * as FR from '../content/docs/fr/ui.json';
+import * as IT from '../content/docs/it/ui.json';
+import * as PL from '../content/docs/pl/ui.json';
+import * as EN from '../content/docs/ui.json';
 
 export const translations = {
     locales:
@@ -39,8 +39,7 @@ export const translations = {
         }
 
         // If the node doesn't exist for the specified locale, return the en translation
-        const enData = translations.getLocale('en');
-        let enNode = enData;
+        let enNode = translations.getLocale('en');
 
         for (const k of splitKey) {
             enNode = enNode && Object.keys(enNode).includes(k) ? enNode[k] : null;

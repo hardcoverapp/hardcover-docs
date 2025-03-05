@@ -4,6 +4,8 @@ import {uCFirst} from "@/lib/utils";
 import type {FrontmatterConfig} from '@/types';
 
 import { LibrarianBanners } from '@/components/LibrarianBanners';
+import {translations} from "../lib/translations";
+import {useTranslation} from "../lib/utils";
 
 const {
     author,
@@ -31,7 +33,7 @@ const locale = Astro.currentLocale;
     <p class="text-sm inline-block self-start">
         {lastUpdated && (
                 <>
-                    Last updated on {new Date(lastUpdated).toLocaleDateString(locale, {
+                    {useTranslation('ui.lastUpdated', locale)} &nbsp; {new Date(lastUpdated).toLocaleDateString(locale, {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',

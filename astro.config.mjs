@@ -5,7 +5,7 @@ import tailwind from '@astrojs/tailwind';
 import react from "@astrojs/react";
 
 import { URLS } from './src/Consts';
-import {translations} from './src/translations.js';
+import {translations} from './src/lib/translations.ts';
 
 // https://astro.build/config
 export default defineConfig({

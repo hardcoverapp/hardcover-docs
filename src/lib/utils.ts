@@ -1,7 +1,7 @@
 import {type ClassValue, clsx} from "clsx"
 import {twMerge} from "tailwind-merge"
 
-import {translations} from "@/translations.ts";
+import {translations} from "./translations.ts";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))

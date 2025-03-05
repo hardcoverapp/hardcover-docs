@@ -35,5 +35,8 @@
   },
   "site": {
     "title": "Hardcover"
+  },
+  "ui": {
+    "lastUpdated": "Last Updated"
   }
 }
