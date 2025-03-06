@@ -1,0 +1,23 @@
+---
+title: '404'
+template: splash
+editUrl: false
+hero:
+    title: '404'
+    tagline: The requested page was not found. Check the URL or <br /> try using the search bar above or one of the options below.
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+import { URLS } from '@/Consts.js';
+
+
+<LinkCard title="Documentation Home"
+          description="Go back to the documentation home page"
+          href="/"
+/>
+
+<LinkCard title="Hardcover App"
+          description="Go to the Hardcover app"
+          href={URLS.APP}
+          target="_blank"
+/>

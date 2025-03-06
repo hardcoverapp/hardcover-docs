@@ -1,0 +1,47 @@
+---
+title: FAQ Modifiche
+description: Domande frequenti sulla modifica di libri / edizioni.
+category: guide
+lastUpdated: 2025-03-02 19:57:15
+layout: /src/layouts/librarians.astro
+---
+
+## Generale
+### Come posso aggiungere un libro se non lo trovo su Hardcover?
+Se cerchi un libro e non lo vedi nei risultati, vai alla pagina Add Book to Hardcover (Aggiungi Libro a Hardcover). Lì puoi aggiungere un libro tramite ISBN 10, ISBN 13 o Goodreads ID. Questo è il miglior modo per iniziare, poiché è possibile che il libro non appaia nella ricerca per vari motivi (principalmente perché la cache di ricerca è obsoleta, o questo libro è stato aggiunto manualmente da un utente di recente e non è  stato ancora approvato).
+
+Se questo libro non ha un ISBN e non è su Goodreads, allora puoi utilizzare il modulo New Edition (Nuova Edizione). Questo creerà un nuovo libro con questa come unica nuova edizione. Quando i bibliotecari aggiungono libri usando questo modulo, questi appariranno subito per tutti. Quando ospiti e non-bibliotecari aggiungono libri usando questo modulo, a quei libri verrà assegnato un valore "aggiunto dall'utente" dietro le quinte che impedisce che appaiano nella ricerca.
+
+### Come posso unire i libri?
+Nella pagina del libro, clicca sul pulsante <kbd>Flag</kbd> (Segnala) e dal menu a discesa seleziona <kbd>Mark as Duplicate</kbd> (Segna come Duplicato). Questo aprirà una modale (o un overlay su mobile) che ti permetterà di cercare e selezionare di quale libro l'attuale libro è un duplicato. Seleziona quel libro e clicca sul pulsante per segnalarlo come duplicato.
+
+Se hai un livello di accesso superiore all'impatto che l'unione dei libri comporterebbe, i libri verranno uniti immediatamente. Se cerchi di unire un libro popolare con un altro libro, un amministratore riceverà la richiesta di unione per controllarla prima di eseguirla. Una volta eseguita, riceverai una notifica.
+
+### Quando si combinano libri/serie/autori duplicati, quale versione dovrei mantenere?
+Nel caso di autori, serie e personaggi, mantieni quello con il nome canonico inglese.
+
+Per i libri, scegli quello con il maggior numero di lettori. Quando un altro lettore seleziona quel libro da leggere, l'"edizione" che il lettore ha letto sarà per impostazione predefinita l'edizione principale di questo libro. Selezionare il libro con più lettori fa in modo che le prossime persone che lo leggeranno saranno assegnate alla stessa edizione popolare.
+
+### La copertina del libro è sfocata anche se l'edizione ha un'immagine ad alta risoluzione
+Verifica che il file non sia un webp (a volte i file webp provenienti da editori o autori sono erroneamente contrassegnati con l'estensione .jpg). In questo caso puoi risalvarlo con qualsiasi editor di immagini per convertirlo in un reale jpg o png prima di caricarlo su Hardcover.
+
+## Edizioni
+### Un ISBN è già erroneamente in uso su un'altra edizione
+Rimuovi l'ISBN dal libro sbagliato usando il pulsante <kbd>Hard Reset</kbd>, quindi aggiungilo all'edizione corretta.
+
+### Qual è la differenza tra 'Edition Format' (Formato Edizione) e 'Reading Format' (Formato di Lettura) quando si modifica un libro?
+Nel modulo di modifica dell'edizione chiediamo entrambi, ma solo "Reading Format" è obbligatorio. Il formato di lettura ha tre opzioni: <kbd>Audiobook</kbd> (Audiolibro), <kbd>Physical Book</kbd> (Libro fisico) e <kbd>Ebook</kbd>.
+
+<kbd>Edition Format</kbd> è un campo di testo utilizzato per aggiungere dettagli su questa specifica edizione. Ad esempio: <kbd>Hardcover</kbd> (Copertina rigida), <kbd>Mass market paperback</kbd> (Tascabile), <kbd>Full cast audiobook</kbd> (Audiolibro con cast completo), <kbd>Kickstarter Version</kbd> (Versione Kickstarter), ecc.
+
+Questo rappresenta quella specifica edizione del libro, non da dove l'hai letto. È improbabile che si inserisca <kbd>Kindle Edition</kbd> (Edizione Kindle), a meno che questa edizione non sia stata originariamente creata per Kindle e sia diversa da altre versioni.
+
+Nella maggior parte dei casi, oppure se hai dubbi, puoi lasciare questo campo vuoto.
+
+## Serie
+### Il conteggio dei libri della serie è basso o nelle pagine di autori/libri mancano le miniature delle serie
+Il conteggio dei libri della serie e le anteprime della serie considerano solo i libri con una data di pubblicazione. Verifica che almeno un'edizione per tutti i libri della serie abbia una data di pubblicazione valida.
+
+## Altro
+### Il mio aggiornamento non ha funzionato. Cosa sta succedendo?
+Se riscontri un bug, avvia una discussione nel canale bugs and questions (bug e domande) con più informazioni possibili per aiutare a riprodurre l'errore (link alla pagina che stavi modificando, quali campi hai modificato).

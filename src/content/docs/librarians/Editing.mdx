@@ -3,7 +3,7 @@ title: Editing FAQ
 description: Frequently asked questions for editing books / editions.
 category: guide
 lastUpdated: 2025-01-07 08:00:00
-layout: ../../../layouts/librarians.astro
+layout: /src/layouts/librarians.astro
 ---
 
 ## General
@@ -13,7 +13,7 @@ If you search for a book and don’t see it in the results, head over to the Add
 If this book doesn’t have an ISBN and isn’t on Goodreads, then you can head over to the New Edition form. This will create a new Book with this as the one new edition for it. When librarians add books using this form they’ll show up for everyone right away. When guests and non-librarians add books using this form they’ll have a “user added” boolean added to that book behind the scenes that prevents it from showing up in search.
 
 ### How do I merge books?
-On the book page, click the “Flag” dropdown and select “Mark as Duplicate”. This will open up a modal (or an overlay on mobile) that allows you to search for and select which book the current book is a duplicate of. Select that book and click button to mark it as a duplicate.
+On the book page, click the <kbd>Flag</kbd> dropdown and select <kbd>Mark as Duplicate</kbd>. This will open up a modal (or an overlay on mobile) that allows you to search for and select which book the current book is a duplicate of. Select that book and click button to mark it as a duplicate.
 
 If your access level is greater than the impact of the merge, it’ll be merged immediately. If you try to merge a popular book into another book, the merge will be sent to an admin to double check before being run. Once it’s run you’ll receive a notification.
 
@@ -27,14 +27,17 @@ Check to make sure the file is not a webp (sometimes webp files from publishers 
 
 ## Editions
 ### An ISBN is already in use incorrectly on another edition
-Remove the ISBN from the wrong book using the "Hard Reset" button, then add it to the correct edition.
+Remove the ISBN from the wrong book using the <kbd>Hard Reset</kbd> button, then add it to the correct edition.
 
 ### What's the difference between 'Edition Format' and 'Reading Format' when editing a book?
-On the edit edition form, we ask for both of these, but only “Reading Format” is required. Reading format has three options: “Audiobook”, “Physical Book” and “Ebook”.
+On the edit edition form, we ask for both of these, but only “Reading Format” is required.
+Reading format has three options: <kbd>Audiobook</kbd>, <kbd>Physical Book</kbd> and <kbd>Ebook</kbd>.
 
-“Edition Format” is a text field that is used to elaborate on this specific edition. For example: “Hardcover”, “Mass market paperback”, “Full cast audiobook”, “Kickstarter Version”, etc.
+<kbd>Edition Format</kbd> is a text field that is used to elaborate on this specific edition. For example: <kbd>Hardcover</kbd>, <kbd>Mass market paperback</kbd>, <kbd>Full cast audiobook</kbd>, <kbd>Kickstarter Version</kbd>, etc.
 
-This represents that specific edition of the book, not where you accessed it from. It’s unlikely you’d put “Kindle Edition” here, unless this edition was originally created for Kindle and is different from other versions.
+This represents that specific edition of the book, not where you accessed it from.
+It’s unlikely you’d put <kbd>Kindle Edition</kbd> here,
+unless this edition was originally created for Kindle and is different from other versions.
 
 When in doubt, and in most cases, you can leave this field blank.
 

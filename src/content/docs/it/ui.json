@@ -1,0 +1,48 @@
+{
+  "lang": {
+    "label": "Italiano",
+    "code": "it"
+  },
+  "pages": {
+    "api": {
+      "disclaimerBanner": {
+        "title": "Avviso",
+        "text": "Questa API è attualmente in fase di sviluppo e potrebbe cambiare o non funzionare in qualsiasi momento senza preavviso. Se hai domande o hai bisogno di aiuto, chiedi pure nel canale Discord <a>#api</a>."
+      }
+    },
+    "librarians": {
+      "standardsBanner": {
+        "title": "Nota",
+        "text": "Le regole e le linee guida incluse nelle sezioni degli standard di questa documentazione hanno lo scopo di fornire un quadro generale per guidare i nuovi bibliotecari, offrire esempi su come gestire scenari comuni di modifica e presentare coerenza in tutto il sito. Ciò detto, i libri non sono tutti uguali, quindi è impossibile che un singolo standard sia perfettamente applicabile in tutte le situazioni. Se ritieni che un'opera in particolare non rientri in questi standard o hai suggerimenti per miglioramenti, faccelo sapere nel canale Discord <a>#librarians</a>."
+      }
+    }
+  },
+  "sidebar": {
+    "api": {
+      "title": "Documentazione API",
+      "gettingStarted": "Primi Passi",
+      "guides": "Guide",
+      "schemas": "Schemi"
+    },
+    "contributing": {
+      "title": "Guide alla Contribuzione",
+      "api": "Guida alla Documentazione API",
+      "librarian": "Guida alle Contribuzioni dei Bibliotecari",
+      "translations": "Guida alla Traduzione della Documentazione"
+    },
+    "librarians": {
+      "title": "Guide per Bibliotecari",
+      "editing": "FAQ Modifiche",
+      "faq": "FAQ Bibliotecari",
+      "gettingStarted": "Primi Passi come Bibliotecario",
+      "resources": "Risorse",
+      "standards": "Standard"
+    }
+  },
+  "site": {
+    "title": "Hardcover"
+  },
+  "ui": {
+    "lastUpdated": "Ultimo Aggiornamento"
+  }
+}

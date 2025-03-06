@@ -1,0 +1,54 @@
+---
+title: Translating Documentation Guide
+category: guide
+lastUpdated: 2025-02-28 13:27:00
+layout: /src/layouts/librarians.astro
+---
+import { Steps } from '@astrojs/starlight/components';
+
+# Translating Exising Pages
+
+<Steps>
+    1. Go to the page you want to translate.
+
+    2. Using the language dropdown at the top of the page, select the language you want to translate the document into.
+
+    3. Click the "Edit page" button at the bottom of the page.
+
+    4. Translate the content into the selected language.
+
+    5. After making your changes click the "Commit changes..." button at the top of the page.
+
+    6. In the modal that appears, add a title and description to describe your changes, then click the "Propose changes" button.
+
+    7. In Discord ping `@Revelry` to review your changes.
+
+</Steps>
+
+
+# How to reference UI elements in translations
+
+Since the Hardcover app is currently only available in English,
+you should write the documentation pages with the English labels but also include what the translation should be.
+
+For example, if you are translating a page that references a button with the label "Save",
+you should write the page with the button labeled as "Save" and include the translation in the page content like so:
+
+```
+Click the <kbd>Save</kbd> button to save your changes.
+```
+
+Would become:
+
+```
+Haga clic en el botón <kbd>Save</kbd> "Guardar" para guardar los cambios.
+
+```
+
+# Adding new languages to the language dropdown
+
+The root language should **not** be changed from English.
+To add a new language, see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
+
+When adding a new language,
+you should also update the existing translations in the astro config file to include the new language.

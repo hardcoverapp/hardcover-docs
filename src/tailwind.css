@@ -8,7 +8,6 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 */
 
 @layer base {
-
     @layer base {
         :root {
             --background: 0 0% 100%;
@@ -65,4 +64,14 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
             --chart-5: 340 75% 55%;
         }
     }
+}
+
+kbd {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.3rem;
+    font-size: 0.9em;
+    font-family: Monospaced, monospace;
 }

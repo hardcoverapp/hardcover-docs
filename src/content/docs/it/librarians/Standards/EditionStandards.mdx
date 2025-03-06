@@ -1,0 +1,65 @@
+---
+title: Standard per le edizioni
+description: Standard per aggiungere e modificare edizioni su Hardcover.
+category: guide
+lastUpdated: 2025-03-02 11:56:45
+layout: /src/layouts/librarians.astro
+---
+
+import {Badge} from "@astrojs/starlight/components";
+
+## Copertine
+### Tipo di file preferito per le immagini di copertina
+PNG e JPEG funzionano meglio. I file Webp non sono attualmente supportati. La copertina non dovrebbe avere alcuna trasparenza. L'immagine viene convertita in un file webp prima di essere mostrata, indipendentemente da ciò che carichi.
+
+### Dimensione del file preferita
+Più grande è la copertina, meglio è! Se vuoi caricare un file da 15 MB, vai pure. Lo ridimensioneremo e mostreremo una versione più piccola ovunque.
+
+Le copertine che mostriamo su Hardcover (aggiornato al 22 marzo 2024) hanno una dimensione massima di 200px di larghezza per 300px di altezza. Qualsiasi dimensione inferiore a questa mostrerà un'immagine sfocata a causa del ridimensionamento. Qualsiasi copertina che carichi su Hardcover dovrebbe essere almeno 300px di larghezza per 450px di altezza.
+
+### Quali dimensioni sono identificate con rosso, giallo e verde?
+Ad oggi mostriamo tre diversi punteggi di qualità per le copertine. Questo viene calcolato usando `altezza x larghezza`.
+
+0 - 32.999: <Badge text="Qualità scarsa" variant="danger" /> (es. 133 x 200)
+
+33.000 - 99.999: <Badge text="Qualità accettabile" variant="caution" /> (es: 200 x 300)
+
+100.000 +: <Badge text="Buona qualità" variant="success" /> (es: 300 x 450)
+
+Vorremmo iniziare a mostrare copertine più grandi nella pagina del libro, il che richiederà più copertine nel range di Qualità eccellente.
+
+## Collaboratori
+### Ordine di elenco dei collaboratori dell'edizione
+Aggiungi gli autori principali nello stesso ordine in cui appaiono sulla copertina del libro. I collaboratori aggiuntivi (editori, illustratori, ecc.) possono essere aggiunti in qualsiasi ordine.
+
+### Antologie con più autori
+Per opere contenenti numerosi autori, come antologie di racconti brevi, tutti gli autori contributori dovrebbero essere elencati con il ruolo di autore.
+
+   <details>
+       <summary>Esempi:</summary>
+       Unbound, pubblicato da Grim Oak Press mostra l'Autore come "Multiple" (Multipli) ed elenca gli Autori e le loro contribuzioni nella descrizione.
+
+       In questo caso, tutti i 23 autori contributori dovrebbero essere elencati come Autore dell'edizione.
+   </details>
+
+## Informazioni di pubblicazione
+### Nome dell'editore
+Elenca il nome dell'azienda che ha pubblicato questa edizione.
+
+Gli autori che si autopubblicano sotto il proprio nome dovrebbero essere inseriti come "Independently Published" (Pubblicato in modo indipendente). Le piccole aziende, incluse le LLC stabilite dall'autore che pubblicano solo le opere di quell'autore, hanno comunque elencato il nome dell'azienda.
+
+Non includere virgole o punti intorno agli acronimi di entità commerciali.
+
+   <details>
+       <summary>Esempi:</summary>
+       Julie Carobini -> Pubblicato in modo indipendente
+
+       Julie Carobini, LLC -> Julie Carobini LLC
+
+       Julie Carobini Inc. -> Julie Carobini Inc
+   </details>
+
+### Data di pubblicazione
+Elenca la data di pubblicazione dell'edizione fornita dall'editore. È importante che almeno un'edizione di un libro abbia una data di pubblicazione valida per la corretta visualizzazione del libro nelle serie o in altri luoghi. Hardcover selezionerà automaticamente la data di pubblicazione più antica da visualizzare sulla pagina libro.
+
+Se non esiste una data specifica di pubblicazione o non si trova, elenca la data come 1 gennaio di quell'anno. Se è disponibile il mese ma non il giorno, elencalo come il primo giorno di quel mese: 1/1/anno

@@ -1,0 +1,111 @@
+---
+title: Standard per i fumetti
+description: Standard per aggiungere e modificare fumetti su Hardcover.
+category: guide
+lastUpdated: 2025-03-02 11:56:45
+layout: /src/layouts/librarians.astro
+---
+
+# Fumetti
+## Titolo del Libro
+### Numero Singolo
+
+`{Serie} #{Num}: {Titolo}`
+
+   <details>
+       <summary>Esempi:</summary>
+       The Sandman #1: Sleep of the Just
+
+       Sage #50
+
+       The Amazing Spider-Man #92
+   </details>
+
+### Trade Paperbacks (TPB / TP)
+
+`{Serie}, Vol. {num}: {Titolo}`
+
+   <details>
+       <summary>Esempi:</summary>
+       The Sandman, Vol. 1: Preludes & Nocturnes
+
+       Saga, Vol. 10
+
+       The Amazing Spider-Man, Vol. 5
+   </details>
+
+### Altre Collezioni (Copertina Rigida, Omnibus, Libro, ecc)
+
+`{Serie}: {Titolo della Collezione}`
+
+   <details>
+       <summary>Esempi:</summary>
+       The Sandman: Book One
+
+       Saga: Book Three Deluxe HC
+
+       The Amazing Spider-Man: Omnibus Vol. 1
+   </details>
+
+I numeri di uscita / volume non vengono aggiunti agli One Shot / Standalone che non hanno più opere nella serie.
+
+Il titolo è opzionale per i numeri singoli o TPB poiché non tutte le opere li includono, ma in generale dovrebbe seguire come l'editore elenca l'opera. Se un titolo viene utilizzato su un libro, dovrebbe essere incluso per tutti i libri della serie.
+
+Gli anni di pubblicazione non vengono aggiunti ai nomi dei libri a meno che non facciano esplicitamente parte della serie o del titolo dall'editore, poiché queste informazioni sono incluse nel nome della serie visualizzato sopra il libro.
+
+   <details>
+       <summary>Esempi:</summary>
+       The Amazing Spider-Man (2018) #92 -> The Amazing Spider-Man #92
+
+       Abbott: 1979 -> Abbott: 1979
+   </details>
+
+# Serie di Fumetti
+
+## Titoli delle serie
+
+### Numeri
+
+`{Serie} ({Anno})`
+
+   <details>
+       <summary>Esempi:</summary>
+       Saga
+
+       The Amazing Spider-Man (2018-2022)
+
+       The Amazing Spider-Man (2022-)
+   </details>
+
+### Trade Paperbacks
+
+`{Serie} ({Anno}) (TPBs)`
+
+   <details>
+       <summary>Esempi:</summary>
+       The Sandman (TBPs)
+
+       The Amazing Spider-Man (2012-2022) (TBP)
+   </details>
+
+### Altre Collezioni (Copertina Rigida, Omnibus, Libro, ecc)
+
+`{Serie} ({Anno}) (Nome Collezione)`
+
+   <details>
+       <summary>Esempi:</summary>
+       Saga (Compendiums)
+   </details>
+
+La serie "primaria" (cioè il nome della serie senza qualificatori aggiuntivi nel nome e con lo slug più breve) è il formato più regolarmente pubblicato della serie. Per le serie che escono in numeri singoli, questi rappresenterebbero la serie primaria. Se una serie viene pubblicata solo in TPB o Volumi, questa sarebbe la serie primaria.
+
+L'anno è un campo opzionale utilizzato per differenziare diverse pubblicazioni di fumetti sotto lo stesso nome di serie. Gli anni per i nomi delle serie dovrebbero utilizzare l'intervallo completo della serie per le pubblicazioni completate o il primo anno e un trattino per le serie in corso.
+
+   <details>
+       <summary>Esempi:</summary>
+       Wonder Woman (1987-2006)
+
+       Wonder Woman (2003-)
+   </details>
+
+Le collezioni di opere (come i TPB per serie pubblicate come numeri singoli e tutte le altre collezioni) dovrebbero essere contrassegnate come "Compilation" (Raccolta) con i numeri contenuti aggiunti. Le collezioni dovrebbero essere aggiunte come serie "Featured" (In Evidenza) di quel formato di opera, ma non alle serie dei libri che compongono la collezione (ad es., The Sandman: Book Two verrebbe aggiunto come secondo elemento in "The Sandman (Books)" ma non a "The Sandman" o "Vertigo: Winder's Edge").
