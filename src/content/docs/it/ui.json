@@ -6,14 +6,14 @@
   "pages": {
     "api": {
       "disclaimerBanner": {
-        "title": "Disclaimer",
-        "text": "This API is currently in development and may change or break at any time with out notice. If you have any questions or need help, please ask in the <a>#api</a> Discord channel."
+        "title": "Avviso",
+        "text": "Questa API è attualmente in fase di sviluppo e potrebbe cambiare o non funzionare in qualsiasi momento senza preavviso. Se hai domande o hai bisogno di aiuto, chiedi pure nel canale Discord <a>#api</a>."
       }
     },
     "librarians": {
       "standardsBanner": {
-        "title": "Note",
-        "text": "The rules and guidelines included in the standards sections of this documentation are intended to provide a general framework to guide new librarians, provide examples about how to handle common editing scenarios, and present consistency across the site. That said, no two books are the same, and so it is impossible for any single standard to be perfectly applicable in all situations. If you believe a particular work does not fit into these standards or have suggestions for improvement, please let us know in the <a>#librarians</a> Discord channel."
+        "title": "Nota",
+        "text": "Le regole e le linee guida incluse nelle sezioni degli standard di questa documentazione hanno lo scopo di fornire un quadro generale per guidare i nuovi bibliotecari, offrire esempi su come gestire scenari comuni di modifica e presentare coerenza in tutto il sito. Ciò detto, i libri non sono tutti uguali, quindi è impossibile che un singolo standard sia perfettamente applicabile in tutte le situazioni. Se ritieni che un'opera in particolare non rientri in questi standard o hai suggerimenti per miglioramenti, faccelo sapere nel canale Discord <a>#librarians</a>."
       }
     }
   },
@@ -43,6 +43,6 @@
     "title": "Hardcover"
   },
   "ui": {
-    "lastUpdated": "Last Updated"
+    "lastUpdated": "Ultimo Aggiornamento"
   }
 }
