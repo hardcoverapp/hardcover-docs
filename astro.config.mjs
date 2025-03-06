@@ -4,7 +4,7 @@ import tailwind from '@astrojs/tailwind';
 
 import react from "@astrojs/react";
 
-import { URLS } from './src/Consts';
+import {URLS} from './src/Consts';
 import {useTranslation} from './src/lib/utils'
 
 // https://astro.build/config
@@ -28,7 +28,7 @@ export default defineConfig({
             'fr': {
                 label: useTranslation('lang.label', 'fr'),
                 lang: useTranslation('lang.code', 'fr')
-             },
+            },
             'it': {
                 label: useTranslation('lang.label', 'it'),
                 lang: useTranslation('lang.code', 'it')

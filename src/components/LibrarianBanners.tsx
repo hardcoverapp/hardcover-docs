@@ -1,18 +1,19 @@
+import React from 'react';
+import DOMPurify from 'dompurify'
+
 import {URLS} from "@/Consts";
 import {useTokenTranslation, useTranslation} from '@/lib/utils';
-import DOMPurify from 'dompurify'
-import React from 'react';
 
 export const LibrarianBanners = (lang: any = "en") => {
     const {locale} = lang;
 
     const currentPath = window.location.pathname;
     const isStandards = currentPath.includes('/standards/');
-    const isResources = currentPath.includes('/resources/');
+    // const isResources = currentPath.includes('/resources/');
 
     // @ts-ignore
     const bannerText: string | Node = useTokenTranslation('pages.librarians.standards.bannerText', locale, {
-        "a": (chunks: any) => {
+        "a": () => {
             return `<a href=${URLS.LIBRARIAN_DISCORD}
                                            target="_blank" rel="noreferrer noopener">{chunks}</a>`
         }

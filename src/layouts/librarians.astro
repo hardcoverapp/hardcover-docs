@@ -1,10 +1,9 @@
 ---
 import {Badge} from '@astrojs/starlight/components';
-import {uCFirst} from "@/lib/utils";
-import type {FrontmatterConfig} from '@/types';
 
-import { LibrarianBanners } from '@/components/LibrarianBanners';
-import {useTranslation} from "../lib/utils";
+import {uCFirst, useTranslation} from "@/lib/utils";
+import type {FrontmatterConfig} from '@/types';
+import {LibrarianBanners} from '@/components/LibrarianBanners';
 
 const {
     author,
@@ -25,14 +24,14 @@ const {
 } = Astro.props.frontmatter as FrontmatterConfig;
 
 const locale = Astro.currentLocale;
-
 ---
 
 <div class="flex flex-auto flex-row justify-between mb-4">
     <p class="text-sm inline-block self-start">
         {lastUpdated && (
                 <>
-                    {useTranslation('ui.lastUpdated', locale)} &nbsp; {new Date(lastUpdated).toLocaleDateString(locale, {
+                    {useTranslation('ui.lastUpdated', locale)}
+                    &nbsp; {new Date(lastUpdated).toLocaleDateString(locale, {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
@@ -45,6 +44,6 @@ const locale = Astro.currentLocale;
     )}
 </div>
 
-<LibrarianBanners locale={locale} client:only="react" />
+<LibrarianBanners locale={locale} client:only="react"/>
 
 <slot/>

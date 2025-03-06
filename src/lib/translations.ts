@@ -4,7 +4,7 @@ import * as IT from '../content/docs/it/ui.json';
 import * as PL from '../content/docs/pl/ui.json';
 import * as EN from '../content/docs/ui.json';
 
-export const locales = {
+const locales = {
     en: EN,
     es: ES,
     fr: FR,
@@ -12,14 +12,14 @@ export const locales = {
     pl: PL
 }
 
-export const defaultLocale = "en";
+const defaultLocale = "en";
 
-export const getLocale = (locale: string) => {
+const getLocale = (locale: string) => {
     // @ts-ignore
     return locales[locale] || locales[defaultLocale];
 }
 
-export const splitTranslationKey = (key: string) => {
+const splitTranslationKey = (key: string) => {
     return key.split('.');
 }
 

@@ -4,6 +4,12 @@
     "code": "es"
   },
   "pages": {
+    "api": {
+      "disclaimerBanner": {
+        "title": "Disclaimer",
+        "text": "This API is currently in development and may change or break at any time with out notice. If you have any questions or need help, please ask in the <a>#api</a> Discord channel."
+      }
+    },
     "librarians": {
       "standards": {
         "bannerTitle": "Note",
