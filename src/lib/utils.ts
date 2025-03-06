@@ -1,7 +1,7 @@
 import {type ClassValue, clsx} from "clsx"
 import {twMerge} from "tailwind-merge"
 
-import {translations} from "./translations.ts";
+import {getTranslationNode} from "./translations.ts";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -12,11 +12,11 @@ export const uCFirst = (str: string) => {
 };
 
 export const useTranslation = (key: string, locale: string = 'en') => {
-    return translations.getTranslationNode(key, locale);
+    return getTranslationNode(key, locale);
 };
 
 export const useTokenTranslation = (key: string, locale: string = 'en', tokens: object) => {
-    let node = translations.getTranslationNode(key, locale);
+    let node = getTranslationNode(key, locale);
 
     if (typeof node === 'string') {
         Object.entries(tokens).forEach(([key, value]) => {

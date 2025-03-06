@@ -9,7 +9,7 @@ test('uCFirst', () => {
 });
 
 describe('cn', () => {
-    test('cn', () => {
+    test('cn with multiple strings', () => {
         expect(cn('text-center', 'text-blue-500')).toBe('text-center text-blue-500');
         expect(cn('text-center', 'text-blue-500', 'text-lg')).toBe('text-center text-blue-500 text-lg');
     });

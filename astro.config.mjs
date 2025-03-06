@@ -5,7 +5,7 @@ import tailwind from '@astrojs/tailwind';
 import react from "@astrojs/react";
 
 import { URLS } from './src/Consts';
-import {translations} from './src/lib/translations.ts';
+import {useTranslation} from './src/lib/utils'
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,24 +22,24 @@ export default defineConfig({
         lastUpdated: true,
         locales: {
             'es': {
-                label: translations.getLocale('es').lang.label,
-                lang: translations.getLocale('es').lang.code
+                label: useTranslation('lang.label', 'es'),
+                lang: useTranslation('lang.code', 'es'),
             },
             'fr': {
-                 label: translations.getLocale('fr').lang.label,
-                 lang: translations.getLocale('fr').lang.code
+                label: useTranslation('lang.label', 'fr'),
+                lang: useTranslation('lang.code', 'fr')
              },
             'it': {
-                label: translations.getLocale('it').lang.label,
-                lang: translations.getLocale('it').lang.code
+                label: useTranslation('lang.label', 'it'),
+                lang: useTranslation('lang.code', 'it')
             },
             'pl': {
-                label: translations.getLocale('pl').lang.label,
-                lang: translations.getLocale('pl').lang.code
+                label: useTranslation('lang.label', 'pl'),
+                lang: useTranslation('lang.code', 'pl')
             },
             root: {
-                label: translations.getLocale('en').lang.label,
-                lang: translations.getLocale('en').lang.code
+                label: useTranslation('lang.label', 'en'),
+                lang: useTranslation('lang.code', 'en')
             },
         },
         logo: {
@@ -47,37 +47,37 @@ export default defineConfig({
         },
         sidebar: [
             {
-                label: translations.getLocale('en').sidebar.api.title,
+                label: useTranslation('sidebar.api.title', 'en'),
                 collapsed: true,
                 items: [
                     {
-                        label: translations.getLocale('en').sidebar.api.gettingStarted,
+                        label: useTranslation('sidebar.api.gettingStarted', 'en'),
                         slug: 'api/getting-started',
                         translations: {
-                            es: translations.getLocale('es').sidebar.api.gettingStarted,
-                            fr: translations.getLocale('fr').sidebar.api.gettingStarted,
-                            it: translations.getLocale('it').sidebar.api.gettingStarted,
-                            pl: translations.getLocale('pl').sidebar.api.gettingStarted
+                            es: useTranslation('sidebar.api.gettingStarted', 'es'),
+                            fr: useTranslation('sidebar.api.gettingStarted', 'fr'),
+                            it: useTranslation('sidebar.api.gettingStarted', 'it'),
+                            pl: useTranslation('sidebar.api.gettingStarted', 'pl')
                         }
                     },
                     {
-                        label: translations.getLocale('en').sidebar.api.guides,
+                        label: useTranslation('sidebar.api.guides', 'en'),
                         translations: {
-                            es: translations.getLocale('es').sidebar.api.guides,
-                            fr: translations.getLocale('fr').sidebar.api.guides,
-                            it: translations.getLocale('it').sidebar.api.guides,
-                            pl: translations.getLocale('pl').sidebar.api.guides
+                            es: useTranslation('sidebar.api.guides', 'es'),
+                            fr: useTranslation('sidebar.api.guides', 'fr'),
+                            it: useTranslation('sidebar.api.guides', 'it'),
+                            pl: useTranslation('sidebar.api.guides', 'pl')
                         },
                         autogenerate: {directory: 'api/guides'},
                         collapsed: true,
                     },
                     {
-                        label: translations.getLocale('en').sidebar.api.schemas,
+                        label: useTranslation('sidebar.api.schemas', 'en'),
                         translations: {
-                            es: translations.getLocale('es').sidebar.api.schemas,
-                            fr: translations.getLocale('fr').sidebar.api.schemas,
-                            it: translations.getLocale('it').sidebar.api.schemas,
-                            pl: translations.getLocale('pl').sidebar.api.schemas
+                            es: useTranslation('sidebar.api.schemas', 'es'),
+                            fr: useTranslation('sidebar.api.schemas', 'fr'),
+                            it: useTranslation('sidebar.api.schemas', 'it'),
+                            pl: useTranslation('sidebar.api.schemas', 'pl')
                         },
                         autogenerate: {directory: 'api/GraphQL/Schemas'},
                         collapsed: true,
@@ -85,116 +85,116 @@ export default defineConfig({
                 ]
             },
             {
-                label: translations.getLocale('en').sidebar.contributing.title,
+                label: useTranslation('sidebar.contributing.title', 'en'),
                 collapsed: true,
                 items: [
                     {
-                        label: translations.getLocale('en').sidebar.contributing.api,
+                        label: useTranslation('sidebar.contributing.api', 'en'),
                         slug: 'contributing/api-docs',
 
                         translations: {
-                            es: translations.getLocale('es').sidebar.contributing.api,
-                            fr: translations.getLocale('fr').sidebar.contributing.api,
-                            it: translations.getLocale('it').sidebar.contributing.api,
-                            pl: translations.getLocale('pl').sidebar.contributing.api
+                            es: useTranslation('sidebar.contributing.api', 'es'),
+                            fr: useTranslation('sidebar.contributing.api', 'fr'),
+                            it: useTranslation('sidebar.contributing.api', 'it'),
+                            pl: useTranslation('sidebar.contributing.api', 'pl')
                         }
                     },
                     {
-                        label: translations.getLocale('en').sidebar.contributing.librarian,
+                        label: useTranslation('sidebar.contributing.librarian', 'en'),
                         slug: 'contributing/librarian-guides',
 
                         translations: {
-                            es: translations.getLocale('es').sidebar.contributing.librarian,
-                            fr: translations.getLocale('fr').sidebar.contributing.librarian,
-                            it: translations.getLocale('it').sidebar.contributing.librarian,
-                            pl: translations.getLocale('pl').sidebar.contributing.librarian
+                            es: useTranslation('sidebar.contributing.librarian', 'es'),
+                            fr: useTranslation('sidebar.contributing.librarian', 'fr'),
+                            it: useTranslation('sidebar.contributing.librarian', 'it'),
+                            pl: useTranslation('sidebar.contributing.librarian', 'pl')
                         }
                     },
                     {
-                        label: translations.getLocale('en').sidebar.contributing.translations,
+                        label: useTranslation('sidebar.contributing.translations', 'en'),
                         slug: 'contributing/doc-translations',
 
                         translations: {
-                            es: translations.getLocale('es').sidebar.contributing.translations,
-                            fr: translations.getLocale('fr').sidebar.contributing.translations,
-                            it: translations.getLocale('it').sidebar.contributing.translations,
-                            pl: translations.getLocale('pl').sidebar.contributing.translations
+                            es: useTranslation('sidebar.contributing.translations', 'es'),
+                            fr: useTranslation('sidebar.contributing.translations', 'fr'),
+                            it: useTranslation('sidebar.contributing.translations', 'it'),
+                            pl: useTranslation('sidebar.contributing.translations', 'pl')
                         }
                     }
                 ],
                 translations: {
-                    es: translations.getLocale('es').sidebar.contributing.title,
-                    fr: translations.getLocale('fr').sidebar.contributing.title,
-                    it: translations.getLocale('it').sidebar.contributing.title,
-                    pl: translations.getLocale('pl').sidebar.contributing.title
+                    es: useTranslation('sidebar.contributing.title', 'es'),
+                    fr: useTranslation('sidebar.contributing.title', 'fr'),
+                    it: useTranslation('sidebar.contributing.title', 'it'),
+                    pl: useTranslation('sidebar.contributing.title', 'pl')
                 }
             },
             {
-                label: translations.getLocale('en').sidebar.librarians.title,
+                label: useTranslation('sidebar.librarians.title', 'en'),
                 collapsed: true,
                 items: [
                     {
-                        label: translations.getLocale('en').sidebar.librarians.editing,
+                        label: useTranslation('sidebar.librarians.editing', 'en'),
                         slug: 'librarians/editing',
 
                         translations: {
-                            es: translations.getLocale('es').sidebar.librarians.editing,
-                            fr: translations.getLocale('fr').sidebar.librarians.editing,
-                            it: translations.getLocale('it').sidebar.librarians.editing,
-                            pl: translations.getLocale('pl').sidebar.librarians.editing
+                            es: useTranslation('sidebar.librarians.editing', 'es'),
+                            fr: useTranslation('sidebar.librarians.editing', 'fr'),
+                            it: useTranslation('sidebar.librarians.editing', 'it'),
+                            pl: useTranslation('sidebar.librarians.editing', 'pl')
                         }
                     },
                     {
-                        label: translations.getLocale('en').sidebar.librarians.faq,
+                        label: useTranslation('sidebar.librarians.faq', 'en'),
                         slug: 'librarians/faq',
 
                         translations: {
-                            es: translations.getLocale('es').sidebar.librarians.faq,
-                            fr: translations.getLocale('fr').sidebar.librarians.faq,
-                            it: translations.getLocale('it').sidebar.librarians.faq,
-                            pl: translations.getLocale('pl').sidebar.librarians.faq
+                            es: useTranslation('sidebar.librarians.faq', 'es'),
+                            fr: useTranslation('sidebar.librarians.faq', 'fr'),
+                            it: useTranslation('sidebar.librarians.faq', 'it'),
+                            pl: useTranslation('sidebar.librarians.faq', 'pl')
                         }
                     },
                     // {
-                    //     label: translations.getLocale('en').sidebar.librarians.gettingStarted,
+                    //     label: useTranslation('sidebar.librarians.gettingStarted', 'en'),
                     //     slug: 'librarians/getting-started',
                     //
                     //     translations: {
-                    //         es: translations.getLocale('es').sidebar.librarians.gettingStarted,
-                    //         fr: translations.getLocale('fr').sidebar.librarians.gettingStarted,
-                    //         it: translations.getLocale('it').sidebar.librarians.gettingStarted,
-                    //         pl: translations.getLocale('pl').sidebar.librarians.gettingStarted
+                    //         es: useTranslation('sidebar.librarians.gettingStarted', 'es'),
+                    //         fr: useTranslation('sidebar.librarians.gettingStarted', 'fr'),
+                    //         it: useTranslation('sidebar.librarians.gettingStarted', 'it'),
+                    //         pl: useTranslation('sidebar.librarians.gettingStarted', 'pl')
                     //     }
                     // }
                     {
-                        label: translations.getLocale('en').sidebar.librarians.resources,
+                        label: useTranslation('sidebar.librarians.resources', 'en'),
                         autogenerate: {directory: 'librarians/Resources'},
 
                         translations: {
-                            es: translations.getLocale('es').sidebar.librarians.resources,
-                            fr: translations.getLocale('fr').sidebar.librarians.resources,
-                            it: translations.getLocale('it').sidebar.librarians.resources,
-                            pl: translations.getLocale('pl').sidebar.librarians.resources
+                            es: useTranslation('sidebar.librarians.resources', 'es'),
+                            fr: useTranslation('sidebar.librarians.resources', 'fr'),
+                            it: useTranslation('sidebar.librarians.resources', 'it'),
+                            pl: useTranslation('sidebar.librarians.resources', 'pl')
                         }
                     },
                     {
-                        label: translations.getLocale('en').sidebar.librarians.standards,
+                        label: useTranslation('sidebar.librarians.standards', 'en'),
                         autogenerate: {directory: 'librarians/Standards'},
 
                         translations: {
-                            es: translations.getLocale('es').sidebar.librarians.standards,
-                            fr: translations.getLocale('fr').sidebar.librarians.standards,
-                            it: translations.getLocale('it').sidebar.librarians.standards,
-                            pl: translations.getLocale('pl').sidebar.librarians.standards
+                            es: useTranslation('sidebar.librarians.standards', 'es'),
+                            fr: useTranslation('sidebar.librarians.standards', 'fr'),
+                            it: useTranslation('sidebar.librarians.standards', 'it'),
+                            pl: useTranslation('sidebar.librarians.standards', 'pl')
                         }
                     }
                 ],
 
                 translations: {
-                    es: translations.getLocale('es').sidebar.librarians.title,
-                    fr: translations.getLocale('fr').sidebar.librarians.title,
-                    it: translations.getLocale('it').sidebar.librarians.title,
-                    pl: translations.getLocale('pl').sidebar.librarians.title
+                    es: useTranslation('sidebar.librarians.title', 'es'),
+                    fr: useTranslation('sidebar.librarians.title', 'fr'),
+                    it: useTranslation('sidebar.librarians.title', 'it'),
+                    pl: useTranslation('sidebar.librarians.title', 'pl')
                 }
             }
         ],
@@ -205,7 +205,7 @@ export default defineConfig({
             mastodon: URLS.MASTODON,
         },
         title: {
-            en: translations.getLocale('en').site.title,
+            en: useTranslation('site.title', 'en'),
         }
     }), tailwind({
         applyBaseStyles: false
