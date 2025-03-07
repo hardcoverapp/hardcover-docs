@@ -191,10 +191,10 @@ export default defineConfig({
                 ],
 
                 translations: {
-                    es: useTranslation('sidebar.librarians.title', 'es'),
-                    fr: useTranslation('sidebar.librarians.title', 'fr'),
+                    // es: useTranslation('sidebar.librarians.title', 'es'),
+                    // fr: useTranslation('sidebar.librarians.title', 'fr'),
                     it: useTranslation('sidebar.librarians.title', 'it'),
-                    pl: useTranslation('sidebar.librarians.title', 'pl')
+                    // pl: useTranslation('sidebar.librarians.title', 'pl')
                 }
             }
         ],
