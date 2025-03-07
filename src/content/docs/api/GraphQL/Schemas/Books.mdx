@@ -1,11 +1,197 @@
 ---
 title: Books
 category: reference
-lastUpdated: 2024-12-29 22:49:00
+lastUpdated: 2025-03-07 14:20:00
 layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+
+# Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>compilation</td>
+        <td>bool</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>release_year</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>rating</td>
+        <td>float</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>pages</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>users_count</td>
+        <td>int32</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>lists_count</td>
+        <td>int32</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ratings_count</td>
+        <td>int32</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>reviews_count</td>
+        <td>int32</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>author_names</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>cover_color</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>genres</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>moods</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>content_warnings</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>tags</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>series_names</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>has_audiobook</td>
+        <td>bool</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>has_ebook</td>
+        <td>bool</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>contribution_types</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>string</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>string</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>subtitle</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>release_date</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>audio_seconds</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>users_read_count</td>
+        <td>int32</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>prompts_count</td>
+        <td>int32</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>activities_count</td>
+        <td>int32</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>release_date_i</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>featured_series</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>featured_series_position</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>alternative_titles</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>isbns</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>contributions</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>image</td>
+        <td>auto</td>
+        <td></td>
+    </tr>
+
+    </tbody>
+</table>
+
 
 ## Get a list of books belonging to the current user
 
@@ -30,7 +216,7 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
 }
 `} description={`
     This query will return a list of books that the user has added to their collection.
-`} presentation='json' forcePresentation />
+`} presentation='json' forcePresentation/>
 
 ## Get a list of books by a specific author
 
@@ -72,7 +258,7 @@ query GetEditionsFromTitle {
         }
     }
 }
-`} description='Get all of the editions for the specific title of `Oathbringer`' presentation='json' forcePresentation />
+`} description='Get all of the editions for the specific title of `Oathbringer`' presentation='json' forcePresentation/>
 
 ## Create a new book
 <GraphQLExplorer query={`
