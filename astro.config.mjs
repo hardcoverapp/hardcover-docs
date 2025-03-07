@@ -21,22 +21,22 @@ export default defineConfig({
         },
         lastUpdated: true,
         locales: {
-            'es': {
-                label: useTranslation('lang.label', 'es'),
-                lang: useTranslation('lang.code', 'es'),
-            },
-            'fr': {
-                label: useTranslation('lang.label', 'fr'),
-                lang: useTranslation('lang.code', 'fr')
-            },
+            // 'es': {
+            //     label: useTranslation('lang.label', 'es'),
+            //     lang: useTranslation('lang.code', 'es'),
+            // },
+            // 'fr': {
+            //     label: useTranslation('lang.label', 'fr'),
+            //     lang: useTranslation('lang.code', 'fr')
+            // },
             'it': {
                 label: useTranslation('lang.label', 'it'),
                 lang: useTranslation('lang.code', 'it')
             },
-            'pl': {
-                label: useTranslation('lang.label', 'pl'),
-                lang: useTranslation('lang.code', 'pl')
-            },
+            // 'pl': {
+            //     label: useTranslation('lang.label', 'pl'),
+            //     lang: useTranslation('lang.code', 'pl')
+            // },
             root: {
                 label: useTranslation('lang.label', 'en'),
                 lang: useTranslation('lang.code', 'en')
@@ -191,10 +191,10 @@ export default defineConfig({
                 ],
 
                 translations: {
-                    // es: useTranslation('sidebar.librarians.title', 'es'),
-                    // fr: useTranslation('sidebar.librarians.title', 'fr'),
+                    es: useTranslation('sidebar.librarians.title', 'es'),
+                    fr: useTranslation('sidebar.librarians.title', 'fr'),
                     it: useTranslation('sidebar.librarians.title', 'it'),
-                    // pl: useTranslation('sidebar.librarians.title', 'pl')
+                    pl: useTranslation('sidebar.librarians.title', 'pl')
                 }
             }
         ],
