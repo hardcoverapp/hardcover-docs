@@ -19,6 +19,16 @@ export default defineConfig({
         editLink: {
             baseUrl: 'https://github.com/hardcoverapp/hardcover-docs/edit/main/'
         },
+        head: [
+            {
+                tag: 'script',
+                attrs: {
+                    src: 'https://plausible.hardcover.app/js/script.js',
+                    'data-domain': 'docs.hardcover.app',
+                    defer: true
+                },
+            },
+        ],
         lastUpdated: true,
         locales: {
             // 'es': {
