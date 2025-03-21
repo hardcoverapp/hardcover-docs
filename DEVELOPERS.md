@@ -31,7 +31,7 @@ Static assets, like favicons, can be placed in the `public/` directory.
     ```
 2. **Navigate to the project directory:**
    ```bash
-   cd hardcover-doc
+   cd hardcover-docs
    ```
 3. **Install dependencies:**
     ```bash
