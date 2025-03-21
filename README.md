@@ -31,7 +31,7 @@ Use our amazing stats and tools, including AI, to discover new horizons in your 
     ```
 2. **Navigate to the project directory:**
    ```bash
-   cd hardcover-doc
+   cd hardcover-docs
    ```
 3. **Install dependencies:**
     ```bash
