@@ -130,6 +130,13 @@ export default defineConfig({
                             it: useTranslation('sidebar.contributing.translations', 'it'),
                             pl: useTranslation('sidebar.contributing.translations', 'pl')
                         }
+                    },
+                    {
+                        label: useTranslation('sidebar.contributing.usingTranslations', 'en'),
+                        slug: 'contributing/using-translations',
+                        translations: {
+                            it: useTranslation('sidebar.contributing.usingTranslations', 'it'),
+                        }
                     }
                 ],
                 translations: {

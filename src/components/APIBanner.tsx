@@ -4,12 +4,10 @@ import DOMPurify from "dompurify";
 import {URLS} from "@/Consts";
 import {useTokenTranslation, useTranslation} from "@/lib/utils.ts";
 
-export const APIBanner = (lang: any = "en") => {
-    const {locale} = lang;
-
+export const APIBanner = (locale: any = "en") => {
     // @ts-ignore
     const bannerText: string | Node = useTokenTranslation('pages.api.disclaimerBanner.text', locale, {
-        "a": () => {
+        "a": (chunks: any) => {
             return `<a href=${URLS.API_DISCORD}
                    target="_blank" rel="noreferrer noopener">{chunks}</a>`
         }

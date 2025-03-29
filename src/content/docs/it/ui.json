@@ -28,7 +28,8 @@
       "title": "Guide alla Contribuzione",
       "api": "Guida alla Documentazione API",
       "librarian": "Guida alle Contribuzioni dei Bibliotecari",
-      "translations": "Guida alla Traduzione della Documentazione"
+      "translations": "Guida alla Traduzione della Documentazione",
+      "usingTranslations": "Using Translations in Doc Pages"
     },
     "librarians": {
       "title": "Guide per Bibliotecari",

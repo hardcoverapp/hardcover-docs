@@ -28,7 +28,8 @@
       "title": "Contributing Guides",
       "api": "API Documentation Guide",
       "librarian": "Librarian Contribution Guide",
-      "translations": "Translating Documentation Guide"
+      "translations": "Translating Documentation Guide",
+      "usingTranslations": "Using Translations in Doc Pages"
     },
     "librarians": {
       "title": "Librarian Guides",
