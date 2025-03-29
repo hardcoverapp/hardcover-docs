@@ -4,13 +4,13 @@ description: Technical documentation on how to use translations in documentation
 lastUpdated: 2025-03-29 17:10:00
 ---
 
-# Using Translations in React Components
+## Using Translations in React Components
 When using translations in React components, you can use the `useTranslation` utility function from `@/lib/utils` to translate strings.
 This function takes a string as an argument and returns the translated string based on the provided locale.
 
 Currently, translations must be defined in the `src/content/docs/{LANG}/ui.json` file, where `{LANG}` is the language code for the translation.
 
-## Basic Example
+### Basic Example
 ```ts
 import React from "react";
 import { useTranslation } from '@/lib/utils';
@@ -24,10 +24,10 @@ const MyComponent = () => {
 };
 ```
 
-## Using Dynamic Tokens
+### Using Dynamic Tokens
 You can also use dynamic tokens in a translation string. However, the returned string will need to be sanitized before being rendered.
 
-### Example
+#### Example
 ```ts
 import {URLS} from "@/Consts";
 import {useTokenTranslation} from "@/lib/utils.ts";
