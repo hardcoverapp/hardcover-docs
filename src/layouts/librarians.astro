@@ -3,7 +3,7 @@ import {Badge} from '@astrojs/starlight/components';
 
 import {uCFirst, useTranslation} from "@/lib/utils";
 import type {FrontmatterConfig} from '@/types';
-import {LibrarianBanners} from '@/components/LibrarianBanners';
+import { Components } from '@/components';
 
 const {
     author,
@@ -44,6 +44,6 @@ const locale = Astro.currentLocale;
     )}
 </div>
 
-<LibrarianBanners locale={locale} client:only="react"/>
+<Components.banners.librarian locale={locale} client:only="react"/>
 
 <slot/>
