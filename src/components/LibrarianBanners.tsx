@@ -5,17 +5,13 @@ import {URLS} from "@/Consts";
 import {useTokenTranslation, useTranslation} from '@/lib/utils';
 
 export const LibrarianBanners = (
-                                lang: any = "en",
-                                 force: "standards" | "resources" | null
+                                lang: any = "en"
 ) => {
     const {locale} = lang;
 
-    console.log({force});
-
-
     const currentPath = window.location.pathname;
-    const isStandards = force == "standards" || currentPath.includes('/standards/');
-    const isResources = force == "resources" || currentPath.includes('/resources/');
+    const isStandards = currentPath.includes('/standards/');
+    // const isResources = currentPath.includes('/resources/');
 
     // @ts-ignore
     const bannerText: string | Node = useTokenTranslation('pages.librarians.standardsBanner.text', locale, {
