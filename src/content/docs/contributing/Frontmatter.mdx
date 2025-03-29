@@ -1,0 +1,46 @@
+---
+title: Frontmatter
+category: guide
+description: Information about the frontmatter used on the documentation pages.
+lastUpdated: 2025-03-29 17:10:00
+---
+
+## What is `Frontmatter`?
+Frontmatter is a block of metadata at the top of a Markdown file that provides information about the page.
+It is used by Starlight to generate the HTML pages and can be used to control various aspects of the page's behavior and appearance.
+
+## What options are available?
+The following options are available in the frontmatter for pages:
+
+See [Starlight -
+Frontmatter](https://starlight.astro.build/reference/frontmatter/) for more information and additional options.
+
+| Field           | Description                                                                                                                                                                             | Required    |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| title           | String containing the title of the page                                                                                                                                                 | Yes         |
+| category        | String of the category the page should be included in `guide` or `reference`                                                                                                            | Yes         |
+| layout          | relative path to one of the layouts in `/src/layouts`                                                                                                                                   | Yes         |
+| description     | String containing the descriptive text to use in HTML meta tags                                                                                                                         | Recommended |
+| lastUpdated     | String in the format `YYYY-MM-DD HH:MM:SS`                                                                                                                                              | Recommended |
+| draft           | Boolean value determining whether the page should be hidden from the production site                                                                                                    | No          |
+| slug            | String containing the URL slug for the page                                                                                                                                             | No          |
+| tableOfContents | Boolean value determining whether a table of contents should be generated                                                                                                               | No          |
+| template        | `doc` or `splash` default is `doc`. `splash` is a wider layout without the normal sidebars                                                                                              | No          |
+| hero            | See [Starlight - Frontmatter HeroConfig](https://starlight.astro.build/reference/frontmatter/#heroconfig) for more information                                                          | No          |
+| banner          | See [Starlight - Frontmatter Banner](https://starlight.astro.build/reference/frontmatter/#banner) for more information                                                                  | No          |
+| prev            | Boolean value determining whether a previous button should be shown. See [Starlight - Frontmatter Prev](https://starlight.astro.build/reference/frontmatter/#prev) for more information | No          |
+| next            | Boolean value determining whether a next button should be shown. See [Starlight - Frontmatter Next](https://starlight.astro.build/reference/frontmatter/#next) for more information     | No          |
+| sidebar         | Control how the page is displayed in the sidebar. See [Starlight - Frontmatter Sidebar](https://starlight.astro.build/reference/frontmatter/#sidebarconfig) for more information        | No          |
+
+
+### Example Frontmatter
+
+```md
+---
+title: Getting Started with the API
+description: Get started with the Hardcover GraphQL API.
+category: guide
+lastUpdated: 2025-02-01 17:03:00
+layout: ../../layouts/documentation.astro
+---
+```

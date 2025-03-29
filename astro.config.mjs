@@ -110,6 +110,28 @@ export default defineConfig({
                         }
                     },
                     {
+                        label: useTranslation('sidebar.contributing.astroComponents', 'en'),
+                        slug: 'contributing/astro-components',
+
+                        translations: {
+                            es: useTranslation('sidebar.contributing.astroComponents', 'es'),
+                            fr: useTranslation('sidebar.contributing.astroComponents', 'fr'),
+                            it: useTranslation('sidebar.contributing.astroComponents', 'it'),
+                            pl: useTranslation('sidebar.contributing.astroComponents', 'pl')
+                        }
+                    },
+                    {
+                      label: useTranslation("sidebar.contributing.frontmatter", "en"),
+                        slug: "contributing/frontmatter",
+
+                        translations: {
+                            es: useTranslation("sidebar.contributing.frontmatter", "es"),
+                            fr: useTranslation("sidebar.contributing.frontmatter", "fr"),
+                            it: useTranslation("sidebar.contributing.frontmatter", "it"),
+                            pl: useTranslation("sidebar.contributing.frontmatter", "pl"),
+                        }
+                    },
+                    {
                         label: useTranslation('sidebar.contributing.librarian', 'en'),
                         slug: 'contributing/librarian-guides',
 
@@ -118,6 +140,17 @@ export default defineConfig({
                             fr: useTranslation('sidebar.contributing.librarian', 'fr'),
                             it: useTranslation('sidebar.contributing.librarian', 'it'),
                             pl: useTranslation('sidebar.contributing.librarian', 'pl')
+                        }
+                    },
+                    {
+                        label: useTranslation('sidebar.contributing.reactComponents', 'en'),
+                        slug: 'contributing/react-components',
+
+                        translations: {
+                            es: useTranslation('sidebar.contributing.reactComponents', 'es'),
+                            fr: useTranslation('sidebar.contributing.reactComponents', 'fr'),
+                            it: useTranslation('sidebar.contributing.reactComponents', 'it'),
+                            pl: useTranslation('sidebar.contributing.reactComponents', 'pl')
                         }
                     },
                     {

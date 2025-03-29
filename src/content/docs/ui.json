@@ -27,7 +27,10 @@
     "contributing": {
       "title": "Contributing Guides",
       "api": "API Documentation Guide",
+      "astroComponents": "Astro Components Guide",
+      "frontmatter": "Frontmatter Guide",
       "librarian": "Librarian Contribution Guide",
+      "reactComponents": "React Components Guide",
       "translations": "Translating Documentation Guide",
       "usingTranslations": "Using Translations in Doc Pages"
     },

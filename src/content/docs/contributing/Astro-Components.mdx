@@ -1,0 +1,93 @@
+---
+title: Astro Components
+category: guide
+description: Information about the Astro components available in the documentation site.
+lastUpdated: 2025-03-29 17:10:00
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SocialIcons from '@/components/SocialIcons.astro';
+
+## Different Types of Components
+Currently, there are two types of components available in the documentation site:
+- [**Astro Components**](./astro-components): These are components written in Astro and are used to create static HTML pages. Use these components when you don't need any client-side interactivity. Astro components can be used from other Astro components but can not be used from React components.
+- [**React Components**](./react-components): These are components written in React and are used to create dynamic, interactive pages. Use these components when you need client-side interactivity or state management. React components can be used from other React components and from Astro components.
+
+## Writing Astro Components
+Astro components are written in `.astro` files in the `/src/components` directory.
+
+## Available Astro Components
+In addition to the standard [Starlight - Components](https://starlight.astro.build/guides/components/), the Hardcover
+documentation site includes the following custom components:
+
+### GraphQL Explorer
+
+This component allows a user to view GraphQL queries and experiment by running them against the API.
+
+**Import Path:**
+
+```js
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+```
+
+**Parameters:**
+
+- `canTry` - A boolean value determining whether the user can run the query in the explorer. The default is `true`.
+- `description` - A string describing the query.
+- `forcePresentation` - A boolean value determining whether the presentation options should be hidden. The default is `false`.
+- `presentation` - The default presentation of the response, either `json` or `table`. The default is `json`.
+- `query` - A string containing the GraphQL query to be displayed in the explorer.
+- `title` - A string for the title of the query shown in the explorer. The default is `Example Query`. Change this when translating the page to another language.
+
+**Usage:**
+
+```mdx
+<GraphQLExplorer
+    query={query}
+    description="An example query"
+    presentation='table'
+    title="Example"
+/>
+```
+
+<GraphQLExplorer query={`
+query {
+    me {
+        id,
+        username
+    }
+}
+`}/>
+
+### Social Icons
+
+This component is mostly meant for internal use, but it can be used to display the hardcover social media icons.
+
+**Import Path:**
+
+```js
+
+import SocialIcons from '@/components/SocialIcons.astro';
+
+```
+
+**Parameters:**
+
+- `iconSize` - A string for the size of the icons. The default is `16px`.
+
+**Usage:**
+
+```mdx
+<div class="flex justify-around h-6 w-80">
+    <SocialIcons iconSize="24px" />
+</div>
+```
+
+<div class="flex justify-around h-6 w-80">
+    <SocialIcons iconSize="24px" />
+</div>
+
+## Limitations
+- Astro components are rendered on the server and do not have access to the browser's `window` or `document` objects.
+- Astro components do not support client-side state management or interactivity.
+- Astro components cannot be used inside React components.

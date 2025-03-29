@@ -12,8 +12,8 @@ so we'll need to create our own. -->
 <a href={URLS.APP} rel="me" class="sl-flex" target="_blank">
     <span class="sr-only">Hardcover</span>
 
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-9 transition-all duration-300 group-hover:rotate-12" fill="none"
-         width="1.4em" height="1.4em" viewBox="0 0 1 40" role="img" aria-labelledby="svgTitle svgDescription">
+    <svg xmlns="http://www.w3.org/2000/svg" class="hc-icon min-w-10 transition-all duration-300 group-hover:rotate-12" fill="none"
+          viewBox="0 0 1 40" role="img" aria-labelledby="svgTitle svgDescription">
         <title id="svgTitle">Hardcover</title>
         <desc id="svgDescription">Hardcover App Icon</desc>
         <path d="M12.8889 32.5982C12.666 31.7661 13.1598 30.9108 13.9919 30.6879L30.2971 26.3189C31.1292 26.096 31.9845
@@ -51,7 +51,7 @@ so we'll need to create our own. -->
 
 <a href={URLS.APP_STORE} rel="me" class="sl-flex" target="_blank">
     <span class="sr-only">App Store</span>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="1em" height="1em" fill="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"
          role="img" aria-labelledby="appleSvgTitle appleSvgDescription">
         <title id="appleSvgTitle">AppStore</title>
         <desc id="appleSvgDescription">Apple AppStore</desc>
@@ -67,7 +67,7 @@ so we'll need to create our own. -->
 
 <a href={URLS.PLAY_STORE} rel="me" class="sl-flex" target="_blank">
     <span class="sr-only">Google Play</span>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="1em" height="1em" fill="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor"
          role="img" aria-labelledby="googleSvgTitle googleSvgDescription">
         <title id="googleSvgTitle">Google Play</title>
         <desc id="googleSvgDescription">Google Play Store</desc>
@@ -83,8 +83,16 @@ so we'll need to create our own. -->
 
 <style define:vars={{'sl-icon-size': iconSize}}>
     svg {
+        &.hc-icon {
+            width: calc(var(--sl-icon-size, 1em) * 1.4);
+            height: calc(var(--sl-icon-size, 1em) * 1.4);
+        }
+
         color: var(--sl-color-text-accent);
         font-size: var(--sl-icon-size, 1em);
+
+        width: calc(var(--sl-icon-size, 1em) * 1.2);
+        height: calc(var(--sl-icon-size, 1em) * 1.2);
     }
 
     a {

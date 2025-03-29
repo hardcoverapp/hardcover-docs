@@ -4,12 +4,18 @@ import DOMPurify from 'dompurify'
 import {URLS} from "@/Consts";
 import {useTokenTranslation, useTranslation} from '@/lib/utils';
 
-export const LibrarianBanners = (lang: any = "en") => {
+export const LibrarianBanners = (
+                                lang: any = "en",
+                                 force: "standards" | "resources" | null
+) => {
     const {locale} = lang;
 
+    console.log({force});
+
+
     const currentPath = window.location.pathname;
-    const isStandards = currentPath.includes('/standards/');
-    // const isResources = currentPath.includes('/resources/');
+    const isStandards = force == "standards" || currentPath.includes('/standards/');
+    const isResources = force == "resources" || currentPath.includes('/resources/');
 
     // @ts-ignore
     const bannerText: string | Node = useTokenTranslation('pages.librarians.standardsBanner.text', locale, {
