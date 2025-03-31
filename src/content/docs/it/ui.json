@@ -47,6 +47,35 @@
     "title": "Hardcover"
   },
   "ui": {
-    "lastUpdated": "Ultimo Aggiornamento"
+    "lastUpdated": "Ultimo Aggiornamento",
+    "GraphQLExplorer": {
+      "query": "Query",
+      "example": "Example query",
+      "viewQuery": "View query",
+      "tryIt": "Try it yourself",
+      "authToken": "Authorization Token",
+      "authTokenDescription": "This token will be used to authenticate your requests. You can find it in your account settings.",
+      "run": "Run query",
+      "views": {
+        "default": "Default view",
+        "chart": "Chart view",
+        "json": "JSON view",
+        "table": "Table view"
+      },
+      "statusMessages": {
+        "disclaimer": "This will run against your account.<br />You are responsible for the content of any queries ran on your account.",
+        "loading": "Loading...",
+        "error": "Error running query",
+        "connectionError": "Error connecting to server",
+        "emptyQuery": "Please enter a query",
+        "mutationQueryNotAllowed": "Mutation queries are not currently allowed",
+        "invalidQuery": "Invalid query",
+        "emptyToken": "No auth token provided",
+        "invalidToken": "Invalid or expired auth token",
+        "success": "Success",
+        "noResults": "No results found",
+        "viewUnavailable": "This view is not available for this queries results."
+      }
+    }
   }
 }
