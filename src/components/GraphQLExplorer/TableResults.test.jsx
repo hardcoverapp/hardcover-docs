@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import {TableResults} from "./TableResults";
 import {expect, it, describe} from "vitest";
-import {useTranslation} from "@/lib/utils.js";
+import {useTranslation} from "../../lib/utils.js";
 
 describe("TableResults", () => {
     it("renders table results", () => {

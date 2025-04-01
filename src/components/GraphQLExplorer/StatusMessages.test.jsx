@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import {StatusMessages} from "./StatusMessages";
 import {expect, it, describe} from "vitest";
-import {useTranslation} from "@/lib/utils.js";
+import {useTranslation} from "../../lib/utils.js";
 
 describe("StatusMessages", () => {
     it("renders idle message", () => {
