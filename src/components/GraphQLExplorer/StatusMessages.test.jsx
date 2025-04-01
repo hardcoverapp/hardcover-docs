@@ -1,12 +1,12 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import {StatusMessages} from "./StatusMessages";
-import {expect, it, describe} from "vitest";
+import { StatusMessages } from "./StatusMessages";
+import { expect, it, describe } from "vitest";
 
 describe("StatusMessages", () => {
     it("renders idle message", () => {
         const {getByText} = render(<StatusMessages queryStatus="idle" />);
-        expect(getByText(useTranslation("ui.graphQLExplorer.statusMessages.disclaimer", 'en'), {exact: false})).toBeInTheDocument();
+        expect(getByText("This will run against your account. You are responsible for the content of any queries ran on your account.", {exact: false})).toBeInTheDocument();
     });
 
     it("renders error message", () => {
