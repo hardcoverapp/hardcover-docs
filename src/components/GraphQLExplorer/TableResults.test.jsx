@@ -1,8 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import {TableResults} from "./TableResults";
+import { TableResults } from "./TableResults";
 import {expect, it, describe} from "vitest";
-import {useTranslation} from "../../lib/utils.js";
 
 describe("TableResults", () => {
     it("renders table results", () => {
@@ -25,7 +24,7 @@ describe("TableResults", () => {
         );
 
         expect(getAllByRole("log")).toHaveLength(1);
-        expect(getByRole("log")).toHaveTextContent(useTranslation("ui.graphQLExplorer.statusMessages.noResults", 'en'));
+        expect(getByRole("log")).toHaveTextContent("No results found");
     });
 
     it("does not render nested objects", () => {
@@ -36,6 +35,6 @@ describe("TableResults", () => {
         );
 
         expect(getAllByRole("log")).toHaveLength(1);
-        expect(getByRole("log")).toHaveTextContent(useTranslation("ui.graphQLExplorer.statusMessages.viewUnavailable", 'en'));
+        expect(getByRole("log")).toHaveTextContent("This view is not available for this queries results.");
     });
 });
