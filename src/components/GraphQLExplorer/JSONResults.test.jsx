@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import {JSONResults} from "./JSONResults";
 import {expect, it, describe} from "vitest";
+import {useTranslation} from "@/lib/utils.js";
 
 describe("JSONResults", () => {
     it("renders JSON results", () => {
@@ -21,6 +22,6 @@ describe("JSONResults", () => {
         );
 
         expect(getByRole("log")).toBeInTheDocument();
-        expect(getByRole("log")).toHaveTextContent('No results yet');
+        expect(getByRole("log")).toHaveTextContent(useTranslation("ui.graphQLExplorer.statusMessages.noResults", 'en'));
     });
 });

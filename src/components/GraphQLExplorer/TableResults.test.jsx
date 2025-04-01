@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import {TableResults} from "./TableResults";
 import {expect, it, describe} from "vitest";
+import {useTranslation} from "@/lib/utils.js";
 
 describe("TableResults", () => {
     it("renders table results", () => {
@@ -24,7 +25,7 @@ describe("TableResults", () => {
         );
 
         expect(getAllByRole("log")).toHaveLength(1);
-        expect(getByRole("log")).toHaveTextContent('No results yet');
+        expect(getByRole("log")).toHaveTextContent(useTranslation("ui.graphQLExplorer.statusMessages.noResults", 'en'));
     });
 
     it("does not render nested objects", () => {
@@ -35,6 +36,6 @@ describe("TableResults", () => {
         );
 
         expect(getAllByRole("log")).toHaveLength(1);
-        expect(getByRole("log")).toHaveTextContent('Tables are still a work in progress and can not currently render nested results.');
+        expect(getByRole("log")).toHaveTextContent(useTranslation("ui.graphQLExplorer.statusMessages.viewUnavailable", 'en'));
     });
 });
