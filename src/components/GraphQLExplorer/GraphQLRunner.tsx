@@ -3,6 +3,7 @@ import {Label} from "@/components/ui/label.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {URLS} from "@/Consts";
+import {useTranslation} from "@/lib/utils.ts";
 import React, {useEffect, useState} from "react";
 import {LuCode, LuKeyRound, LuLoader, LuTable, LuTerminal} from "react-icons/lu";
 import {JSONResults} from "./JSONResults.tsx";
@@ -13,8 +14,9 @@ export const GraphQLRunner = (props: {
     query: string, description?: string,
     presentation?: 'json' | 'table',
     forcePresentation?: 'json' | 'table' | undefined
+    locale?: string
 }) => {
-    const {description, presentation, forcePresentation} = props;
+    const {description, presentation, forcePresentation, locale = 'en'} = props;
 
     // Get the query from props so we can modify it
     const [query, setQuery] = useState(props.query);
@@ -62,7 +64,7 @@ export const GraphQLRunner = (props: {
     /**
      * This function will handle the query using fetch.
      * In an actual application, you would want to use something like apollo-client to handle this.
-     * @param runningQuery - string
+     * @param runningQuery - string | undefined
      * @param keepQuery - boolean
      * @returns {Promise<any>}
      */
@@ -73,19 +75,19 @@ export const GraphQLRunner = (props: {
             then(resolve: any, reject: any) {
                 // Ensure the auth token is provided
                 if (!authToken || !authToken.trim()) {
-                    reject(new Error('No auth token provided'));
+                    reject(new Error(useTranslation("ui.graphQLExplorer.statusMessages.emptyToken", locale)));
                     return;
                 }
 
                 // If the query is a mutation, we don't allow it to be run here, and instead we will show a message to the user
                 if (isMutation) {
-                    reject(new Error('This is a mutation query.'));
+                    reject(new Error(useTranslation("ui.graphQLExplorer.statusMessages.mutationQueryNotAllowed", locale)));
                     return;
                 }
 
                 // Ensure the query is not empty
                 if (!runningQuery || !runningQuery.trim()) {
-                    reject(new Error('Query is empty'));
+                    reject(new Error(useTranslation("ui.graphQLExplorer.statusMessages.emptyQuery", locale)));
                     return;
                 }
 
@@ -100,7 +102,7 @@ export const GraphQLRunner = (props: {
                 }).then(res => {
                     // If the response is not ok, reject the promise
                     if (!res.ok) {
-                        reject(new Error('Error running query'));
+                        reject(new Error(useTranslation("ui.graphQLExplorer.statusMessages.errorRunning", locale)));
                         return;
                     }
 
@@ -122,7 +124,7 @@ export const GraphQLRunner = (props: {
                             }
 
                             // If there is no message, reject the promise a generic error message
-                            reject(new Error('Error running query'));
+                            reject(new Error(useTranslation("ui.graphQLExplorer.statusMessages.errorRunning", locale)));
                         }
 
                         if (!explicitQuery && !keepQuery) {
@@ -135,7 +137,7 @@ export const GraphQLRunner = (props: {
                     });
                 }, () => {
                     // If there is an error with the fetch request, reject the promise
-                    reject(new Error('Error connecting to server'));
+                    reject(new Error(useTranslation("ui.graphQLExplorer.statusMessages.connectionError", locale)));
                 });
             }
         };
@@ -180,7 +182,7 @@ export const GraphQLRunner = (props: {
         handleQueryWithFetch(userIdQuery, true).then((res: any) => {
             // If the return data does not have the "me" object, the auth token is invalid
             if (!res?.data?.me) {
-                console.error('Invalid auth token');
+                console.error(useTranslation("ui.graphQLExplorer.statusMessages.invalidToken", locale));
                 return;
             }
 
@@ -194,7 +196,7 @@ export const GraphQLRunner = (props: {
             setUserId(res.data.me[0].id);
 
         }, (err: { message: string; }) => {
-            console.error('Error running query to test auth token', {err: err.message});
+            console.error(useTranslation("ui.graphQLExplorer.statusMessages.invalidToken", locale), {err: err.message});
         });
     };
 
@@ -233,8 +235,8 @@ export const GraphQLRunner = (props: {
             {isMutation && (
                 <div className="relative my-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
                      role="alert">
-                    <strong className="font-bold">Warning!</strong>
-                    <span className="block sm:inline"> This is a mutation query. You cannot run this query here.</span>
+                    <strong className="font-bold">{useTranslation("ui.graphQLExplorer.warning", locale)}</strong>
+                    <span className="block sm:inline">{useTranslation("ui.graphQLExplorer.statusMessages.mutationQueryNotAllowed", locale)}</span>
                 </div>)}
             {!isMutation && (
                 <>
@@ -244,7 +246,7 @@ export const GraphQLRunner = (props: {
                                 onClick={() => {
                                     setShowAuthToken(!showAuthToken);
                                 }}
-                                title="Authorization Token"
+                                title={useTranslation("ui.graphQLExplorer.authToken", locale)}
                                 variant="ghost"
                             >
                                 <LuKeyRound/>
@@ -254,7 +256,7 @@ export const GraphQLRunner = (props: {
                                     setShowQuery(!showQuery);
                                     setExplicitQuery(!explicitQuery);
                                 }}
-                                title="View Query"
+                                title={useTranslation("ui.graphQLExplorer.viewQuery", locale)}
                                 variant="ghost"
                             >
                                 <LuTerminal/>
@@ -267,35 +269,35 @@ export const GraphQLRunner = (props: {
                                     onClick={() => {
                                         setCurrentPresentation('json');
                                     }}
-                                    title="JSON View"
+                                    title={useTranslation("ui.graphQLExplorer.views.json", locale)}
                                     variant='ghost'
                                     disabled={!queryResults || currentPresentation === 'json'}
                                 >
-                                    <LuCode/> JSON View
+                                    <LuCode/> {useTranslation("ui.graphQLExplorer.views.json", locale)}
                                 </Button>
                                 <Button
                                     onClick={() => {
                                         setCurrentPresentation('table');
                                     }}
-                                    title="Table View"
+                                    title={useTranslation("ui.graphQLExplorer.views.table", locale)}
                                     variant='ghost'
                                     disabled={!queryResults || currentPresentation === 'table'}
                                 >
-                                    <LuTable/> Table View
+                                    <LuTable/> {useTranslation("ui.graphQLExplorer.views.table", locale)}
                                 </Button>
                             </div>
                         )}
 
                         <Button
                             onClick={handleRunQuery}
-                            title="Run the query displayed below"
+                            title={useTranslation("ui.graphQLExplorer.runDescription", locale)}
                             variant="default"
                             disabled={queryStatus === 'running'}
                         >
                             {queryStatus === 'running' ? (
-                                <><LuLoader className="animate-spin h-5 w-5 mr-3"/> Loading...</>
+                                <><LuLoader className="animate-spin h-5 w-5 mr-3"/> {useTranslation("ui.graphQLExplorer.statusMessages.loading", locale)}</>
                             ) : (
-                                'Run Query'
+                                useTranslation("ui.graphQLExplorer.run", locale)
                             )}
                         </Button>
                     </div>
@@ -303,7 +305,7 @@ export const GraphQLRunner = (props: {
                     {showAuthToken && (
                         <div className="my-4 mb-2 grid w-full gap-1.5">
                             <Label htmlFor="auth_token">
-                                Authorization Token
+                                {useTranslation("ui.graphQLExplorer.authToken", locale)}
                             </Label>
 
                             <Textarea
@@ -311,17 +313,17 @@ export const GraphQLRunner = (props: {
                                 id="auth_token"
                                 onChange={updateAuthTokenUI}
                                 onBlur={handleAuthTokenChange}
-                                title="This is your authorization token. You can find this in your account settings."
+                                title={useTranslation("ui.graphQLExplorer.authTokenDescription", locale)}
                                 value={authToken}
                                 required/>
                         </div>
                     )}
 
-                    <StatusMessages queryStatus={queryStatus} queryError={queryError}/>
+                    <StatusMessages queryStatus={queryStatus} queryError={queryError} locale={locale} />
 
                     {showQuery && (
                         <>
-                            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Query</h2>
+                            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">{useTranslation("ui.graphQLExplorer.query", locale)}</h2>
 
                             {description && (
                                 <p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>)}
@@ -335,14 +337,14 @@ export const GraphQLRunner = (props: {
 
                     {queryStatus === 'success' && (
                         <>
-                            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">Results</h2>
+                            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">{useTranslation("ui.graphQLExplorer.results", locale)}</h2>
 
                             {currentPresentation === 'json' && (
-                                <JSONResults results={queryResults}/>
+                                <JSONResults results={queryResults} locale={locale} />
                             )}
 
                             {currentPresentation === 'table' && (
-                                <TableResults results={queryResults}/>
+                                <TableResults results={queryResults} locale={locale} />
                             )}
                         </>
                     )}

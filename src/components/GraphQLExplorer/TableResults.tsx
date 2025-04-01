@@ -1,10 +1,12 @@
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table.tsx";
+import {useTranslation} from "@/lib/utils.ts";
 import React, {useEffect, useState} from "react";
 
 export const TableResults = (props: {
-    results: object
+    results: object,
+    locale?: string,
 }) => {
-    const {results} = props;
+    const {results, locale = 'en'} = props;
 
     const [tableColumns, setTableColumns] = useState(['']);
     const [tableRows, setTableRows] = useState([]);
@@ -51,16 +53,15 @@ export const TableResults = (props: {
                                     <TableCell key={`row-${i}-col-${x}`} role="cell">{row[col]}</TableCell>))}
                             </TableRow>
                         ))}
-
                     </TableBody>
                 </Table>)}
 
             {!hasResults && canRender && (
-                <pre role="log">No results yet</pre>
+                <pre role="log">{useTranslation("ui.graphQLExplorer.statusMessages.noResults", locale)}</pre>
             )}
 
             {!canRender && (
-                <pre role="log">Tables are still a work in progress and can not currently render nested results.</pre>
+                <pre role="log">{useTranslation("ui.graphQLExplorer.statusMessages.viewUnavailable", locale)}</pre>
             )}
         </div>
 

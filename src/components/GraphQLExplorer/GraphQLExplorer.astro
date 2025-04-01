@@ -1,6 +1,9 @@
 ---
 import {Code, Tabs, TabItem} from '@astrojs/starlight/components';
+import {useTranslation} from "../../lib/utils";
 import {GraphQLRunner} from './GraphQLRunner.tsx';
+
+const locale = Astro.currentLocale;
 
 const {
     query,
@@ -8,7 +11,7 @@ const {
     canTry = true,
     presentation = 'json',
     forcePresentation = false,
-    title = 'Example Query'
+    title = useTranslation("ui.graphQLExplorer.example", locale)
 } = Astro.props;
 
 // Is the query a mutation?
@@ -18,21 +21,22 @@ const isMutation = query.trim().includes('mutation');
 ---
 
 <Tabs>
-    <TabItem label="Query" icon="document">
+    <TabItem label={useTranslation("ui.graphQLExplorer.query", locale)} icon="document">
         {query && (
                 <Code lang="graphql" title={title} code={query} wrap={true}/>
         )}
         {!query && (
-                <Code lang="graphql" title={title} code="No query was specified"/>
+                <Code lang="graphql" title={title} code={useTranslation("ui.graphQLExplorer.statusMessages.emptyQuery", locale)}/>
         )}
     </TabItem>
     {canTry && !isMutation && (
-            <TabItem label="Try it Yourself" icon="seti:graphql">
+            <TabItem label={useTranslation("ui.graphQLExplorer.tryIt", locale)} icon="seti:graphql">
                 <div class="not-content">
                     <GraphQLRunner query={query}
                                    description={description}
                                    presentation={presentation}
                                    forcePresentation={forcePresentation ? presentation : null}
+                                   locale={locale}
                                    client:only="react" />
                 </div>
             </TabItem>

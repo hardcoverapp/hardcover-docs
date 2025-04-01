@@ -27,8 +27,12 @@
     "contributing": {
       "title": "Contributing Guides",
       "api": "API Documentation Guide",
+      "astroComponents": "Astro Components Guide",
+      "frontmatter": "Frontmatter Guide",
       "librarian": "Librarian Contribution Guide",
-      "translations": "Translating Documentation Guide"
+      "reactComponents": "React Components Guide",
+      "translations": "Translating Documentation Guide",
+      "usingTranslations": "Using Translations in Doc Pages"
     },
     "librarians": {
       "title": "Librarian Guides",
@@ -43,6 +47,39 @@
     "title": "Hardcover"
   },
   "ui": {
-    "lastUpdated": "Last Updated"
+    "lastUpdated": "Last Updated",
+    "graphQLExplorer": {
+      "query": "Query",
+      "example": "Example query",
+      "viewQuery": "View query",
+      "results": "Results",
+      "tryIt": "Try it yourself",
+      "authToken": "Authorization Token",
+      "authTokenDescription": "This token will be used to authenticate your requests. You can find it in your account settings.",
+      "run": "Run query",
+      "runDescription": "Run the query displayed below",
+      "views": {
+        "default": "Default view",
+        "chart": "Chart view",
+        "json": "JSON view",
+        "table": "Table view"
+      },
+      "statusMessages": {
+        "warning": "Warning!",
+        "disclaimer": "This will run against your account. You are responsible for the content of any queries ran on your account.",
+        "loading": "Loading...",
+        "error": "Error",
+        "errorRunning": "Error running query",
+        "connectionError": "Error connecting to server",
+        "emptyQuery": "No query provided",
+        "mutationQueryNotAllowed": "Mutation queries are not currently allowed in this explorer",
+        "invalidQuery": "Invalid query",
+        "emptyToken": "No auth token provided",
+        "invalidToken": "Invalid or expired auth token",
+        "success": "Success!",
+        "noResults": "No results found",
+        "viewUnavailable": "This view is not available for this queries results."
+      }
+    }
   }
 }
