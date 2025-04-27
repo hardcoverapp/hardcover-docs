@@ -1,147 +1,121 @@
 ---
-title: Librarian Contribution Guide
+title: Guida alla Contribuzione per Bibliotecari
 category: guide
-lastUpdated: 2025-01-06 16:01:00
+lastUpdated: 2025-04-27 14:19:00
 layout: /src/layouts/librarians.astro
 ---
 
 import { URLS } from "@/Consts.js";
 
-# Librarian Contribution Guide
-## Ways to Contribute
-We are currently looking for contributions in the following areas:
+# Guida alla Contribuzione per Bibliotecari
+## Modi per Contribuire
+Attualmente stiamo cercando contributi nelle seguenti aree:
 
-- API Documentation: Help us improve the API documentation by adding new pages or updating existing content.
-- API Guides: Share your knowledge by writing guides on how to use the Hardcover API.
-- Bug Fixes: Help us fix bugs in the documentation site.
-- Reporting Issues: Report any issues you encounter with the documentation site. <a href={URLS.CREATE_ISSUE} target="_blank" rel="noreferrer noopener">Create Issue</a>
-- Feature Requests: Share your ideas for new features or improvements to the documentation site. <a href={URLS.SUGGEST_FEATURE} target="_blank" rel="noreferrer noopener">Suggest Feature</a>
-- Librarian Guides: Share your expertise by writing guides on how to use the Librarian tools.
+- Documentazione API: Aiutaci a migliorare la documentazione API aggiungendo nuove pagine o aggiornando i contenuti esistenti.
+- Guide API: Condividi ciò che conosci scrivendo guide su come utilizzare l'API di Hardcover.
+- Correzione Bug: Aiutaci a correggere bug nel sito della documentazione.
+- Segnalazione Problemi: Segnala qualsiasi problema riscontrato con il sito della documentazione. <a href={URLS.CREATE_ISSUE} target="_blank" rel="noreferrer noopener">Crea Issue</a>
+- Richiesta Funzionalità: Condividi le tue idee per nuove funzionalità o miglioramenti al sito della documentazione. <a href={URLS.SUGGEST_FEATURE} target="_blank" rel="noreferrer noopener">Suggerisci Funzionalità</a>
+- Guide per Bibliotecari: Condividi le tue competenze scrivendo guide su come utilizzare gli strumenti per Bibliotecari.
 
-## Finding Something to Work On
-You can find issues to work on
-by looking at the <a href={URLS.ISSUES} target="_blank" rel="noreferrer noopener">Issues Board</a> on GitHub
-or by joining the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> and asking for suggestions in the <a href={URLS.API_DISCORD} target="_blank"
-rel="noreferrer noopener">#API</a> or <a href={URLS.LIBRARIAN_DISCORD} target="_blank"
-rel="noreferrer noopener">#librarians</a> channels.
+## Trovare Qualcosa su cui Lavorare
+Per trovare problemi su cui lavorare puoi guardare la <a href={URLS.ISSUES} target="_blank" rel="noreferrer noopener">Bacheca degli Issues</a> su GitHub
+o unirti al <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord di Hardcover</a> e chiedendo suggerimenti nei canali <a href={URLS.API_DISCORD} target="_blank"
+rel="noreferrer noopener">#API</a> o <a href={URLS.LIBRARIAN_DISCORD} target="_blank"
+rel="noreferrer noopener">#librarians</a>.
 
-## Being a Good Contributor
-When contributing to Hardcover, please follow these guidelines:
+## Essere un Buon Contributore
+Quando contribuisci a Hardcover, segui queste linee guida:
 
-- Be respectful of others and their contributions.
-- Be open to feedback and willing to make changes based on feedback.
-- Be patient and understanding of the time it takes to review and merge contributions.
-- Be clear and concise in your contributions.
-- Be willing to help others and answer questions.
-- Be willing to work with others to improve the documentation site.
-- Be open to learning and growing as a contributor.
-- Be willing to follow the contribution processes.
-- Be willing to accept that not all contributions will be accepted.
+- Sii rispettoso degli altri e dei loro contributi.
+- Sii aperto al feedback e disposto a fare cambiamenti basati sul feedback.
+- Sii paziente e comprensivo riguardo al tempo necessario per revisionare e fare merge dei contributi.
+- Sii chiaro e conciso nei tuoi contributi.
+- Sii disposto ad aiutare gli altri e rispondere alle domande.
+- Sii disposto a lavorare con altri per migliorare il sito della documentazione.
+- Sii aperto all'apprendimento e alla crescita come contributore.
+- Sii disposto a seguire i processi di contribuzione.
+- Sii disposto ad accettare che non tutti i contributi saranno accettati.
 
-## How do I add a new page or update an existing page?
-### Adding a New Page
-1. Navigate to the <a href={URLS.GITHUB} target="_blank" rel="noreferrer noopener">Hardcover Docs GitHub</a>
-2. Navigate to the `src/content/docs/` directory.
-3. Navigate to the appropriate subdirectory for the page you want to add.
-4. Click the "Add file" button near the top right of the file list.
-5. Click the "Create new file" option.
-6. In the editor that opens, give the new file a meaningful name ending in `.mdx`, see the existing files for examples.
-7. Add the [frontmatter](#page-frontmatter) to the new page using the template below.
-8. Provide the content for the new page using [Markdown](https://www.markdownguide.org/cheat-sheet/) or [MDX](https://mdxjs.com/guides/) syntax.
-9. Preview your changes for formatting and accuracy.
-10. Click the "Commit changes..." button at the top of the page.
-11. In the dialog that opens, provide a title and description for your changes.
-12. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
-13. Give your branch a short, descriptive name.
-14. Click the "Propose changes" button to save your changes.
-15. Notify the Hardcover team, namely `@revelry` in the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> that you have submitted a pull request.
-16. Wait for feedback and review from the Hardcover team.
-17. Make any requested changes.
-18. Once your pull request is approved, it will be merged into the main branch.
-19. Celebrate your contribution!
-20. Continue contributing to Hardcover!
+## Come aggiungo una nuova pagina o aggiorno una pagina esistente?
+### Aggiungere una Nuova Pagina
+1. Naviga alla pagina <a href={URLS.GITHUB} target="_blank" rel="noreferrer noopener">GitHub della Documentazione di Hardcover</a>
+2. Naviga alla directory `src/content/docs/`.
+3. Naviga alla sottodirectory della pagina che vuoi aggiungere.
+4. Clicca sul pulsante "Add file" nella parte superiore destra dell'elenco dei file.
+5. Clicca sull'opzione "Create new file".
+6. Nell'editor che si apre, dai al nuovo file un nome significativo che termini con `.mdx`, controlla i file esistenti per vedere degli esempi.
+7. Aggiungi il [frontmatter](#page-frontmatter) alla nuova pagina utilizzando il template sottostante.
+8. Fornisci il contenuto per la nuova pagina utilizzando la sintassi [Markdown](https://www.markdownguide.org/cheat-sheet/) o [MDX](https://mdxjs.com/guides/).
+9. Visualizza un'anteprima delle tue modifiche per verificare formattazione e accuratezza.
+10. Clicca sul pulsante "Commit changes..." nella parte superiore della pagina.
+11. Nella finestra di dialogo che si apre, fornisci un titolo e una descrizione per le tue modifiche.
+12. Assicurati che l'opzione "Create a new branch for this commit and start a pull request" sia selezionata.
+13. Dai al tuo branch un nome breve e descrittivo.
+14. Clicca sul pulsante "Propose changes" per salvare le tue modifiche.
+15. Notifica il team di Hardcover, in particolare `@revelry` nel <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord di Hardcover</a> comunicando che hai inviato una pull request.
+16. Attendi una revisione e feedback dal team di Hardcover.
+17. Apporta eventuali modifiche richieste.
+18. Una volta che la tua pull request è approvata, sarà unita al branch principale.
+19. Festeggia il tuo contributo!
+20. Continua a contribuire a Hardcover!
 
-### Editing an Existing Page
-1. Using the UI navigate to the page, you want to edit.
-2. Click the "Edit page" button near the bottom of the content.
-3. In the GitHub page that opens, click the pencil icon on the top right of the file to start editing.
-4. Make your changes in the editor using [Markdown](https://www.markdownguide.org/cheat-sheet/) or [MDX](https://mdxjs.com/guides/) syntax.
-5. Update the [frontmatter](#page-frontmatter) as needed using the template below, make sure to update the `lastUpdated` field.
-6. Preview your changes for formatting and accuracy.
-7. Click the "Commit changes..." button at the top of the page.
-8. In the dialog that opens, provide a title and description for your changes.
-9. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
-10. Give your branch a short, descriptive name.
-11. Click the "Propose changes" button to save your changes.
-12. Notify the Hardcover team, namely `@revelry` in the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> that you have submitted a pull request.
-13. Wait for feedback and review from the Hardcover team.
-14. Make any requested changes.
-15. Once your pull request is approved, it will be merged into the main branch.
-16. Celebrate your contribution!
-17. Continue contributing to Hardcover!
+### Modificare una Pagina Esistente
+1. Utilizzando l'interfaccia utente, naviga alla pagina che desideri modificare.
+2. Clicca sul pulsante "Modifica paigina" nella parte inferiore del contenuto.
+3. Nella pagina GitHub che si apre, clicca sull'icona della matita nella parte superiore destra del file per iniziare a modificare.
+4. Apporta le tue modifiche nell'editor utilizzando la sintassi [Markdown](https://www.markdownguide.org/cheat-sheet/) o [MDX](https://mdxjs.com/guides/).
+5. Aggiorna il [frontmatter](#page-frontmatter) utilizzando il modello sottostante, assicurati di aggiornare il campo `lastUpdated`.
+6. Visualizza un'anteprima delle tue modifiche per verificare formattazione e accuratezza.
+7. Clicca sul pulsante "Commit changes..." nella parte superiore della pagina.
+8. Nella finestra di dialogo che si apre, fornisci un titolo e una descrizione per le tue modifiche.
+9. Assicurati che l'opzione "Create a new branch for this commit and start a pull request" sia selezionata.
+10. Dai al tuo branch un nome breve e descrittivo.
+11. Clicca sul pulsante "Propose changes" per salvare le tue modifiche.
+12. Notifica il team di Hardcover, in particolare `@revelry` nel <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord di Hardcover</a> comunicando che hai inviato una pull request.
+13. Attendi la revisione e feedback dal team di Hardcover.
+14. Apporta eventuali modifiche richieste.
+15. Una volta che la tua pull request è approvata, sarà unita al branch principale.
+16. Festeggia il tuo contributo!
+17. Continua a contribuire a Hardcover!
 
-## Adding Images
-Currently, images have to be added as a separate pull request. To add an image:
+## Aggiungere Immagini
+Attualmente, le immagini devono essere aggiunte tramite una pull request separata. Per aggiungere un'immagine:
 
-1. Navigate to the <a href={URLS.GITHUB} target="_blank" rel="noreferrer noopener">Hardcover Docs Github</a>
-2. Navigate to the `public/images/` directory.
-3. Navigate to the appropriate subdirectory `api` or `librarians` depending on where the image will be used.
-4. Click the "Add file" button near the top right of the file list.
-5. Click the "Upload files" option.
-6. Drag and drop the image file(s) into the upload area.
-7. In the Commit changes section, provide a title and description for your changes.
-8. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
-9. Give your branch a short, descriptive name.
-10. Click the "Propose changes" button to save your changes.
-11. Notify the Hardcover team, namely `@revelry` in the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> that you have submitted a pull request.
-12. Wait for feedback and review from the Hardcover team.
-13. Make any requested changes.
-14. Once your pull request is approved, it will be merged into the main branch.
-15. After the image is merged, follow the steps in the [Editing an Existing Page](#editing-an-existing-page) section to add the image to and reference it using the relative path: `/images/subdirectory/your-image.png`.
+1. Naviga alla pagine <a href={URLS.GITHUB} target="_blank" rel="noreferrer noopener">GitHub della Documentazione di Hardcover</a>
+2. Naviga alla directory `public/images/`.
+3. Naviga alla sottodirectory `api` o `librarians` a seconda di dove verrà utilizzata l'immagine.
+4. Clicca sul pulsante "Add file" nella parte superiore destra dell'elenco dei file.
+5. Clicca sull'opzione "Upload files".
+6. Trascina e rilascia i file immagine nell'area di caricamento.
+7. Nella sezione Commit changes, fornisci un titolo e una descrizione per le tue modifiche.
+8. Assicurati che l'opzione "Create a new branch for this commit and start a pull request" sia selezionata.
+9. Dai al tuo branch un nome breve e descrittivo.
+10. Clicca sul pulsante "Propose changes" per salvare le tue modifiche.
+11. Notifica il team di Hardcover, in particolare `@revelry` nel <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord di Hardcover</a> comunicando che hai inviato una pull request.
+12. Attendi la revisione e feedback dal team di Hardcover.
+13. Apporta eventuali modifiche richieste.
+14. Una volta che la tua pull request è approvata, sarà unita al branch principale.
+15. Dopo che l'immagine è stata unita, segui i passaggi nella sezione [Modificare una Pagina Esistente](#editing-an-existing-page) per aggiungere l'immagine e farvi riferimento utilizzando il percorso relativo: `/images/subdirectory/your-image.png`.
 
 ```md
-<img src="/images/librarians/long-title-example.png" alt="Example of a long title on Hardcover" />
+<img src="/images/librarians/long-title-example.png" alt="Esempio di un titolo lungo su Hardcover" />
 ```
 
 ## Page Frontmatter
+Spostato in [Frontmatter](./Frontmatter)
 
-| Field           | Description                                                                                                                                                                             | Required    |
-|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| title           | String containing the title of the page                                                                                                                                                 | Yes         |
-| category        | String of the category the page should be included in `guide` or `reference`                                                                                                            | Yes         |
-| layout          | relative path to `/src/layouts/documentation.astro`                                                                                                                                     | Yes         |
-| description     | String containing the descriptive text to use in HTML meta tags                                                                                                                         | Recommended |
-| lastUpdated     | String in the format `YYYY-MM-DD HH:MM:SS`                                                                                                                                              | Recommended |
-| draft           | Boolean value determining whether the page should be hidden from the production site                                                                                                    | No          |
-| slug            | String containing the URL slug for the page                                                                                                                                             | No          |
-| tableOfContents | Boolean value determining whether a table of contents should be generated                                                                                                               | No          |
-| template        | `doc` or `splash` default is `doc`. `splash` is a wider layout without the normal sidebars                                                                                              | No          |
-| hero            | See [Starlight - Frontmatter HeroConfig](https://starlight.astro.build/reference/frontmatter/#heroconfig) for more information                                                          | No          |
-| banner          | See [Starlight - Frontmatter Banner](https://starlight.astro.build/reference/frontmatter/#banner) for more information                                                                  | No          |
-| prev            | Boolean value determining whether a previous button should be shown. See [Starlight - Frontmatter Prev](https://starlight.astro.build/reference/frontmatter/#prev) for more information | No          |
-| next            | Boolean value determining whether a next button should be shown. See [Starlight - Frontmatter Next](https://starlight.astro.build/reference/frontmatter/#next) for more information     | No          |
-| sidebar         | Control how the page is displayed in the sidebar. See [Starlight - Frontmatter Sidebar](https://starlight.astro.build/reference/frontmatter/#sidebarconfig) for more information        | No          |
+## Componenti Disponibili
+Spostato in [Astro Components](./astro-components) per i componenti Astro e [React Components](./react-components) per i componenti React.
 
-### Example Frontmatter
+## Supporto per le Traduzioni
+Sebbene attualmente supportiamo solo l'inglese, siamo aperti ad aggiungere traduzioni in futuro.
+Se sei interessato a contribuire con traduzioni,
+contatta il team di Hardcover nei canali <a href={URLS.API_DISCORD} target="_blank" rel="noreferrer noopener">#API</a>
+o <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> sul <a href={URLS.DISCORD} target="_blank"
+rel="noreferrer noopener">Discord di Hardcover</a>.
 
-```md
----
-title: Getting Started with the API
-description: Get started with the Hardcover GraphQL API.
-category: guide
-lastUpdated: 2025-02-01 17:03:00
-layout: ../../layouts/documentation.astro
----
-```
+## Risorse di Supporto
 
-## Translation Support
-While we currently only support English, we are open to adding translations in the future.
-If you are interested in contributing translations,
-please reach out to the Hardcover team in the <a href={URLS.API_DISCORD} target="_blank" rel="noreferrer noopener">#API</a>
-or <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> channels on the <a href={URLS.DISCORD} target="_blank"
-rel="noreferrer noopener">Hardcover Discord</a>.
-
-## Support Resources
-
-### Finding Help on Discord
-Connect with us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>
+### Trovare Aiuto su Discord
+Connettiti con noi su <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>
