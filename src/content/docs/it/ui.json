@@ -28,11 +28,11 @@
       "title": "Guide alla Contribuzione",
       "api": "Guida alla Documentazione API",
       "astroComponents": "Guida Componenti Astro",
-      "frontmatter": "Frontmatter Guide",
+      "frontmatter": "Guida Frontmatter",
       "librarian": "Guida alle Contribuzioni dei Bibliotecari",
       "reactComponents": "Guida Componenti React",
       "translations": "Guida alla Traduzione della Documentazione",
-      "usingTranslations": "Using Translations in Doc Pages"
+      "usingTranslations": "Utilizzare le Traduzioni nelle Pagine della Documentazione"
     },
     "librarians": {
       "title": "Guide per Bibliotecari",

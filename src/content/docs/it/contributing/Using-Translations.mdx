@@ -1,0 +1,62 @@
+---
+title: Utilizzare le Traduzioni nelle Pagine della Documentazione
+category: guide
+description: Documentazione tecnica su come utilizzare le traduzioni nelle pagine di documentazione.
+lastUpdated: 2025-04-28 16:13:00
+layout: /src/layouts/librarians.astro
+---
+
+Questo documento è rilevante quando stai costruendo nuovi componenti o espandendo quelli esistenti. Non va utilizzato per tradurre le pagine di documentazione.
+
+Vedi [Guida alla Traduzione della Documentazione](./doc-translations) per ulteriori informazioni su come tradurre le pagine di documentazione.
+
+## Utilizzare le Traduzioni nei Componenti React
+Quando si utilizzano le traduzioni nei componenti React, puoi utilizzare la funzione utility `useTranslation` da `@/lib/utils` per tradurre le stringhe.
+Questa funzione accetta una stringa come argomento e restituisce la stringa tradotta in base alla lingua fornita.
+
+Attualmente, le traduzioni devono essere definite nel file `src/content/docs/{LANG}/ui.json`, dove `{LANG}` è il codice della lingua per la traduzione.
+
+### Esempio Base
+```ts
+import React from "react";
+import { useTranslation } from '@/lib/utils';
+
+const MyComponent = () => {
+  return (
+    <div>
+      <h1>{useTranslation('pages.api.disclaimerBanner.title', locale)}</h1>
+    </div>
+  );
+};
+```
+
+### Utilizzare Token Dinamici
+Puoi utilizzare anche token dinamici in una stringa di traduzione.<br/>
+Tuttavia, la stringa restituita dovrà essere sanitizzata prima di essere renderizzata.
+
+#### Esempio
+```ts
+import {URLS} from "@/Consts";
+import {useTokenTranslation} from "@/lib/utils.ts";
+import DOMPurify from "dompurify";
+import React from "react";
+
+const MyComponent = (locale: string = 'en') => {
+    const disclaimerText: string | Node = useTokenTranslation('pages.api.disclaimerBanner.title', locale, {
+        "a": (chunks: any) => {
+            return `<a href=${URLS.API_DISCORD}
+                   target="_blank" rel="noreferrer noopener">{chunks}</a>`
+        }
+    });
+
+    const sanitizedText = () => ({
+        __html: DOMPurify.sanitize(disclaimerText)
+    });
+    
+    return (
+        <div>
+            <h1>{sanitizedText()}</h1>
+        </div>
+    );
+};
+```
