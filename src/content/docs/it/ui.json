@@ -49,37 +49,38 @@
   "ui": {
     "lastUpdated": "Ultimo Aggiornamento",
     "graphQLExplorer": {
-      "query": "Query",
-      "example": "Example query",
-      "viewQuery": "View query",
-      "results": "Results",
-      "tryIt": "Try it yourself",
-      "authToken": "Authorization Token",
-      "authTokenDescription": "This token will be used to authenticate your requests. You can find it in your account settings.",
-      "run": "Run query",
-      "runDescription": "Run the query displayed below",
-      "views": {
-        "default": "Default view",
-        "chart": "Chart view",
-        "json": "JSON view",
-        "table": "Table view"
-      },
-      "statusMessages": {
-        "warning": "Warning!",
-        "disclaimer": "This will run against your account. You are responsible for the content of any queries ran on your account.",
-        "loading": "Loading...",
-        "error": "Error",
-        "errorRunning": "Error running query",
-        "connectionError": "Error connecting to server",
-        "emptyQuery": "No query provided",
-        "mutationQueryNotAllowed": "Mutation queries are not currently allowed in this explorer",
-        "invalidQuery": "Invalid query",
-        "emptyToken": "No auth token provided",
-        "invalidToken": "Invalid or expired auth token",
-        "success": "Success!",
-        "noResults": "No results found",
-        "viewUnavailable": "This view is not available for this queries results."
-      }
+        "query": "Query",
+        "example": "Query di esempio",
+        "viewQuery": "Visualizza query",
+        "results": "Risultati",
+        "tryIt": "Provalo tu stesso",
+        "authToken": "Token di Autorizzazione",
+        "authTokenDescription": "Questo token verrà utilizzato per autenticare le tue richieste. Puoi trovarlo nelle impostazioni del tuo account.",
+        "run": "Esegui query",
+        "runDescription": "Esegui la query mostrata qui di seguito",
+        "views": {
+           "default": "Vista predefinita",
+           "chart": "Vista grafico",
+           "json": "Vista JSON",
+           "table": "Vista tabella"
+        },
+        "statusMessages": {
+           "warning": "Attenzione!",
+           "disclaimer": "Questa query verrà eseguita sul tuo account. Sei responsabile del contenuto di qualsiasi query eseguita sul tuo account.",
+           "loading": "Caricamento...",
+           "error": "Errore",
+           "errorRunning": "Errore durante l'esecuzione della query",
+           "connectionError": "Errore di connessione al server",
+           "emptyQuery": "Nessuna query fornita",
+           "mutationQueryNotAllowed": "Le mutazioni non sono attualmente consentite in questo explorer",
+           "invalidQuery": "Query non valida",
+           "emptyToken": "Nessun token di autenticazione fornito",
+           "invalidToken": "Token di autenticazione non valido o scaduto",
+           "success": "Successo!",
+           "noResults": "Nessun risultato trovato",
+           "viewUnavailable": "Questa vista non è disponibile per i risultati di questa query."
+        
+       }
     }
   }
 }
