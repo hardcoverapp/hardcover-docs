@@ -1,0 +1,91 @@
+---
+title: Componenti Astro
+category: guide
+description: Informazioni sui componenti Astro disponibili nel sito della documentazione.
+lastUpdated: 2025-04-28 11:20:00
+layout: /src/layouts/librarians.astro
+---
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SocialIcons from '@/components/SocialIcons.astro';
+
+## Tipi di Componenti
+Attualmente, ci sono due tipi di componenti disponibili nel sito dells documentazione:
+- [**Componenti Astro**](./astro-components): Questi sono componenti scritti in Astro e vengono utilizzati per creare pagine HTML statiche. Usa questi componenti quando non hai bisogno di interattività lato client. I componenti Astro possono essere utilizzati da altri componenti Astro ma non possono essere utilizzati dai componenti React.
+- [**Componenti React**](./react-components): Questi sono componenti scritti in React e vengono utilizzati per creare pagine dinamiche e interattive. Usa questi componenti quando hai bisogno di interattività lato client o gestione dello stato. I componenti React possono essere utilizzati da altri componenti React e da componenti Astro.
+
+## Scrivere Componenti Astro
+I componenti Astro vengono scritti in file `.astro` nella directory `/src/components`.
+
+## Componenti Astro Disponibili
+Oltre ai componenti standard di [Starlight - Componenti](https://starlight.astro.build/guides/components/), il sito della documentazione di Hardcover include i seguenti componenti personalizzati:
+
+### Explorer GraphQL
+
+Questo componente consente a un utente di visualizzare query GraphQL e sperimentare eseguendole sull'API.
+
+**Percorso di Importazione:**
+```js
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+```
+
+**Parametri:**
+
+- `canTry` - Un valore booleano che determina se l'utente può eseguire la query nell'explorer. Il valore predefinito è `true`.
+- `description` - Una stringa che descrive la query.
+- `forcePresentation` - Un valore booleano che determina se le opzioni di presentazione devono essere nascoste. Il valore predefinito è `false`.
+- `presentation` - La presentazione predefinita della risposta, può essere `json` o `table`. Il valore predefinito è `json`.
+- `query` - Una stringa contenente la query GraphQL da visualizzare nell'explorer.
+- `title` - Una stringa per il titolo della query mostrata nell'explorer. Il valore predefinito è `Example Query`. Modifica questo valore durante la traduzione della pagina in un'altra lingua.
+
+**Utilizzo:**
+
+```mdx
+<GraphQLExplorer
+    query={query}
+    description="Query di esempio"
+    presentation='table'
+    title="Esempio"
+/>
+```
+
+<GraphQLExplorer query={`
+query {
+    me {
+        id,
+        username
+    }
+}
+`}/>
+
+### Icone Social
+
+Questo componente è principalmente destinato per essere utilizzato internamente, ma può essere utilizzato per visualizzare le icone dei social media di Hardcover.
+
+**Percorso di Importazione:**
+
+```js
+
+import SocialIcons from '@/components/SocialIcons.astro';
+
+```
+
+**Parametri:**
+
+- `iconSize` - Una stringa per la dimensione delle icone. Il valore predefinito è `16px`.
+
+**Utilizzo:**
+
+```mdx
+<div class="flex justify-around h-6 w-80">
+    <SocialIcons iconSize="20px" />
+</div>
+```
+
+<div className="flex justify-around h-6 w-80">
+    <SocialIcons iconSize="20px" />
+</div>
+
+## Limitazioni
+- I componenti Astro vengono renderizzati sul server e non hanno accesso agli oggetti `window` o `document` del browser.
+- I componenti Astro non supportano la gestione dello stato o l'interattività lato client.
+- I componenti Astro non possono essere utilizzati all'interno di componenti React.

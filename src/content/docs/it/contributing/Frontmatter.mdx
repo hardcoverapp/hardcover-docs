@@ -1,0 +1,47 @@
+---
+title: Frontmatter
+category: guide
+description: Informazioni sul frontmatter utilizzato nelle pagine della documentazione.
+lastUpdated: 2025-04-28 13:48:00
+layout: /src/layouts/librarians.astro
+---
+
+## Cos'è il `Frontmatter`?
+Il Frontmatter è un blocco di metadati all'inizio di un file Markdown che fornisce informazioni sulla pagina.
+Viene utilizzato da Starlight per generare le pagine HTML e può essere usato per controllare vari aspetti del comportamento e dell'aspetto della pagina.
+
+## Quali opzioni sono disponibili?
+Le seguenti opzioni sono disponibili nel frontmatter delle pagine:
+
+Vedi [Starlight -
+Frontmatter](https://starlight.astro.build/it/reference/frontmatter/) per ulteriori informazioni e opzioni aggiuntive.
+
+| Campo           | Descrizione                                                                                                                                                                             | Obbligatorio |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| title           | Stringa contenente il titolo della pagina                                                                                                                                               | Sì          |
+| category        | Stringa della categoria in cui la pagina deve essere inclusa `guide` o `reference`                                                                                                      | Sì          |
+| layout          | Percorso relativo di uno dei layout in `/src/layouts`                                                                                                                                   | Sì          |
+| description     | Stringa contenente la descrizione da utilizzare nei meta tag HTML                                                                                                                 | Consigliato |
+| lastUpdated     | Stringa nel formato `YYYY-MM-DD HH:MM:SS`                                                                                                                                               | Consigliato |
+| draft           | Valore booleano che determina se la pagina debba essere nascosta dal sito di produzione                                                                                                 | No          |
+| slug            | Stringa contenente lo slug dell'URL per la pagina                                                                                                                                       | No          |
+| tableOfContents | Valore booleano che determina se debba essere generata una tabella dei contenuti                                                                                                        | No          |
+| template        | `doc` o `splash` predefinito è `doc`. `splash` è un layout più ampio senza le barre laterali normali                                                                                   | No          |
+| hero            | Vedi [Starlight - Frontmatter HeroConfig](https://starlight.astro.build/it/reference/frontmatter/#heroconfig) per ulteriori informazioni                                                   | No          |
+| banner          | Vedi [Starlight - Frontmatter Banner](https://starlight.astro.build/reference/frontmatter/#banner) per ulteriori informazioni                                                           | No          |
+| prev            | Valore booleano che determina se debba essere mostrato un pulsante di collegamento alla pagina precedente. Vedi [Starlight - Frontmatter Prev](https://starlight.astro.build/it/reference/frontmatter/#prev) per ulteriori informazioni | No          |
+| next            | Valore booleano che determina se debba essere mostrato un pulsante di collegamento alla pagina successiva. Vedi [Starlight - Frontmatter Next](https://starlight.astro.build/it/reference/frontmatter/#next) per ulteriori informazioni | No          |
+| sidebar         | Controlla come la pagina viene visualizzata nella barra laterale. Vedi [Starlight - Frontmatter Sidebar](https://starlight.astro.build/it/reference/frontmatter/#sidebarconfig) per ulteriori informazioni | No          |
+
+
+### Esempio di Frontmatter
+
+```md
+---
+title: Introduzione all'API
+description: Inizia a utilizzare l'API GraphQL di Hardcover.
+category: guide
+lastUpdated: 2025-02-01 17:03:00
+layout: ../../layouts/documentation.astro
+---
+```

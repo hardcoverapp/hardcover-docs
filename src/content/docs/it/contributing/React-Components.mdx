@@ -1,0 +1,30 @@
+---
+title: Componenti React
+category: guide
+description: Informazioni sui componenti React disponibili nel sito della documentazione.
+lastUpdated: 2025-04-27 17:42:00
+layout: /src/layouts/librarians.astro
+---
+
+## Tipi di Componenti
+Attualmente, ci sono due tipi di componenti disponibili nel sito dells documentazione:
+- [**Componenti Astro**](./astro-components): Questi sono componenti scritti in Astro e vengono utilizzati per creare pagine HTML statiche. Usa questi componenti quando non hai bisogno di interattività lato client. I componenti Astro possono essere utilizzati da altri componenti Astro ma non possono essere utilizzati dai componenti React.
+- [**Componenti React**](./react-components): Questi sono componenti scritti in React e vengono utilizzati per creare pagine dinamiche e interattive. Usa questi componenti quando hai bisogno di interattività lato client o gestione dello stato. I componenti React possono essere utilizzati da altri componenti React e da componenti Astro.
+
+## Scrivere Componenti React
+- I componenti React sono definiti in file `.tsx` nella directory `/src/components`.
+- Puoi utilizzare le funzioni utility `useTranslation` e `useTokenTranslation` da `@/lib/utils` per tradurre le stringhe nei componenti React.
+Vedi [Utilizzare le Traduzioni nelle Pagine della Documentazione](./using-translations) per maggiori informazioni su come utilizzare le traduzioni nei componenti React.
+
+## Componenti React Disponibili
+
+### Componenti UI
+
+### Banner
+### Banner di Disclaimer API
+
+### Banner degli Standard per Bibliotecari
+
+### Esploratore GraphQL
+
+Questi componenti verranno presto sostituiti e saranno documentati in futuro.
