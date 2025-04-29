@@ -35,6 +35,6 @@ describe("TableResults", () => {
         );
 
         expect(getAllByRole("log")).toHaveLength(1);
-        expect(getByRole("log")).toHaveTextContent("This view is not available for this queries results.");
+        expect(getByRole("log")).toHaveTextContent("This view is not available for this query's results.");
     });
 });
