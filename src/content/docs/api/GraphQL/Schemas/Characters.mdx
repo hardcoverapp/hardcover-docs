@@ -1,14 +1,21 @@
 ---
 title: Characters
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-04-28 14:30:00
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
-# Fields
+## What is a Character?
+
+Characters are fictional individuals that appear in books. The characters schema in Hardcover allows you to track and explore characters across different books, including information about their attributes, the books they appear in, and their creators.
+
+## Character Schema
+
+The character schema contains the following fields:
+
+### Fields
 
 <table>
     <thead>
@@ -19,6 +26,130 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>id</td>
+        <td>Int</td>
+        <td>The unique identifier of the character</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>The name of the character</td>
+    </tr>
+    <tr>
+        <td>biography</td>
+        <td>String</td>
+        <td>A text description of the character's background and story</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>DateTime</td>
+        <td>The timestamp when the character was created in the system</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>DateTime</td>
+        <td>The timestamp when the character was last updated</td>
+    </tr>
+    <tr>
+        <td>gender_id</td>
+        <td>Int</td>
+        <td>Reference to the character's gender</td>
+    </tr>
+    <tr>
+        <td>has_disability</td>
+        <td>Boolean</td>
+        <td>Indicates if the character has a disability</td>
+    </tr>
+    <tr>
+        <td>is_lgbtq</td>
+        <td>Boolean</td>
+        <td>Indicates if the character identifies as LGBTQ+</td>
+    </tr>
+    <tr>
+        <td>is_poc</td>
+        <td>Boolean</td>
+        <td>Indicates if the character is a person of color</td>
+    </tr>
+    <tr>
+        <td>image_id</td>
+        <td>String</td>
+        <td>Reference to an image associated with the character</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String</td>
+        <td>URL-friendly version of the character's name</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>The current state of the character record (e.g., "active")</td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String</td>
+        <td>The type of object, typically "Character"</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>String</td>
+        <td>The ID of the user who created or owns this character record</td>
+    </tr>
     </tbody>
 </table>
+
+## Example Queries
+
+### Get a Character by ID
+
+<GraphQLExplorer query={`
+query {
+    characters(where: {id: {_eq: "1"}}, limit: 1) {
+        id,
+        name
+    }
+}
+`} presentation="table"/>
+
+### Get a Character by Name
+
+<GraphQLExplorer query={`
+query {
+    characters(where: {name: {_eq: "Harry Potter"}}) {
+        biography
+        slug
+        state
+        name
+    }
+}
+`} presentation='json' forcePresentation/>
+
+### Get all Characters
+<GraphQLExplorer query={`
+query {
+    characters(limit: 10) {
+        id,
+        name
+    }
+}
+`} presentation="table"/>
+
+### Get Books featuring a Character
+<GraphQLExplorer query={`
+query GetCharacterBooks {
+    characters(where: {name: {_eq: "Harry Potter"}}) {
+        name
+        book_characters {
+            book {
+                title
+            }
+        }
+        contributions {
+            author {
+                name
+            }
+        }
+    }
+}
+`} description={``} presentation='json' forcePresentation/>
