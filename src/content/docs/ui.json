@@ -78,7 +78,7 @@
         "invalidToken": "Invalid or expired auth token",
         "success": "Success!",
         "noResults": "No results found",
-        "viewUnavailable": "This view is not available for this queries results."
+        "viewUnavailable": "This view is not available for this query's results."
       }
     }
   }
