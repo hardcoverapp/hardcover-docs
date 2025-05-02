@@ -2,7 +2,7 @@
 title: Searching for content in the API
 description: Search for books, authors, and other content using the Hardcover GraphQL API.
 category: guide
-lastUpdated: 2024-11-13 21:00:00
+lastUpdated: 2025-05-02 15:00:00
 layout: /src/layouts/documentation.astro
 ---
 
@@ -13,9 +13,17 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
 Currently, you can search for authors, books, characters, lists, prompts, publishers, series, and users.
 Additional search options will be added in the future.
 
+Behind the scenes, Hardcover uses [Typesense](https://typesense.org/) for search. This same Typesense
+index used on the website is used for this endpoint.
+
+The search API does not currently support filtering by parameters besides `query`, however you can
+change which attributes (columns) are searched as well as changing sorting.
+
 ## Search options
 
-- `query` - The search term
+Only `query` is required. If all other fields are blank, this will default to the same search as the Hardcover website when searching for a book.
+
+- `query`* - The search term
 - `query_type` - The type of content to search for one of (case-insensitive; default `book`)
                     - `author`
                     - `book`
@@ -27,22 +35,49 @@ Additional search options will be added in the future.
                     - `user`
 - `per_page` - The number of results to return per page (default 25)
 - `page` - The page number to return (default 1)
+- `sort` - What attributes should the result be sorted by
+- `fields` - Which attributes within the given `query_type` to include in the search
+- `weights` - A comma separated list of numbers indicating weights to give each of the `fields` when calculating match
+
+_Note: `fields` and `weights` are used togther. If you pass in 2 fields to
+search (ex: `name,name_personal`), you'll also need to pass in 2 weights (`5,1`).
+Weights are relative to each other._
+
+_Note #2: Some fields for an object contain other objects or numerical data
+isn't useful for filtering, but could come in handy for sorting or to show
+more information about an entity._
 
 ## Available fields
 
-- `id`
-- `results`
+- `ids` - Array of `id` attributes for results in order
+- `results` - Result objects returned from Typesense
+- `query` - Passed in `query`, or default
+- `query_type` - Passed in `query_type`, or default
+- `page` - Passed in `page`, or default
+- `per_page` - Passed in `per_page`, or default
 
 ## Example searches
 
 ### Authors
-When searching authors, we use the following fields:
+
+The following fields are available in the returned object. You can also `sort` by any of these, or limit you search to specific field(s) using `fields` and `weights`.
 
 - `alternate_names` - Alternative names for the author
-- `books` - A list of books written by the author
+- `books` - Titles of the top 5 most popular books by this author
+- `books_count` - Number of books by this author
+- `image` - Image object containing image URL, dimensions, color, etc.
 - `name` - The name of the author
 - `name_personal` - The personal name of the author
 - `series_names` - The names of the different series the author has written
+- `slug` - The URL slug of this author
+
+#### Defaults
+
+When searching authors, we use the following default values.
+
+- `fields`: `name,name_personal,alternate_names,series_names,books`
+- `sort`: `_text_match:desc,books_count:desc`
+- `weights`: `3,3,3,2,1`
 
 <GraphQLExplorer query={`
     query BooksByRowling {
@@ -60,12 +95,49 @@ When searching authors, we use the following fields:
 `} title="Search Authors" presentation='json' forcePresentation/>
 
 ### Books
-When searching books, we use the following fields:
+
+The following fields are available in the returned object. You can also `sort` by any of these, or limit you search to specific field(s) using `fields` and `weights`.
+
+- `activities_count` - Number of activities for this book
 - `alternative_titles` - Alternative titles for the book
+- `audio_seconds` - Number of seconds for the default audiobook edition
 - `author_names` - The name of the authors or contributors of the book
+- `compilation` - Boolean if this book is a compilation
+- `content_warnings` - Top 5 content warnings
+- `contribution_types` - Array of contribution types for contributions
+- `contributions` - Array of contribution objects
+- `cover_color` - The extracted color of the book (ex: `red`, `green`)
+- `description` - The description of the book
+- `featured_series` - Object containing information about the series
+- `featured_series_position` - Number indicating the featured series position
+- `genres` - Top 5 genres
 - `isbns` - The ISBNs of the book
+- `lists_count` - Number of lists this book is on
+- `has_audiobook` - Boolean if known to have an audiobook 
+- `has_ebook` - Boolean if known to have an ebook 
+- `moods` - Top 5 moods
+- `pages` - Number of pages of the default physical edition
+- `prompts_count` - Number of prompts this book is on
+- `rating` - Hardcover average rating
+- `ratings_count` - Number of Hardcover ratings
+- `release_date_i` - The release date as an integer
+- `release_year` - Date the book was published
+- `reviews_count` - Number of Hardcover reviews
 - `series_names` - The name of the series the book belongs to
+- `slug` - The URL slug of the book
+- `subtitle` - The subtitle of the book
+- `tags` - Top 5 tags
 - `title` - The title of the book
+- `users_count` - Number of Hardcover users who have saved this book
+- `users_read_count` - Count of users who have marked this book as read
+
+#### Defaults
+
+When searching books, we use the following default values.
+
+- `fields`: `title,isbns,series_names,author_names,alternative_titles`
+- `sort`: `_text_match:desc,users_count:desc`
+- `weights`: `5,5,3,1,1`
 
 <GraphQLExplorer query={`
     query LordOfTheRingsBooks {
@@ -83,11 +155,23 @@ When searching books, we use the following fields:
 `} title="Search books" presentation='json' forcePresentation />
 
 ### Characters
-When searching characters, we use the following fields:
+
+The following fields are available in the returned object. You can also `sort` by any of these, or limit you search to specific field(s) using `fields` and `weights`.
 
 - `author_names` - The name of the author who wrote the books the character appears in
-- `books` - A list of books the character appears in
+- `books` - A list of book titles with release year the character appears in (only includes books for which this character being present is not considered a spoiler)
+- `books_count` - Total number of books this character has been in
 - `name` - The name of the character
+- `object_type` - The string "Character"
+- `slug` - The URL slug for this character
+
+#### Defaults
+
+When searching characters, we use the following default values.
+
+- `fields`: `name,books,author_names`
+- `sort`: `_text_match:desc,books_count:desc`
+- `weights`: `4,2,2`
 
 <GraphQLExplorer query={`
     query CharactersNamedPeter {
@@ -105,11 +189,25 @@ When searching characters, we use the following fields:
 `} title="Search characters" presentation='json' forcePresentation />
 
 ### Lists
-When searching lists, we use the following fields:
+
+The following fields are available in the returned object. You can also `sort` by any of these, or limit you search to specific field(s) using `fields` and `weights`.
 
 - `description` - The description of the list
-- `books` - A list of books in the list
+- `books` - Titles of the first 5 books
+- `books_count` - Number of books in this list
+- `likes_count` - Number of likes for this list
+- `object_type` - The string "List"
 - `name` - The name of the list
+- `slug` - The URL slug of the list
+- `user` - User object of the list owner
+
+#### Defaults
+
+When searching lists, we use the following default values.
+
+- `fields`: `name,description,books`
+- `sort`: `_text_match:desc,likes_count:desc`
+- `weights`: `3,2,1`
 
 <GraphQLExplorer query={`
     query ListsNamedBest {
@@ -127,9 +225,24 @@ When searching lists, we use the following fields:
 `} title="Search lists" presentation='json' forcePresentation />
 
 ### Prompts
-When searching prompts, we use the following fields:
-- `books` - A list of books for the matching prompt
+
+The following fields are available in the returned object. You can also `sort` by any of these, or limit you search to specific field(s) using `fields` and `weights`.
+
+- `answers_count` - Number of total upvote answers
+- `books` - Titles of the top 5 most upvoted books for this prompt
+- `books_count` - Number of unique books upvoted
 - `question` - The prompt question
+- `slug` - The URL slug
+- `user` - User object of the prompt creator
+- `users_count` - Number of users who have answered this prompt
+
+#### Defaults
+
+When searching prompts, we use the following default values.
+
+- `fields`: `question,books`
+- `sort`: `_text_match:desc`
+- `weights`: `2,1`
 
 <GraphQLExplorer query={`
     query PromptsAboutLearning {
@@ -147,8 +260,21 @@ When searching prompts, we use the following fields:
 `} title="Search prompts" presentation='json' forcePresentation />
 
 ### Publishers
-When searching publishers, we use the following fields:
+
+The following fields are available in the returned object. You can also `sort` by any of these, or limit you search to specific field(s) using `fields` and `weights`.
+
+- `editions_count` - Number of editions with this publisher
 - `name` - The name of the publisher
+- `object_type` - The string "Publisher"
+- `slug` - The URL slug of the publisher
+
+#### Defaults
+
+When searching publishers, we use the following default values.
+
+- `fields`: `name`
+- `sort`: `_text_match:desc,editions_count:desc`
+- `weights`: `1`
 
 <GraphQLExplorer query={`
     query PublishersNamedPenguin {
@@ -166,10 +292,25 @@ When searching publishers, we use the following fields:
 `} title="Search publishers" presentation='json' forcePresentation />
 
 ### Series
-When searching series, we use the following fields:
-- `author_name` - The name of the author who wrote the series
+
+The following fields are available in the returned object. You can also `sort` by any of these, or limit you search to specific field(s) using `fields` and `weights`.
+
+- `author_name` - The name of the primary author who wrote the series
+- `author` - Author object
+- `books_count` - Number of books in this series
 - `books` - A list of books in the series
 - `name` - The name of the series
+- `primary_books_count` - Number of books in this series with an Integer position (1, 2, 3; exlcludes 1.5, empty)
+- `readers_count` - Sum of `books.users_read_count` for all books in this series (_not distinct, so readers will be counted once per book_)
+- `slug` - The URL slug of the series
+
+#### Defaults
+
+When searching series, we use the following default values.
+
+- `fields`: `name,books,author_name`
+- `sort`: `_text_match:desc,readers_count:desc`
+- `weights`: `2,1,1`
 
 <GraphQLExplorer query={`
     query SeriesNamedHarryPotter {
@@ -187,10 +328,26 @@ When searching series, we use the following fields:
 `} title="Search series" presentation='json' forcePresentation />
 
 ### Users
-When searching users, we use the following fields:
+
+The following fields are available in the returned object. You can also `sort` by any of these, or limit you search to specific field(s) using `fields` and `weights`.
+
+- `books_count` - Number of books in this users library (any status)
+- `flair` - Custom flair for this user
+- `followed_users_count` - Number of users this user follows
+- `followers_count` - Number of followers for this user
+- `image` - Image object
 - `location` - The location of the user
 - `name` - The name of the user
+- `pro` - Boolean if a supporter
 - `username` - The username of the user
+
+#### Defaults
+
+When searching users, we use the following default values.
+
+- `sort`: `_text_match:desc,followers_count:desc`
+- `fields`: `name,username,location`
+- `weights`: `2,2,1`
 
 <GraphQLExplorer query={`
     query UsersNamedAdam {
