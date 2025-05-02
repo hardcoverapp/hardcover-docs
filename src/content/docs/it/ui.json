@@ -25,14 +25,7 @@
       "schemas": "Schemi"
     },
     "contributing": {
-      "title": "Guide alla Contribuzione",
-      "api": "Guida alla Documentazione API",
-      "astroComponents": "Guida Componenti Astro",
-      "frontmatter": "Guida Frontmatter",
-      "librarian": "Guida alle Contribuzioni dei Bibliotecari",
-      "reactComponents": "Guida Componenti React",
-      "translations": "Guida alla Traduzione della Documentazione",
-      "usingTranslations": "Utilizzare le Traduzioni nelle Pagine della Documentazione"
+      "title": "Guide alla Contribuzione"
     },
     "librarians": {
       "title": "Guide per Bibliotecari",
