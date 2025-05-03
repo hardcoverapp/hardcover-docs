@@ -2,10 +2,11 @@
 title: Searching for content in the API
 description: Search for books, authors, and other content using the Hardcover GraphQL API.
 category: guide
-lastUpdated: 2025-05-02 15:00:00
+lastUpdated: 2025-05-02 23:50:00
 layout: /src/layouts/documentation.astro
 ---
 
+import {Aside} from "@astrojs/starlight/components";
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
 ## What can I search for?
@@ -39,13 +40,18 @@ Only `query` is required. If all other fields are blank, this will default to th
 - `fields` - Which attributes within the given `query_type` to include in the search
 - `weights` - A comma separated list of numbers indicating weights to give each of the `fields` when calculating match
 
-_Note: `fields` and `weights` are used togther. If you pass in 2 fields to
-search (ex: `name,name_personal`), you'll also need to pass in 2 weights (`5,1`).
-Weights are relative to each other._
+<Aside type="note">
+    `fields` and `weights` are used togther. If you pass in 2 fields to
+    search (ex: `name,name_personal`), you'll also need to pass in 2 weights (`5,1`).
+    Weights are relative to each other.
+</Aside>
 
-_Note #2: Some fields for an object contain other objects or numerical data
-isn't useful for filtering, but could come in handy for sorting or to show
-more information about an entity._
+<Aside type="note" title="Note #2">
+    Some fields for an object contain other objects or numerical data
+    isn't useful for filtering, but could come in handy for sorting or to show
+    more information about an entity.
+</Aside>
+
 
 ## Available fields
 
