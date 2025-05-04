@@ -7,7 +7,7 @@
  * shadcn/ui components
  * Most of these components have not been used on the site yet but can be added as needed.
  */
-// import { Accordion } from "./ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 // import { Alert } from "./ui/alert";
 // import { AlertDialog } from "./ui/alert-dialog";
 // import { AspectRatio } from "./ui/aspect-ratio";
@@ -73,6 +73,10 @@ import { LibrarianBanners } from "./LibrarianBanners";
 
 export const Components = {
     ui: {
+        Accordion,
+        AccordionContent,
+        AccordionItem,
+        AccordionTrigger,
         Button,
         Card,
         Input,
