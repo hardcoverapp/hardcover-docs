@@ -12,7 +12,8 @@ export default defineConfig({
     favicon: './src/assets/hardcover.svg',
     integrations: [starlight({
         components: {
-            SocialIcons: './src/components/SocialIcons.astro'
+            SocialIcons: './src/components/SocialIcons.astro',
+            EditLink: './src/components/PageEdit.astro'
         },
         customCss: ['./src/tailwind.css'],
         defaultLocale: 'root',

@@ -36,12 +36,12 @@ import { Label } from "./ui/label";
 // import { MenuBar } from "./ui/menu-bar";
 // import { NavigationMenu } from "./ui/navigation-menu";
 // import { Pagination } from "./ui/pagination";
-// import { Popover } from "./ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 // import { Progress } from "./ui/progress";
 // import { RadioGroup } from "./ui/radio-group";
 // import { Resizable } from "./ui/resizable";
 import { ScrollArea } from "./ui/scroll-area";
-// import { Select } from "./ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Separator } from "./ui/separator";
 // import { Sheet } from "./ui/sheet";
 // import { Skeleton } from "./ui/skeleton";
@@ -81,7 +81,15 @@ export const Components = {
         Card,
         Input,
         Label,
+        Popover,
+        PopoverContent,
+        PopoverTrigger,
         ScrollArea,
+        Select,
+        SelectContent,
+        SelectItem,
+        SelectTrigger,
+        SelectValue,
         Separator,
         Table,
         Tabs,

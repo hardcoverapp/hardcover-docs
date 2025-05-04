@@ -107,13 +107,15 @@ export const useTokenTranslation = (key: string, locale: string = 'en', tokens: 
 export const getPreference = (key: string) => {
     if (typeof window !== 'undefined') {
         const preference = localStorage.getItem(key);
+
         if (preference) {
             return JSON.parse(preference);
         }
 
         return getDefaultPreference(key);
     }
-    return null;
+
+    return getDefaultPreference(key);
 }
 
 /**

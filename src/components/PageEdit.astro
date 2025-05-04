@@ -1,0 +1,10 @@
+---
+const { editUrl } = Astro.props;
+import { EditLink } from './EditLink';
+
+---
+
+<EditLink text={
+        Astro.locals.t('page.editLink')
+    } url={editUrl} client:only="react" />
+
