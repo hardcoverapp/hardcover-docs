@@ -3,7 +3,7 @@ import {Label} from "@/components/ui/label.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {URLS} from "@/Consts";
-import {useTranslation} from "@/lib/utils.ts";
+import {useTranslation, getPreference, setPreference} from "@/lib/utils.ts";
 import React, {useEffect, useState} from "react";
 import {LuCode, LuKeyRound, LuLoader, LuTable, LuTerminal} from "react-icons/lu";
 import {JSONResults} from "./JSONResults.tsx";
@@ -12,11 +12,16 @@ import {TableResults} from "./TableResults.tsx";
 
 export const GraphQLRunner = (props: {
     query: string, description?: string,
-    presentation?: 'json' | 'table',
+    presentation?: 'json' | 'table' | undefined, // If not provided, will use the default from user preferences
     forcePresentation?: 'json' | 'table' | undefined
     locale?: string
 }) => {
-    const {description, presentation, forcePresentation, locale = 'en'} = props;
+    const {description, forcePresentation, locale = 'en'} = props;
+    let {presentation} = props;
+
+    if (!presentation) {
+        presentation = getPreference('graphQLResults');
+    }
 
     // Get the query from props so we can modify it
     const [query, setQuery] = useState(props.query);
@@ -146,7 +151,7 @@ export const GraphQLRunner = (props: {
     /**
      * This function will handle the onChange event for the auth token input field.
      * We need to update the auth token in the React state to be able to display it.
-     * @param event - React.ChangeEvent<HTMLInputElement>
+     * @param event - React.ChangeEvent<HTMLTextAreaElement>
      * @returns {void}
      */
     const updateAuthTokenUI = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -160,7 +165,7 @@ export const GraphQLRunner = (props: {
     /**
      * This function will handle the onBlur event for the auth token input field.
      * We are using blur instead of change to ensure the user has finished typing before we test the auth token.
-     * @param event - React.ChangeEvent<HTMLInputElement>
+     * @param event - React.ChangeEvent<HTMLTextAreaElement>
      * @returns {void}
      */
     const handleAuthTokenChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -268,6 +273,7 @@ export const GraphQLRunner = (props: {
                                 <Button
                                     onClick={() => {
                                         setCurrentPresentation('json');
+                                        setPreference('graphQLResults', 'json');
                                     }}
                                     title={useTranslation("ui.graphQLExplorer.views.json", locale)}
                                     variant='ghost'
@@ -278,6 +284,7 @@ export const GraphQLRunner = (props: {
                                 <Button
                                     onClick={() => {
                                         setCurrentPresentation('table');
+                                        setPreference('graphQLResults', 'table');
                                     }}
                                     title={useTranslation("ui.graphQLExplorer.views.table", locale)}
                                     variant='ghost'

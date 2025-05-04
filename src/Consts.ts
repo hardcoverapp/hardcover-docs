@@ -6,6 +6,9 @@ export const URLS = {
     GRAPHQL_URL: 'https://api.hardcover.app/v1/graphql',
 
     GITHUB: 'https://github.com/hardcoverapp/hardcover-docs/',
+    GITHUB_EDIT: 'https://github.com/hardcoverapp/hardcover-docs/edit/main/',
+    GITHUB_DEV: 'https://github.dev/hardcoverapp/hardcover-docs/blob/main/',
+
     ISSUES: 'https://github.com/hardcoverapp/hardcover-docs/issues',
     CREATE_ISSUE: 'https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=',
     SUGGEST_FEATURE: 'https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=',
@@ -20,3 +23,13 @@ export const URLS = {
     INSTAGRAM: 'https://instagram.com/hardcover.app',
     MASTODON: 'https://mastodon.hardcover.app/@hardcover',
 };
+
+export const defaultPreferences : {
+    theme: 'auto' | 'dark' | 'light';
+    editMode: 'basic' | 'developer';
+    graphQLResults: 'table' | 'json';
+} = {
+    theme: 'auto',
+    editMode: 'basic',
+    graphQLResults: 'table',
+}

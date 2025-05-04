@@ -2,7 +2,7 @@ import React from "react";
 import DOMPurify from "dompurify";
 
 import {URLS} from "@/Consts";
-import {useTokenTranslation, useTranslation} from "@/lib/utils.ts";
+import {useTokenTranslation, useTranslation} from "@/lib/utils";
 
 export const APIBanner = (locale: any = "en") => {
     // @ts-ignore

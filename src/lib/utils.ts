@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
+import { defaultPreferences } from "../Consts"
 import { getTranslationNode } from "./translations.ts";
 
 /**
@@ -95,3 +96,63 @@ export const useTokenTranslation = (key: string, locale: string = 'en', tokens: 
         return node;
     }
 }
+
+/**
+ * Get the user preference from local storage<br>
+ * This is used to store the user's theme, component settings, etc.<br>
+ * Local storage is only available in the React components
+ * @param key
+ * @returns The user preference for the given key as a string
+ */
+export const getPreference = (key: string) => {
+    if (typeof window !== 'undefined') {
+        const preference = localStorage.getItem(key);
+        if (preference) {
+            return JSON.parse(preference);
+        }
+
+        return getDefaultPreference(key);
+    }
+    return null;
+}
+
+/**
+ * Get the default value for a given key<br>
+ * This is used when the user preference is not set
+ * @param key
+ */
+export const getDefaultPreference = (key: string) => {
+    if (key in defaultPreferences) {
+        // @ts-ignore TS7053 implicitly has an 'any' type
+        return defaultPreferences[key];
+    }
+
+    return null;
+}
+
+
+/**
+ * Set the user preference in local storage<br>
+ * Local storage is only available in the React components
+ * @param key
+ * @param value
+ */
+export const setPreference = (key: string, value: any) => {
+    if (typeof window !== 'undefined') {
+        localStorage.setItem
+            (key, JSON.stringify(value));
+    }
+}
+
+/**
+ * Remove the user preference from local storage<br>
+ * Local storage is only available in the React components
+ * @param key
+ */
+export const removePreference = (key: string) => {
+    if (typeof window !== 'undefined') {
+        localStorage.removeItem(key);
+    }
+}
+
+

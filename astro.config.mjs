@@ -17,7 +17,7 @@ export default defineConfig({
         customCss: ['./src/tailwind.css'],
         defaultLocale: 'root',
         editLink: {
-            baseUrl: 'https://github.com/hardcoverapp/hardcover-docs/edit/main/'
+            baseUrl: URLS.GITHUB_EDIT
         },
         head: [
             {

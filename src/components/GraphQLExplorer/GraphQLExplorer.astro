@@ -1,6 +1,6 @@
 ---
 import {Code, Tabs, TabItem} from '@astrojs/starlight/components';
-import {useTranslation} from "../../lib/utils";
+import {useTranslation, getPreference, setPreference} from "../../lib/utils";
 import {GraphQLRunner} from './GraphQLRunner.tsx';
 
 const locale = Astro.currentLocale;
@@ -9,7 +9,7 @@ const {
     query,
     description = '',
     canTry = true,
-    presentation = 'json',
+    presentation = undefined, // Undefined will default to the user's preference
     forcePresentation = false,
     title = useTranslation("ui.graphQLExplorer.example", locale)
 } = Astro.props;
@@ -26,7 +26,8 @@ const isMutation = query.trim().includes('mutation');
                 <Code lang="graphql" title={title} code={query} wrap={true}/>
         )}
         {!query && (
-                <Code lang="graphql" title={title} code={useTranslation("ui.graphQLExplorer.statusMessages.emptyQuery", locale)}/>
+                <Code lang="graphql" title={title}
+                      code={useTranslation("ui.graphQLExplorer.statusMessages.emptyQuery", locale)}/>
         )}
     </TabItem>
     {canTry && !isMutation && (
