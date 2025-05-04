@@ -30,7 +30,7 @@ export const EditLink = (link: any) => {
             </a>
 
             <Components.ui.Popover>
-                <Components.ui.PopoverTrigger className="bg-transparent mt-1">
+                <Components.ui.PopoverTrigger className="bg-transparent mt-1 pointer">
                     <IoSettingsOutline/>
                 </Components.ui.PopoverTrigger>
                 <Components.ui.PopoverContent className="bg-gray-800 text-white">
@@ -54,12 +54,12 @@ export const EditLink = (link: any) => {
                                 setIsDevMode(value === 'developer');
                             }}
                         >
-                            <Components.ui.SelectTrigger className="w-[180px]">
+                            <Components.ui.SelectTrigger className="w-[180px] pointer">
                                 <Components.ui.SelectValue placeholder="Select edit mode"/>
                             </Components.ui.SelectTrigger>
                             <Components.ui.SelectContent className="bg-gray-700 text-white">
-                                <Components.ui.SelectItem value="basic">Basic</Components.ui.SelectItem>
-                                <Components.ui.SelectItem value="developer">Developer</Components.ui.SelectItem>
+                                <Components.ui.SelectItem value="basic" className="pointer">Basic</Components.ui.SelectItem>
+                                <Components.ui.SelectItem value="developer" className="pointer">Developer</Components.ui.SelectItem>
                             </Components.ui.SelectContent>
                         </Components.ui.Select>
                     </div>
