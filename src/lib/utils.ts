@@ -22,18 +22,36 @@ export function cn(...inputs: ClassValue[]) {
 
 
 /**
- * Capitalizes the first letter of a string
+ * Capitalizes the first letter of a string, each word, or the first letter of each sentence.
  * @param str
- * @returns The string with the first letter capitalized
+ * @param mode - The mode to use for capitalization.
+ * Can be 'words', 'sentences', or 'first'.
+ * Default is 'first'.
+ *
+ * @returns The capitalized string
  * @example
  * ```ts
  * import { uCFirst } from "@/lib/utils"
  * const capitalized = uCFirst("hello world")
  * // capitalized will be "Hello world"
+ *
+ * const capitalizedWords = uCFirst("hello world", "words")
+ * // capitalizedWords will be "Hello World"
+ *
+ * const capitalizedSentences = uCFirst("hello world. how are you?", "sentences")
+ * // capitalizedSentences will be "Hello world. How are you?"
  * ```
  */
-export const uCFirst = (str: string) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+export const uCFirst = (str: string, mode: 'words' | 'sentences' | 'first' = 'first') => {
+    switch (mode) {
+        case 'words':
+            return str.replace(/\b\w/g, char => char.toUpperCase());
+        case 'sentences':
+            return str.replace(/(^\s*\w|[.!?]\s*\w)/g, char => char.toUpperCase());
+        case 'first':
+        default:
+            return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 };
 
 
