@@ -60,7 +60,7 @@ Lists in Hardcover are user-created collections of books organized around themes
     <tr>
         <td>privacy_setting_id</td>
         <td>int</td>
-        <td>Privacy setting for the list (used in mutations)</td>
+        <td>Privacy setting for the list: 1 = public, 2 = followers only, 3 = private</td>
     </tr>
     <tr>
         <td>user_id</td>
@@ -99,6 +99,8 @@ Lists in Hardcover are user-created collections of books organized around themes
 
 ## Get All Public Lists
 
+Retrieve the top 10 most-liked public lists.
+
 <GraphQLExplorer query={`
 query GetPublicLists {
     lists(
@@ -116,9 +118,11 @@ query GetPublicLists {
         }
     }
 }
-`} description="Retrieve the top 10 most-liked public lists" title="Public Lists Query"/>
+`} title="Public Lists Query"/>
 
 ## Get Lists by a Specific User
+
+Get all lists created by a specific user. Replace ##USER_ID## with the actual user ID.
 
 <GraphQLExplorer query={`
 query GetUserLists {
@@ -135,9 +139,15 @@ query GetUserLists {
         updated_at
     }
 }
-`} description="Get all lists created by the current user" title="User Lists Query"/>
+`} title="User Lists Query" canTry={false}/>
 
 ## Get Books in a Specific List
+
+Get all books in a specific list with their details.
+
+**Note:** The list must be public or owned by the authenticated user.
+
+This example uses NPR Top 100 Science Fiction Fantasy list (ID: 3).
 
 <GraphQLExplorer query={`
 query GetListBooks {
@@ -161,9 +171,18 @@ query GetListBooks {
         }
     }
 }
-`} description="Get all books in a specific list with their details. Example uses NPR Top 100 Science Fiction Fantasy list (ID: 3)" title="List Books Query"/>
+`} title="List Books Query"/>
 
 ## Create a New List
+
+Create a new list with name, description, and privacy setting.
+
+**Privacy settings:**
+- `1` = public
+- `2` = followers only  
+- `3` = private
+
+**Note:** This mutation needs further testing.
 
 <GraphQLExplorer query={`
 mutation CreateList {
@@ -183,9 +202,13 @@ mutation CreateList {
         }
     }
 }
-`} description="⚠️ WARNING: This mutation returns success but may not create visible lists. Syntax needs verification." title="Create List Mutation - Needs Verification"/>
+`} title="Create List Mutation"/>
 
 ## Add a Book to a List
+
+Add a book to your own list.
+
+**Note:** You can only add books to lists you own. Position may need to be set separately.
 
 <GraphQLExplorer query={`
 mutation AddBookToList {
@@ -205,4 +228,4 @@ mutation AddBookToList {
         }
     }
 }
-`} description="Add a book to your own list. Note: You can only add books to lists you own. Position may need to be set separately." title="Add Book to List"/>
+`} title="Add Book to List"/>
