@@ -1,12 +1,16 @@
 ---
 title: Lists
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-01-06 18:30:00
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import {Aside} from "@astrojs/starlight/components";
+
+# What is a List?
+
+Lists in Hardcover are user-created collections of books organized around themes, genres, or personal preferences. Users can create public or private lists to organize and share their reading recommendations with the community.
 
 # Fields
 
@@ -19,6 +23,216 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>id</td>
+        <td>int</td>
+        <td>Unique identifier for the list</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>string</td>
+        <td>The title/name of the list</td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>string</td>
+        <td>Description of the list's purpose or theme</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>string</td>
+        <td>URL-friendly identifier for the list</td>
+    </tr>
+    <tr>
+        <td>books_count</td>
+        <td>int</td>
+        <td>Total number of books in the list</td>
+    </tr>
+    <tr>
+        <td>likes_count</td>
+        <td>int</td>
+        <td>Number of users who have liked this list</td>
+    </tr>
+    <tr>
+        <td>public</td>
+        <td>bool</td>
+        <td>Whether the list is publicly visible</td>
+    </tr>
+    <tr>
+        <td>privacy_setting_id</td>
+        <td>int</td>
+        <td>Privacy setting for the list: 1 = public, 2 = followers only, 3 = private</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>int</td>
+        <td>ID of the user who created the list</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp</td>
+        <td>When the list was created</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp</td>
+        <td>When the list was last modified</td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>User</td>
+        <td>User object of the list creator</td>
+    </tr>
+    <tr>
+        <td>list_books</td>
+        <td>ListBook[]</td>
+        <td>Array of books associated with this list</td>
+    </tr>
     </tbody>
 </table>
+
+# Related Schemas
+
+- [Books](/api/graphql/schemas/books) - Books that can be added to lists
+- [Users](/api/graphql/schemas/users) - Users who create and interact with lists
+
+# Example Queries
+
+## Get All Public Lists
+
+Retrieve the top 10 most-liked public lists.
+
+<GraphQLExplorer query={`
+query GetPublicLists {
+    lists(
+        where: {public: {_eq: true}}
+        order_by: {likes_count: desc}
+        limit: 10
+    ) {
+        id
+        name
+        description
+        books_count
+        likes_count
+        user {
+            username
+        }
+    }
+}
+`} title="Public Lists Query"/>
+
+## Get Lists by a Specific User
+
+Get all lists created by a specific user. Replace ##USER_ID## with the actual user ID.
+
+<GraphQLExplorer query={`
+query GetUserLists {
+    lists(
+        where: {user_id: {_eq: ##USER_ID##}}
+        order_by: {updated_at: desc}
+    ) {
+        id
+        name
+        description
+        books_count
+        public
+        created_at
+        updated_at
+    }
+}
+`} title="User Lists Query" canTry={false}/>
+
+## Get Books in a Specific List
+
+Get all books in a specific list with their details.
+
+This example uses NPR Top 100 Science Fiction Fantasy list (ID: 3).
+
+<Aside type="note">
+    The list must be public or owned by the authenticated user.
+</Aside>
+
+<GraphQLExplorer query={`
+query GetListBooks {
+    lists(where: {id: {_eq: 3}}) {
+        name
+        description
+        list_books {
+            book {
+                id
+                title
+                contributions {
+                    author {
+                        name
+                    }
+                }
+                rating
+                pages
+            }
+            position
+            date_added
+        }
+    }
+}
+`} title="List Books Query"/>
+
+## Create a New List
+
+Create a new list with name, description, and privacy setting.
+
+**Privacy settings:**
+- `1` = public
+- `2` = followers only  
+- `3` = private
+
+<Aside type="note">
+    New lists may take a few minutes to appear on the website due to caching.
+</Aside>
+
+<GraphQLExplorer query={`
+mutation CreateList {
+    insert_list(
+        object: {
+            name: "My Favorite Sci-Fi Books"
+            description: "A collection of the best science fiction novels I've read"
+            privacy_setting_id: 1
+        }
+    ) {
+        list {
+            id
+            name
+            description
+            public
+            created_at
+        }
+    }
+}
+`} title="Create List Mutation"/>
+
+## Add a Book to a List
+
+Add a book to your own list.
+
+<Aside type="note">
+    You can only add books to lists you own. Position may need to be set separately.
+</Aside>
+
+<GraphQLExplorer query={`
+mutation AddBookToList {
+    insert_list_book(
+        object: {
+            list_id: 27818
+            book_id: 456
+            position: 1
+        }
+    ) {
+        list_book {
+            id
+            list_id
+            book_id
+            position
+            date_added
+        }
+    }
+}
+`} title="Add Book to List"/>
