@@ -73,3 +73,22 @@ kbd {
     font-size: 0.9em;
     font-family: Monospaced, monospace;
 }
+
+/* Custom note styling to match the design */
+.starlight-aside--note {
+    background-color: #1e3a8a !important; /* Dark blue background */
+    border-color: #3b82f6 !important; /* Blue border */
+    color: white !important;
+}
+
+.starlight-aside--note .starlight-aside__title {
+    color: white !important;
+}
+
+.starlight-aside--note .starlight-aside__content {
+    color: white !important;
+}
+
+.starlight-aside--note .starlight-aside__content a {
+    color: #93c5fd !important; /* Light blue for links */
+}

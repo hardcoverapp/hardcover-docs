@@ -6,6 +6,7 @@ layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import {Aside} from "@astrojs/starlight/components";
 
 # What is a List?
 
@@ -145,9 +146,11 @@ query GetUserLists {
 
 Get all books in a specific list with their details.
 
-**Note:** The list must be public or owned by the authenticated user.
-
 This example uses NPR Top 100 Science Fiction Fantasy list (ID: 3).
+
+<Aside type="note">
+    The list must be public or owned by the authenticated user.
+</Aside>
 
 <GraphQLExplorer query={`
 query GetListBooks {
@@ -182,7 +185,9 @@ Create a new list with name, description, and privacy setting.
 - `2` = followers only  
 - `3` = private
 
-**Note:** This mutation needs further testing.
+<Aside type="note">
+    New lists may take a few minutes to appear on the website due to caching.
+</Aside>
 
 <GraphQLExplorer query={`
 mutation CreateList {
@@ -208,7 +213,9 @@ mutation CreateList {
 
 Add a book to your own list.
 
-**Note:** You can only add books to lists you own. Position may need to be set separately.
+<Aside type="note">
+    You can only add books to lists you own. Position may need to be set separately.
+</Aside>
 
 <GraphQLExplorer query={`
 mutation AddBookToList {
