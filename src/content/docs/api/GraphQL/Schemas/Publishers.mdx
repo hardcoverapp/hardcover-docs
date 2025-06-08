@@ -1,12 +1,16 @@
 ---
 title: Publishers
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-01-06 19:30:00
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import {Aside} from "@astrojs/starlight/components";
+
+# What is a Publisher?
+
+A Publisher in Hardcover represents a company or organization that publishes books. Publishers are linked to specific editions of books, as the same book may be published by different publishers in different regions or formats. Publishers help users find books from their favorite publishing houses and understand the publishing history of editions.
 
 # Fields
 
@@ -19,6 +23,199 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>id</td>
+        <td>bigint</td>
+        <td>Unique identifier for the publisher</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>string</td>
+        <td>The name of the publisher</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>string</td>
+        <td>URL-friendly identifier for the publisher</td>
+    </tr>
+    <tr>
+        <td>canonical_id</td>
+        <td>int</td>
+        <td>Canonical ID for merged publishers</td>
+    </tr>
+    <tr>
+        <td>parent_id</td>
+        <td>int</td>
+        <td>ID of the parent publisher (for imprints)</td>
+    </tr>
+    <tr>
+        <td>editions_count</td>
+        <td>int</td>
+        <td>Number of editions published by this publisher</td>
+    </tr>
+    <tr>
+        <td>locked</td>
+        <td>bool</td>
+        <td>Whether the publisher is locked from editing</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>string</td>
+        <td>Current state of the publisher record</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>int</td>
+        <td>ID of the user who created the publisher</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp</td>
+        <td>When the publisher was created</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp</td>
+        <td>When the publisher was last updated</td>
+    </tr>
+    <tr>
+        <td>editions</td>
+        <td>Edition[]</td>
+        <td>Array of editions published by this publisher</td>
+    </tr>
+    <tr>
+        <td>parent_publisher</td>
+        <td>Publisher</td>
+        <td>Parent publisher object (for imprints)</td>
+    </tr>
     </tbody>
 </table>
+
+# Related Schemas
+
+- [Editions](/api/graphql/schemas/editions) - Editions published by publishers
+- [Books](/api/graphql/schemas/books) - Books have multiple editions from different publishers
+- [Authors](/api/graphql/schemas/authors) - Authors work with various publishers
+
+# Example Queries
+
+## Get Publisher Details
+
+Retrieve detailed information about a specific publisher including recent editions. This example uses Penguin Random House (ID: 1).
+
+<GraphQLExplorer query={`
+query GetPublisherDetails {
+    publishers(where: {id: {_eq: 1}}) {
+        id
+        name
+        slug
+        editions_count
+        parent_publisher {
+            name
+        }
+        editions(
+            limit: 5
+            order_by: {release_date: desc}
+        ) {
+            id
+            title
+            isbn_13
+            release_date
+            book {
+                title
+                contributions {
+                    author {
+                        name
+                    }
+                }
+            }
+        }
+    }
+}
+`} title="Publisher Details Query"/>
+
+## Find Publishers by Name
+
+Search for publishers by name pattern. This example searches for publishers with "Penguin" in the name.
+
+<GraphQLExplorer query={`
+query FindPublishers {
+    publishers(
+        where: {name: {_eq: "Penguin Random House"}}
+        order_by: {editions_count: desc}
+        limit: 10
+    ) {
+        id
+        name
+        editions_count
+        parent_publisher {
+            name
+        }
+    }
+}
+`} title="Publisher Search Query"/>
+
+## Get Books by Publisher
+
+Find all books published by a specific publisher, showing different editions.
+
+<Aside type="note">
+    This query shows unique books (not editions) published by the publisher, grouped by the parent book.
+</Aside>
+
+<GraphQLExplorer query={`
+query GetPublisherBooks {
+    publishers(where: {id: {_eq: 1}}) {
+        name
+        editions(
+            order_by: {book: {title: asc}}
+            limit: 5
+        ) {
+            id
+            isbn_13
+            physical_format
+            pages
+            release_date
+            book {
+                id
+                title
+                rating
+                contributions {
+                    author {
+                        name
+                    }
+                }
+            }
+        }
+    }
+}
+`} title="Publisher Books Query"/>
+
+
+## Get Popular Publishers
+
+Retrieve the most active publishers by edition count.
+
+<GraphQLExplorer query={`
+query GetPopularPublishers {
+    publishers(
+        where: {editions_count: {_gt: 100}}
+        order_by: {editions_count: desc}
+        limit: 5
+    ) {
+        id
+        name
+        slug
+        editions_count
+        editions(
+            limit: 3
+            order_by: {book: {rating: desc}}
+        ) {
+            book {
+                title
+                rating
+            }
+        }
+    }
+}
+`} title="Popular Publishers Query"/>
