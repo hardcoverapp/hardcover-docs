@@ -1,12 +1,16 @@
 ---
 title: Editions
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-06-24 20:42:24
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import {Aside} from "@astrojs/starlight/components";
+
+# What is an Edition?
+
+An Edition in Hardcover represents a specific published version of a book. While a book is the conceptual work (e.g., "Pride and Prejudice"), an edition is a particular physical or digital manifestation with specific attributes like ISBN, publisher, format, and release date. Multiple editions of the same book may exist with different publishers, languages, formats, or cover art.
 
 # Fields
 
@@ -19,6 +23,320 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>id</td>
+        <td>int</td>
+        <td>Unique identifier for the edition</td>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>string</td>
+        <td>Title of this edition</td>
+    </tr>
+    <tr>
+        <td>subtitle</td>
+        <td>string</td>
+        <td>Subtitle of this edition</td>
+    </tr>
+    <tr>
+        <td>isbn_10</td>
+        <td>string</td>
+        <td>10-digit ISBN</td>
+    </tr>
+    <tr>
+        <td>isbn_13</td>
+        <td>string</td>
+        <td>13-digit ISBN</td>
+    </tr>
+    <tr>
+        <td>asin</td>
+        <td>string</td>
+        <td>Amazon Standard Identification Number</td>
+    </tr>
+    <tr>
+        <td>pages</td>
+        <td>int</td>
+        <td>Number of pages</td>
+    </tr>
+    <tr>
+        <td>audio_seconds</td>
+        <td>int</td>
+        <td>Duration in seconds (for audiobooks)</td>
+    </tr>
+    <tr>
+        <td>release_date</td>
+        <td>date</td>
+        <td>Full release date</td>
+    </tr>
+    <tr>
+        <td>release_year</td>
+        <td>int</td>
+        <td>Year of release</td>
+    </tr>
+    <tr>
+        <td>physical_format</td>
+        <td>string</td>
+        <td>Physical format (hardcover, paperback, etc.)</td>
+    </tr>
+    <tr>
+        <td>edition_format</td>
+        <td>string</td>
+        <td>Edition format information</td>
+    </tr>
+    <tr>
+        <td>edition_information</td>
+        <td>string</td>
+        <td>Additional edition details</td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>string</td>
+        <td>Description of this edition</td>
+    </tr>
+    <tr>
+        <td>book_id</td>
+        <td>int</td>
+        <td>ID of the parent book</td>
+    </tr>
+    <tr>
+        <td>publisher_id</td>
+        <td>int</td>
+        <td>ID of the publisher</td>
+    </tr>
+    <tr>
+        <td>language_id</td>
+        <td>int</td>
+        <td>ID of the language</td>
+    </tr>
+    <tr>
+        <td>country_id</td>
+        <td>int</td>
+        <td>ID of the country of publication</td>
+    </tr>
+    <tr>
+        <td>reading_format_id</td>
+        <td>int</td>
+        <td>ID of the reading format</td>
+    </tr>
+    <tr>
+        <td>image_id</td>
+        <td>int</td>
+        <td>ID of the cover image</td>
+    </tr>
+    <tr>
+        <td>rating</td>
+        <td>numeric</td>
+        <td>Average rating for this edition</td>
+    </tr>
+    <tr>
+        <td>users_count</td>
+        <td>int</td>
+        <td>Number of users who have this edition</td>
+    </tr>
+    <tr>
+        <td>users_read_count</td>
+        <td>int</td>
+        <td>Number of users who have read this edition</td>
+    </tr>
+    <tr>
+        <td>lists_count</td>
+        <td>int</td>
+        <td>Number of lists containing this edition</td>
+    </tr>
+    <tr>
+        <td>locked</td>
+        <td>bool</td>
+        <td>Whether the edition is locked from editing</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>string</td>
+        <td>Current state of the edition record</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp</td>
+        <td>When the edition was created</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp</td>
+        <td>When the edition was last updated</td>
+    </tr>
+    <tr>
+        <td>book</td>
+        <td>Book</td>
+        <td>Parent book object</td>
+    </tr>
+    <tr>
+        <td>publisher</td>
+        <td>Publisher</td>
+        <td>Publisher object</td>
+    </tr>
+    <tr>
+        <td>language</td>
+        <td>Language</td>
+        <td>Language object</td>
+    </tr>
+    <tr>
+        <td>country</td>
+        <td>Country</td>
+        <td>Country object</td>
+    </tr>
+    <tr>
+        <td>reading_format</td>
+        <td>ReadingFormat</td>
+        <td>Reading format object</td>
+    </tr>
+    <tr>
+        <td>image</td>
+        <td>Image</td>
+        <td>Cover image object</td>
+    </tr>
+    <tr>
+        <td>contributions</td>
+        <td>Contribution[]</td>
+        <td>Array of contributor relationships</td>
+    </tr>
     </tbody>
 </table>
+
+# Related Schemas
+
+- [Books](/api/graphql/schemas/books) - Parent book for editions
+- [Publishers](/api/graphql/schemas/publishers) - Publishers of editions
+- [Languages](/api/graphql/schemas/languages) - Edition languages
+- [Authors](/api/graphql/schemas/authors) - Authors via contributions
+
+# Example Queries
+
+## Get Edition Details
+
+Retrieve detailed information about a specific edition by ISBN.
+
+<GraphQLExplorer query={`
+query GetEditionByISBN {
+    editions(where: {isbn_13: {_eq: "9780547928227"}}) {
+        id
+        title
+        subtitle
+        isbn_13
+        isbn_10
+        asin
+        pages
+        release_date
+        physical_format
+        publisher {
+            name
+        }
+        book {
+            id
+            title
+            rating
+            contributions {
+                author {
+                    name
+                }
+            }
+        }
+        language {
+            language
+        }
+        reading_format {
+            format
+        }
+    }
+}
+`} title="Edition Details by ISBN Query"/>
+
+## Get All Editions of a Book
+
+Find all editions of a specific book, showing different formats and publishers.
+
+<Aside type="note">
+    Different editions may have varying page counts, publishers, and formats. This helps readers find their preferred edition.
+</Aside>
+
+<GraphQLExplorer query={`
+query GetBookEditions {
+    editions(
+        where: {book_id: {_eq: 328491}}
+        order_by: {release_date: desc}
+    ) {
+        id
+        title
+        isbn_13
+        pages
+        release_date
+        physical_format
+        publisher {
+            name
+        }
+        language {
+            language
+        }
+        reading_format {
+            format
+        }
+        users_count
+        rating
+    }
+}
+`} title="Book Editions Query"/>
+
+## Find Editions by Publisher
+
+Get recent editions from a specific publisher.
+
+<GraphQLExplorer query={`
+query GetPublisherEditions {
+    editions(
+        where: {publisher_id: {_eq: 1}}
+        order_by: {release_date: desc}
+        limit: 10
+    ) {
+        id
+        title
+        isbn_13
+        release_date
+        physical_format
+        book {
+            title
+            rating
+            contributions {
+                author {
+                    name
+                }
+            }
+        }
+    }
+}
+`} title="Publisher Editions Query"/>
+
+## Search Editions by Format
+
+Find audiobook editions with specific criteria.
+
+<GraphQLExplorer query={`
+query GetAudiobookEditions {
+    editions(
+        where: {reading_format_id: {_eq: 2}, audio_seconds: {_gt: 0}}
+        order_by: {users_count: desc}
+        limit: 10
+    ) {
+        id
+        title
+        asin
+        audio_seconds
+        publisher {
+            name
+        }
+        cached_contributors
+        book {
+            title
+            rating
+        }
+    }
+}
+`} title="Audiobook Editions Query"/>
+
