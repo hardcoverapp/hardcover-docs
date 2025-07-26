@@ -1,12 +1,16 @@
 ---
 title: Countries
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-07-25 00:00:00
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import {Aside} from "@astrojs/starlight/components";
+
+# What is a Country?
+
+A Country in Hardcover represents the country of publication for books and editions. This information helps users discover literature from specific regions, understand publishing markets, and explore global literary traditions. Countries use standardized codes for consistency and integration.
 
 # Fields
 
@@ -19,6 +23,319 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>id</td>
+        <td>bigint</td>
+        <td>Unique identifier for the country</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>string</td>
+        <td>Full name of the country</td>
+    </tr>
+    <tr>
+        <td>code2</td>
+        <td>string</td>
+        <td>Two-letter ISO 3166-1 alpha-2 country code</td>
+    </tr>
+    <tr>
+        <td>code3</td>
+        <td>string</td>
+        <td>Three-letter ISO 3166-1 alpha-3 country code</td>
+    </tr>
+    <tr>
+        <td>iso_3166</td>
+        <td>string</td>
+        <td>ISO 3166 standard code</td>
+    </tr>
+    <tr>
+        <td>phone_code</td>
+        <td>string</td>
+        <td>International dialing code</td>
+    </tr>
+    <tr>
+        <td>region</td>
+        <td>string</td>
+        <td>Geographic region (e.g., Europe, Asia)</td>
+    </tr>
+    <tr>
+        <td>region_code</td>
+        <td>string</td>
+        <td>Numeric code for the region</td>
+    </tr>
+    <tr>
+        <td>sub_region</td>
+        <td>string</td>
+        <td>Geographic sub-region (e.g., Western Europe)</td>
+    </tr>
+    <tr>
+        <td>sub_region_code</td>
+        <td>string</td>
+        <td>Numeric code for the sub-region</td>
+    </tr>
+    <tr>
+        <td>intermediate_region</td>
+        <td>string</td>
+        <td>Intermediate geographic classification</td>
+    </tr>
+    <tr>
+        <td>intermediate_region_code</td>
+        <td>string</td>
+        <td>Code for intermediate region</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp</td>
+        <td>When the country was added to the system</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp</td>
+        <td>When the country record was last updated</td>
+    </tr>
+    <tr>
+        <td>editions</td>
+        <td>Edition[]</td>
+        <td>Book editions published in this country</td>
+    </tr>
     </tbody>
 </table>
+
+# Country Code Standards
+
+<table>
+    <thead>
+    <tr>
+        <th>Standard</th>
+        <th>Example</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>ISO 3166-1 alpha-2</td>
+        <td>US, GB, FR</td>
+        <td>Two-letter country codes</td>
+    </tr>
+    <tr>
+        <td>ISO 3166-1 alpha-3</td>
+        <td>USA, GBR, FRA</td>
+        <td>Three-letter country codes</td>
+    </tr>
+    </tbody>
+</table>
+
+<Aside type="caution">
+    **Known Issue**: The `code2` and `code3` fields are currently returned in lowercase format, but according to ISO 3166-1 standards, these codes should be uppercase. This is a known bug that will be addressed in a future update.
+</Aside>
+
+# Major Publishing Countries
+
+<table>
+    <thead>
+    <tr>
+        <th>Country</th>
+        <th>Code2</th>
+        <th>Code3</th>
+        <th>Publishing Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>United States</td>
+        <td>US</td>
+        <td>USA</td>
+        <td>Major English-language publishing market</td>
+    </tr>
+    <tr>
+        <td>United Kingdom</td>
+        <td>GB</td>
+        <td>GBR</td>
+        <td>Historical publishing center, English literature</td>
+    </tr>
+    <tr>
+        <td>Germany</td>
+        <td>DE</td>
+        <td>DEU</td>
+        <td>Large European publishing market</td>
+    </tr>
+    <tr>
+        <td>France</td>
+        <td>FR</td>
+        <td>FRA</td>
+        <td>French literature and philosophy</td>
+    </tr>
+    <tr>
+        <td>Japan</td>
+        <td>JP</td>
+        <td>JPN</td>
+        <td>Manga, light novels, Japanese literature</td>
+    </tr>
+    </tbody>
+</table>
+
+# Related Schemas
+
+- [Editions](/api/graphql/schemas/editions) - Book editions with country of publication
+- [Publishers](/api/graphql/schemas/publishers) - Publishers based in different countries
+- [Authors](/api/graphql/schemas/authors) - Authors from various countries
+
+# Example Queries
+
+## Get All Countries
+
+Retrieve all available countries:
+
+<GraphQLExplorer query={`
+query AllCountries {
+    countries(
+        order_by: {name: asc}
+    ) {
+        id
+        name
+        code2
+        code3
+    }
+}
+`} title="All Countries Query"/>
+
+## Find Country by Code
+
+Look up a country using its ISO code:
+
+<GraphQLExplorer query={`
+query CountryByCode {
+    countries(
+        where: {code2: {_eq: "US"}}
+    ) {
+        id
+        name
+        code2
+        code3
+        created_at
+    }
+}
+`} title="Country by Code Query"/>
+
+## Search Countries by Name
+
+Find countries by partial name match:
+
+<GraphQLExplorer query={`
+query SearchCountries {
+    countries(
+        where: {name: {_eq: "United States"}}
+    ) {
+        id
+        name
+        code2
+        code3
+    }
+}
+`} title="Search Countries Query"/>
+
+## Get European Countries
+
+Find European countries:
+
+<GraphQLExplorer query={`
+query EuropeanCountries {
+    countries(
+        where: {
+            code2: {_in: ["GB", "FR", "DE", "IT", "ES", "NL", "SE", "NO", "DK", "CH"]}
+        }
+        order_by: {name: asc}
+    ) {
+        id
+        name
+        code2
+        code3
+        region
+        sub_region
+    }
+}
+`} title="European Countries Query"/>
+
+## Get Countries with Editions
+
+Find countries that have published editions:
+
+<GraphQLExplorer query={`
+query CountriesWithEditions {
+    countries(
+        where: {
+            editions: {}
+        }
+        order_by: {name: asc}
+        limit: 20
+    ) {
+        id
+        name
+        code2
+        code3
+        editions(limit: 3) {
+            id
+            title
+            release_year
+        }
+    }
+}
+`} title="Countries with Editions Query"/>
+
+## Get Publishing Countries
+
+Find countries that have published editions:
+
+<GraphQLExplorer query={`
+query PublishingCountries {
+    countries(
+        where: {
+            editions: {}
+        }
+        order_by: {name: asc}
+        limit: 10
+    ) {
+        id
+        name
+        code2
+        code3
+        editions(limit: 5) {
+            id
+            title
+            release_year
+        }
+    }
+}
+`} title="Publishing Countries Query"/>
+
+## Get Recent Country Additions
+
+Find recently added countries:
+
+<GraphQLExplorer query={`
+query RecentCountries {
+    countries(
+        order_by: {created_at: desc}
+        limit: 10
+    ) {
+        id
+        name
+        code2
+        code3
+        created_at
+        updated_at
+    }
+}
+`} title="Recent Countries Query"/>
+
+<Aside type="note">
+    Country codes follow international standards (ISO 3166-1) to ensure consistency across different systems and applications. This enables integration with other services and databases.
+</Aside>
+
+## Best Practices for Working with Countries
+
+1. **Use Standard Codes**: Prefer ISO codes over country names for programmatic use
+2. **Consider Historical Changes**: Some countries may have changed names or codes over time
+3. **Regional Variations**: Be aware of regional publishing differences within countries
+4. **Fallback Handling**: Always have fallback logic for unknown country codes
+5. **Publishing Context**: Remember this represents publication country, not author nationality
