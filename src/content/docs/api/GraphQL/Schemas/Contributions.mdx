@@ -1,7 +1,7 @@
 ---
 title: Contributions
 category: reference
-lastUpdated: 2025-06-28 20:40:00
+lastUpdated: 2025-07-25 00:00:00
 layout: /src/layouts/documentation.astro
 ---
 
@@ -177,11 +177,15 @@ Search for books that have illustrators and display their names:
 <GraphQLExplorer query={`
 query FindBooksByContributor {
     contributions(
-        where: {contribution: {_eq: "Illustrator"}}
-        order_by: {book: {rating: desc}}
-        limit: 20
+        where: {
+            contribution: {_eq: "Illustrator"}
+            book: {id: {_is_null: false}}
+        }
+        order_by: {created_at: desc}
+        limit: 10
     ) {
         id
+        contribution
         author {
             name
         }
