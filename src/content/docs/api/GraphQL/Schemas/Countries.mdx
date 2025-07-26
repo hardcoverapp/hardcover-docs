@@ -263,9 +263,6 @@ Find countries that have published editions:
 <GraphQLExplorer query={`
 query CountriesWithEditions {
     countries(
-        where: {
-            editions: {}
-        }
         order_by: {name: asc}
         limit: 20
     ) {
@@ -289,9 +286,6 @@ Find countries that have published editions:
 <GraphQLExplorer query={`
 query PublishingCountries {
     countries(
-        where: {
-            editions: {}
-        }
         order_by: {name: asc}
         limit: 10
     ) {
