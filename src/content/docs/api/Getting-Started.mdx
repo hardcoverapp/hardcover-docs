@@ -2,7 +2,7 @@
 title: Getting Started with the API
 description: Get started with the Hardcover GraphQL API.
 category: guide
-lastUpdated: 2025-03-22 17:22:00
+lastUpdated: 2025-07-21 17:22:00
 layout: /src/layouts/documentation.astro
 ---
 
@@ -29,22 +29,26 @@ We are currently looking for feedback on this API.
 If you have any questions or need help, please reach out to us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>.
 
 ## Getting an API Key
-To get an API token, you need to go to your account settings page and click on the "Hardcover API" link,
+To get an API token, you need to go to your account settings page and click on the "Hardcover API" link;
 the token will be available at the top of the page.
 
-API tokens are not meant to be shared, and should be kept private, as they can be used to access your account and data.
+API tokens are not meant to be shared and should be kept private, as they can be used to access your account and data.
 
 After you have your token, you can start making requests to the API.
 
 ## Making Your First Request
 After you have your token, you can head over to the [GraphQL console](https://cloud.hasura.io/public/graphiql?endpoint=https://api.hardcover.app/v1/graphql).
-Next, add a header just called "authorization" (no quotes) with your token as the value.
 
-Tab out of the field, and you should see a list of available resources.
+Next, add a **header** called `authorization` with your token as the value.
+
+<img src="/images/api/getting-started/graphql-authorization-header.png" alt="Example of the authorization header" />
+
+Tab or click out of the field, and you should see a list of available resources.
 
 ### Example Request
 To test that it's working, go to the `Try it Yourself` tab below
 - Add your token to the `Authorization Token` field.
+<img src="/images/api/getting-started/graphql-explorer-token-field.png" alt="Showing the location of the Authorization Token field in the GraphQL Explorer" />
 - Then click the `Run Query` button.
 
 You should see your user ID and username in the Results section.
