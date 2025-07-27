@@ -6,6 +6,8 @@ lastUpdated: 2025-07-27 14:00:00
 layout: /src/layouts/librarians.astro
 ---
 
+import {Badge} from "@astrojs/starlight/components";
+
 ## Author Name
 ### Authors Using Initials
 Some authors use a space between initials in their name (J. K. Rowling), some do not (J.R.R. Tolkien). 
@@ -13,9 +15,9 @@ Some authors use a space between initials in their name (J. K. Rowling), some do
 We should use the spacing of the author's preference. The URL slug should use no dashes between initials. For example, `jk-rowling` or `jrr-tolkein`.
 
 ### Authors published primarily in another language
-At present, Hardcover’s default language is English. Wherever possible, we’d like to rename authors written in other alphabets (Cyrillic, Hebrew, Hanzi, etc.) to be translated to English.
+At present, Hardcover's default language is English. Wherever possible, we'd like to rename authors written in other alphabets (Cyrillic, Hebrew, Hanzi, etc.) to be translated to English.
 
-The original name, if verified to be written in the author’s native language, can be added to the personal name field or bio.
+The original name, if verified to be written in the author's native language, can be added to the personal name field or bio.
 
 **Example:** Yevgeni Grishkovetz (Евгений Гришковец)
 
@@ -26,9 +28,11 @@ Author biographical information is very important to Hardcover. We'd like author
 
 Bios should be written concisely, using a neutral and objective tone. Avoid including any data that has its own dedicated field, demographic or otherwise (self-identified gender, BIPOC, LGBTQ+, location, dates, etc.) Do not editorialize.
 
+Photographs should be of the author, and not of their book covers or other images. They should be high quality and ideally a professional headshot. If the author has a preferred photo, it should be used. If not, use the most recent and high-quality image available.
+
 ### Sourcing biographical information
 
-**Acceptable sources for author bios are listed as follows, in order of authority:**
+**Acceptable sources for author bios and photos are listed as follows, in order of authority:**
 
 1. An author's official website or book
     - These are the preferred sources for both biography and photo.
@@ -52,9 +56,26 @@ Bios should be written concisely, using a neutral and objective tone. Avoid incl
 ### Citing sources
 Until we support a distinct field for bio sources, please include a note at the end of the biography in parentheses. Please avoid using HTML or markdown as this syntax is not supported.
 
+### Preferred file type for author photos
+PNG and JPEG work the best. WebP files are not currently supported. The cover shouldn't have any transparency to it. The image is converted to a WebP file before we show it regardless of what you upload.
+
+### Preferred file size
+The larger the photo the better! If you want to upload a 15mb file, go for it. We'll resize it for optimal display around the site.
+
+Author photos on Hardcover (as of July 27, 2025) are displayed at a maximum size of 178px by 178px. Uploading images smaller than this may result in blurriness when enlarged. For best results, we recommend uploading photos that are at least 300px wide and 300px high. Images do not need to be square.
+
+### What dimensions qualify for red, yellow and green?
+We show three different quality scores for photos today. This is calculated using `height x width`.
+
+0 - 32,999: <Badge text="Bad Quality" variant="danger" /> (ex 133 x 200)
+
+33,000 - 99,999: <Badge text="Ok Quality" variant="caution" /> (ex: 200 x 300)
+
+100,000 +: <Badge text="Good Quality" variant="success" /> (ex: 300 x 450)
+
 ## Reaching out to Authors
 
-We want authors to feel welcomed to the platform, and some of the best ambassadors for that are Librarians! It shows them that we care about how they’re represented on the platform and want their page to be the best it can be.
+We want authors to feel welcomed to the platform, and some of the best ambassadors for that are Librarians! It shows them that we care about how they're represented on the platform and want their page to be the best it can be.
 
 We welcome librarians to contact authors on their own behalf, with the support of Hardcover. But for this to work, we require all outreach to be added to the [contacted authors list](https://docs.google.com/spreadsheets/d/1MlaWgpBYdaLxxTwmYZxhQ0xPNqi4kZQ4J4CVPXa6Vxg/edit?gid=308756447#gid=308756447).
 
