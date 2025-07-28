@@ -1,12 +1,16 @@
 ---
 title: Contributions
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-07-25 00:00:00
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import {Aside} from "@astrojs/starlight/components";
+
+# What is a Contribution?
+
+A Contribution in Hardcover represents the relationship between an author and a book or edition, along with the specific role the author played. This flexible system allows for various types of contributions including writing, illustration, translation, editing, and more, providing detailed credit information for all contributors to a work.
 
 # Fields
 
@@ -19,6 +23,251 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>id</td>
+        <td>bigint</td>
+        <td>Unique identifier for the contribution</td>
+    </tr>
+    <tr>
+        <td>author_id</td>
+        <td>int</td>
+        <td>ID of the contributing author</td>
+    </tr>
+    <tr>
+        <td>contributable_id</td>
+        <td>int</td>
+        <td>ID of the item being contributed to (book or edition)</td>
+    </tr>
+    <tr>
+        <td>contributable_type</td>
+        <td>string</td>
+        <td>Type of item: "Book" or "Edition"</td>
+    </tr>
+    <tr>
+        <td>contribution</td>
+        <td>string</td>
+        <td>Role or type of contribution (Author, Illustrator, Translator, etc.)</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp</td>
+        <td>When the contribution was recorded</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp</td>
+        <td>When the contribution was last updated</td>
+    </tr>
+    <tr>
+        <td>author</td>
+        <td>Author</td>
+        <td>Author object with complete information</td>
+    </tr>
+    <tr>
+        <td>book</td>
+        <td>Book</td>
+        <td>Book object (when contributable_type is "Book")</td>
+    </tr>
     </tbody>
 </table>
+
+# Common Contribution Types
+
+<table>
+    <thead>
+    <tr>
+        <th>Contribution Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Author</td>
+        <td>Primary writer of the book</td>
+    </tr>
+    <tr>
+        <td>Illustrator</td>
+        <td>Created illustrations or artwork</td>
+    </tr>
+    <tr>
+        <td>Translator</td>
+        <td>Translated the work to another language</td>
+    </tr>
+    <tr>
+        <td>Editor</td>
+        <td>Edited or compiled the work</td>
+    </tr>
+    <tr>
+        <td>Narrator</td>
+        <td>Narrated the audiobook version</td>
+    </tr>
+    <tr>
+        <td>Foreword</td>
+        <td>Wrote the foreword or introduction</td>
+    </tr>
+    <tr>
+        <td>Afterword</td>
+        <td>Wrote the afterword or conclusion</td>
+    </tr>
+    <tr>
+        <td>Cover Artist</td>
+        <td>Created the cover art or design</td>
+    </tr>
+    </tbody>
+</table>
+
+# Related Schemas
+
+- [Authors](/api/graphql/schemas/authors) - The contributors to books
+- [Books](/api/graphql/schemas/books) - Works that receive contributions
+- [Editions](/api/graphql/schemas/editions) - Specific editions with unique contributions
+
+# Example Queries
+
+## Get Book Contributors
+
+Retrieve all contributors for a specific book with their roles:
+
+<GraphQLExplorer query={`
+query GetBookContributors {
+    books(where: {id: {_eq: 328491}}) {
+        id
+        title
+        contributions {
+            id
+            contribution
+            author {
+                id
+                name
+                bio
+            }
+        }
+    }
+}
+`} title="Book Contributors Query"/>
+
+## Get Author's Contributions
+
+Find all works an author has contributed to with their roles:
+
+<GraphQLExplorer query={`
+query GetAuthorContributions {
+    contributions(
+        where: {author_id: {_eq: 80626}}
+        order_by: {created_at: desc}
+    ) {
+        id
+        contribution
+        contributable_type
+        book {
+            id
+            title
+            release_year
+            rating
+        }
+        created_at
+    }
+}
+`} title="Author Contributions Query"/>
+
+## Find Books by Illustrator
+
+Search for books that have illustrators and display their names:
+
+<GraphQLExplorer query={`
+query FindBooksByContributor {
+    contributions(
+        where: {
+            contribution: {_eq: "Illustrator"}
+            book: {id: {_is_null: false}}
+        }
+        order_by: {created_at: desc}
+        limit: 10
+    ) {
+        id
+        contribution
+        author {
+            name
+        }
+        book {
+            id
+            title
+            rating
+            release_year
+        }
+    }
+}
+`} title="Books by Contributor Type"/>
+
+## Find Authors with Multiple Roles
+
+Discover authors who have contributed to books in different roles (e.g., as both author and illustrator):
+
+<Aside type="note">
+    This query finds authors who have contributions with roles other than "Author", helping identify versatile creators who write, illustrate, translate, or contribute in multiple ways.
+</Aside>
+
+<GraphQLExplorer query={`
+query AuthorMultipleRoles {
+    authors(
+        where: {
+            contributions_aggregate: {
+                count: {
+                    predicate: {_gt: 0},
+                    filter: {contribution: {_neq: "Author"}}
+                }
+            }
+        }
+    ) {
+        id
+        name
+        contributions_aggregate(
+            distinct_on: contribution
+        ) {
+            nodes {
+                contribution
+            }
+        }
+        contributions(
+            distinct_on: contribution
+            limit: 5
+        ) {
+            contribution
+        }
+    }
+}
+`} title="Authors with Multiple Roles"/>
+
+## Edition-Specific Contributors
+
+Find contributors specific to particular editions:
+
+<GraphQLExplorer query={`
+query EditionContributors {
+    contributions(
+        where: {contributable_type: {_eq: "Edition"}}
+        order_by: {created_at: desc}
+        limit: 20
+    ) {
+        id
+        contribution
+        author {
+            name
+        }
+        # The contributable_id field references the edition ID
+        # You can join this with editions table to get edition details
+        contributable_id
+        created_at
+    }
+}
+`} title="Edition-Specific Contributors"/>
+
+<Aside type="note">
+    Edition-specific contributions are used when a contribution applies only to a particular edition, not the work as a whole. Common examples include:
+    - Translators for translated editions
+    - Narrators for audiobook editions
+    - Cover artists for specific print runs
+    - Editors for revised editions
+    
+    The original author is typically credited at the book level, while edition-specific contributors are linked to individual editions.
+</Aside>
