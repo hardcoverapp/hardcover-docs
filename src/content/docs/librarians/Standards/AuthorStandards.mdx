@@ -12,51 +12,43 @@ import {Badge} from "@astrojs/starlight/components";
 The author name is the primary identifier for an author on Hardcover. It should be the name they are most commonly known by in the context of their writing, formatted in a way that is consistent with their published works.
 
 ### Authors Using Initials
-Some authors use a space between initials in their name (J. K. Rowling), some do not (J.R.R. Tolkien). 
+Some authors use a space between initials in their name (J. K. Rowling), some do not (J.R.R. Tolkien). We should use the spacing of the author's preference (what’s used on their website or printed on their books).
 
-We should use the spacing of the author's preference. The URL slug should use no dashes between initials. For example, `jk-rowling` or `jrr-tolkein`.
+When editing the URL slug for an author, do not include periods or spaces between initials (our slugs typically use lowercase letters and hyphens). For instance, J. K. Rowling’s slug would be `jk-rowling`, and J. R. R. Tolkien’s slug would be `jrr-tolkien`. Slugs are generated automatically on author generation but require manual updating when editing an existing author.
 
 ### Authors published primarily in another language
-At present, Hardcover's default language is English. Wherever possible, we'd like to rename authors written in other alphabets (Cyrillic, Hebrew, Hanzi, etc.) to be translated to English.
+> **Note:** In the future, Hardcover may support multiple name fields or localized names for authors. For now, stick to an English/Latin name for consistency, unless the author has absolutely no transliterated name available.
 
-The original name, if verified to be written in the author's native language, can be added to the personal name field or bio.
+Hardcover’s default interface language is English. Wherever possible, we'd like to rename authors written in other alphabets (Cyrillic, Hebrew, Hanzi, Arabic, etc.) to be translated or transliterated to English (Latin alphabet). This is to ensure consistency and searchability in our primarily English database.
 
-**Example:** Yevgeni Grishkovetz (Евгений Гришковец)
+If an author is commonly known in English by a transliterated name, use that as the author’s name. For example, Yevgeni Grishkovetz for the Russian author Евгений Гришковец.
+You may include the original-script name in the author’s profile as supplemental information. For instance, you could add the native spelling in the author’s Personal Name field (if one exists) or mention it in the biography. In the above example, you might put the Cyrillic spelling in parentheses after the English name in the bio. This way, the original name is preserved for reference.
 
 ## Photos and Biography
-Author biographical information is very important to Hardcover. We'd like authors to be portrayed accurately, with the most current and verifiable information available. As such, we have strict guidelines around these pages, as well as the sources we leverage to populate them.
+Author biographical information is very important to Hardcover. We'd like authors to be portrayed accurately and professionally, with the most current and verifiable information available. As such, we have strict guidelines around these pages, as well as the sources we leverage to populate them.
 
 ### General guidelines
+Author bios should be concise, neutral, and factual. Focus on verifiable facts like the author’s notable works, achievements, and relevant background. Avoid subjective commentary or anything overly personal that isn’t publicly confirmed. In short, do not editorialize.
 
-Bios should be written concisely, using a neutral and objective tone. Avoid including any data that has its own dedicated field, demographic or otherwise (self-identified gender, BIPOC, LGBTQ+, location, dates, etc.) Do not editorialize.
+Do not include any data that has its own dedicated field, demographic or otherwise (self-identified gender, BIPOC, LGBTQ+, location, dates, etc.)
 
 Photographs should be of the author, and not of their book covers or other images. They should be high quality and ideally a professional headshot. If the author has a preferred photo, it should be used. If not, use the most recent and high-quality image available.
 
 ### Sourcing biographical information
-
 **Acceptable sources for author bios and photos are listed as follows, in order of authority:**
 
-1. An author's official website or book
-    - These are the preferred sources for both biography and photo.
-2. A Publisher's website
-    - This is often a solid fallback for the author's website. It may be out of date. Updates are encouraged.
-3. Author's verified social media
-    - We prefer about sections, bios, or pinned posts written in the author's voice.
-4. Bookseller bios (Amazon, Kobo)
-    - Acceptable only when no author or publisher-supplied sources can be found.
-    - If used, librarians must write their own summary based on the information found — not copy/paste.
-    - When in doubt, err on the side of omission rather than potential infringement.
+1. **Author’s official website or publications.** Many authors have an “About” page or a bio in their books. This is the most authoritative source, and often provides a bio in the author’s own words or with their approval. Author websites or an official publisher-provided author page are ideal for both biographical details and author photos.
+2. **Publisher’s website.** If an author doesn’t have a personal site, the publishing house’s author page can be used. Keep in mind these might be out of date, so verify if possible.
+3. **Author’s verified social media.** Sometimes authors share biographical info on profiles or posts in their own voice. This can be used, but stick to factual elements and a formal tone.
+4. **Bookseller or book database bios.** Sources like Amazon Author pages or Kobo, etc., can be used only if the above sources aren’t available. These often have short blurbs. Important: If you use these, consider rewriting portions in your own words to avoid plagiarism, as they may not be author-supplied text.
 
 **Unacceptable sources:**
-1. ChatGPT / AI-generated bios
-    - The least we can do to support authors is use human-vetted and supplied biographical information.
-2. Wikipedia
-    - Unless the author is a confirmed contributor (which would go against Wikipedia's standards)
-3. Goodreads / The StoryGraph
-    - At Hardcover we're looking to build better, not directly copy competitors.
+1. **AI-generated content (e.g. ChatGPT).** We do not allow AI-written bios. We owe it to authors to use human-vetted information, not algorithmic guesses.
+2. **Wikipedia.** Even though Wikipedia entries are convenient, we avoid copy-pasting from them.
+3. **Competitor databases (Goodreads, The StoryGraph, etc.).** We aim to build Hardcover's data ourselves or from primary sources, not by copying others. Using these may also introduce licensing issues.
 
 ### Citing sources
-Until we support a distinct field for bio sources, please include a note at the end of the biography in parentheses. Please avoid using HTML or markdown as this syntax is not supported.
+Until we support a distinct field for bio sources, please **credit your source at the end of the bio text in parentheses**. For example, you might add: (Source: Author’s official website) at the very end of the bio. This lets users know the information’s provenance. Do not use HTML or Markdown for this note, as those won’t render properly in the app, just plain text is fine.
 
 ### Preferred file type for author photos
 PNG and JPEG work the best. WebP files are not currently supported. The cover shouldn't have any transparency to it. The image is converted to a WebP file before we show it regardless of what you upload.
@@ -107,7 +99,7 @@ For authors, we collect the following demographic information:
 These fields are optional, and we encourage librarians to only fill them out if the author has self-identified in their bio or on their website. If the author has not provided this information, please leave these fields blank.
 
 ## Location
-Location information for author is not always readily available. If the author has a location listed on their website, or in their bio, please use that information. If not, you can leave the location field blank.
+Location information for authors is not always readily available. If the author has a location listed on their website, or in their bio, please use that information. If not, you can leave the location field blank.
 
 For deceased authors, we recommend using the location of their birth or where they spent most of their life. If this information is not available, you can leave the location field blank.
 
