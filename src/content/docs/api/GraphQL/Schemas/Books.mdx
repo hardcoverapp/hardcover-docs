@@ -1,7 +1,7 @@
 ---
 title: Books
 category: reference
-lastUpdated: 2025-03-07 14:20:00
+lastUpdated: 2025-08-13
 layout: /src/layouts/documentation.astro
 ---
 
@@ -229,15 +229,13 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tbody>
 </table>
 
-## Get a list of books belonging to the current user
+## Get a List of Books in a User’s Library
 
 <GraphQLExplorer query={`
 {
-      list_books(
+      user_books(
             where: {
-                user_books: {
-                    user_id: {_eq: ##USER_ID##}
-                }
+                user_id: {_eq: ##USER_ID##}
             },
             distinct_on: book_id
             limit: 5
