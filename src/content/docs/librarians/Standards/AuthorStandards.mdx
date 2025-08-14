@@ -2,10 +2,116 @@
 title: Author Standards
 description: Standards for adding and editing authors in Hardcover.
 category: guide
-lastUpdated: 2025-01-03 19:42:00
+lastUpdated: 2025-07-27 14:00:00
 layout: /src/layouts/librarians.astro
 ---
 
+import {Badge} from "@astrojs/starlight/components";
+
 ## Author Name
-### What is the preference for authors that use double initials in their name? Like “J. R. R. Tolkien” or “J. K. Rowling”?
-Some authors use a space between initials in their name, some don’t. Typically, we should use the official name that author goes by with whatever spacing they prefer. The URL slug should use no dashes between initials. For example “jk-rowling” or “jrr-tolkein”.
+The author name is the primary identifier for an author on Hardcover. It should be the name they are most commonly known by in the context of their writing, formatted in a way that is consistent with their published works.
+
+### Authors Using Initials
+Some authors use a space between initials in their name (J. K. Rowling), some do not (J.R.R. Tolkien). We should use the spacing of the author's preference (what’s used on their website or printed on their books).
+
+When editing the URL slug for an author, do not include periods or spaces between initials (our slugs typically use lowercase letters and hyphens). For instance, J. K. Rowling’s slug would be `jk-rowling`, and J. R. R. Tolkien’s slug would be `jrr-tolkien`. Slugs are generated automatically on author generation but require manual updating when editing an existing author.
+
+### Authors published primarily in another language
+> **Note:** In the future, Hardcover may support multiple name fields or localized names for authors. For now, stick to an English/Latin name for consistency, unless the author has absolutely no transliterated name available.
+
+Hardcover’s default interface language is English. Wherever possible, we'd like to rename authors written in other alphabets (Cyrillic, Hebrew, Hanzi, Arabic, etc.) to be translated or transliterated to English (Latin alphabet). This is to ensure consistency and searchability in our primarily English database.
+
+If an author is commonly known in English by a transliterated name, use that as the author’s name. For example, Yevgeni Grishkovetz for the Russian author Евгений Гришковец.
+You may include the original-script name in the author’s profile as supplemental information. For instance, you could add the native spelling in the author’s Personal Name field (if one exists) or mention it in the biography. In the above example, you might put the Cyrillic spelling in parentheses after the English name in the bio. This way, the original name is preserved for reference.
+
+## Photos and Biography
+Author biographical information is very important to Hardcover. We'd like authors to be portrayed accurately and professionally, with the most current and verifiable information available. As such, we have strict guidelines around these pages, as well as the sources we leverage to populate them.
+
+### General guidelines
+Author bios should be concise, neutral, and factual. Focus on verifiable facts like the author’s notable works, achievements, and relevant background. Avoid subjective commentary or anything overly personal that isn’t publicly confirmed. In short, do not editorialize.
+
+Do not include any data that has its own dedicated field, demographic or otherwise (self-identified gender, BIPOC, LGBTQ+, location, dates, etc.)
+
+Photographs should be of the author, and not of their book covers or other images. They should be high quality and ideally a professional headshot. If the author has a preferred photo, it should be used. If not, use the most recent and high-quality image available.
+
+### Sourcing biographical information
+**Acceptable sources for author bios and photos are listed as follows, in order of authority:**
+
+1. **Author’s official website or publications.** Many authors have an “About” page or a bio in their books. This is the most authoritative source, and often provides a bio in the author’s own words or with their approval. Author websites or an official publisher-provided author page are ideal for both biographical details and author photos.
+2. **Publisher’s website.** If an author doesn’t have a personal site, the publishing house’s author page can be used. Keep in mind these might be out of date, so verify if possible.
+3. **Author’s verified social media.** Sometimes authors share biographical info on profiles or posts in their own voice. This can be used, but stick to factual elements and a formal tone.
+4. **Bookseller or book database bios.** Sources like Amazon Author pages or Kobo, etc., can be used only if the above sources aren’t available. These often have short blurbs. Important: If you use these, consider rewriting portions in your own words to avoid plagiarism, as they may not be author-supplied text.
+
+**Unacceptable sources:**
+1. **AI-generated content (e.g. ChatGPT).** We do not allow AI-written bios. We owe it to authors to use human-vetted information, not algorithmic guesses.
+2. **Wikipedia.** Even though Wikipedia entries are convenient, we avoid copy-pasting from them.
+3. **Competitor databases (Goodreads, The StoryGraph, etc.).** We aim to build Hardcover's data ourselves or from primary sources, not by copying others. Using these may also introduce licensing issues.
+
+### Citing sources
+Until we support a distinct field for bio sources, please **credit your source at the end of the bio text in parentheses**. For example, you might add: (Source: Author’s official website) at the very end of the bio. This lets users know the information’s provenance. Do not use HTML or Markdown for this note, as those won’t render properly in the app, just plain text is fine.
+
+### Preferred file type for author photos
+PNG and JPEG work the best. WebP files are not currently supported. The cover shouldn't have any transparency to it. The image is converted to a WebP file before we show it regardless of what you upload.
+
+### Preferred file size
+The larger the photo the better! If you want to upload a 15mb file, go for it. We'll resize it for optimal display around the site.
+
+Author photos on Hardcover (as of July 27, 2025) are displayed at a maximum size of 178px by 178px. Uploading images smaller than this may result in blurriness when enlarged. For best results, we recommend uploading photos that are at least 300px wide and 300px high. Images do not need to be square.
+
+### What dimensions qualify for red, yellow and green?
+We show three different quality scores for photos today. This is calculated using `height x width`.
+
+0 - 32,999: <Badge text="Bad Quality" variant="danger" /> (ex 133 x 200)
+
+33,000 - 99,999: <Badge text="Ok Quality" variant="caution" /> (ex: 200 x 300)
+
+100,000 +: <Badge text="Good Quality" variant="success" /> (ex: 300 x 450)
+
+## Personal Name
+This field is intended only for cases where an author's full name differs from the name they publish under and is publicly known in that context (e.g., in publishing credits or legal attributions).
+
+Do not use this field to list a birth name that an author has changed, such as after a gender transition. Avoid deadnaming, even if the information is publicly available. When in doubt, prioritize the author's privacy and self-identification over completeness.
+
+Do not use this field for pseudonyms, pen names, or stage names. On Hardcover, these are classified as aliases. The exception being if the author has only ever published under a pseudonym, pen name, or stage name. In this case the author's personal name should be used to denote the name they were born with, or the name they are most commonly known by outside of their writing.
+
+Notable Examples:
+- Samuel Langhorne Clemens (Mark Twain)
+- Charles Lutwidge Dodgson (Lewis Carroll)
+- Mary Ann Evans (George Eliot)
+- Eric Arthur Blair (George Orwell)
+
+## Aliases
+In our current implementation, we allow for a single alias per author. For authors that exist as a pseudonym, pen name, or stage name, this is the field to use to denote the primary author on Hardcover.
+
+Examples: 
+- Stephen King is the primary author, but he has written under the alias Richard Bachman.
+- Isaac Asimov is the primary author, but he has written under the alias Paul French.
+- Nora Roberts is the primary author, but she has written under the alias J.D. Robb.
+
+In any of these cases, add the primary author under the "Alias of" field on the alias page.
+
+## Demographic information
+For authors, we collect the following demographic information:
+- Self-identified gender
+- BIPOC status
+- LGBTQ+ status
+
+These fields are optional, and we encourage librarians to only fill them out if the author has self-identified in their bio or on their website. If the author has not provided this information, please leave these fields blank.
+
+## Location
+Location information for authors is not always readily available. If the author has a location listed on their website, or in their bio, please use that information. If not, you can leave the location field blank.
+
+For deceased authors, we recommend using the location of their birth or where they spent most of their life. If this information is not available, you can leave the location field blank.
+
+## Dates of birth and death
+If exact dates are not publicly and readily available, please use the year only in the appropriate field.
+
+## Reaching out to Authors
+
+We want authors to feel welcomed to the platform, and some of the best ambassadors for that are Librarians! It shows them that we care about how they're represented on the platform and want their page to be the best it can be.
+
+We welcome librarians to contact authors on their own behalf, with the support of Hardcover. But for this to work, we require all outreach to be added to the [contacted authors list](https://docs.google.com/spreadsheets/d/1MlaWgpBYdaLxxTwmYZxhQ0xPNqi4kZQ4J4CVPXa6Vxg/edit?gid=308756447#gid=308756447).
+
+We don't want to overwhelm authors with repeated contact. To prevent portraying Hardcover as a spammy platform, we ask that Librarians refer to the list and add the author they'd like to contact before doing so. You can do this using the Hardcover [Author Outreach Form](https://forms.gle/ewUDjfe7SV8RdaWd6).
+
+Only after verifying that they have not yet been contacted and adding them to to the list via the form, you can use the Hardcover [Author Outreach Email Template](https://docs.google.com/document/d/1fUmholoNHE9dR45LEREXeRUk-iwrKhlYtbzjLz9sGS8/edit?usp=sharing). This can be sent from your email, or through a contact form on the author's website.
