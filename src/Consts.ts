@@ -1,7 +1,7 @@
 export const URLS = {
     APP: 'https://hardcover.app',
     API: 'https://api.hardcover.app',
-    API_KEY: 'https://hardcover.app/account/api',
+    API_ACCOUNT_URL: 'https://hardcover.app/account/api',
     DOCS: 'https://docs.hardcover.app',
 
     GRAPHQL_URL: 'https://api.hardcover.app/v1/graphql',
