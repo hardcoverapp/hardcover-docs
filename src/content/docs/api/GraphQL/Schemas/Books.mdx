@@ -25,7 +25,7 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     <tr>
         <td>release_year</td>
-        <td>auto</td>
+        <td>int</td>
         <td></td>
     </tr>
     <tr>
@@ -35,7 +35,7 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     <tr>
         <td>pages</td>
-        <td>auto</td>
+        <td>int</td>
         <td></td>
     </tr>
     <tr>
@@ -120,17 +120,17 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     <tr>
         <td>description</td>
-        <td>auto</td>
+        <td>string</td>
         <td></td>
     </tr>
     <tr>
         <td>subtitle</td>
-        <td>auto</td>
+        <td>string</td>
         <td></td>
     </tr>
     <tr>
         <td>release_date</td>
-        <td>auto</td>
+        <td>date</td>
         <td></td>
     </tr>
     <tr>
@@ -159,13 +159,13 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
         <td></td>
     </tr>
     <tr>
-        <td>featured_series</td>
-        <td>auto</td>
+        <td>featured_book_series</td>
+        <td>book_series</td>
         <td></td>
     </tr>
     <tr>
-        <td>featured_series_position</td>
-        <td>auto</td>
+        <td>featured_series_id</td>
+        <td>int</td>
         <td></td>
     </tr>
     <tr>
@@ -180,12 +180,222 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     <tr>
         <td>contributions</td>
-        <td>auto</td>
+        <td>contributions[]</td>
         <td></td>
     </tr>
     <tr>
         <td>image</td>
         <td>auto</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>book_category_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>book_characters</td>
+        <td>book_characters[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>book_mappings</td>
+        <td>book_mappings[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>book_series</td>
+        <td>book_series[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>book_status</td>
+        <td>book_statuses</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>canonical</td>
+        <td>Books</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>canonical_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>created_by_user_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_audio_edition</td>
+        <td>[Editions](../editions)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_audio_edition_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_cover_edition</td>
+        <td>[Editions](../editions)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_cover_edition_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_ebook_edition</td>
+        <td>[Editions](../editions)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_ebook_edition_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_physical_edition</td>
+        <td>[Editions](../editions)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_physical_edition_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>dto</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>dto_combined</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>dto_external</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>editions</td>
+        <td>[Editions](../editions)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>editions_count</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>header_image_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>headline</td>
+        <td>string</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>image</td>
+        <td>images[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>import_platform_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>journals_count</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>links</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>list_books</td>
+        <td>list_books[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>literary_type_id</td>
+        <td>int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>locked</td>
+        <td>bool</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>prompt_answers</td>
+        <td>prompt_answers[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>prompt_summaries</td>
+        <td>prompt_books_summary[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ratings_distribution</td>
+        <td>string[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>recommendations</td>
+        <td>recommendations[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>string</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>taggable_counts</td>
+        <td>taggable_counts[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>taggings</td>
+        <td>taggins[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamptz</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>user_added</td>
+        <td>bool</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>user_books</td>
+        <td>user_books[]</td>
         <td></td>
     </tr>
     </tbody>

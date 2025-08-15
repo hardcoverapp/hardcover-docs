@@ -1,7 +1,7 @@
 ---
 title: Authors
 category: reference
-lastUpdated: 2024-12-29 22:49:00
+lastUpdated: 2025-08-14
 layout: /src/layouts/documentation.astro
 ---
 
@@ -70,7 +70,7 @@ The author schema contains the following fields:
     </tr>
     <tr>
         <td>id</td>
-        <td>String</td>
+        <td>Int</td>
         <td>The unique identifier of the author</td>
     </tr>
     <tr>
@@ -119,7 +119,7 @@ query {
 
 <GraphQLExplorer query={`
 query {
-    authors(where: {id: {_eq: "80626"}}, limit: 1) {
+    authors(where: {id: {_eq: 80626}}, limit: 1) {
         id,
         name
     }
