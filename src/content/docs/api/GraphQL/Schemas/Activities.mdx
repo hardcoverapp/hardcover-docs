@@ -9,7 +9,7 @@ layout: /src/layouts/documentation.astro
 import {Code} from '@astrojs/starlight/components';
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
-## What is an Activity?
+## What Is an Activity?
 
 Activities are actions that users perform on the platform.
 These actions include things like liking a book, following a user, or adding a book to a shelf.
@@ -121,7 +121,7 @@ These schemas use the same fields as the activities schema, and are used to help
 
 ### Example Payloads
 
-#### User added a rating to a book
+#### User Added a Rating to a Book
 <Code
     code={`
       {
@@ -141,10 +141,10 @@ These schemas use the same fields as the activities schema, and are used to help
       }
 `}
     lang="graphql"
-    title="UserBookActivity"
+    title="User Book Activity"
 />
 
-#### User started reading a book
+#### User Started Reading a Book
 <Code
     code={`
       {
@@ -167,7 +167,7 @@ These schemas use the same fields as the activities schema, and are used to help
     title="User Started Reading"
 />
 
-#### User added a review to a book
+#### User Added a Review to a Book
 <Code
     code={`
     {
@@ -298,9 +298,12 @@ Let's take a look at some example queries that you can use to interact with the 
 }
 `} description={`
     This query will return a list of 10 activities that the current user has performed.
-`} presentation='table'/>
+`}
+    title="My Activities"
+    presentation='table'
+/>
 
-### Get Activities for a specific Book
+### Get Activities for a Specific Book
 <GraphQLExplorer query={`
 {
       activities(
@@ -316,4 +319,6 @@ Let's take a look at some example queries that you can use to interact with the 
 }
 `} description={`
     This query will return a list of 10 activities that have occurred for a specific book.
-`}/>
+`}
+    title="Book Specific Activities"
+/>

@@ -1,6 +1,7 @@
 export const URLS = {
     APP: 'https://hardcover.app',
     API: 'https://api.hardcover.app',
+    API_ACCOUNT_URL: 'https://hardcover.app/account/api',
     DOCS: 'https://docs.hardcover.app',
 
     GRAPHQL_URL: 'https://api.hardcover.app/v1/graphql',
@@ -25,7 +26,7 @@ export const URLS = {
     MASTODON: 'https://mastodon.hardcover.app/@hardcover',
 };
 
-export const defaultPreferences : {
+export const defaultPreferences: {
     theme: 'auto' | 'dark' | 'light';
     editMode: 'basic' | 'developer';
     graphQLResults: 'table' | 'json';

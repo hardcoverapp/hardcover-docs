@@ -7,7 +7,7 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
-## What is a User?
+## What Is a User?
 
 Users are the people who use the Hardcover platform.
 Users can perform actions like adding books to their shelves, following other users, and writing reviews.
@@ -101,7 +101,7 @@ The user schema contains the following fields:
 
 ## Example Queries
 
-### Get my user information
+### Get My User Information
 <GraphQLExplorer query={`
 query {
       me {
@@ -119,7 +119,9 @@ query {
             pronoun_possessive
             sign_in_count
       }
-}`} description={`Get information for the current user`}/>
+}`} description={`Get information for the current user`}
+    title="My Information"
+/>
 
 ### Get a User by ID
 
@@ -130,7 +132,7 @@ query {
         username
     }
 }
-`}/>
+`} title="User by ID"/>
 
 ### Get a User by Username
 
@@ -141,4 +143,4 @@ query {
         username
     }
 }
-`}/>
+`} title="User by Username"/>

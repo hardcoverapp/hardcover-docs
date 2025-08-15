@@ -103,6 +103,18 @@ The author schema contains the following fields:
 
 ## Example Queries
 
+### Get All Authors
+<GraphQLExplorer query={`
+query {
+    authors(limit: 10) {
+        id,
+        name
+    }
+}
+`}
+    title="All Authors"
+    presentation="table"/>
+
 ### Get an Author by ID
 
 <GraphQLExplorer query={`
@@ -112,8 +124,10 @@ query {
         name
     }
 }
-`} presentation="table"/>
-
+`}
+    title="Author by ID"
+    presentation="table"/>
+    
 ### Get an Author by Name
 
 <GraphQLExplorer query={`
@@ -124,19 +138,13 @@ query {
         name
     }
 }
-`} presentation='json' forcePresentation/>
+`} 
+    title="Author by Name"
+    presentation='json'
+    forcePresentation
+/>
 
-### Get all Authors
-<GraphQLExplorer query={`
-query {
-    authors(limit: 10) {
-        id,
-        name
-    }
-}
-`} presentation="table"/>
-
-### Get books by an Author
+### Get Books by an Author
 <GraphQLExplorer query={`
 query GetBooksByAuthor {
     authors(where: {name: {_eq: "Dan Wells"}}) {
@@ -149,4 +157,10 @@ query GetBooksByAuthor {
         }
     }
 }
-`} description={``} presentation='json' forcePresentation/>
+`}
+    description={`
+    Returns a list of books authored by Dan Wells.
+    `}
+    title="Books by Author"
+    presentation='json'
+    forcePresentation/>

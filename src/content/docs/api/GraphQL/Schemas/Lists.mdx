@@ -1,18 +1,74 @@
 ---
 title: Lists
 category: reference
-lastUpdated: 2025-06-06 18:30:00
+lastUpdated: 2025-08-03 00:00:00
 layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import {Aside} from "@astrojs/starlight/components";
 
-# What is a List?
+# What Is a List?
 
 Lists in Hardcover are user-created collections of books organized around themes, genres, or personal preferences. Users can create public or private lists to organize and share their reading recommendations with the community.
 
-# Fields
+# Queries
+
+## Available List Queries
+
+<table>
+    <thead>
+    <tr>
+        <th>Query</th>
+        <th>Returns</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>lists</td>
+        <td>lists[]</td>
+        <td>Fetch an array of lists with filtering and pagination</td>
+    </tr>
+    <tr>
+        <td>lists_aggregate</td>
+        <td>lists_aggregate</td>
+        <td>Get aggregated data about lists (count, averages, etc.)</td>
+    </tr>
+    <tr>
+        <td>lists_by_pk</td>
+        <td>lists</td>
+        <td>Fetch a single list by its primary key (id)</td>
+    </tr>
+    <tr>
+        <td>list_books</td>
+        <td>list_books[]</td>
+        <td>Fetch books in lists with filtering options</td>
+    </tr>
+    <tr>
+        <td>list_books_aggregate</td>
+        <td>list_books_aggregate</td>
+        <td>Get aggregated data about books in lists</td>
+    </tr>
+    <tr>
+        <td>list_books_by_pk</td>
+        <td>list_books</td>
+        <td>Fetch a single list book entry by its id</td>
+    </tr>
+    <tr>
+        <td>followed_lists</td>
+        <td>followed_lists[]</td>
+        <td>Fetch lists followed by users</td>
+    </tr>
+    <tr>
+        <td>followed_lists_by_pk</td>
+        <td>followed_lists</td>
+        <td>Fetch a single followed list entry by id</td>
+    </tr>
+    </tbody>
+</table>
+
+## List Schema Fields
 
 <table>
     <thead>
@@ -91,10 +147,70 @@ Lists in Hardcover are user-created collections of books organized around themes
     </tbody>
 </table>
 
-# Related Schemas
+## ListBook Schema Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>int</td>
+        <td>Unique identifier for the list_book entry</td>
+    </tr>
+    <tr>
+        <td>list_id</td>
+        <td>int</td>
+        <td>ID of the list containing this book</td>
+    </tr>
+    <tr>
+        <td>book_id</td>
+        <td>int</td>
+        <td>ID of the book in this list</td>
+    </tr>
+    <tr>
+        <td>edition_id</td>
+        <td>int</td>
+        <td>Optional specific edition of the book</td>
+    </tr>
+    <tr>
+        <td>position</td>
+        <td>int</td>
+        <td>Order position of the book in the list</td>
+    </tr>
+    <tr>
+        <td>date_added</td>
+        <td>timestamptz</td>
+        <td>When the book was added to the list</td>
+    </tr>
+    <tr>
+        <td>book</td>
+        <td>books</td>
+        <td>The book object</td>
+    </tr>
+    <tr>
+        <td>list</td>
+        <td>lists</td>
+        <td>The list object</td>
+    </tr>
+    <tr>
+        <td>edition</td>
+        <td>editions</td>
+        <td>Optional edition object</td>
+    </tr>
+    </tbody>
+</table>
+
+## Related Schemas
 
 - [Books](/api/graphql/schemas/books) - Books that can be added to lists
 - [Users](/api/graphql/schemas/users) - Users who create and interact with lists
+- [Editions](/api/graphql/schemas/editions) - Specific editions of books
 
 # Example Queries
 
@@ -119,7 +235,7 @@ query GetPublicLists {
         }
     }
 }
-`} title="Public Lists Query"/>
+`} title="Public Lists"/>
 
 ## Get Lists by a Specific User
 
@@ -128,7 +244,7 @@ Get all lists created by a specific user. Replace ##USER_ID## with the actual us
 <GraphQLExplorer query={`
 query GetUserLists {
     lists(
-        where: {user_id: {_eq: ##USER_ID##}}
+        where: {user_id: {_eq: ##USER_ID##}}, 
         order_by: {updated_at: desc}
     ) {
         id
@@ -140,7 +256,10 @@ query GetUserLists {
         updated_at
     }
 }
-`} title="User Lists Query" canTry={false}/>
+`}
+    title="User Lists"
+    canTry={false}
+/>
 
 ## Get Books in a Specific List
 
@@ -174,7 +293,232 @@ query GetListBooks {
         }
     }
 }
-`} title="List Books Query"/>
+`} title="List Books"/>
+
+## Get a Single List by ID
+
+Fetch a specific list using its primary key.
+
+<GraphQLExplorer query={`
+query GetListById {
+    lists_by_pk(id: 3) {
+        id
+        name
+        description
+        books_count
+        likes_count
+        privacy_setting_id
+        created_at
+        updated_at
+        user {
+            id
+            username
+            image_id
+        }
+    }
+}
+`} title="Get List by ID"/>
+
+## Get List Statistics
+
+Use aggregate queries to get statistics about lists.
+
+<GraphQLExplorer query={`
+query GetListStats {
+    lists_aggregate(where: {public: {_eq: true}}) {
+        aggregate {
+            count
+            avg {
+                books_count
+                likes_count
+            }
+            max {
+                books_count
+                likes_count
+            }
+        }
+    }
+}
+`} title="List Statistics"/>
+
+## Get Followed Lists
+
+Get all lists that the authenticated user is following.
+
+<GraphQLExplorer query={`
+query GetMyFollowedLists {
+    followed_lists(order_by: {created_at: desc}) {
+        id
+        created_at
+        list {
+            id
+            name
+            description
+            books_count
+            likes_count
+            user {
+                username
+            }
+        }
+    }
+}
+`} title="Followed Lists"/>
+
+## Get Lists by Popularity
+
+Find public lists ordered by popularity.
+
+<Aside type="note">
+    The Hardcover API doesn't support text search operators like _ilike for lists. Use exact matches or browse public lists by popularity.
+</Aside>
+
+<GraphQLExplorer query={`
+query GetPopularLists {
+    lists(
+        where: {public: {_eq: true}}
+        limit: 20
+        order_by: {likes_count: desc}
+    ) {
+        id
+        name
+        description
+        books_count
+        likes_count
+        user {
+            username
+        }
+    }
+}
+`} title="Popular Lists"/>
+
+# Mutations
+
+## Available List Mutations
+
+<table>
+    <thead>
+    <tr>
+        <th>Mutation</th>
+        <th>Returns</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>insert_list</td>
+        <td>ListIdType</td>
+        <td>Create a new list</td>
+    </tr>
+    <tr>
+        <td>update_list</td>
+        <td>ListIdType</td>
+        <td>Update an existing list</td>
+    </tr>
+    <tr>
+        <td>delete_list</td>
+        <td>ListDeleteType</td>
+        <td>Delete a list (must be owner)</td>
+    </tr>
+    <tr>
+        <td>insert_list_book</td>
+        <td>ListBookIdType</td>
+        <td>Add a book to a list</td>
+    </tr>
+    <tr>
+        <td>delete_list_book</td>
+        <td>ListBookDeleteType</td>
+        <td>Remove a book from a list</td>
+    </tr>
+    <tr>
+        <td>update_list_books</td>
+        <td>list_books_mutation_response</td>
+        <td>Update multiple list book entries</td>
+    </tr>
+    <tr>
+        <td>upsert_followed_list</td>
+        <td>FollowedListType</td>
+        <td>Follow or unfollow a list</td>
+    </tr>
+    <tr>
+        <td>delete_followed_list</td>
+        <td>DeleteListType</td>
+        <td>Unfollow a list</td>
+    </tr>
+    </tbody>
+</table>
+
+## Mutation Response Types
+
+List mutations return different response types based on the operation:
+
+### ListIdType (for insert_list, update_list)
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>Int</td>
+        <td>ID of the created/updated list</td>
+    </tr>
+    <tr>
+        <td>list</td>
+        <td>lists</td>
+        <td>The complete list object</td>
+    </tr>
+    <tr>
+        <td>errors</td>
+        <td>String</td>
+        <td>Any error messages</td>
+    </tr>
+    </tbody>
+</table>
+
+### ListBookIdType (for insert_list_book)
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>Int</td>
+        <td>ID of the created list_book entry</td>
+    </tr>
+    <tr>
+        <td>list_book</td>
+        <td>list_books</td>
+        <td>The complete list_book object</td>
+    </tr>
+    </tbody>
+</table>
+
+### ListDeleteType (for delete_list) and DeleteListType (for delete_followed_list)
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>success</td>
+        <td>Boolean!</td>
+        <td>Whether the deletion was successful</td>
+    </tr>
+    </tbody>
+</table>
 
 ## Create a New List
 
@@ -198,23 +542,27 @@ mutation CreateList {
             privacy_setting_id: 1
         }
     ) {
-        list {
+        affected_rows
+        returning {
             id
             name
             description
             public
             created_at
+            user {
+                username
+            }
         }
     }
 }
-`} title="Create List Mutation"/>
+`} title="Create List"/>
 
 ## Add a Book to a List
 
 Add a book to your own list.
 
 <Aside type="note">
-    You can only add books to lists you own. Position may need to be set separately.
+    You can only add books to lists you own. The position field determines the order of books in the list.
 </Aside>
 
 <GraphQLExplorer query={`
@@ -226,13 +574,119 @@ mutation AddBookToList {
             position: 1
         }
     ) {
+        id
         list_book {
             id
             list_id
             book_id
             position
             date_added
+            book {
+                title
+            }
+            list {
+                name
+            }
         }
     }
 }
 `} title="Add Book to List"/>
+
+## Update a List
+
+Update an existing list's details.
+
+<Aside type="note">
+    You can only update lists you own. The object parameter accepts the same fields as when creating a list.
+</Aside>
+
+<GraphQLExplorer query={`
+mutation UpdateList {
+    update_list(
+        id: 27818
+        object: {
+            name: "Updated List Name"
+            description: "This is the updated description for my list"
+            privacy_setting_id: 2
+        }
+    ) {
+        id
+        list {
+            id
+            name
+            description
+            privacy_setting_id
+            updated_at
+        }
+    }
+}
+`} title="Update List"/>
+
+## Delete a List
+
+Delete a list you own.
+
+<Aside type="caution">
+    This action is irreversible. All books in the list will be removed as well.
+</Aside>
+
+<GraphQLExplorer query={`
+mutation DeleteList {
+    delete_list(id: 27818) {
+        success
+    }
+}
+`} title="Delete List"/>
+
+## Remove a Book from a List
+
+Remove a specific book from your list.
+
+<GraphQLExplorer query={`
+mutation RemoveBookFromList {
+    delete_list_book(id: 123456) {
+        id
+        list_id
+        list {
+            name
+            books_count
+        }
+    }
+}
+`} title="Remove Book from List"/>
+
+## Follow/Unfollow a List
+
+Follow a public list to track updates. This mutation acts as an upsert - it will create a follow if it doesn't exist.
+
+<GraphQLExplorer query={`
+mutation FollowList {
+    upsert_followed_list(list_id: 3) {
+        id
+        followed_list {
+            id
+            list_id
+            user_id
+            created_at
+            list {
+                name
+                user {
+                    username
+                }
+            }
+        }
+    }
+}
+`} title="Follow List"/>
+
+## Unfollow a List
+
+Remove a list from your followed lists.
+
+<GraphQLExplorer query={`
+mutation UnfollowList {
+    delete_followed_list(list_id: 3) {
+        success
+    }
+}
+`} title="Unfollow List"/>

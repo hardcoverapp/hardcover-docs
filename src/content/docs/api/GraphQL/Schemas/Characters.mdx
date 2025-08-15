@@ -7,7 +7,7 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
-## What is a Character?
+## What Is a Character?
 
 Characters are fictional individuals that appear in books. The characters schema in Hardcover allows you to track and explore characters across different books, including information about their attributes, the books they appear in, and their creators.
 
@@ -101,6 +101,19 @@ The character schema contains the following fields:
 
 ## Example Queries
 
+### Get All Characters
+<GraphQLExplorer query={`
+query {
+    characters(limit: 10) {
+        id,
+        name
+    }
+}
+`}
+    title="All Characters"
+    presentation="table"
+/>
+
 ### Get a Character by ID
 
 <GraphQLExplorer query={`
@@ -110,7 +123,10 @@ query {
         name
     }
 }
-`} presentation="table"/>
+`}
+    title="Character by ID"
+    presentation="table"
+/>
 
 ### Get a Character by Name
 
@@ -123,19 +139,13 @@ query {
         name
     }
 }
-`} presentation='json' forcePresentation/>
+`}
+    title="Character by Name"
+    presentation='json'
+    forcePresentation
+/>
 
-### Get all Characters
-<GraphQLExplorer query={`
-query {
-    characters(limit: 10) {
-        id,
-        name
-    }
-}
-`} presentation="table"/>
-
-### Get Books featuring a Character
+### Get Books Featuring a Character
 <GraphQLExplorer query={`
 query GetCharacterBooks {
     characters(where: {name: {_eq: "Harry Potter"}}) {
@@ -152,4 +162,8 @@ query GetCharacterBooks {
         }
     }
 }
-`} description={``} presentation='json' forcePresentation/>
+`} 
+    title="Books Featuring Character"
+    presentation='json'
+    forcePresentation
+/>
