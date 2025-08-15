@@ -29,7 +29,7 @@ The user schema contains the following fields:
     <tbody>
     <tr>
         <td>id</td>
-        <td>String</td>
+        <td>Int</td>
         <td>The unique identifier of the user</td>
     </tr>
     <tr>
@@ -127,10 +127,10 @@ query {
 
 <GraphQLExplorer query={`
 query {
-    users(where: {id: {_eq: "1"}}, limit: 1) {
+    users(where: {id: {_eq: 1}}, limit: 1) {
         id,
         username
-    }
+  }
 }
 `} title="User by ID"/>
 
