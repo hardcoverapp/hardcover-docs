@@ -12,7 +12,6 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
 - [Editions](/api/graphql/schemas/editions)
 
 ## Getting All Editions of a Book
-### Example Request
 <GraphQLExplorer query={`
 query GetEditionsFromTitle {
     editions(where: {title: {_eq: "Oathbringer"}}) {
@@ -28,10 +27,9 @@ query GetEditionsFromTitle {
         }
     }
 }
-`} description='Get all of the editions for the specific title of `Oathbringer`' presentation='json' forcePresentation />
+`} description='Get all of the editions for the specific title of `Oathbringer`' title="Editions From Title" presentation='json' forcePresentation />
 
 ## Getting Details of a Specific Edition
-### Example Request
 <GraphQLExplorer query={
 `query GetSpecificEdition {
     editions(where: {id: {_eq: 21953653}}) {

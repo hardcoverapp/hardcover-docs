@@ -8,7 +8,7 @@ layout: /src/layouts/documentation.astro
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import {Aside} from "@astrojs/starlight/components";
 
-# What is a Country?
+# What Is a Country?
 
 A Country in Hardcover represents the country of publication for books and editions. This information helps users discover literature from specific regions, understand publishing markets, and explore global literary traditions. Countries use standardized codes for consistency and integration.
 
@@ -197,7 +197,7 @@ query AllCountries {
         code3
     }
 }
-`} title="All Countries Query"/>
+`} title="All Countries"/>
 
 ## Find Country by Code
 
@@ -215,7 +215,8 @@ query CountryByCode {
         created_at
     }
 }
-`} title="Country by Code Query"/>
+`}
+    title="Country by Code"/>
 
 ## Search Countries by Name
 
@@ -232,7 +233,7 @@ query SearchCountries {
         code3
     }
 }
-`} title="Search Countries Query"/>
+`} title="Search Countries"/>
 
 ## Get European Countries
 
@@ -254,9 +255,9 @@ query EuropeanCountries {
         sub_region
     }
 }
-`} title="European Countries Query"/>
+`} title="European Countries"/>
 
-## Get Countries with Editions
+## Get Countries With Editions
 
 Find countries that have published editions:
 
@@ -277,7 +278,7 @@ query CountriesWithEditions {
         }
     }
 }
-`} title="Countries with Editions Query"/>
+`} title="Countries With Editions"/>
 
 ## Get Publishing Countries
 
@@ -300,7 +301,7 @@ query PublishingCountries {
         }
     }
 }
-`} title="Publishing Countries Query"/>
+`} title="Publishing Countries"/>
 
 ## Get Recent Country Additions
 
@@ -320,13 +321,13 @@ query RecentCountries {
         updated_at
     }
 }
-`} title="Recent Countries Query"/>
+`} title="Recent Countries"/>
 
 <Aside type="note">
     Country codes follow international standards (ISO 3166-1) to ensure consistency across different systems and applications. This enables integration with other services and databases.
 </Aside>
 
-## Best Practices for Working with Countries
+## Best Practices for Working With Countries
 
 1. **Use Standard Codes**: Prefer ISO codes over country names for programmatic use
 2. **Consider Historical Changes**: Some countries may have changed names or codes over time

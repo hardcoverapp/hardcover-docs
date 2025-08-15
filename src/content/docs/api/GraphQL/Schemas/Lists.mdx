@@ -8,7 +8,7 @@ layout: /src/layouts/documentation.astro
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import {Aside} from "@astrojs/starlight/components";
 
-# What is a List?
+# What Is a List?
 
 Lists in Hardcover are user-created collections of books organized around themes, genres, or personal preferences. Users can create public or private lists to organize and share their reading recommendations with the community.
 
@@ -119,7 +119,7 @@ query GetPublicLists {
         }
     }
 }
-`} title="Public Lists Query"/>
+`} title="Public Lists"/>
 
 ## Get Lists by a Specific User
 
@@ -140,7 +140,7 @@ query GetUserLists {
         updated_at
     }
 }
-`} title="User Lists Query" canTry={false}/>
+`} title="User Lists" canTry={false}/>
 
 ## Get Books in a Specific List
 
@@ -174,7 +174,7 @@ query GetListBooks {
         }
     }
 }
-`} title="List Books Query"/>
+`} title="List Books"/>
 
 ## Create a New List
 
@@ -207,7 +207,7 @@ mutation CreateList {
         }
     }
 }
-`} title="Create List Mutation"/>
+`} title="Create List"/>
 
 ## Add a Book to a List
 

@@ -250,9 +250,13 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
 }
 `} description={`
     This query will return a list of books that the user has added to their collection.
-`} presentation='json' forcePresentation/>
+`}
+    title="User Books"
+    presentation='json'
+    forcePresentation
+/>
 
-## Get a list of books by a specific author
+## Get a List of Books by a Specific Author
 
 <GraphQLExplorer query={`
 query BooksByUserCount {
@@ -274,7 +278,10 @@ query BooksByUserCount {
 }
 `} description={`
     This query will return a list of the top 10 books by the author Brandon Sanderson, ordered by the number of users who have added the book to their collection.
-`} presentation='table'/>
+`}
+    title="Books by User Count"
+    presentation='table'
+/>
 
 ## Getting All Editions of a Book
 <GraphQLExplorer query={`
@@ -292,9 +299,13 @@ query GetEditionsFromTitle {
         }
     }
 }
-`} description='Get all of the editions for the specific title of `Oathbringer`' presentation='json' forcePresentation/>
+`} description='Get all of the editions for the specific title of `Oathbringer`'
+    title="Editions from Title"
+    presentation='json'
+    forcePresentation
+/>
 
-## Create a new book
+## Create a New Book
 <GraphQLExplorer query={`
 mutation {
       createBook(input: {
@@ -313,6 +324,8 @@ mutation {
 }
 `} description={`
     This mutation will create a new book with the specified title, number of pages, release date, and description.
-`}/>
+`}
+    title="Create Book"
+/>
 
 
