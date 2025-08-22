@@ -2,7 +2,7 @@
 title: Author Standards
 description: Standards for adding and editing authors in Hardcover.
 category: guide
-lastUpdated: 2025-07-27 14:00:00
+lastUpdated: 2025-08-22 14:00:00
 layout: /src/layouts/librarians.astro
 ---
 
@@ -16,7 +16,10 @@ Some authors use a space between initials in their name (J. K. Rowling), some do
 
 When editing the URL slug for an author, do not include periods or spaces between initials (our slugs typically use lowercase letters and hyphens). For instance, J. K. Rowling’s slug would be `jk-rowling`, and J. R. R. Tolkien’s slug would be `jrr-tolkien`. Slugs are generated automatically on author generation but require manual updating when editing an existing author.
 
-### Authors published primarily in another language
+### Authors Sharing The Same Name
+> **Note:** This section is currently under review and will be updated in the future.
+
+### Authors with Non-English Names
 > **Note:** In the future, Hardcover may support multiple name fields or localized names for authors. For now, stick to an English/Latin name for consistency, unless the author has absolutely no transliterated name available.
 
 Hardcover’s default interface language is English. Wherever possible, we'd like to rename authors written in other alphabets (Cyrillic, Hebrew, Hanzi, Arabic, etc.) to be translated or transliterated to English (Latin alphabet). This is to ensure consistency and searchability in our primarily English database.
@@ -58,7 +61,7 @@ The larger the photo the better! If you want to upload a 15mb file, go for it. W
 
 Author photos on Hardcover (as of July 27, 2025) are displayed at a maximum size of 178px by 178px. Uploading images smaller than this may result in blurriness when enlarged. For best results, we recommend uploading photos that are at least 300px wide and 300px high. Images do not need to be square.
 
-### What dimensions qualify for red, yellow and green?
+### Image quality scores
 We show three different quality scores for photos today. This is calculated using `height x width`.
 
 0 - 32,999: <Badge text="Bad Quality" variant="danger" /> (ex 133 x 200)
@@ -70,9 +73,9 @@ We show three different quality scores for photos today. This is calculated usin
 ## Personal Name
 This field is intended only for cases where an author's full name differs from the name they publish under and is publicly known in that context (e.g., in publishing credits or legal attributions).
 
-Do not use this field to list a birth name that an author has changed, such as after a gender transition. Avoid deadnaming, even if the information is publicly available. When in doubt, prioritize the author's privacy and self-identification over completeness.
+Do not use this field to list a birth name that an author has changed, such as after a gender transition. Avoid deadnaming, even if the information is publicly available. When in doubt, prioritize the author's privacy and self-identification over completeness. For more on this topic, see [Supporting Trans & Non-binary Authors][SupportingAuthors].
 
-Do not use this field for pseudonyms, pen names, or stage names. On Hardcover, these are classified as aliases. The exception being if the author has only ever published under a pseudonym, pen name, or stage name. In this case the author's personal name should be used to denote the name they were born with, or the name they are most commonly known by outside of their writing.
+Do not use this field for pseudonyms, pen names, or stage names; on Hardcover these belong in Aliases. Enter a personal or legal name only when the author has publicly and reliably linked it to their published identity (for example, in credits, copyright or rights statements, or via self-disclosure) and when it serves a clear cataloging need such as disambiguation. If the author publishes exclusively under a pseudonym, leave this field blank unless these conditions are met. Do not infer or reveal a non-public name.
 
 Notable Examples:
 - Samuel Langhorne Clemens (Mark Twain)
@@ -106,12 +109,33 @@ For deceased authors, we recommend using the location of their birth or where th
 ## Dates of birth and death
 If exact dates are not publicly and readily available, please use the year only in the appropriate field.
 
-## Reaching out to Authors
+## Supporting Trans & Non-binary Authors
 
-We want authors to feel welcomed to the platform, and some of the best ambassadors for that are Librarians! It shows them that we care about how they're represented on the platform and want their page to be the best it can be.
+> Note: This section is currently under review and will be updated in the future.
 
-We welcome librarians to contact authors on their own behalf, with the support of Hardcover. But for this to work, we require all outreach to be added to the [contacted authors list](https://docs.google.com/spreadsheets/d/1MlaWgpBYdaLxxTwmYZxhQ0xPNqi4kZQ4J4CVPXa6Vxg/edit?gid=308756447#gid=308756447).
+## Merging Authors
+Sometimes an author might have multiple entries in the database (for example, due to variant spellings or a data import). When you discover duplicate author entries, they should be merged to one canonical entry. The general rule is: keep the entry with the author’s name in its most standard or canonical form (in English), and merge the other duplicate(s) into that.
 
-We don't want to overwhelm authors with repeated contact. To prevent portraying Hardcover as a spammy platform, we ask that Librarians refer to the list and add the author they'd like to contact before doing so. You can do this using the Hardcover [Author Outreach Form](https://forms.gle/ewUDjfe7SV8RdaWd6).
+For example, if you see both “J. R. R. Tolkien” and “J.R.R. Tolkien” as separate authors, we’d keep one and merge the other into it (whichever reflects our formatting guidelines best). If an author has an English name and a non-English name entry, keep the English name as primary (per our guidelines above).
 
-Only after verifying that they have not yet been contacted and adding them to to the list via the form, you can use the Hardcover [Author Outreach Email Template](https://docs.google.com/document/d/1fUmholoNHE9dR45LEREXeRUk-iwrKhlYtbzjLz9sGS8/edit?usp=sharing). This can be sent from your email, or through a contact form on the author's website.
+For a detailed guide on merging authors, visit our [Merging Standards](../mergingstandards/#merging-authors) page.
+
+## Author Outreach
+
+We want authors to feel welcome on Hardcover, and Librarians are some of the best ambassadors to make that happen. Thoughtful outreach shows authors we care about how they're represented and want their profiles to shine.
+
+We welcome librarians to contact authors on their own behalf, with the support of Hardcover. To keep things respectful and coordinated, please follow these steps:
+
+1. **Check before contacting:** Review the [Contacted Authors List][ContactedAuthors] to be sure the author hasn't already been reached.
+    - Multiple unsolicited contacts can come across as spam and reflect poorly on Hardcover. 
+2. **Log the contact:** If they're not listed, add them via the [Author Outreach Form][AuthorOutreachForm].
+3. **Send the outreach:** Use the [Outreach Email Template][AuthorOutreachTemplate] from your own email or an author's contact form.
+
+By following these steps, each author gets a single, friendly introduction to Hardcover—never spam. If they respond, wonderful! If not, we've still shown care without overwhelming them.
+
+> Tip: Librarians discussing outreach in the Discord #librarians channel is a good way to coordinate. If you’re thinking of reaching out to a notable author, it doesn’t hurt to mention it to other librarians so everyone stays in the loop.
+
+[SupportingAuthors]: #supporting-trans--non-binary-authors
+[ContactedAuthors]: https://docs.google.com/spreadsheets/d/1MlaWgpBYdaLxxTwmYZxhQ0xPNqi4kZQ4J4CVPXa6Vxg/edit?gid=308756447#gid=308756447
+[AuthorOutreachForm]: https://forms.gle/ewUDjfe7SV8RdaWd6
+[AuthorOutreachTemplate]: https://docs.google.com/document/d/1fUmholoNHE9dR45LEREXeRUk-iwrKhlYtbzjLz9sGS8/edit?usp=sharing
