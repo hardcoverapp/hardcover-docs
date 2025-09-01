@@ -1,16 +1,41 @@
 ---
 title: Getting Books With a Status
 category: guide
-lastUpdated: 2024-12-29 22:49:00
+lastUpdated: 2025-08-31 
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
 ## Introduction
 
-This guide will show you how to get books with a specific status.
+This guide will show you how to get a user's books with a specific status.
 
-### Example Request
-<GraphQLExplorer query={``} description='' />
+## Related Schemas
+- [Books](/api/graphql/schemas/books)
+
+### Get a List of Books With a Status
+
+To see a selection of the books in your library, replace `##USER_ID##` with your account id, which can be found by completing the "Example Request" section of the [Getting Started](../../api/getting-started) guide. To change the [book status](/api/graphql/schemas/books#user-book-statuses) being queried for, replace the `2` (which represents the "Currently Reading" status) with your desired status.
+
+<GraphQLExplorer query={`
+{
+    user_books(
+        where: {user_id: {_eq: ##USER_ID##}, status_id: {_eq: 2}}
+    ) {
+        book {
+            title
+            image {
+                url
+            }
+            contributions {
+                author {
+                    name
+                }
+            }
+        }
+    }
+}
+`} description={`
+    This query will return a list of books that the user has in the "Currently Reading" status.
+`} title="Books By Status" presentation='json' />
