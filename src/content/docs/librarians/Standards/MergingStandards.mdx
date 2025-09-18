@@ -1,6 +1,6 @@
 ---
-title: Merging Standards
-description: Standards for merging various objects on Hardcover.
+title: Merge / Split Standards
+description: Standards for merging or splitting various objects on Hardcover.
 category: guide
 lastUpdated: 2025-08-22 14:00:00
 layout: /src/layouts/librarians.astro
@@ -8,13 +8,44 @@ banner:
     content: "🚧 Mind your step, this page is a work in progress."
 ---
 
+import { URLS } from "@/Consts";
+import { Image } from 'astro:assets';
+import {Aside} from "@astrojs/starlight/components";
+import split_ed_list from 'src/content/images/split_ed_list.png';
+import split_ed_change from 'src/content/images/split_ed_change.png';
+import merge_author_flag from 'src/content/images/merge_author_flag.png';
+import merge_author_select from 'src/content/images/merge_author_select.png';
 
 ## Merging Books
 
 ## Merging Editions
 
+## Splitting Editions
+
+<Aside type="caution">
+This feature is currently granted on an individual basis to experienced librarians. If you do not have access to this feature, you can either report offending edition using the "Report a problem" button or post in <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> channel for assistance.
+</Aside>
+
+There will be times when a title has been added as an edition to the wrong book. To fix this, we can split the edition out, either into an existing book or a new one.
+
+<Image src={split_ed_list} alt="Edit the edition that doesn't belong" />
+From the edition list of the book that has the incorrect edition, select the edition you want to split out and click the edit button.
+
+<Image src={split_ed_change} alt="Edit the edition that doesn't belong" />
+In the book box on the edition edit page, click the "Change?" button. This will open a search box where you can search for the correct book to move the edition to. If the correct book does not exist, you can create a new one by clicking the "No book exists. Create anew book" option at the top of the dropdown list.
+
+This will move the edition and all of its associated data (like covers, ISBNs, readers, etc.) to its new destination.
+
 ## Merging Authors
-How to merge duplicate authors: Select the “Mark as Duplicate” option available to flag the current author page as a duplicate listing (i.e., the one you want to merge) and choose the canonical author listing to mark as the version to be merged into (i.e., the one you want to keep).
+<Image src={merge_author_flag} alt="Edit the duplicate author" />
+On the page for the author you want to merge (i.e., the duplicate), click the edit button and select the "Flag as Duplicate" option from the dropdown.
+
+<Image src={merge_author_select} alt="Select which author to keep" />
+You will be presented with a search box to select the canonical author listing (i.e., the one you want to keep). Start typing the name of the author you want to merge into and select them from the dropdown list.
+
+Once selected, the author will be highlighted in green and you will be be presented with the option of which author to keep. At this time, we recommend selecting the author with the nicer slug. `clarke-susanna-453d6bb8-3374-4d57-9d78-0135780dd030` being less desirable than `susanna-clarke`.
+
+After clicking the "Keep this one" button, your merge will be submitted. In many cases, where the author's impact score is high, this will require approval from a Senior Librarian on the Hardcover team before it is finalized. In the event that it's immediately approved, the page will redirect to the new canonical author page.
 
 ## Merging Series
 
