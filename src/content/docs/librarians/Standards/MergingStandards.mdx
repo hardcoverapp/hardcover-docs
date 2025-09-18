@@ -4,8 +4,6 @@ description: Standards for merging or splitting various objects on Hardcover.
 category: guide
 lastUpdated: 2025-08-22 14:00:00
 layout: /src/layouts/librarians.astro
-banner:
-    content: "🚧 Mind your step, this page is a work in progress."
 ---
 
 import { URLS } from "@/Consts";
@@ -65,6 +63,10 @@ This feature is currently granted on an individual basis to experienced libraria
 </Aside>
 
 There will be times when a title has been added as an edition to the wrong book. To fix this, we can split the edition out, either into an existing book or a new one.
+
+<Aside type="note">
+It's important to check the mappings on editions before splitting them. If the edition has mappings that belong to another book, such as the one it's been mistakenly assigned to, these will need to be removed before the split. The consequence is moving reads and reviews to the incorrect book, even if the moved edition's metadata is correct.
+</Aside>
 
 <Image src={split_ed_list} alt="Edit the edition that doesn't belong" />
 From the edition list of the book that has the incorrect edition, select the edition you want to split out and click the edit button.
