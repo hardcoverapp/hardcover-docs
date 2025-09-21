@@ -16,8 +16,12 @@ export const URLS = {
 
     DISCORD: 'https://discord.gg/edGpYN8ym8',
     API_DISCORD: 'https://discord.com/channels/835558721115389962/1278040045324075050',
+    BUGS_DISCORD: 'https://discord.com/channels/835558721115389962/1105920773257953310',
     LIBRARIAN_DISCORD: 'https://discord.com/channels/835558721115389962/1105918193022812282',
+    
     LIBRARIAN_APPLICATION: 'https://hardcover.app/librarians/apply',
+    MEMBERSHIP: 'https://hardcover.app/account/membership',
+    LINK_ROLES: 'https://hardcover.app/pages/how-to-link-hardcover-roles-with-discord',
 
     APP_STORE: 'https://apps.apple.com/us/app/hardcover-app/id1663379893',
     PLAY_STORE: 'https://play.google.com/store/apps/details?id=hardcover.app',

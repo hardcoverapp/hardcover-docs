@@ -111,16 +111,27 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
-                        label: useTranslation('sidebar.librarians.editing', 'en'),
-                        slug: 'librarians/editing',
-
+                        label: useTranslation('sidebar.librarians.gettingStarted', 'en'),
+                        slug: 'librarians/getting-started',
+                    
                         translations: {
-                            es: useTranslation('sidebar.librarians.editing', 'es'),
-                            fr: useTranslation('sidebar.librarians.editing', 'fr'),
-                            it: useTranslation('sidebar.librarians.editing', 'it'),
-                            pl: useTranslation('sidebar.librarians.editing', 'pl')
+                            es: useTranslation('sidebar.librarians.gettingStarted', 'es'),
+                            fr: useTranslation('sidebar.librarians.gettingStarted', 'fr'),
+                            it: useTranslation('sidebar.librarians.gettingStarted', 'it'),
+                            pl: useTranslation('sidebar.librarians.gettingStarted', 'pl')
                         }
                     },
+                    // {
+                    //     label: useTranslation('sidebar.librarians.editing', 'en'),
+                    //     slug: 'librarians/editing',
+
+                    //     translations: {
+                    //         es: useTranslation('sidebar.librarians.editing', 'es'),
+                    //         fr: useTranslation('sidebar.librarians.editing', 'fr'),
+                    //         it: useTranslation('sidebar.librarians.editing', 'it'),
+                    //         pl: useTranslation('sidebar.librarians.editing', 'pl')
+                    //     }
+                    // },
                     {
                         label: useTranslation('sidebar.librarians.faq', 'en'),
                         slug: 'librarians/faq',
@@ -132,17 +143,6 @@ export default defineConfig({
                             pl: useTranslation('sidebar.librarians.faq', 'pl')
                         }
                     },
-                    // {
-                    //     label: useTranslation('sidebar.librarians.gettingStarted', 'en'),
-                    //     slug: 'librarians/getting-started',
-                    //
-                    //     translations: {
-                    //         es: useTranslation('sidebar.librarians.gettingStarted', 'es'),
-                    //         fr: useTranslation('sidebar.librarians.gettingStarted', 'fr'),
-                    //         it: useTranslation('sidebar.librarians.gettingStarted', 'it'),
-                    //         pl: useTranslation('sidebar.librarians.gettingStarted', 'pl')
-                    //     }
-                    // }
                     {
                         label: useTranslation('sidebar.librarians.resources', 'en'),
                         autogenerate: {directory: 'librarians/Resources'},
