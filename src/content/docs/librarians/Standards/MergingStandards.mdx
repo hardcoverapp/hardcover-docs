@@ -9,28 +9,17 @@ banner:
 ---
 
 import { URLS } from "@/Consts";
-import { Image } from 'astro:assets';
 import {Aside} from "@astrojs/starlight/components";
-import merge_book_flag from 'src/content/images/merge_book_flag.png'; 
-import merge_book_select from 'src/content/images/merge_book_select.png';
-import merge_ed_flag from 'src/content/images/merge_ed_flag.png'; 
-import merge_ed_select from 'src/content/images/merge_ed_select.png';
-import merge_ed_change from 'src/content/images/merge_ed_change.png';
-import split_ed_list from 'src/content/images/split_ed_list.png';
-import split_ed_change from 'src/content/images/split_ed_change.png';
-import merge_author_flag from 'src/content/images/merge_author_flag.png';
-import merge_author_select from 'src/content/images/merge_author_select.png';
-import merge_series_flag from 'src/content/images/merge_series_flag.png';
-import merge_series_select from 'src/content/images/merge_series_select.png';
+import ImageComponent from "@/components/ImageComponent.astro";
 
 ## Merging Books
-<Image src={merge_book_flag} alt="Flag the duplicate book" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_book_flag.png" description="Flag the duplicate book" />
 On the page for the book you want to merge (i.e., the duplicate), click the edit button and select the "Flag as Duplicate" option from the dropdown.
 
-<Image src={merge_book_select} alt="Select which book to keep" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_book_select.png" description="Select which book to keep" />
 You will be presented with a search box to select the canonical book listing (i.e., the one you want to keep). Start typing the name of the book you want to merge into and select it from the dropdown list.
 
-Once selected, the book will be highlighted in green and you will be presented with the option of which book to keep. At this time, we recommend selecting the book with the nicer slug. `le-dame-di-grace-adieu-e-altre-storie` being less desirable than `the-ladies-of-grace-adieu-and-other-stories`.
+Once selected, the book will be highlighted in green and you will be presented with the option of which book to keep. At this time, we recommend selecting the book with the nicer slug. `le-dame-di-grace-adieu-e-descriptionre-storie` being less desirable than `the-ladies-of-grace-adieu-and-other-stories`.
 
 After clicking the "Keep this one" button, your merge will be submitted. In some cases, where the book's impact score is high, this will require approval from a Senior Librarian on the Hardcover team before it is finalized. In the event that it's immediately approved, the page will redirect to the new canonical book page.
 
@@ -47,13 +36,13 @@ There will be times when two editions of a book are actually the same. Typically
 - Different languages (e.g., English vs. Spanish)
 - Different publishers (e.g., Penguin vs. HarperCollins)
 
-<Image src={merge_ed_flag} alt="Flag the duplicate edition" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_ed_flag.png" description="Flag the duplicate edition" />
 From the edition list of the book that has a duplicate edition, select the duplicate and click the "Flag as Duplicate" option from the edit dropdown.
 
-<Image src={merge_ed_select} alt="Select the canonical edition" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_ed_select.png" description="Select the canonical edition" />
 In the modal that appears, select the canonical edition (i.e., the one you want to keep) from the dropdown list. Its selection will be confirmed by a filled-in radio button to the left of the edition details.
 
-<Image src={merge_ed_change} alt="Submit the edition merge" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_ed_change.png" description="Submit the edition merge" />
 It's important that the edition to be merged is the one you started from. The edition you want to keep is the one you are selecting from the list in the modal.
 
 Once you've selected the canonical edition, scroll back up to the top of the list, taking care not to change the selection as you go. Once you're sure your selection is correct, click the red button.
@@ -70,19 +59,19 @@ There will be times when a title has been added as an edition to the wrong book.
 It's important to check the mappings on editions before splitting them. If the edition has mappings that belong to another book, such as the one it's been mistakenly assigned to, these will need to be removed before the split. The consequence is moving reads and reviews to the incorrect book, even if the moved edition's metadata is correct.
 </Aside>
 
-<Image src={split_ed_list} alt="Edit the edition that doesn't belong" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/split_ed_list.png" description="Edit the edition that doesn't belong" />
 From the edition list of the book that has the incorrect edition, select the edition you want to split out and click the edit button.
 
-<Image src={split_ed_change} alt="Edit the edition that doesn't belong" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/split_ed_change.png" description="Edit the edition that doesn't belong" />
 In the book box on the edition edit page, click the "Change?" button. This will open a search box where you can search for the correct book to move the edition to. If the correct book does not exist, you can create a new one by clicking the "No book exists. Create a new book" option at the top of the dropdown list.
 
 This will move the edition and all of its associated data (like covers, ISBNs, readers, etc.) to its new destination.
 
 ## Merging Authors
-<Image src={merge_author_flag} alt="Flag the duplicate author" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_author_flag.png" description="Flag the duplicate author" />
 On the page for the author you want to merge (i.e., the duplicate), click the edit button and select the "Flag as Duplicate" option from the dropdown.
 
-<Image src={merge_author_select} alt="Select which author to keep" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_author_select.png" description="Select which author to keep" />
 You will be presented with a search box to select the canonical author listing (i.e., the one you want to keep). Start typing the name of the author you want to merge into and select them from the dropdown list.
 
 Once selected, the author will be highlighted in green and you will be presented with the option of which author to keep. At this time, we recommend selecting the author with the nicer slug. `clarke-susanna-453d6bb8-3374-4d57-9d78-0135780dd030` being less desirable than `susanna-clarke`.
@@ -90,10 +79,10 @@ Once selected, the author will be highlighted in green and you will be presented
 After clicking the "Keep this one" button, your merge will be submitted. In many cases, where the author's impact score is high, this will require approval from a Senior Librarian on the Hardcover team before it is finalized. In the event that it's immediately approved, the page will redirect to the new canonical author page.
 
 ## Merging Series
-<Image src={merge_series_flag} alt="Flag the duplicate series" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_series_flag.png" description="Flag the duplicate series" />
 On the page for the series you want to merge (i.e., the duplicate), click the edit button and select the "Flag as Duplicate" option from the dropdown.
 
-<Image src={merge_series_select} alt="Select which series to keep" />
+<ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_series_select.png" description="Select which series to keep" />
 You will be presented with a search box to select the canonical series (i.e., the one you want to keep). Start typing the name of the series you want to merge into and select it from the dropdown list.
 
 Once selected, the series will be highlighted in green and you will be presented with the option of which one to keep. At this time, we recommend selecting the series with the nicer slug. For *Strange & Norrell*, `strange-and-norrell` would be preferable to `strange-norrell`.
