@@ -5,8 +5,9 @@ category: guide
 lastUpdated: 2025-03-01 14:15:49
 layout: /src/layouts/librarians.astro
 ---
-
+import { Image } from 'astro:assets';
 import {Badge} from "@astrojs/starlight/components";
+import longTitleExample from 'src/content/images/librarians/long-title-example.png';
 
 ## Titoli
 ### Quale titolo dovremmo usare per il libro?
@@ -30,7 +31,7 @@ Questo dipenderà da dove e come la serie fa parte del titolo.
 Imposta il titolo di questo libro su quello dato dall'editore. In questo caso, sarebbe "Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution".
 
 Nella pagina del libro, divideremo il titolo per ":" e lo disporremo su più righe se ha un titolo molto lungo.
-<img src="/images/librarians/long-title-example.png" alt="Esempio di un titolo lungo su Hardcover" />
+<Image src={longTitleExample} alt="Esempio di un titolo lungo su Hardcover" />
 
 Per i libri con un titolo molto lungo, ma un titolo più piccolo e ben noto, dovremmo usare il titolo più breve come slug dell'URL. Questo permette al libro di esistere all'URL https://hardcover.app/books/babel mantenendo un nome più lungo. Gli slug dei libri possono essere modificati solo dalla persona che ha originariamente aggiunto il libro, al moment Adam e Jeff.
 

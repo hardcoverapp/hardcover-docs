@@ -4,7 +4,9 @@ category: guide
 lastUpdated: 2025-05-02 23:50:00
 layout: /src/layouts/librarians.astro
 ---
+import { Image } from 'astro:assets';
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import translationNotFoundImage from 'src/content/images/Translation-Not-Found-IT.png';
 
 <Tabs>
     <TabItem label="Updating Translations for Existing Pages" default>
@@ -32,7 +34,7 @@ import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
         When browsing the documentation site, you may find a page that is not translated into the language you are viewing.
         If this is the case you might see a banner at the top of the page similar to the one below:
 
-        <img src="/images/Translation-Not-Found-IT.png" alt="Translation Not Found" />
+        <Image src={translationNotFoundImage} alt="Translation Not Found" />
 
         If you see this banner you will need to create a copy of the page in the translation directory for the language you are viewing,
         and then following the steps outlined in `Updating Translations for Existing Pages`.
