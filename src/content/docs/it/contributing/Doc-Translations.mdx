@@ -4,9 +4,8 @@ category: guide
 lastUpdated: 2025-04-27 16:59:00
 layout: /src/layouts/librarians.astro
 ---
-import { Image } from 'astro:assets';
+import ImageComponent from "@/components/ImageComponent.astro";
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
-import translationNotFoundIT from 'src/assets/Translation-Not-Found-IT.png';
 
 <Tabs>
     <TabItem label="Aggiornare le Traduzioni per Pagine Esistenti" default>
@@ -33,7 +32,7 @@ import translationNotFoundIT from 'src/assets/Translation-Not-Found-IT.png';
         Durante la navigazione del sito della documentazione, potresti trovare una pagina che non è tradotta nella lingua che stai visualizzando.
         In questo caso potresti vedere un banner nella parte superiore della pagina simile a quello qui sotto:
 
-        <Image src={translationNotFoundIT} alt="Traduzione Non Trovata" />
+        <ImageComponent imagePath="/src/content/images/librarians/Translation-Not-Found-IT.png" description="Traduzione Non Trovata" />
 
         Se vedi questo banner, dovrai creare una copia della pagina nella directory di traduzione per la lingua che stai visualizzando,
         e poi seguire i passaggi descritti in `Aggiornare le Traduzioni per Pagine Esistenti`.

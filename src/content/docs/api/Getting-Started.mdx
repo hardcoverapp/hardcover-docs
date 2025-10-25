@@ -9,9 +9,7 @@ layout: /src/layouts/documentation.astro
 import {Badge, Steps} from "@astrojs/starlight/components";
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import { URLS } from "@/Consts";
-import { Image } from 'astro:assets';
-import graphqlAuthorizationHeader from 'src/content/images/api/getting-started/graphql-authorization-header.png';
-import graphqlExplorerTokenField from 'src/content/images/api/getting-started/graphql-explorer-token-field.png';
+import ImageComponent from "@/components/ImageComponent.astro";
 
 ## Introduction
 Our API is accessible using GraphQL. The API that you can use is exactly the same API used by the website, iOS and Android apps.
@@ -44,14 +42,14 @@ After you have your token, you can head over to the [GraphQL console](https://cl
 
 Next, add a **header** called `authorization` with your token as the value.
 
-<Image src={graphqlAuthorizationHeader} alt="Example of the authorization header" />
+<ImageComponent imagePath="/src/content/images/api/getting-started/graphql-authorization-header.png" description="Example of the authorization header" />
 
 Tab or click out of the field, and you should see a list of available resources.
 
 ### Example Request
 To test that it's working, go to the `Try it Yourself` tab below
 - Add your token to the `Authorization Token` field.
-<Image src={graphqlExplorerTokenField} alt="Showing the location of the Authorization Token field in the GraphQL Explorer" />
+<ImageComponent imagePath="/src/content/images/api/getting-started/graphql-explorer-token-field.png" description="Showing the location of the Authorization Token field in the GraphQL Explorer" />
 - Then click the `Run Query` button.
 
 You should see your user ID and username in the Results section.

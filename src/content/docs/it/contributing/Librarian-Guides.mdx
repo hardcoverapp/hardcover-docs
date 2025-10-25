@@ -4,9 +4,7 @@ category: guide
 lastUpdated: 2025-04-27 14:19:00
 layout: /src/layouts/librarians.astro
 ---
-import { Image } from 'astro:assets';
 import { URLS } from "@/Consts";
-import longTitleExample from "src/content/images/librarians/long-title-example.png";
 
 # Guida alla Contribuzione per Bibliotecari
 ## Modi per Contribuire
@@ -100,7 +98,7 @@ Attualmente, le immagini devono essere aggiunte tramite una pull request separat
 15. Dopo che l'immagine è stata unita, segui i passaggi nella sezione [Modificare una Pagina Esistente](#editing-an-existing-page) per aggiungere l'immagine e farvi riferimento utilizzando il percorso relativo: `/images/subdirectory/your-image.png`.
 
 ```md
-<Image src={longTitleExample} alt="Esempio di un titolo lungo su Hardcover" />
+<img src="/images/librarians/long-title-example.png" alt="Esempio di un titolo lungo su Hardcover" />
 ```
 
 ## Page Frontmatter
