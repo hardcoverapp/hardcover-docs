@@ -2,10 +2,12 @@ import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Textarea} from "@/components/ui/textarea";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {URLS} from "@/Consts";
 import {useTranslation, getPreference, setPreference} from "@/lib/utils.ts";
 import React, {useEffect, useState} from "react";
-import {LuChartNoAxesCombined, LuCode, LuKeyRound, LuLoader, LuTable, LuTerminal} from "react-icons/lu";
+import {LuChartNoAxesCombined, LuChevronDown, LuChevronUp, LuCode, LuKeyRound, LuLoader, LuPlay, LuTable, LuTerminal} from "react-icons/lu";
 import {JSONResults} from "./JSONResults";
 import {StatusMessages} from "./StatusMessages";
 import {TableResults} from "./TableResults";
@@ -238,144 +240,201 @@ export const GraphQLRunner = (props: {
     };
 
     // Render the component
-    // This is a first draft and will be updated as we go along
-    return (<>
+    return (
+        <div className="space-y-6">
             {isMutation && (
-                <div className="relative my-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
-                     role="alert">
-                    <strong className="font-bold">{useTranslation("ui.graphQLExplorer.warning", locale)}</strong>
-                    <span className="block sm:inline">{useTranslation("ui.graphQLExplorer.statusMessages.mutationQueryNotAllowed", locale)}</span>
-                </div>)}
+                <Card className="border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950/20">
+                    <CardHeader className="pb-3">
+                        <CardTitle className="text-red-900 dark:text-red-100 text-base">
+                            {useTranslation("ui.graphQLExplorer.warning", locale)}
+                        </CardTitle>
+                        <CardDescription className="text-red-700 dark:text-red-300">
+                            {useTranslation("ui.graphQLExplorer.statusMessages.mutationQueryNotAllowed", locale)}
+                        </CardDescription>
+                    </CardHeader>
+                </Card>
+            )}
+
             {!isMutation && (
                 <>
-                    <div className="my-4 flex row justify-between items-center flex-wrap gap-2">
-                        <div className={`flex flex-row items-center space-x-2 gap-2`}>
-                            <Button
-                                onClick={() => {
-                                    setShowAuthToken(!showAuthToken);
-                                }}
-                                title={useTranslation("ui.graphQLExplorer.authToken", locale)}
-                                variant="ghost"
-                            >
-                                <LuKeyRound/>
-                            </Button>
-                            <Button
-                                onClick={() => {
-                                    setShowQuery(!showQuery);
-                                    setExplicitQuery(!explicitQuery);
-                                }}
-                                title={useTranslation("ui.graphQLExplorer.viewQuery", locale)}
-                                variant="ghost"
-                            >
-                                <LuTerminal/>
-                            </Button>
-                        </div>
+                    {/* Toolbar Card */}
+                    <Card>
+                        <CardContent className="pt-6">
+                            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                                {/* Left side - Settings */}
+                                <div className="flex items-center gap-2">
+                                    <Button
+                                        onClick={() => {
+                                            setShowAuthToken(!showAuthToken);
+                                        }}
+                                        title={useTranslation("ui.graphQLExplorer.authToken", locale)}
+                                        variant="ghost"
+                                        size="sm"
+                                        className={showAuthToken ? "!bg-accent-600 !text-white hover:!bg-accent-600/90" : "hover:!bg-accent-200 dark:hover:!bg-accent-900"}
+                                    >
+                                        <LuKeyRound className="h-4 w-4"/>
+                                    </Button>
+                                    <Button
+                                        onClick={() => {
+                                            setShowQuery(!showQuery);
+                                            setExplicitQuery(!explicitQuery);
+                                        }}
+                                        title={useTranslation("ui.graphQLExplorer.viewQuery", locale)}
+                                        variant="ghost"
+                                        size="sm"
+                                        className={showQuery ? "!bg-accent-600 !text-white hover:!bg-accent-600/90" : "hover:!bg-accent-200 dark:hover:!bg-accent-900"}
+                                    >
+                                        <LuTerminal className="h-4 w-4"/>
+                                    </Button>
+                                </div>
 
-                        {!forcePresentation && (
-                            <div className={`flex flex-row items-center space-x-2 gap-2`}>
+                                {/* Right side - Run button */}
                                 <Button
-                                    onClick={() => {
-                                        setCurrentPresentation('json');
-                                        setPreference('graphQLResults', 'json');
-                                    }}
-                                    title={useTranslation("ui.graphQLExplorer.views.json", locale)}
-                                    variant='ghost'
-                                    disabled={!queryResults || currentPresentation === 'json'}
+                                    onClick={handleRunQuery}
+                                    title={useTranslation("ui.graphQLExplorer.runDescription", locale)}
+                                    disabled={queryStatus === 'running'}
+                                    size="default"
+                                    className="gap-2 w-full sm:w-auto !bg-accent-600 !text-white hover:!bg-accent-600/90"
                                 >
-                                    <LuCode/> {useTranslation("ui.graphQLExplorer.views.json", locale)}
+                                    {queryStatus === 'running' ? (
+                                        <>
+                                            <LuLoader className="animate-spin h-4 w-4"/>
+                                            {useTranslation("ui.graphQLExplorer.statusMessages.loading", locale)}
+                                        </>
+                                    ) : (
+                                        <>
+                                            <LuPlay className="h-4 w-4"/>
+                                            {useTranslation("ui.graphQLExplorer.run", locale)}
+                                        </>
+                                    )}
                                 </Button>
-                                <Button
-                                    onClick={() => {
-                                        setCurrentPresentation('table');
-                                        setPreference('graphQLResults', 'table');
-                                    }}
-                                    title={useTranslation("ui.graphQLExplorer.views.table", locale)}
-                                    variant='ghost'
-                                    disabled={!queryResults || currentPresentation === 'table'}
-                                >
-                                    <LuTable/> {useTranslation("ui.graphQLExplorer.views.table", locale)}
-                                </Button>
-
-                                {chartable && (<Button
-                                    onClick={() => {
-                                        setCurrentPresentation('chart');
-                                        setPreference('graphQLResults', 'chart');
-                                    }}
-                                    title={useTranslation("ui.graphQLExplorer.views.chart", locale)}
-                                    variant='ghost'
-                                    disabled={!queryResults || currentPresentation === 'chart'}
-                                >
-                                    <LuChartNoAxesCombined /> {useTranslation("ui.graphQLExplorer.views.chart", locale)}
-                                </Button>) }
                             </div>
-                        )}
+                        </CardContent>
+                    </Card>
 
-                        <Button
-                            onClick={handleRunQuery}
-                            title={useTranslation("ui.graphQLExplorer.runDescription", locale)}
-                            variant="default"
-                            disabled={queryStatus === 'running'}
-                        >
-                            {queryStatus === 'running' ? (
-                                <><LuLoader className="animate-spin h-5 w-5 mr-3"/> {useTranslation("ui.graphQLExplorer.statusMessages.loading", locale)}</>
-                            ) : (
-                                useTranslation("ui.graphQLExplorer.run", locale)
-                            )}
-                        </Button>
-                    </div>
-
+                    {/* Auth Token Section */}
                     {showAuthToken && (
-                        <div className="my-4 mb-2 grid w-full gap-1.5">
-                            <Label htmlFor="auth_token">
-                                {useTranslation("ui.graphQLExplorer.authToken", locale)}
-                            </Label>
-
-                            <Textarea
-                                className="mb-2 block w-full rounded-lg bg-gray-50 text-sm min-h-24 p-2.5 dark:bg-gray-700"
-                                id="auth_token"
-                                onChange={updateAuthTokenUI}
-                                onBlur={handleAuthTokenChange}
-                                title={useTranslation("ui.graphQLExplorer.authTokenDescription", locale)}
-                                value={authToken}
-                                required/>
-                        </div>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="text-base">
+                                    {useTranslation("ui.graphQLExplorer.authToken", locale)}
+                                </CardTitle>
+                                <CardDescription>
+                                    {useTranslation("ui.graphQLExplorer.authTokenDescription", locale)}
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Textarea
+                                    className="font-mono text-sm min-h-24"
+                                    id="auth_token"
+                                    placeholder="Bearer your-token-here"
+                                    onChange={updateAuthTokenUI}
+                                    onBlur={handleAuthTokenChange}
+                                    value={authToken}
+                                    required
+                                />
+                            </CardContent>
+                        </Card>
                     )}
 
+                    {/* Status Messages */}
                     <StatusMessages queryStatus={queryStatus} queryError={queryError} locale={locale} />
 
+                    {/* Query Section */}
                     {showQuery && (
-                        <>
-                            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">{useTranslation("ui.graphQLExplorer.query", locale)}</h2>
-
-                            {description && (
-                                <p className="my-4 text-sm text-gray-900 dark:text-white">{description}</p>)}
-
-                            <ScrollArea className="w-full h-48 bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5
-                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                                <pre className="">{query}</pre>
-                            </ScrollArea>
-                        </>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="text-base">
+                                    {useTranslation("ui.graphQLExplorer.query", locale)}
+                                </CardTitle>
+                                {description && (
+                                    <CardDescription>{description}</CardDescription>
+                                )}
+                            </CardHeader>
+                            <CardContent>
+                                <ScrollArea className="w-full h-48 rounded-lg border bg-muted/50 p-4">
+                                    <pre className="text-sm font-mono">{query}</pre>
+                                </ScrollArea>
+                            </CardContent>
+                        </Card>
                     )}
 
+                    {/* Results Section with Tabs */}
                     {queryStatus === 'success' && (
-                        <>
-                            <h2 className="my-4 text-lg font-semibold text-gray-900 dark:text-white">{useTranslation("ui.graphQLExplorer.results", locale)}</h2>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="text-base">
+                                    {useTranslation("ui.graphQLExplorer.results", locale)}
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                {!forcePresentation ? (
+                                    <Tabs
+                                        value={currentPresentation}
+                                        onValueChange={(value) => {
+                                            setCurrentPresentation(value as 'json' | 'table' | 'chart');
+                                            setPreference('graphQLResults', value as 'json' | 'table' | 'chart');
+                                        }}
+                                        className="w-full"
+                                    >
+                                        <TabsList className="inline-flex h-9 items-center justify-start bg-transparent p-0 text-gray-500 dark:text-gray-400 mb-4">
+                                            <TabsTrigger
+                                                value="json"
+                                                className="px-3 rounded-l-md rounded-r-none border-r border-gray-300 dark:border-gray-700 cursor-pointer transition-colors hover:!bg-accent-200 dark:hover:!bg-accent-900 data-[state=active]:!bg-accent-600 data-[state=active]:!text-white data-[state=active]:!shadow-none"
+                                                title={useTranslation("ui.graphQLExplorer.views.json", locale)}
+                                            >
+                                                <LuCode className="h-4 w-4"/>
+                                            </TabsTrigger>
+                                            <TabsTrigger
+                                                value="table"
+                                                className={`px-3 rounded-none ${chartable ? 'border-r border-gray-300 dark:border-gray-700' : 'rounded-r-md'} cursor-pointer transition-colors hover:!bg-accent-200 dark:hover:!bg-accent-900 data-[state=active]:!bg-accent-600 data-[state=active]:!text-white data-[state=active]:!shadow-none`}
+                                                title={useTranslation("ui.graphQLExplorer.views.table", locale)}
+                                            >
+                                                <LuTable className="h-4 w-4"/>
+                                            </TabsTrigger>
+                                            {chartable && (
+                                                <TabsTrigger
+                                                    value="chart"
+                                                    className="px-3 rounded-l-none rounded-r-md cursor-pointer transition-colors hover:!bg-accent-200 dark:hover:!bg-accent-900 data-[state=active]:!bg-accent-600 data-[state=active]:!text-white data-[state=active]:!shadow-none"
+                                                    title={useTranslation("ui.graphQLExplorer.views.chart", locale)}
+                                                >
+                                                    <LuChartNoAxesCombined className="h-4 w-4"/>
+                                                </TabsTrigger>
+                                            )}
+                                        </TabsList>
 
-                            {currentPresentation === 'json' && (
-                                <JSONResults results={queryResults} locale={locale} />
-                            )}
+                                        <TabsContent value="json" className="mt-0">
+                                            <JSONResults results={queryResults} locale={locale} />
+                                        </TabsContent>
 
-                            {currentPresentation === 'table' && (
-                                <TableResults results={queryResults} locale={locale} />
-                            )}
+                                        <TabsContent value="table" className="mt-0">
+                                            <TableResults results={queryResults} locale={locale} />
+                                        </TabsContent>
 
-                            {currentPresentation === 'chart' && (
-                                <ChartResults results={queryResults} locale={locale} />
-                            )}
-                        </>
+                                        {chartable && (
+                                            <TabsContent value="chart" className="mt-0">
+                                                <ChartResults results={queryResults} locale={locale} />
+                                            </TabsContent>
+                                        )}
+                                    </Tabs>
+                                ) : (
+                                    <>
+                                        {currentPresentation === 'json' && (
+                                            <JSONResults results={queryResults} locale={locale} />
+                                        )}
+                                        {currentPresentation === 'table' && (
+                                            <TableResults results={queryResults} locale={locale} />
+                                        )}
+                                        {currentPresentation === 'chart' && (
+                                            <ChartResults results={queryResults} locale={locale} />
+                                        )}
+                                    </>
+                                )}
+                            </CardContent>
+                        </Card>
                     )}
                 </>
             )}
-        </>
+        </div>
     );
 };

@@ -38,11 +38,15 @@
         @apply text-base font-medium;
     }
 
-    p, span, a, li, button, input, textarea {
+    p, span, a, li, input, textarea {
         @apply font-medium;
         color: var(--foreground);
         font-size: 1rem;
         line-height: 2rem;
+    }
+
+    button {
+        @apply font-medium;
     }
 
     p {
