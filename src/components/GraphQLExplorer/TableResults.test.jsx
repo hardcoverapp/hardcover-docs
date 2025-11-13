@@ -27,14 +27,40 @@ describe("TableResults", () => {
         expect(getByRole("log")).toHaveTextContent("No results found");
     });
 
-    it("does not render nested objects", () => {
-        const { getAllByRole, getByRole } = render(
+    it("renders nested objects with flattening", () => {
+        const { getAllByRole } = render(
             <TableResults
                 results={{ rows: [{ cola: "test", colb: { nested: "object" } }] }}
             />
         );
 
-        expect(getAllByRole("log")).toHaveLength(1);
-        expect(getByRole("log")).toHaveTextContent("This view is not available for this query's results.");
+        // Should render cells with flattened column names (cola and colb.nested)
+        expect(getAllByRole("cell")).toHaveLength(2);
+        expect(getAllByRole("cell")[0]).toHaveTextContent("test");
+        expect(getAllByRole("cell")[1]).toHaveTextContent("object");
+    });
+
+    it("renders arrays as comma-separated values", () => {
+        const { getAllByRole } = render(
+            <TableResults
+                results={{ rows: [{ id: "1", tags: ["fiction", "mystery"] }] }}
+            />
+        );
+
+        expect(getAllByRole("cell")).toHaveLength(2);
+        expect(getAllByRole("cell")[0]).toHaveTextContent("1");
+        expect(getAllByRole("cell")[1]).toHaveTextContent("fiction, mystery");
+    });
+
+    it("renders arrays of objects as item count", () => {
+        const { getAllByRole } = render(
+            <TableResults
+                results={{ rows: [{ id: "1", authors: [{name: "Author 1"}, {name: "Author 2"}] }] }}
+            />
+        );
+
+        expect(getAllByRole("cell")).toHaveLength(2);
+        expect(getAllByRole("cell")[0]).toHaveTextContent("1");
+        expect(getAllByRole("cell")[1]).toHaveTextContent("[2 items]");
     });
 });
