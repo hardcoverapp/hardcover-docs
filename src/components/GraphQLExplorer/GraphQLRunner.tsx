@@ -413,7 +413,7 @@ export const GraphQLRunner = (props: {
 
                                         {chartable && (
                                             <TabsContent value="chart" className="mt-0">
-                                                <ChartResults results={queryResults} locale={locale} />
+                                                <ChartResults results={queryResults} />
                                             </TabsContent>
                                         )}
                                     </Tabs>
@@ -426,7 +426,7 @@ export const GraphQLRunner = (props: {
                                             <TableResults results={queryResults} locale={locale} />
                                         )}
                                         {currentPresentation === 'chart' && (
-                                            <ChartResults results={queryResults} locale={locale} />
+                                            <ChartResults results={queryResults} />
                                         )}
                                     </>
                                 )}

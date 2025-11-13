@@ -7,10 +7,8 @@ import {
     ChartTooltipContent
 } from "@/components/ui/chart.tsx";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
-import {useTranslation} from "@/lib/utils.ts";
 import React from "react";
-import {ScrollArea} from "@/components/ui/scroll-area"
-import {Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis} from "recharts";
+import {Area, AreaChart, CartesianGrid, XAxis} from "recharts";
 
 interface ChartableData {
     isChartable: boolean;
@@ -51,13 +49,6 @@ const flattenObjectPaths = (obj: any, prefix = ''): { [key: string]: any } => {
     }
 
     return flattened;
-};
-
-/**
- * Get nested value from object using dot notation path
- */
-const getNestedValue = (obj: any, path: string): any => {
-    return path.split('.').reduce((current, key) => current?.[key], obj);
 };
 
 /**
@@ -154,10 +145,9 @@ const analyzeDataForCharting = (results: any): ChartableData => {
 };
 
 export const ChartResults = (props: {
-    results: object,
-    locale?: string,
+    results: Record<string, any>,
 }) => {
-    const {results, locale = 'en'} = props;
+    const {results} = props;
 
     // Analyze the results to see if they're chartable
     const analysis = analyzeDataForCharting(results);

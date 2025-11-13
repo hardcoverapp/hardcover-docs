@@ -5,7 +5,6 @@ export const URLS = {
     DOCS: 'https://docs.hardcover.app',
 
     GRAPHQL_URL: 'https://api.hardcover.app/v1/graphql',
-    GRAPHQL_PROXY_URL: '/api/graphql', // Temporary proxy to bypass CORS
 
     GITHUB: 'https://github.com/hardcoverapp/hardcover-docs/',
     GITHUB_EDIT: 'https://github.com/hardcoverapp/hardcover-docs/edit/main/',
