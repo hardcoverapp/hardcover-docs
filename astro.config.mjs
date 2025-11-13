@@ -187,5 +187,10 @@ export default defineConfig({
     }), tailwind({
         applyBaseStyles: false
     }), react()],
-    site: URLS.DOCS
+    site: URLS.DOCS,
+    vite: {
+        optimizeDeps: {
+            include: []
+        }
+    }
 });
