@@ -1,22 +1,25 @@
-import {Button} from "@/components/ui/button.tsx";
-import {Label} from "@/components/ui/label.tsx";
-import {ScrollArea} from "@/components/ui/scroll-area.tsx";
-import {Textarea} from "@/components/ui/textarea.tsx";
+import {Button} from "@/components/ui/button";
+import {Label} from "@/components/ui/label";
+import {ScrollArea} from "@/components/ui/scroll-area";
+import {Textarea} from "@/components/ui/textarea";
 import {URLS} from "@/Consts";
 import {useTranslation, getPreference, setPreference} from "@/lib/utils.ts";
 import React, {useEffect, useState} from "react";
-import {LuCode, LuKeyRound, LuLoader, LuTable, LuTerminal} from "react-icons/lu";
-import {JSONResults} from "./JSONResults.tsx";
-import {StatusMessages} from "./StatusMessages.tsx";
-import {TableResults} from "./TableResults.tsx";
+import {LuChartNoAxesCombined, LuCode, LuKeyRound, LuLoader, LuTable, LuTerminal} from "react-icons/lu";
+import {JSONResults} from "./JSONResults";
+import {StatusMessages} from "./StatusMessages";
+import {TableResults} from "./TableResults";
+import {ChartResults} from "./ChartResults";
 
 export const GraphQLRunner = (props: {
     query: string, description?: string,
-    presentation?: 'json' | 'table' | undefined, // If not provided, will use the default from user preferences
-    forcePresentation?: 'json' | 'table' | undefined
+    presentation?: 'json' | 'table' | 'chart' | undefined, // If not provided, will use the default from user preferences
+    forcePresentation?: 'json' | 'table' | 'chart' | undefined
+    chartable?: boolean, // If true, will show the chart results
+    chartConfigs?: any,
     locale?: string
 }) => {
-    const {description, forcePresentation, locale = 'en'} = props;
+    const {description, forcePresentation, locale = 'en', chartable = true, chartConfigs} = props;
     let {presentation} = props;
 
     if (!presentation) {
@@ -292,6 +295,18 @@ export const GraphQLRunner = (props: {
                                 >
                                     <LuTable/> {useTranslation("ui.graphQLExplorer.views.table", locale)}
                                 </Button>
+
+                                {chartable && (<Button
+                                    onClick={() => {
+                                        setCurrentPresentation('chart');
+                                        setPreference('graphQLResults', 'chart');
+                                    }}
+                                    title={useTranslation("ui.graphQLExplorer.views.chart", locale)}
+                                    variant='ghost'
+                                    disabled={!queryResults || currentPresentation === 'chart'}
+                                >
+                                    <LuChartNoAxesCombined /> {useTranslation("ui.graphQLExplorer.views.chart", locale)}
+                                </Button>) }
                             </div>
                         )}
 
@@ -352,6 +367,10 @@ export const GraphQLRunner = (props: {
 
                             {currentPresentation === 'table' && (
                                 <TableResults results={queryResults} locale={locale} />
+                            )}
+
+                            {currentPresentation === 'chart' && (
+                                <ChartResults results={queryResults} locale={locale} />
                             )}
                         </>
                     )}
