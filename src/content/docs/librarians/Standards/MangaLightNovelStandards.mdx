@@ -7,15 +7,12 @@ layout: /src/layouts/librarians.astro
 banner:
     content: "🚧 Mind your step, this page is a work in progress."
 ---
-
-import { Image } from 'astro:assets';
-import {Badge, Aside} from "@astrojs/starlight/components";
-import manga_series_naming from 'src/content/images/manga_series_naming.png';
-import manga_series_naming_2 from 'src/content/images/manga_series_naming_2.png';
+import ImageComponent from "@/components/ImageComponent.astro";
+import {Aside} from "@astrojs/starlight/components";
 
 ## Series Naming Conventions
 
-<Image src={manga_series_naming} alt="Example of light novel series naming on Hardcover" />
+<ImageComponent imagePath="/src/content/images/librarians/manga_series_naming.png" description="Example of light novel series naming on Hardcover" />
 
 As with [books](../bookstandards/#what-title-should-we-use-for-the-book) of any kind, we should use the official English title whenever possible with manga and light novels.
 
@@ -46,7 +43,7 @@ We recommend appending either "(Manga)" or "(Light Novel)" to the series title w
 
 ## Volume Titles and Numbering
 
-<Image src={manga_series_naming_2} alt="Example of light novel series naming on Hardcover" />
+<ImageComponent imagePath="/src/content/images/librarians/manga_series_naming_2.png" description="Example of light novel series naming on Hardcover" />
 
 Naming conventions and disambiguation may vary from publisher to publisher or across other book data platforms. Hardcover sets its own standards to maintain consistency.
 
