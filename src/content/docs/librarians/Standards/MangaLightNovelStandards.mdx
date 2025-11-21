@@ -1,0 +1,62 @@
+---
+title: Manga & Light Novel Standards
+description: Standards for adding and editing manga and light novels on Hardcover.
+category: guide
+lastUpdated: 2025-11-13 8:30:00
+layout: /src/layouts/librarians.astro
+banner:
+    content: "🚧 Mind your step, this page is a work in progress."
+---
+
+import { Image } from 'astro:assets';
+import {Badge, Aside} from "@astrojs/starlight/components";
+import manga_series_naming from 'src/content/images/manga_series_naming.png';
+import manga_series_naming_2 from 'src/content/images/manga_series_naming_2.png';
+
+## Series Naming Conventions
+
+<Image src={manga_series_naming} alt="Example of light novel series naming on Hardcover" />
+
+As with [books](../bookstandards/#what-title-should-we-use-for-the-book) of any kind, we should use the official English title whenever possible with manga and light novels.
+
+If the series is only available in Japanese (meaning there are no English editions), retain the original Japanese title using Romaji (Latin alphabet) in square brackets.
+
+**Example:**
+- 小悪魔ティーリと救世主!? [Koakuma Teeri to Kyuuseishu!?]
+
+If the series has been translated into other languages but not English, use the same format. Use the original edition as the Book's cover edition.
+
+If an English edition exists, use the official English title and the English edition as the Book's cover edition.
+
+<Aside type="note">
+It's recommended to rename series as a last step as there are currently known issues around Goodreads imports creating a duplicate series which would have to be merged.
+
+If a series slug contains a year or appears unnecessarily long, it may be possible to reclaim a shorter slug reserved from past deduplication. Report these to the Hardcover team for assistance.
+</Aside>
+
+### Disambiguating Light Novels from Manga
+
+Some series exist in both manga and light novel formats. To help users distinguish between the two, it's necessary to disambiguate.
+
+We recommend appending either "(Manga)" or "(Light Novel)" to the series title when both formats exist. The text in parentheses should be title-cased.
+
+**Examples:**
+- Classroom of the Elite (Light Novel)
+- Classroom of the Elite (Manga)
+
+## Volume Titles and Numbering
+
+<Image src={manga_series_naming_2} alt="Example of light novel series naming on Hardcover" />
+
+Naming conventions and disambiguation may vary from publisher to publisher or across other book data platforms. Hardcover sets its own standards to maintain consistency.
+
+For books and all editions of manga and light novels, we follow the format:
+
+`{Series Title} ({Disambiguation}), Vol. {num}: {Subtitle}`
+
+Again, the text in parentheses should be title-cased. If a series has no disambiguation, that part may be omitted. That is expected for series published in only one format in its original language.
+
+**Examples:**
+- My Hero Academia (Manga), Vol. 2: Rage, You Damned Nerd
+- Overlord (Light Novel), Vol. 1: The Undead King
+
