@@ -203,7 +203,7 @@ query {
 
 <GraphQLExplorer query={`
 query {
-    authors(where: {name: {_eq: "J.K. Rowling"}}) {
+    authors(where: {name: {_eq: "Robert Jordan"}}) {
         books_count
         identifiers
         name
@@ -212,7 +212,6 @@ query {
 `} 
     title="Author by Name"
     presentation='json'
-    forcePresentation
 />
 
 ### Get Books by an Author
@@ -233,5 +232,4 @@ query GetBooksByAuthor {
     Returns a list of books authored by Dan Wells.
     `}
     title="Books by Author"
-    presentation='json'
-    forcePresentation/>
+    presentation='table' />
