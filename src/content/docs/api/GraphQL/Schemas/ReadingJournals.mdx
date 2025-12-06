@@ -1,14 +1,19 @@
 ---
 title: Reading Journals
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-12-06
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+
+## Schema Relationships
+
+<SchemaGraph typeName="reading_journals" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,6 +24,80 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>book</td>
+        <td>books</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>book_id</td>
+        <td>Int</td>
+        <td>ID of the book this journal entry is about</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp!</td>
+        <td>Timestamp when the journal entry was created</td>
+    </tr>
+    <tr>
+        <td>edition</td>
+        <td>editions</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>edition_id</td>
+        <td>Int</td>
+        <td>ID of the specific edition this journal entry is about</td>
+    </tr>
+    <tr>
+        <td>entry</td>
+        <td>String</td>
+        <td>The text content of the journal entry</td>
+    </tr>
+    <tr>
+        <td>event</td>
+        <td>String</td>
+        <td>Type of reading event (e.g., "started", "finished", "note")</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>bigint!</td>
+        <td>Unique identifier for the journal entry</td>
+    </tr>
+    <tr>
+        <td>likes_count</td>
+        <td>Int!</td>
+        <td>Number of likes this journal entry has received</td>
+    </tr>
+    <tr>
+        <td>metadata</td>
+        <td>jsonb!</td>
+        <td>Additional metadata for the journal entry in JSON format</td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td>The object type identifier</td>
+    </tr>
+    <tr>
+        <td>privacy_setting_id</td>
+        <td>Int!</td>
+        <td>ID for the journal entry's privacy settings</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp!</td>
+        <td>Timestamp of the last update to the journal entry</td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>users</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int</td>
+        <td>ID of the user who created this journal entry</td>
+    </tr>
     </tbody>
 </table>

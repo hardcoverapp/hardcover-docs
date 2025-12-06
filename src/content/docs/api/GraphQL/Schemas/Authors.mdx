@@ -1,18 +1,19 @@
 ---
 title: Authors
 category: reference
-lastUpdated: 2025-08-14
+lastUpdated: 2025-12-06
 layout: /src/layouts/documentation.astro
 ---
 
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-## Author Schema
+## Schema Relationships
 
-The author schema contains the following fields:
+<SchemaGraph typeName="authors" />
 
-### Fields
+## Fields
 
 <table>
     <thead>
@@ -24,8 +25,13 @@ The author schema contains the following fields:
     </thead>
     <tbody>
     <tr>
+        <td>alias_id</td>
+        <td>Int</td>
+        <td>Reference to an alias author record</td>
+    </tr>
+    <tr>
         <td>alternate_names</td>
-        <td>Array of Strings</td>
+        <td>jsonb!</td>
         <td>Alternate names for the author</td>
     </tr>
     <tr>
@@ -35,12 +41,12 @@ The author schema contains the following fields:
     </tr>
     <tr>
         <td>books_count</td>
-        <td>Int</td>
+        <td>Int!</td>
         <td>The number of books the author has contributed to</td>
     </tr>
     <tr>
         <td>born_date</td>
-        <td>Date</td>
+        <td>date</td>
         <td>The date the author was born</td>
     </tr>
     <tr>
@@ -50,17 +56,27 @@ The author schema contains the following fields:
     </tr>
     <tr>
         <td>cached_image</td>
-        <td>Object</td>
-        <td>Metadata for the authors image. This includes the image id, url, primary color, width, and height</td>
+        <td>jsonb!</td>
+        <td>Metadata for the author's image including ID, URL, primary color, width, and height</td>
     </tr>
     <tr>
-        <td>contributions</td>
-        <td>[Contribution](../contributions)</td>
-        <td>The contributions the author is listed on</td>
+        <td>canonical</td>
+        <td>authors</td>
+        <td>An object relationship - the canonical author record if this is an alias</td>
+    </tr>
+    <tr>
+        <td>canonical_id</td>
+        <td>Int</td>
+        <td>ID of the canonical author if this is an alias</td>
+    </tr>
+    <tr>
+        <td>creator</td>
+        <td>users</td>
+        <td>An object relationship - the user who created this author record</td>
     </tr>
     <tr>
         <td>death_date</td>
-        <td>Date</td>
+        <td>date</td>
         <td>The date the author died</td>
     </tr>
     <tr>
@@ -69,14 +85,29 @@ The author schema contains the following fields:
         <td>The year the author died</td>
     </tr>
     <tr>
-        <td>id</td>
+        <td>gender_id</td>
         <td>Int</td>
+        <td>Reference to the author's gender</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
         <td>The unique identifier of the author</td>
     </tr>
     <tr>
         <td>identifiers</td>
-        <td>Array of objects</td>
+        <td>jsonb!</td>
         <td>IDs for the author on other platforms</td>
+    </tr>
+    <tr>
+        <td>image</td>
+        <td>images</td>
+        <td>An object relationship - the author's image</td>
+    </tr>
+    <tr>
+        <td>image_id</td>
+        <td>Int</td>
+        <td>ID of the author's image</td>
     </tr>
     <tr>
         <td>is_bipoc</td>
@@ -89,19 +120,59 @@ The author schema contains the following fields:
         <td>Whether the author is LGBTQ+</td>
     </tr>
     <tr>
-        <td>name</td>
+        <td>links</td>
+        <td>jsonb!</td>
+        <td>External links related to the author</td>
+    </tr>
+    <tr>
+        <td>location</td>
         <td>String</td>
+        <td>The author's location</td>
+    </tr>
+    <tr>
+        <td>locked</td>
+        <td>Boolean!</td>
+        <td>Whether this author record is locked from editing</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String!</td>
         <td>The name of the author</td>
+    </tr>
+    <tr>
+        <td>name_personal</td>
+        <td>String</td>
+        <td>The author's personal name format</td>
     </tr>
     <tr>
         <td>slug</td>
         <td>String</td>
         <td>The Hardcover URL slug</td>
     </tr>
+    <tr>
+        <td>state</td>
+        <td>String!</td>
+        <td>The current state of the author record</td>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>String</td>
+        <td>The author's title (e.g., Dr., Prof.)</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int</td>
+        <td>ID of the user who created this author</td>
+    </tr>
+    <tr>
+        <td>users_count</td>
+        <td>Int!</td>
+        <td>The number of users who have books by this author</td>
+    </tr>
     </tbody>
 </table>
 
-## Example Queries
+## Query Examples
 
 ### Get All Authors
 <GraphQLExplorer query={`

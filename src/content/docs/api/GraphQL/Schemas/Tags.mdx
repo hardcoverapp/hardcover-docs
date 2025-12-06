@@ -1,14 +1,19 @@
 ---
 title: Tags
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-12-06
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+
+## Schema Relationships
+
+<SchemaGraph typeName="tags" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,6 +24,35 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>count</td>
+        <td>Int!</td>
+        <td>Number of times this tag has been used</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>bigint!</td>
+        <td>Unique identifier for the tag</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String!</td>
+        <td>URL-friendly identifier for the tag</td>
+    </tr>
+    <tr>
+        <td>tag</td>
+        <td>String!</td>
+        <td>The tag name or label</td>
+    </tr>
+    <tr>
+        <td>tag_category</td>
+        <td>tag_categories!</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>tag_category_id</td>
+        <td>Int!</td>
+        <td>ID of the category this tag belongs to</td>
+    </tr>
     </tbody>
 </table>

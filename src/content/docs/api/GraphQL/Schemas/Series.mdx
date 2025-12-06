@@ -1,14 +1,18 @@
 ---
 title: Series
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-12-06
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="series" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,6 +23,85 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>author</td>
+        <td>authors</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>author_id</td>
+        <td>Int</td>
+        <td>ID of the primary author of this series</td>
+    </tr>
+    <tr>
+        <td>books_count</td>
+        <td>Int!</td>
+        <td>Total number of books in this series</td>
+    </tr>
+    <tr>
+        <td>canonical</td>
+        <td>series</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>canonical_id</td>
+        <td>Int</td>
+        <td>ID of the canonical/main version of this series</td>
+    </tr>
+    <tr>
+        <td>creator</td>
+        <td>users</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>String</td>
+        <td>Description of the series</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td>Unique identifier for the series</td>
+    </tr>
+    <tr>
+        <td>identifiers</td>
+        <td>jsonb!</td>
+        <td>IDs for the series on other platforms in JSON format</td>
+    </tr>
+    <tr>
+        <td>is_completed</td>
+        <td>Boolean</td>
+        <td>Whether the series is completed or ongoing</td>
+    </tr>
+    <tr>
+        <td>locked</td>
+        <td>Boolean!</td>
+        <td>Whether the series record is locked from editing</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String!</td>
+        <td>Name of the series</td>
+    </tr>
+    <tr>
+        <td>primary_books_count</td>
+        <td>Int</td>
+        <td>Number of primary (non-supplemental) books in the series</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String!</td>
+        <td>URL-friendly identifier for the series</td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String!</td>
+        <td>Current state of the series record (active, draft, etc.)</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int</td>
+        <td>ID of the user who created this series record</td>
+    </tr>
     </tbody>
 </table>

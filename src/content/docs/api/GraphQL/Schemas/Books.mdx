@@ -1,13 +1,18 @@
 ---
 title: Books
 category: reference
-lastUpdated: 2025-08-15
+lastUpdated: 2025-12-06
 layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="books" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,390 +24,285 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </thead>
     <tbody>
     <tr>
-        <td>compilation</td>
-        <td>bool</td>
-        <td></td>
+        <td>activities_count</td>
+        <td>Int!</td>
+        <td>Total number of user activities associated with this book</td>
     </tr>
     <tr>
-        <td>release_year</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>rating</td>
-        <td>float</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>pages</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>users_count</td>
-        <td>int32</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>lists_count</td>
-        <td>int32</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>ratings_count</td>
-        <td>int32</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>reviews_count</td>
-        <td>int32</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>author_names</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>cover_color</td>
-        <td>auto</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>genres</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>moods</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>content_warnings</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>tags</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>series_names</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>has_audiobook</td>
-        <td>bool</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>has_ebook</td>
-        <td>bool</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>contribution_types</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>slug</td>
-        <td>string</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>title</td>
-        <td>string</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>description</td>
-        <td>string</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>subtitle</td>
-        <td>string</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>release_date</td>
-        <td>date</td>
-        <td></td>
+        <td>alternative_titles</td>
+        <td>json!</td>
+        <td>Alternative titles of the book in different languages or editions</td>
     </tr>
     <tr>
         <td>audio_seconds</td>
-        <td>auto</td>
-        <td></td>
+        <td>Int</td>
+        <td>Duration of the audiobook in seconds</td>
     </tr>
     <tr>
-        <td>users_read_count</td>
-        <td>int32</td>
-        <td></td>
+        <td>book_category_id</td>
+        <td>Int!</td>
+        <td>Category identifier for the book (fiction, non-fiction, etc.)</td>
     </tr>
     <tr>
-        <td>prompts_count</td>
-        <td>int32</td>
-        <td></td>
+        <td>book_status</td>
+        <td>book_statuses!</td>
+        <td>Status object for the book (upcoming, published, etc.)</td>
     </tr>
     <tr>
-        <td>activities_count</td>
-        <td>int32</td>
-        <td></td>
+        <td>book_status_id</td>
+        <td>smallint!</td>
+        <td>Status identifier for the book</td>
     </tr>
     <tr>
-        <td>release_date_i</td>
-        <td>auto</td>
-        <td></td>
+        <td>cached_contributors</td>
+        <td>json!</td>
+        <td>Cached contributor information for quick access</td>
+    </tr>
+    <tr>
+        <td>cached_featured_series</td>
+        <td>jsonb</td>
+        <td>Cached information about the featured series this book belongs to</td>
+    </tr>
+    <tr>
+        <td>cached_header_image</td>
+        <td>jsonb!</td>
+        <td>Cached header image metadata including URL, dimensions, and colors</td>
+    </tr>
+    <tr>
+        <td>cached_image</td>
+        <td>jsonb!</td>
+        <td>Cached cover image metadata including URL, dimensions, and primary color</td>
+    </tr>
+    <tr>
+        <td>cached_tags</td>
+        <td>json!</td>
+        <td>Cached tag data for the book</td>
+    </tr>
+    <tr>
+        <td>canonical</td>
+        <td>books</td>
+        <td>Reference to the canonical/main version of this book</td>
+    </tr>
+    <tr>
+        <td>canonical_id</td>
+        <td>Int</td>
+        <td>ID of the canonical/main version of this book</td>
+    </tr>
+    <tr>
+        <td>compilation</td>
+        <td>Boolean!</td>
+        <td>Indicates whether this is a compilation or anthology</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp!</td>
+        <td>Timestamp when the book record was created</td>
+    </tr>
+    <tr>
+        <td>created_by_user_id</td>
+        <td>Int</td>
+        <td>ID of the user who created this book record</td>
+    </tr>
+    <tr>
+        <td>default_audio_edition</td>
+        <td>editions</td>
+        <td>The default audiobook edition for this book</td>
+    </tr>
+    <tr>
+        <td>default_audio_edition_id</td>
+        <td>Int</td>
+        <td>ID of the default audiobook edition</td>
+    </tr>
+    <tr>
+        <td>default_cover_edition</td>
+        <td>editions</td>
+        <td>The edition used for the book's default cover image</td>
+    </tr>
+    <tr>
+        <td>default_cover_edition_id</td>
+        <td>Int</td>
+        <td>ID of the edition used for the default cover image</td>
+    </tr>
+    <tr>
+        <td>default_ebook_edition</td>
+        <td>editions</td>
+        <td>The default ebook edition for this book</td>
+    </tr>
+    <tr>
+        <td>default_ebook_edition_id</td>
+        <td>Int</td>
+        <td>ID of the default ebook edition</td>
+    </tr>
+    <tr>
+        <td>default_physical_edition</td>
+        <td>editions</td>
+        <td>The default physical edition for this book</td>
+    </tr>
+    <tr>
+        <td>default_physical_edition_id</td>
+        <td>Int</td>
+        <td>ID of the default physical edition</td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>String</td>
+        <td>Synopsis or description of the book</td>
+    </tr>
+    <tr>
+        <td>editions_count</td>
+        <td>Int!</td>
+        <td>Total number of editions for this book</td>
     </tr>
     <tr>
         <td>featured_book_series</td>
         <td>book_series</td>
-        <td></td>
+        <td>The primary series this book belongs to</td>
     </tr>
     <tr>
-        <td>featured_series_id</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>alternative_titles</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>isbns</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>contributions</td>
-        <td>contributions[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>image</td>
-        <td>auto</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>book_category_id</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>book_characters</td>
-        <td>[Characters](../characters)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>book_mappings</td>
-        <td>book_mappings[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>book_series</td>
-        <td>book_series[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>book_status</td>
-        <td>book_statuses</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>canonical</td>
-        <td>Books</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>canonical_id</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>created_at</td>
-        <td>timestamp</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>created_by_user_id</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>default_audio_edition</td>
-        <td>[Editions](../editions)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>default_audio_edition_id</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>default_cover_edition</td>
-        <td>[Editions](../editions)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>default_cover_edition_id</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>default_ebook_edition</td>
-        <td>[Editions](../editions)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>default_ebook_edition_id</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>default_physical_edition</td>
-        <td>[Editions](../editions)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>default_physical_edition_id</td>
-        <td>int</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>dto</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>dto_combined</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>dto_external</td>
-        <td>string[]</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>editions</td>
-        <td>[Editions](../editions)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>editions_count</td>
-        <td>int</td>
-        <td></td>
+        <td>featured_book_series_id</td>
+        <td>Int</td>
+        <td>ID of the featured series</td>
     </tr>
     <tr>
         <td>header_image_id</td>
-        <td>int</td>
-        <td></td>
+        <td>Int</td>
+        <td>ID of the header image used for the book's page</td>
     </tr>
     <tr>
         <td>headline</td>
-        <td>string</td>
-        <td></td>
+        <td>String</td>
+        <td>Short promotional text or tagline for the book</td>
     </tr>
     <tr>
         <td>id</td>
-        <td>int</td>
-        <td></td>
+        <td>Int!</td>
+        <td>Unique identifier for the book</td>
     </tr>
     <tr>
         <td>image</td>
-        <td>images[]</td>
-        <td></td>
+        <td>images</td>
+        <td>Cover image object for the book</td>
+    </tr>
+    <tr>
+        <td>image_id</td>
+        <td>Int</td>
+        <td>ID of the cover image</td>
     </tr>
     <tr>
         <td>import_platform_id</td>
-        <td>int</td>
-        <td></td>
+        <td>Int!</td>
+        <td>Platform from which this book was imported</td>
     </tr>
     <tr>
         <td>journals_count</td>
-        <td>int</td>
-        <td></td>
+        <td>Int!</td>
+        <td>Total number of reading journal entries for this book</td>
     </tr>
     <tr>
         <td>links</td>
-        <td>string[]</td>
-        <td></td>
+        <td>jsonb!</td>
+        <td>External links related to the book (purchase, reviews, etc.)</td>
     </tr>
     <tr>
-        <td>list_books</td>
-        <td>list_books[]</td>
-        <td></td>
+        <td>lists_count</td>
+        <td>Int</td>
+        <td>Number of user lists containing this book</td>
     </tr>
     <tr>
         <td>literary_type_id</td>
-        <td>int</td>
-        <td></td>
+        <td>Int</td>
+        <td>Type of literary work (novel, novella, short story, etc.)</td>
     </tr>
     <tr>
         <td>locked</td>
-        <td>bool</td>
-        <td></td>
+        <td>Boolean!</td>
+        <td>Whether the book record is locked from editing</td>
     </tr>
     <tr>
-        <td>prompt_answers</td>
-        <td>prompt_answers[]</td>
-        <td></td>
+        <td>pages</td>
+        <td>Int</td>
+        <td>Average page count across editions</td>
     </tr>
     <tr>
-        <td>prompt_summaries</td>
-        <td>prompt_books_summary[]</td>
-        <td></td>
+        <td>prompts_count</td>
+        <td>Int!</td>
+        <td>Number of prompt answers featuring this book</td>
+    </tr>
+    <tr>
+        <td>rating</td>
+        <td>numeric</td>
+        <td>Average user rating for the book</td>
+    </tr>
+    <tr>
+        <td>ratings_count</td>
+        <td>Int!</td>
+        <td>Total number of user ratings</td>
     </tr>
     <tr>
         <td>ratings_distribution</td>
-        <td>string[]</td>
-        <td></td>
+        <td>jsonb!</td>
+        <td>Distribution of ratings (count per rating value)</td>
     </tr>
     <tr>
-        <td>recommendations</td>
-        <td>recommendations[]</td>
-        <td></td>
+        <td>release_date</td>
+        <td>date</td>
+        <td>Original publication date of the book</td>
+    </tr>
+    <tr>
+        <td>release_year</td>
+        <td>Int</td>
+        <td>Year of original publication</td>
+    </tr>
+    <tr>
+        <td>reviews_count</td>
+        <td>Int!</td>
+        <td>Total number of user reviews</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String</td>
+        <td>URL-friendly identifier for the book</td>
     </tr>
     <tr>
         <td>state</td>
-        <td>string</td>
-        <td></td>
+        <td>String</td>
+        <td>Current state of the book record (active, draft, etc.)</td>
     </tr>
     <tr>
-        <td>taggable_counts</td>
-        <td>taggable_counts[]</td>
-        <td></td>
+        <td>subtitle</td>
+        <td>String</td>
+        <td>Subtitle of the book, if any</td>
     </tr>
     <tr>
-        <td>taggings</td>
-        <td>taggings[]</td>
-        <td></td>
+        <td>title</td>
+        <td>String</td>
+        <td>Main title of the book</td>
     </tr>
     <tr>
         <td>updated_at</td>
         <td>timestamptz</td>
-        <td></td>
+        <td>Timestamp of the last update to the book record</td>
     </tr>
     <tr>
         <td>user_added</td>
-        <td>bool</td>
-        <td></td>
+        <td>Boolean!</td>
+        <td>Whether this book was added by a user (vs. by librarians)</td>
     </tr>
     <tr>
-        <td>user_books</td>
-        <td>user_books[]</td>
-        <td></td>
+        <td>users_count</td>
+        <td>Int!</td>
+        <td>Total number of users who have this book in their library</td>
+    </tr>
+    <tr>
+        <td>users_read_count</td>
+        <td>Int!</td>
+        <td>Total number of users who have marked this book as read</td>
     </tr>
     </tbody>
 </table>
 
 
-# User Book Statuses
+### User Book Statuses
 
 <table>
     <thead>
@@ -439,7 +339,9 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tbody>
 </table>
 
-## Get a List of Books in a User’s Library
+## Query Examples
+
+### Get a List of Books in a User's Library
 
 <GraphQLExplorer query={`
 {
@@ -462,11 +364,10 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     This query will return a list of books that the user has added to their collection.
 `}
     title="User Books"
-    presentation='json'
-    forcePresentation
+    presentation='table'
 />
 
-## Get a List of Books by a Specific Author
+### Get a List of Books by a Specific Author
 
 <GraphQLExplorer query={`
 query BooksByUserCount {
@@ -493,7 +394,7 @@ query BooksByUserCount {
     presentation='table'
 />
 
-## Getting All Editions of a Book
+### Getting All Editions of a Book
 <GraphQLExplorer query={`
 query GetEditionsFromTitle {
     editions(where: {title: {_eq: "Oathbringer"}}) {
@@ -511,11 +412,9 @@ query GetEditionsFromTitle {
 }
 `} description='Get all of the editions for the specific title of `Oathbringer`'
     title="Editions from Title"
-    presentation='json'
-    forcePresentation
 />
 
-## Create a New Book
+### Create a New Book
 <GraphQLExplorer query={`
 mutation {
       createBook(input: {

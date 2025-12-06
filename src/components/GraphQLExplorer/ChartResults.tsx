@@ -95,6 +95,11 @@ const analyzeDataForCharting = (results: any): ChartableData => {
         const value = flattenedItem[path];
         const type = typeof value;
 
+        // Skip id fields
+        if (path.toLowerCase().includes('id')) {
+          continue;
+        }
+
         if (type === 'number' && !isNaN(value)) {
             numericFields.push(path);
         } else if (type === 'string') {

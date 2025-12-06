@@ -7,7 +7,7 @@
     "api": {
       "disclaimerBanner": {
         "title": "Disclaimer",
-        "text": "This API is currently in development and may change or break at any time with out notice. If you have any questions or need help, please ask in the <a>#api</a> Discord channel."
+        "text": "This API is currently in development and may change or break at any time with out notice. If you have any questions or need help, please ask in the <a>#api</a> Discord channel. <br><br>Portions of this documentation may be auto-generated and may be incomplete or inaccurate. Currently this includes the schema relationship graph and field descriptions."
       }
     },
     "librarians": {

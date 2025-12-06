@@ -1,18 +1,23 @@
 ---
 title: Contributions
 category: reference
-lastUpdated: 2025-07-25 00:00:00
+lastUpdated: 2025-12-06 00:00:00
 layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 import {Aside} from "@astrojs/starlight/components";
 
-# What Is a Contribution?
+## What Is a Contribution?
 
 A Contribution in Hardcover represents the relationship between an author and a book or edition, along with the specific role the author played. This flexible system allows for various types of contributions including writing, illustration, translation, editing, and more, providing detailed credit information for all contributors to a work.
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="contributions" />
+
+## Fields
 
 <table>
     <thead>
@@ -24,54 +29,54 @@ A Contribution in Hardcover represents the relationship between an author and a 
     </thead>
     <tbody>
     <tr>
-        <td>id</td>
-        <td>bigint</td>
-        <td>Unique identifier for the contribution</td>
+        <td>author</td>
+        <td>authors</td>
+        <td>An object relationship</td>
     </tr>
     <tr>
         <td>author_id</td>
-        <td>int</td>
-        <td>ID of the contributing author</td>
-    </tr>
-    <tr>
-        <td>contributable_id</td>
-        <td>int</td>
-        <td>ID of the item being contributed to (book or edition)</td>
-    </tr>
-    <tr>
-        <td>contributable_type</td>
-        <td>string</td>
-        <td>Type of item: "Book" or "Edition"</td>
-    </tr>
-    <tr>
-        <td>contribution</td>
-        <td>string</td>
-        <td>Role or type of contribution (Author, Illustrator, Translator, etc.)</td>
-    </tr>
-    <tr>
-        <td>created_at</td>
-        <td>timestamp</td>
-        <td>When the contribution was recorded</td>
-    </tr>
-    <tr>
-        <td>updated_at</td>
-        <td>timestamp</td>
-        <td>When the contribution was last updated</td>
-    </tr>
-    <tr>
-        <td>author</td>
-        <td>Author</td>
-        <td>Author object with complete information</td>
+        <td>Int!</td>
+        <td>ID of the author making the contribution</td>
     </tr>
     <tr>
         <td>book</td>
-        <td>Book</td>
-        <td>Book object (when contributable_type is "Book")</td>
+        <td>books</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>contributable_id</td>
+        <td>Int!</td>
+        <td>ID of the entity receiving the contribution (book or edition)</td>
+    </tr>
+    <tr>
+        <td>contributable_type</td>
+        <td>String!</td>
+        <td>Type of entity receiving the contribution (e.g., "Book", "Edition")</td>
+    </tr>
+    <tr>
+        <td>contribution</td>
+        <td>String</td>
+        <td>Type of contribution (e.g., "Author", "Illustrator", "Translator")</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp!</td>
+        <td>Timestamp when the contribution record was created</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>bigint!</td>
+        <td>Unique identifier for the contribution</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp!</td>
+        <td>Timestamp of the last update to the contribution record</td>
     </tr>
     </tbody>
 </table>
 
-# Common Contribution Types
+### Common Contribution Types
 
 <table>
     <thead>
@@ -116,15 +121,15 @@ A Contribution in Hardcover represents the relationship between an author and a 
     </tbody>
 </table>
 
-# Related Schemas
+### Related Schemas
 
 - [Authors](/api/graphql/schemas/authors) - The contributors to books
 - [Books](/api/graphql/schemas/books) - Works that receive contributions
 - [Editions](/api/graphql/schemas/editions) - Specific editions with unique contributions
 
-# Example Queries
+## Query Examples
 
-## Get Book Contributors
+### Get Book Contributors
 
 Retrieve all contributors for a specific book with their roles:
 
@@ -146,7 +151,7 @@ query GetBookContributors {
 }
 `} title="Book Contributors"/>
 
-## Get Author's Contributions
+### Get Author's Contributions
 
 Find all works an author has contributed to with their roles:
 
@@ -170,7 +175,7 @@ query GetAuthorContributions {
 }
 `} title="Author Contributions"/>
 
-## Find Books by Illustrator
+### Find Books by Illustrator
 
 Search for books that have illustrators and display their names:
 
@@ -199,7 +204,7 @@ query FindBooksByContributor {
 }
 `} title="Books by Contributor Type"/>
 
-## Find Authors With Multiple Roles
+### Find Authors With Multiple Roles
 
 Discover authors who have contributed to books in different roles (e.g., as both author and illustrator):
 
@@ -238,7 +243,7 @@ query AuthorMultipleRoles {
 }
 `} title="Authors With Multiple Roles"/>
 
-## Edition-Specific Contributors
+### Edition-Specific Contributors
 
 Find contributors specific to particular editions:
 

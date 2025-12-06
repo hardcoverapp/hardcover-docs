@@ -1,14 +1,18 @@
 ---
 title: Platforms
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-12-06
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="platforms" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,6 +23,20 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td>Unique identifier for the platform</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String!</td>
+        <td>Name of the platform (e.g., "Goodreads", "Amazon")</td>
+    </tr>
+    <tr>
+        <td>url</td>
+        <td>String</td>
+        <td>Website URL of the platform</td>
+    </tr>
     </tbody>
 </table>

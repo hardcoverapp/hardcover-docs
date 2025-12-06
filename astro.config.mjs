@@ -189,6 +189,11 @@ export default defineConfig({
     }), react()],
     site: URLS.DOCS,
     vite: {
+        resolve: {
+            alias: {
+                '@': '/src'
+            }
+        },
         optimizeDeps: {
             include: []
         }

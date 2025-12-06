@@ -1,14 +1,18 @@
 ---
 title: Languages
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-12-06
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="languages" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,6 +23,25 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>code2</td>
+        <td>String</td>
+        <td>ISO 639-1 two-letter language code</td>
+    </tr>
+    <tr>
+        <td>code3</td>
+        <td>String</td>
+        <td>ISO 639-2/3 three-letter language code</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td>Unique identifier for the language</td>
+    </tr>
+    <tr>
+        <td>language</td>
+        <td>String!</td>
+        <td>Name of the language</td>
+    </tr>
     </tbody>
 </table>
