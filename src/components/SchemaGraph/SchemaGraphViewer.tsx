@@ -335,7 +335,9 @@ export const SchemaGraphViewer: React.FC<SchemaGraphViewerProps> = ({ typeName }
         tipsRef.current.set(`edge-${edge.id()}`, tip);
 
         // Remove old listeners and add new ones
+        // @ts-ignore
         edge.removeAllListeners('mouseover');
+        // @ts-ignore
         edge.removeAllListeners('mouseout');
         edge.on('mouseover', () => tip.show());
         edge.on('mouseout', () => tip.hide());
@@ -404,7 +406,9 @@ export const SchemaGraphViewer: React.FC<SchemaGraphViewerProps> = ({ typeName }
         tipsRef.current.set(`node-${node.id()}`, tip);
 
         // Remove old listeners and add new ones
+        // @ts-ignore
         node.removeAllListeners('mouseover');
+        // @ts-ignore
         node.removeAllListeners('mouseout');
         node.on('mouseover', () => tip.show());
         node.on('mouseout', () => tip.hide());
@@ -415,6 +419,7 @@ export const SchemaGraphViewer: React.FC<SchemaGraphViewerProps> = ({ typeName }
     createTooltips();
 
     // Store the function for later use
+    // @ts-ignore
     cyRef.current.createTooltips = createTooltips;
 
     // Add hover effects
@@ -545,7 +550,9 @@ export const SchemaGraphViewer: React.FC<SchemaGraphViewerProps> = ({ typeName }
 
           // Recreate all tooltips with new positioning
           setTimeout(() => {
+            // @ts-ignore
             if (cyRef.current && cyRef.current.createTooltips) {
+              // @ts-ignore
               cyRef.current.createTooltips();
             }
           }, 150);
