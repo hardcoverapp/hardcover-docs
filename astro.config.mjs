@@ -40,10 +40,10 @@ export default defineConfig({
             //     label: useTranslation('lang.label', 'fr'),
             //     lang: useTranslation('lang.code', 'fr')
             // },
-            'it': {
-                label: useTranslation('lang.label', 'it'),
-                lang: useTranslation('lang.code', 'it')
-            },
+            // 'it': {
+            //     label: useTranslation('lang.label', 'it'),
+            //     lang: useTranslation('lang.code', 'it')
+            // },
             // 'pl': {
             //     label: useTranslation('lang.label', 'pl'),
             //     lang: useTranslation('lang.code', 'pl')

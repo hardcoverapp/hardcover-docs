@@ -1,0 +1,105 @@
+---
+title: GraphQL Query Builder Demo
+description: Interactive demo of the new GraphQL Query Builder with Advanced mode
+---
+
+import GraphQLExplorerEnhanced from '@/components/GraphQLExplorer/GraphQLExplorerEnhanced.astro';
+
+## GraphQL Query Builder
+
+This is a demo of the new **GraphQL Query Builder** component with both **Static** and **Advanced** modes.
+
+### Features
+
+- **Static Mode**: Traditional query display (like the original GraphQLExplorer)
+- **Advanced Mode**: Interactive query builder with:
+  - Selectable query type dropdown
+  - Expandable tree view for field selection
+  - Query arguments/filters editor (limit, offset, where, order_by)
+  - Copy to clipboard functionality
+  - Real-time query generation
+- **Same Output Formats**: JSON, Table, and Chart views
+
+### Example 1: Books Query with Advanced Mode
+
+This example starts in Advanced mode and allows you to explore the `books` query type.
+
+<GraphQLExplorerEnhanced
+  query={`query {
+  books(limit: 10) {
+    id
+    title
+    release_year
+  }
+}`}
+  description="Query to fetch books with basic information"
+  initialQueryType="books"
+  defaultMode="advanced"
+  canToggleMode={true}
+/>
+
+### Example 2: Users Query Starting in Static Mode
+
+This example starts in Static mode but you can switch to Advanced to modify the query.
+
+<GraphQLExplorerEnhanced
+  query={`query {
+  users(limit: 5) {
+    id
+    name
+    username
+  }
+}`}
+  description="Query to fetch users"
+  initialQueryType="users"
+  defaultMode="static"
+  canToggleMode={true}
+/>
+
+### Example 3: Authors Query with Hidden Type Selector
+
+This example hides the query type selector (useful when you want to lock the query type).
+
+<GraphQLExplorerEnhanced
+  query={`query {
+  authors(limit: 10) {
+    id
+    name
+    bio
+  }
+}`}
+  description="Query to fetch authors"
+  initialQueryType="authors"
+  showQueryTypeSelector={false}
+  defaultMode="advanced"
+  canToggleMode={true}
+/>
+
+## Usage
+
+To use the GraphQL Query Builder in your documentation pages:
+
+```astro
+---
+import GraphQLExplorerEnhanced from '@/components/GraphQLExplorer/GraphQLExplorerEnhanced.astro';
+---
+
+<GraphQLExplorerEnhanced
+  query={`query { ... }`}
+  description="Your query description"
+  initialQueryType="books"
+  defaultMode="advanced"
+  showQueryTypeSelector={true}
+/>
+```
+
+### Props
+
+- `query`: Initial GraphQL query string
+- `description`: Description of the query
+- `initialQueryType`: Starting query type for Advanced mode (e.g., 'books', 'users')
+- `defaultMode`: Starting mode - 'static' or 'advanced' (default: 'static')
+- `showQueryTypeSelector`: Show/hide the query type dropdown (default: true)
+- `presentation`: Default output format - 'json', 'table', or 'chart'
+- `forcePresentation`: Force a specific output format (hide tabs)
+- `canTry`: Enable/disable the "Try it Yourself" tab
