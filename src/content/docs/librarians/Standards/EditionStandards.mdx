@@ -67,3 +67,33 @@ List the date of publication for the edition provided by the publisher. It is im
 If a specific date of publishing does not exist or cannot be found, list the date as Jan 1 of that year. If a month but not day is available, list it as the first day of that month: 1/1/year
 
 
+### Page Count
+One area of book metadata that's difficult to standardize is the page count. With both physical and ebook editions, there are nuances to consider. Please follow these guidelines in order of preference.
+
+#### Physical Editions
+
+#### Digital Editions
+Ebooks don't have a single, universal concept of “pages.” This is due to variation in font size, line spacing, and screen dimensions of the devices used to read them. When referencing page numbers, always prefer metadata-backed counts over visual or device-generated ones.
+
+This guidance follows a best-available cascade of preference, prioritizing accuracy and reader clarity.
+
+##### 1. Print-referenced page numbers 
+This is the gold standard for ebook page counts. Some ebooks include embedded page numbers that correspond to a specific print edition. If available, use this count.
+
+**What to look for:**
+- “Page numbers based on the print edition” (common on Kindle)
+- Epub-embedded metadata such as:
+    - `page-list`
+    - `page-break`
+    - Explicit references to a print ISBN.
+- Page numbers that remain consistent when you adjust font size or margins.
+
+##### 2. Publisher-supplied page numbers
+Second-best is a page count provided by the publisher. If not found in the ebook metadata, we can look to the publisher's website.
+
+A fallback is to use the page count supplied by a digital storefront such as Amazon Kindle, Apple Books, or Kobo. These are often based on the print edition but may not be as accurate.
+
+##### 3. Synthetic page counts
+Sometimes ebooks don't have embedded page numbers, in that case, there are options for deriving a page count using text-length determinations. These are not ideal, but they can be used as a last resort.
+
+Tools like Calibre may estimate page count based on text length. If using word count as the basis of derived-page count math, use text length of 275 words per page as a standard.
