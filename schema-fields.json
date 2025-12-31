@@ -349,12 +349,6 @@
       "hasArgs": true
     },
     {
-      "name": "recommendations",
-      "type": "[recommendations!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
       "name": "release_date",
       "type": "date",
       "description": "",
@@ -851,6 +845,12 @@
       "hasArgs": false
     },
     {
+      "name": "links",
+      "type": "links",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
       "name": "lists",
       "type": "[lists!]!",
       "description": "An array relationship",
@@ -870,12 +870,6 @@
     },
     {
       "name": "locked_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "match_updated_at",
       "type": "timestamp",
       "description": "",
       "hasArgs": false
@@ -963,18 +957,6 @@
       "type": "String!",
       "description": "",
       "hasArgs": false
-    },
-    {
-      "name": "recommendations",
-      "type": "[recommendations!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "recommended",
-      "type": "[recommendations!]!",
-      "description": "An array relationship",
-      "hasArgs": true
     },
     {
       "name": "referrer_id",
@@ -1133,6 +1115,12 @@
       "type": "json!",
       "description": "",
       "hasArgs": true
+    },
+    {
+      "name": "canonical_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
     },
     {
       "name": "compilation",
@@ -2503,80 +2491,6 @@
     {
       "name": "user_id",
       "type": "Int",
-      "description": "",
-      "hasArgs": false
-    }
-  ],
-  "recommendations": [
-    {
-      "name": "context",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "created_at",
-      "type": "timestamp!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "id",
-      "type": "bigint!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "item_book",
-      "type": "books",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "item_id",
-      "type": "bigint",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "item_type",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "item_user",
-      "type": "users",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "score",
-      "type": "float8",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "subject_id",
-      "type": "bigint",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "subject_type",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "subject_user",
-      "type": "users",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "updated_at",
-      "type": "timestamp!",
       "description": "",
       "hasArgs": false
     }

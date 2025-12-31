@@ -31,17 +31,17 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>alternative_titles</td>
         <td>json!</td>
-        <td>Alternative titles for this edition in different languages or markets</td>
+        <td></td>
     </tr>
     <tr>
         <td>asin</td>
         <td>String</td>
-        <td>Amazon Standard Identification Number</td>
+        <td></td>
     </tr>
     <tr>
         <td>audio_seconds</td>
         <td>Int</td>
-        <td>Duration of the audiobook edition in seconds</td>
+        <td></td>
     </tr>
     <tr>
         <td>book</td>
@@ -51,27 +51,32 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>book_id</td>
         <td>Int!</td>
-        <td>ID of the parent book this edition belongs to</td>
+        <td></td>
     </tr>
     <tr>
         <td>cached_contributors</td>
         <td>json!</td>
-        <td>Cached contributor information for quick access</td>
+        <td></td>
     </tr>
     <tr>
         <td>cached_image</td>
         <td>jsonb!</td>
-        <td>Cached cover image metadata for this edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>cached_tags</td>
         <td>json!</td>
-        <td>Cached tag data for this edition</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>canonical_id</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
         <td>compilation</td>
         <td>Boolean!</td>
-        <td>Whether this edition is a compilation or anthology</td>
+        <td></td>
     </tr>
     <tr>
         <td>country</td>
@@ -81,32 +86,32 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>country_id</td>
         <td>Int</td>
-        <td>ID of the country where this edition was published</td>
+        <td></td>
     </tr>
     <tr>
         <td>created_at</td>
         <td>timestamp!</td>
-        <td>Timestamp when the edition record was created</td>
+        <td></td>
     </tr>
     <tr>
         <td>created_by_user_id</td>
         <td>Int</td>
-        <td>ID of the user who created this edition record</td>
+        <td></td>
     </tr>
     <tr>
         <td>edition_format</td>
         <td>String</td>
-        <td>Format of this specific edition (e.g., "First Edition", "Revised")</td>
+        <td></td>
     </tr>
     <tr>
         <td>edition_information</td>
         <td>String</td>
-        <td>Additional information about this edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>id</td>
         <td>Int!</td>
-        <td>Unique identifier for the edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>image</td>
@@ -116,17 +121,17 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>image_id</td>
         <td>Int</td>
-        <td>ID of the cover image for this edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>isbn_10</td>
         <td>String</td>
-        <td>10-digit International Standard Book Number</td>
+        <td></td>
     </tr>
     <tr>
         <td>isbn_13</td>
         <td>String</td>
-        <td>13-digit International Standard Book Number</td>
+        <td></td>
     </tr>
     <tr>
         <td>language</td>
@@ -136,47 +141,47 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>language_id</td>
         <td>Int</td>
-        <td>ID of the language this edition is published in</td>
+        <td></td>
     </tr>
     <tr>
         <td>lists_count</td>
         <td>Int!</td>
-        <td>Number of user lists containing this edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>locked</td>
         <td>Boolean!</td>
-        <td>Whether the edition record is locked from editing</td>
+        <td></td>
     </tr>
     <tr>
         <td>normalized_at</td>
         <td>timestamp</td>
-        <td>Timestamp when edition data was last normalized</td>
+        <td></td>
     </tr>
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td>The object type identifier</td>
+        <td></td>
     </tr>
     <tr>
         <td>original_book_id</td>
         <td>Int</td>
-        <td>ID of the original book if this is a translation or adaptation</td>
+        <td></td>
     </tr>
     <tr>
         <td>pages</td>
         <td>Int</td>
-        <td>Number of pages in this edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>physical_format</td>
         <td>String</td>
-        <td>Physical format type (e.g., "Hardcover", "Paperback", "Mass Market")</td>
+        <td></td>
     </tr>
     <tr>
         <td>physical_information</td>
         <td>String</td>
-        <td>Additional physical details about the edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>publisher</td>
@@ -186,12 +191,12 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>publisher_id</td>
         <td>Int</td>
-        <td>ID of the publisher of this edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>rating</td>
         <td>numeric</td>
-        <td>Average user rating for this specific edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>reading_format</td>
@@ -201,62 +206,62 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>reading_format_id</td>
         <td>Int!</td>
-        <td>ID of the reading format (physical, ebook, audiobook)</td>
+        <td></td>
     </tr>
     <tr>
         <td>release_date</td>
         <td>date</td>
-        <td>Publication date of this edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>release_year</td>
         <td>Int</td>
-        <td>Year this edition was published</td>
+        <td></td>
     </tr>
     <tr>
         <td>score</td>
         <td>Int!</td>
-        <td>Internal quality or relevance score for this edition</td>
+        <td></td>
     </tr>
     <tr>
         <td>source</td>
         <td>String</td>
-        <td>Source from which this edition data was imported</td>
+        <td></td>
     </tr>
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td>Current state of the edition record (active, draft, etc.)</td>
+        <td></td>
     </tr>
     <tr>
         <td>subtitle</td>
         <td>String</td>
-        <td>Subtitle of this edition, if any</td>
+        <td></td>
     </tr>
     <tr>
         <td>title</td>
         <td>String</td>
-        <td>Title of this edition (may differ from parent book)</td>
+        <td></td>
     </tr>
     <tr>
         <td>updated_at</td>
         <td>timestamp!</td>
-        <td>Timestamp of the last update to the edition record</td>
+        <td></td>
     </tr>
     <tr>
         <td>user_added</td>
         <td>Boolean!</td>
-        <td>Whether this edition was added by a user (vs. by librarians)</td>
+        <td></td>
     </tr>
     <tr>
         <td>users_count</td>
         <td>Int!</td>
-        <td>Total number of users who have this edition in their library</td>
+        <td></td>
     </tr>
     <tr>
         <td>users_read_count</td>
         <td>Int!</td>
-        <td>Total number of users who have marked this edition as read</td>
+        <td></td>
     </tr>
     </tbody>
 </table>
