@@ -58,6 +58,16 @@ export default defineConfig({
         },
         sidebar: [
             {
+                label: useTranslation('sidebar.community.title', 'en'),
+                collapsed: false,
+                items: [
+                    {
+                        label: useTranslation('sidebar.community.showcase', 'en'),
+                        slug: 'showcase',
+                    }
+                ]
+            },
+            {
                 label: useTranslation('sidebar.api.title', 'en'),
                 collapsed: true,
                 items: [

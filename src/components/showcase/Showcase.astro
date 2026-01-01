@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import { ShowcaseGrid } from './ShowcaseGrid';
+import type { ShowcaseProject } from './types';
+
+const showcaseEntries = await getCollection('showcase');
+
+const projects: ShowcaseProject[] = showcaseEntries.map((entry) => ({
+  ...entry.data,
+  dateAdded: new Date(entry.data.dateAdded),
+  dateUpdated: new Date(entry.data.dateUpdated),
+}));
+---
+
+<div class="showcase-container">
+  <ShowcaseGrid client:load projects={projects} />
+</div>
+
+<style>
+  .showcase-container {
+    margin-top: 1rem;
+  }
+</style>

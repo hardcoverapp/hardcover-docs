@@ -1,0 +1,40 @@
+name: "Softcover"
+slug: "softcover"
+summary: "Native iOS app for managing your Hardcover reading"
+description: |
+  Softcover is a native iOS application that serves as a client for Hardcover, enabling you to manage your reading directly from your iPhone or iPad.
+
+  Features:
+  - Book discovery through browsing and search
+  - Reading list management (Want to Read, Currently Reading, Finished)
+  - Flexible progress tracking by page, time, or percentage
+  - Dedicated audiobook support with time-based tracking
+  - Home screen widget for quick reading status
+  - Notifications for upcoming book releases
+  - Reading statistics and goal monitoring
+  - Multi-language support (English and Swedish)
+
+  Requires iOS 17.0 or later.
+
+author:
+  name: "komadorirobin"
+  github: "komadorirobin"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/komadorirobin/Softcover"
+    type: "github"
+
+categories:
+  - "Mobile App"
+
+tags:
+  - "ios"
+  - "swift"
+  - "widget"
+  - "open-source"
+
+dateAdded: 2025-12-31
+dateUpdated: 2025-12-31
+
+featured: false

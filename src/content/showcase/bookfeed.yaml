@@ -1,0 +1,42 @@
+name: "BookFeed"
+slug: "bookfeed"
+summary: "Generate RSS/Atom/JSON feeds for book releases from Hardcover"
+description: |
+  BookFeed generates standardized RSS, Atom, and JSON feeds for book tracking, helping you stay updated on new releases from your favorite authors and series.
+
+  Features:
+  - Multiple output formats (RSS, Atom, JSON)
+  - Recent/upcoming releases across the platform
+  - Author-specific feeds by author slug
+  - Series tracking for upcoming books
+  - Personalized feeds based on your Hardcover reading history
+  - Filter by authors or series you follow
+
+  Perfect for adding book releases to your favorite feed reader or automation workflows.
+
+author:
+  name: "Rob Brazier"
+  github: "RobBrazier"
+
+links:
+  - label: "Website"
+    url: "https://bookfeed.robb.dev"
+    type: "website"
+  - label: "GitHub"
+    url: "https://github.com/RobBrazier/bookfeed"
+    type: "github"
+
+categories:
+  - "Web App"
+  - "Automation"
+
+tags:
+  - "rss"
+  - "feeds"
+  - "releases"
+  - "open-source"
+
+dateAdded: 2025-12-31
+dateUpdated: 2025-12-31
+
+featured: false

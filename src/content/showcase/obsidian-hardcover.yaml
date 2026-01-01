@@ -1,0 +1,37 @@
+name: "Obsidian Hardcover Plugin"
+slug: "obsidian-hardcover"
+summary: "Sync your Hardcover library to Obsidian as notes with rich metadata"
+description: |
+  The Obsidian Hardcover Plugin syncs your Hardcover library to your Obsidian vault, creating one note per book with metadata stored in frontmatter properties.
+
+  Features:
+  - Import entire Hardcover book collections as individual notes
+  - Incremental updates - only syncs books that have changed
+  - Rich metadata including titles, authors, publishers, genres, reading status, ratings, and dates
+  - Customizable organization by author, series, or custom hierarchies
+  - Content preservation - add personal annotations without losing them during updates
+  - Flexible filename templates and wikilink formatting
+
+author:
+  name: "aliceinwaterdeep"
+  github: "aliceinwaterdeep"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/aliceinwaterdeep/obsidian-hardcover"
+    type: "github"
+
+categories:
+  - "Integration"
+  - "Desktop App"
+
+tags:
+  - "obsidian"
+  - "notes"
+  - "sync"
+  - "open-source"
+
+dateAdded: 2025-12-31
+dateUpdated: 2025-12-31
+
+featured: false

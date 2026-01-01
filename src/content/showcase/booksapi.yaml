@@ -1,0 +1,42 @@
+name: "BooksAPI"
+slug: "booksapi"
+summary: "API for searching book metadata from Amazon, Audible, and Kindle"
+description: |
+  BooksAPI provides a REST API for searching and retrieving book metadata, originally built to help manage audiobook collections with missing or incorrect metadata.
+
+  Features:
+  - Search Audible, Kindle, or Books on Amazon
+  - Search by ASIN or text query
+  - Results cached to minimize requests
+  - Swagger/OpenAPI documentation
+
+  Useful for fixing metadata on M4A/M4B audiobook files or any project needing book data lookup.
+
+  Note: Account emails are only used for verification, login, and password resets.
+
+author:
+  name: "Ryahn"
+
+links:
+  - label: "API"
+    url: "https://booksapi.lordainz.xyz/"
+    type: "website"
+  - label: "API Docs"
+    url: "https://booksapi.lordainz.xyz/docs/"
+    type: "docs"
+
+categories:
+  - "Integration"
+  - "Web App"
+
+tags:
+  - "api"
+  - "metadata"
+  - "audiobooks"
+  - "amazon"
+  - "audible"
+
+dateAdded: 2025-12-31
+dateUpdated: 2025-12-31
+
+featured: false
