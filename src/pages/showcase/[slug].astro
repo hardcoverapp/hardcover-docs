@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const showcaseEntries = await getCollection('showcase');
+  return showcaseEntries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { project: entry.data },
+  }));
+}
+
+const { project } = Astro.props;
+const { slug } = Astro.params;
+
+// Get the OG image - use first screenshot if available, otherwise default
+const ogImage = project.screenshots && project.screenshots.length > 0
+  ? `https://docs.hardcover.app${project.screenshots[0].src}`
+  : 'https://docs.hardcover.app/og-image.png';
+
+const pageTitle = `${project.name} - Community Showcase | Hardcover Docs`;
+const pageDescription = project.summary;
+const canonicalUrl = `https://docs.hardcover.app/showcase?project=${slug}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Hardcover Docs" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Discord theme color -->
+    <meta name="theme-color" content="#6366f1" />
+
+    <!-- Redirect to main showcase page with project open -->
+    <meta http-equiv="refresh" content="0;url=/showcase?project={slug}" />
+    <link rel="canonical" href={canonicalUrl} />
+  </head>
+  <body>
+    <p>Redirecting to <a href={`/showcase?project=${slug}`}>{project.name}</a>...</p>
+    <script define:vars={{ slug }}>
+      window.location.replace(`/showcase?project=${slug}`);
+    </script>
+  </body>
+</html>

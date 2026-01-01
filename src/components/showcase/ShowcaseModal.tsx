@@ -132,7 +132,8 @@ export function ShowcaseModal({ project, open, onOpenChange }: ShowcaseModalProp
   const showNewBadge = isNew(project.dateAdded);
 
   const handleShare = async () => {
-    const url = `${window.location.origin}${window.location.pathname}?project=${project.slug}`;
+    // Use /showcase/[slug] URL for rich OG image previews
+    const url = `${window.location.origin}/showcase/${project.slug}`;
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
