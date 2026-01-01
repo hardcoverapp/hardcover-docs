@@ -1,5 +1,5 @@
 name: "BooksAPI"
-slug: "booksapi"
+slug: "books-api"
 summary: "API for searching book metadata from Amazon, Audible, and Kindle"
 description: |
   BooksAPI provides a REST API for searching and retrieving book metadata, originally built to help manage audiobook collections with missing or incorrect metadata.

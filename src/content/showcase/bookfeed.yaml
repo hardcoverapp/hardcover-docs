@@ -1,5 +1,5 @@
 name: "BookFeed"
-slug: "bookfeed"
+slug: "book-feed"
 summary: "Generate RSS/Atom/JSON feeds for book releases from Hardcover"
 description: |
   BookFeed generates standardized RSS, Atom, and JSON feeds for book tracking, helping you stay updated on new releases from your favorite authors and series.

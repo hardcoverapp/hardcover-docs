@@ -1,8 +1,8 @@
-name: "Reading Page Dashboard"
-slug: "reading-page-dashboard"
-summary: "Static reading dashboard built with Astro and Hardcover's GraphQL API"
+name: "Hardcover Readlytics"
+slug: "hardcover-readlytics"
+summary: "Static reading dashboard built with Hardcover's GraphQL API"
 description: |
-  A reading progress showcase that displays your Hardcover book-tracking data on a personal website, built with Astro.
+  A reading progress showcase that displays your Hardcover book-tracking data on a personal website.
 
   Features:
   - Stats dashboard with reading goals, pages per day, and total books finished
@@ -14,14 +14,13 @@ description: |
   Uses Hardcover's GraphQL API to fetch all data at build time: profile info, reading goals, currently reading books with progress, and entire reading history in a single query.
 
 author:
-  name: "Niklas Heer"
-  github: "niklas-heer"
+  name: ""
 
 links:
   - label: "Demo"
     url: "https://cloisters.tail3a32c3.ts.net/"
     type: "demo"
-  - label: "Blog Post"
+  - label: "Based on this blog post"
     url: "https://nheer.com/posts/2025/11/2025-11-29_reading-page-hardcover/"
     type: "docs"
 
@@ -30,9 +29,7 @@ categories:
   - "Widget"
 
 tags:
-  - "astro"
   - "dashboard"
-  - "static-site"
   - "graphql"
 
 dateAdded: 2025-12-31
