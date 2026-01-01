@@ -79,9 +79,8 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
     return result;
   }, [projects, search, selectedCategory, sortBy]);
 
-  // Separate featured and regular projects
+  // Get featured projects for carousel
   const featuredProjects = filteredProjects.filter((p) => p.featured);
-  const regularProjects = filteredProjects.filter((p) => !p.featured);
 
   const handleCardClick = (project: ShowcaseProject) => {
     setSelectedProject(project);
@@ -121,21 +120,22 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
             </section>
           )}
 
-          <section>
-            {featuredProjects.length > 0 && sortBy === 'featured' && (
-              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">All Projects</h2>
-            )}
+          <section style={{ marginTop: '2rem', marginBottom: 0 }}>
+            <h2
+              className="text-lg font-semibold text-gray-900 dark:text-gray-100"
+              style={{ marginBottom: '1rem', marginTop: 0 }}
+            >
+              All Projects
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {(sortBy === 'featured' ? regularProjects : filteredProjects).map(
-                (project) => (
-                  <div key={project.slug} className="!mt-0 !mb-0" style={{ marginTop: 0, marginBottom: 0 }}>
-                    <ShowcaseCard
-                      project={project}
-                      onClick={() => handleCardClick(project)}
-                    />
-                  </div>
-                )
-              )}
+              {filteredProjects.map((project) => (
+                <div key={project.slug} className="!mt-0 !mb-0" style={{ marginTop: 0, marginBottom: 0 }}>
+                  <ShowcaseCard
+                    project={project}
+                    onClick={() => handleCardClick(project)}
+                  />
+                </div>
+              ))}
             </div>
           </section>
         </>
