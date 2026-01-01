@@ -34,6 +34,14 @@ tags:
   - "widget"
   - "open-source"
 
+screenshots:
+  - src: "/showcase/softcover/reading-list.png"
+    alt: "Softcover currently reading view showing books with progress bars"
+  - src: "/showcase/softcover/widget.png"
+    alt: "iOS home screen widget displaying reading progress"
+  - src: "/showcase/softcover/stats.png"
+    alt: "Reading statistics showing goals, books read, and pages"
+
 dateAdded: 2025-12-31
 dateUpdated: 2025-12-31
 
