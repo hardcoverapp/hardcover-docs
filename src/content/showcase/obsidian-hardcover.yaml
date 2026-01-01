@@ -31,7 +31,15 @@ tags:
   - "sync"
   - "open-source"
 
+screenshots:
+  - src: "/showcase/obsidian-hardcover/book-note.png"
+    alt: "Synced book note in Obsidian showing rich metadata properties from Hardcover"
+  - src: "/showcase/obsidian-hardcover/syncing.png"
+    alt: "Obsidian Hardcover plugin syncing books from library"
+  - src: "/showcase/obsidian-hardcover/settings.png"
+    alt: "Plugin settings for configuring sync options and metadata fields"
+
 dateAdded: 2025-12-31
 dateUpdated: 2025-12-31
 
-featured: false
+featured: true
