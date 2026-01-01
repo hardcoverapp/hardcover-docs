@@ -39,13 +39,13 @@ export function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
     <div
       className={cn(
         'cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02]',
-        'flex flex-col overflow-hidden rounded-lg h-[320px]',
+        'flex flex-col overflow-hidden rounded-lg h-[360px]',
         'border border-gray-200 dark:border-gray-700',
         'bg-white dark:bg-gray-800'
       )}
       onClick={onClick}
     >
-      <div className="relative h-[180px] flex-shrink-0 bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+      <div className="relative h-[150px] flex-shrink-0 bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
         {hasScreenshots ? (
           <img
             src={project.screenshots![0].src}
@@ -70,7 +70,7 @@ export function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
       </div>
 
       <div className="flex flex-col flex-1 p-4">
-        <h3 className="font-semibold text-lg mb-1 line-clamp-1 text-gray-900 dark:text-gray-100">
+        <h3 className="font-semibold text-base leading-tight mb-2 line-clamp-2 text-gray-900 dark:text-gray-100">
           {project.name}
         </h3>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2 flex-1">
