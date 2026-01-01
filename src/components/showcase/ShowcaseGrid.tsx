@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import { ShowcaseCard } from './ShowcaseCard';
 import { ShowcaseModal } from './ShowcaseModal';
 import { ShowcaseFilters, type SortOption } from './ShowcaseFilters';
+import { FeaturedCarousel } from './FeaturedCarousel';
 import type { ShowcaseProject } from './types';
 
 interface ShowcaseGridProps {
@@ -106,20 +107,17 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
       ) : (
         <>
           {featuredProjects.length > 0 && sortBy === 'featured' && (
-            <section>
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+            <section style={{ marginTop: '1.5rem', marginBottom: 0 }}>
+              <h2
+                className="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-gray-100"
+                style={{ marginBottom: '1rem', marginTop: 0 }}
+              >
                 <span>★</span> Featured Projects
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {featuredProjects.map((project) => (
-                  <div key={project.slug} className="!mt-0 !mb-0" style={{ marginTop: 0, marginBottom: 0 }}>
-                    <ShowcaseCard
-                      project={project}
-                      onClick={() => handleCardClick(project)}
-                    />
-                  </div>
-                ))}
-              </div>
+              <FeaturedCarousel
+                projects={featuredProjects}
+                onProjectClick={handleCardClick}
+              />
             </section>
           )}
 
