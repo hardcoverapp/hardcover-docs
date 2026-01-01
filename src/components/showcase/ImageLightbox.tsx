@@ -124,13 +124,16 @@ export function ImageLightbox({ screenshots, initialIndex = 0 }: ImageLightboxPr
             )}
           </div>
 
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
-            {currentIndex + 1} / {screenshots.length}
+          <div className="flex flex-col items-center gap-2 pb-4 px-4">
+            {screenshots.length > 1 && (
+              <div className="text-white/70 text-sm">
+                {currentIndex + 1} / {screenshots.length}
+              </div>
+            )}
+            <p className="text-center text-white/70 text-sm">
+              {screenshots[currentIndex].alt}
+            </p>
           </div>
-
-          <p className="text-center text-white/70 text-sm pb-4 px-4">
-            {screenshots[currentIndex].alt}
-          </p>
         </DialogContent>
       </Dialog>
     </>
