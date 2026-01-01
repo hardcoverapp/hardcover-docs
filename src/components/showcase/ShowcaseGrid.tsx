@@ -110,13 +110,14 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <span>★</span> Featured Projects
               </h2>
-              <div className="showcase-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {featuredProjects.map((project) => (
-                  <ShowcaseCard
-                    key={project.slug}
-                    project={project}
-                    onClick={() => handleCardClick(project)}
-                  />
+                  <div key={project.slug} className="!mt-0 !mb-0" style={{ marginTop: 0, marginBottom: 0 }}>
+                    <ShowcaseCard
+                      project={project}
+                      onClick={() => handleCardClick(project)}
+                    />
+                  </div>
                 ))}
               </div>
             </section>
@@ -126,14 +127,15 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
             {featuredProjects.length > 0 && sortBy === 'featured' && (
               <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">All Projects</h2>
             )}
-            <div className="showcase-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(sortBy === 'featured' ? regularProjects : filteredProjects).map(
                 (project) => (
-                  <ShowcaseCard
-                    key={project.slug}
-                    project={project}
-                    onClick={() => handleCardClick(project)}
-                  />
+                  <div key={project.slug} className="!mt-0 !mb-0" style={{ marginTop: 0, marginBottom: 0 }}>
+                    <ShowcaseCard
+                      project={project}
+                      onClick={() => handleCardClick(project)}
+                    />
+                  </div>
                 )
               )}
             </div>
