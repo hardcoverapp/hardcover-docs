@@ -1,9 +1,11 @@
 @import "../tailwind.css";
 
-/* Showcase grid items - reset margins from Starlight's content styling */
-.showcase-grid > * {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+@layer components {
+    /* Showcase grid items - reset margins from Starlight's content styling */
+    .showcase-grid > * {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
 }
 
 @layer base {

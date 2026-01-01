@@ -36,13 +36,13 @@ categories:
   - "Integration"
 
 screenshots:
-  - src: "/src/assets/showcase/marian-the-librarian/amazon-support.png"
+  - src: "/showcase/marian-the-librarian/amazon-support.png"
     alt: "Marian extracting book data from an Amazon product page"
-  - src: "/src/assets/showcase/marian-the-librarian/goodreads-support.png"
+  - src: "/showcase/marian-the-librarian/goodreads-support.png"
     alt: "Marian extracting book data from a Goodreads book page"
-  - src: "/src/assets/showcase/marian-the-librarian/storygraph-support.png"
+  - src: "/showcase/marian-the-librarian/storygraph-support.png"
     alt: "Marian extracting book data from The StoryGraph"
-  - src: "/src/assets/showcase/marian-the-librarian/side-panel.png"
+  - src: "/showcase/marian-the-librarian/side-panel.png"
     alt: "Marian side panel showing extracted metadata"
 
 tags:
