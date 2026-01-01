@@ -28,6 +28,9 @@ const showcaseCollection = defineCollection({
 		})).optional(),
 		tags: z.array(z.string()).optional(),
 		featured: z.boolean().default(false),
+		stats: z.object({
+			githubStars: z.number().optional(),
+		}).optional(),
 	}),
 });
 

@@ -3,6 +3,23 @@ import { cn } from '@/lib/utils';
 
 export type SortOption = 'newest' | 'updated' | 'alphabetical' | 'featured';
 
+function getCategoryIcon(category: string): string {
+  const icons: Record<string, string> = {
+    'Browser Extension': '🧩',
+    'Mobile App': '📱',
+    'Web App': '🌐',
+    'CLI Tool': '⌨️',
+    'E-ink Display': '📊',
+    'Home Automation': '🏠',
+    'Desktop App': '💻',
+    'Widget': '📊',
+    'Integration': '🔗',
+    'Automation': '⚡',
+    'Other': '📦',
+  };
+  return icons[category] || '📦';
+}
+
 interface ShowcaseFiltersProps {
   search: string;
   onSearchChange: (value: string) => void;
@@ -126,6 +143,7 @@ export function ShowcaseFilters({
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
+              gap: '6px',
               boxSizing: 'border-box',
             }}
             className={
@@ -134,7 +152,8 @@ export function ShowcaseFilters({
                 : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
             }
           >
-            {category}
+            <span>{getCategoryIcon(category)}</span>
+            <span>{category}</span>
           </button>
         ))}
       </div>

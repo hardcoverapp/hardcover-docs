@@ -67,6 +67,11 @@ export function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
             ★ Featured
           </span>
         )}
+        {project.stats?.githubStars && (
+          <span className="absolute bottom-2 right-2 px-2 py-0.5 text-xs font-medium rounded-full bg-gray-900/80 text-white flex items-center gap-1">
+            ⭐ {project.stats.githubStars.toLocaleString()}
+          </span>
+        )}
       </div>
 
       <div className="flex flex-col flex-1 p-4">

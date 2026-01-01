@@ -12,6 +12,8 @@ interface ShowcaseModalProps {
   project: ShowcaseProject | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onCategoryClick?: (category: string) => void;
+  onTagClick?: (tag: string) => void;
 }
 
 function isNew(dateAdded: Date): boolean {
@@ -124,7 +126,7 @@ function ShareIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-export function ShowcaseModal({ project, open, onOpenChange }: ShowcaseModalProps) {
+export function ShowcaseModal({ project, open, onOpenChange, onCategoryClick, onTagClick }: ShowcaseModalProps) {
   const [copied, setCopied] = React.useState(false);
 
   if (!project) return null;
@@ -191,12 +193,23 @@ export function ShowcaseModal({ project, open, onOpenChange }: ShowcaseModalProp
             <h4 className="text-sm font-semibold mb-2 text-gray-900 dark:text-gray-100">Categories</h4>
             <div className="flex flex-wrap gap-1.5">
               {project.categories.map((category) => (
-                <span
+                <button
                   key={category}
-                  className="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                  onClick={() => {
+                    if (onCategoryClick) {
+                      onOpenChange(false);
+                      onCategoryClick(category);
+                    }
+                  }}
+                  className={`px-2.5 py-1 text-xs font-medium rounded-full transition-colors ${
+                    onCategoryClick
+                      ? 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                  }`}
+                  style={{ border: 'none' }}
                 >
                   {category}
-                </span>
+                </button>
               ))}
             </div>
           </div>
@@ -204,9 +217,27 @@ export function ShowcaseModal({ project, open, onOpenChange }: ShowcaseModalProp
           {project.tags && project.tags.length > 0 && (
             <div>
               <h4 className="text-sm font-semibold mb-2 text-gray-900 dark:text-gray-100">Tags</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {project.tags.join(' · ')}
-              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {project.tags.map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => {
+                      if (onTagClick) {
+                        onOpenChange(false);
+                        onTagClick(tag);
+                      }
+                    }}
+                    className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                      onTagClick
+                        ? 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-blue-50 dark:hover:bg-blue-900 hover:text-blue-600 dark:hover:text-blue-300 cursor-pointer'
+                        : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                    }`}
+                    style={{ border: 'none' }}
+                  >
+                    #{tag}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -241,6 +272,19 @@ export function ShowcaseModal({ project, open, onOpenChange }: ShowcaseModalProp
             )}
           </div>
         </div>
+
+        {project.stats?.githubStars && (
+          <>
+            <hr className="my-4 border-gray-200 dark:border-gray-700" />
+            <div>
+              <h4 className="text-sm font-semibold mb-2 text-gray-900 dark:text-gray-100">Stats</h4>
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                <span>⭐</span>
+                <span>{project.stats.githubStars.toLocaleString()} GitHub stars</span>
+              </div>
+            </div>
+          </>
+        )}
 
         <hr className="my-4 border-gray-200 dark:border-gray-700" />
 

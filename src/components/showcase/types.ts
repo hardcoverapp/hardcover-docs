@@ -15,6 +15,10 @@ export interface ShowcaseScreenshot {
   alt: string;
 }
 
+export interface ShowcaseStats {
+  githubStars?: number;
+}
+
 export interface ShowcaseProject {
   name: string;
   slug: string;
@@ -28,6 +32,7 @@ export interface ShowcaseProject {
   screenshots?: ShowcaseScreenshot[];
   tags?: string[];
   featured?: boolean;
+  stats?: ShowcaseStats;
 }
 
 export const CATEGORIES = [

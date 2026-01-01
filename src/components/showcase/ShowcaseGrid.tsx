@@ -172,6 +172,8 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
         project={selectedProject}
         open={modalOpen}
         onOpenChange={handleModalClose}
+        onCategoryClick={setSelectedCategory}
+        onTagClick={setSearch}
       />
     </div>
   );

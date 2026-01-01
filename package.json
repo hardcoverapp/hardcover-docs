@@ -8,10 +8,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "prebuild": "node scripts/update-github-stars.js",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "vitest"
+    "test": "vitest",
+    "update-stars": "node scripts/update-github-stars.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

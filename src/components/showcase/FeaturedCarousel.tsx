@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import type { ShowcaseProject } from './types';
 
@@ -10,31 +10,67 @@ interface FeaturedCarouselProps {
 
 export function FeaturedCarousel({ projects, onProjectClick }: FeaturedCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const transition = useCallback((newIndex: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex(newIndex);
+      setTimeout(() => setIsTransitioning(false), 150);
+    }, 150);
+  }, [isTransitioning]);
+
+  const goToPrevious = useCallback(() => {
+    const newIndex = currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
+    transition(newIndex);
+  }, [currentIndex, projects.length, transition]);
+
+  const goToNext = useCallback(() => {
+    const newIndex = currentIndex === projects.length - 1 ? 0 : currentIndex + 1;
+    transition(newIndex);
+  }, [currentIndex, projects.length, transition]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle if carousel is in viewport
+      if (!carouselRef.current) return;
+      const rect = carouselRef.current.getBoundingClientRect();
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+      if (!isInViewport) return;
+
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goToPrevious();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goToNext();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [goToPrevious, goToNext]);
 
   if (projects.length === 0) return null;
 
   const currentProject = projects[currentIndex];
   const hasScreenshots = currentProject.screenshots && currentProject.screenshots.length > 0;
 
-  const goToPrevious = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
-  };
-
-  const goToNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
-  };
-
   return (
-    <div className="relative">
+    <div ref={carouselRef} className="relative">
       {/* Main carousel card */}
       <div
         className={cn(
-          'cursor-pointer transition-all hover:shadow-xl',
+          'cursor-pointer hover:shadow-xl',
           'flex flex-col md:flex-row overflow-hidden rounded-xl',
           'border border-gray-200 dark:border-gray-700',
-          'bg-white dark:bg-gray-800'
+          'bg-white dark:bg-gray-800',
+          'transition-opacity duration-150 ease-in-out',
+          isTransitioning ? 'opacity-0' : 'opacity-100'
         )}
         onClick={() => onProjectClick(currentProject)}
         style={{ marginTop: 0, marginBottom: 0 }}
@@ -53,6 +89,11 @@ export function FeaturedCarousel({ projects, onProjectClick }: FeaturedCarouselP
           <span className="absolute top-3 left-3 px-3 py-1 text-sm font-semibold rounded-full bg-yellow-600 text-white">
             ★ Featured
           </span>
+          {currentProject.stats?.githubStars && (
+            <span className="absolute bottom-3 right-3 px-3 py-1 text-sm font-medium rounded-full bg-gray-900/80 text-white flex items-center gap-1.5">
+              ⭐ {currentProject.stats.githubStars.toLocaleString()}
+            </span>
+          )}
         </div>
 
         {/* Content section */}
@@ -133,7 +174,7 @@ export function FeaturedCarousel({ projects, onProjectClick }: FeaturedCarouselP
               key={index}
               onClick={(e) => {
                 e.stopPropagation();
-                setCurrentIndex(index);
+                if (index !== currentIndex) transition(index);
               }}
               style={{
                 width: '0.625rem',
