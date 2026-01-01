@@ -104,29 +104,72 @@ function getDomainFromUrl(url: string): string {
   }
 }
 
+function ShareIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+      <polyline points="16 6 12 2 8 6" />
+      <line x1="12" y1="2" x2="12" y2="15" />
+    </svg>
+  );
+}
+
 export function ShowcaseModal({ project, open, onOpenChange }: ShowcaseModalProps) {
+  const [copied, setCopied] = React.useState(false);
+
   if (!project) return null;
 
   const showNewBadge = isNew(project.dateAdded);
+
+  const handleShare = async () => {
+    const url = `${window.location.origin}${window.location.pathname}?project=${project.slug}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
         <DialogHeader>
-          <div className="flex items-center gap-2 flex-wrap">
-            <DialogTitle className="text-xl text-gray-900 dark:text-gray-100">
-              {project.name}
-            </DialogTitle>
-            {showNewBadge && (
-              <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-green-600 text-white">
-                NEW
-              </span>
-            )}
-            {project.featured && (
-              <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-yellow-600 text-white">
-                ★ Featured
-              </span>
-            )}
+          <div className="flex items-center justify-between pr-8">
+            <div className="flex items-center gap-2 flex-wrap">
+              <DialogTitle className="text-xl text-gray-900 dark:text-gray-100">
+                {project.name}
+              </DialogTitle>
+              {showNewBadge && (
+                <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-green-600 text-white">
+                  NEW
+                </span>
+              )}
+              {project.featured && (
+                <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-yellow-600 text-white">
+                  ★ Featured
+                </span>
+              )}
+            </div>
+            <button
+              onClick={handleShare}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              title="Copy link to this project"
+            >
+              <ShareIcon size={14} />
+              <span>{copied ? 'Copied!' : 'Share'}</span>
+            </button>
           </div>
         </DialogHeader>
 

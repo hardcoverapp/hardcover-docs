@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ShowcaseCard } from './ShowcaseCard';
 import { ShowcaseModal } from './ShowcaseModal';
 import { ShowcaseFilters, type SortOption } from './ShowcaseFilters';
@@ -85,7 +85,34 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
   const handleCardClick = (project: ShowcaseProject) => {
     setSelectedProject(project);
     setModalOpen(true);
+    // Update URL with project slug
+    const url = new URL(window.location.href);
+    url.searchParams.set('project', project.slug);
+    window.history.pushState({}, '', url.toString());
   };
+
+  const handleModalClose = (open: boolean) => {
+    setModalOpen(open);
+    if (!open) {
+      // Remove project from URL when modal closes
+      const url = new URL(window.location.href);
+      url.searchParams.delete('project');
+      window.history.pushState({}, '', url.toString());
+    }
+  };
+
+  // Open project from URL on initial load
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const projectSlug = params.get('project');
+    if (projectSlug) {
+      const project = projects.find((p) => p.slug === projectSlug);
+      if (project) {
+        setSelectedProject(project);
+        setModalOpen(true);
+      }
+    }
+  }, [projects]);
 
   return (
     <div className="space-y-8">
@@ -144,7 +171,7 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
       <ShowcaseModal
         project={selectedProject}
         open={modalOpen}
-        onOpenChange={setModalOpen}
+        onOpenChange={handleModalClose}
       />
     </div>
   );
