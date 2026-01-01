@@ -106,7 +106,7 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
       ) : (
         <>
           {featuredProjects.length > 0 && sortBy === 'featured' && (
-            <section style={{ marginTop: '1.5rem', marginBottom: 0 }}>
+            <section style={{ marginTop: '4rem', marginBottom: 0 }}>
               <h2
                 className="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-gray-100"
                 style={{ marginBottom: '1rem', marginTop: 0 }}
@@ -120,7 +120,7 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
             </section>
           )}
 
-          <section style={{ marginTop: '2rem', marginBottom: 0 }}>
+          <section style={{ marginTop: '4rem', marginBottom: 0 }}>
             <h2
               className="text-lg font-semibold text-gray-900 dark:text-gray-100"
               style={{ marginBottom: '1rem', marginTop: 0 }}
