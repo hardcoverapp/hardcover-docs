@@ -39,7 +39,7 @@ export function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
     <div
       className={cn(
         'cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02]',
-        'flex flex-col overflow-hidden rounded-lg h-[360px]',
+        'flex flex-col overflow-hidden rounded-lg min-h-[360px]',
         'border border-gray-200 dark:border-gray-700',
         'bg-white dark:bg-gray-800'
       )}
