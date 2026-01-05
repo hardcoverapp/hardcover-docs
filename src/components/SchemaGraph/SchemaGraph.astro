@@ -1,0 +1,9 @@
+---
+import { SchemaGraphViewer } from './SchemaGraphViewer.tsx';
+
+const { typeName } = Astro.props;
+---
+
+<div class="not-content my-8">
+    <SchemaGraphViewer typeName={typeName} client:only="react" />
+</div>

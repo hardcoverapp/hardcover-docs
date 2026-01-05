@@ -1,14 +1,18 @@
 ---
 title: Notifications
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-12-31
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="notifications" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,6 +23,60 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>created_at</td>
+        <td>timestamptz!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>link</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>link_text</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>notification_type_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>notifierUser</td>
+        <td>users</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>notifier_user_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>priority</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>uid</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
     </tbody>
 </table>

@@ -2,12 +2,13 @@
 title: Activities
 description: Learn about the activities schema in the Hardcover API.
 category: reference
-lastUpdated: 2024-10-07
+lastUpdated: 2025-12-31
 layout: /src/layouts/documentation.astro
 ---
 
 import { Code } from '@astrojs/starlight/components';
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
 ## What Is an Activity?
 
@@ -15,10 +16,7 @@ Activities are actions that users perform on the platform.
 These actions include things like liking a book, following a user, or adding a book to a shelf.
 Activities are used to show what users are doing on the platform and to help users discover new content.
 
-## Types of Activities
-
-There are many types of activities that can be performed on the platform.
-Some examples of activities include:
+There are many types of activities that can be performed on the platform. Some examples include:
 
 - A user adds a book to a shelf
 - A user creates a list
@@ -29,11 +27,11 @@ Some examples of activities include:
 
 See some [example payloads below](#example-payloads) for more information on the different types of activities.
 
-## Activity Schema
+## Schema Relationships
 
-The activity schema contains the following fields:
+<SchemaGraph typeName="activities" />
 
-### Fields
+## Fields
 
 <table>
     <thead>
@@ -45,64 +43,74 @@ The activity schema contains the following fields:
     </thead>
     <tbody>
     <tr>
-        <td>[book](../books)</td>
-        <td>Relation</td>
-        <td>The book details of the activity</td>
+        <td>book</td>
+        <td>books</td>
+        <td>An object relationship</td>
     </tr>
     <tr>
         <td>book_id</td>
-        <td>String</td>
-        <td>The unique identifier of the book that the activity is related to</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
         <td>created_at</td>
-        <td>String</td>
-        <td>The timestamp of when the activity occurred.</td>
+        <td>timestamptz</td>
+        <td></td>
     </tr>
     <tr>
-        <td>[data](#example-payloads)</td>
-        <td>Object</td>
-        <td>The payload of the activity</td>
+        <td>data</td>
+        <td>jsonb!</td>
+        <td></td>
     </tr>
     <tr>
-        <td>[event](#event-types)</td>
-        <td>String</td>
-        <td>The type of activity</td>
-    </tr>
-    <tr>
-        <td>[followers](../users)</td>
-        <td>Relation</td>
-        <td>List of users who have followed this activity</td>
+        <td>event</td>
+        <td>String!</td>
+        <td></td>
     </tr>
     <tr>
         <td>id</td>
-        <td>Int</td>
-        <td>The unique identifier of the activity</td>
-    </tr>
-    <tr>
-        <td>[likes](../users)</td>
-        <td>Relation</td>
-        <td>List of users who have liked this activity</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     <tr>
         <td>likes_count</td>
-        <td>Number</td>
-        <td>The number of users who have liked this activity</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     <tr>
         <td>object_type</td>
-        <td>String</td>
-        <td>'Activity'</td>
+        <td>String!</td>
+        <td></td>
     </tr>
     <tr>
-        <td>[user](../users)</td>
-        <td>Relation</td>
-        <td>User object for the user who performed the activity</td>
+        <td>original_book_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>privacy_setting</td>
+        <td>privacy_settings!</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>privacy_setting_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>uid</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>users!</td>
+        <td>An object relationship</td>
     </tr>
     <tr>
         <td>user_id</td>
-        <td>String</td>
-        <td>The unique identifier of the user who performed the activity</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     </tbody>
 </table>
@@ -119,7 +127,7 @@ These schemas use the same fields as the activities schema, and are used to help
 - PromptActivity
 - UserBookActivity
 
-### Example Payloads
+## Example Payloads
 
 #### User Added a Rating to a Book
 <Code
@@ -282,9 +290,9 @@ These schemas use the same fields as the activities schema, and are used to help
     title="Prompt Activity"
 />
 
-## Example Queries
+## Query Examples
 
-Let's take a look at some example queries that you can use to interact with the activities' schema.
+Let's take a look at some example queries that you can use to interact with the activities schema.
 
 ### Get My Activities
 <GraphQLExplorer query={`

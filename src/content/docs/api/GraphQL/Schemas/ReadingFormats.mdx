@@ -1,14 +1,18 @@
 ---
 title: Reading Formats
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-12-31
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="reading_formats" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,6 +23,15 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>format</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
     </tbody>
 </table>

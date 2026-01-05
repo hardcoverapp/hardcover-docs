@@ -1,18 +1,23 @@
 ---
 title: Publishers
 category: reference
-lastUpdated: 2025-06-07 18:30:00
+lastUpdated: 2025-12-31 18:30:00
 layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 import {Aside} from "@astrojs/starlight/components";
 
-# What Is a Publisher?
+## What Is a Publisher?
 
 A Publisher in Hardcover represents a company or organization that publishes books. Publishers are linked to specific editions of books, as the same book may be published by different publishers in different regions or formats. Publishers help users find books from their favorite publishing houses and understand the publishing history of editions.
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="publishers" />
+
+## Fields
 
 <table>
     <thead>
@@ -24,82 +29,77 @@ A Publisher in Hardcover represents a company or organization that publishes boo
     </thead>
     <tbody>
     <tr>
-        <td>id</td>
-        <td>bigint</td>
-        <td>Unique identifier for the publisher</td>
-    </tr>
-    <tr>
-        <td>name</td>
-        <td>string</td>
-        <td>The name of the publisher</td>
-    </tr>
-    <tr>
-        <td>slug</td>
-        <td>string</td>
-        <td>URL-friendly identifier for the publisher</td>
-    </tr>
-    <tr>
         <td>canonical_id</td>
-        <td>int</td>
-        <td>Canonical ID for merged publishers</td>
-    </tr>
-    <tr>
-        <td>parent_id</td>
-        <td>int</td>
-        <td>ID of the parent publisher (for imprints)</td>
-    </tr>
-    <tr>
-        <td>editions_count</td>
-        <td>int</td>
-        <td>Number of editions published by this publisher</td>
-    </tr>
-    <tr>
-        <td>locked</td>
-        <td>bool</td>
-        <td>Whether the publisher is locked from editing</td>
-    </tr>
-    <tr>
-        <td>state</td>
-        <td>string</td>
-        <td>Current state of the publisher record</td>
-    </tr>
-    <tr>
-        <td>user_id</td>
-        <td>int</td>
-        <td>ID of the user who created the publisher</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
         <td>created_at</td>
-        <td>timestamp</td>
-        <td>When the publisher was created</td>
+        <td>timestamp!</td>
+        <td></td>
     </tr>
     <tr>
-        <td>updated_at</td>
-        <td>timestamp</td>
-        <td>When the publisher was last updated</td>
+        <td>editions_count</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     <tr>
-        <td>editions</td>
-        <td>Edition[]</td>
-        <td>Array of editions published by this publisher</td>
+        <td>id</td>
+        <td>bigint!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>locked</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>parent_id</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
         <td>parent_publisher</td>
-        <td>Publisher</td>
-        <td>Parent publisher object (for imprints)</td>
+        <td>publishers</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     </tbody>
 </table>
 
-# Related Schemas
+### Related Schemas
 
 - [Editions](/api/graphql/schemas/editions) - Editions published by publishers
 - [Books](/api/graphql/schemas/books) - Books have multiple editions from different publishers
 - [Authors](/api/graphql/schemas/authors) - Authors work with various publishers
 
-# Example Queries
+## Query Examples
 
-## Get Publisher Details
+### Get Publisher Details
 
 Retrieve detailed information about a specific publisher including recent editions. This example uses Penguin Random House (ID: 1).
 
@@ -134,7 +134,7 @@ query GetPublisherDetails {
 }
 `} title="Publisher Details"/>
 
-## Find Publishers by Name
+### Find Publishers by Name
 
 Search for publishers by name pattern. This example searches for publishers with "Penguin" in the name.
 
@@ -155,7 +155,7 @@ query FindPublishers {
 }
 `} title="Publisher Search"/>
 
-## Get Books by Publisher
+### Get Books by Publisher
 
 Find all books published by a specific publisher, showing different editions.
 
@@ -192,7 +192,7 @@ query GetPublisherBooks {
 `} title="Publisher Books"/>
 
 
-## Get Popular Publishers
+### Get Popular Publishers
 
 Retrieve the most active publishers by edition count.
 

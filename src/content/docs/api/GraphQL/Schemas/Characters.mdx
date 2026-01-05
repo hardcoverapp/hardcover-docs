@@ -1,21 +1,22 @@
 ---
 title: Characters
 category: reference
-lastUpdated: 2025-04-28 14:30:00
+lastUpdated: 2025-12-31 14:30:00
 layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
 ## What Is a Character?
 
 Characters are fictional individuals that appear in books. The characters schema in Hardcover allows you to track and explore characters across different books, including information about their attributes, the books they appear in, and their creators.
 
-## Character Schema
+## Schema Relationships
 
-The character schema contains the following fields:
+<SchemaGraph typeName="characters" />
 
-### Fields
+## Fields
 
 <table>
     <thead>
@@ -27,79 +28,114 @@ The character schema contains the following fields:
     </thead>
     <tbody>
     <tr>
-        <td>id</td>
-        <td>Int</td>
-        <td>The unique identifier of the character</td>
-    </tr>
-    <tr>
-        <td>name</td>
-        <td>String</td>
-        <td>The name of the character</td>
-    </tr>
-    <tr>
         <td>biography</td>
         <td>String</td>
-        <td>A text description of the character's background and story</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>books_count</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>cached_tags</td>
+        <td>json!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>canonical</td>
+        <td>characters</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>canonical_books_count</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>canonical_id</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
         <td>created_at</td>
-        <td>DateTime</td>
-        <td>The timestamp when the character was created in the system</td>
-    </tr>
-    <tr>
-        <td>updated_at</td>
-        <td>DateTime</td>
-        <td>The timestamp when the character was last updated</td>
+        <td>timestamp!</td>
+        <td></td>
     </tr>
     <tr>
         <td>gender_id</td>
-        <td>Int</td>
-        <td>Reference to the character's gender</td>
+        <td>bigint</td>
+        <td></td>
     </tr>
     <tr>
         <td>has_disability</td>
         <td>Boolean</td>
-        <td>Indicates if the character has a disability</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>bigint!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>image_id</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
         <td>is_lgbtq</td>
         <td>Boolean</td>
-        <td>Indicates if the character identifies as LGBTQ+</td>
+        <td></td>
     </tr>
     <tr>
         <td>is_poc</td>
         <td>Boolean</td>
-        <td>Indicates if the character is a person of color</td>
+        <td></td>
     </tr>
     <tr>
-        <td>image_id</td>
-        <td>String</td>
-        <td>Reference to an image associated with the character</td>
+        <td>locked</td>
+        <td>Boolean</td>
+        <td></td>
     </tr>
     <tr>
-        <td>slug</td>
-        <td>String</td>
-        <td>URL-friendly version of the character's name</td>
-    </tr>
-    <tr>
-        <td>state</td>
-        <td>String</td>
-        <td>The current state of the character record (e.g., "active")</td>
+        <td>name</td>
+        <td>String!</td>
+        <td></td>
     </tr>
     <tr>
         <td>object_type</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>openlibrary_url</td>
         <td>String</td>
-        <td>The type of object, typically "Character"</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp!</td>
+        <td></td>
     </tr>
     <tr>
         <td>user_id</td>
-        <td>String</td>
-        <td>The ID of the user who created or owns this character record</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     </tbody>
 </table>
 
-## Example Queries
+## Query Examples
 
 ### Get All Characters
 <GraphQLExplorer query={`

@@ -1,14 +1,19 @@
 ---
 title: Reading Journals
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-12-31
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+
+## Schema Relationships
+
+<SchemaGraph typeName="reading_journals" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,6 +24,80 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>book</td>
+        <td>books</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>book_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>edition</td>
+        <td>editions</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>edition_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>entry</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>event</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>bigint!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>likes_count</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>metadata</td>
+        <td>jsonb!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>privacy_setting_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>users</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
     </tbody>
 </table>

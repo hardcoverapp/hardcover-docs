@@ -1,20 +1,142 @@
 ---
 title: Lists
 category: reference
-lastUpdated: 2025-08-03 00:00:00
+lastUpdated: 2025-12-31
 layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 import {Aside} from "@astrojs/starlight/components";
 
-# What Is a List?
+## What Is a List?
 
 Lists in Hardcover are user-created collections of books organized around themes, genres, or personal preferences. Users can create public or private lists to organize and share their reading recommendations with the community.
 
-# Queries
+## Schema Relationships
 
-## Available List Queries
+<SchemaGraph typeName="lists" />
+
+## Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>books_count</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_view</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>featured</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>featured_profile</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>followers_count</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>imported</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>likes_count</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>privacy_setting</td>
+        <td>privacy_settings!</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>privacy_setting_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>public</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ranked</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamptz</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>url</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>users!</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+### Available Queries
 
 <table>
     <thead>
@@ -68,86 +190,7 @@ Lists in Hardcover are user-created collections of books organized around themes
     </tbody>
 </table>
 
-## List Schema Fields
-
-<table>
-    <thead>
-    <tr>
-        <th>Field</th>
-        <th>Type</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>id</td>
-        <td>int</td>
-        <td>Unique identifier for the list</td>
-    </tr>
-    <tr>
-        <td>name</td>
-        <td>string</td>
-        <td>The title/name of the list</td>
-    </tr>
-    <tr>
-        <td>description</td>
-        <td>string</td>
-        <td>Description of the list's purpose or theme</td>
-    </tr>
-    <tr>
-        <td>slug</td>
-        <td>string</td>
-        <td>URL-friendly identifier for the list</td>
-    </tr>
-    <tr>
-        <td>books_count</td>
-        <td>int</td>
-        <td>Total number of books in the list</td>
-    </tr>
-    <tr>
-        <td>likes_count</td>
-        <td>int</td>
-        <td>Number of users who have liked this list</td>
-    </tr>
-    <tr>
-        <td>public</td>
-        <td>bool</td>
-        <td>Whether the list is publicly visible</td>
-    </tr>
-    <tr>
-        <td>privacy_setting_id</td>
-        <td>int</td>
-        <td>Privacy setting for the list: 1 = public, 2 = followers only, 3 = private</td>
-    </tr>
-    <tr>
-        <td>user_id</td>
-        <td>int</td>
-        <td>ID of the user who created the list</td>
-    </tr>
-    <tr>
-        <td>created_at</td>
-        <td>timestamp</td>
-        <td>When the list was created</td>
-    </tr>
-    <tr>
-        <td>updated_at</td>
-        <td>timestamp</td>
-        <td>When the list was last modified</td>
-    </tr>
-    <tr>
-        <td>user</td>
-        <td>User</td>
-        <td>User object of the list creator</td>
-    </tr>
-    <tr>
-        <td>list_books</td>
-        <td>ListBook[]</td>
-        <td>Array of books associated with this list</td>
-    </tr>
-    </tbody>
-</table>
-
-## ListBook Schema Fields
+### ListBook Schema Fields
 
 <table>
     <thead>
@@ -206,15 +249,15 @@ Lists in Hardcover are user-created collections of books organized around themes
     </tbody>
 </table>
 
-## Related Schemas
+### Related Schemas
 
 - [Books](/api/graphql/schemas/books) - Books that can be added to lists
 - [Users](/api/graphql/schemas/users) - Users who create and interact with lists
 - [Editions](/api/graphql/schemas/editions) - Specific editions of books
 
-# Example Queries
+## Query Examples
 
-## Get All Public Lists
+### Get All Public Lists
 
 Retrieve the top 10 most-liked public lists.
 
@@ -237,7 +280,7 @@ query GetPublicLists {
 }
 `} title="Public Lists"/>
 
-## Get Lists by a Specific User
+### Get Lists by a Specific User
 
 Get all lists created by a specific user. Replace ##USER_ID## with the actual user ID.
 
@@ -261,7 +304,7 @@ query GetUserLists {
     canTry={false}
 />
 
-## Get Books in a Specific List
+### Get Books in a Specific List
 
 Get all books in a specific list with their details.
 
@@ -295,7 +338,7 @@ query GetListBooks {
 }
 `} title="List Books"/>
 
-## Get a Single List by ID
+### Get a Single List by ID
 
 Fetch a specific list using its primary key.
 
@@ -319,7 +362,7 @@ query GetListById {
 }
 `} title="Get List by ID"/>
 
-## Get List Statistics
+### Get List Statistics
 
 Use aggregate queries to get statistics about lists.
 
@@ -341,7 +384,7 @@ query GetListStats {
 }
 `} title="List Statistics"/>
 
-## Get Followed Lists
+### Get Followed Lists
 
 Get all lists that the authenticated user is following.
 
@@ -364,7 +407,7 @@ query GetMyFollowedLists {
 }
 `} title="Followed Lists"/>
 
-## Get Lists by Popularity
+### Get Lists by Popularity
 
 Find public lists ordered by popularity.
 
@@ -391,9 +434,9 @@ query GetPopularLists {
 }
 `} title="Popular Lists"/>
 
-# Mutations
+## Mutation Examples
 
-## Available List Mutations
+### Available List Mutations
 
 <table>
     <thead>
@@ -447,7 +490,7 @@ query GetPopularLists {
     </tbody>
 </table>
 
-## Mutation Response Types
+### Mutation Response Types
 
 List mutations return different response types based on the operation:
 
@@ -520,7 +563,7 @@ List mutations return different response types based on the operation:
     </tbody>
 </table>
 
-## Create a New List
+### Create a New List
 
 Create a new list with name, description, and privacy setting.
 
@@ -557,7 +600,7 @@ mutation CreateList {
 }
 `} title="Create List"/>
 
-## Add a Book to a List
+### Add a Book to a List
 
 Add a book to your own list.
 
@@ -592,7 +635,7 @@ mutation AddBookToList {
 }
 `} title="Add Book to List"/>
 
-## Update a List
+### Update a List
 
 Update an existing list's details.
 
@@ -622,7 +665,7 @@ mutation UpdateList {
 }
 `} title="Update List"/>
 
-## Delete a List
+### Delete a List
 
 Delete a list you own.
 
@@ -638,7 +681,7 @@ mutation DeleteList {
 }
 `} title="Delete List"/>
 
-## Remove a Book from a List
+### Remove a Book from a List
 
 Remove a specific book from your list.
 
@@ -655,7 +698,7 @@ mutation RemoveBookFromList {
 }
 `} title="Remove Book from List"/>
 
-## Follow/Unfollow a List
+### Follow/Unfollow a List
 
 Follow a public list to track updates. This mutation acts as an upsert - it will create a follow if it doesn't exist.
 
@@ -679,7 +722,7 @@ mutation FollowList {
 }
 `} title="Follow List"/>
 
-## Unfollow a List
+### Unfollow a List
 
 Remove a list from your followed lists.
 

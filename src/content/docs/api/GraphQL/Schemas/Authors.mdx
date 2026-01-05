@@ -1,18 +1,19 @@
 ---
 title: Authors
 category: reference
-lastUpdated: 2025-08-14
+lastUpdated: 2025-12-31
 layout: /src/layouts/documentation.astro
 ---
 
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-## Author Schema
+## Schema Relationships
 
-The author schema contains the following fields:
+<SchemaGraph typeName="authors" />
 
-### Fields
+## Fields
 
 <table>
     <thead>
@@ -24,84 +25,154 @@ The author schema contains the following fields:
     </thead>
     <tbody>
     <tr>
+        <td>alias_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
         <td>alternate_names</td>
-        <td>Array of Strings</td>
-        <td>Alternate names for the author</td>
+        <td>jsonb!</td>
+        <td></td>
     </tr>
     <tr>
         <td>bio</td>
         <td>String</td>
-        <td>The biography of the author</td>
+        <td></td>
     </tr>
     <tr>
         <td>books_count</td>
-        <td>Int</td>
-        <td>The number of books the author has contributed to</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     <tr>
         <td>born_date</td>
-        <td>Date</td>
-        <td>The date the author was born</td>
+        <td>date</td>
+        <td></td>
     </tr>
     <tr>
         <td>born_year</td>
         <td>Int</td>
-        <td>The year the author was born</td>
+        <td></td>
     </tr>
     <tr>
         <td>cached_image</td>
-        <td>Object</td>
-        <td>Metadata for the authors image. This includes the image id, url, primary color, width, and height</td>
+        <td>jsonb!</td>
+        <td></td>
     </tr>
     <tr>
-        <td>contributions</td>
-        <td>[Contribution](../contributions)</td>
-        <td>The contributions the author is listed on</td>
+        <td>canonical</td>
+        <td>authors</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>canonical_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>creator</td>
+        <td>users</td>
+        <td>An object relationship</td>
     </tr>
     <tr>
         <td>death_date</td>
-        <td>Date</td>
-        <td>The date the author died</td>
+        <td>date</td>
+        <td></td>
     </tr>
     <tr>
         <td>death_year</td>
         <td>Int</td>
-        <td>The year the author died</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>gender_id</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
         <td>id</td>
-        <td>Int</td>
-        <td>The unique identifier of the author</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     <tr>
         <td>identifiers</td>
-        <td>Array of objects</td>
-        <td>IDs for the author on other platforms</td>
+        <td>jsonb!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>image</td>
+        <td>images</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>image_id</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
         <td>is_bipoc</td>
         <td>Boolean</td>
-        <td>Whether the author is Black, Indigenous, or a Person of Color</td>
+        <td></td>
     </tr>
     <tr>
         <td>is_lgbtq</td>
         <td>Boolean</td>
-        <td>Whether the author is LGBTQ+</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>links</td>
+        <td>jsonb!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>location</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>locked</td>
+        <td>Boolean!</td>
+        <td></td>
     </tr>
     <tr>
         <td>name</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>name_personal</td>
         <td>String</td>
-        <td>The name of the author</td>
+        <td></td>
     </tr>
     <tr>
         <td>slug</td>
         <td>String</td>
-        <td>The Hardcover URL slug</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>users_count</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     </tbody>
 </table>
 
-## Example Queries
+## Query Examples
 
 ### Get All Authors
 <GraphQLExplorer query={`
@@ -132,7 +203,7 @@ query {
 
 <GraphQLExplorer query={`
 query {
-    authors(where: {name: {_eq: "J.K. Rowling"}}) {
+    authors(where: {name: {_eq: "Robert Jordan"}}) {
         books_count
         identifiers
         name
@@ -141,7 +212,6 @@ query {
 `} 
     title="Author by Name"
     presentation='json'
-    forcePresentation
 />
 
 ### Get Books by an Author
@@ -162,5 +232,4 @@ query GetBooksByAuthor {
     Returns a list of books authored by Dan Wells.
     `}
     title="Books by Author"
-    presentation='json'
-    forcePresentation/>
+    presentation='table' />

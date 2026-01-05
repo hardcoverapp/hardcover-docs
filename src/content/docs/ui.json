@@ -7,7 +7,7 @@
     "api": {
       "disclaimerBanner": {
         "title": "Disclaimer",
-        "text": "This API is currently in development and may change or break at any time with out notice. If you have any questions or need help, please ask in the <a>#api</a> Discord channel."
+        "text": "This API is currently in development and may change or break at any time with out notice. If you have any questions or need help, please ask in the <a>#api</a> Discord channel. <br><br>Portions of this documentation may be auto-generated and may be incomplete or inaccurate. Currently this includes the schema relationship graph and field descriptions."
       }
     },
     "librarians": {
@@ -23,6 +23,10 @@
       "gettingStarted": "Getting Started",
       "guides": "Guides",
       "schemas": "Schemas"
+    },
+    "community": {
+      "title": "Community",
+      "showcase": "Showcase"
     },
     "contributing": {
       "title": "Contributing Guides"
@@ -72,7 +76,68 @@
         "success": "Success!",
         "noResults": "No results found",
         "viewUnavailable": "This view is not available for this query's results."
+      },
+      "queryBuilder": {
+        "mode": "Mode",
+        "static": "Static",
+        "advancedBuilder": "Advanced Builder",
+        "queryType": "Query Type",
+        "resultLimit": "Result Limit",
+        "selectFields": "Select Fields",
+        "selected": "selected",
+        "reset": "Reset",
+        "generatedQuery": "Generated Query",
+        "copyQuery": "Copy Query",
+        "copied": "Copied!",
+        "queryArguments": "Query Arguments",
+        "clickToEdit": "Click to edit",
+        "orderBy": "Order By",
+        "where": "Where",
+        "quickAdd": "Quick add:",
+        "addArgument": "Add Argument",
+        "selectField": "Select field...",
+        "ascending": "Ascending",
+        "descending": "Descending",
+        "key": "key",
+        "value": "value",
+        "none": "None",
+        "fieldTypes": {
+          "scalar": "scalar",
+          "object": "object",
+          "array": "array"
+        },
+        "operators": {
+          "equals": "equals",
+          "notEquals": "not equals",
+          "greaterThan": "greater than",
+          "greaterThanOrEqual": "greater than or equal",
+          "lessThan": "less than",
+          "lessThanOrEqual": "less than or equal",
+          "like": "like",
+          "likeInsensitive": "like (case insensitive)",
+          "in": "in",
+          "notIn": "not in"
+        },
+        "commonArgs": {
+          "limit": "limit",
+          "offset": "offset"
+        },
+        "tooltips": {
+          "maxDepthReached": "Maximum depth reached"
+        }
       }
+    },
+    "schemaGraph": {
+      "title": "Schema Relationships",
+      "loading": "Loading schema graph...",
+      "error": "Error loading schema graph",
+      "resetView": "Reset View",
+      "fitToScreen": "Fit to Screen",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "layout": "Layout",
+      "showLabels": "Show Labels",
+      "hideLabels": "Hide Labels"
     }
   }
 }

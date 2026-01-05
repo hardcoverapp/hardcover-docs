@@ -1,0 +1,73 @@
+@import "../tailwind.css";
+
+@layer base {
+
+    body {
+        @apply h-full w-full;
+        background-color: var(--background);
+        color: var(--foreground);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply mb-2;
+
+        color: var(--foreground);
+    }
+
+    h1 {
+        @apply text-4xl font-bold;
+    }
+
+    h2 {
+        @apply text-3xl font-bold;
+    }
+
+    h3 {
+        @apply text-2xl font-bold;
+    }
+
+    h4 {
+        @apply text-xl font-semibold;
+    }
+
+    h5 {
+        @apply text-lg font-medium;
+    }
+
+    h6 {
+        @apply text-base font-medium;
+    }
+
+    p, span, a, li, input, textarea {
+        @apply font-medium;
+        color: var(--foreground);
+        font-size: 1rem;
+        line-height: 2rem;
+    }
+
+    button {
+        @apply font-medium;
+    }
+
+    p {
+        @apply mb-4;
+    }
+
+    a {
+        @apply font-semibold no-underline;
+        color: var(--color-link-primary);
+
+        &.info {
+            color: var(--color-link-info);
+        }
+
+        &.warning {
+            color: var(--color-link-warning);
+        }
+
+        &.danger {
+            color: var(--color-link-danger);
+        }
+    }
+
+}

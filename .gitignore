@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# IDE
+.idea/
+
+# Generated schema preview files
+schema-tables/

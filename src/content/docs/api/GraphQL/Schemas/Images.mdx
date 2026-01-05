@@ -1,14 +1,18 @@
 ---
 title: Images
 category: reference
-lastUpdated: 2024-09-25
+lastUpdated: 2025-12-31
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="images" />
+
+## Fields
 
 <table>
     <thead>
@@ -19,6 +23,50 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
     </tr>
     </thead>
     <tbody>
-
+    <tr>
+        <td>color</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>colors</td>
+        <td>jsonb</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>height</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>bigint!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>imageable_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>imageable_type</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ratio</td>
+        <td>float8</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>url</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>width</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
     </tbody>
 </table>

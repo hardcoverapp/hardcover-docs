@@ -14,8 +14,8 @@ describe("StatusMessages", () => {
         <StatusMessages queryStatus="error" queryError="Testing Error" />
         );
 
-        expect(getByText("Error:", {exact: false})).toBeInTheDocument();
-        expect(getByText("Testing Error", {exact: false})).toBeInTheDocument();
+        expect(getByText("Error", {exact: true})).toBeInTheDocument();
+        expect(getByText("Testing Error")).toBeInTheDocument();
     });
 
     it("renders success message", () => {

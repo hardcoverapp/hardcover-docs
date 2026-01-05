@@ -7,8 +7,7 @@ layout: /src/layouts/librarians.astro
 banner:
     content: "🚧 Mind your step, this page is a work in progress."
 ---
-
-import {Badge} from "@astrojs/starlight/components";
+import ImageComponent from "@/components/ImageComponent.astro";
 
 ## Titles
 ### What title should we use for the book?
@@ -32,7 +31,7 @@ To be answered!
 Set the title of this book to whatever the publisher named it. In this case, that would be “Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution”.
 
 On the book page, we’ll break the title up by “:” and wrap it into multiple lines if it has a very long title.
-<img src="/images/librarians/long-title-example.png" alt="Example of a long title on Hardcover" />
+<ImageComponent imagePath="/src/content/images/librarians/long-title-example.png" description="Example of a long title on Hardcover" />
 
 For books with a very long title, but a smaller, well-known title, we should use the shorter title as the URL slug. This allows the book to live at the URL https://hardcover.app/books/babel while maintaining a longer name. Book slugs can only be edited by the original person who added the book, Adam and Jeff right now.
 

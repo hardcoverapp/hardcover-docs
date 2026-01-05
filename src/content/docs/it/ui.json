@@ -72,8 +72,68 @@
            "success": "Successo!",
            "noResults": "Nessun risultato trovato",
            "viewUnavailable": "Questa vista non è disponibile per i risultati di questa query."
-        
-       }
+        },
+        "queryBuilder": {
+          "mode": "Modalità",
+          "static": "Statico",
+          "advancedBuilder": "Costruttore Avanzato",
+          "queryType": "Tipo di Query",
+          "resultLimit": "Limite Risultati",
+          "selectFields": "Seleziona Campi",
+          "selected": "selezionati",
+          "reset": "Ripristina",
+          "generatedQuery": "Query Generata",
+          "copyQuery": "Copia Query",
+          "copied": "Copiato!",
+          "queryArguments": "Argomenti della Query",
+          "clickToEdit": "Clicca per modificare",
+          "orderBy": "Ordina per",
+          "where": "Dove",
+          "quickAdd": "Aggiungi rapido:",
+          "addArgument": "Aggiungi Argomento",
+          "selectField": "Seleziona campo...",
+          "ascending": "Crescente",
+          "descending": "Decrescente",
+          "key": "chiave",
+          "value": "valore",
+          "none": "Nessuno",
+          "fieldTypes": {
+            "scalar": "scalare",
+            "object": "oggetto",
+            "array": "array"
+          },
+          "operators": {
+            "equals": "uguale",
+            "notEquals": "non uguale",
+            "greaterThan": "maggiore di",
+            "greaterThanOrEqual": "maggiore o uguale",
+            "lessThan": "minore di",
+            "lessThanOrEqual": "minore o uguale",
+            "like": "come",
+            "likeInsensitive": "come (non sensibile alle maiuscole)",
+            "in": "in",
+            "notIn": "non in"
+          },
+          "commonArgs": {
+            "limit": "limite",
+            "offset": "offset"
+          },
+          "tooltips": {
+            "maxDepthReached": "Profondità massima raggiunta"
+          }
+        }
+    },
+    "schemaGraph": {
+      "title": "Relazioni dello Schema",
+      "loading": "Caricamento grafo dello schema...",
+      "error": "Errore nel caricamento del grafo dello schema",
+      "resetView": "Ripristina Vista",
+      "fitToScreen": "Adatta allo Schermo",
+      "zoomIn": "Ingrandisci",
+      "zoomOut": "Rimpicciolisci",
+      "layout": "Layout",
+      "showLabels": "Mostra Etichette",
+      "hideLabels": "Nascondi Etichette"
     }
   }
 }

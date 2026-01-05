@@ -1,7 +1,7 @@
 ---
 import {Code, Tabs, TabItem} from '@astrojs/starlight/components';
 import {useTranslation, getPreference, setPreference} from "../../lib/utils";
-import {GraphQLRunner} from './GraphQLRunner.tsx';
+import {GraphQLRunnerEnhanced} from './GraphQLRunnerEnhanced.tsx';
 
 const locale = Astro.currentLocale;
 
@@ -33,7 +33,7 @@ const isMutation = query.trim().includes('mutation');
     {canTry && !isMutation && (
             <TabItem label={useTranslation("ui.graphQLExplorer.tryIt", locale)} icon="seti:graphql">
                 <div class="not-content">
-                    <GraphQLRunner query={query}
+                    <GraphQLRunnerEnhanced query={query}
                                    description={description}
                                    presentation={presentation}
                                    forcePresentation={forcePresentation ? presentation : null}

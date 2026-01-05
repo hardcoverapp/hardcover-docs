@@ -1,0 +1,62 @@
+name: "Marian the Librarian"
+slug: "marian-the-librarian"
+summary: "Browser extension to extract book metadata from retail and catalog sites"
+description: |
+  Marian the Librarian helps Hardcover.app contributors and book data enthusiasts view and capture book metadata from popular retail and catalog sites. Extract titles, contributors, identifiers, descriptions, and cover art with a single click.
+
+  Features:
+  - Parses book pages and pulls relevant data for librarians
+  - Formats data to match Hardcover Edition edit forms
+  - One-click copying of book values
+  - Full-sized image downloads with single click
+  - Persistent side panel for easy data entry
+
+  Supports 19+ platforms including:
+  - Amazon, Goodreads, The StoryGraph
+  - Google Books, Audible, Kobo
+  - Libro.fm, Libby, and more
+
+author:
+  name: "Jacob Tender"
+  github: "jacobtender"
+  hardcover: "Tender"
+
+links:
+  - label: "Chrome Web Store"
+    url: "https://chromewebstore.google.com/detail/marian-the-librarian/gpnkkkbefalodcjhgafioibknoingann"
+    type: "store"
+  - label: "Firefox Add-ons"
+    url: "https://addons.mozilla.org/en-US/firefox/addon/marian-the-librarian/"
+    type: "store"
+  - label: "GitHub"
+    url: "https://github.com/jacobtender/marian-extension"
+    type: "github"
+
+categories:
+  - "Browser Extension"
+  - "Integration"
+
+screenshots:
+  - src: "/showcase/marian-the-librarian/amazon-support.png"
+    alt: "Marian extracting book data from an Amazon product page"
+  - src: "/showcase/marian-the-librarian/goodreads-support.png"
+    alt: "Marian extracting book data from a Goodreads book page"
+  - src: "/showcase/marian-the-librarian/storygraph-support.png"
+    alt: "Marian extracting book data from The StoryGraph"
+  - src: "/showcase/marian-the-librarian/side-panel.png"
+    alt: "Marian side panel showing extracted metadata"
+
+tags:
+  - "chrome"
+  - "firefox"
+  - "librarian"
+  - "metadata"
+  - "open-source"
+
+dateAdded: 2025-12-31
+dateUpdated: 2025-12-31
+
+featured: true
+
+stats:
+  githubStars: 18

@@ -1,18 +1,23 @@
 ---
 title: Countries
 category: reference
-lastUpdated: 2025-07-25 00:00:00
+lastUpdated: 2025-12-31 00:00:00
 layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 import {Aside} from "@astrojs/starlight/components";
 
-# What Is a Country?
+## What Is a Country?
 
 A Country in Hardcover represents the country of publication for books and editions. This information helps users discover literature from specific regions, understand publishing markets, and explore global literary traditions. Countries use standardized codes for consistency and integration.
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="countries" />
+
+## Fields
 
 <table>
     <thead>
@@ -24,84 +29,79 @@ A Country in Hardcover represents the country of publication for books and editi
     </thead>
     <tbody>
     <tr>
-        <td>id</td>
-        <td>bigint</td>
-        <td>Unique identifier for the country</td>
-    </tr>
-    <tr>
-        <td>name</td>
-        <td>string</td>
-        <td>Full name of the country</td>
-    </tr>
-    <tr>
         <td>code2</td>
-        <td>string</td>
-        <td>Two-letter ISO 3166-1 alpha-2 country code</td>
+        <td>String</td>
+        <td></td>
     </tr>
     <tr>
         <td>code3</td>
-        <td>string</td>
-        <td>Three-letter ISO 3166-1 alpha-3 country code</td>
-    </tr>
-    <tr>
-        <td>iso_3166</td>
-        <td>string</td>
-        <td>ISO 3166 standard code</td>
-    </tr>
-    <tr>
-        <td>phone_code</td>
-        <td>string</td>
-        <td>International dialing code</td>
-    </tr>
-    <tr>
-        <td>region</td>
-        <td>string</td>
-        <td>Geographic region (e.g., Europe, Asia)</td>
-    </tr>
-    <tr>
-        <td>region_code</td>
-        <td>string</td>
-        <td>Numeric code for the region</td>
-    </tr>
-    <tr>
-        <td>sub_region</td>
-        <td>string</td>
-        <td>Geographic sub-region (e.g., Western Europe)</td>
-    </tr>
-    <tr>
-        <td>sub_region_code</td>
-        <td>string</td>
-        <td>Numeric code for the sub-region</td>
-    </tr>
-    <tr>
-        <td>intermediate_region</td>
-        <td>string</td>
-        <td>Intermediate geographic classification</td>
-    </tr>
-    <tr>
-        <td>intermediate_region_code</td>
-        <td>string</td>
-        <td>Code for intermediate region</td>
+        <td>String</td>
+        <td></td>
     </tr>
     <tr>
         <td>created_at</td>
-        <td>timestamp</td>
-        <td>When the country was added to the system</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>bigint!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>intermediate_region</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>intermediate_region_code</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>iso_3166</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>phone_code</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>region</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>region_code</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>sub_region</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>sub_region_code</td>
+        <td>String</td>
+        <td></td>
     </tr>
     <tr>
         <td>updated_at</td>
-        <td>timestamp</td>
-        <td>When the country record was last updated</td>
-    </tr>
-    <tr>
-        <td>editions</td>
-        <td>Edition[]</td>
-        <td>Book editions published in this country</td>
+        <td>timestamp!</td>
+        <td></td>
     </tr>
     </tbody>
 </table>
 
-# Country Code Standards
+### Country Code Standards
 
 <table>
     <thead>
@@ -129,7 +129,7 @@ A Country in Hardcover represents the country of publication for books and editi
     **Known Issue**: The `code2` and `code3` fields are currently returned in lowercase format, but according to ISO 3166-1 standards, these codes should be uppercase. This is a known bug that will be addressed in a future update.
 </Aside>
 
-# Major Publishing Countries
+### Major Publishing Countries
 
 <table>
     <thead>
@@ -174,15 +174,15 @@ A Country in Hardcover represents the country of publication for books and editi
     </tbody>
 </table>
 
-# Related Schemas
+### Related Schemas
 
 - [Editions](/api/graphql/schemas/editions) - Book editions with country of publication
 - [Publishers](/api/graphql/schemas/publishers) - Publishers based in different countries
 - [Authors](/api/graphql/schemas/authors) - Authors from various countries
 
-# Example Queries
+## Query Examples
 
-## Get All Countries
+### Get All Countries
 
 Retrieve all available countries:
 
@@ -199,7 +199,7 @@ query AllCountries {
 }
 `} title="All Countries"/>
 
-## Find Country by Code
+### Find Country by Code
 
 Look up a country using its ISO code:
 
@@ -218,7 +218,7 @@ query CountryByCode {
 `}
     title="Country by Code"/>
 
-## Search Countries by Name
+### Search Countries by Name
 
 Find countries by partial name match:
 
@@ -235,7 +235,7 @@ query SearchCountries {
 }
 `} title="Search Countries"/>
 
-## Get European Countries
+### Get European Countries
 
 Find European countries:
 
@@ -257,7 +257,7 @@ query EuropeanCountries {
 }
 `} title="European Countries"/>
 
-## Get Countries With Editions
+### Get Countries With Editions
 
 Find countries that have published editions:
 
@@ -280,7 +280,7 @@ query CountriesWithEditions {
 }
 `} title="Countries With Editions"/>
 
-## Get Publishing Countries
+### Get Publishing Countries
 
 Find countries that have published editions:
 
@@ -303,7 +303,7 @@ query PublishingCountries {
 }
 `} title="Publishing Countries"/>
 
-## Get Recent Country Additions
+### Get Recent Country Additions
 
 Find recently added countries:
 

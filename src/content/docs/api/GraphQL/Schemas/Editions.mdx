@@ -1,18 +1,23 @@
 ---
 title: Editions
 category: reference
-lastUpdated: 2025-06-24 20:42:24
+lastUpdated: 2025-12-31
 layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
 import {Aside} from "@astrojs/starlight/components";
 
-# What Is an Edition?
+## What Is an Edition?
 
 An Edition in Hardcover represents a specific published version of a book. While a book is the conceptual work (e.g., "Pride and Prejudice"), an edition is a particular physical or digital manifestation with specific attributes like ISBN, publisher, format, and release date. Multiple editions of the same book may exist with different publishers, languages, formats, or cover art.
 
-# Fields
+## Schema Relationships
+
+<SchemaGraph typeName="editions" />
+
+## Fields
 
 <table>
     <thead>
@@ -24,193 +29,253 @@ An Edition in Hardcover represents a specific published version of a book. While
     </thead>
     <tbody>
     <tr>
-        <td>id</td>
-        <td>int</td>
-        <td>Unique identifier for the edition</td>
-    </tr>
-    <tr>
-        <td>title</td>
-        <td>string</td>
-        <td>Title of this edition</td>
-    </tr>
-    <tr>
-        <td>subtitle</td>
-        <td>string</td>
-        <td>Subtitle of this edition</td>
-    </tr>
-    <tr>
-        <td>isbn_10</td>
-        <td>string</td>
-        <td>10-digit ISBN</td>
-    </tr>
-    <tr>
-        <td>isbn_13</td>
-        <td>string</td>
-        <td>13-digit ISBN</td>
+        <td>alternative_titles</td>
+        <td>json!</td>
+        <td></td>
     </tr>
     <tr>
         <td>asin</td>
-        <td>string</td>
-        <td>Amazon Standard Identification Number</td>
-    </tr>
-    <tr>
-        <td>pages</td>
-        <td>int</td>
-        <td>Number of pages</td>
+        <td>String</td>
+        <td></td>
     </tr>
     <tr>
         <td>audio_seconds</td>
-        <td>int</td>
-        <td>Duration in seconds (for audiobooks)</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
-        <td>release_date</td>
-        <td>date</td>
-        <td>Full release date</td>
-    </tr>
-    <tr>
-        <td>release_year</td>
-        <td>int</td>
-        <td>Year of release</td>
-    </tr>
-    <tr>
-        <td>physical_format</td>
-        <td>string</td>
-        <td>Physical format (hardcover, paperback, etc.)</td>
-    </tr>
-    <tr>
-        <td>edition_format</td>
-        <td>string</td>
-        <td>Edition format information</td>
-    </tr>
-    <tr>
-        <td>edition_information</td>
-        <td>string</td>
-        <td>Additional edition details</td>
-    </tr>
-    <tr>
-        <td>description</td>
-        <td>string</td>
-        <td>Description of this edition</td>
+        <td>book</td>
+        <td>books!</td>
+        <td>An object relationship</td>
     </tr>
     <tr>
         <td>book_id</td>
-        <td>int</td>
-        <td>ID of the parent book</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     <tr>
-        <td>publisher_id</td>
-        <td>int</td>
-        <td>ID of the publisher</td>
+        <td>cached_contributors</td>
+        <td>json!</td>
+        <td></td>
     </tr>
     <tr>
-        <td>language_id</td>
-        <td>int</td>
-        <td>ID of the language</td>
+        <td>cached_image</td>
+        <td>jsonb!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>cached_tags</td>
+        <td>json!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>canonical_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>compilation</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>country</td>
+        <td>countries</td>
+        <td>An object relationship</td>
     </tr>
     <tr>
         <td>country_id</td>
-        <td>int</td>
-        <td>ID of the country of publication</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
-        <td>reading_format_id</td>
-        <td>int</td>
-        <td>ID of the reading format</td>
+        <td>created_at</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>created_by_user_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>edition_format</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>edition_information</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>image</td>
+        <td>images</td>
+        <td>An object relationship</td>
     </tr>
     <tr>
         <td>image_id</td>
-        <td>int</td>
-        <td>ID of the cover image</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>isbn_10</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>isbn_13</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>language</td>
+        <td>languages</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>language_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>lists_count</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>locked</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>normalized_at</td>
+        <td>timestamp</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>original_book_id</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>pages</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>physical_format</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>physical_information</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>publisher</td>
+        <td>publishers</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>publisher_id</td>
+        <td>Int</td>
+        <td></td>
     </tr>
     <tr>
         <td>rating</td>
         <td>numeric</td>
-        <td>Average rating for this edition</td>
-    </tr>
-    <tr>
-        <td>users_count</td>
-        <td>int</td>
-        <td>Number of users who have this edition</td>
-    </tr>
-    <tr>
-        <td>users_read_count</td>
-        <td>int</td>
-        <td>Number of users who have read this edition</td>
-    </tr>
-    <tr>
-        <td>lists_count</td>
-        <td>int</td>
-        <td>Number of lists containing this edition</td>
-    </tr>
-    <tr>
-        <td>locked</td>
-        <td>bool</td>
-        <td>Whether the edition is locked from editing</td>
-    </tr>
-    <tr>
-        <td>state</td>
-        <td>string</td>
-        <td>Current state of the edition record</td>
-    </tr>
-    <tr>
-        <td>created_at</td>
-        <td>timestamp</td>
-        <td>When the edition was created</td>
-    </tr>
-    <tr>
-        <td>updated_at</td>
-        <td>timestamp</td>
-        <td>When the edition was last updated</td>
-    </tr>
-    <tr>
-        <td>book</td>
-        <td>Book</td>
-        <td>Parent book object</td>
-    </tr>
-    <tr>
-        <td>publisher</td>
-        <td>Publisher</td>
-        <td>Publisher object</td>
-    </tr>
-    <tr>
-        <td>language</td>
-        <td>Language</td>
-        <td>Language object</td>
-    </tr>
-    <tr>
-        <td>country</td>
-        <td>Country</td>
-        <td>Country object</td>
+        <td></td>
     </tr>
     <tr>
         <td>reading_format</td>
-        <td>ReadingFormat</td>
-        <td>Reading format object</td>
+        <td>reading_formats</td>
+        <td>An object relationship</td>
     </tr>
     <tr>
-        <td>image</td>
-        <td>Image</td>
-        <td>Cover image object</td>
+        <td>reading_format_id</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     <tr>
-        <td>contributions</td>
-        <td>Contribution[]</td>
-        <td>Array of contributor relationships</td>
+        <td>release_date</td>
+        <td>date</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>release_year</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>score</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>source</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>state</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>subtitle</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>user_added</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>users_count</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>users_read_count</td>
+        <td>Int!</td>
+        <td></td>
     </tr>
     </tbody>
 </table>
 
-# Related Schemas
+### Related Schemas
 
 - [Books](/api/graphql/schemas/books) - Parent book for editions
 - [Publishers](/api/graphql/schemas/publishers) - Publishers of editions
 - [Languages](/api/graphql/schemas/languages) - Edition languages
 - [Authors](/api/graphql/schemas/authors) - Authors via contributions
 
-# Example Queries
+## Query Examples
 
-## Get Edition Details by ISBN
+### Get Edition Details by ISBN
 
 Retrieve detailed information about a specific edition by ISBN.
 
@@ -249,7 +314,7 @@ query GetEditionByISBN {
 }
 `} title="Edition Details by ISBN"/>
 
-## Get All Editions of a Book
+### Get All Editions of a Book
 
 Find all editions of a specific book, showing different formats and publishers.
 
@@ -284,7 +349,7 @@ query GetBookEditions {
 }
 `} title="Book Editions"/>
 
-## Find Editions by Publisher
+### Find Editions by Publisher
 
 Get recent editions from a specific publisher.
 
@@ -313,7 +378,7 @@ query GetPublisherEditions {
 }
 `} title="Publisher Editions"/>
 
-## Search Editions by Format
+### Search Editions by Format
 
 Find audiobook editions with specific criteria.
 

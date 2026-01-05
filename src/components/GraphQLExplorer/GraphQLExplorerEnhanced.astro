@@ -1,0 +1,52 @@
+---
+import {Code, Tabs, TabItem} from '@astrojs/starlight/components';
+import {useTranslation} from "@/lib/utils";
+import {GraphQLRunnerEnhanced} from './GraphQLRunnerEnhanced.tsx';
+
+const locale = Astro.currentLocale;
+
+const {
+    query,
+    description = '',
+    canTry = true,
+    presentation = undefined,
+    forcePresentation = false,
+    title = useTranslation("ui.graphQLExplorer.example", locale),
+    initialQueryType = undefined, // For advanced mode: the starting query type (e.g., 'books', 'users')
+    showQueryTypeSelector = true, // For advanced mode: whether to show the dropdown selector
+    defaultMode = 'static', // Default mode: 'static' or 'advanced'
+    canToggleMode = false // Whether the user can toggle between static and advanced mode
+} = Astro.props;
+
+// Is the query a mutation?
+const isMutation = query.trim().includes('mutation');
+---
+
+<Tabs>
+    <TabItem label={useTranslation("ui.graphQLExplorer.query", locale)} icon="document">
+        {query && (
+                <Code lang="graphql" title={title} code={query} wrap={true}/>
+        )}
+        {!query && (
+                <Code lang="graphql" title={title}
+                      code={useTranslation("ui.graphQLExplorer.statusMessages.emptyQuery", locale)}/>
+        )}
+    </TabItem>
+    {canTry && !isMutation && (
+            <TabItem label={useTranslation("ui.graphQLExplorer.tryIt", locale)} icon="seti:graphql">
+                <div class="not-content">
+                    <GraphQLRunnerEnhanced
+                            query={query}
+                            description={description}
+                            presentation={presentation}
+                            forcePresentation={forcePresentation ? presentation : null}
+                            locale={locale}
+                            initialQueryType={initialQueryType}
+                            showQueryTypeSelector={showQueryTypeSelector}
+                            defaultMode={defaultMode}
+                            canToggleMode={canToggleMode}
+                            client:only="react" />
+                </div>
+            </TabItem>
+    )}
+</Tabs>
