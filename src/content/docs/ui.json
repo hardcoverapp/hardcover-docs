@@ -24,6 +24,10 @@
       "guides": "Guides",
       "schemas": "Schemas"
     },
+    "community": {
+      "title": "Community",
+      "showcase": "Showcase"
+    },
     "contributing": {
       "title": "Contributing Guides"
     },

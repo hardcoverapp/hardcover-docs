@@ -1,0 +1,104 @@
+---
+title: Community Showcase
+description: Discover projects built with the Hardcover API
+lastUpdated: 2025-12-31
+tableOfContents: false
+---
+
+import Showcase from '@/components/showcase/Showcase.astro';
+
+Explore the amazing projects our community has built using the Hardcover API. From browser extensions to e-ink displays, see what's possible!
+
+<Showcase />
+
+---
+
+## Add Your Project
+
+Built something cool with the Hardcover API? We'd love to feature it!
+
+### What It Takes to Be Featured
+
+Featured projects appear in the carousel at the top of the page and get extra visibility. To be considered for featuring, your project should meet these criteria:
+
+**Required:**
+- **Uses the Hardcover API** - Your project should integrate with Hardcover's GraphQL API
+- **Available to the community** - Must be publicly accessible, open source, or available for download (not just a personal demo or proof of concept)
+- **Complete submission** - Include author name with GitHub and/or Hardcover username, working links, and appropriate categories
+- **English screenshots** - Screenshots must be in English for featuring (this may change in the future)
+
+**Recommended:**
+- **Quality screenshots** - 2-4 screenshots showing your project in action, reasonable file size (under 500KB each)
+- **Detailed description** - Explain what your project does, its key features, and how it uses Hardcover
+- **Active maintenance** - Project should be functional and reasonably maintained
+
+Projects without screenshots or with non-English screenshots can still be listed but won't be eligible for featuring.
+
+### How to Submit
+
+1. Fork the [docs repository](https://github.com/hardcoverapp/hardcover-docs)
+2. Create a new file: `src/content/showcase/your-project-slug.yaml`
+3. Add any screenshots to `public/showcase/your-project-slug/`
+4. Open a Pull Request
+5. Tag `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) to let us know!
+
+### Template
+
+```yaml
+name: "Your Project Name"
+slug: "your-project-slug"
+summary: "One-line description (under 100 characters)"
+description: |
+  Longer description of your project. Markdown supported.
+
+  - Feature 1
+  - Feature 2
+
+author:
+  name: "Your Name"
+  github: "your-github-username"      # optional
+  hardcover: "your-hardcover-username"  # optional
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/..."
+    type: "github"
+  - label: "Website"
+    url: "https://..."
+    type: "website"
+
+categories:
+  - "Browser Extension"  # See full list below
+
+dateAdded: 2025-01-15  # Today's date
+dateUpdated: 2025-01-15
+
+# Optional
+screenshots:
+  - src: "/showcase/your-project-slug/screenshot-1.png"
+    alt: "Description of screenshot"
+
+tags:
+  - "relevant"
+  - "tags"
+
+featured: false  # Set by maintainers
+
+# Optional - GitHub stats (updated manually or by script)
+stats:
+  githubStars: 100
+```
+
+### Available Categories
+
+- Browser Extension
+- Mobile App
+- Web App
+- CLI Tool
+- E-ink Display
+- Home Automation
+- Desktop App
+- Widget
+- Integration
+- Automation
+- Other

@@ -1,0 +1,55 @@
+name: "Hardcover KOReader Plugin"
+slug: "hardcover-koreader"
+summary: "Sync reading progress from KOReader e-readers to Hardcover"
+description: |
+  A KOReader plugin that enables readers to sync their reading progress and status with Hardcover directly from their e-reader device.
+
+  Features:
+  - Link books from your KOReader library to Hardcover editions
+  - Automatic or manual reading status updates (Want to Read, Currently Reading, Read, Did Not Finish)
+  - Automatic progress tracking while reading
+  - Add journal entries and quotes from highlighted text
+  - Update ratings and current page numbers
+  - Search and link books by ISBN, Hardcover ID, or title/author
+  - WiFi-on-demand for battery conservation
+  - Support for both fixed-layout and reflowable documents
+
+author:
+  name: "Billiam"
+  github: "Billiam"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/Billiam/hardcoverapp.koplugin"
+    type: "github"
+
+categories:
+  - "E-ink Display"
+  - "Integration"
+
+tags:
+  - "koreader"
+  - "e-reader"
+  - "sync"
+  - "progress-tracking"
+  - "open-source"
+
+screenshots:
+  - src: "/showcase/hardcover-koreader/01-main-menu.png"
+    alt: "KOReader plugin main menu showing book linking and progress tracking options"
+  - src: "/showcase/hardcover-koreader/02-book-selection.png"
+    alt: "Book selection dialog for linking KOReader books to Hardcover editions"
+  - src: "/showcase/hardcover-koreader/04-status-update.png"
+    alt: "Reading status update menu with Want to Read, Currently Reading, and Read options"
+  - src: "/showcase/hardcover-koreader/05-text-selection.png"
+    alt: "Text selection for adding quotes to Hardcover journal"
+  - src: "/showcase/hardcover-koreader/06-settings.png"
+    alt: "Plugin settings menu for configuring sync behavior"
+
+dateAdded: 2025-12-31
+dateUpdated: 2025-12-31
+
+featured: true
+
+stats:
+  githubStars: 227

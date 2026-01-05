@@ -1,0 +1,41 @@
+name: "Hardcover TRMNL"
+slug: "hardcover-trmnl"
+summary: "Display your reading stats on TRMNL e-ink devices"
+description: |
+  A TRMNL plugin that shows your Hardcover reading data on e-ink displays. Perfect for keeping your reading goals visible on your desk.
+
+  Displays:
+  - Reading goals and progress
+  - Currently reading books
+  - Want to read queue
+  - Recent activity
+
+  Built with TRMNLP, a self-hosted web server for TRMNL plugin development.
+
+author:
+  name: "Jacob Tender"
+  github: "jacobtender"
+  hardcover: "Tender"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/jacobtender/hardcover_trmnl"
+    type: "github"
+
+categories:
+  - "E-ink Display"
+  - "Widget"
+
+tags:
+  - "trmnl"
+  - "e-ink"
+  - "open-source"
+  - "dashboard"
+
+dateAdded: 2025-12-31
+dateUpdated: 2025-12-31
+
+featured: false
+
+stats:
+  githubStars: 5

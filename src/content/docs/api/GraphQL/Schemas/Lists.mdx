@@ -1,7 +1,7 @@
 ---
 title: Lists
 category: reference
-lastUpdated: 2025-12-06
+lastUpdated: 2025-12-31
 layout: /src/layouts/documentation.astro
 ---
 
@@ -19,7 +19,124 @@ Lists in Hardcover are user-created collections of books organized around themes
 
 ## Fields
 
-### Available List Queries
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>books_count</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>default_view</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>featured</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>featured_profile</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>followers_count</td>
+        <td>Int</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>imported</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>likes_count</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>privacy_setting</td>
+        <td>privacy_settings!</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>privacy_setting_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>public</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>ranked</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamptz</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>url</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>users!</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+### Available Queries
 
 <table>
     <thead>
@@ -69,125 +186,6 @@ Lists in Hardcover are user-created collections of books organized around themes
         <td>followed_lists_by_pk</td>
         <td>followed_lists</td>
         <td>Fetch a single followed list entry by id</td>
-    </tr>
-    </tbody>
-</table>
-
-### List Schema Fields
-
-<table>
-    <thead>
-    <tr>
-        <th>Field</th>
-        <th>Type</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>books_count</td>
-        <td>Int!</td>
-        <td>Total number of books in the list</td>
-    </tr>
-    <tr>
-        <td>created_at</td>
-        <td>timestamp</td>
-        <td>When the list was created</td>
-    </tr>
-    <tr>
-        <td>default_view</td>
-        <td>String!</td>
-        <td>The default view mode for the list</td>
-    </tr>
-    <tr>
-        <td>description</td>
-        <td>String</td>
-        <td>Description of the list's purpose or theme</td>
-    </tr>
-    <tr>
-        <td>featured</td>
-        <td>Boolean!</td>
-        <td>Whether the list is featured by Hardcover</td>
-    </tr>
-    <tr>
-        <td>featured_profile</td>
-        <td>Boolean!</td>
-        <td>Whether the list is featured on the user's profile</td>
-    </tr>
-    <tr>
-        <td>followers_count</td>
-        <td>Int</td>
-        <td>Number of users following this list</td>
-    </tr>
-    <tr>
-        <td>id</td>
-        <td>Int!</td>
-        <td>Unique identifier for the list</td>
-    </tr>
-    <tr>
-        <td>imported</td>
-        <td>Boolean!</td>
-        <td>Whether the list was imported from another platform</td>
-    </tr>
-    <tr>
-        <td>likes_count</td>
-        <td>Int!</td>
-        <td>Number of users who have liked this list</td>
-    </tr>
-    <tr>
-        <td>name</td>
-        <td>String!</td>
-        <td>The title/name of the list</td>
-    </tr>
-    <tr>
-        <td>object_type</td>
-        <td>String!</td>
-        <td>The object type identifier</td>
-    </tr>
-    <tr>
-        <td>privacy_setting</td>
-        <td>privacy_settings!</td>
-        <td>An object relationship - the privacy setting details</td>
-    </tr>
-    <tr>
-        <td>privacy_setting_id</td>
-        <td>Int!</td>
-        <td>Privacy setting ID: 1 = public, 2 = followers only, 3 = private</td>
-    </tr>
-    <tr>
-        <td>public</td>
-        <td>Boolean!</td>
-        <td>Whether the list is publicly visible</td>
-    </tr>
-    <tr>
-        <td>ranked</td>
-        <td>Boolean!</td>
-        <td>Whether the list items are ranked/ordered</td>
-    </tr>
-    <tr>
-        <td>slug</td>
-        <td>String</td>
-        <td>URL-friendly identifier for the list</td>
-    </tr>
-    <tr>
-        <td>updated_at</td>
-        <td>timestamptz</td>
-        <td>When the list was last modified</td>
-    </tr>
-    <tr>
-        <td>url</td>
-        <td>String</td>
-        <td>The URL for the list</td>
-    </tr>
-    <tr>
-        <td>user</td>
-        <td>users!</td>
-        <td>An object relationship - the user who created the list</td>
-    </tr>
-    <tr>
-        <td>user_id</td>
-        <td>Int!</td>
-        <td>ID of the user who created the list</td>
     </tr>
     </tbody>
 </table>
