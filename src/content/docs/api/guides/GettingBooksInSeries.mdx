@@ -1,5 +1,6 @@
 ---
 title: Getting All Books in a Series
+description: Guide to getting only the books in a series that show on the website in a series
 category: guide
 lastUpdated: 2026-01-12 22:27:00
 layout: /src/layouts/documentation.astro
@@ -52,6 +53,7 @@ You can also help by going to any duplicate books and clicking `Flag` > `Flag as
 ## Related Schemas
 - [Books](/api/graphql/schemas/books)
 - [Series](/api/graphql/schemas/series)
+- [Book Series](/api/graphql/schemas/bookseries)
 
 ### Example Request
 <GraphQLExplorer query={`
@@ -80,7 +82,6 @@ query GetBooksBySeries {
         id
         slug
         title
-        subtitle
       }
     }
   }
