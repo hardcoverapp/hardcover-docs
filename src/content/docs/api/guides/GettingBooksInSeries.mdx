@@ -10,12 +10,12 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
 ## Introduction
 
 This guide will show you how to fetch the books in a series using the Hardcover API.
-And will include notes on how to handle duplicates, to get a single list of all the books in the series as it appears on the website.
+It also includes notes on how to handle duplicates to get a single list of all the books in the series as they appear on the website.
 
 ## Explanation
 
-The data on Hardcover is continuously being cleaned up by the team of librarians, but often times when requesting data on a series there will be duplicates.
-This can be countered by only picking the most popular book in each position in the series, as well as filtering out already merged books.
+The data on Hardcover is continuously cleaned up by our team of librarians, but duplicates may still exist when requesting data on a series.
+You can avoid this by picking only the most popular book for each position in the series and filtering out merged books.
 
 To hide already merged books you can add a filter that removes books that have a canonical version.
 
@@ -27,7 +27,7 @@ book_series(
 ```
 
 To hide duplicate books you can request to get the most popular book (by user count) for each position.
-Sorting by the position and then the user count and calling distinct on the position you will get one book at each position.
+By sorting by position and then user count, and using `distinct_on: position`, you will get exactly one book per position.
 
 ```graphql
 book_series(
@@ -41,7 +41,7 @@ book_series(
 ```
 
 <sup><sub>
-  NOTE: This will have different from what is on the website if the most popular book at a position is a compilation, this can be mitigated by doing distinct on `details` which is the text version of `position`, and for compilation it will show as, for example `1-3`, while position would just say `1`.
+  NOTE: This result may differ from the website if the most popular book at a position is a compilation. This can be mitigated by using `distinct_on: details` (the text version of position). For compilations, `details` might be '1-3', while `position` would be '1'.
 </sub></sup>
 
 You can also help by going to any duplicate books and clicking `Flag` > `Flag as duplicate` ;)
@@ -83,7 +83,7 @@ query GetBooksBySeries {
   }
 }
 `}description={`
-Search for series with the name "Harry Potter" that have at least one book and ware not merged into another book
+Search for series with the name "Harry Potter" that have at least one book and are not merged into another book.
 `} title="Search List Books" presentation='json' />
 
 This example query also adds filters for empty and merged series. This is not needed if you match by `slug` or `id` since they are unique.
