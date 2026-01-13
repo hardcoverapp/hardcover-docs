@@ -6,6 +6,7 @@ layout: /src/layouts/documentation.astro
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import { Aside } from '@astrojs/starlight/components';
 
 ## Introduction
 
@@ -40,9 +41,11 @@ book_series(
 # ...
 ```
 
-<sup><sub>
-  NOTE: This result may differ from the website if the most popular book at a position is a compilation. This can be mitigated by using `distinct_on: details` (the text version of position). For compilations, `details` might be '1-3', while `position` would be '1'.
-</sub></sup>
+<Aside type="note">
+  This result may differ from the website if the most popular book at a position is a compilation.
+  This can be mitigated by using `distinct_on: details` (the text version of position).
+  For compilations, `details` might be '1-3', while `position` would be '1'.
+</Aside>
 
 You can also help by going to any duplicate books and clicking `Flag` > `Flag as duplicate` ;)
 
