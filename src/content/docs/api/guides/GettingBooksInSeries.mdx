@@ -1,0 +1,89 @@
+---
+title: Getting All Books in a Series
+category: guide
+lastUpdated: 2026-01-12 22:27:00
+layout: /src/layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+
+## Introduction
+
+This guide will show you how to fetch the books in a series using the Hardcover API.
+And will include notes on how to handle duplicates, to get a single list of all the books in the series as it appears on the website.
+
+## Explanation
+
+The data on Hardcover is continuously being cleaned up by the team of librarians, but often times when requesting data on a series there will be duplicates.
+This can be countered by only picking the most popular book in each position in the series, as well as filtering out already merged books.
+
+To hide already merged books you can add a filter that removes books that have a canonical version.
+
+```graphql
+book_series(
+  where: {book: {canonical_id: {_is_null: true}}}
+) {
+# ...
+```
+
+To hide duplicate books you can request to get the most popular book (by user count) for each position.
+Sorting by the position and then the user count and calling distinct on the position you will get one book at each position.
+
+```graphql
+book_series(
+  distinct_on: position
+  order_by: [
+    {position: asc}, 
+    {book: {users_count: desc}}
+  ]
+) {
+# ...
+```
+
+<sup><sub>
+  NOTE: This will have different from what is on the website if the most popular book at a position is a compilation, this can be mitigated by doing distinct on `details` which is the text version of `position`, and for compilation it will show as, for example `1-3`, while position would just say `1`.
+</sub></sup>
+
+You can also help by going to any duplicate books and clicking `Flag` > `Flag as duplicate` ;)
+
+## Related Schemas
+- [Books](/api/graphql/schemas/books)
+- [Series](/api/graphql/schemas/series)
+
+### Example Request
+<GraphQLExplorer query={`
+query GetBooksBySeries {
+  series(
+    where: {
+      name: {_eq: "Harry Potter"}, 
+      books_count: {_gt: 0},
+      canonical_id: {_is_null: true}
+    }
+  ) {
+    id
+    name
+    slug
+    author {
+      name
+    }
+    books_count
+    book_series(
+      distinct_on: position
+      order_by: [{position: asc}, {book: {users_count: desc}}]
+      where: {book: {canonical_id: {_is_null: true}}}
+    ) {
+      position
+      book {
+        id
+        slug
+        title
+        subtitle
+      }
+    }
+  }
+}
+`}description={`
+Search for series with the name "Harry Potter" that have at least one book and ware not merged into another book
+`} title="Search List Books" presentation='json' />
+
+This example query also adds filters for empty and merged series. This is not needed if you match by `slug` or `id` since they are unique.
