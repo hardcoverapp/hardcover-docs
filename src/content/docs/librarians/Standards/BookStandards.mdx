@@ -2,71 +2,138 @@
 title: Book Standards
 description: Standards for adding and editing books in Hardcover.
 category: guide
-lastUpdated: 2025-01-07 08:00:00
+lastUpdated: 2026-01-18 18:00:00
 layout: /src/layouts/librarians.astro
 ---
+import { URLS } from "@/Consts";
 import ImageComponent from "@/components/ImageComponent.astro";
+import {Badge, Aside} from "@astrojs/starlight/components";
 
-## Titles
-### What title should we use for the book?
-We should use the official English title the book was released with whenever possible.
+## Adding new books
 
-For example, the original title of “War and Peace” is “Война и миръ”. We should use “Война и миръ” as the title of the Russian edition, but “War and Peace” as the title of the book. This could be done from the Edit Book page where we override the edition’s title. Alternatively, we could set the “Default Physical Edition” to the English edition. That would also set the title to the English title.
+If by searching Hardcover you cannot find a specific book, there are two methods for adding one to the database: 
 
-If books have multiple English titles (ex: “Harry Potter and the Sorcerer's Stone” vs “Harry Potter and the Philosopher's Stone”), we should use the title localized for the USA (Sorcerers stone in this case).
+1. ISBN or an external ID for a supported platform.
+2. Manually
 
-In the future, we want to allow people to set their language and have it automatically use the localized version, but for now we’re aiming to use the US title as the default.
+These functions are available to all users of Hardcover and the results are made immediately public to everyone. If the book you’re looking for exists, but a specific Edition of it does not, use [these instructions](/librarians/standards/editionstandards/#adding-editions) instead.
 
-### What about franchise books, like “Brotherhood”, which is in the Star Wars universe?
-In this case, the official title of the book according to the publisher is “Star Wars: Brotherhood”, and we should use that.
+### Creating a book by ISBN or External ID
 
-In other cases where there’s a series, we should leave it off unless it is part of the name (ex: Harry Potter and the Sorcerer's Stone). When left off (ex: The Fellowship of the Ring), we should make sure to set the featured series to be the primary series we know this title from (“The Lord of the Rings”).
+This is the most straightforward and preferred method of adding a new title to Hardcover. In addition to ISBN 10/13 lookups, Hardcover supports imports from select external platforms such as Open Library, Google Books, and Goodreads.
 
-### What if the official title also has the series in it?
-To be answered!
+From the [Add Book to Hardcover](https://hardcover.app/books/new) page, select the type of identifier you have available from the dropdown, paste the ID, and click “Save.” If the book is found, its details will be imported with metadata automatically prefilled. You will be redirected to the imported edition.
 
-### How should we handle books with long titles with a “:” in them? Ex: “Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution”
-Set the title of this book to whatever the publisher named it. In this case, that would be “Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators' Revolution”.
+As a librarian, it is your responsibility to review the imported details for any discrepancies. Importing information saves a lot of time, but mistakes on one platform shouldn't persist on Hardcover. Please review an imported edition's details after creation.
 
-On the book page, we’ll break the title up by “:” and wrap it into multiple lines if it has a very long title.
-<ImageComponent imagePath="/src/content/images/librarians/long-title-example.png" description="Example of a long title on Hardcover" />
+<Aside type="note">
+If your newly added book doesn’t immediately appear in search results, it could be due to a caching or indexing delay. If it doesn’t appear within a day or so, reach out on Discord.
+</Aside>
 
-For books with a very long title, but a smaller, well-known title, we should use the shorter title as the URL slug. This allows the book to live at the URL https://hardcover.app/books/babel while maintaining a longer name. Book slugs can only be edited by the original person who added the book, Adam and Jeff right now.
+### Creating a book manually
+There will be occasions where a book has no ISBN or presence on other book platforms, making importing its details impossible. This is common with self-published or very old books predating ISBN assignment.
 
-### What about subtitle?
-You’ll notice there’s a field for subtitle in the edit book form. We currently do not use this field for anything. We do split the title into title and subtitle when creating books. For example:
+In these cases, from the [Add Book to Hardcover](https://hardcover.app/books/new) page, select "Title" from the "What do you know about the book?" dropdown. This will guide you through an advanced search tool to ensure that a duplicate of the book is not created.
 
-- Full title: “Wallet Activism: How to Use Every Dollar You Spend, Earn, and Save as a Force for Change”.
-- Title: “Wallet Activism: How to Use Every Dollar You Spend, Earn, and Save as a Force for Change”
-- Subtitle: “How to Use Every Dollar You Spend, Earn, and Save as a Force for Change”
-- Slug: “wallet-activism”
+If there are no matching results available to enrich, you will be presented with an option to manually create a book. This may appear at the end of a list of near matches, so scroll to the bottom to find a link to proceed.
 
-## Descriptions
-### Authoritative Source for Book Descriptions / Other Information
-In order of preference:
+Using this option creates a new edition. Please refer to that guidance for filling out the form.
+
+## Merging Duplicates
+There are many reasons a duplicate book might appear. Translations, imports, and unmapped edition creation can lead to additional copies of a single book appearing on Hardcover. Librarians can report these duplicates for merging using [this guidance](/librarians/standards/mergingstandards/#merging-books).
+
+## Book Title
+### Titles & Translations
+While Edition titles for a particular book may differ, the Book-level title is the one used throughout Hardcover in search results, lists, and within user libraries. In order to maintain consistency, Hardcover uses the official English title if one exists.
+
+In the case of a book originally published in a language other than English, use an official English Translation if available. Otherwise, the original, untranslated title may be used. Under no circumstance should an unofficially translated book title be used.
+
+In the case where two official, regionally specific titles exist, Hardcover defers to the most widely recognized English title. That means there's no hard and fast rule. If in doubt, use the US English title or ask in the <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> Discord channel for advice.
+
+**Examples include:**
+- **Harry Potter and the Sorcerer's Stone** (US) vs Harry Potter and the Philosopher's Stone (UK)
+- **The Satsuma Complex** (UK) vs **The Clementine Complex** (US)
+
+### Series Names in Titles
+A book published as part of a franchise may include the franchise or series name in its title. These are often published inconsistently. To maintain order on Hardcover, let's look at an example:
+
+_Star Wars: Brotherhood_ was published as such, with other books in the Star Wars standalone series following different conventions such as _Lords of the Sith: Star Wars_ or _Bloodline (Star Wars)_. 
+
+Hardcover's preference is to use series titles as a prefix, only where the published title includes it.
+
+This would not apply to books like _The Fellowship of the Ring_ or _Carl's Doomsday Scenario_ where the series title may or may not be part of the book's subtitle. In these instances, it's better to appropriately assign the books to their Hardcover series, leaving the title clean.
+
+### Subtitles
+Some books titles may include subtitles, separated by a colon. Hardcover handles these by rendering the subtitle beneath the base title. No additional truncation needs to be done on the user's part.
+
+**Examples:**
+- _Babel, or The Necessity of Violence: An Arcane History of the Oxford Translators’ Revolution_
+
+## Headline
+A headline is a short, catchy summary used to grab the reader's attention, convey the essence of the book, and persuade them to buy. Often, this is included at the beginning of a book description on a Publisher's website or a bookseller's listing.
+
+**Examples:**
+- "A man. His ex-girlfriend's cat. A sadistic game show unlike anything in the universe: a dungeon crawl where survival depends on killing your prey in the most entertaining way possible." - Dungeon Crawler Carl
+- "A controversial tale of friendship and tragedy during the Great Depression." - Of Mice and Men
+- "The bestselling author of Ilium transforms the story of the ill-fated Franklin Expedition into a devastating historical adventure that will chill you to your core." - The Terror
+
+Hardcover supports short headlines like these supplied by the publisher. If there isn't one available, this field may remain blank. Refrain from inventing headlines or using overtly promotional copy. See the description section below for more on that.
+
+## Description
+### Sourcing Book Details
+
+Hardcover wishes to reflect the author and publisher's intentions for their books. Accepted sources for book description are as follows, in order of authority.
 
 1. Publisher
 2. Author Official Website
-3. BookBub / WorldCat
-4. Bookstore (Barnes & Noble, Amazon, etc)
-5. Other Book Site (Open Library, Google Books, etc)
+3. Library of Congress / WorldCat
+4. Booksellers (Barnes & Noble, Amazon, etc)
+5. Other Book Data Sources (Open Library, Google Books, etc)
 
-### Promotional Content / Reviews / Author Bios / Edition Info in Descriptions
-Book descriptions should be constrained to a spoiler-free introduction / summary of the book. Additional promotional information should be removed, even if it is present in the description on the authoratative source.
+### Undesired Content 
+Book descriptions should be constrained to a spoiler-free introduction or summary of the book. Additional promotional information should be removed, even if it is present in the description of on the most authoritative source.
 
-Examples of content to remove:
-    "From the author of xxx bestselling series"
-    "This book is a book -Famous Author"
-    "Reprinted for the first time in genuine leather"
+**Examples of content to remove:**
+- "From the author of best-selling series ____."
+- Book blurbs from other authors.
+- Excerpts from publicized reviews.
+- Information about specific editions (reprints, anniversary editions, etc.)
 
-### Description Headlines
-If available, use a headline from the publisher
-If the a specific headline is not provided, there are several possible options:
+## Cover Edition
+Each book on Hardcover has four dropdown fields available for selecting the best default edition of a book. These are used in various ways throughout the platform. The most important of them is the "cover edition."
 
-1. Move the first paragraph of the description if it fits and is appropriate as a standalone
-2. Copy a key sentance or phrase from the description
-3. Leave it blank
+The cover edtion is the edition of the book from which some key metadata is pulled for display on the book page. Most notably, image and page count. Hardcover recommends using the most recent Hardcover edition as the cover edition. If that edition is poor in quality for any reason, please take the time to update the edition to meet the [edition standards](/librarians/standards/editionstandards/).
 
-## Default Editions
-### Cover Edition
-Generally, the cover edition should be the most recently published hardcover edition of the book with a "Good" quality cover available; however, there may be cases such as special or limited printings where another edition may be more appropriate.
+## Literary Type
+Literary type categorizes a book into fiction or non-fiction. Often, the default is set to "unknown." When adding a book, please be sure to check this field to better improve individual stat data for readers.
+
+## Book Category
+To further categorize a book, a number of book categories are available with more to come in the future. These categories often influence how books are organized on Author pages so it's important to file them correctly. Below are the categories that exist today with a description of when they should be used.
+
+- **Book:** A standard book. If a title doesn't fall into any of the categories below, it belongs here.
+- **Novella:** A book shorter than a novel, but longer than a short story. Lines are fuzzy, but usually these are between 80-160 pages.
+- **Short Story:** A brief piece of prose fiction, shorter than a novella.
+- **Graphic Novel:** Catch-all for comics, manga, or other predominently illustrated narrative material.
+- **Fan Fiction:** Fiction typically written in an amateur capacity, unofficially leveraging existing intellectual property.
+- **Research Paper:** Scholarly literature such as scientific journals.
+- **Poetry:** Either a single work or collection of poetry.
+- **Collection:** A number of works, by one author or many, collected into a single volume. Different from a compilation, see below.
+- **Web Novel:** Written works of literature available primarily or solely on the Internet
+- **Light Novel:** A light novel is a type of popular literature novel from Japan usually classified as young adult fiction.
+
+Proposed categories that have not yet been added include: study guides, samples, and periodicals, and textbooks
+
+Often these categories are dictated by the publisher or author, making guesswork uneccesary. If there is any confusion about which of these to use and when, please ask in the <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> Discord channel for advice.
+
+## Compilation
+On Hardcover, a compilation denotes multiple books published within one volume. This differs from a collection in that we construct an additional heirarchy to show which books are contained. These can be set on the book by a librarian.
+
+We recognize that the terminology here can be confusing. Just know that setting a compilation flag will display the book in a seperate tab on the author page, allowing their primary works to be shown front and center, without additional clutter.
+
+## Series
+Another heirarchy available to users of Hardcover are series. These collect related books and can be sorted by their place in the series.
+
+After adding a series to the book by search or by creating a new one, place is determined by two fields: Place in series number and text.
+
+- **Place in Series (number):** This dictates where in the series the book falls.
+- **Place in Series (text):** This dictates what is displayed in series lozenges. Accepts numbers, dashes, and commas only.
