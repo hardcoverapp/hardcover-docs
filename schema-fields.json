@@ -1,4 +1,296 @@
 {
+  "activities": [
+    {
+      "name": "book",
+      "type": "books",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "book_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "created_at",
+      "type": "timestamptz",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "data",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "event",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "followers",
+      "type": "[followed_users!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "likes",
+      "type": "[likes!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "likes_count",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "object_type",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "original_book_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "privacy_setting",
+      "type": "privacy_settings!",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "privacy_setting_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "uid",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "user",
+      "type": "users!",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "user_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    }
+  ],
+  "authors": [
+    {
+      "name": "alias",
+      "type": "[authors!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "alias_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "alternate_names",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "bio",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "books_count",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "born_date",
+      "type": "date",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "born_year",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "cached_image",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "canonical",
+      "type": "authors",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "canonical_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "contributions",
+      "type": "[contributions!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "contributions_aggregate",
+      "type": "contributions_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "creator",
+      "type": "users",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "death_date",
+      "type": "date",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "death_year",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "gender_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "identifiers",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "image",
+      "type": "images",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "image_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "is_bipoc",
+      "type": "Boolean",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "is_lgbtq",
+      "type": "Boolean",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "links",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "location",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "locked",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "name",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "name_personal",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "slug",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "state",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "title",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "user_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "users_count",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    }
+  ],
   "books": [
     {
       "name": "activities_count",
@@ -135,6 +427,12 @@
     {
       "name": "created_by_user_id",
       "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "curation_status",
+      "type": "Int!",
       "description": "",
       "hasArgs": false
     },
@@ -415,12 +713,6 @@
       "hasArgs": false
     },
     {
-      "name": "user_added",
-      "type": "Boolean!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
       "name": "user_books",
       "type": "[user_books!]!",
       "description": "An array relationship",
@@ -431,942 +723,6 @@
       "type": "user_books_aggregate!",
       "description": "An aggregate relationship",
       "hasArgs": true
-    },
-    {
-      "name": "users_count",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "users_read_count",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    }
-  ],
-  "authors": [
-    {
-      "name": "alias",
-      "type": "[authors!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "alias_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "alternate_names",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "bio",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "books_count",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "born_date",
-      "type": "date",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "born_year",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "cached_image",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "canonical",
-      "type": "authors",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "canonical_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "contributions",
-      "type": "[contributions!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "contributions_aggregate",
-      "type": "contributions_aggregate!",
-      "description": "An aggregate relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "creator",
-      "type": "users",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "death_date",
-      "type": "date",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "death_year",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "gender_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "identifiers",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "image",
-      "type": "images",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "image_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "is_bipoc",
-      "type": "Boolean",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "is_lgbtq",
-      "type": "Boolean",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "links",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "location",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "locked",
-      "type": "Boolean!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "name",
-      "type": "String!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "name_personal",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "slug",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "state",
-      "type": "String!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "title",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "user_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "users_count",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    }
-  ],
-  "users": [
-    {
-      "name": "access_level",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "account_privacy_setting_id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "activities",
-      "type": "[activities!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "activity_privacy_settings_id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "admin",
-      "type": "Boolean!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "bio",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "birthdate",
-      "type": "date",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "blocked_users",
-      "type": "[user_blocks!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "books_count",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "cached_cover",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "cached_genres",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "cached_image",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "collection_imports",
-      "type": "[collection_imports!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "confirmation_sent_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "confirmed_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "created_at",
-      "type": "timestamptz!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "current_sign_in_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "email",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "email_verified",
-      "type": "timestamptz",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "flair",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "followed_by_users",
-      "type": "[followed_users!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "followed_lists",
-      "type": "[followed_lists!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "followed_prompts",
-      "type": "[followed_prompts!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "followed_users",
-      "type": "[followed_users!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "followed_users_count",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "followers_count",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "goals",
-      "type": "[goals!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "image",
-      "type": "images",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "image_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "last_activity_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "last_sign_in_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "librarian_roles",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "link",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "links",
-      "type": "links",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "lists",
-      "type": "[lists!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "lists_aggregate",
-      "type": "lists_aggregate!",
-      "description": "An aggregate relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "location",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "locked_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "membership",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "membership_ends_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "name",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "notification_deliveries",
-      "type": "[notification_deliveries!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "notification_deliveries_aggregate",
-      "type": "notification_deliveries_aggregate!",
-      "description": "An aggregate relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "object_type",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "onboarded",
-      "type": "Boolean!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "payment_system_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "pro",
-      "type": "Boolean!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "prompt_answers",
-      "type": "[prompt_answers!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "prompt_answers_aggregate",
-      "type": "prompt_answers_aggregate!",
-      "description": "An aggregate relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "prompts",
-      "type": "[prompts!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "pronoun_personal",
-      "type": "String!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "pronoun_possessive",
-      "type": "String!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "referrer_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "referrer_url",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "referrered_users",
-      "type": "[user_books!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "referrered_users_aggregate",
-      "type": "user_books_aggregate!",
-      "description": "An aggregate relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "remember_created_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "reported_user_flags",
-      "type": "[user_flags!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "reset_password_sent_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "sign_in_count",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "status_id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "taggings",
-      "type": "[taggings!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "taggings_aggregate",
-      "type": "taggings_aggregate!",
-      "description": "An aggregate relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "unconfirmed_email",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "updated_at",
-      "type": "timestamptz!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "user_books",
-      "type": "[user_books!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "user_books_aggregate",
-      "type": "user_books_aggregate!",
-      "description": "An aggregate relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "user_flags",
-      "type": "[user_flags!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "username",
-      "type": "citext",
-      "description": "",
-      "hasArgs": false
-    }
-  ],
-  "editions": [
-    {
-      "name": "alternative_titles",
-      "type": "json!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "asin",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "audio_seconds",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "book",
-      "type": "books!",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "book_id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "book_mappings",
-      "type": "[book_mappings!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "cached_contributors",
-      "type": "json!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "cached_image",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "cached_tags",
-      "type": "json!",
-      "description": "",
-      "hasArgs": true
-    },
-    {
-      "name": "canonical_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "compilation",
-      "type": "Boolean!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "contributions",
-      "type": "[contributions!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "contributions_aggregate",
-      "type": "contributions_aggregate!",
-      "description": "An aggregate relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "country",
-      "type": "countries",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "country_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "created_at",
-      "type": "timestamp!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "created_by_user_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "edition_format",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "edition_information",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "image",
-      "type": "images",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "image_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "images",
-      "type": "[images!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "isbn_10",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "isbn_13",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "language",
-      "type": "languages",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "language_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "list_books",
-      "type": "[list_books!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "list_books_aggregate",
-      "type": "list_books_aggregate!",
-      "description": "An aggregate relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "lists_count",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "locked",
-      "type": "Boolean!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "normalized_at",
-      "type": "timestamp",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "object_type",
-      "type": "String!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "original_book_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "pages",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "physical_format",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "physical_information",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "publisher",
-      "type": "publishers",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "publisher_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "rating",
-      "type": "numeric",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "reading_format",
-      "type": "reading_formats",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "reading_format_id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "release_date",
-      "type": "date",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "release_year",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "score",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "source",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "state",
-      "type": "String!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "subtitle",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "title",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "updated_at",
-      "type": "timestamp!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "user_added",
-      "type": "Boolean!",
-      "description": "",
-      "hasArgs": false
     },
     {
       "name": "users_count",
@@ -1671,6 +1027,326 @@
     {
       "name": "updated_at",
       "type": "timestamp!",
+      "description": "",
+      "hasArgs": false
+    }
+  ],
+  "editions": [
+    {
+      "name": "alternative_titles",
+      "type": "json!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "asin",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "audio_seconds",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "book",
+      "type": "books!",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "book_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "book_mappings",
+      "type": "[book_mappings!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "cached_contributors",
+      "type": "json!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "cached_image",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "cached_tags",
+      "type": "json!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "canonical_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "compilation",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "contributions",
+      "type": "[contributions!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "contributions_aggregate",
+      "type": "contributions_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "country",
+      "type": "countries",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "country_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "created_by_user_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "curation_status",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "edition_format",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "edition_information",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "image",
+      "type": "images",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "image_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "images",
+      "type": "[images!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "isbn_10",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "isbn_13",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "language",
+      "type": "languages",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "language_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "list_books",
+      "type": "[list_books!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "list_books_aggregate",
+      "type": "list_books_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "lists_count",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "locked",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "normalized_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "object_type",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "original_book_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "pages",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "physical_format",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "physical_information",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "publisher",
+      "type": "publishers",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "publisher_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "rating",
+      "type": "numeric",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "reading_format",
+      "type": "reading_formats",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "reading_format_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "release_date",
+      "type": "date",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "release_year",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "score",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "source",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "state",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "subtitle",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "title",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "users_count",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "users_read_count",
+      "type": "Int!",
       "description": "",
       "hasArgs": false
     }
@@ -2655,40 +2331,166 @@
       "hasArgs": true
     }
   ],
-  "activities": [
+  "users": [
     {
-      "name": "book",
-      "type": "books",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "book_id",
+      "name": "access_level",
       "type": "Int",
       "description": "",
       "hasArgs": false
     },
     {
-      "name": "created_at",
-      "type": "timestamptz",
+      "name": "account_privacy_setting_id",
+      "type": "Int!",
       "description": "",
       "hasArgs": false
     },
     {
-      "name": "data",
+      "name": "activities",
+      "type": "[activities!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "activity_privacy_settings_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "admin",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "bio",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "birthdate",
+      "type": "date",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "blocked_users",
+      "type": "[user_blocks!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "books_count",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "cached_cover",
       "type": "jsonb!",
       "description": "",
       "hasArgs": true
     },
     {
-      "name": "event",
-      "type": "String!",
+      "name": "cached_genres",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "cached_image",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "collection_imports",
+      "type": "[collection_imports!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "confirmation_sent_at",
+      "type": "timestamp",
       "description": "",
       "hasArgs": false
     },
     {
-      "name": "followers",
+      "name": "confirmed_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "created_at",
+      "type": "timestamptz!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "current_sign_in_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "email",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "email_verified",
+      "type": "timestamptz",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "flair",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "followed_by_users",
       "type": "[followed_users!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "followed_lists",
+      "type": "[followed_lists!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "followed_prompts",
+      "type": "[followed_prompts!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "followed_users",
+      "type": "[followed_users!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "followed_users_count",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "followers_count",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "goals",
+      "type": "[goals!]!",
       "description": "An array relationship",
       "hasArgs": true
     },
@@ -2699,56 +2501,254 @@
       "hasArgs": false
     },
     {
-      "name": "likes",
-      "type": "[likes!]!",
-      "description": "An array relationship",
-      "hasArgs": true
-    },
-    {
-      "name": "likes_count",
-      "type": "Int!",
-      "description": "",
+      "name": "image",
+      "type": "images",
+      "description": "An object relationship",
       "hasArgs": false
     },
     {
-      "name": "object_type",
-      "type": "String!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "original_book_id",
+      "name": "image_id",
       "type": "Int",
       "description": "",
       "hasArgs": false
     },
     {
-      "name": "privacy_setting",
-      "type": "privacy_settings!",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "privacy_setting_id",
-      "type": "Int!",
+      "name": "last_activity_at",
+      "type": "timestamp",
       "description": "",
       "hasArgs": false
     },
     {
-      "name": "uid",
+      "name": "last_sign_in_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "librarian_roles",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "link",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "links",
+      "type": "links",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "lists",
+      "type": "[lists!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "lists_aggregate",
+      "type": "lists_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "location",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "locked_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "membership",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "membership_ends_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "notification_deliveries",
+      "type": "[notification_deliveries!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "notification_deliveries_aggregate",
+      "type": "notification_deliveries_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "object_type",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "onboarded",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "payment_system_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "pro",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "prompt_answers",
+      "type": "[prompt_answers!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "prompt_answers_aggregate",
+      "type": "prompt_answers_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "prompts",
+      "type": "[prompts!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "pronoun_personal",
       "type": "String!",
       "description": "",
       "hasArgs": false
     },
     {
-      "name": "user",
-      "type": "users!",
-      "description": "An object relationship",
+      "name": "pronoun_possessive",
+      "type": "String!",
+      "description": "",
       "hasArgs": false
     },
     {
-      "name": "user_id",
+      "name": "referrer_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "referrer_url",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "referrered_users",
+      "type": "[user_books!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "referrered_users_aggregate",
+      "type": "user_books_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "remember_created_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "reported_user_flags",
+      "type": "[user_flags!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "reset_password_sent_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "sign_in_count",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "status_id",
       "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "taggings",
+      "type": "[taggings!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "taggings_aggregate",
+      "type": "taggings_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "unconfirmed_email",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamptz!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "user_books",
+      "type": "[user_books!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "user_books_aggregate",
+      "type": "user_books_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "user_flags",
+      "type": "[user_flags!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "username",
+      "type": "citext",
       "description": "",
       "hasArgs": false
     }

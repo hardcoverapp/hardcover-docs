@@ -1,7 +1,7 @@
 ---
 title: Reading Journals
 category: reference
-lastUpdated: 2025-12-31
+lastUpdated: 2026-01-19
 layout: /src/layouts/documentation.astro
 ---
 
@@ -32,12 +32,12 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>book_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Associated book</td>
     </tr>
     <tr>
         <td>created_at</td>
         <td>timestamp!</td>
-        <td></td>
+        <td>Creation time</td>
     </tr>
     <tr>
         <td>edition</td>
@@ -47,47 +47,47 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>edition_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Specific edition</td>
     </tr>
     <tr>
         <td>entry</td>
         <td>String</td>
-        <td></td>
+        <td>Entry text</td>
     </tr>
     <tr>
         <td>event</td>
         <td>String</td>
-        <td></td>
+        <td>Event type (started, progress, finished)</td>
     </tr>
     <tr>
         <td>id</td>
         <td>bigint!</td>
-        <td></td>
+        <td>Unique identifier</td>
     </tr>
     <tr>
         <td>likes_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Likes</td>
     </tr>
     <tr>
         <td>metadata</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Additional data</td>
     </tr>
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td></td>
+        <td>Object type for polymorphic queries</td>
     </tr>
     <tr>
         <td>privacy_setting_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Privacy setting</td>
     </tr>
     <tr>
         <td>updated_at</td>
         <td>timestamp!</td>
-        <td></td>
+        <td>Last update time</td>
     </tr>
     <tr>
         <td>user</td>
@@ -97,7 +97,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>user_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Owner</td>
     </tr>
     </tbody>
 </table>

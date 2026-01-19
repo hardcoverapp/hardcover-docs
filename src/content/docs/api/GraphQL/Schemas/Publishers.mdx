@@ -1,7 +1,7 @@
 ---
 title: Publishers
 category: reference
-lastUpdated: 2025-12-31 18:30:00
+lastUpdated: 2026-01-19 18:30:00
 layout: /src/layouts/documentation.astro
 ---
 
@@ -31,37 +31,37 @@ A Publisher in Hardcover represents a company or organization that publishes boo
     <tr>
         <td>canonical_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Canonical publisher if duplicate</td>
     </tr>
     <tr>
         <td>created_at</td>
         <td>timestamp!</td>
-        <td></td>
+        <td>Record creation time</td>
     </tr>
     <tr>
         <td>editions_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Number of editions</td>
     </tr>
     <tr>
         <td>id</td>
         <td>bigint!</td>
-        <td></td>
+        <td>Unique identifier</td>
     </tr>
     <tr>
         <td>locked</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Locked from editing</td>
     </tr>
     <tr>
         <td>name</td>
         <td>String</td>
-        <td></td>
+        <td>Publisher name</td>
     </tr>
     <tr>
         <td>parent_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Parent publisher (for imprints)</td>
     </tr>
     <tr>
         <td>parent_publisher</td>
@@ -71,22 +71,22 @@ A Publisher in Hardcover represents a company or organization that publishes boo
     <tr>
         <td>slug</td>
         <td>String!</td>
-        <td></td>
+        <td>URL-friendly identifier</td>
     </tr>
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td></td>
+        <td>Record state</td>
     </tr>
     <tr>
         <td>updated_at</td>
         <td>timestamp!</td>
-        <td></td>
+        <td>Last update time</td>
     </tr>
     <tr>
         <td>user_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Creator</td>
     </tr>
     </tbody>
 </table>
