@@ -1,0 +1,77 @@
+---
+title: Book Series
+category: reference
+lastUpdated: 2026-1-12 00:00:00
+layout: /src/layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+
+## Schema Relationships
+
+<SchemaGraph typeName="book_series" />
+
+## Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>book</td>
+        <td>books</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>book_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>details</td>
+        <td>String</td>
+        <td>Text form of position</td>
+    </tr>
+    <tr>
+        <td>featured</td>
+        <td>Boolean!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>bigint!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>position</td>
+        <td>float8</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>series</td>
+        <td>series!</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>series_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>

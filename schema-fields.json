@@ -2752,5 +2752,67 @@
       "description": "",
       "hasArgs": false
     }
+  ],
+  "book_series": [
+    {
+      "name": "book",
+      "type": "books",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "book_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "details",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "featured",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "id",
+      "type": "bigint!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "position",
+      "type": "float8",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "series",
+      "type": "series!",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "series_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp!",
+      "description": "",
+      "hasArgs": false
+    }
   ]
 }
