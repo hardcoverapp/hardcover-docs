@@ -230,12 +230,12 @@ export default defineConfig({
                 }
             }
         ],
-        social: {
-            discord: URLS.DISCORD,
-            github: URLS.GITHUB,
-            instagram: URLS.INSTAGRAM,
-            mastodon: URLS.MASTODON,
-        },
+        social: [
+            { icon: 'discord', label: 'Discord', href: URLS.DISCORD },
+            { icon: 'github', label: 'GitHub', href: URLS.GITHUB },
+            { icon: 'instagram', label: 'Instagram', href: URLS.INSTAGRAM },
+            { icon: 'mastodon', label: 'Mastodon', href: URLS.MASTODON },
+        ],
         title: {
             en: useTranslation('site.title', 'en'),
         }
