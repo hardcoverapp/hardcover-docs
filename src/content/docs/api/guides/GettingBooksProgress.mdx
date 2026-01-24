@@ -1,14 +1,32 @@
 ---
 title: Getting Progress of Books
 category: guide
-lastUpdated: 2024-12-29 22:49:00
+lastUpdated: 2026-1-23 21:39:00
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
-## Introduction
+### Get all of the books you're currently reading.
 
-### Example Request
-<GraphQLExplorer query={``} description='' />
+<GraphQLExplorer query={`
+query Me {
+    me {
+      id
+      user_books(where: { status_id: { _eq: 2 } }) {
+        id
+        user_book_reads {
+          progress_pages
+        }
+        book {
+          id
+          title
+          pages
+          image {
+            url
+          }
+        }
+      }
+    }
+  }
+`} description='Get all books that you are currently reading' />
