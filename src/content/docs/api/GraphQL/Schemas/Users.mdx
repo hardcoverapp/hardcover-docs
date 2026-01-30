@@ -1,7 +1,7 @@
 ---
 title: Users
 category: reference
-lastUpdated: 2025-12-31
+lastUpdated: 2026-01-19
 layout: /src/layouts/documentation.astro
 ---
 
@@ -31,102 +31,102 @@ Users can perform actions like adding books to their shelves, following other us
     <tr>
         <td>access_level</td>
         <td>Int</td>
-        <td></td>
+        <td>Permission level</td>
     </tr>
     <tr>
         <td>account_privacy_setting_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Account privacy setting</td>
     </tr>
     <tr>
         <td>activity_privacy_settings_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Activity feed privacy</td>
     </tr>
     <tr>
         <td>admin</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Has admin privileges</td>
     </tr>
     <tr>
         <td>bio</td>
         <td>String</td>
-        <td></td>
+        <td>Biography</td>
     </tr>
     <tr>
         <td>birthdate</td>
         <td>date</td>
-        <td></td>
+        <td>Birth date</td>
     </tr>
     <tr>
         <td>books_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Books on shelves</td>
     </tr>
     <tr>
         <td>cached_cover</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Cached profile cover</td>
     </tr>
     <tr>
         <td>cached_genres</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Cached preferred genres</td>
     </tr>
     <tr>
         <td>cached_image</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Cached profile image</td>
     </tr>
     <tr>
         <td>confirmation_sent_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Email confirmation sent</td>
     </tr>
     <tr>
         <td>confirmed_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Email confirmed</td>
     </tr>
     <tr>
         <td>created_at</td>
         <td>timestamptz!</td>
-        <td></td>
+        <td>Account creation time</td>
     </tr>
     <tr>
         <td>current_sign_in_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Current session start</td>
     </tr>
     <tr>
         <td>email</td>
         <td>String</td>
-        <td></td>
+        <td>Email address</td>
     </tr>
     <tr>
         <td>email_verified</td>
         <td>timestamptz</td>
-        <td></td>
+        <td>Email verification time</td>
     </tr>
     <tr>
         <td>flair</td>
         <td>String</td>
-        <td></td>
+        <td>Flair or badge text</td>
     </tr>
     <tr>
         <td>followed_users_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Following count</td>
     </tr>
     <tr>
         <td>followers_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Follower count</td>
     </tr>
     <tr>
         <td>id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Unique identifier</td>
     </tr>
     <tr>
         <td>image</td>
@@ -136,27 +136,27 @@ Users can perform actions like adding books to their shelves, following other us
     <tr>
         <td>image_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Profile image</td>
     </tr>
     <tr>
         <td>last_activity_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Last activity time</td>
     </tr>
     <tr>
         <td>last_sign_in_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Last sign-in time</td>
     </tr>
     <tr>
         <td>librarian_roles</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Librarian role assignments</td>
     </tr>
     <tr>
         <td>link</td>
         <td>String</td>
-        <td></td>
+        <td>Personal website URL</td>
     </tr>
     <tr>
         <td>links</td>
@@ -166,102 +166,102 @@ Users can perform actions like adding books to their shelves, following other us
     <tr>
         <td>location</td>
         <td>String</td>
-        <td></td>
+        <td>Location</td>
     </tr>
     <tr>
         <td>locked_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Account lock time</td>
     </tr>
     <tr>
         <td>membership</td>
         <td>String</td>
-        <td></td>
+        <td>Membership tier</td>
     </tr>
     <tr>
         <td>membership_ends_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Membership expiration</td>
     </tr>
     <tr>
         <td>name</td>
         <td>String</td>
-        <td></td>
+        <td>Display name</td>
     </tr>
     <tr>
         <td>object_type</td>
         <td>String</td>
-        <td></td>
+        <td>Object type for polymorphic queries</td>
     </tr>
     <tr>
         <td>onboarded</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Completed onboarding</td>
     </tr>
     <tr>
         <td>payment_system_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Payment system ID</td>
     </tr>
     <tr>
         <td>pro</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Has pro subscription</td>
     </tr>
     <tr>
         <td>pronoun_personal</td>
         <td>String!</td>
-        <td></td>
+        <td>Personal pronoun</td>
     </tr>
     <tr>
         <td>pronoun_possessive</td>
         <td>String!</td>
-        <td></td>
+        <td>Possessive pronoun</td>
     </tr>
     <tr>
         <td>referrer_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Referring user</td>
     </tr>
     <tr>
         <td>referrer_url</td>
         <td>String</td>
-        <td></td>
+        <td>Referral URL</td>
     </tr>
     <tr>
         <td>remember_created_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Remember token time</td>
     </tr>
     <tr>
         <td>reset_password_sent_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Password reset sent</td>
     </tr>
     <tr>
         <td>sign_in_count</td>
         <td>Int</td>
-        <td></td>
+        <td>Total sign-ins</td>
     </tr>
     <tr>
         <td>status_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Account status</td>
     </tr>
     <tr>
         <td>unconfirmed_email</td>
         <td>String</td>
-        <td></td>
+        <td>Pending email</td>
     </tr>
     <tr>
         <td>updated_at</td>
         <td>timestamptz!</td>
-        <td></td>
+        <td>Last profile update</td>
     </tr>
     <tr>
         <td>username</td>
         <td>citext</td>
-        <td></td>
+        <td>Username</td>
     </tr>
     </tbody>
 </table>

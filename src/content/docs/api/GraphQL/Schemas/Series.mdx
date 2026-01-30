@@ -1,7 +1,7 @@
 ---
 title: Series
 category: reference
-lastUpdated: 2025-12-31
+lastUpdated: 2026-01-19
 layout: /src/layouts/documentation.astro
 ---
 
@@ -31,12 +31,12 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>author_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Primary author</td>
     </tr>
     <tr>
         <td>books_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Number of books</td>
     </tr>
     <tr>
         <td>canonical</td>
@@ -46,7 +46,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>canonical_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Canonical series if duplicate</td>
     </tr>
     <tr>
         <td>creator</td>
@@ -56,52 +56,52 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>description</td>
         <td>String</td>
-        <td></td>
+        <td>Description</td>
     </tr>
     <tr>
         <td>id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Unique identifier</td>
     </tr>
     <tr>
         <td>identifiers</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>External identifiers</td>
     </tr>
     <tr>
         <td>is_completed</td>
         <td>Boolean</td>
-        <td></td>
+        <td>Series is complete</td>
     </tr>
     <tr>
         <td>locked</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Locked from editing</td>
     </tr>
     <tr>
         <td>name</td>
         <td>String!</td>
-        <td></td>
+        <td>Series name</td>
     </tr>
     <tr>
         <td>primary_books_count</td>
         <td>Int</td>
-        <td></td>
+        <td>Main series books (excluding companions)</td>
     </tr>
     <tr>
         <td>slug</td>
         <td>String!</td>
-        <td></td>
+        <td>URL-friendly identifier</td>
     </tr>
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td></td>
+        <td>Record state</td>
     </tr>
     <tr>
         <td>user_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Creator</td>
     </tr>
     </tbody>
 </table>

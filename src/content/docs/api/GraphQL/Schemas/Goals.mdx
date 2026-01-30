@@ -1,7 +1,7 @@
 ---
 title: Goals
 category: reference
-lastUpdated: 2025-12-31
+lastUpdated: 2026-01-19
 layout: /src/layouts/documentation.astro
 ---
 
@@ -26,62 +26,62 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>archived</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Archived</td>
     </tr>
     <tr>
         <td>completed_at</td>
         <td>timestamptz</td>
-        <td></td>
+        <td>Completion time</td>
     </tr>
     <tr>
         <td>conditions</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Goal conditions and filters</td>
     </tr>
     <tr>
         <td>description</td>
         <td>String</td>
-        <td></td>
+        <td>Description</td>
     </tr>
     <tr>
         <td>end_date</td>
         <td>date!</td>
-        <td></td>
+        <td>Target end date</td>
     </tr>
     <tr>
         <td>goal</td>
         <td>Int!</td>
-        <td></td>
+        <td>Target number</td>
     </tr>
     <tr>
         <td>id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Unique identifier</td>
     </tr>
     <tr>
         <td>metric</td>
         <td>String!</td>
-        <td></td>
+        <td>Metric (books, pages, etc.)</td>
     </tr>
     <tr>
         <td>privacy_setting_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Privacy setting</td>
     </tr>
     <tr>
         <td>progress</td>
         <td>numeric!</td>
-        <td></td>
+        <td>Current progress</td>
     </tr>
     <tr>
         <td>start_date</td>
         <td>date!</td>
-        <td></td>
+        <td>Start date</td>
     </tr>
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td></td>
+        <td>State (active, completed, failed)</td>
     </tr>
     <tr>
         <td>user</td>
@@ -91,7 +91,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>user_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Owner</td>
     </tr>
     </tbody>
 </table>

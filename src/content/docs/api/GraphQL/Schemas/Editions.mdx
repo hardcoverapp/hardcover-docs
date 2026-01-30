@@ -1,7 +1,7 @@
 ---
 title: Editions
 category: reference
-lastUpdated: 2025-12-31
+lastUpdated: 2026-01-19
 layout: /src/layouts/documentation.astro
 ---
 
@@ -31,17 +31,17 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>alternative_titles</td>
         <td>json!</td>
-        <td></td>
+        <td>Alternate titles</td>
     </tr>
     <tr>
         <td>asin</td>
         <td>String</td>
-        <td></td>
+        <td>Amazon ID (ASIN)</td>
     </tr>
     <tr>
         <td>audio_seconds</td>
         <td>Int</td>
-        <td></td>
+        <td>Audiobook duration in seconds</td>
     </tr>
     <tr>
         <td>book</td>
@@ -51,32 +51,32 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>book_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Parent book</td>
     </tr>
     <tr>
         <td>cached_contributors</td>
         <td>json!</td>
-        <td></td>
+        <td>Cached contributor data</td>
     </tr>
     <tr>
         <td>cached_image</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Cached cover image</td>
     </tr>
     <tr>
         <td>cached_tags</td>
         <td>json!</td>
-        <td></td>
+        <td>Cached tags</td>
     </tr>
     <tr>
         <td>canonical_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Canonical edition if duplicate</td>
     </tr>
     <tr>
         <td>compilation</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Is a compilation</td>
     </tr>
     <tr>
         <td>country</td>
@@ -86,32 +86,37 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>country_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Country of publication</td>
     </tr>
     <tr>
         <td>created_at</td>
         <td>timestamp!</td>
-        <td></td>
+        <td>Record creation time</td>
     </tr>
     <tr>
         <td>created_by_user_id</td>
         <td>Int</td>
+        <td>Creator</td>
+    </tr>
+    <tr>
+        <td>curation_status</td>
+        <td>Int!</td>
         <td></td>
     </tr>
     <tr>
         <td>edition_format</td>
         <td>String</td>
-        <td></td>
+        <td>Format (hardcover, paperback, ebook, audiobook)</td>
     </tr>
     <tr>
         <td>edition_information</td>
         <td>String</td>
-        <td></td>
+        <td>Additional edition details</td>
     </tr>
     <tr>
         <td>id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Unique identifier</td>
     </tr>
     <tr>
         <td>image</td>
@@ -121,17 +126,17 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>image_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Cover image</td>
     </tr>
     <tr>
         <td>isbn_10</td>
         <td>String</td>
-        <td></td>
+        <td>ISBN-10</td>
     </tr>
     <tr>
         <td>isbn_13</td>
         <td>String</td>
-        <td></td>
+        <td>ISBN-13</td>
     </tr>
     <tr>
         <td>language</td>
@@ -141,47 +146,47 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>language_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Language</td>
     </tr>
     <tr>
         <td>lists_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Lists containing this edition</td>
     </tr>
     <tr>
         <td>locked</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Locked from editing</td>
     </tr>
     <tr>
         <td>normalized_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>Last data normalization</td>
     </tr>
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td></td>
+        <td>Object type for polymorphic queries</td>
     </tr>
     <tr>
         <td>original_book_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Original book before merges</td>
     </tr>
     <tr>
         <td>pages</td>
         <td>Int</td>
-        <td></td>
+        <td>Page count</td>
     </tr>
     <tr>
         <td>physical_format</td>
         <td>String</td>
-        <td></td>
+        <td>Physical format details</td>
     </tr>
     <tr>
         <td>physical_information</td>
         <td>String</td>
-        <td></td>
+        <td>Physical format notes</td>
     </tr>
     <tr>
         <td>publisher</td>
@@ -191,12 +196,12 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>publisher_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Publisher</td>
     </tr>
     <tr>
         <td>rating</td>
         <td>numeric</td>
-        <td></td>
+        <td>Average rating</td>
     </tr>
     <tr>
         <td>reading_format</td>
@@ -206,62 +211,57 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>reading_format_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Reading format (physical, ebook, audio)</td>
     </tr>
     <tr>
         <td>release_date</td>
         <td>date</td>
-        <td></td>
+        <td>Publication date</td>
     </tr>
     <tr>
         <td>release_year</td>
         <td>Int</td>
-        <td></td>
+        <td>Publication year</td>
     </tr>
     <tr>
         <td>score</td>
         <td>Int!</td>
-        <td></td>
+        <td>Relevance score</td>
     </tr>
     <tr>
         <td>source</td>
         <td>String</td>
-        <td></td>
+        <td>Data source (OpenLibrary, manual, etc.)</td>
     </tr>
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td></td>
+        <td>Record state</td>
     </tr>
     <tr>
         <td>subtitle</td>
         <td>String</td>
-        <td></td>
+        <td>Subtitle</td>
     </tr>
     <tr>
         <td>title</td>
         <td>String</td>
-        <td></td>
+        <td>Title</td>
     </tr>
     <tr>
         <td>updated_at</td>
         <td>timestamp!</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>user_added</td>
-        <td>Boolean!</td>
-        <td></td>
+        <td>Last update time</td>
     </tr>
     <tr>
         <td>users_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Users with this edition</td>
     </tr>
     <tr>
         <td>users_read_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Users who read this edition</td>
     </tr>
     </tbody>
 </table>
