@@ -1,7 +1,7 @@
 ---
 title: Books
 category: reference
-lastUpdated: 2025-12-31
+lastUpdated: 2026-01-19
 layout: /src/layouts/documentation.astro
 ---
 
@@ -26,22 +26,22 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>activities_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Total user activities (reviews, status updates)</td>
     </tr>
     <tr>
         <td>alternative_titles</td>
         <td>json!</td>
-        <td></td>
+        <td>Alternate titles array</td>
     </tr>
     <tr>
         <td>audio_seconds</td>
         <td>Int</td>
-        <td></td>
+        <td>Audiobook duration in seconds</td>
     </tr>
     <tr>
         <td>book_category_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Category (fiction, non-fiction, etc.)</td>
     </tr>
     <tr>
         <td>book_status</td>
@@ -51,32 +51,32 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>book_status_id</td>
         <td>smallint!</td>
-        <td></td>
+        <td>Publication status</td>
     </tr>
     <tr>
         <td>cached_contributors</td>
         <td>json!</td>
-        <td></td>
+        <td>Cached contributor data</td>
     </tr>
     <tr>
         <td>cached_featured_series</td>
         <td>jsonb</td>
-        <td></td>
+        <td>Cached featured series info</td>
     </tr>
     <tr>
         <td>cached_header_image</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Cached header image data</td>
     </tr>
     <tr>
         <td>cached_image</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Cached cover image data</td>
     </tr>
     <tr>
         <td>cached_tags</td>
         <td>json!</td>
-        <td></td>
+        <td>Cached tags</td>
     </tr>
     <tr>
         <td>canonical</td>
@@ -86,21 +86,26 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>canonical_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Canonical book if this is a duplicate</td>
     </tr>
     <tr>
         <td>compilation</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Is a compilation or anthology</td>
     </tr>
     <tr>
         <td>created_at</td>
         <td>timestamp!</td>
-        <td></td>
+        <td>Record creation time</td>
     </tr>
     <tr>
         <td>created_by_user_id</td>
         <td>Int</td>
+        <td>User who created this record</td>
+    </tr>
+    <tr>
+        <td>curation_status</td>
+        <td>Int!</td>
         <td></td>
     </tr>
     <tr>
@@ -111,7 +116,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>default_audio_edition_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Default audiobook edition</td>
     </tr>
     <tr>
         <td>default_cover_edition</td>
@@ -121,7 +126,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>default_cover_edition_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Edition used for cover display</td>
     </tr>
     <tr>
         <td>default_ebook_edition</td>
@@ -131,7 +136,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>default_ebook_edition_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Default ebook edition</td>
     </tr>
     <tr>
         <td>default_physical_edition</td>
@@ -141,17 +146,17 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>default_physical_edition_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Default physical edition</td>
     </tr>
     <tr>
         <td>description</td>
         <td>String</td>
-        <td></td>
+        <td>Book summary</td>
     </tr>
     <tr>
         <td>editions_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Number of editions</td>
     </tr>
     <tr>
         <td>featured_book_series</td>
@@ -161,22 +166,22 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>featured_book_series_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Featured series for this book</td>
     </tr>
     <tr>
         <td>header_image_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Header image</td>
     </tr>
     <tr>
         <td>headline</td>
         <td>String</td>
-        <td></td>
+        <td>Short tagline</td>
     </tr>
     <tr>
         <td>id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Unique identifier</td>
     </tr>
     <tr>
         <td>image</td>
@@ -186,117 +191,112 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>image_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Cover image</td>
     </tr>
     <tr>
         <td>import_platform_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Import source platform</td>
     </tr>
     <tr>
         <td>journals_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Reading journal entries</td>
     </tr>
     <tr>
         <td>links</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>External links (Wikipedia, Goodreads, etc.)</td>
     </tr>
     <tr>
         <td>lists_count</td>
         <td>Int</td>
-        <td></td>
+        <td>Lists containing this book</td>
     </tr>
     <tr>
         <td>literary_type_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Literary type classification</td>
     </tr>
     <tr>
         <td>locked</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Locked from editing</td>
     </tr>
     <tr>
         <td>pages</td>
         <td>Int</td>
-        <td></td>
+        <td>Page count</td>
     </tr>
     <tr>
         <td>prompts_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Discussion prompts</td>
     </tr>
     <tr>
         <td>rating</td>
         <td>numeric</td>
-        <td></td>
+        <td>Average rating (0-5)</td>
     </tr>
     <tr>
         <td>ratings_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Total ratings</td>
     </tr>
     <tr>
         <td>ratings_distribution</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Ratings breakdown by star level</td>
     </tr>
     <tr>
         <td>release_date</td>
         <td>date</td>
-        <td></td>
+        <td>Original publication date</td>
     </tr>
     <tr>
         <td>release_year</td>
         <td>Int</td>
-        <td></td>
+        <td>Publication year</td>
     </tr>
     <tr>
         <td>reviews_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Total reviews</td>
     </tr>
     <tr>
         <td>slug</td>
         <td>String</td>
-        <td></td>
+        <td>URL-friendly identifier</td>
     </tr>
     <tr>
         <td>state</td>
         <td>String</td>
-        <td></td>
+        <td>Record state (active, pending, deleted)</td>
     </tr>
     <tr>
         <td>subtitle</td>
         <td>String</td>
-        <td></td>
+        <td>Book subtitle</td>
     </tr>
     <tr>
         <td>title</td>
         <td>String</td>
-        <td></td>
+        <td>Primary title</td>
     </tr>
     <tr>
         <td>updated_at</td>
         <td>timestamptz</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>user_added</td>
-        <td>Boolean!</td>
-        <td></td>
+        <td>Last update time</td>
     </tr>
     <tr>
         <td>users_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Users with this book shelved</td>
     </tr>
     <tr>
         <td>users_read_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Users who finished reading</td>
     </tr>
     </tbody>
 </table>

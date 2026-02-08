@@ -4,8 +4,6 @@ description: Standards for adding and editing authors in Hardcover.
 category: guide
 lastUpdated: 2025-09-07 16:06:00
 layout: /src/layouts/librarians.astro
-banner:
-    content: "🚧 Mind your step, this page is a work in progress."
 ---
 
 import {Badge, Aside} from "@astrojs/starlight/components";
@@ -18,6 +16,16 @@ The author name is the primary identifier for an author on Hardcover. It should 
 Some authors use a space between initials in their name (J. K. Rowling), some do not (J.R.R. Tolkien). We should use the spacing of the author's preference (what’s used on their website or printed on their books).
 
 When editing the URL slug for an author, do not include periods or spaces between initials (our slugs typically use lowercase letters and hyphens). For instance, J. K. Rowling’s slug would be `jk-rowling`, and J. R. R. Tolkien’s slug would be `jrr-tolkien`. Slugs are generated automatically on author generation but require manual updating when editing an existing author.
+
+### Case Sensitivity
+Typically, we follow proper noun conventions when capitalizing author names (e.g. Truman Capote). For some authors, deliberate and unconventional capitalization may be used. 
+
+Where that choice is made intentionally and consistently across their books, we should respect that formatting on Hardcover. Their preference takes precedence over standardization to keep Hardcover aligned with authorial intent.
+
+Notable Examples:
+- [bell hooks](https://nmaahc.si.edu/explore/stories/bell-hooks#:~:text=As%20she%20pursued%20writing%2C%20she,rather%20than%20toward%20her%20identity.)
+- adrienne maree brown
+- amanda lovelace
 
 ### Authors Sharing The Same Name
 

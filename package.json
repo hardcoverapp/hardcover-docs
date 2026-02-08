@@ -18,7 +18,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.1.2",
-    "@astrojs/starlight": "^0.30.3",
+    "@astrojs/starlight": "^0.34.0",
     "@astrojs/starlight-tailwind": "^3.0.0",
     "@astrojs/tailwind": "^5.1.4",
     "@popperjs/core": "^2.11.8",
@@ -33,7 +33,7 @@
     "@radix-ui/react-tabs": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@types/cytoscape": "^3.21.9",
-    "astro": "^5.1.1",
+    "astro": "^5.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cytoscape": "^3.33.1",

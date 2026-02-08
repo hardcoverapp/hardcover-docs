@@ -2,7 +2,7 @@
 title: Activities
 description: Learn about the activities schema in the Hardcover API.
 category: reference
-lastUpdated: 2025-12-31
+lastUpdated: 2026-01-19
 layout: /src/layouts/documentation.astro
 ---
 
@@ -50,42 +50,42 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>book_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Associated book</td>
     </tr>
     <tr>
         <td>created_at</td>
         <td>timestamptz</td>
-        <td></td>
+        <td>Activity time</td>
     </tr>
     <tr>
         <td>data</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Activity-specific data</td>
     </tr>
     <tr>
         <td>event</td>
         <td>String!</td>
-        <td></td>
+        <td>Event type (status_update, review, rating)</td>
     </tr>
     <tr>
         <td>id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Unique identifier</td>
     </tr>
     <tr>
         <td>likes_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Likes</td>
     </tr>
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td></td>
+        <td>Object type for polymorphic queries</td>
     </tr>
     <tr>
         <td>original_book_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Original book before merges</td>
     </tr>
     <tr>
         <td>privacy_setting</td>
@@ -95,12 +95,12 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>privacy_setting_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Privacy setting</td>
     </tr>
     <tr>
         <td>uid</td>
         <td>String!</td>
-        <td></td>
+        <td>Unique string for deduplication</td>
     </tr>
     <tr>
         <td>user</td>
@@ -110,7 +110,7 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>user_id</td>
         <td>Int!</td>
-        <td></td>
+        <td>User who performed activity</td>
     </tr>
     </tbody>
 </table>

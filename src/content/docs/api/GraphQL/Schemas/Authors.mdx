@@ -1,7 +1,7 @@
 ---
 title: Authors
 category: reference
-lastUpdated: 2025-12-31
+lastUpdated: 2026-01-19
 layout: /src/layouts/documentation.astro
 ---
 
@@ -27,37 +27,37 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>alias_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Primary author if this is a pen name</td>
     </tr>
     <tr>
         <td>alternate_names</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Alternate names or pen names</td>
     </tr>
     <tr>
         <td>bio</td>
         <td>String</td>
-        <td></td>
+        <td>Biography</td>
     </tr>
     <tr>
         <td>books_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Number of books</td>
     </tr>
     <tr>
         <td>born_date</td>
         <td>date</td>
-        <td></td>
+        <td>Birth date</td>
     </tr>
     <tr>
         <td>born_year</td>
         <td>Int</td>
-        <td></td>
+        <td>Birth year</td>
     </tr>
     <tr>
         <td>cached_image</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Cached image data</td>
     </tr>
     <tr>
         <td>canonical</td>
@@ -67,7 +67,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>canonical_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Canonical author if duplicate</td>
     </tr>
     <tr>
         <td>creator</td>
@@ -77,27 +77,27 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>death_date</td>
         <td>date</td>
-        <td></td>
+        <td>Death date</td>
     </tr>
     <tr>
         <td>death_year</td>
         <td>Int</td>
-        <td></td>
+        <td>Death year</td>
     </tr>
     <tr>
         <td>gender_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Gender</td>
     </tr>
     <tr>
         <td>id</td>
         <td>Int!</td>
-        <td></td>
+        <td>Unique identifier</td>
     </tr>
     <tr>
         <td>identifiers</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>External IDs (VIAF, ISNI, etc.)</td>
     </tr>
     <tr>
         <td>image</td>
@@ -107,67 +107,67 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>image_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Author image</td>
     </tr>
     <tr>
         <td>is_bipoc</td>
         <td>Boolean</td>
-        <td></td>
+        <td>Identifies as BIPOC</td>
     </tr>
     <tr>
         <td>is_lgbtq</td>
         <td>Boolean</td>
-        <td></td>
+        <td>Identifies as LGBTQ+</td>
     </tr>
     <tr>
         <td>links</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>External links</td>
     </tr>
     <tr>
         <td>location</td>
         <td>String</td>
-        <td></td>
+        <td>Location or country of origin</td>
     </tr>
     <tr>
         <td>locked</td>
         <td>Boolean!</td>
-        <td></td>
+        <td>Locked from editing</td>
     </tr>
     <tr>
         <td>name</td>
         <td>String!</td>
-        <td></td>
+        <td>Display name</td>
     </tr>
     <tr>
         <td>name_personal</td>
         <td>String</td>
-        <td></td>
+        <td>Personal/first name</td>
     </tr>
     <tr>
         <td>slug</td>
         <td>String</td>
-        <td></td>
+        <td>URL-friendly identifier</td>
     </tr>
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td></td>
+        <td>Record state</td>
     </tr>
     <tr>
         <td>title</td>
         <td>String</td>
-        <td></td>
+        <td>Title or honorific</td>
     </tr>
     <tr>
         <td>user_id</td>
         <td>Int</td>
-        <td></td>
+        <td>Creator</td>
     </tr>
     <tr>
         <td>users_count</td>
         <td>Int!</td>
-        <td></td>
+        <td>Followers</td>
     </tr>
     </tbody>
 </table>
