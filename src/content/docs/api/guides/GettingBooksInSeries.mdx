@@ -42,13 +42,28 @@ book_series(
 # ...
 ```
 
+With this the series will be clean of any dupicates. But if the series contains any complation/collection books.
+Then they will also be returned returned with this query. 
+To also filter them out you need to filter out the books `book_series.compilation` is true
+
+```graphql
+book_series(
+  where: {compilation: {_eq: false}}
+) {
+# ...
+```
+
 <Aside type="note">
-  This result may differ from the website if the most popular book at a position is a compilation.
-  This can be mitigated by using `distinct_on: details` (the text version of position).
-  For compilations, `details` might be '1-3', while `position` would be '1'.
+  On compliations there is a differnce between the `details` and `position` fields.
+  With normal books the `details` would just be a string of the `position`
+  But for a complation `details` can be a string like '1-3' while `position` would still be '1'.
+
+  This can be useful with `distinct_on: details` if you only want one compliation of each book range.
 </Aside>
 
 You can also help by going to any duplicate books and clicking `Flag` > `Flag as duplicate` ;)
+
+See [Merging Standards](/librarians/standards/mergingstandards/#merging-books)
 
 ## Related Schemas
 - [Books](/api/graphql/schemas/books)
@@ -75,7 +90,10 @@ query GetBooksBySeries {
     book_series(
       distinct_on: position
       order_by: [{position: asc}, {book: {users_count: desc}}]
-      where: {book: {canonical_id: {_is_null: true}}}
+      where: {
+          book: {canonical_id: {_is_null: true}},
+          compilation: {_eq: false}
+      }
     ) {
       position
       book {
