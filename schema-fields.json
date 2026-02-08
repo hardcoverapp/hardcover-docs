@@ -261,6 +261,12 @@
       "hasArgs": false
     },
     {
+      "name": "object_type",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "slug",
       "type": "String",
       "description": "",
@@ -2005,6 +2011,12 @@
       "hasArgs": false
     },
     {
+      "name": "object_type",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "parent_id",
       "type": "Int",
       "description": "",
@@ -2056,6 +2068,12 @@
     }
   ],
   "reading_journals": [
+    {
+      "name": "action_at",
+      "type": "timestamptz!",
+      "description": "",
+      "hasArgs": false
+    },
     {
       "name": "book",
       "type": "books",
@@ -2257,6 +2275,12 @@
       "hasArgs": false
     },
     {
+      "name": "object_type",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "primary_books_count",
       "type": "Int",
       "description": "",
@@ -2277,6 +2301,74 @@
     {
       "name": "user_id",
       "type": "Int",
+      "description": "",
+      "hasArgs": false
+    }
+  ],
+  "book_series": [
+    {
+      "name": "book",
+      "type": "books",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "book_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "compilation",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "details",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "featured",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "id",
+      "type": "bigint!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "position",
+      "type": "float8",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "series",
+      "type": "series",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "series_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp!",
       "description": "",
       "hasArgs": false
     }
@@ -2487,6 +2579,18 @@
       "type": "Int!",
       "description": "",
       "hasArgs": false
+    },
+    {
+      "name": "follows",
+      "type": "[follows!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "follows_aggregate",
+      "type": "follows_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
     },
     {
       "name": "goals",
@@ -2749,68 +2853,6 @@
     {
       "name": "username",
       "type": "citext",
-      "description": "",
-      "hasArgs": false
-    }
-  ],
-  "book_series": [
-    {
-      "name": "book",
-      "type": "books",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "book_id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "created_at",
-      "type": "timestamp!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "details",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "featured",
-      "type": "Boolean!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "id",
-      "type": "bigint!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "position",
-      "type": "float8",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "series",
-      "type": "series!",
-      "description": "An object relationship",
-      "hasArgs": false
-    },
-    {
-      "name": "series_id",
-      "type": "Int!",
-      "description": "",
-      "hasArgs": false
-    },
-    {
-      "name": "updated_at",
-      "type": "timestamp!",
       "description": "",
       "hasArgs": false
     }

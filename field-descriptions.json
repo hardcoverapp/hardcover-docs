@@ -370,5 +370,8 @@
     "privacy_setting_id": "Privacy setting",
     "uid": "Unique string for deduplication",
     "user_id": "User who performed activity"
+  },
+  "book_series":{
+    "details": "Text form of position"
   }
 }
