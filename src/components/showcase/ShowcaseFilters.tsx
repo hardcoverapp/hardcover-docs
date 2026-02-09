@@ -48,9 +48,9 @@ export function ShowcaseFilters({
   availableCategories,
 }: ShowcaseFiltersProps) {
   return (
-    <div className="not-content" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-        <div style={{ position: 'relative', flex: '1 1 300px', minWidth: '200px' }}>
+    <div className="not-content flex flex-col gap-4">
+      <div className="flex flex-row items-center gap-4 flex-wrap">
+        <div className="relative flex-[1_1_300px] min-w-[200px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -61,7 +61,7 @@ export function ShowcaseFilters({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
           >
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.3-4.3" />
@@ -71,33 +71,14 @@ export function ShowcaseFilters({
             placeholder="Search projects..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            style={{
-              width: '100%',
-              height: '40px',
-              paddingLeft: '40px',
-              paddingRight: '16px',
-              borderRadius: '6px',
-              fontSize: '14px',
-              outline: 'none',
-              boxSizing: 'border-box',
-            }}
-            className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
+            className="w-full h-10 pl-10 pr-4 rounded-md text-sm outline-none box-border bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
           />
         </div>
 
         <select
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value as SortOption)}
-          style={{
-            height: '40px',
-            padding: '0 12px',
-            borderRadius: '6px',
-            fontSize: '14px',
-            outline: 'none',
-            width: '180px',
-            boxSizing: 'border-box',
-          }}
-          className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
+          className="h-10 px-3 rounded-md text-sm outline-none w-[180px] box-border bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
         >
           {sortOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -107,26 +88,15 @@ export function ShowcaseFilters({
         </select>
       </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
+      <div className="flex flex-wrap gap-2 items-center">
         <button
           onClick={() => onCategoryChange(null)}
-          style={{
-            height: '32px',
-            padding: '0 12px',
-            fontSize: '14px',
-            fontWeight: 500,
-            borderRadius: '6px',
-            cursor: 'pointer',
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxSizing: 'border-box',
-          }}
-          className={
+          className={cn(
+            'h-8 px-3 text-sm font-medium rounded-md cursor-pointer inline-flex items-center justify-center box-border',
             selectedCategory === null
               ? 'bg-blue-600 text-white border-0'
               : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-          }
+          )}
         >
           All
         </button>
@@ -134,24 +104,12 @@ export function ShowcaseFilters({
           <button
             key={category}
             onClick={() => onCategoryChange(category)}
-            style={{
-              height: '32px',
-              padding: '0 12px',
-              fontSize: '14px',
-              fontWeight: 500,
-              borderRadius: '6px',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              boxSizing: 'border-box',
-            }}
-            className={
+            className={cn(
+              'h-8 px-3 text-sm font-medium rounded-md cursor-pointer inline-flex items-center justify-center gap-1.5 box-border',
               selectedCategory === category
                 ? 'bg-blue-600 text-white border-0'
                 : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-            }
+            )}
           >
             <span>{getCategoryIcon(category)}</span>
             <span>{category}</span>

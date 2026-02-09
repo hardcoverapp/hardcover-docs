@@ -5,7 +5,7 @@ lastUpdated: 2026-02-09 00:00:00
 template: splash
 hero:
     title: Hardcover Documentation
-    tagline: Everything you need to build with, contribute to, and maintain Hardcover.
+    tagline: Build with, contribute to, and use Hardcover.
     image:
         file: /src/assets/hardcover-hero.png
         alt: Hardcover logo
@@ -15,11 +15,12 @@ hero:
           variant: primary
 ---
 
+import { LinkCard } from '@astrojs/starlight/components';
 import Landing from '@/components/landing/Landing.astro';
 import { URLS } from '@/Consts';
 
 <Landing />
 
-<p style="text-align: center; margin-top: 2rem;">
-  <a href={URLS.APP} target="_blank" rel="noreferrer noopener">Return to Hardcover App &rarr;</a>
-</p>
+<div className="text-center mt-8 max-w-lg m-auto">
+    <LinkCard title="Return to Hardcover App" href={URLS.APP} target="_blank" rel="noreferrer noopener" />
+</div>

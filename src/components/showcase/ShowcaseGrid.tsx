@@ -165,11 +165,8 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
       ) : (
         <>
           {featuredProjects.length > 0 && sortBy === 'featured' && (
-            <section style={{ marginTop: '4rem', marginBottom: 0 }}>
-              <h2
-                className="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-gray-100"
-                style={{ marginBottom: '1rem', marginTop: 0 }}
-              >
+            <section className="!mt-16 !mb-0">
+              <h2 className="!mb-4 !mt-0 text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <span>★</span> Featured Projects
               </h2>
               <FeaturedCarousel
@@ -179,16 +176,13 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
             </section>
           )}
 
-          <section style={{ marginTop: '4rem', marginBottom: 0 }}>
-            <h2
-              className="text-lg font-semibold text-gray-900 dark:text-gray-100"
-              style={{ marginBottom: '1rem', marginTop: 0 }}
-            >
+          <section className="!mt-16 !mb-0">
+            <h2 className="!mb-4 !mt-0 text-lg font-semibold text-gray-900 dark:text-gray-100">
               All Projects
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredProjects.map((project) => (
-                <div key={project.slug} className="!mt-0 !mb-0" style={{ marginTop: 0, marginBottom: 0 }}>
+                <div key={project.slug} className="!mt-0 !mb-0">
                   <ShowcaseCard
                     project={project}
                     onClick={() => handleCardClick(project)}
