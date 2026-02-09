@@ -21,7 +21,8 @@ function generateMarkdownTable(typeName, fields) {
     if (!field.hasArgs) return true;
     // Include JSON fields with path argument
     if (field.type.includes('json')) return true;
-    // Exclude array relationships with complex args
+    // Include array relationships (except aggregates)
+    if (!field.type.includes('aggregate')) return true;
     return false;
   });
 

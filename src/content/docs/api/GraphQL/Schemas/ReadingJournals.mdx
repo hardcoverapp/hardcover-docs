@@ -65,9 +65,19 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Event type (note, quote, status_currently_reading, status_read, rated, reviewed, progress_updated, etc.)</td>
     </tr>
     <tr>
+        <td>followers</td>
+        <td>[followed_users!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>id</td>
         <td>bigint!</td>
         <td>Unique identifier</td>
+    </tr>
+    <tr>
+        <td>likes</td>
+        <td>[likes!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>likes_count</td>
@@ -88,6 +98,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>privacy_setting_id</td>
         <td>Int!</td>
         <td>Privacy (1=Public, 2=Followers, 3=Private)</td>
+    </tr>
+    <tr>
+        <td>taggings</td>
+        <td>[taggings!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>updated_at</td>

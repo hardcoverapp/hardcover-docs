@@ -49,6 +49,16 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Featured</td>
     </tr>
     <tr>
+        <td>followed_prompts</td>
+        <td>[followed_prompts!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>followers</td>
+        <td>[followed_users!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>id</td>
         <td>Int!</td>
         <td>Unique identifier</td>
@@ -62,6 +72,16 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>privacy_setting_id</td>
         <td>Int!</td>
         <td>Privacy (1=Public, 2=Followers, 3=Private)</td>
+    </tr>
+    <tr>
+        <td>prompt_answers</td>
+        <td>[prompt_answers!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>prompt_books</td>
+        <td>[prompt_books_summary!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>question</td>
