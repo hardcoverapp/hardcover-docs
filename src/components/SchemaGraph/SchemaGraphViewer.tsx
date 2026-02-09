@@ -471,7 +471,7 @@ export const SchemaGraphViewer: React.FC<SchemaGraphViewerProps> = ({ typeName }
         'followed_users': 'users',
         'followed_lists': 'lists',
         'followed_prompts': 'prompts',
-        'user_books': 'books',
+        'user_books': 'userbooks',
         'list_books': 'lists',
         'prompt_answers': 'prompts',
         'reading_formats': 'readingformats',

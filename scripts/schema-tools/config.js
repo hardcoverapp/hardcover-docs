@@ -21,6 +21,7 @@ export const schemaTypes = {
   'series': 'src/content/docs/api/GraphQL/Schemas/Series.mdx',
   'book_series': 'src/content/docs/api/GraphQL/Schemas/BookSeries.mdx',
   'tags': 'src/content/docs/api/GraphQL/Schemas/Tags.mdx',
+  'user_books': 'src/content/docs/api/GraphQL/Schemas/UserBooks.mdx',
   'users': 'src/content/docs/api/GraphQL/Schemas/Users.mdx'
 };
 
