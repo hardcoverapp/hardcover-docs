@@ -1,0 +1,86 @@
+---
+title: Book Series
+category: reference
+lastUpdated: 2026-1-12 00:00:00
+layout: /src/layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+
+## Schema Relationships
+
+`book_series` contains information about a book's relationship to a series.
+It includes its position within the series, whether it is a compilation of books in the series,
+and if the series should be featured on the book.
+
+<SchemaGraph typeName="book_series" />
+
+## Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>book</td>
+        <td>books</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>book_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>compilation</td>
+        <td>Boolean!</td>
+        <td>Indicates if this is a compilation of books in the series</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>details</td>
+        <td>String</td>
+        <td>Text form of position</td>
+    </tr>
+    <tr>
+        <td>featured</td>
+        <td>Boolean!</td>
+        <td>Indicates if the series is featured on the book</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>bigint!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>position</td>
+        <td>float8</td>
+        <td>The numeric position of the book in the series, for collections it will be the first book</td>
+    </tr>
+    <tr>
+        <td>series</td>
+        <td>series</td>
+        <td>An object relationship</td>
+    </tr>
+    <tr>
+        <td>series_id</td>
+        <td>Int!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp!</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>

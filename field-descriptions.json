@@ -374,5 +374,11 @@
     "privacy_setting_id": "Privacy setting",
     "uid": "Unique string for deduplication",
     "user_id": "User who performed activity"
+  },
+  "book_series":{
+    "compilation": "Indicates if this is a compilation of books in the series",
+    "featured": "Indicates if the series is featured on the book",
+    "position": "The numeric position of the book in the series, for collections it will be the first book",
+    "details": "Text form of position"
   }
 }
