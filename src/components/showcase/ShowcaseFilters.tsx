@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-export type SortOption = 'newest' | 'updated' | 'alphabetical' | 'featured';
+export type SortOption = 'newest' | 'updated' | 'alphabetical' | 'featured' | 'stars';
 
 function getCategoryIcon(category: string): string {
   const icons: Record<string, string> = {
@@ -34,6 +34,7 @@ const sortOptions: { value: SortOption; label: string }[] = [
   { value: 'featured', label: 'Featured First' },
   { value: 'newest', label: 'Newest' },
   { value: 'updated', label: 'Recently Updated' },
+  { value: 'stars', label: 'Most Stars' },
   { value: 'alphabetical', label: 'Alphabetical' },
 ];
 

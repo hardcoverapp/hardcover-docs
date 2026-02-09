@@ -127,6 +127,27 @@
         }
       }
     },
+    "landing": {
+      "sections": {
+        "heading": "Explore the docs",
+        "api": {
+          "title": "API Documentation",
+          "description": "Build integrations with the Hardcover GraphQL API."
+        },
+        "librarians": {
+          "title": "Librarian Guides",
+          "description": "Standards and resources for maintaining book data on Hardcover."
+        },
+        "contributing": {
+          "title": "Contributing",
+          "description": "Get involved with the Hardcover project and documentation."
+        }
+      },
+      "showcase": {
+        "heading": "Built by the community",
+        "viewAll": "View all projects"
+      }
+    },
     "schemaGraph": {
       "title": "Schema Relationships",
       "loading": "Loading schema graph...",

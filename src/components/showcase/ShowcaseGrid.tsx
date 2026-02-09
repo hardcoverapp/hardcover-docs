@@ -61,6 +61,8 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
           return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
         case 'updated':
           return new Date(b.dateUpdated).getTime() - new Date(a.dateUpdated).getTime();
+        case 'stars':
+          return (b.stats?.githubStars ?? 0) - (a.stats?.githubStars ?? 0);
         case 'alphabetical':
           return a.name.localeCompare(b.name);
         case 'featured':
@@ -79,8 +81,10 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
     return result;
   }, [projects, search, selectedCategory, sortBy]);
 
-  // Get featured projects for carousel
-  const featuredProjects = filteredProjects.filter((p) => p.featured);
+  // Get featured projects for carousel, sorted by stars
+  const featuredProjects = filteredProjects
+    .filter((p) => p.featured)
+    .sort((a, b) => (b.stats?.githubStars ?? 0) - (a.stats?.githubStars ?? 0));
 
   const handleCardClick = (project: ShowcaseProject) => {
     setSelectedProject(project);
@@ -114,8 +118,26 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
     }
   }, [projects]);
 
+  // Aggregate stats
+  const totalStars = projects.reduce((sum, p) => sum + (p.stats?.githubStars ?? 0), 0);
+  const totalCategories = availableCategories.length;
+
   return (
     <div className="space-y-8">
+      <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+        <span className="flex items-center gap-1.5">
+          <span className="font-semibold text-gray-900 dark:text-gray-100">{projects.length}</span> projects
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="font-semibold text-gray-900 dark:text-gray-100">{totalCategories}</span> categories
+        </span>
+        {totalStars > 0 && (
+          <span className="flex items-center gap-1.5">
+            <span className="font-semibold text-gray-900 dark:text-gray-100">{totalStars.toLocaleString()}</span> GitHub stars
+          </span>
+        )}
+      </div>
+
       <ShowcaseFilters
         search={search}
         onSearchChange={setSearch}
@@ -127,8 +149,18 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
       />
 
       {filteredProjects.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-500 dark:text-gray-400">No projects found matching your criteria.</p>
+        <div className="text-center py-16">
+          <div className="text-5xl mb-4 opacity-50">🔍</div>
+          <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">No projects found</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Try adjusting your search or clearing the category filter.
+          </p>
+          <button
+            onClick={() => { setSearch(''); setSelectedCategory(null); setSortBy('featured'); }}
+            className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+          >
+            Clear filters
+          </button>
         </div>
       ) : (
         <>

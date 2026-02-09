@@ -40,7 +40,7 @@ export function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
       className={cn(
         'cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02]',
         'flex flex-col overflow-hidden rounded-lg min-h-[360px]',
-        'border border-gray-200 dark:border-gray-700',
+        'border border-gray-200 dark:border-gray-700 hover:border-indigo-400 dark:hover:border-indigo-500',
         'bg-white dark:bg-gray-800'
       )}
       onClick={onClick}

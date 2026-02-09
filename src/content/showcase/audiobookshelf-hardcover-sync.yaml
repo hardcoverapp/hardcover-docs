@@ -1,0 +1,44 @@
+name: "Audiobookshelf Hardcover Sync"
+slug: "audiobookshelf-hardcover-sync"
+summary: "Automatically sync your Audiobookshelf library with Hardcover"
+description: |
+  Syncs your Audiobookshelf library with Hardcover, including reading progress, book status, and ownership information. Runs as a Docker container with a web management UI.
+
+  Features:
+  - Automatic sync of reading progress and book status
+  - Multi-profile support with concurrent syncing
+  - Web management interface for configuration and monitoring
+  - Secure token storage with AES-256-GCM encryption
+  - Docker and Helm chart deployment options
+  - REST API for programmatic control
+  - Conditional sync rules and mismatch detection
+  - Caching system to reduce API calls
+
+author:
+  name: "drallgood"
+  github: "drallgood"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/drallgood/audiobookshelf-hardcover-sync"
+    type: "github"
+
+categories:
+  - "Automation"
+  - "Integration"
+
+tags:
+  - "audiobookshelf"
+  - "audiobooks"
+  - "sync"
+  - "docker"
+  - "go"
+  - "open-source"
+
+dateAdded: 2026-02-09
+dateUpdated: 2026-02-09
+
+featured: true
+
+stats:
+  githubStars: 41
