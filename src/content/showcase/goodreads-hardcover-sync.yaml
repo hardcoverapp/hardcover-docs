@@ -1,0 +1,41 @@
+name: "Goodreads to Hardcover Sync"
+slug: "goodreads-hardcover-sync"
+summary: "Sync Kindle reads to Hardcover via Goodreads, automatically or manually"
+description: |
+  Three tools to sync Kindle reads to Hardcover.app via Goodreads. When Kindle updates your Goodreads "Read" shelf, this tool detects the change and logs the book to Hardcover with the date read.
+
+  Features:
+  - Chrome Extension with zero-config setup (auto-detects credentials)
+  - Node.js script for local or cloud usage
+  - GitHub Actions workflow for free daily automated sync
+  - Robust multi-step book matching (ISBN, then title/author fuzzy match)
+  - Duplicate prevention by checking your Hardcover library first
+  - Dry-run mode for safe testing
+
+author:
+  name: "cyberk"
+  github: "cyberk"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/cyberk/goodreads-hardcover-sync"
+    type: "github"
+
+categories:
+  - "Browser Extension"
+  - "Automation"
+
+tags:
+  - "goodreads"
+  - "kindle"
+  - "sync"
+  - "chrome-extension"
+  - "open-source"
+
+dateAdded: 2026-02-09
+dateUpdated: 2026-02-09
+
+featured: false
+
+stats:
+  githubStars: 10

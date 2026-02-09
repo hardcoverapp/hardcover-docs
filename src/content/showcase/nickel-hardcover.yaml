@@ -1,0 +1,51 @@
+name: "NickelHardcover"
+slug: "nickel-hardcover"
+summary: "Hardcover.app integration for Kobo eReaders"
+description: |
+  NickelHardcover brings Hardcover.app integration directly to Kobo eReaders. Track your reading progress and review books without leaving your device.
+
+  Features:
+  - Automatically update reading progress on Hardcover.app
+  - Configurable auto-sync interval (default every 15 minutes)
+  - Manual sync option for on-demand updates
+  - Review and rate books directly from your Kobo
+  - Manual book linking when ISBN matching fails
+  - Simple installation via KoboRoot.tgz
+
+author:
+  name: "RedHatter"
+  github: "RedHatter"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/RedHatter/NickelHardcover"
+    type: "github"
+
+categories:
+  - "E-ink Display"
+  - "Integration"
+
+tags:
+  - "kobo"
+  - "e-reader"
+  - "reading-progress"
+  - "open-source"
+  - "c++"
+
+screenshots:
+  - src: "/showcase/nickel-hardcover/updating.png"
+    alt: "Kobo screen showing reading progress being synced to Hardcover"
+  - src: "/showcase/nickel-hardcover/review.png"
+    alt: "Review dialog for rating a book on Kobo"
+  - src: "/showcase/nickel-hardcover/menu.png"
+    alt: "Hardcover integration menu on Kobo eReader"
+  - src: "/showcase/nickel-hardcover/search.png"
+    alt: "Book search dialog for manually linking a book"
+
+dateAdded: 2026-02-09
+dateUpdated: 2026-02-09
+
+featured: false
+
+stats:
+  githubStars: 8

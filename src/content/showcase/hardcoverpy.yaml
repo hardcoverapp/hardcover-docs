@@ -1,0 +1,41 @@
+name: "HardCoverPy"
+slug: "hardcoverpy"
+summary: "Python SDK for the Hardcover GraphQL API"
+description: |
+  HardCoverPy is a Python client library that provides a streamlined interface to interact with the Hardcover GraphQL API. It abstracts away query building, authentication, and response parsing into Python objects.
+
+  Features:
+  - Query the Hardcover API using Python objects instead of raw GraphQL
+  - Automatic query building from YAML schema definitions
+  - Filtering with dot-path syntax for nested fields
+  - Pydantic models for type-safe response parsing
+  - Support for ordering, pagination, and distinct queries
+  - Schema validation to check available fields and operators
+
+  Currently in beta with read-only support.
+
+author:
+  name: "mtuand"
+  github: "mtuand"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/mtuand/HardCoverPy"
+    type: "github"
+
+categories:
+  - "Integration"
+
+tags:
+  - "python"
+  - "sdk"
+  - "graphql"
+  - "open-source"
+
+dateAdded: 2026-02-09
+dateUpdated: 2026-02-09
+
+featured: false
+
+stats:
+  githubStars: 0
