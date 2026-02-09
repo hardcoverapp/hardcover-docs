@@ -39,6 +39,11 @@ Users can perform actions like adding books to their shelves, following other us
         <td>Account privacy (1=Public, 2=Followers, 3=Private)</td>
     </tr>
     <tr>
+        <td>activities</td>
+        <td>[activities!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>activity_privacy_settings_id</td>
         <td>Int!</td>
         <td>Activity feed privacy (1=Public, 2=Followers, 3=Private)</td>
@@ -59,6 +64,11 @@ Users can perform actions like adding books to their shelves, following other us
         <td>Birth date</td>
     </tr>
     <tr>
+        <td>blocked_users</td>
+        <td>[user_blocks!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>books_count</td>
         <td>Int!</td>
         <td>Books on shelves</td>
@@ -77,6 +87,11 @@ Users can perform actions like adding books to their shelves, following other us
         <td>cached_image</td>
         <td>jsonb!</td>
         <td>Cached profile image</td>
+    </tr>
+    <tr>
+        <td>collection_imports</td>
+        <td>[collection_imports!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>confirmation_sent_at</td>
@@ -114,6 +129,26 @@ Users can perform actions like adding books to their shelves, following other us
         <td>Profile badge text (e.g. 'Supporter')</td>
     </tr>
     <tr>
+        <td>followed_by_users</td>
+        <td>[followed_users!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>followed_lists</td>
+        <td>[followed_lists!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>followed_prompts</td>
+        <td>[followed_prompts!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>followed_users</td>
+        <td>[followed_users!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>followed_users_count</td>
         <td>Int!</td>
         <td>Following count</td>
@@ -122,6 +157,16 @@ Users can perform actions like adding books to their shelves, following other us
         <td>followers_count</td>
         <td>Int!</td>
         <td>Follower count</td>
+    </tr>
+    <tr>
+        <td>follows</td>
+        <td>[follows!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>goals</td>
+        <td>[goals!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>id</td>
@@ -164,6 +209,11 @@ Users can perform actions like adding books to their shelves, following other us
         <td>An object relationship</td>
     </tr>
     <tr>
+        <td>lists</td>
+        <td>[lists!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>location</td>
         <td>String</td>
         <td>Location</td>
@@ -189,6 +239,11 @@ Users can perform actions like adding books to their shelves, following other us
         <td>Display name</td>
     </tr>
     <tr>
+        <td>notification_deliveries</td>
+        <td>[notification_deliveries!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>object_type</td>
         <td>String</td>
         <td>Always 'User'</td>
@@ -207,6 +262,16 @@ Users can perform actions like adding books to their shelves, following other us
         <td>pro</td>
         <td>Boolean!</td>
         <td>Has pro subscription</td>
+    </tr>
+    <tr>
+        <td>prompt_answers</td>
+        <td>[prompt_answers!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>prompts</td>
+        <td>[prompts!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>pronoun_personal</td>
@@ -229,9 +294,19 @@ Users can perform actions like adding books to their shelves, following other us
         <td>Referral URL</td>
     </tr>
     <tr>
+        <td>referrered_users</td>
+        <td>[user_books!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>remember_created_at</td>
         <td>timestamp</td>
         <td>Remember token time</td>
+    </tr>
+    <tr>
+        <td>reported_user_flags</td>
+        <td>[user_flags!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>reset_password_sent_at</td>
@@ -249,6 +324,11 @@ Users can perform actions like adding books to their shelves, following other us
         <td>Account status (1=Created, 2=Activated, 3=Banned)</td>
     </tr>
     <tr>
+        <td>taggings</td>
+        <td>[taggings!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>unconfirmed_email</td>
         <td>String</td>
         <td>Pending email</td>
@@ -257,6 +337,16 @@ Users can perform actions like adding books to their shelves, following other us
         <td>updated_at</td>
         <td>timestamptz!</td>
         <td>Last profile update</td>
+    </tr>
+    <tr>
+        <td>user_books</td>
+        <td>[user_books!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>user_flags</td>
+        <td>[user_flags!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>username</td>

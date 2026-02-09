@@ -25,6 +25,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     </thead>
     <tbody>
     <tr>
+        <td>alias</td>
+        <td>[authors!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>alias_id</td>
         <td>Int</td>
         <td>Primary author if this is a pen name</td>
@@ -68,6 +73,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>canonical_id</td>
         <td>Int</td>
         <td>Canonical author if duplicate</td>
+    </tr>
+    <tr>
+        <td>contributions</td>
+        <td>[contributions!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>creator</td>

@@ -44,6 +44,21 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Category ID (1=Book, 2=Novella, 3=Short Story, 4=Graphic Novel, 5=Fan Fiction, 6=Research Paper, 7=Poetry, 8=Collection, 9=Web Novel, 10=Light Novel)</td>
     </tr>
     <tr>
+        <td>book_characters</td>
+        <td>[book_characters!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>book_mappings</td>
+        <td>[book_mappings!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>book_series</td>
+        <td>[book_series!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>book_status</td>
         <td>book_statuses!</td>
         <td>An object relationship</td>
@@ -89,9 +104,19 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Canonical book if this is a duplicate</td>
     </tr>
     <tr>
+        <td>collection_import_results</td>
+        <td>[collection_import_results!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>compilation</td>
         <td>Boolean!</td>
         <td>Is a compilation or anthology</td>
+    </tr>
+    <tr>
+        <td>contributions</td>
+        <td>[contributions!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>created_at</td>
@@ -154,6 +179,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Book summary</td>
     </tr>
     <tr>
+        <td>editions</td>
+        <td>[editions!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>editions_count</td>
         <td>Int!</td>
         <td>Number of editions</td>
@@ -194,6 +224,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Cover image</td>
     </tr>
     <tr>
+        <td>images</td>
+        <td>[images!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>import_platform_id</td>
         <td>Int!</td>
         <td>Import source platform</td>
@@ -207,6 +242,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>links</td>
         <td>jsonb!</td>
         <td>External links (Wikipedia, Goodreads, etc.)</td>
+    </tr>
+    <tr>
+        <td>list_books</td>
+        <td>[list_books!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>lists_count</td>
@@ -227,6 +267,16 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>pages</td>
         <td>Int</td>
         <td>Page count</td>
+    </tr>
+    <tr>
+        <td>prompt_answers</td>
+        <td>[prompt_answers!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>prompt_summaries</td>
+        <td>[prompt_books_summary!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>prompts_count</td>
@@ -279,6 +329,16 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Book subtitle</td>
     </tr>
     <tr>
+        <td>taggable_counts</td>
+        <td>[taggable_counts!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>taggings</td>
+        <td>[taggings!]!</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
         <td>title</td>
         <td>String</td>
         <td>Primary title</td>
@@ -287,6 +347,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>updated_at</td>
         <td>timestamptz</td>
         <td>Last update time</td>
+    </tr>
+    <tr>
+        <td>user_books</td>
+        <td>[user_books!]!</td>
+        <td>An array relationship</td>
     </tr>
     <tr>
         <td>users_count</td>
