@@ -352,25 +352,24 @@ Fetch all books in the authenticated user's library with their status and rating
 
 <GraphQLExplorer query={`
 query MyLibrary {
-    me {
-        user_books(
-            order_by: {date_added: desc}
-            limit: 20
-        ) {
-            id
-            status_id
-            rating
-            date_added
-            book {
-                title
-                contributions {
-                    author {
-                        name
-                    }
+    user_books(
+        where: {user_id: {_eq: ##USER_ID##}}
+        order_by: {date_added: desc}
+        limit: 20
+    ) {
+        id
+        status_id
+        rating
+        date_added
+        book {
+            title
+            contributions {
+                author {
+                    name
                 }
-                image {
-                    url
-                }
+            }
+            image {
+                url
             }
         }
     }
@@ -462,26 +461,27 @@ Fetch all books a user has marked as owned.
 
 <GraphQLExplorer query={`
 query OwnedBooks {
-    me {
-        user_books(
-            where: {owned: {_eq: true}}
-            order_by: {date_added: desc}
-        ) {
-            id
-            owned_copies
-            book {
-                title
-                contributions {
-                    author {
-                        name
-                    }
+    user_books(
+        where: {
+            user_id: {_eq: ##USER_ID##}
+            owned: {_eq: true}
+        }
+        order_by: {date_added: desc}
+    ) {
+        id
+        owned_copies
+        book {
+            title
+            contributions {
+                author {
+                    name
                 }
             }
-            edition {
-                title
-                edition_format
-                isbn_13
-            }
+        }
+        edition {
+            title
+            edition_format
+            isbn_13
         }
     }
 }
