@@ -261,6 +261,12 @@
       "hasArgs": false
     },
     {
+      "name": "object_type",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "slug",
       "type": "String",
       "description": "",
@@ -2005,6 +2011,12 @@
       "hasArgs": false
     },
     {
+      "name": "object_type",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "parent_id",
       "type": "Int",
       "description": "",
@@ -2056,6 +2068,12 @@
     }
   ],
   "reading_journals": [
+    {
+      "name": "action_at",
+      "type": "timestamptz!",
+      "description": "",
+      "hasArgs": false
+    },
     {
       "name": "book",
       "type": "books",
@@ -2252,6 +2270,12 @@
     },
     {
       "name": "name",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "object_type",
       "type": "String!",
       "description": "",
       "hasArgs": false
@@ -2487,6 +2511,18 @@
       "type": "Int!",
       "description": "",
       "hasArgs": false
+    },
+    {
+      "name": "follows",
+      "type": "[follows!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "follows_aggregate",
+      "type": "follows_aggregate!",
+      "description": "An aggregate relationship",
+      "hasArgs": true
     },
     {
       "name": "goals",
