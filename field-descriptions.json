@@ -47,7 +47,28 @@
     "updated_at": "Last update time",
     "user_added": "Added by user (vs. imported)",
     "users_count": "Users with this book shelved",
-    "users_read_count": "Users who finished reading"
+    "users_read_count": "Users who finished reading",
+    "book_characters": "Characters appearing in this book",
+    "book_mappings": "External platform mappings",
+    "book_series": "Series this book belongs to",
+    "collection_import_results": "Import results for this book",
+    "contributions": "Author and contributor credits",
+    "editions": "All editions of this book",
+    "images": "Book images and covers",
+    "list_books": "List entries containing this book",
+    "prompt_answers": "Prompt answers about this book",
+    "prompt_summaries": "Prompt answer summaries",
+    "taggable_counts": "Tag usage counts",
+    "taggings": "Applied tags",
+    "user_books": "User library entries for this book",
+    "book_status": "Book record status details",
+    "canonical": "Canonical book if duplicate",
+    "default_audio_edition": "Default audiobook edition",
+    "default_cover_edition": "Edition used for cover display",
+    "default_ebook_edition": "Default ebook edition",
+    "default_physical_edition": "Default physical edition",
+    "featured_book_series": "Featured series for this book",
+    "image": "Cover image"
   },
   "authors": {
     "alias_id": "Primary author if this is a pen name",
@@ -77,7 +98,12 @@
     "state": "Record state (active, duplicate)",
     "title": "Title or honorific",
     "user_id": "Creator",
-    "users_count": "Followers"
+    "users_count": "Followers",
+    "alias": "Pen name aliases",
+    "contributions": "Book and edition contributions",
+    "canonical": "Canonical author if duplicate",
+    "creator": "User who created this record",
+    "image": "Author photo"
   },
   "users": {
     "access_level": "Permission level (numeric, higher = more access)",
@@ -124,7 +150,27 @@
     "status_id": "Account status (1=Created, 2=Activated, 3=Banned)",
     "unconfirmed_email": "Pending email",
     "updated_at": "Last profile update",
-    "username": "Username"
+    "username": "Username",
+    "activities": "User's activity feed",
+    "blocked_users": "Blocked users",
+    "collection_imports": "Import history",
+    "followed_by_users": "Users who follow this user",
+    "followed_lists": "Lists this user follows",
+    "followed_prompts": "Prompts this user follows",
+    "followed_users": "Users this user follows",
+    "follows": "All follow relationships",
+    "goals": "Reading goals",
+    "lists": "User's lists",
+    "notification_deliveries": "Notification delivery records",
+    "prompt_answers": "User's prompt answers",
+    "prompts": "Prompts created by this user",
+    "referrered_users": "Users referred by this user",
+    "reported_user_flags": "Reports filed against this user",
+    "taggings": "User's tag activity",
+    "user_books": "User's book library",
+    "user_flags": "Flags filed by this user",
+    "image": "Profile image",
+    "links": "Personal website link"
   },
   "editions": {
     "alternative_titles": "Alternate titles",
@@ -167,7 +213,17 @@
     "updated_at": "Last update time",
     "user_added": "Added by user",
     "users_count": "Users with this edition",
-    "users_read_count": "Users who read this edition"
+    "users_read_count": "Users who read this edition",
+    "book_mappings": "External platform mappings",
+    "contributions": "Contributors to this edition",
+    "images": "Edition images and covers",
+    "list_books": "List entries containing this edition",
+    "book": "Parent book",
+    "country": "Country of publication",
+    "image": "Cover image",
+    "language": "Edition language",
+    "publisher": "Publisher",
+    "reading_format": "Reading format details"
   },
   "series": {
     "author_id": "Primary author",
@@ -183,7 +239,11 @@
     "primary_books_count": "Main series books (excluding companions)",
     "slug": "URL-friendly identifier",
     "state": "Record state (active, duplicate)",
-    "user_id": "Creator"
+    "user_id": "Creator",
+    "book_series": "Books in this series",
+    "author": "Primary author",
+    "canonical": "Canonical series if duplicate",
+    "creator": "User who created this record"
   },
   "lists": {
     "books_count": "Number of books",
@@ -204,7 +264,13 @@
     "slug": "URL-friendly identifier",
     "updated_at": "Last update time",
     "url": "Custom URL",
-    "user_id": "Owner"
+    "user_id": "Owner",
+    "followed_lists": "Follow entries for this list",
+    "followers": "Users following this list",
+    "likes": "Likes on this list",
+    "list_books": "Books in this list",
+    "privacy_setting": "Privacy setting details",
+    "user": "List owner"
   },
   "characters": {
     "biography": "Biography or description",
@@ -226,7 +292,10 @@
     "slug": "URL-friendly identifier",
     "state": "Record state (active, duplicate)",
     "updated_at": "Last update time",
-    "user_id": "Creator"
+    "user_id": "Creator",
+    "book_characters": "Books featuring this character",
+    "contributions": "Related contributions",
+    "canonical": "Canonical character if duplicate"
   },
   "publishers": {
     "canonical_id": "Canonical publisher if duplicate",
@@ -240,10 +309,14 @@
     "slug": "URL-friendly identifier",
     "state": "Record state (active, duplicate, locked)",
     "updated_at": "Last update time",
-    "user_id": "Creator"
+    "user_id": "Creator",
+    "editions": "Editions from this publisher",
+    "parent_publisher": "Parent publisher (for imprints)"
   },
   "contributions": {
     "author_id": "Contributing author",
+    "author": "The contributing author",
+    "book": "The associated book",
     "contributable_id": "Book or edition ID",
     "contributable_type": "Type (Book, Edition)",
     "contribution": "Role (author, illustrator, translator, etc.)",
@@ -265,7 +338,8 @@
     "region_code": "Region code",
     "sub_region": "Sub-region",
     "sub_region_code": "Sub-region code",
-    "updated_at": "Last update time"
+    "updated_at": "Last update time",
+    "editions": "Editions published in this country"
   },
   "goals": {
     "archived": "Archived",
@@ -280,7 +354,9 @@
     "progress": "Current progress",
     "start_date": "Start date",
     "state": "State (active, completed, failed)",
-    "user_id": "Owner"
+    "user_id": "Owner",
+    "followers": "Users following this goal",
+    "user": "Goal owner"
   },
   "images": {
     "color": "Dominant color",
@@ -304,7 +380,12 @@
     "id": "Unique identifier",
     "likeable_id": "Liked item ID",
     "likeable_type": "Liked item type (Activity, List, UserBook, ReadingJournal)",
-    "user_id": "User who liked"
+    "user_id": "User who liked",
+    "followers": "Related follow relationships",
+    "activity": "The liked activity",
+    "list": "The liked list",
+    "user": "User who liked",
+    "user_book": "The liked user book entry"
   },
   "notifications": {
     "created_at": "Creation time",
@@ -316,12 +397,15 @@
     "notifier_user_id": "Triggering user",
     "priority": "Priority level",
     "title": "Title",
-    "uid": "Unique string for deduplication"
+    "uid": "Unique string for deduplication",
+    "notification_deliveries": "Delivery records for this notification",
+    "notifierUser": "User who triggered this notification"
   },
   "platforms": {
     "id": "Unique identifier",
     "name": "Platform name",
-    "url": "Website URL"
+    "url": "Website URL",
+    "book_mappings": "Books mapped to this platform"
   },
   "prompts": {
     "answers_count": "Number of answers",
@@ -334,7 +418,13 @@
     "question": "Question text",
     "slug": "URL-friendly identifier",
     "user_id": "Creator",
-    "users_count": "Users who answered"
+    "users_count": "Users who answered",
+    "followed_prompts": "Follow entries for this prompt",
+    "followers": "Users following this prompt",
+    "prompt_answers": "User answers to this prompt",
+    "prompt_books": "Books associated with this prompt",
+    "privacy_setting": "Privacy setting details",
+    "user": "Prompt creator"
   },
   "reading_formats": {
     "format": "Format name",
@@ -353,14 +443,22 @@
     "object_type": "Always 'ReadingJournal'",
     "privacy_setting_id": "Privacy (1=Public, 2=Followers, 3=Private)",
     "updated_at": "Last update time",
-    "user_id": "Owner"
+    "user_id": "Owner",
+    "followers": "Users following this entry",
+    "likes": "Likes on this entry",
+    "taggings": "Applied tags",
+    "book": "The associated book",
+    "edition": "The specific edition",
+    "user": "Entry owner"
   },
   "tags": {
     "count": "Items with this tag",
     "id": "Unique identifier",
     "slug": "URL-friendly identifier",
     "tag": "Tag name",
-    "tag_category_id": "Category (genre, mood, etc.)"
+    "tag_category_id": "Category (genre, mood, etc.)",
+    "taggings": "Items tagged with this tag",
+    "tag_category": "Tag category details"
   },
   "user_books": {
     "id": "Unique identifier",
@@ -403,7 +501,19 @@
     "privacy_setting_id": "Privacy (1=Public, 2=Followers, 3=Private)",
     "referrer_user_id": "User who referred this book",
     "created_at": "Record creation time",
-    "updated_at": "Last update time"
+    "updated_at": "Last update time",
+    "followers": "Related follow relationships",
+    "likes": "Likes on this entry",
+    "reading_journals": "Reading journal entries",
+    "user_book_reads": "Individual read-through records",
+    "user_books": "Related user book entries",
+    "book": "The associated book",
+    "edition": "The specific edition",
+    "privacy_setting": "Privacy setting details",
+    "reading_journal_summary": "Reading journal summary",
+    "referrer": "User who referred this book",
+    "user": "Entry owner",
+    "user_book_status": "Reading status details"
   },
   "activities": {
     "book_id": "Associated book",
@@ -416,12 +526,19 @@
     "original_book_id": "Original book before merges",
     "privacy_setting_id": "Privacy (1=Public, 2=Followers, 3=Private)",
     "uid": "Unique string for deduplication",
-    "user_id": "User who performed activity"
+    "user_id": "User who performed activity",
+    "followers": "Related follow relationships",
+    "likes": "Likes on this activity",
+    "book": "The associated book",
+    "privacy_setting": "Privacy setting details",
+    "user": "User who performed this activity"
   },
   "book_series":{
     "compilation": "Indicates if this is a compilation of books in the series",
     "featured": "Indicates if the series is featured on the book",
     "position": "The numeric position of the book in the series, for collections it will be the first book",
-    "details": "Text form of position"
+    "details": "Text form of position",
+    "book": "The book in this series entry",
+    "series": "The series"
   }
 }

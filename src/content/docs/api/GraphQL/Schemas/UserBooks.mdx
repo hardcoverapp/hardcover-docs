@@ -42,7 +42,7 @@ User books represent the relationship between a user and a book in their library
     <tr>
         <td>book</td>
         <td>books!</td>
-        <td>An object relationship</td>
+        <td>The associated book</td>
     </tr>
     <tr>
         <td>book_id</td>
@@ -62,7 +62,7 @@ User books represent the relationship between a user and a book in their library
     <tr>
         <td>edition</td>
         <td>editions</td>
-        <td>An object relationship</td>
+        <td>The specific edition</td>
     </tr>
     <tr>
         <td>edition_id</td>
@@ -78,6 +78,11 @@ User books represent the relationship between a user and a book in their library
         <td>first_started_reading_date</td>
         <td>date</td>
         <td>When first started reading</td>
+    </tr>
+    <tr>
+        <td>followers</td>
+        <td>[followed_users!]!</td>
+        <td>Related follow relationships</td>
     </tr>
     <tr>
         <td>has_review</td>
@@ -98,6 +103,11 @@ User books represent the relationship between a user and a book in their library
         <td>last_read_date</td>
         <td>date</td>
         <td>Most recent completion date</td>
+    </tr>
+    <tr>
+        <td>likes</td>
+        <td>[likes!]!</td>
+        <td>Likes on this entry</td>
     </tr>
     <tr>
         <td>likes_count</td>
@@ -147,7 +157,7 @@ User books represent the relationship between a user and a book in their library
     <tr>
         <td>privacy_setting</td>
         <td>privacy_settings!</td>
-        <td>An object relationship</td>
+        <td>Privacy setting details</td>
     </tr>
     <tr>
         <td>privacy_setting_id</td>
@@ -172,7 +182,12 @@ User books represent the relationship between a user and a book in their library
     <tr>
         <td>reading_journal_summary</td>
         <td>reading_journals_summary</td>
-        <td>An object relationship</td>
+        <td>Reading journal summary</td>
+    </tr>
+    <tr>
+        <td>reading_journals</td>
+        <td>[reading_journals!]!</td>
+        <td>Reading journal entries</td>
     </tr>
     <tr>
         <td>recommended_by</td>
@@ -187,7 +202,7 @@ User books represent the relationship between a user and a book in their library
     <tr>
         <td>referrer</td>
         <td>users</td>
-        <td>An object relationship</td>
+        <td>User who referred this book</td>
     </tr>
     <tr>
         <td>referrer_user_id</td>
@@ -267,12 +282,22 @@ User books represent the relationship between a user and a book in their library
     <tr>
         <td>user</td>
         <td>users!</td>
-        <td>An object relationship</td>
+        <td>Entry owner</td>
+    </tr>
+    <tr>
+        <td>user_book_reads</td>
+        <td>[user_book_reads!]!</td>
+        <td>Individual read-through records</td>
     </tr>
     <tr>
         <td>user_book_status</td>
         <td>user_book_statuses!</td>
-        <td>An object relationship</td>
+        <td>Reading status details</td>
+    </tr>
+    <tr>
+        <td>user_books</td>
+        <td>[user_books!]!</td>
+        <td>Related user book entries</td>
     </tr>
     <tr>
         <td>user_id</td>

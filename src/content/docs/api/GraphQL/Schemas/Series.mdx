@@ -26,7 +26,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>author</td>
         <td>authors</td>
-        <td>An object relationship</td>
+        <td>Primary author</td>
     </tr>
     <tr>
         <td>author_id</td>
@@ -36,7 +36,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>book_series</td>
         <td>[book_series!]!</td>
-        <td>An array relationship</td>
+        <td>Books in this series</td>
     </tr>
     <tr>
         <td>books_count</td>
@@ -46,7 +46,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>canonical</td>
         <td>series</td>
-        <td>An object relationship</td>
+        <td>Canonical series if duplicate</td>
     </tr>
     <tr>
         <td>canonical_id</td>
@@ -56,7 +56,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>creator</td>
         <td>users</td>
-        <td>An object relationship</td>
+        <td>User who created this record</td>
     </tr>
     <tr>
         <td>description</td>

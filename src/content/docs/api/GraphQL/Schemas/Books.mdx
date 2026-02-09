@@ -46,22 +46,22 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>book_characters</td>
         <td>[book_characters!]!</td>
-        <td>An array relationship</td>
+        <td>Characters appearing in this book</td>
     </tr>
     <tr>
         <td>book_mappings</td>
         <td>[book_mappings!]!</td>
-        <td>An array relationship</td>
+        <td>External platform mappings</td>
     </tr>
     <tr>
         <td>book_series</td>
         <td>[book_series!]!</td>
-        <td>An array relationship</td>
+        <td>Series this book belongs to</td>
     </tr>
     <tr>
         <td>book_status</td>
         <td>book_statuses!</td>
-        <td>An object relationship</td>
+        <td>Book record status details</td>
     </tr>
     <tr>
         <td>book_status_id</td>
@@ -96,7 +96,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>canonical</td>
         <td>books</td>
-        <td>An object relationship</td>
+        <td>Canonical book if duplicate</td>
     </tr>
     <tr>
         <td>canonical_id</td>
@@ -106,7 +106,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>collection_import_results</td>
         <td>[collection_import_results!]!</td>
-        <td>An array relationship</td>
+        <td>Import results for this book</td>
     </tr>
     <tr>
         <td>compilation</td>
@@ -116,7 +116,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>contributions</td>
         <td>[contributions!]!</td>
-        <td>An array relationship</td>
+        <td>Author and contributor credits</td>
     </tr>
     <tr>
         <td>created_at</td>
@@ -136,7 +136,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>default_audio_edition</td>
         <td>editions</td>
-        <td>An object relationship</td>
+        <td>Default audiobook edition</td>
     </tr>
     <tr>
         <td>default_audio_edition_id</td>
@@ -146,7 +146,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>default_cover_edition</td>
         <td>editions</td>
-        <td>An object relationship</td>
+        <td>Edition used for cover display</td>
     </tr>
     <tr>
         <td>default_cover_edition_id</td>
@@ -156,7 +156,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>default_ebook_edition</td>
         <td>editions</td>
-        <td>An object relationship</td>
+        <td>Default ebook edition</td>
     </tr>
     <tr>
         <td>default_ebook_edition_id</td>
@@ -166,7 +166,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>default_physical_edition</td>
         <td>editions</td>
-        <td>An object relationship</td>
+        <td>Default physical edition</td>
     </tr>
     <tr>
         <td>default_physical_edition_id</td>
@@ -181,7 +181,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>editions</td>
         <td>[editions!]!</td>
-        <td>An array relationship</td>
+        <td>All editions of this book</td>
     </tr>
     <tr>
         <td>editions_count</td>
@@ -191,7 +191,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>featured_book_series</td>
         <td>book_series</td>
-        <td>An object relationship</td>
+        <td>Featured series for this book</td>
     </tr>
     <tr>
         <td>featured_book_series_id</td>
@@ -216,7 +216,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>image</td>
         <td>images</td>
-        <td>An object relationship</td>
+        <td>Cover image</td>
     </tr>
     <tr>
         <td>image_id</td>
@@ -226,7 +226,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>images</td>
         <td>[images!]!</td>
-        <td>An array relationship</td>
+        <td>Book images and covers</td>
     </tr>
     <tr>
         <td>import_platform_id</td>
@@ -246,7 +246,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>list_books</td>
         <td>[list_books!]!</td>
-        <td>An array relationship</td>
+        <td>List entries containing this book</td>
     </tr>
     <tr>
         <td>lists_count</td>
@@ -271,12 +271,12 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>prompt_answers</td>
         <td>[prompt_answers!]!</td>
-        <td>An array relationship</td>
+        <td>Prompt answers about this book</td>
     </tr>
     <tr>
         <td>prompt_summaries</td>
         <td>[prompt_books_summary!]!</td>
-        <td>An array relationship</td>
+        <td>Prompt answer summaries</td>
     </tr>
     <tr>
         <td>prompts_count</td>
@@ -331,12 +331,12 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>taggable_counts</td>
         <td>[taggable_counts!]!</td>
-        <td>An array relationship</td>
+        <td>Tag usage counts</td>
     </tr>
     <tr>
         <td>taggings</td>
         <td>[taggings!]!</td>
-        <td>An array relationship</td>
+        <td>Applied tags</td>
     </tr>
     <tr>
         <td>title</td>
@@ -351,7 +351,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>user_books</td>
         <td>[user_books!]!</td>
-        <td>An array relationship</td>
+        <td>User library entries for this book</td>
     </tr>
     <tr>
         <td>users_count</td>

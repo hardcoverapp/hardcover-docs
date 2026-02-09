@@ -51,12 +51,12 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>followed_prompts</td>
         <td>[followed_prompts!]!</td>
-        <td>An array relationship</td>
+        <td>Follow entries for this prompt</td>
     </tr>
     <tr>
         <td>followers</td>
         <td>[followed_users!]!</td>
-        <td>An array relationship</td>
+        <td>Users following this prompt</td>
     </tr>
     <tr>
         <td>id</td>
@@ -66,7 +66,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>privacy_setting</td>
         <td>privacy_settings!</td>
-        <td>An object relationship</td>
+        <td>Privacy setting details</td>
     </tr>
     <tr>
         <td>privacy_setting_id</td>
@@ -76,12 +76,12 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>prompt_answers</td>
         <td>[prompt_answers!]!</td>
-        <td>An array relationship</td>
+        <td>User answers to this prompt</td>
     </tr>
     <tr>
         <td>prompt_books</td>
         <td>[prompt_books_summary!]!</td>
-        <td>An array relationship</td>
+        <td>Books associated with this prompt</td>
     </tr>
     <tr>
         <td>question</td>
@@ -96,7 +96,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>user</td>
         <td>users!</td>
-        <td>An object relationship</td>
+        <td>Prompt creator</td>
     </tr>
     <tr>
         <td>user_id</td>
