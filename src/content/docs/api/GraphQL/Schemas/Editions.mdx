@@ -166,7 +166,7 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td>Type identifier (e.g. 'Edition')</td>
+        <td>Always 'Edition'</td>
     </tr>
     <tr>
         <td>original_book_id</td>
@@ -211,7 +211,7 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>reading_format_id</td>
         <td>Int!</td>
-        <td>Reading format (physical, ebook, audio)</td>
+        <td>Reading format (1=Physical, 2=Audio, 3=Both, 4=Ebook)</td>
     </tr>
     <tr>
         <td>release_date</td>
@@ -236,7 +236,7 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td>Record state</td>
+        <td>Record state (pending, linking, linked, normalized, error, duplicate)</td>
     </tr>
     <tr>
         <td>subtitle</td>

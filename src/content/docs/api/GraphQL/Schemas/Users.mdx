@@ -31,17 +31,17 @@ Users can perform actions like adding books to their shelves, following other us
     <tr>
         <td>access_level</td>
         <td>Int</td>
-        <td>Permission level</td>
+        <td>Permission level (numeric, higher = more access)</td>
     </tr>
     <tr>
         <td>account_privacy_setting_id</td>
         <td>Int!</td>
-        <td>Account privacy setting</td>
+        <td>Account privacy (1=Public, 2=Followers, 3=Private)</td>
     </tr>
     <tr>
         <td>activity_privacy_settings_id</td>
         <td>Int!</td>
-        <td>Activity feed privacy</td>
+        <td>Activity feed privacy (1=Public, 2=Followers, 3=Private)</td>
     </tr>
     <tr>
         <td>admin</td>
@@ -111,7 +111,7 @@ Users can perform actions like adding books to their shelves, following other us
     <tr>
         <td>flair</td>
         <td>String</td>
-        <td>Flair or badge text</td>
+        <td>Profile badge text (e.g. 'Supporter')</td>
     </tr>
     <tr>
         <td>followed_users_count</td>
@@ -191,7 +191,7 @@ Users can perform actions like adding books to their shelves, following other us
     <tr>
         <td>object_type</td>
         <td>String</td>
-        <td>Type identifier (e.g. 'User')</td>
+        <td>Always 'User'</td>
     </tr>
     <tr>
         <td>onboarded</td>
@@ -246,7 +246,7 @@ Users can perform actions like adding books to their shelves, following other us
     <tr>
         <td>status_id</td>
         <td>Int!</td>
-        <td>Account status</td>
+        <td>Account status (1=Created, 2=Activated, 3=Banned)</td>
     </tr>
     <tr>
         <td>unconfirmed_email</td>

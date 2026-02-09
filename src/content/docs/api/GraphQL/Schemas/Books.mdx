@@ -41,7 +41,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>book_category_id</td>
         <td>Int!</td>
-        <td>Category (fiction, non-fiction, etc.)</td>
+        <td>Category ID (1=Book, 2=Novella, 3=Short Story, 4=Graphic Novel, 5=Fan Fiction, 6=Research Paper, 7=Poetry, 8=Collection, 9=Web Novel, 10=Light Novel)</td>
     </tr>
     <tr>
         <td>book_status</td>
@@ -51,7 +51,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>book_status_id</td>
         <td>smallint!</td>
-        <td>Publication status</td>
+        <td>Status (1=OK, 2=To Review, 3=Deleted, 4=Deduped)</td>
     </tr>
     <tr>
         <td>cached_contributors</td>
@@ -216,7 +216,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>literary_type_id</td>
         <td>Int</td>
-        <td>Literary type classification</td>
+        <td>Literary type (1=Fiction, 2=Nonfiction)</td>
     </tr>
     <tr>
         <td>locked</td>
@@ -271,7 +271,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>state</td>
         <td>String</td>
-        <td>Record state (active, pending, deleted)</td>
+        <td>Record state (pending, processing, normalized, processed, error, duplicate)</td>
     </tr>
     <tr>
         <td>subtitle</td>

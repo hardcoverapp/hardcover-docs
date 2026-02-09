@@ -62,7 +62,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>event</td>
         <td>String</td>
-        <td>Event type (started, progress, finished)</td>
+        <td>Event type (note, quote, status_currently_reading, status_read, rated, reviewed, progress_updated, etc.)</td>
     </tr>
     <tr>
         <td>id</td>
@@ -82,12 +82,12 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td>Type identifier (e.g. 'ReadingJournal')</td>
+        <td>Always 'ReadingJournal'</td>
     </tr>
     <tr>
         <td>privacy_setting_id</td>
         <td>Int!</td>
-        <td>Privacy setting</td>
+        <td>Privacy (1=Public, 2=Followers, 3=Private)</td>
     </tr>
     <tr>
         <td>updated_at</td>

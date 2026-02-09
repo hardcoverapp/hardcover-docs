@@ -60,12 +60,12 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>data</td>
         <td>jsonb!</td>
-        <td>Activity-specific data</td>
+        <td>JSON with event-specific details (book info, rating, review, etc.)</td>
     </tr>
     <tr>
         <td>event</td>
         <td>String!</td>
-        <td>Event type (status_update, review, rating)</td>
+        <td>Event type (UserBookActivity, GoalActivity, PromptActivity, ListActivity)</td>
     </tr>
     <tr>
         <td>id</td>
@@ -80,7 +80,7 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td>Type identifier (e.g. 'Activity')</td>
+        <td>Always 'Activity'</td>
     </tr>
     <tr>
         <td>original_book_id</td>
@@ -95,7 +95,7 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>privacy_setting_id</td>
         <td>Int!</td>
-        <td>Privacy setting</td>
+        <td>Privacy (1=Public, 2=Followers, 3=Private)</td>
     </tr>
     <tr>
         <td>uid</td>
