@@ -1,7 +1,7 @@
 ---
 title: Notifications
 category: reference
-lastUpdated: 2026-01-19
+lastUpdated: 2026-02-09
 layout: /src/layouts/documentation.astro
 ---
 
@@ -49,6 +49,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Link display text</td>
     </tr>
     <tr>
+        <td>notification_deliveries</td>
+        <td>[notification_deliveries!]!</td>
+        <td>Delivery records for this notification</td>
+    </tr>
+    <tr>
         <td>notification_type_id</td>
         <td>Int!</td>
         <td>Notification type</td>
@@ -56,7 +61,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>notifierUser</td>
         <td>users</td>
-        <td>An object relationship</td>
+        <td>User who triggered this notification</td>
     </tr>
     <tr>
         <td>notifier_user_id</td>

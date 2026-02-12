@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import { SectionGrid } from './SectionGrid';
+import { FeaturedShowcase } from './FeaturedShowcase';
+import type { ShowcaseProject } from '../showcase/types';
+
+const locale = Astro.currentLocale ?? 'en';
+
+const sections = [
+  { id: 'api', href: '/api/getting-started', icon: 'api' },
+  { id: 'librarians', href: '/librarians/faq', icon: 'librarians' },
+  { id: 'contributing', href: '/contributing', icon: 'contributing' },
+];
+
+const showcaseEntries = await getCollection('showcase');
+
+const featuredProjects: ShowcaseProject[] = showcaseEntries
+  .filter((entry) => entry.data.featured)
+  .map((entry) => ({
+    ...entry.data,
+    dateAdded: new Date(entry.data.dateAdded),
+    dateUpdated: new Date(entry.data.dateUpdated),
+  }))
+  .sort((a, b) => (b.stats?.githubStars ?? 0) - (a.stats?.githubStars ?? 0))
+  .slice(0, 3);
+---
+
+<div class="landing-container">
+  <SectionGrid client:only="react" sections={sections} locale={locale} />
+  <FeaturedShowcase client:only="react" projects={featuredProjects} locale={locale} />
+</div>
+
+<style>
+  .landing-container {
+    margin-top: 1rem;
+  }
+</style>

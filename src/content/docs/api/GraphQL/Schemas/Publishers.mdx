@@ -1,7 +1,7 @@
 ---
 title: Publishers
 category: reference
-lastUpdated: 2026-01-19 18:30:00
+lastUpdated: 2026-02-09 18:30:00
 layout: /src/layouts/documentation.astro
 ---
 
@@ -39,6 +39,11 @@ A Publisher in Hardcover represents a company or organization that publishes boo
         <td>Record creation time</td>
     </tr>
     <tr>
+        <td>editions</td>
+        <td>[editions!]!</td>
+        <td>Editions from this publisher</td>
+    </tr>
+    <tr>
         <td>editions_count</td>
         <td>Int!</td>
         <td>Number of editions</td>
@@ -59,6 +64,11 @@ A Publisher in Hardcover represents a company or organization that publishes boo
         <td>Publisher name</td>
     </tr>
     <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td>Always 'Publisher'</td>
+    </tr>
+    <tr>
         <td>parent_id</td>
         <td>Int</td>
         <td>Parent publisher (for imprints)</td>
@@ -66,7 +76,7 @@ A Publisher in Hardcover represents a company or organization that publishes boo
     <tr>
         <td>parent_publisher</td>
         <td>publishers</td>
-        <td>An object relationship</td>
+        <td>Parent publisher (for imprints)</td>
     </tr>
     <tr>
         <td>slug</td>
@@ -76,7 +86,7 @@ A Publisher in Hardcover represents a company or organization that publishes boo
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td>Record state</td>
+        <td>Record state (active, duplicate, locked)</td>
     </tr>
     <tr>
         <td>updated_at</td>

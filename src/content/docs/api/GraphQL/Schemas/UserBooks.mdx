@@ -1,0 +1,488 @@
+---
+title: User Books
+category: reference
+lastUpdated: 2026-02-09
+layout: /src/layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import {Aside} from "@astrojs/starlight/components";
+
+## What Is a User Book?
+
+User books represent the relationship between a user and a book in their library. Each entry tracks reading status, rating, review, ownership, and reading history. This is one of the most commonly queried types in the API.
+
+### Reading Statuses
+
+| Status ID | Status |
+|-----------|--------|
+| 1 | Want to Read |
+| 2 | Currently Reading |
+| 3 | Read |
+| 4 | Paused |
+| 5 | Did Not Finish |
+| 6 | Ignored |
+
+## Schema Relationships
+
+<SchemaGraph typeName="user_books" />
+
+## Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>book</td>
+        <td>books!</td>
+        <td>The associated book</td>
+    </tr>
+    <tr>
+        <td>book_id</td>
+        <td>Int!</td>
+        <td>Associated book</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamptz!</td>
+        <td>Record creation time</td>
+    </tr>
+    <tr>
+        <td>date_added</td>
+        <td>date!</td>
+        <td>When added to library</td>
+    </tr>
+    <tr>
+        <td>edition</td>
+        <td>editions</td>
+        <td>The specific edition</td>
+    </tr>
+    <tr>
+        <td>edition_id</td>
+        <td>Int</td>
+        <td>Specific edition being read</td>
+    </tr>
+    <tr>
+        <td>first_read_date</td>
+        <td>date</td>
+        <td>First completion date</td>
+    </tr>
+    <tr>
+        <td>first_started_reading_date</td>
+        <td>date</td>
+        <td>When first started reading</td>
+    </tr>
+    <tr>
+        <td>followers</td>
+        <td>[followed_users!]!</td>
+        <td>Related follow relationships</td>
+    </tr>
+    <tr>
+        <td>has_review</td>
+        <td>Boolean!</td>
+        <td>Has a written review</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td>Unique identifier</td>
+    </tr>
+    <tr>
+        <td>imported</td>
+        <td>Boolean</td>
+        <td>Imported from another platform</td>
+    </tr>
+    <tr>
+        <td>last_read_date</td>
+        <td>date</td>
+        <td>Most recent completion date</td>
+    </tr>
+    <tr>
+        <td>likes</td>
+        <td>[likes!]!</td>
+        <td>Likes on this entry</td>
+    </tr>
+    <tr>
+        <td>likes_count</td>
+        <td>Int!</td>
+        <td>Number of likes</td>
+    </tr>
+    <tr>
+        <td>media_url</td>
+        <td>String</td>
+        <td>Media URL</td>
+    </tr>
+    <tr>
+        <td>merged_at</td>
+        <td>timestamp</td>
+        <td>When records were merged</td>
+    </tr>
+    <tr>
+        <td>mod_status</td>
+        <td>Int!</td>
+        <td>Moderation status</td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td>Always 'UserBook'</td>
+    </tr>
+    <tr>
+        <td>original_book_id</td>
+        <td>Int</td>
+        <td>Original book ID before merge</td>
+    </tr>
+    <tr>
+        <td>original_edition_id</td>
+        <td>Int</td>
+        <td>Original edition ID before merge</td>
+    </tr>
+    <tr>
+        <td>owned</td>
+        <td>Boolean!</td>
+        <td>User owns a copy</td>
+    </tr>
+    <tr>
+        <td>owned_copies</td>
+        <td>Int</td>
+        <td>Number of copies owned</td>
+    </tr>
+    <tr>
+        <td>privacy_setting</td>
+        <td>privacy_settings!</td>
+        <td>Privacy setting details</td>
+    </tr>
+    <tr>
+        <td>privacy_setting_id</td>
+        <td>Int!</td>
+        <td>Privacy (1=Public, 2=Followers, 3=Private)</td>
+    </tr>
+    <tr>
+        <td>private_notes</td>
+        <td>String</td>
+        <td>Private notes (only visible to owner)</td>
+    </tr>
+    <tr>
+        <td>rating</td>
+        <td>numeric</td>
+        <td>User's rating (0-5, supports halves)</td>
+    </tr>
+    <tr>
+        <td>read_count</td>
+        <td>Int!</td>
+        <td>Number of times read</td>
+    </tr>
+    <tr>
+        <td>reading_journal_summary</td>
+        <td>reading_journals_summary</td>
+        <td>Reading journal summary</td>
+    </tr>
+    <tr>
+        <td>reading_journals</td>
+        <td>[reading_journals!]!</td>
+        <td>Reading journal entries</td>
+    </tr>
+    <tr>
+        <td>recommended_by</td>
+        <td>String</td>
+        <td>Who recommended this book</td>
+    </tr>
+    <tr>
+        <td>recommended_for</td>
+        <td>String</td>
+        <td>Who user is recommending to</td>
+    </tr>
+    <tr>
+        <td>referrer</td>
+        <td>users</td>
+        <td>User who referred this book</td>
+    </tr>
+    <tr>
+        <td>referrer_user_id</td>
+        <td>Int</td>
+        <td>User who referred this book</td>
+    </tr>
+    <tr>
+        <td>review</td>
+        <td>String</td>
+        <td>Review text</td>
+    </tr>
+    <tr>
+        <td>review_has_spoilers</td>
+        <td>Boolean!</td>
+        <td>Review contains spoilers</td>
+    </tr>
+    <tr>
+        <td>review_html</td>
+        <td>String</td>
+        <td>HTML formatted review</td>
+    </tr>
+    <tr>
+        <td>review_length</td>
+        <td>Int!</td>
+        <td>Review character length</td>
+    </tr>
+    <tr>
+        <td>review_migrated</td>
+        <td>Boolean</td>
+        <td>Review was migrated from import</td>
+    </tr>
+    <tr>
+        <td>review_object</td>
+        <td>jsonb!</td>
+        <td>Review as JSON</td>
+    </tr>
+    <tr>
+        <td>review_raw</td>
+        <td>String</td>
+        <td>Raw review content</td>
+    </tr>
+    <tr>
+        <td>review_slate</td>
+        <td>jsonb!</td>
+        <td>Review in Slate editor format</td>
+    </tr>
+    <tr>
+        <td>reviewed_at</td>
+        <td>timestamp</td>
+        <td>When review was written</td>
+    </tr>
+    <tr>
+        <td>sponsored_review</td>
+        <td>Boolean!</td>
+        <td>Review is sponsored</td>
+    </tr>
+    <tr>
+        <td>starred</td>
+        <td>Boolean!</td>
+        <td>User starred this book</td>
+    </tr>
+    <tr>
+        <td>status_id</td>
+        <td>Int!</td>
+        <td>Reading status (1=Want to Read, 2=Reading, 3=Read, 4=Paused, 5=DNF, 6=Ignored)</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamptz</td>
+        <td>Last update time</td>
+    </tr>
+    <tr>
+        <td>url</td>
+        <td>String</td>
+        <td>External URL reference</td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>users!</td>
+        <td>Entry owner</td>
+    </tr>
+    <tr>
+        <td>user_book_reads</td>
+        <td>[user_book_reads!]!</td>
+        <td>Individual read-through records</td>
+    </tr>
+    <tr>
+        <td>user_book_status</td>
+        <td>user_book_statuses!</td>
+        <td>Reading status details</td>
+    </tr>
+    <tr>
+        <td>user_books</td>
+        <td>[user_books!]!</td>
+        <td>Related user book entries</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int!</td>
+        <td>Owner</td>
+    </tr>
+    </tbody>
+</table>
+
+### Available Queries
+
+<table>
+    <thead>
+    <tr>
+        <th>Query</th>
+        <th>Returns</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>user_books</td>
+        <td>user_books[]</td>
+        <td>Fetch an array of user books with filtering and pagination</td>
+    </tr>
+    <tr>
+        <td>user_books_aggregate</td>
+        <td>user_books_aggregate</td>
+        <td>Get aggregated data about user books (count, averages, etc.)</td>
+    </tr>
+    <tr>
+        <td>user_books_by_pk</td>
+        <td>user_books</td>
+        <td>Fetch a single user book by its primary key (id)</td>
+    </tr>
+    </tbody>
+</table>
+
+### Related Schemas
+
+- [Books](/api/graphql/schemas/books) - The book being tracked
+- [Editions](/api/graphql/schemas/editions) - Specific edition being read
+- [Users](/api/graphql/schemas/users) - The user who owns the entry
+- [Reading Journals](/api/graphql/schemas/readingjournals) - Journal entries for reading sessions
+- [Likes](/api/graphql/schemas/likes) - Likes on user book entries
+
+## Query Examples
+
+### Get Your Library
+
+Fetch all books in the authenticated user's library with their status and rating.
+
+<GraphQLExplorer query={`
+query MyLibrary {
+    user_books(
+        where: {user_id: {_eq: ##USER_ID##}}
+        order_by: {date_added: desc}
+        limit: 20
+    ) {
+        id
+        status_id
+        rating
+        date_added
+        book {
+            title
+            contributions {
+                author {
+                    name
+                }
+            }
+            image {
+                url
+            }
+        }
+    }
+}
+`} title="My Library" presentation='table' chartable={false}/>
+
+### Get Books by Reading Status
+
+Fetch all books a user is currently reading.
+
+<GraphQLExplorer query={`
+query CurrentlyReading {
+    user_books(
+        where: {
+            user_id: {_eq: ##USER_ID##}
+            status_id: {_eq: 2}
+        }
+        order_by: {updated_at: desc}
+    ) {
+        id
+        rating
+        date_added
+        book {
+            title
+            pages
+            image {
+                url
+            }
+        }
+        edition {
+            title
+            pages
+        }
+    }
+}
+`} title="Currently Reading" presentation='table' chartable={false}/>
+
+### Get a User's Reviews
+
+Fetch reviews written by a specific user.
+
+<GraphQLExplorer query={`
+query UserReviews {
+    user_books(
+        where: {
+            user_id: {_eq: ##USER_ID##}
+            has_review: {_eq: true}
+        }
+        order_by: {reviewed_at: desc}
+        limit: 10
+    ) {
+        id
+        rating
+        review_html
+        review_has_spoilers
+        reviewed_at
+        book {
+            title
+            image {
+                url
+            }
+        }
+    }
+}
+`} title="User Reviews" presentation='table' chartable={false}/>
+
+### Get Reading Statistics
+
+Use aggregate queries to get statistics about a user's library.
+
+<GraphQLExplorer query={`
+query ReadingStats {
+    user_books_aggregate(
+        where: {user_id: {_eq: ##USER_ID##}}
+    ) {
+        aggregate {
+            count
+            avg {
+                rating
+            }
+        }
+    }
+}
+`} title="Reading Statistics" presentation='json'/>
+
+### Get Owned Books
+
+Fetch all books a user has marked as owned.
+
+<GraphQLExplorer query={`
+query OwnedBooks {
+    user_books(
+        where: {
+            user_id: {_eq: ##USER_ID##}
+            owned: {_eq: true}
+        }
+        order_by: {date_added: desc}
+    ) {
+        id
+        owned_copies
+        book {
+            title
+            contributions {
+                author {
+                    name
+                }
+            }
+        }
+        edition {
+            title
+            edition_format
+            isbn_13
+        }
+    }
+}
+`} title="Owned Books" presentation='table' chartable={false}/>

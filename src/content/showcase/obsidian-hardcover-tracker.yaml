@@ -1,0 +1,44 @@
+name: "Hardcover Tracker for Obsidian"
+slug: "obsidian-hardcover-tracker"
+summary: "Live reading progress tracker plugin for Obsidian"
+description: |
+  A Hardcover reading tracker plugin for Obsidian that brings your reading progress directly into your notes with interactive controls.
+
+  Features:
+  - Live progress tracking with interactive controls inside notes
+  - Filter by reading status (TBR, Reading, Read, Paused, DNF)
+  - Configurable limits, sorting, and display options
+  - Progress updates automatically sync to your Hardcover account
+  - Smart default sorting per status (e.g. highest progress for Reading, newest for TBR)
+  - Simple code block syntax for embedding trackers in any note
+
+author:
+  name: "owayys"
+  github: "owayys"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/owayys/obsidian-hardcover"
+    type: "github"
+
+categories:
+  - "Integration"
+  - "Desktop App"
+
+tags:
+  - "obsidian"
+  - "reading-tracker"
+  - "book-tracker"
+  - "open-source"
+
+screenshots:
+  - src: "/showcase/obsidian-hardcover-tracker/showcase.png"
+    alt: "Hardcover reading tracker embedded in an Obsidian note showing book progress"
+
+dateAdded: 2026-02-09
+dateUpdated: 2026-02-09
+
+featured: false
+
+stats:
+  githubStars: 0

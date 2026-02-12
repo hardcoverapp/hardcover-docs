@@ -1,7 +1,7 @@
 ---
 title: Editions
 category: reference
-lastUpdated: 2026-01-19
+lastUpdated: 2026-02-09
 layout: /src/layouts/documentation.astro
 ---
 
@@ -46,12 +46,17 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>book</td>
         <td>books!</td>
-        <td>An object relationship</td>
+        <td>Parent book</td>
     </tr>
     <tr>
         <td>book_id</td>
         <td>Int!</td>
         <td>Parent book</td>
+    </tr>
+    <tr>
+        <td>book_mappings</td>
+        <td>[book_mappings!]!</td>
+        <td>External platform mappings</td>
     </tr>
     <tr>
         <td>cached_contributors</td>
@@ -79,9 +84,14 @@ An Edition in Hardcover represents a specific published version of a book. While
         <td>Is a compilation</td>
     </tr>
     <tr>
+        <td>contributions</td>
+        <td>[contributions!]!</td>
+        <td>Contributors to this edition</td>
+    </tr>
+    <tr>
         <td>country</td>
         <td>countries</td>
-        <td>An object relationship</td>
+        <td>Country of publication</td>
     </tr>
     <tr>
         <td>country_id</td>
@@ -121,12 +131,17 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>image</td>
         <td>images</td>
-        <td>An object relationship</td>
+        <td>Cover image</td>
     </tr>
     <tr>
         <td>image_id</td>
         <td>Int</td>
         <td>Cover image</td>
+    </tr>
+    <tr>
+        <td>images</td>
+        <td>[images!]!</td>
+        <td>Edition images and covers</td>
     </tr>
     <tr>
         <td>isbn_10</td>
@@ -141,12 +156,17 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>language</td>
         <td>languages</td>
-        <td>An object relationship</td>
+        <td>Edition language</td>
     </tr>
     <tr>
         <td>language_id</td>
         <td>Int</td>
         <td>Language</td>
+    </tr>
+    <tr>
+        <td>list_books</td>
+        <td>[list_books!]!</td>
+        <td>List entries containing this edition</td>
     </tr>
     <tr>
         <td>lists_count</td>
@@ -166,7 +186,7 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td>Object type for polymorphic queries</td>
+        <td>Always 'Edition'</td>
     </tr>
     <tr>
         <td>original_book_id</td>
@@ -191,7 +211,7 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>publisher</td>
         <td>publishers</td>
-        <td>An object relationship</td>
+        <td>Publisher</td>
     </tr>
     <tr>
         <td>publisher_id</td>
@@ -206,12 +226,12 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>reading_format</td>
         <td>reading_formats</td>
-        <td>An object relationship</td>
+        <td>Reading format details</td>
     </tr>
     <tr>
         <td>reading_format_id</td>
         <td>Int!</td>
-        <td>Reading format (physical, ebook, audio)</td>
+        <td>Reading format (1=Physical, 2=Audio, 3=Both, 4=Ebook)</td>
     </tr>
     <tr>
         <td>release_date</td>
@@ -236,7 +256,7 @@ An Edition in Hardcover represents a specific published version of a book. While
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td>Record state</td>
+        <td>Record state (pending, linking, linked, normalized, error, duplicate)</td>
     </tr>
     <tr>
         <td>subtitle</td>

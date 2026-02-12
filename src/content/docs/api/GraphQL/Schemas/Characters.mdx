@@ -1,7 +1,7 @@
 ---
 title: Characters
 category: reference
-lastUpdated: 2026-01-19 14:30:00
+lastUpdated: 2026-02-09 14:30:00
 layout: /src/layouts/documentation.astro
 ---
 
@@ -33,6 +33,11 @@ Characters are fictional individuals that appear in books. The characters schema
         <td>Biography or description</td>
     </tr>
     <tr>
+        <td>book_characters</td>
+        <td>[book_characters!]!</td>
+        <td>Books featuring this character</td>
+    </tr>
+    <tr>
         <td>books_count</td>
         <td>Int!</td>
         <td>Books featuring this character</td>
@@ -45,7 +50,7 @@ Characters are fictional individuals that appear in books. The characters schema
     <tr>
         <td>canonical</td>
         <td>characters</td>
-        <td>An object relationship</td>
+        <td>Canonical character if duplicate</td>
     </tr>
     <tr>
         <td>canonical_books_count</td>
@@ -56,6 +61,11 @@ Characters are fictional individuals that appear in books. The characters schema
         <td>canonical_id</td>
         <td>Int</td>
         <td>Canonical character if duplicate</td>
+    </tr>
+    <tr>
+        <td>contributions</td>
+        <td>[contributions!]!</td>
+        <td>Related contributions</td>
     </tr>
     <tr>
         <td>created_at</td>
@@ -105,7 +115,7 @@ Characters are fictional individuals that appear in books. The characters schema
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td>Object type for polymorphic queries</td>
+        <td>Always 'Character'</td>
     </tr>
     <tr>
         <td>openlibrary_url</td>
@@ -120,7 +130,7 @@ Characters are fictional individuals that appear in books. The characters schema
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td>Record state</td>
+        <td>Record state (active, duplicate)</td>
     </tr>
     <tr>
         <td>updated_at</td>

@@ -1,28 +1,26 @@
 ---
-title: Welcome to the Hardcover docs!
-description: Get started contributing to Hardcover
-lastUpdated: 2025-05-02 23:50:00
+title: Hardcover Documentation
+description: Explore the Hardcover API, librarian guides, and community projects.
+lastUpdated: 2026-02-09 00:00:00
 template: splash
 hero:
-    title: Welcome to the Hardcover docs!
-    tagline: Get started contributing to Hardcover
+    title: Hardcover Documentation
+    tagline: Build with, contribute to, and use Hardcover.
     image:
         file: /src/assets/hardcover-hero.png
         alt: Hardcover logo
     actions:
-        - text: API Docs
+        - text: Get Started
           link: ./api/getting-started
-          variant: primary
-        - text: Contributing Guides
-          link: ./contributing
-          variant: primary
-        - text: Librarian Guides
-          link: ./librarians/faq
           variant: primary
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
+import Landing from '@/components/landing/Landing.astro';
 import { URLS } from '@/Consts';
 
-<LinkCard title="Return to Hardcover App" href={URLS.APP} target="_blank" rel="noreferrer noopener" />
+<Landing />
 
+<div className="text-center mt-8 max-w-lg m-auto">
+    <LinkCard title="Return to Hardcover App" href={URLS.APP} target="_blank" rel="noreferrer noopener" />
+</div>

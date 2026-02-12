@@ -1,7 +1,7 @@
 ---
 title: Reading Journals
 category: reference
-lastUpdated: 2026-01-19
+lastUpdated: 2026-02-09
 layout: /src/layouts/documentation.astro
 ---
 
@@ -25,9 +25,14 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     </thead>
     <tbody>
     <tr>
+        <td>action_at</td>
+        <td>timestamptz!</td>
+        <td>When the reading event occurred</td>
+    </tr>
+    <tr>
         <td>book</td>
         <td>books</td>
-        <td>An object relationship</td>
+        <td>The associated book</td>
     </tr>
     <tr>
         <td>book_id</td>
@@ -42,7 +47,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>edition</td>
         <td>editions</td>
-        <td>An object relationship</td>
+        <td>The specific edition</td>
     </tr>
     <tr>
         <td>edition_id</td>
@@ -57,12 +62,22 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>event</td>
         <td>String</td>
-        <td>Event type (started, progress, finished)</td>
+        <td>Event type (note, quote, status_currently_reading, status_read, rated, reviewed, progress_updated, etc.)</td>
+    </tr>
+    <tr>
+        <td>followers</td>
+        <td>[followed_users!]!</td>
+        <td>Users following this entry</td>
     </tr>
     <tr>
         <td>id</td>
         <td>bigint!</td>
         <td>Unique identifier</td>
+    </tr>
+    <tr>
+        <td>likes</td>
+        <td>[likes!]!</td>
+        <td>Likes on this entry</td>
     </tr>
     <tr>
         <td>likes_count</td>
@@ -77,12 +92,17 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td>Object type for polymorphic queries</td>
+        <td>Always 'ReadingJournal'</td>
     </tr>
     <tr>
         <td>privacy_setting_id</td>
         <td>Int!</td>
-        <td>Privacy setting</td>
+        <td>Privacy (1=Public, 2=Followers, 3=Private)</td>
+    </tr>
+    <tr>
+        <td>taggings</td>
+        <td>[taggings!]!</td>
+        <td>Applied tags</td>
     </tr>
     <tr>
         <td>updated_at</td>
@@ -92,7 +112,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>user</td>
         <td>users</td>
-        <td>An object relationship</td>
+        <td>Entry owner</td>
     </tr>
     <tr>
         <td>user_id</td>

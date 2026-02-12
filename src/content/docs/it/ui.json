@@ -123,6 +123,27 @@
           }
         }
     },
+    "landing": {
+      "sections": {
+        "heading": "Esplora la documentazione",
+        "api": {
+          "title": "Documentazione API",
+          "description": "Crea integrazioni con l'API GraphQL di Hardcover."
+        },
+        "librarians": {
+          "title": "Guide per Bibliotecari",
+          "description": "Standard e risorse per la gestione dei dati dei libri su Hardcover."
+        },
+        "contributing": {
+          "title": "Contribuire",
+          "description": "Partecipa al progetto e alla documentazione di Hardcover."
+        }
+      },
+      "showcase": {
+        "heading": "Creato dalla community",
+        "viewAll": "Vedi tutti i progetti"
+      }
+    },
     "schemaGraph": {
       "title": "Relazioni dello Schema",
       "loading": "Caricamento grafo dello schema...",

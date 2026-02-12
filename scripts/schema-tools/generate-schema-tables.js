@@ -21,7 +21,8 @@ function generateMarkdownTable(typeName, fields) {
     if (!field.hasArgs) return true;
     // Include JSON fields with path argument
     if (field.type.includes('json')) return true;
-    // Exclude array relationships with complex args
+    // Include array relationships (except aggregates)
+    if (!field.type.includes('aggregate')) return true;
     return false;
   });
 
@@ -40,8 +41,8 @@ function generateMarkdownTable(typeName, fields) {
   const typeDescriptions = customDescriptions[typeName] || {};
 
   for (const field of includedFields) {
-    // Prefer schema description, fall back to custom description
-    const description = field.description || typeDescriptions[field.name] || '';
+    // Prefer custom description, fall back to schema description
+    const description = typeDescriptions[field.name] || field.description || '';
     markdown += '    <tr>\n';
     markdown += `        <td>${field.name}</td>\n`;
     markdown += `        <td>${field.type}</td>\n`;

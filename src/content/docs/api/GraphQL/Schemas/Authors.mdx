@@ -1,7 +1,7 @@
 ---
 title: Authors
 category: reference
-lastUpdated: 2026-01-19
+lastUpdated: 2026-02-09
 layout: /src/layouts/documentation.astro
 ---
 
@@ -24,6 +24,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     </tr>
     </thead>
     <tbody>
+    <tr>
+        <td>alias</td>
+        <td>[authors!]!</td>
+        <td>Pen name aliases</td>
+    </tr>
     <tr>
         <td>alias_id</td>
         <td>Int</td>
@@ -62,7 +67,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>canonical</td>
         <td>authors</td>
-        <td>An object relationship</td>
+        <td>Canonical author if duplicate</td>
     </tr>
     <tr>
         <td>canonical_id</td>
@@ -70,9 +75,14 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Canonical author if duplicate</td>
     </tr>
     <tr>
+        <td>contributions</td>
+        <td>[contributions!]!</td>
+        <td>Book and edition contributions</td>
+    </tr>
+    <tr>
         <td>creator</td>
         <td>users</td>
-        <td>An object relationship</td>
+        <td>User who created this record</td>
     </tr>
     <tr>
         <td>death_date</td>
@@ -102,7 +112,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>image</td>
         <td>images</td>
-        <td>An object relationship</td>
+        <td>Author photo</td>
     </tr>
     <tr>
         <td>image_id</td>
@@ -145,6 +155,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Personal/first name</td>
     </tr>
     <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td>Always 'Author'</td>
+    </tr>
+    <tr>
         <td>slug</td>
         <td>String</td>
         <td>URL-friendly identifier</td>
@@ -152,7 +167,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td>Record state</td>
+        <td>Record state (active, duplicate)</td>
     </tr>
     <tr>
         <td>title</td>

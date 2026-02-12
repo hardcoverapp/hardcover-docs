@@ -1,7 +1,7 @@
 ---
 title: Goals
 category: reference
-lastUpdated: 2026-01-19
+lastUpdated: 2026-02-09
 layout: /src/layouts/documentation.astro
 ---
 
@@ -49,6 +49,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Target end date</td>
     </tr>
     <tr>
+        <td>followers</td>
+        <td>[followed_users!]!</td>
+        <td>Users following this goal</td>
+    </tr>
+    <tr>
         <td>goal</td>
         <td>Int!</td>
         <td>Target number</td>
@@ -66,7 +71,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>privacy_setting_id</td>
         <td>Int</td>
-        <td>Privacy setting</td>
+        <td>Privacy (1=Public, 2=Followers, 3=Private)</td>
     </tr>
     <tr>
         <td>progress</td>
@@ -86,7 +91,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>user</td>
         <td>users!</td>
-        <td>An object relationship</td>
+        <td>Goal owner</td>
     </tr>
     <tr>
         <td>user_id</td>

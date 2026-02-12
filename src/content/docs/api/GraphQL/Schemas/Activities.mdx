@@ -2,7 +2,7 @@
 title: Activities
 description: Learn about the activities schema in the Hardcover API.
 category: reference
-lastUpdated: 2026-01-19
+lastUpdated: 2026-02-09
 layout: /src/layouts/documentation.astro
 ---
 
@@ -45,7 +45,7 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>book</td>
         <td>books</td>
-        <td>An object relationship</td>
+        <td>The associated book</td>
     </tr>
     <tr>
         <td>book_id</td>
@@ -60,17 +60,27 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>data</td>
         <td>jsonb!</td>
-        <td>Activity-specific data</td>
+        <td>JSON with event-specific details (book info, rating, review, etc.)</td>
     </tr>
     <tr>
         <td>event</td>
         <td>String!</td>
-        <td>Event type (status_update, review, rating)</td>
+        <td>Event type (UserBookActivity, GoalActivity, PromptActivity, ListActivity)</td>
+    </tr>
+    <tr>
+        <td>followers</td>
+        <td>[followed_users!]!</td>
+        <td>Related follow relationships</td>
     </tr>
     <tr>
         <td>id</td>
         <td>Int!</td>
         <td>Unique identifier</td>
+    </tr>
+    <tr>
+        <td>likes</td>
+        <td>[likes!]!</td>
+        <td>Likes on this activity</td>
     </tr>
     <tr>
         <td>likes_count</td>
@@ -80,7 +90,7 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>object_type</td>
         <td>String!</td>
-        <td>Object type for polymorphic queries</td>
+        <td>Always 'Activity'</td>
     </tr>
     <tr>
         <td>original_book_id</td>
@@ -90,12 +100,12 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>privacy_setting</td>
         <td>privacy_settings!</td>
-        <td>An object relationship</td>
+        <td>Privacy setting details</td>
     </tr>
     <tr>
         <td>privacy_setting_id</td>
         <td>Int!</td>
-        <td>Privacy setting</td>
+        <td>Privacy (1=Public, 2=Followers, 3=Private)</td>
     </tr>
     <tr>
         <td>uid</td>
@@ -105,7 +115,7 @@ See some [example payloads below](#example-payloads) for more information on the
     <tr>
         <td>user</td>
         <td>users!</td>
-        <td>An object relationship</td>
+        <td>User who performed this activity</td>
     </tr>
     <tr>
         <td>user_id</td>

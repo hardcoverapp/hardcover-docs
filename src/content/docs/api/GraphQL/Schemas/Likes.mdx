@@ -1,7 +1,7 @@
 ---
 title: Likes
 category: reference
-lastUpdated: 2026-01-19
+lastUpdated: 2026-02-09
 layout: /src/layouts/documentation.astro
 ---
 
@@ -26,12 +26,17 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>activity</td>
         <td>activities</td>
-        <td>An object relationship</td>
+        <td>The liked activity</td>
     </tr>
     <tr>
         <td>created_at</td>
         <td>timestamptz</td>
         <td>Creation time</td>
+    </tr>
+    <tr>
+        <td>followers</td>
+        <td>[followed_users!]!</td>
+        <td>Related follow relationships</td>
     </tr>
     <tr>
         <td>id</td>
@@ -46,22 +51,22 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>likeable_type</td>
         <td>String!</td>
-        <td>Liked item type</td>
+        <td>Liked item type (Activity, List, UserBook, ReadingJournal)</td>
     </tr>
     <tr>
         <td>list</td>
         <td>lists</td>
-        <td>An object relationship</td>
+        <td>The liked list</td>
     </tr>
     <tr>
         <td>user</td>
         <td>users!</td>
-        <td>An object relationship</td>
+        <td>User who liked</td>
     </tr>
     <tr>
         <td>user_book</td>
         <td>user_books</td>
-        <td>An object relationship</td>
+        <td>The liked user book entry</td>
     </tr>
     <tr>
         <td>user_id</td>

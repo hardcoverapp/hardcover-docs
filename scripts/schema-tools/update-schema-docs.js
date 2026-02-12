@@ -25,19 +25,24 @@ for (const [schemaName, filePath] of Object.entries(schemaTypes)) {
 
   const content = fs.readFileSync(filePath, 'utf8');
 
-  let updatedContent = content.replace(
-    /lastUpdated: \d{4}-\d{2}-\d{2}/,
-    `lastUpdated: ${new Date().toISOString().split('T')[0]}`
-  );
-
   const tableRegex = /(#{1,3} Fields\s*)<table>[\s\S]*?<\/table>/;
 
-  if (tableRegex.test(updatedContent)) {
-    const match = updatedContent.match(tableRegex);
+  if (tableRegex.test(content)) {
+    const match = content.match(tableRegex);
     const heading = match[1];
-    updatedContent = updatedContent.replace(tableRegex, `${heading}${generatedTable}`);
-    fs.writeFileSync(filePath, updatedContent);
-    console.log(`✓ Updated ${schemaName}`);
+    const updatedContent = content.replace(tableRegex, `${heading}${generatedTable}`);
+
+    // Only write and bump lastUpdated if the table actually changed
+    if (updatedContent === content) {
+      console.log(`- ${schemaName} unchanged`);
+    } else {
+      const finalContent = updatedContent.replace(
+        /lastUpdated: \d{4}-\d{2}-\d{2}/,
+        `lastUpdated: ${new Date().toISOString().split('T')[0]}`
+      );
+      fs.writeFileSync(filePath, finalContent);
+      console.log(`✓ Updated ${schemaName}`);
+    }
   } else {
     console.log(`✗ Could not find fields table in ${schemaName}`);
   }

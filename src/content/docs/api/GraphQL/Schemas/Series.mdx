@@ -1,7 +1,7 @@
 ---
 title: Series
 category: reference
-lastUpdated: 2026-01-19
+lastUpdated: 2026-02-09
 layout: /src/layouts/documentation.astro
 ---
 
@@ -26,12 +26,17 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>author</td>
         <td>authors</td>
-        <td>An object relationship</td>
+        <td>Primary author</td>
     </tr>
     <tr>
         <td>author_id</td>
         <td>Int</td>
         <td>Primary author</td>
+    </tr>
+    <tr>
+        <td>book_series</td>
+        <td>[book_series!]!</td>
+        <td>Books in this series</td>
     </tr>
     <tr>
         <td>books_count</td>
@@ -41,7 +46,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>canonical</td>
         <td>series</td>
-        <td>An object relationship</td>
+        <td>Canonical series if duplicate</td>
     </tr>
     <tr>
         <td>canonical_id</td>
@@ -51,7 +56,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>creator</td>
         <td>users</td>
-        <td>An object relationship</td>
+        <td>User who created this record</td>
     </tr>
     <tr>
         <td>description</td>
@@ -84,6 +89,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Series name</td>
     </tr>
     <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td>Always 'Series'</td>
+    </tr>
+    <tr>
         <td>primary_books_count</td>
         <td>Int</td>
         <td>Main series books (excluding companions)</td>
@@ -96,7 +106,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>state</td>
         <td>String!</td>
-        <td>Record state</td>
+        <td>Record state (active, duplicate)</td>
     </tr>
     <tr>
         <td>user_id</td>

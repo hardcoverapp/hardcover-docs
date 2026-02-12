@@ -1,0 +1,110 @@
+---
+title: Getting All Books in a Series
+description: Guide to getting only the books in a series that show on the website in a series
+category: guide
+lastUpdated: 2026-01-12 22:27:00
+layout: /src/layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import { Aside } from '@astrojs/starlight/components';
+
+## Introduction
+
+This guide will show you how to fetch the books in a series using the Hardcover API.
+It also includes notes on how to handle duplicates to get a single list of all the books in the series as they appear on the website.
+
+## Explanation
+
+The data on Hardcover is continuously cleaned up by our team of librarians, but duplicates may still exist when requesting data on a series.
+You can avoid this by picking only the most popular book for each position in the series and filtering out merged books.
+
+To hide already merged books, you can add a filter that removes books that have a canonical version.
+
+```graphql
+book_series(
+  where: {book: {canonical_id: {_is_null: true}}}
+) {
+# ...
+```
+
+To hide duplicate books, you can request to get the most popular book (by user count) for each position.
+By sorting by position and then user count, and using `distinct_on: position`, you will get exactly one book per position.
+
+```graphql
+book_series(
+  distinct_on: position
+  order_by: [
+    {position: asc}, 
+    {book: {users_count: desc}}
+  ]
+) {
+# ...
+```
+
+This ensures the series list is free of duplicates. However, if the series contains any compilation or collection books, they will still be returned. 
+To exclude them, you can filter out books where `book_series.compilation` is true.
+
+```graphql
+book_series(
+  where: {compilation: {_eq: false}}
+) {
+# ...
+```
+
+<Aside type="note">
+  For compilations, there is a difference between the `details` and `position` fields.
+  For standard books, `details` is simply a string representation of `position`.
+  However, for a compilation, `details` might be a string like '1-3', while `position` would still be '1'.
+
+  Using `distinct_on: details` can be useful if you only want to retrieve one compilation for each book range.
+</Aside>
+
+You can also help by going to any duplicate books and clicking `Flag` > `Flag as duplicate` ;)
+
+See [Merging Standards](/librarians/standards/mergingstandards/#merging-books)
+
+## Related Schemas
+- [Books](/api/graphql/schemas/books)
+- [Series](/api/graphql/schemas/series)
+- [Book Series](/api/graphql/schemas/bookseries)
+
+### Example Request
+<GraphQLExplorer query={`
+query GetBooksBySeries {
+  series(
+    where: {
+      name: {_eq: "Harry Potter"}, 
+      books_count: {_gt: 0},
+      canonical_id: {_is_null: true}
+    }
+  ) {
+    id
+    name
+    slug
+    author {
+      name
+    }
+    books_count
+    book_series(
+      distinct_on: position
+      order_by: [{position: asc}, {book: {users_count: desc}}]
+      where: {
+          book: {canonical_id: {_is_null: true}},
+          compilation: {_eq: false}
+      }
+    ) {
+      position
+      book {
+        id
+        slug
+        title
+      }
+    }
+  }
+}
+`} description={`
+Search for series with the name "Harry Potter" that have at least one book and are not merged into another book.
+`} title="Search List Books" presentation='json' />
+
+This example query also adds filters for empty and merged series. This is not needed if you match by `slug` or `id` since they are unique.

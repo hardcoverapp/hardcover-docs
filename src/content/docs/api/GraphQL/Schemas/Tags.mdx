@@ -1,7 +1,7 @@
 ---
 title: Tags
 category: reference
-lastUpdated: 2026-01-19
+lastUpdated: 2026-02-09
 layout: /src/layouts/documentation.astro
 ---
 
@@ -47,12 +47,17 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>tag_category</td>
         <td>tag_categories!</td>
-        <td>An object relationship</td>
+        <td>Tag category details</td>
     </tr>
     <tr>
         <td>tag_category_id</td>
         <td>Int!</td>
         <td>Category (genre, mood, etc.)</td>
+    </tr>
+    <tr>
+        <td>taggings</td>
+        <td>[taggings!]!</td>
+        <td>Items tagged with this tag</td>
     </tr>
     </tbody>
 </table>

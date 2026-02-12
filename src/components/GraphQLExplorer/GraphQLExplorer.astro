@@ -11,6 +11,7 @@ const {
     canTry = true,
     presentation = undefined, // Undefined will default to the user's preference
     forcePresentation = false,
+    chartable = true,
     title = useTranslation("ui.graphQLExplorer.example", locale)
 } = Astro.props;
 
@@ -37,6 +38,7 @@ const isMutation = query.trim().includes('mutation');
                                    description={description}
                                    presentation={presentation}
                                    forcePresentation={forcePresentation ? presentation : null}
+                                   chartable={chartable}
                                    locale={locale}
                                    client:only="react" />
                 </div>

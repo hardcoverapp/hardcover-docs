@@ -464,14 +464,14 @@ export const SchemaGraphViewer: React.FC<SchemaGraphViewerProps> = ({ typeName }
 
       // Map type names to their actual page names
       const typeAliases: Record<string, string> = {
-        'book_series': 'series',
+        'book_series': 'bookseries',
         'book_characters': 'characters',
         'book_mappings': 'books', // No separate page, go to books
         'book_statuses': 'books',
         'followed_users': 'users',
         'followed_lists': 'lists',
         'followed_prompts': 'prompts',
-        'user_books': 'books',
+        'user_books': 'userbooks',
         'list_books': 'lists',
         'prompt_answers': 'prompts',
         'reading_formats': 'readingformats',
