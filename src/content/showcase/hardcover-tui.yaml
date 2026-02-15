@@ -1,0 +1,52 @@
+name: "Hardcover TUI"
+slug: "hardcover-tui"
+summary: "Terminal UI Client for Hardcover —  Browse your library, track your reading and manage your books without leaving the terminal."
+description: |
+  A terminal-based client for Hardcover built with Go, allowing readers to manage their book tracking without leaving the terminal.
+
+  Features:
+  - Update reading status updates (Want to Read, Currently Reading, Read, Did Not Finish)
+  - Update ratings and current page numbers
+  - Add journal entries to the book 
+  - Cross-platform support (Linux, macOS, Windows)
+  - Available via go install, AUR, and GitHub releases
+
+author:
+  name: "Mugilan"
+  github: "NotMugil"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/NotMugil/hardcover-tui"
+    type: "github"
+
+categories:
+  - "CLI Tool"
+  - "Integration"
+
+tags:
+  - "tui"
+  - "terminal"
+  - "cli"
+  - "progress-tracking"
+  - "open-source"
+  - "go"
+  - "bubbletea"
+
+screenshots:
+  - src: "/showcase/hardcover-tui/01-home.png"
+    alt: "Home with profile, currently reading and activity feed"
+  - src: "/showcase/hardcover-tui/02-book.png"
+    alt: "Book detail view with rating, review and progress management"
+  - src: "/showcase/hardcover-tui/03-search.png"
+    alt: "Search interface to find books"
+  - src: "/showcase/hardcover-tui/04-lists.png"
+    alt: "Reading lists management in terminal"
+
+dateAdded: 2026-02-15
+dateUpdated: 2026-02-15
+
+featured: false
+
+stats:
+  githubStars: 2
