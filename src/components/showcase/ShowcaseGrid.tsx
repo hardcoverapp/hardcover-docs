@@ -63,6 +63,8 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
           return new Date(b.dateUpdated).getTime() - new Date(a.dateUpdated).getTime();
         case 'stars':
           return (b.stats?.githubStars ?? 0) - (a.stats?.githubStars ?? 0);
+        case 'recentlyActive':
+          return (b.stats?.lastPushed ?? '').localeCompare(a.stats?.lastPushed ?? '');
         case 'alphabetical':
           return a.name.localeCompare(b.name);
         case 'featured':
