@@ -46,7 +46,11 @@ jobs:
           git commit -m "Update showcase star counts and activity dates
 
           Automated update of showcase project star counts and lastPushed dates."
-          git push --force-with-lease origin automated/update-stars
+          if git ls-remote --exit-code origin refs/heads/automated/update-stars >/dev/null 2>&1; then
+            git push --force-with-lease origin automated/update-stars
+          else
+            git push -u origin automated/update-stars
+          fi
 
       - name: Create PR if none exists
         if: steps.changes.outputs.changed == 'true'
