@@ -17,6 +17,7 @@ export interface ShowcaseScreenshot {
 
 export interface ShowcaseStats {
   githubStars?: number;
+  lastPushed?: string;
 }
 
 export interface ShowcaseProject {

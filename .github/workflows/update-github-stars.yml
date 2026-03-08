@@ -1,9 +1,9 @@
 name: Update GitHub Stars
 
 on:
-  # schedule:
+  schedule:
     # Run nightly at midnight UTC
-    # - BBC cron: '0 0 * * *'
+    - cron: '0 0 * * *'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -35,15 +36,30 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Commit and push changes
+      - name: Commit and push to update branch
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          git checkout -B automated/update-stars
           git add src/content/showcase/*.yaml
-          git commit -m "Update GitHub star counts
+          git commit -m "Update showcase star counts and activity dates
 
-          Automated update of showcase project star counts.
+          Automated update of showcase project star counts and lastPushed dates."
+          git push --force origin automated/update-stars
 
-          🤖 Generated with GitHub Actions"
-          git push
+      - name: Create PR if none exists
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          EXISTING=$(gh pr list --head "automated/update-stars" --state open --json number --jq '.[].number')
+          if [ -z "$EXISTING" ]; then
+            gh pr create \
+              --title "Update showcase star counts" \
+              --body "Automated nightly update of GitHub star counts and last activity dates for showcase projects." \
+              --base main \
+              --head automated/update-stars
+          else
+            echo "PR #$EXISTING already exists, updated via force push"
+          fi
