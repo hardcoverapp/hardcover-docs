@@ -1,0 +1,11 @@
+# Default owner for everything
+* @KylieBenfield
+
+# Librarian docs
+/src/content/docs/librarians/ @hardcoverapp/librarians
+
+# API docs
+/src/content/docs/api/ @hardcoverapp/developers
+
+# Showcase
+/src/content/docs/showcase/ @hardcoverapp/developers
