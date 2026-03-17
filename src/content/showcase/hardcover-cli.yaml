@@ -1,0 +1,43 @@
+name: "Hardcover CLI"
+slug: "hardcover-cli"
+summary: "A fast Rust CLI for managing your Hardcover library from the terminal."
+description: |
+  A command-line interface for Hardcover built with Rust, providing full access to the Hardcover GraphQL API from your terminal.
+
+  Features:
+  - Search books, authors, series, users, and lists
+  - Manage your library: add, update, rate, and remove books
+  - Track reading progress with read dates and journal entries
+  - Create and manage book lists
+  - View trending books, activity feed, and reading goals
+  - Social features: follow/unfollow users and entities, like/unlike activities
+  - Browse editions by ISBN, characters, tags, and more
+  - Secure token storage via `hc login` with config file support
+
+author:
+  name: "Thorben Woelk"
+  github: "ThorbenWoelk"
+  hardcover: "toto_hardcover"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/ThorbenWoelk/hardcover.cli"
+    type: "github"
+
+categories:
+  - "CLI Tool"
+  - "Integration"
+
+tags:
+  - "cli"
+  - "terminal"
+  - "rust"
+  - "library-management"
+  - "open-source"
+
+dateAdded: 2026-03-16
+
+featured: false
+
+stats:
+  githubStars: 0
