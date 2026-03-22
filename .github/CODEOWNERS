@@ -5,7 +5,7 @@
 /src/content/docs/librarians/ @hardcoverapp/librarians
 
 # API docs
-/src/content/docs/api/ @hardcoverapp/developers
+# /src/content/docs/api/ @hardcoverapp/developers
 
 # Showcase
-/src/content/docs/showcase/ @hardcoverapp/developers
+# /src/content/docs/showcase/ @hardcoverapp/developers
