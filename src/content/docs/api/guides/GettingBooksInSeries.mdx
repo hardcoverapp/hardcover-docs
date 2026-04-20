@@ -28,7 +28,17 @@ book_series(
 # ...
 ```
 
-To hide duplicate books, you can request to get the most popular book (by user count) for each position.
+Hardcover has the concept of a partial edition, this is when a book only contains part of the contents of another book.
+However, the series page does not display them.
+
+```graphql
+book_series(
+  where: {book: {is_partial_book: {_eq: false}}}
+) {
+# ...
+```
+
+To hide any unmerged duplicate books, you can request to get the most popular book (by user count) for each position.
 By sorting by position and then user count, and using `distinct_on: position`, you will get exactly one book per position.
 
 ```graphql
@@ -90,7 +100,7 @@ query GetBooksBySeries {
       distinct_on: position
       order_by: [{position: asc}, {book: {users_count: desc}}]
       where: {
-          book: {canonical_id: {_is_null: true}},
+          book: {canonical_id: {_is_null: true}, is_partial_book: {_eq: false}},
           compilation: {_eq: false}
       }
     ) {
