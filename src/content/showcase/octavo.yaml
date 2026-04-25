@@ -1,0 +1,55 @@
+name: "Octavo"
+slug: "octavo"
+summary: "A calm, cover-forward iPhone companion for Hardcover"
+description: |
+  Octavo is a small iPhone companion to Hardcover, built around the handful of things a reader does every day — add a book, check on what's being read now, log progress, finish and rate — and deliberately nothing more.
+
+  Features:
+  - Cover-forward Reading grid for what you're currently reading
+  - Yearly reading-goal progress bar (when set on Hardcover)
+  - Library shelves: Want to Read, Read, and Did Not Finish, with local search by title or author
+  - Search Hardcover's catalog by title, author, or ISBN, sorted by popularity
+  - Log progress by pages or percent; finish a book and set a half-star rating
+  - Optimistic local writes via SwiftData with rollback on API failure
+  - Honors Hardcover's 60-requests-per-minute rate limit; remaining budget visible in Settings
+  - API token stored in the iOS Keychain; no analytics, no trackers, no third-party accounts
+
+  Octavo is an unofficial third-party client. Requires an iPhone running iOS 26 or later and a Hardcover account with an API token.
+
+author:
+  name: "Jeremy Beker"
+  github: "jbeker"
+  hardcover: "gothmog"
+
+links:
+  - label: "App Store"
+    url: "https://apps.apple.com/us/app/octavo-a-hardcover-client/id6762486348"
+    type: "store"
+  - label: "Website"
+    url: "https://picosphere.net/octavo"
+    type: "website"
+
+categories:
+  - "Mobile App"
+
+tags:
+  - "ios"
+  - "iphone"
+  - "swift"
+  - "swiftui"
+  - "swiftdata"
+
+screenshots:
+  - src: "/showcase/octavo/01-reading.jpg"
+    alt: "Reading tab showing currently-reading books as a cover-forward grid"
+  - src: "/showcase/octavo/02-details.jpg"
+    alt: "Book detail view with cover, status row, and progress editor"
+  - src: "/showcase/octavo/03-library.jpg"
+    alt: "Library tab with Want, Read, and Did Not Finish shelves"
+  - src: "/showcase/octavo/04-search.jpg"
+    alt: "Search results from Hardcover's catalog"
+
+dateAdded: 2026-04-25
+dateUpdated: 2026-04-25
+
+featured: false
