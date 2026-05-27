@@ -22,6 +22,15 @@ updates:
       semver-major-days: 30
       semver-minor-days: 7
       semver-patch-days: 3
+    ignore:
+      # Majors are deliberate, hand-done coordinated migrations (React 19,
+      # Astro 6, Tailwind 4). Dependabot handles minor/patch + security only;
+      # majors are pulled in manually when we choose to do them.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      # Starlight 0.39+ requires astro@^6 -- a 0.x "minor" that is actually
+      # breaking -- so hold it until the Astro 6 migration is done by hand.
+      - dependency-name: "@astrojs/starlight"
     commit-message:
       prefix: "deps"
     labels:
