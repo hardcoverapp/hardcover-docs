@@ -61,7 +61,7 @@
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
-    "@types/cytoscape-popper": "^2.0.4",
+    "@types/cytoscape-popper": "^4.0.0",
     "@types/react": "^18.3.8",
     "@types/react-dom": "^18.3.0",
     "@vitest/coverage-v8": "^4.1.7",
