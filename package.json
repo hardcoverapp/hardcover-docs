@@ -65,8 +65,8 @@
     "@types/cytoscape-popper": "^2.0.4",
     "@types/react": "^18.3.8",
     "@types/react-dom": "^18.3.0",
-    "@vitest/coverage-v8": "^3.1.2",
-    "jsdom": "^25.0.1",
-    "vitest": "^3.1.2"
+    "@vitest/coverage-v8": "^4.1.7",
+    "jsdom": "^29.1.1",
+    "vitest": "^4.1.7"
   }
 }
