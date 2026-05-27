@@ -1,19 +1,36 @@
 #!/bin/bash
 
 # Script to update all schema documentation
-# Usage: ./update-all.sh YOUR_BEARER_TOKEN
+#
+# The API bearer token is resolved in this order:
+#   1. First CLI argument:        ./update-all.sh YOUR_BEARER_TOKEN
+#   2. HARDCOVER_API_TOKEN env var already exported in your shell
+#   3. HARDCOVER_API_TOKEN in a .env file at the repo root (auto-loaded)
 
 set -e  # Exit on error
 
-if [ -z "$1" ]; then
-    echo "Error: Bearer token required"
-    echo "Usage: ./update-all.sh YOUR_BEARER_TOKEN"
-    exit 1
-fi
-
-BEARER_TOKEN=$1
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+# Load .env from the repo root if present (does not override already-set vars)
+if [ -f "$ROOT_DIR/.env" ]; then
+    set -a
+    # shellcheck disable=SC1091
+    source "$ROOT_DIR/.env"
+    set +a
+fi
+
+# Resolve token: CLI arg wins, then env var
+BEARER_TOKEN="${1:-$HARDCOVER_API_TOKEN}"
+
+if [ -z "$BEARER_TOKEN" ]; then
+    echo "Error: Bearer token required"
+    echo "Provide it one of these ways:"
+    echo "  1. ./update-all.sh YOUR_BEARER_TOKEN"
+    echo "  2. export HARDCOVER_API_TOKEN=YOUR_BEARER_TOKEN"
+    echo "  3. add HARDCOVER_API_TOKEN=YOUR_BEARER_TOKEN to .env in the repo root"
+    exit 1
+fi
 
 echo "📡 Step 1/5: Fetching schema from API..."
 cd "$ROOT_DIR"

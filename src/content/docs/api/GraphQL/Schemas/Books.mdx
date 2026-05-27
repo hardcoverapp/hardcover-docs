@@ -1,7 +1,7 @@
 ---
 title: Books
 category: reference
-lastUpdated: 2026-02-09
+lastUpdated: 2026-05-27
 layout: /src/layouts/documentation.astro
 ---
 
@@ -90,7 +90,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     </tr>
     <tr>
         <td>cached_tags</td>
-        <td>json!</td>
+        <td>jsonb!</td>
         <td>Cached tags</td>
     </tr>
     <tr>
@@ -234,6 +234,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>Import source platform</td>
     </tr>
     <tr>
+        <td>is_partial_book</td>
+        <td>Boolean</td>
+        <td>Marks a book that's only part of a larger work</td>
+    </tr>
+    <tr>
         <td>journals_count</td>
         <td>Int!</td>
         <td>Reading journal entries</td>
@@ -267,6 +272,16 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>pages</td>
         <td>Int</td>
         <td>Page count</td>
+    </tr>
+    <tr>
+        <td>parent_book</td>
+        <td>books</td>
+        <td>The complete book this partial entry belongs to</td>
+    </tr>
+    <tr>
+        <td>parent_book_id</td>
+        <td>Int</td>
+        <td>The complete book this partial entry belongs to</td>
     </tr>
     <tr>
         <td>prompt_answers</td>
