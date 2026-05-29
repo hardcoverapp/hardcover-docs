@@ -1,7 +1,7 @@
 ---
 title: Editions
 category: reference
-lastUpdated: 2026-02-09
+lastUpdated: 2026-05-27
 layout: /src/layouts/documentation.astro
 ---
 
@@ -149,9 +149,24 @@ An Edition in Hardcover represents a specific published version of a book. While
         <td>ISBN-10</td>
     </tr>
     <tr>
+        <td>isbn_10_valid</td>
+        <td>Boolean</td>
+        <td>Whether the ISBN-10 is a valid number</td>
+    </tr>
+    <tr>
         <td>isbn_13</td>
         <td>String</td>
         <td>ISBN-13</td>
+    </tr>
+    <tr>
+        <td>isbn_13_valid</td>
+        <td>Boolean</td>
+        <td>Whether the ISBN-13 is a valid number</td>
+    </tr>
+    <tr>
+        <td>isbns_match</td>
+        <td>Boolean</td>
+        <td>Whether the ISBN-10 and ISBN-13 point to the same edition</td>
     </tr>
     <tr>
         <td>language</td>

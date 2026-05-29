@@ -384,7 +384,7 @@
     },
     {
       "name": "cached_tags",
-      "type": "json!",
+      "type": "jsonb!",
       "description": "",
       "hasArgs": true
     },
@@ -563,6 +563,12 @@
       "hasArgs": false
     },
     {
+      "name": "is_partial_book",
+      "type": "Boolean",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "journals_count",
       "type": "Int!",
       "description": "",
@@ -606,6 +612,18 @@
     },
     {
       "name": "pages",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "parent_book",
+      "type": "books",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "parent_book_id",
       "type": "Int",
       "description": "",
       "hasArgs": false
@@ -1189,8 +1207,26 @@
       "hasArgs": false
     },
     {
+      "name": "isbn_10_valid",
+      "type": "Boolean",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "isbn_13",
       "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "isbn_13_valid",
+      "type": "Boolean",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "isbns_match",
+      "type": "Boolean",
       "description": "",
       "hasArgs": false
     },
@@ -2641,12 +2677,6 @@
       "hasArgs": false
     },
     {
-      "name": "review_html",
-      "type": "String",
-      "description": "",
-      "hasArgs": false
-    },
-    {
       "name": "review_length",
       "type": "Int!",
       "description": "",
@@ -2657,12 +2687,6 @@
       "type": "Boolean",
       "description": "",
       "hasArgs": false
-    },
-    {
-      "name": "review_object",
-      "type": "jsonb!",
-      "description": "",
-      "hasArgs": true
     },
     {
       "name": "review_raw",
@@ -3151,6 +3175,12 @@
       "type": "taggings_aggregate!",
       "description": "An aggregate relationship",
       "hasArgs": true
+    },
+    {
+      "name": "timezone",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
     },
     {
       "name": "unconfirmed_email",
