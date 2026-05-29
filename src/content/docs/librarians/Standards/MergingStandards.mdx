@@ -8,11 +8,12 @@ layout: /src/layouts/librarians.astro
 
 import { URLS } from "@/Consts";
 import {Aside} from "@astrojs/starlight/components";
+import FlagButton from "@/components/FlagButton.astro";
 import ImageComponent from "@/components/ImageComponent.astro";
 
 ## Merging Books
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_book_flag.png" description="Flag the duplicate book" />
-On the page for the book you want to merge (i.e., the duplicate), click the edit button and select the "Flag as Duplicate" option from the dropdown.
+On the page for the book you want to merge (i.e., the duplicate), click the <FlagButton /> button and select `Flag as Duplicate` from its menu.
 
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_book_select.png" description="Select which book to keep" />
 You will be presented with a search box to select the canonical book listing (i.e., the one you want to keep). Start typing the name of the book you want to merge into and select it from the dropdown list.
@@ -35,7 +36,7 @@ There will be times when two editions of a book are actually the same. Typically
 - Different publishers (e.g., Penguin vs. HarperCollins)
 
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_ed_flag.png" description="Flag the duplicate edition" />
-From the edition list of the book that has a duplicate edition, select the duplicate and click the "Flag as Duplicate" option from the edit dropdown.
+From the edition list of the book that has a duplicate edition, select the duplicate, click the <FlagButton /> button, and select `Flag as Duplicate` from its menu.
 
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_ed_select.png" description="Select the canonical edition" />
 In the modal that appears, select the canonical edition (i.e., the one you want to keep) from the dropdown list. Its selection will be confirmed by a filled-in radio button to the left of the edition details.
@@ -58,7 +59,7 @@ It's important to check the mappings on editions before splitting them. If the e
 </Aside>
 
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/split_ed_list.png" description="Edit the edition that doesn't belong" />
-From the edition list of the book that has the incorrect edition, select the edition you want to split out and click the edit button.
+From the edition list of the book that has the incorrect edition, select the edition you want to split out and click the <FlagButton /> button to open its menu. Click `Edit this edition`.
 
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/split_ed_change.png" description="Edit the edition that doesn't belong" />
 In the book box on the edition edit page, click the "Change?" button. This will open a search box where you can search for the correct book to move the edition to. If the correct book does not exist, you can create a new one by clicking the "No book exists. Create a new book" option at the top of the dropdown list.
@@ -67,7 +68,7 @@ This will move the edition and all of its associated data (like covers, ISBNs, r
 
 ## Merging Authors
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_author_flag.png" description="Flag the duplicate author" />
-On the page for the author you want to merge (i.e., the duplicate), click the edit button and select the "Flag as Duplicate" option from the dropdown.
+On the page for the author you want to merge (i.e., the duplicate), click the <FlagButton /> button and select `Flag as duplicate` from its menu.
 
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_author_select.png" description="Select which author to keep" />
 You will be presented with a search box to select the canonical author listing (i.e., the one you want to keep). Start typing the name of the author you want to merge into and select them from the dropdown list.
@@ -78,7 +79,7 @@ After clicking the "Keep this one" button, your merge will be submitted. In many
 
 ## Merging Series
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_series_flag.png" description="Flag the duplicate series" />
-On the page for the series you want to merge (i.e., the duplicate), click the edit button and select the "Flag as Duplicate" option from the dropdown.
+On the page for the series you want to merge (i.e., the duplicate), click the <FlagButton /> button and select `Flag as duplicate` from its menu.
 
 <ImageComponent imagePath="/src/content/images/librarians/merging-standards/merge_series_select.png" description="Select which series to keep" />
 You will be presented with a search box to select the canonical series (i.e., the one you want to keep). Start typing the name of the series you want to merge into and select it from the dropdown list.
