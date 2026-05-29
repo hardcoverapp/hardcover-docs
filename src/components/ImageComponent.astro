@@ -21,7 +21,13 @@ if (!images[imagePath])
 const imageSrc = images[imagePath].default;
 ---
 
-<div>
-  <Image src={imageSrc} alt={description} />
-  <p>{description}</p>
-</div>
+<figure class="my-8">
+  <Image
+    src={imageSrc}
+    alt={description}
+    class="w-full"
+  />
+  <figcaption class="mt-2 text-sm leading-6" style="color: var(--muted-foreground); opacity: 0.82;">
+    {description}
+  </figcaption>
+</figure>
