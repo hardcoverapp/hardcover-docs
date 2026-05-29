@@ -6,13 +6,17 @@ lastUpdated: 2026-05-27
 layout: /src/layouts/librarians.astro
 ---
 
+import { URLS } from "@/Consts";
 import {Badge, Aside} from "@astrojs/starlight/components";
 
 *This section covers standards for author entries in the Hardcover database, including how to format author names, handle multiple contributors, and maintain author profiles.*
 
 :::note[Author standards are context-dependent]
-No single guideline will apply cleanly in every case. 
-Authors, identities, and histories are not always well served by rigid or purely objective data structures. Accordingly, these guidelines cannot account for every author, identity, or historical context. People and cultures are complex, and bibliographic data is inherently limited in its ability to capture nuance. Librarians are encouraged to apply informed judgement, centre author self-identification where known, and prioritize the least potential for harm when making decisions that fall outside strict guidance. Context matters more than standardization. If you’re uncertain about how best to portray an author, seek further input via the [Librarians Discord channel](https://discord.com/channels/835558721115389962/1105918193022812282).
+No single guideline will apply cleanly in every case. Authors, identities, and histories are not always well-served by rigid or purely objective data structures. 
+
+Accordingly, these guidelines cannot account for every author, identity, or historical context. People and cultures are complex, and bibliographic data is inherently limited in its ability to capture nuance. Librarians are encouraged to apply informed judgement, centre author self-identification where known, and prioritize the least potential for harm when making decisions that fall outside strict guidance. Context matters more than standardization. 
+
+If you’re uncertain about how best to portray an author, seek further input via the <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">Librarians Discord channel</a>.
 :::
 
 ## Author Names & Conventions
@@ -22,6 +26,7 @@ Authors, identities, and histories are not always well served by rigid or purely
 ### Personal Name Field
 
 Use **Personal Name** only for cases where an author's full personal or legal name differs from their publishing name and the author has publicly and reliably linked that name to their publishing identity (for example, in credits, copyright or rights statements, or via self-disclosure).
+
 - Use this field when it serves a clear cataloguing purpose (such as disambiguation).
 - Leave this field blank if the author publishes exclusively under a pseudonym and their personal name is not publicly tied to their publishing identity.
 - Do not infer, guess, or reveal a non-public personal name.
@@ -58,13 +63,14 @@ Follow the author’s preferred formatting for initials. Use the spacing the aut
 When editing the author page URL, use lowercase letters and hyphens. **Do not include full stops or spaces between initials.**
 
 - **Example:** J. K. Rowling → jk-rowling
-- **Example:** J. R. R. Tolkien → jrr-tolkien
+- **Example:** J.R.R. Tolkien → jrr-tolkien
 
 Slugs generate automatically for new authors, but you may need to update them when editing an existing profile.
 
 ### Capitalization Sensitivity
 
 Use standard proper-noun capitalization (e.g. Truman Capote) unless the author uses deliberate, consistent alternative styling.
+
 - Respect the author’s intentional and consistent capitalization choices across their work and official presence.
 - Treat author preference as higher priority than standardization between authors.
 
@@ -84,7 +90,8 @@ If an author is commonly known in English or publishing contexts by a Latin-scri
 Always prefer the spelling used by the author or their publisher. If no clear Latin-script version appears in those sources, consult a library authority source such as VIAF or WorldCat, which aggregate international library records and provide widely used transliterations of author names.
 
 Where appropriate, the original-script name may be included as supplemental information (for example, in parenthesis within the bio). It may also appear in the Personal Name field, but only if that field is otherwise appropriate under the Personal Name guidelines.
-If the author publishes primarily in a non-Latin script and no widely recognized Latin-script version of their name can be found, ask in the Librarians channel in Discord before interpreting a new transliteration.
+
+If the author publishes primarily in a non-Latin script and no widely recognized Latin-script version of their name can be found, ask in the <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">Librarians Discord channel</a> before interpreting a new transliteration.
 
 Hardcover should not maintain separate author pages for the same person solely because one version uses a Latin-script name and another uses the author’s original-script name. See guidelines for [Merging Duplicate Authors](#merge-duplicate-authors) for more details.
 
@@ -96,11 +103,13 @@ Hardcover should not maintain separate author pages for the same person solely b
 
 Sometimes an author might have multiple entries in the database (for example, due to variant spellings or a data import). When you discover duplicate author entries, they should be merged to one canonical entry.
 Keep the entry that best matches Hardcover formatting and common publishing usage.
+
 If you find separate profiles for the same author under Latin-script and non-Latin-script names, treat these as duplicate author records. In most cases, keep the Latin-script profile as the canonical author page for consistency and searchability, then merge the duplicate non-Latin-script profile into it. For more detailed guidance on merging authors, refer to the [Merging Standards page](../mergingstandards/#merging-authors).
 
 ### Authors Sharing the Same Name
 
 Sometimes two or more completely unrelated authors publish under the exact same name (e.g. two writers named John Williams). In these cases, do not merge the profiles. 
+
 Instead:
 - Create a distinct author page for each author.
 - Fill out this page fully with image, biography, and other distinguishing information.
@@ -111,13 +120,13 @@ Instead:
 
 When multiple authors share the same name, add a short disambiguator so readers can distinguish between them. Disambiguators should be clear, concise, and based on the attribute most commonly associated with the author in a publishing context. Disambiguation is applied in two places:
 
-Disambiguation in the authors URL slug: Author slugs must be unique; if a slug is changed to match an existing one, an error will occur. When adding a disambiguator, choose the most recognizable and appropriate identifier for that author. Examples and preferred order of disambiguation (use the first suitable option):
+**Disambiguation in the authors URL slug:** Author slugs must be unique; if a slug is changed to match an existing one, an error will occur. When adding a disambiguator, choose the most recognizable and appropriate identifier for that author. Examples and preferred order of disambiguation (use the first suitable option):
 
 - Middle initial(s) when the author regularly publishes with a middle initial. E.g.,  john-h-williams 
 - Common professional identifier describing what the author is best known for when widely associated with them. E.g., john-williams-composer
 - Birth year when other identifiers are not available or would be unclear. E.g., john-williams-1953
 
-Disambiguation in the author page bio: Add a brief note at the top of the author bio to clarify the distinction. Ideally, this should match the disambiguation used in the author slug, such as “Not to be confused with John Williams (composer).”
+**Disambiguation in the author page bio:** Add a brief note at the top of the author bio to clarify the distinction. Ideally, this should match the disambiguation used in the author slug, such as “Not to be confused with John Williams (composer).”
 
 ## Author Biography & Field Data
 
@@ -126,9 +135,12 @@ Disambiguation in the author page bio: Add a brief note at the top of the author
 ### Author Page Bios
 
 Author bios should be written in a concise, neutral, and factual way. Prioritize information the author publicly uses to describe their work and identity in a professional or publishing context, such as notable works, roles, awards, and relevant background. 
+
 Use a documentation-style tone, do not editorialize.
-Stick to verifiable facts from reliable sources. (see Sources for Author Info)
+Stick to verifiable facts from reliable sources. (see [Sources for Author Info](#sourcing-author-info))
+
 Avoid subjective commentary, speculation, or personal details unless the author has intentionally provided clear information in a public and professional context.
+
 Each of these rules should be met concurrently for any and all author information added to an author’s profile, bio, or metadata.
 
 ### Bios vs Field Data
@@ -147,8 +159,9 @@ Only complete these fields when the author has clearly self-identified in a reli
 ### Field - Location
 
 Author location is an optional field that represents where the author is currently based or the location from where they have published the majority of their works. Location does not refer to nationality, ethnicity, or heritage. Author location is often unavailable, but may be added when:
-A location is listed publicly in the author’s professional bio, author, or publishing website.
-For deceased authors, the place of birth or where they spent most of their life may be listed when this information is publicly available.
+
+- A location is listed publicly in the author’s professional bio, author, or publishing website.
+- For deceased authors, the place of birth or where they spent most of their life may be listed when this information is publicly available.
 
 ### Field - Birth & Death Dates
 
@@ -161,28 +174,34 @@ Use the most precise and publicly available information. If exact dates are not 
 ### Using Reliable Sources
 
 Acceptable sources for author information (bios, fields, photos, and other author details) are listed below in order of authority. Prefer sources that are author-direct, current, and clearly attributable.
-- Author’s official website or publications: Many authors provide an “About” page, media kit, or author bio in their books, publications, or websites. These sources most reliably reflect how the author describes themselves and what they have chosen to share publicly, usually in their own words or with their approval. Author websites and official publisher-provided author pages are also often suitable for author photos.
-- Publisher’s website: If an author does not have a personal website, a publisher author page can be used. However, these pages can be out of date, so where possible confirm key details against a more current author-direct source.
-- Author’s verified and active social media: Authors sometimes share biographical details on public facing profile pages or public posts in their own voice. This can be used when author-direct sources are unavailable, if the information has been recently provided in a professional context.
-- Bookseller or book database: Sources such as Amazon author pages, Kobo, and similar can be used only if the above sources are not available. These sources often have short blurbs which may not be author-supplied. Important: If you use them, rewrite as needed to avoid plagiarism and avoid carrying over subjective or promotional language.
+
+1. **Author’s official website or publications:** Many authors provide an “About” page, media kit, or author bio in their books, publications, or websites. These sources most reliably reflect how the author describes themselves and what they have chosen to share publicly, usually in their own words or with their approval. Author websites and official publisher-provided author pages are also often suitable for author photos.
+2. **Publisher’s website:** If an author does not have a personal website, a publisher author page can be used. However, these pages can be out of date, so where possible confirm key details against a more current author-direct source.
+3. **Author’s verified and active social media:** Authors sometimes share biographical details on public facing profile pages or public posts in their own voice. This can be used when author-direct sources are unavailable, if the information has been recently provided in a professional context.
+4. **Bookseller or book database:** Sources such as Amazon author pages, Kobo, and similar can be used only if the above sources are not available. These sources often have short blurbs which may not be author-supplied. Important: If you use them, rewrite as needed to avoid plagiarism and avoid carrying over subjective or promotional language.
 
 ### Avoiding Unreliable Sources
 
 Do not “fill gaps” using indirect inference. If a detail is not clearly stated by the author or a reliable source, leave it blank. This is especially important for identity, name history, demographics, and location.
 
-- AI-generated content (for example, ChatGPT): We do not allow AI-written bios. Do not generate author bios or use author-related information that has clearly been generated by AI. Author profiles should be based on human-vetted verifiable sources that reflect the author’s own public presentation.
-- Wikipedia. Do not copy-paste from Wikipedia. While it may help you to locate primary sources, these should be verified independently and Wikipedia text should not be used as the basis for a bio.
-- Competitor databases (for example Goodreads, The StoryGraph): We aim to build Hardcover’s data from primary sources that support and respect authors and their works. Copying author information from competitor platforms can introduce erroneous or unverified details and licensing issues.
+- **AI-generated content (for example, ChatGPT):** We do not allow AI-written bios. Do not generate author bios or use author-related information that has clearly been generated by AI. Author profiles should be based on human-vetted verifiable sources that reflect the author’s own public presentation.
+- **Wikipedia:** Do not copy-paste from Wikipedia. While it may help you to locate primary sources, these should be verified independently and Wikipedia text should not be used as the basis for a bio.
+- **Competitor databases (for example Goodreads, The StoryGraph):** We aim to build Hardcover’s data from primary sources that support and respect authors and their works. Copying author information from competitor platforms can introduce erroneous or unverified details and licensing issues.
 
 ### Citing Sources
 
 Until Hardcover supports a dedicated field for bio sources, add a short source credit in plain text at the end of the bio text in parentheses. 
-For example: (Source: Author’s official website).
+
+**For example:** 
+```
+(Source: Author’s official website).
+```
+
 This lets readers know where the information has originated from, how reliable the information is, and how recently the information was published or made available. Do not use HTML or Markdown when citing sources, as it will not render correctly.
 
 ## Author Photos & Files
 
-*Photo norms and expectations can vary across peoples and cultures (see examples of [Cultural Context for Author Photos](#cultural-context-for-author-photos)). When selecting an author photo, prioritize how the author presents themselves publicly rather than applying a single “default” standard. When unsure, choose the least intrusive option and ask other Librarians in Discord.*
+*Photo norms and expectations can vary across peoples and cultures (see examples of [Cultural Context for Author Photos](#cultural-context-for-author-photos)). When selecting an author photo, prioritize how the author presents themselves publicly rather than applying a single “default” standard. When unsure, choose the least intrusive option and ask other Librarians on <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>.*
 
 ### Choosing an Author Photo
 
@@ -190,7 +209,7 @@ This lets readers know where the information has originated from, how reliable t
 - Photographs should be of the author, not book covers or unrelated images. 
 - Prefer a clear, high-quality image, ideally a professional head-shot.
 - If the author provides or uses a preferred photo (for example on their official website or publisher page), use that.
-- If not, use the most recent, highest-quality image from an acceptable source.
+- If not, use the most recent, highest-quality image from an [acceptable source](#using-reliable-sources).
 
 ### Preferred File Formats
 
@@ -238,26 +257,28 @@ We aim to represent authors in ways that reflect their current identity, respect
 #### Name Changes and Dead-names
 
 Name changes related to gender affirmation are not treated the same as pseudonyms, pen names, or former legal names. 
+
 If an author previously published under a previous name and now uses a new one:
 - Always use the author’s current, self-identified public name on their current author profile.
 - Do not add a previous name to public identity fields such as Personal Name or Aliases, unless the author has explicitly requested this and the name remains part of their public identity or publishing history on their own terms.
 - Do not treat the appearance of a previous name on an older edition as a reason to add that name to current profile fields, searchable metadata, or public entries.
 
-Note: This guidance applies to how an author is represented on Hardcover. It does not mean that librarians should automatically revise historical edition metadata or other edition-specific details by default. Similarly, a previous name appearing on an older edition is not, on its own, a reason to surface that name elsewhere.
+**Note:** This guidance applies to how an author is represented on Hardcover. It does not mean that librarians should automatically revise historical edition metadata or other edition-specific details by default. Similarly, a previous name appearing on an older edition is not, on its own, a reason to surface that name elsewhere.
 
 #### Earlier Works & Legacy Profiles
 
 Handle earlier works and older profiles based on the author’s current public identity and, where available, their stated preference.
+
 If an author publicly and explicitly claims earlier works published under a previous name or dead-name:
 Support attribution and discoverability through the author’s current public profile.
 This means that readers should be able to find the author’s works through their current author page where appropriate.
+
 It does not mean that librarians should automatically rewrite historical edition-level credits, cover-visible names, or other edition-specific metadata.
 
 <details>
 <summary>A more detailed example of managing earlier works connected to a current author profile</summary>
 
 If an author now publishes as John Doe and publicly claims earlier works originally published under a previous name, the current John Doe author profile should be treated as the canonical author profile. Earlier works may be connected to that profile where needed for attribution and discoverability. However, an older edition that visibly credits a previous name on its cover or title page should not be automatically edited to replace that edition-specific credit unless the author has clearly requested that this occur or Hardcover has agreed on a specific handling approach.
-
 </details>
 
 If an older author page exists under a previous or dead-name:
@@ -277,7 +298,7 @@ Create a new author page when an author is now publicly publishing under a diffe
 
 #### Locking Author Pages 
 
-Any backend linking or discussions of protection or suppression of legacy-name pages should occur privately, not via public facing channels (i.e., in the librarian channel rather than as a book-edit request or within more general channels open to non-librarians).
+Any backend linking or discussions of protection or suppression of legacy-name pages should occur privately, not via public facing channels (i.e., in the <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">Librarian channel on Discord</a> rather than as a book-edit request or within more general channels open to non-librarians).
 
 If a legacy-name page needs to be more permanently hidden, locked, protected from re-edits, or otherwise reviewed, raise it in the Librarian channel for a Senior librarian to review. 
 
@@ -301,14 +322,17 @@ When escalating, please include the following information:
 ### Check Before Contact
 
 We welcome librarians to contact authors on their own behalf, as a Hardcover librarian; however, to ensure communication remains thoughtful, respectful, and coordinated, please follow the following steps:
+
 - Check before contacting: Review the [Contacted Authors List][ContactedAuthors] to check whether the author has been contacted by Hardcover or a librarian previously. Multiple unsolicited contact is not advised as this may feel spam-like and reflect poorly on Hardcover.
 - Log intention to contact: If they have not yet been contacted, add their information to the list before contacting them by completing the [Author Outreach Form][AuthorOutreachForm] (this will automatically update the list).
 
 ### Outreach Template
 
 Use the [Outreach Email Template][AuthorOutreachTemplate] from an author’s contact form (if available) or your own email.
+
 By following these steps, each author gets a single, friendly introduction to Hardcover. If they respond, wonderful! If not, we've still shown care without overwhelming them.
-Discussing outreach in the Discord Librarian channel is a good way to coordinate. If you’re thinking of reaching out to a notable author, it doesn’t hurt to mention it to other librarians so everyone stays in the loop.
+
+Discussing outreach in the <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">Librarian channel on Discord</a> is a good way to coordinate. If you’re thinking of reaching out to a notable author, it doesn’t hurt to mention it to other librarians so everyone stays in the loop.
 
 [ContactedAuthors]: https://docs.google.com/spreadsheets/d/1MlaWgpBYdaLxxTwmYZxhQ0xPNqi4kZQ4J4CVPXa6Vxg/edit?gid=308756447#gid=308756447
 [AuthorOutreachForm]: https://forms.gle/ewUDjfe7SV8RdaWd6
