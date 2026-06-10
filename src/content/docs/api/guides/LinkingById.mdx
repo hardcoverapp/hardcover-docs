@@ -11,54 +11,52 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## Introduction
 
-Often you will want to get a stable url for an item that you know will always link to the correct item.
+Often, you will need a stable URL that reliably links to a specific item.
 
-Since slugs are subject to change, we have a system in place to redirect you to new slugs if the slug was changed.
-But if you make a url with the slug it might not always point to the item you meant if the slugs are swapped between 2 items.
+Because slugs are subject to change, we have a system in place that automatically redirects you to the newest slug.
+However, if you hardcode a URL using a slug, it might point to the wrong item if that slug is ever reassigned to another item.
 
 ## Usage
 
-To resolve this you can use the stable id URLs <ApiPath href="/id/{model}/{ID}" emphasize="{model}/{ID}" />. These links take a model, like books or series,
-and will then issue a 302 redirect to the current path for the item with the slug.
+To resolve this, you can use stable ID URLs: <ApiPath href="/id/{model}/{ID}" emphasize="{model}/{ID}" />. These links accept a model (like `book` or `series`) and issue a 302 redirect to the item's current slug-based path.
 
 <Aside type="note">
-  A 302 (Found) is returned instead of a 301 (Moved Permanently) because the slugs might change,
-  and we do not want browsers caching a wrong link.
+  A 302 (Found) status is returned instead of a 301 (Moved Permanently).
+  Because slugs can change over time, we want to prevent browsers from caching an outdated link.
 
-  So if a user uses the same permanent link multiple times it will always take them to the latest slug.
+  This ensures that whenever a user clicks a permanent ID link, it will always route them to the latest slug.
 </Aside>
 
 ### Supported Models
-|Model|Path|Resulting Path|
-|:-|:-|:-|
-|book|<ApiPath href="/id/book/{id}" emphasize="book" />|<ApiPath href="/books/{slug}" emphasize="books" />|
-|series|<ApiPath href="/id/series/{id}" emphasize="series" />|<ApiPath href="/series/{slug}" emphasize="series" />|
-|author|<ApiPath href="/id/author/{id}" emphasize="author" />|<ApiPath href="/authors/{slug}" emphasize="authors" />|
-|character|<ApiPath href="/id/character/{id}" emphasize="character" />|<ApiPath href="/characters/{slug}" emphasize="characters" />|
-|edition|<ApiPath href="/id/edition/{id}" emphasize="edition" />|<ApiPath href="/books/{book_slug}/editions/{edition_id}" emphasize="editions" />|
-|publisher|<ApiPath href="/id/publisher/{id}" emphasize="publisher" />|<ApiPath href="/publishers/{slug}" emphasize="publishers" />|
-|user|<ApiPath href="/id/user/{id}" emphasize="user" />|<ApiPath href="/@{username}" emphasize="@" />|
 
-## Special behaviours
+| Model | Path | Resulting Path |
+| :- | :- | :- |
+| book | <ApiPath href="/id/book/{id}" emphasize="book" /> | <ApiPath href="/books/{slug}" emphasize="books" /> |
+| series | <ApiPath href="/id/series/{id}" emphasize="series" /> | <ApiPath href="/series/{slug}" emphasize="series" /> |
+| author | <ApiPath href="/id/author/{id}" emphasize="author" /> | <ApiPath href="/authors/{slug}" emphasize="authors" /> |
+| character | <ApiPath href="/id/character/{id}" emphasize="character" /> | <ApiPath href="/characters/{slug}" emphasize="characters" /> |
+| edition | <ApiPath href="/id/edition/{id}" emphasize="edition" /> | <ApiPath href="/books/{book_slug}/editions/{edition_id}" emphasize="editions" /> |
+| publisher | <ApiPath href="/id/publisher/{id}" emphasize="publisher" /> | <ApiPath href="/publishers/{slug}" emphasize="publishers" /> |
+| user | <ApiPath href="/id/user/{id}" emphasize="user" /> | <ApiPath href="/@{username}" emphasize="@" /> |
+
+## Special Behaviours
 
 ### Plurality
 
-The model part of the url accepts both the singular and plural forms of the words.
+The model portion of the URL accepts both singular and plural forms.
 
-So for <ApiPath href="https://hardcover.app/id/book/192946" emphasize="book" /> it will also work as <ApiPath href="https://hardcover.app/id/books/192946" emphasize="books" hideOrigin />
+For example, <ApiPath href="https://hardcover.app/id/book/192946" emphasize="book" /> works exactly like <ApiPath href="https://hardcover.app/id/books/192946" emphasize="books" hideOrigin />
 
 ### Sub-paths
 
-Any sub-path you add after the ID is preserved after the redirect, some examples:
+Any sub-path appended after the ID is preserved through the redirect. For example:
 
 - Linking to a review: <ApiPath href="https://hardcover.app/id/book/192946/reviews/@adam" emphasize="/reviews/@adam" hideOrigin />
 - Linking to an edit page: <ApiPath href="https://hardcover.app/id/series/1044/edit" emphasize="/edit" hideOrigin />
-- Linking to a collections page: <ApiPath href="https://hardcover.app/id/authors/224110/collections" emphasize="/collections" hideOrigin /> 
+- Linking to a collections page: <ApiPath href="https://hardcover.app/id/authors/224110/collections" emphasize="/collections" hideOrigin />
 
-### Edition to book
+### Edition to Book
 
-When linking to an edition you can add `/book` to the url to get to the book that an edition belongs to
-instead of linking to the edition.
+When linking to an edition, you can append `/book` to the URL to redirect to its parent book instead of the edition itself.
 
-For example, <ApiPath href="https://hardcover.app/id/edition/22212198/book" emphasize="/book" hideOrigin />
-will take you to the `I, Robot` book instead of the edition with the ISBN `0553803700`.
+For example, <ApiPath href="https://hardcover.app/id/edition/22212198/book" emphasize="/book" hideOrigin /> will take you to the `I, Robot` book rather than the edition with the ISBN `0553803700`.
