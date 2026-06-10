@@ -1,0 +1,37 @@
+---
+interface Props {
+  href: string;
+  emphasize?: string;
+  hideOrigin?: boolean;
+}
+
+const { href, emphasize, hideOrigin = false } = Astro.props;
+
+const isAbsolute = URL.canParse(href);
+const url = isAbsolute ? new URL(href) : null;
+const origin = url?.origin ?? "";
+const rest = url ? url.pathname + url.search : href;
+
+let before = rest, match = "", after = "";
+if (emphasize) {
+  const i = rest.indexOf(emphasize);
+  if (i !== -1) {
+    before = rest.slice(0, i);
+    match = emphasize;
+    after = rest.slice(i + emphasize.length);
+  } else if (import.meta.env.DEV) {
+    console.warn(`ApiPath: "${emphasize}" not found in "${rest}"`);
+  }
+}
+
+const showOrigin = isAbsolute && !hideOrigin;
+const classes = "inline-block align-baseline whitespace-nowrap font-mono text-sm bg-muted rounded px-2 py-0.5";
+---
+
+{isAbsolute ? (
+  <a href={href} aria-label={href} class={`${classes} no-underline hover:underline`}><span class="text-muted-foreground">{showOrigin ? origin : (hideOrigin ? "…" : "")}</span
+  >{before}{match && <span class="text-primary font-semibold">{match}</span>}{after}</a>
+) : (
+<span class={classes}
+  >{before}{match && <span class="text-primary font-semibold">{match}</span>}{after}</span>
+)}
