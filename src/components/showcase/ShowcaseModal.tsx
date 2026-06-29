@@ -273,14 +273,24 @@ export function ShowcaseModal({ project, open, onOpenChange, onCategoryClick, on
           </div>
         </div>
 
-        {project.stats?.githubStars && (
+        {(project.stats?.githubStars || project.stats?.lastPushed) && (
           <>
             <hr className="my-4 border-gray-200 dark:border-gray-700" />
             <div>
               <h4 className="text-sm font-semibold mb-2 text-gray-900 dark:text-gray-100">Stats</h4>
-              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                <span>⭐</span>
-                <span>{project.stats.githubStars.toLocaleString()} GitHub stars</span>
+              <div className="flex flex-col gap-1.5">
+                {project.stats.githubStars != null && (
+                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                    <span>⭐</span>
+                    <span>{project.stats.githubStars.toLocaleString()} GitHub stars</span>
+                  </div>
+                )}
+                {project.stats.lastPushed && (
+                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                    <span>🔄</span>
+                    <span>Last repo activity {formatDate(new Date(project.stats.lastPushed))}</span>
+                  </div>
+                )}
               </div>
             </div>
           </>

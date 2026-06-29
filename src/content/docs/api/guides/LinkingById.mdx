@@ -1,0 +1,64 @@
+---
+title: Linking to Resources by ID
+description: Guide to getting a stable link to a resource using an ID
+category: guide
+lastUpdated: 2026-06-09
+layout: /src/layouts/documentation.astro
+---
+
+import ApiPath from '@/components/ApiPath.astro';
+import { Aside } from '@astrojs/starlight/components';
+
+## Introduction
+
+Often, you will need a stable URL that reliably links to a specific item.
+
+Because slugs are subject to change, we have a system in place that automatically redirects you to the newest slug.
+However, if you hardcode a URL using a slug, it might point to the wrong item if that slug is ever reassigned to another item.
+
+## Usage
+
+To resolve this, you can use stable ID URLs: <ApiPath href="/id/{model}/{ID}" emphasize="{model}/{ID}" />. These links accept a model (like `book` or `series`) and issue a 302 redirect to the item's current slug-based path.
+
+<Aside type="note">
+  A 302 (Found) status is returned instead of a 301 (Moved Permanently).
+  Because slugs can change over time, we want to prevent browsers from caching an outdated link.
+
+  This ensures that whenever a user clicks a permanent ID link, it will always route them to the latest slug.
+</Aside>
+
+### Supported Models
+
+| Model | Path | Resulting Path |
+| :- | :- | :- |
+| book | <ApiPath href="/id/book/{id}" emphasize="book" /> | <ApiPath href="/books/{slug}" emphasize="books" /> |
+| series | <ApiPath href="/id/series/{id}" emphasize="series" /> | <ApiPath href="/series/{slug}" emphasize="series" /> |
+| author | <ApiPath href="/id/author/{id}" emphasize="author" /> | <ApiPath href="/authors/{slug}" emphasize="authors" /> |
+| character | <ApiPath href="/id/character/{id}" emphasize="character" /> | <ApiPath href="/characters/{slug}" emphasize="characters" /> |
+| edition | <ApiPath href="/id/edition/{id}" emphasize="edition" /> | <ApiPath href="/books/{book_slug}/editions/{edition_id}" emphasize="editions" /> |
+| publisher | <ApiPath href="/id/publisher/{id}" emphasize="publisher" /> | <ApiPath href="/publishers/{slug}" emphasize="publishers" /> |
+| user | <ApiPath href="/id/user/{id}" emphasize="user" /> | <ApiPath href="/@{username}" emphasize="@" /> |
+
+## Special Behaviours
+
+### Plurality
+
+The model portion of the URL accepts both singular and plural forms.
+
+For example, <ApiPath href="https://hardcover.app/id/book/192946" emphasize="book" /> works exactly like <ApiPath href="https://hardcover.app/id/books/192946" emphasize="books" hideOrigin />
+
+### Sub-paths
+
+Any sub-path appended after the ID is preserved through the redirect. For example:
+
+- Linking to a review: <ApiPath href="https://hardcover.app/id/book/192946/reviews/@adam" emphasize="/reviews/@adam" hideOrigin />
+- Linking to an edit page: <ApiPath href="https://hardcover.app/id/series/1044/edit" emphasize="/edit" hideOrigin />
+- Linking to a collections page: <ApiPath href="https://hardcover.app/id/authors/224110/collections" emphasize="/collections" hideOrigin />
+
+Note that the link might not be valid, since anything you append will be carried over without verification.
+
+### Edition to Book
+
+When linking to an edition, you can append `/book` to the URL to redirect to its parent book instead of the edition itself.
+
+For example, <ApiPath href="https://hardcover.app/id/edition/22212198/book" emphasize="/book" hideOrigin /> will take you to the `I, Robot` book rather than the edition with the ISBN `0553803700`.

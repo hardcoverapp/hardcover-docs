@@ -2,32 +2,38 @@
 title: Librarian FAQ
 description: Frequently asked questions for librarians.
 category: guide
-lastUpdated: 2025-09-18 15:05:00
+lastUpdated: 2026-06-11
 layout: /src/layouts/librarians.astro
 ---
 
 import { URLS } from "@/Consts";
 
-## Known issues
-*Before checking out the FAQ, please be aware of the following known issues:*
+*This page answers common questions about librarian permissions, workflows, and known platform quirks that can affect editing.*
 
-- There are known issues around the propagation of deduplicated authors to editions. This is being actively worked on and should be resolved in the near future.
-- It is known that random book covers have been assigned to author pages throughout the site. We're aware of this and are working on a fix.
-- If a book is a member of a series but isn't appearing on the series page, please check if the book has a value other than a number in the `Place in series (text)` field. If it does, please remove anything that isn't a number (Vol., tome, short story titles) and save the book. The book should then appear on the series page.
-- It is known that publisher merges don't stick after a book with a merged publisher is edited.
+## Known issues
+*Before looking at the FAQ or guidelines, please note these following known issues:*
+
+- If a book belongs to a series but does not appear on the series page, check the `Place in series (text)` field. If this field containts anything other than a number, remove the extra text (for example, "Vol"., "tome", or short story titles), then save the book. The book should then appear on the series page.
+- Series merges currently do not remove and redirect the de-duplicated series. This can cause the de-duplicated series to be recreated by later book imports.
 
 ## Frequently Asked Questions
 
-*While the Librarian docs are fairly comprehensive, there are a few questions that come up often enough that it makes sense to address them here.*
+*The Librarian docs are fairly comprehensive, but a few questions are asked often enough to address here.*
 
-### What's to stop a librarian from messing up a book/author/etc?
-For books / editions / with a high `impact_score`, meaning anything with five or more reads, there is a check in place that requires a member of the Hardcover Senior Librarian team’s approval before the change takes place.
+### What prevents a librarian from making harmful edits to a book/author/etc?
+Books and editions with an `impact_score` of 5 or higher (meaning anything with five or more reads) are automatically queued for additional approval which requires a member of the Hardcover Senior Librarian team to check and confirm the edits before any changes take place.
 
 ### How do I report bugs?
-Hardcover is under active development, and sometimes things break as we add features. We want to fix issues as soon as possible, so thank you for your reports and patience! 😅
+Hardcover is under active development by a small team, so issues may appear as features are added or updated. The best place to report a bug is via <a href={URLS.BUGS_DISCORD} target="_blank" rel="noreferrer noopener">Discord</a> in the #bugs channel. 
 
-The best way to report a bug is via <a href={URLS.BUGS_DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>. Head to the #bugs channel and do a quick search to check whether the current issue has already been posted. If not, provide details such as: links to the page you were editing, what actions were taken, and what happened as a result (especially if there was an error message or weird behavior).
+Before posting, do a quick search to check whether the issue has already been posted. If not, provide details relating the the bug such as: 
+- A link to the page you were editing;
+- The action you took;
+- What happened as a result;
+- Any error messages or unexpected behavior
+- Screenshots if relevant;
+- Console output if you’re comfortable with browser dev tools.
 
-Screenshots can help if applicable (including console output if you’re comfortable with your browser’s dev tools). By reporting in Discord, other <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> or developers can confirm if it’s a known bug or offer a workaround while a fix is being worked on.
+Reporting bugs in Discord allows other <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> or developers to confirm whether an issue is known, suggest a work around, or escalate it for review. We truly appreciate bug reports as they help us improve Hardcover for everyone, and we appreciate the time taken to report them.
 
-We truly appreciate bug reports, they help us improve the site for everyone!
+Thank you for your reports and your patience!

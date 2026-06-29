@@ -6,6 +6,8 @@ lastUpdated: 2025-03-02 19:57:15
 layout: /src/layouts/librarians.astro
 ---
 
+import FlagButton from "@/components/FlagButton.astro";
+
 ## Generale
 ### Come posso aggiungere un libro se non lo trovo su Hardcover?
 Se cerchi un libro e non lo vedi nei risultati, vai alla pagina Add Book to Hardcover (Aggiungi Libro a Hardcover). Lì puoi aggiungere un libro tramite ISBN 10, ISBN 13 o Goodreads ID. Questo è il miglior modo per iniziare, poiché è possibile che il libro non appaia nella ricerca per vari motivi (principalmente perché la cache di ricerca è obsoleta, o questo libro è stato aggiunto manualmente da un utente di recente e non è  stato ancora approvato).
@@ -13,7 +15,7 @@ Se cerchi un libro e non lo vedi nei risultati, vai alla pagina Add Book to Hard
 Se questo libro non ha un ISBN e non è su Goodreads, allora puoi utilizzare il modulo New Edition (Nuova Edizione). Questo creerà un nuovo libro con questa come unica nuova edizione. Quando i bibliotecari aggiungono libri usando questo modulo, questi appariranno subito per tutti. Quando ospiti e non-bibliotecari aggiungono libri usando questo modulo, a quei libri verrà assegnato un valore "aggiunto dall'utente" dietro le quinte che impedisce che appaiano nella ricerca.
 
 ### Come posso unire i libri?
-Nella pagina del libro, clicca sul pulsante <kbd>Flag</kbd> (Segnala) e dal menu a discesa seleziona <kbd>Mark as Duplicate</kbd> (Segna come Duplicato). Questo aprirà una modale (o un overlay su mobile) che ti permetterà di cercare e selezionare di quale libro l'attuale libro è un duplicato. Seleziona quel libro e clicca sul pulsante per segnalarlo come duplicato.
+Nella pagina del libro, clicca sul pulsante <FlagButton /> (Segnala) e dal menu a discesa seleziona <kbd>Mark as Duplicate</kbd> (Segna come Duplicato). Questo aprirà una modale (o un overlay su mobile) che ti permetterà di cercare e selezionare di quale libro l'attuale libro è un duplicato. Seleziona quel libro e clicca sul pulsante per segnalarlo come duplicato.
 
 Se hai un livello di accesso superiore all'impatto che l'unione dei libri comporterebbe, i libri verranno uniti immediatamente. Se cerchi di unire un libro popolare con un altro libro, un amministratore riceverà la richiesta di unione per controllarla prima di eseguirla. Una volta eseguita, riceverai una notifica.
 

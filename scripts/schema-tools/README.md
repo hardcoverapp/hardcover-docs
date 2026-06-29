@@ -8,6 +8,17 @@ Scripts for updating GraphQL API documentation from schema introspection.
 ./scripts/schema-tools/update-all.sh YOUR_BEARER_TOKEN
 ```
 
+The bearer token can also be supplied without putting it on the command line.
+It is resolved in this order:
+
+1. First CLI argument (above)
+2. `HARDCOVER_API_TOKEN` exported in your shell
+3. `HARDCOVER_API_TOKEN` in a `.env` file at the repo root (auto-loaded)
+
+To use a `.env` file, copy `.env.example` to `.env` and fill in the token, then
+just run `./scripts/schema-tools/update-all.sh` with no argument. `.env` is
+gitignored.
+
 ## Scripts
 
 | Script | Purpose | Input | Output |

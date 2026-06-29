@@ -43,7 +43,8 @@ const locale = Astro.currentLocale;
             <Badge text={uCFirst(category)} variant="note" class="w-fit"/>
     )}
 </div>
+<hr>
 
-<Components.banners.librarian locale={locale} client:only="react"/>
+<!-- <Components.banners.librarian locale={locale} client:only="react"/> -->
 
 <slot/>

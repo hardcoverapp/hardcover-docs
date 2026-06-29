@@ -46,7 +46,10 @@ async function fetchGitHubStars(owner, repo) {
     }
 
     const data = await response.json();
-    return data.stargazers_count;
+    return {
+      stars: data.stargazers_count,
+      pushedAt: data.pushed_at ? data.pushed_at.split('T')[0] : null,
+    };
   } catch (error) {
     console.error(`  Error fetching ${owner}/${repo}:`, error.message);
     return null;
@@ -79,21 +82,34 @@ function parseYaml(content) {
   return { githubUrl };
 }
 
-function updateYamlStars(content, stars) {
+function updateYamlStars(content, stars, lastPushed) {
+  let updated = content;
+
   // Check if stats section exists
-  if (content.includes('stats:')) {
-    // Update existing githubStars
-    if (content.includes('githubStars:')) {
-      return content.replace(/githubStars:\s*\d+/, `githubStars: ${stars}`);
+  if (updated.includes('stats:')) {
+    // Update or add githubStars
+    if (updated.includes('githubStars:')) {
+      updated = updated.replace(/githubStars:\s*\d+/, `githubStars: ${stars}`);
     } else {
-      // Add githubStars to existing stats section
-      return content.replace(/stats:/, `stats:\n  githubStars: ${stars}`);
+      updated = updated.replace(/stats:/, `stats:\n  githubStars: ${stars}`);
     }
   } else {
     // Add stats section at the end
-    const trimmed = content.trimEnd();
-    return `${trimmed}\n\nstats:\n  githubStars: ${stars}\n`;
+    const trimmed = updated.trimEnd();
+    updated = `${trimmed}\n\nstats:\n  githubStars: ${stars}\n`;
   }
+
+  // Update or add lastPushed
+  if (lastPushed) {
+    if (updated.includes('lastPushed:')) {
+      updated = updated.replace(/lastPushed:\s*"[^"]*"/, `lastPushed: "${lastPushed}"`);
+    } else {
+      // Insert after githubStars line
+      updated = updated.replace(/(githubStars:\s*\d+)/, `$1\n  lastPushed: "${lastPushed}"`);
+    }
+  }
+
+  return updated;
 }
 
 async function processFile(filePath) {
@@ -115,26 +131,30 @@ async function processFile(filePath) {
   }
 
   console.log(`  Fetching stars for ${repo.owner}/${repo.repo}...`);
-  const stars = await fetchGitHubStars(repo.owner, repo.repo);
+  const result = await fetchGitHubStars(repo.owner, repo.repo);
 
-  if (stars === null) {
+  if (result === null) {
     return { file: filename, status: 'error', reason: 'fetch-failed' };
   }
 
-  // Check current stars
+  const { stars, pushedAt } = result;
+
+  // Check current values
   const currentMatch = content.match(/githubStars:\s*(\d+)/);
   const currentStars = currentMatch ? parseInt(currentMatch[1], 10) : null;
+  const currentPushedMatch = content.match(/lastPushed:\s*"([^"]*)"/);
+  const currentPushed = currentPushedMatch ? currentPushedMatch[1] : null;
 
-  if (currentStars === stars) {
-    console.log(`  Stars unchanged (${stars})`);
+  if (currentStars === stars && currentPushed === pushedAt) {
+    console.log(`  Stars unchanged (${stars}), lastPushed unchanged (${pushedAt})`);
     return { file: filename, status: 'unchanged', stars };
   }
 
-  const updatedContent = updateYamlStars(content, stars);
+  const updatedContent = updateYamlStars(content, stars, pushedAt);
   fs.writeFileSync(filePath, updatedContent);
 
-  console.log(`  Updated: ${currentStars ?? 'none'} -> ${stars}`);
-  return { file: filename, status: 'updated', oldStars: currentStars, newStars: stars };
+  console.log(`  Updated: stars ${currentStars ?? 'none'} -> ${stars}, lastPushed ${currentPushed ?? 'none'} -> ${pushedAt}`);
+  return { file: filename, status: 'updated', oldStars: currentStars, newStars: stars, lastPushed: pushedAt };
 }
 
 async function main() {
@@ -168,7 +188,7 @@ async function main() {
   if (updated.length > 0) {
     console.log('\nUpdated files:');
     updated.forEach(r => {
-      console.log(`  ${r.file}: ${r.oldStars ?? 'none'} -> ${r.newStars}`);
+      console.log(`  ${r.file}: stars ${r.oldStars ?? 'none'} -> ${r.newStars}, lastPushed ${r.lastPushed ?? 'unknown'}`);
     });
   }
 

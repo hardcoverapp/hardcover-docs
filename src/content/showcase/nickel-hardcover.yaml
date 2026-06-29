@@ -45,7 +45,8 @@ screenshots:
 dateAdded: 2026-02-09
 dateUpdated: 2026-02-09
 
-featured: false
+featured: true
 
 stats:
-  githubStars: 17
+  githubStars: 72
+  lastPushed: "2026-06-21"

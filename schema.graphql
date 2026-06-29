@@ -78,10 +78,16 @@ input BookDtoType {
   characters: [CharacterDtoInput]
   collection_book_ids: [Int]
   compilation: Boolean
+  content_warnings: [String]
   description: String
+  genres: [String]
   headline: String
+  is_partial_book: Boolean
   librarian_tags: [TagsDtoInput]
   literary_type_id: Int
+  moods: [String]
+  parent_book_id: Int
+  release_date: date
   series: [BookSeriesDtoInput]
   title: String
 }
@@ -90,6 +96,7 @@ type BookIdType {
   book: books
   errors: [String]
   id: Int
+  warnings: [String]
 }
 
 input BookInput {
@@ -144,6 +151,7 @@ input Boolean_comparison_exp {
 
 input CharacterDtoInput {
   character_id: Int!
+  only_mentioned: Boolean
   position: Int!
   spoiler: Boolean!
 }
@@ -209,6 +217,7 @@ input DatesReadInput {
   action: String
   edition_id: Int
   finished_at: date
+  finished_at_precision: Int
   id: Int
   progress_pages: Int
   progress_seconds: Int
@@ -241,6 +250,7 @@ type EditionIdType {
   edition: editions
   errors: [String]
   id: Int
+  warnings: [String]
 }
 
 input EditionInput {
@@ -248,6 +258,7 @@ input EditionInput {
   curation_status: String
   dto: BookDtoInput
   locked: Boolean
+  state: String
 }
 
 type FollowDeleteType {
@@ -494,6 +505,7 @@ type ReportOutput {
   complete: Boolean
   created: Boolean
   errors: [String]
+  review_message: String
 }
 
 type SearchOutput {
@@ -622,6 +634,7 @@ input UserBookCreateInput {
   book_id: Int!
   date_added: date
   edition_id: Int
+  finished_at_precision: Int
   first_started_reading_date: date
   last_read_date: date
   media_url: String
@@ -639,6 +652,7 @@ input UserBookCreateInput {
   status_id: Int
   url: String
   user_date: date
+  user_start_date: date
 }
 
 type UserBookDeleteType {
@@ -663,6 +677,7 @@ type UserBookReadIdType {
 input UserBookUpdateInput {
   date_added: date
   edition_id: Int
+  finished_at_precision: Int
   first_started_reading_date: date
   last_read_date: date
   media_url: String
@@ -680,6 +695,7 @@ input UserBookUpdateInput {
   status_id: Int
   url: String
   user_date: date
+  user_start_date: date
 }
 
 type UserBooksReadUpsertType {
@@ -3031,7 +3047,7 @@ type books {
   cached_tags(
     """JSON select path"""
     path: String
-  ): json!
+  ): jsonb!
 
   """An object relationship"""
   canonical: books
@@ -3160,6 +3176,7 @@ type books {
     where: images_bool_exp
   ): [images!]!
   import_platform_id: Int!
+  is_partial_book: Boolean
   journals_count: Int!
   links(
     """JSON select path"""
@@ -3205,6 +3222,10 @@ type books {
   literary_type_id: Int
   locked: Boolean!
   pages: Int
+
+  """An object relationship"""
+  parent_book: books
+  parent_book_id: Int
 
   """An array relationship"""
   prompt_answers(
@@ -3460,6 +3481,7 @@ type books_avg_fields {
   lists_count: Float
   literary_type_id: Float
   pages: Float
+  parent_book_id: Float
   prompts_count: Float
   rating: Float
   ratings_count: Float
@@ -3494,6 +3516,7 @@ input books_avg_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -3524,7 +3547,7 @@ input books_bool_exp {
   cached_featured_series: jsonb_comparison_exp
   cached_header_image: jsonb_comparison_exp
   cached_image: jsonb_comparison_exp
-  cached_tags: json_comparison_exp
+  cached_tags: jsonb_comparison_exp
   canonical: books_bool_exp
   canonical_id: Int_comparison_exp
   collection_import_results: collection_import_results_bool_exp
@@ -3554,6 +3577,7 @@ input books_bool_exp {
   image_id: Int_comparison_exp
   images: images_bool_exp
   import_platform_id: Int_comparison_exp
+  is_partial_book: Boolean_comparison_exp
   journals_count: Int_comparison_exp
   links: jsonb_comparison_exp
   list_books: list_books_bool_exp
@@ -3562,6 +3586,8 @@ input books_bool_exp {
   literary_type_id: Int_comparison_exp
   locked: Boolean_comparison_exp
   pages: Int_comparison_exp
+  parent_book: books_bool_exp
+  parent_book_id: Int_comparison_exp
   prompt_answers: prompt_answers_bool_exp
   prompt_answers_aggregate: prompt_answers_aggregate_bool_exp
   prompt_summaries: prompt_books_summary_bool_exp
@@ -3612,6 +3638,7 @@ type books_max_fields {
   lists_count: Int
   literary_type_id: Int
   pages: Int
+  parent_book_id: Int
   prompts_count: Int
   rating: numeric
   ratings_count: Int
@@ -3655,6 +3682,7 @@ input books_max_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -3696,6 +3724,7 @@ type books_min_fields {
   lists_count: Int
   literary_type_id: Int
   pages: Int
+  parent_book_id: Int
   prompts_count: Int
   rating: numeric
   ratings_count: Int
@@ -3739,6 +3768,7 @@ input books_min_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -3798,6 +3828,7 @@ input books_order_by {
   image_id: order_by
   images_aggregate: images_aggregate_order_by
   import_platform_id: order_by
+  is_partial_book: order_by
   journals_count: order_by
   links: order_by
   list_books_aggregate: list_books_aggregate_order_by
@@ -3805,6 +3836,8 @@ input books_order_by {
   literary_type_id: order_by
   locked: order_by
   pages: order_by
+  parent_book: books_order_by
+  parent_book_id: order_by
   prompt_answers_aggregate: prompt_answers_aggregate_order_by
   prompt_summaries_aggregate: prompt_books_summary_aggregate_order_by
   prompts_count: order_by
@@ -3912,6 +3945,9 @@ enum books_select_column {
   import_platform_id
 
   """column name"""
+  is_partial_book
+
+  """column name"""
   journals_count
 
   """column name"""
@@ -3928,6 +3964,9 @@ enum books_select_column {
 
   """column name"""
   pages
+
+  """column name"""
+  parent_book_id
 
   """column name"""
   prompts_count
@@ -3980,6 +4019,9 @@ enum books_select_column_books_aggregate_bool_exp_bool_and_arguments_columns {
   compilation
 
   """column name"""
+  is_partial_book
+
+  """column name"""
   locked
 }
 
@@ -3989,6 +4031,9 @@ select "books_aggregate_bool_exp_bool_or_arguments_columns" columns of table "bo
 enum books_select_column_books_aggregate_bool_exp_bool_or_arguments_columns {
   """column name"""
   compilation
+
+  """column name"""
+  is_partial_book
 
   """column name"""
   locked
@@ -4017,6 +4062,7 @@ type books_stddev_fields {
   lists_count: Float
   literary_type_id: Float
   pages: Float
+  parent_book_id: Float
   prompts_count: Float
   rating: Float
   ratings_count: Float
@@ -4051,6 +4097,7 @@ input books_stddev_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -4083,6 +4130,7 @@ type books_stddev_pop_fields {
   lists_count: Float
   literary_type_id: Float
   pages: Float
+  parent_book_id: Float
   prompts_count: Float
   rating: Float
   ratings_count: Float
@@ -4117,6 +4165,7 @@ input books_stddev_pop_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -4149,6 +4198,7 @@ type books_stddev_samp_fields {
   lists_count: Float
   literary_type_id: Float
   pages: Float
+  parent_book_id: Float
   prompts_count: Float
   rating: Float
   ratings_count: Float
@@ -4183,6 +4233,7 @@ input books_stddev_samp_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -4214,7 +4265,7 @@ input books_stream_cursor_value_input {
   cached_featured_series: jsonb
   cached_header_image: jsonb
   cached_image: jsonb
-  cached_tags: json
+  cached_tags: jsonb
   canonical_id: Int
   compilation: Boolean
   created_at: timestamp
@@ -4232,12 +4283,14 @@ input books_stream_cursor_value_input {
   id: Int
   image_id: Int
   import_platform_id: Int
+  is_partial_book: Boolean
   journals_count: Int
   links: jsonb
   lists_count: Int
   literary_type_id: Int
   locked: Boolean
   pages: Int
+  parent_book_id: Int
   prompts_count: Int
   rating: numeric
   ratings_count: Int
@@ -4277,6 +4330,7 @@ type books_sum_fields {
   lists_count: Int
   literary_type_id: Int
   pages: Int
+  parent_book_id: Int
   prompts_count: Int
   rating: numeric
   ratings_count: Int
@@ -4311,6 +4365,7 @@ input books_sum_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -4343,6 +4398,7 @@ type books_var_pop_fields {
   lists_count: Float
   literary_type_id: Float
   pages: Float
+  parent_book_id: Float
   prompts_count: Float
   rating: Float
   ratings_count: Float
@@ -4377,6 +4433,7 @@ input books_var_pop_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -4409,6 +4466,7 @@ type books_var_samp_fields {
   lists_count: Float
   literary_type_id: Float
   pages: Float
+  parent_book_id: Float
   prompts_count: Float
   rating: Float
   ratings_count: Float
@@ -4443,6 +4501,7 @@ input books_var_samp_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -4475,6 +4534,7 @@ type books_variance_fields {
   lists_count: Float
   literary_type_id: Float
   pages: Float
+  parent_book_id: Float
   prompts_count: Float
   rating: Float
   ratings_count: Float
@@ -4509,6 +4569,7 @@ input books_variance_order_by {
   lists_count: order_by
   literary_type_id: order_by
   pages: order_by
+  parent_book_id: order_by
   prompts_count: order_by
   rating: order_by
   ratings_count: order_by
@@ -4827,7 +4888,6 @@ type collection_import_results {
 
   """An object relationship"""
   book: books
-  book_found_method: String
   book_id: Int
 
   """An object relationship"""
@@ -4837,6 +4897,7 @@ type collection_import_results {
     """JSON select path"""
     path: String
   ): jsonb!
+  error: String
   external_id: String!
   id: Int!
   report: Int
@@ -4880,11 +4941,11 @@ input collection_import_results_bool_exp {
   _or: [collection_import_results_bool_exp!]
   author: String_comparison_exp
   book: books_bool_exp
-  book_found_method: String_comparison_exp
   book_id: Int_comparison_exp
   collection_import: collection_imports_bool_exp
   collection_import_id: Int_comparison_exp
   contents: jsonb_comparison_exp
+  error: String_comparison_exp
   external_id: String_comparison_exp
   id: Int_comparison_exp
   report: Int_comparison_exp
@@ -4904,9 +4965,9 @@ order by max() on columns of table "collection_import_results"
 """
 input collection_import_results_max_order_by {
   author: order_by
-  book_found_method: order_by
   book_id: order_by
   collection_import_id: order_by
+  error: order_by
   external_id: order_by
   id: order_by
   report: order_by
@@ -4919,9 +4980,9 @@ order by min() on columns of table "collection_import_results"
 """
 input collection_import_results_min_order_by {
   author: order_by
-  book_found_method: order_by
   book_id: order_by
   collection_import_id: order_by
+  error: order_by
   external_id: order_by
   id: order_by
   report: order_by
@@ -4944,11 +5005,11 @@ type collection_import_results_mutation_response {
 input collection_import_results_order_by {
   author: order_by
   book: books_order_by
-  book_found_method: order_by
   book_id: order_by
   collection_import: collection_imports_order_by
   collection_import_id: order_by
   contents: order_by
+  error: order_by
   external_id: order_by
   id: order_by
   report: order_by
@@ -4969,9 +5030,6 @@ enum collection_import_results_select_column {
   author
 
   """column name"""
-  book_found_method
-
-  """column name"""
   book_id
 
   """column name"""
@@ -4979,6 +5037,9 @@ enum collection_import_results_select_column {
 
   """column name"""
   contents
+
+  """column name"""
+  error
 
   """column name"""
   external_id
@@ -5048,10 +5109,10 @@ input collection_import_results_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input collection_import_results_stream_cursor_value_input {
   author: String
-  book_found_method: String
   book_id: Int
   collection_import_id: Int
   contents: jsonb
+  error: String
   external_id: String
   id: Int
   report: Int
@@ -6120,7 +6181,10 @@ type editions {
     where: images_bool_exp
   ): [images!]!
   isbn_10: String
+  isbn_10_valid: Boolean
   isbn_13: String
+  isbn_13_valid: Boolean
+  isbns_match: Boolean
 
   """An object relationship"""
   language: languages
@@ -6264,7 +6328,10 @@ input editions_bool_exp {
   image_id: Int_comparison_exp
   images: images_bool_exp
   isbn_10: String_comparison_exp
+  isbn_10_valid: Boolean_comparison_exp
   isbn_13: String_comparison_exp
+  isbn_13_valid: Boolean_comparison_exp
+  isbns_match: Boolean_comparison_exp
   language: languages_bool_exp
   language_id: Int_comparison_exp
   list_books: list_books_bool_exp
@@ -6402,7 +6469,10 @@ input editions_order_by {
   image_id: order_by
   images_aggregate: images_aggregate_order_by
   isbn_10: order_by
+  isbn_10_valid: order_by
   isbn_13: order_by
+  isbn_13_valid: order_by
+  isbns_match: order_by
   language: languages_order_by
   language_id: order_by
   list_books_aggregate: list_books_aggregate_order_by
@@ -6490,7 +6560,16 @@ enum editions_select_column {
   isbn_10
 
   """column name"""
+  isbn_10_valid
+
+  """column name"""
   isbn_13
+
+  """column name"""
+  isbn_13_valid
+
+  """column name"""
+  isbns_match
 
   """column name"""
   language_id
@@ -6665,7 +6744,10 @@ input editions_stream_cursor_value_input {
   id: Int
   image_id: Int
   isbn_10: String
+  isbn_10_valid: Boolean
   isbn_13: String
+  isbn_13_valid: Boolean
+  isbns_match: Boolean
   language_id: Int
   lists_count: Int
   locked: Boolean
@@ -14666,7 +14748,7 @@ type query_root {
 
   """referrals_for_user"""
   referrals_for_user(end_date: date, limit: Int!, start_date: date, user_id: Int!): [ReferralType]
-  search(fields: String, page: Int, per_page: Int, query: String!, query_type: String, sort: String, weights: String): SearchOutput
+  search(fields: String, filter_by: String, page: Int, per_page: Int, query: String!, query_type: String, sort: String, typos: String, weights: String): SearchOutput
 
   """
   fetch data from the table: "series"
@@ -19385,6 +19467,7 @@ input update_user_input {
   password_confirmation: String
   pronoun_personal: String
   pronoun_possessive: String
+  timezone: String
   username: String
 }
 
@@ -19632,6 +19715,7 @@ type user_book_reads {
   edition: editions
   edition_id: Int
   finished_at: date
+  finished_at_precision: Int
   id: Int!
   paused_at: date
   progress: float8
@@ -19774,6 +19858,7 @@ input user_book_reads_aggregate_order_by {
 """aggregate avg on columns"""
 type user_book_reads_avg_fields {
   edition_id: Float
+  finished_at_precision: Float
   id: Float
   progress: Float
   progress_pages: Float
@@ -19786,6 +19871,7 @@ order by avg() on columns of table "user_book_reads"
 """
 input user_book_reads_avg_order_by {
   edition_id: order_by
+  finished_at_precision: order_by
   id: order_by
   progress: order_by
   progress_pages: order_by
@@ -19803,6 +19889,7 @@ input user_book_reads_bool_exp {
   edition: editions_bool_exp
   edition_id: Int_comparison_exp
   finished_at: date_comparison_exp
+  finished_at_precision: Int_comparison_exp
   id: Int_comparison_exp
   paused_at: date_comparison_exp
   progress: float8_comparison_exp
@@ -19817,6 +19904,7 @@ input user_book_reads_bool_exp {
 type user_book_reads_max_fields {
   edition_id: Int
   finished_at: date
+  finished_at_precision: Int
   id: Int
   paused_at: date
   progress: float8
@@ -19832,6 +19920,7 @@ order by max() on columns of table "user_book_reads"
 input user_book_reads_max_order_by {
   edition_id: order_by
   finished_at: order_by
+  finished_at_precision: order_by
   id: order_by
   paused_at: order_by
   progress: order_by
@@ -19845,6 +19934,7 @@ input user_book_reads_max_order_by {
 type user_book_reads_min_fields {
   edition_id: Int
   finished_at: date
+  finished_at_precision: Int
   id: Int
   paused_at: date
   progress: float8
@@ -19860,6 +19950,7 @@ order by min() on columns of table "user_book_reads"
 input user_book_reads_min_order_by {
   edition_id: order_by
   finished_at: order_by
+  finished_at_precision: order_by
   id: order_by
   paused_at: order_by
   progress: order_by
@@ -19874,6 +19965,7 @@ input user_book_reads_order_by {
   edition: editions_order_by
   edition_id: order_by
   finished_at: order_by
+  finished_at_precision: order_by
   id: order_by
   paused_at: order_by
   progress: order_by
@@ -19893,6 +19985,9 @@ enum user_book_reads_select_column {
 
   """column name"""
   finished_at
+
+  """column name"""
+  finished_at_precision
 
   """column name"""
   id
@@ -19983,6 +20078,7 @@ enum user_book_reads_select_column_user_book_reads_aggregate_bool_exp_var_samp_a
 """aggregate stddev on columns"""
 type user_book_reads_stddev_fields {
   edition_id: Float
+  finished_at_precision: Float
   id: Float
   progress: Float
   progress_pages: Float
@@ -19995,6 +20091,7 @@ order by stddev() on columns of table "user_book_reads"
 """
 input user_book_reads_stddev_order_by {
   edition_id: order_by
+  finished_at_precision: order_by
   id: order_by
   progress: order_by
   progress_pages: order_by
@@ -20005,6 +20102,7 @@ input user_book_reads_stddev_order_by {
 """aggregate stddev_pop on columns"""
 type user_book_reads_stddev_pop_fields {
   edition_id: Float
+  finished_at_precision: Float
   id: Float
   progress: Float
   progress_pages: Float
@@ -20017,6 +20115,7 @@ order by stddev_pop() on columns of table "user_book_reads"
 """
 input user_book_reads_stddev_pop_order_by {
   edition_id: order_by
+  finished_at_precision: order_by
   id: order_by
   progress: order_by
   progress_pages: order_by
@@ -20027,6 +20126,7 @@ input user_book_reads_stddev_pop_order_by {
 """aggregate stddev_samp on columns"""
 type user_book_reads_stddev_samp_fields {
   edition_id: Float
+  finished_at_precision: Float
   id: Float
   progress: Float
   progress_pages: Float
@@ -20039,6 +20139,7 @@ order by stddev_samp() on columns of table "user_book_reads"
 """
 input user_book_reads_stddev_samp_order_by {
   edition_id: order_by
+  finished_at_precision: order_by
   id: order_by
   progress: order_by
   progress_pages: order_by
@@ -20061,6 +20162,7 @@ input user_book_reads_stream_cursor_input {
 input user_book_reads_stream_cursor_value_input {
   edition_id: Int
   finished_at: date
+  finished_at_precision: Int
   id: Int
   paused_at: date
   progress: float8
@@ -20073,6 +20175,7 @@ input user_book_reads_stream_cursor_value_input {
 """aggregate sum on columns"""
 type user_book_reads_sum_fields {
   edition_id: Int
+  finished_at_precision: Int
   id: Int
   progress: float8
   progress_pages: Int
@@ -20085,6 +20188,7 @@ order by sum() on columns of table "user_book_reads"
 """
 input user_book_reads_sum_order_by {
   edition_id: order_by
+  finished_at_precision: order_by
   id: order_by
   progress: order_by
   progress_pages: order_by
@@ -20095,6 +20199,7 @@ input user_book_reads_sum_order_by {
 """aggregate var_pop on columns"""
 type user_book_reads_var_pop_fields {
   edition_id: Float
+  finished_at_precision: Float
   id: Float
   progress: Float
   progress_pages: Float
@@ -20107,6 +20212,7 @@ order by var_pop() on columns of table "user_book_reads"
 """
 input user_book_reads_var_pop_order_by {
   edition_id: order_by
+  finished_at_precision: order_by
   id: order_by
   progress: order_by
   progress_pages: order_by
@@ -20117,6 +20223,7 @@ input user_book_reads_var_pop_order_by {
 """aggregate var_samp on columns"""
 type user_book_reads_var_samp_fields {
   edition_id: Float
+  finished_at_precision: Float
   id: Float
   progress: Float
   progress_pages: Float
@@ -20129,6 +20236,7 @@ order by var_samp() on columns of table "user_book_reads"
 """
 input user_book_reads_var_samp_order_by {
   edition_id: order_by
+  finished_at_precision: order_by
   id: order_by
   progress: order_by
   progress_pages: order_by
@@ -20139,6 +20247,7 @@ input user_book_reads_var_samp_order_by {
 """aggregate variance on columns"""
 type user_book_reads_variance_fields {
   edition_id: Float
+  finished_at_precision: Float
   id: Float
   progress: Float
   progress_pages: Float
@@ -20151,6 +20260,7 @@ order by variance() on columns of table "user_book_reads"
 """
 input user_book_reads_variance_order_by {
   edition_id: order_by
+  finished_at_precision: order_by
   id: order_by
   progress: order_by
   progress_pages: order_by
@@ -20445,13 +20555,8 @@ type user_books {
   referrer_user_id: Int
   review: String
   review_has_spoilers: Boolean!
-  review_html: String
   review_length: Int!
   review_migrated: Boolean
-  review_object(
-    """JSON select path"""
-    path: String
-  ): jsonb!
   review_raw: String
   review_slate(
     """JSON select path"""
@@ -20696,10 +20801,8 @@ input user_books_bool_exp {
   referrer_user_id: Int_comparison_exp
   review: String_comparison_exp
   review_has_spoilers: Boolean_comparison_exp
-  review_html: String_comparison_exp
   review_length: Int_comparison_exp
   review_migrated: Boolean_comparison_exp
-  review_object: jsonb_comparison_exp
   review_raw: String_comparison_exp
   review_slate: jsonb_comparison_exp
   reviewed_at: timestamp_comparison_exp
@@ -20743,7 +20846,6 @@ type user_books_max_fields {
   recommended_for: String
   referrer_user_id: Int
   review: String
-  review_html: String
   review_length: Int
   review_raw: String
   reviewed_at: timestamp
@@ -20781,7 +20883,6 @@ input user_books_max_order_by {
   recommended_for: order_by
   referrer_user_id: order_by
   review: order_by
-  review_html: order_by
   review_length: order_by
   review_raw: order_by
   reviewed_at: order_by
@@ -20817,7 +20918,6 @@ type user_books_min_fields {
   recommended_for: String
   referrer_user_id: Int
   review: String
-  review_html: String
   review_length: Int
   review_raw: String
   reviewed_at: timestamp
@@ -20855,7 +20955,6 @@ input user_books_min_order_by {
   recommended_for: order_by
   referrer_user_id: order_by
   review: order_by
-  review_html: order_by
   review_length: order_by
   review_raw: order_by
   reviewed_at: order_by
@@ -20903,10 +21002,8 @@ input user_books_order_by {
   referrer_user_id: order_by
   review: order_by
   review_has_spoilers: order_by
-  review_html: order_by
   review_length: order_by
   review_migrated: order_by
-  review_object: order_by
   review_raw: order_by
   review_slate: order_by
   reviewed_at: order_by
@@ -21011,16 +21108,10 @@ enum user_books_select_column {
   review_has_spoilers
 
   """column name"""
-  review_html
-
-  """column name"""
   review_length
 
   """column name"""
   review_migrated
-
-  """column name"""
-  review_object
 
   """column name"""
   review_raw
@@ -21263,10 +21354,8 @@ input user_books_stream_cursor_value_input {
   referrer_user_id: Int
   review: String
   review_has_spoilers: Boolean
-  review_html: String
   review_length: Int
   review_migrated: Boolean
-  review_object: jsonb
   review_raw: String
   review_slate: jsonb
   reviewed_at: timestamp
@@ -22369,6 +22458,7 @@ type users {
     """filter the rows returned"""
     where: taggings_bool_exp
   ): taggings_aggregate!
+  timezone: String
   unconfirmed_email: String
   updated_at: timestamptz!
 
@@ -22591,6 +22681,7 @@ input users_bool_exp {
   status_id: Int_comparison_exp
   taggings: taggings_bool_exp
   taggings_aggregate: taggings_aggregate_bool_exp
+  timezone: String_comparison_exp
   unconfirmed_email: String_comparison_exp
   updated_at: timestamptz_comparison_exp
   user_books: user_books_bool_exp
@@ -22638,6 +22729,7 @@ input users_max_order_by {
   reset_password_sent_at: order_by
   sign_in_count: order_by
   status_id: order_by
+  timezone: order_by
   unconfirmed_email: order_by
   updated_at: order_by
   username: order_by
@@ -22682,6 +22774,7 @@ input users_min_order_by {
   reset_password_sent_at: order_by
   sign_in_count: order_by
   status_id: order_by
+  timezone: order_by
   unconfirmed_email: order_by
   updated_at: order_by
   username: order_by
@@ -22749,6 +22842,7 @@ input users_order_by {
   sign_in_count: order_by
   status_id: order_by
   taggings_aggregate: taggings_aggregate_order_by
+  timezone: order_by
   unconfirmed_email: order_by
   updated_at: order_by
   user_books_aggregate: user_books_aggregate_order_by
@@ -22887,6 +22981,9 @@ enum users_select_column {
   status_id
 
   """column name"""
+  timezone
+
+  """column name"""
   unconfirmed_email
 
   """column name"""
@@ -23005,6 +23102,7 @@ input users_stream_cursor_value_input {
   reset_password_sent_at: timestamp
   sign_in_count: Int
   status_id: Int
+  timezone: String
   unconfirmed_email: String
   updated_at: timestamptz
   username: citext

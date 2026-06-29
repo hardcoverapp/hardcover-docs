@@ -30,6 +30,7 @@ const showcaseCollection = defineCollection({
 		featured: z.boolean().default(false),
 		stats: z.object({
 			githubStars: z.number().optional(),
+			lastPushed: z.string().optional(),
 		}).optional(),
 	}),
 });

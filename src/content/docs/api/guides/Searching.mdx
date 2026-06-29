@@ -39,10 +39,11 @@ Only `query` is required. If all other fields are blank, this will default to th
 - `sort` - What attributes should the result be sorted by
 - `fields` - Which attributes within the given `query_type` to include in the search
 - `weights` - A comma separated list of numbers indicating weights to give each of the `fields` when calculating match
+- `typos` - A comma separated list of numbers indicating the typo tolerance for each of the `fields` when calculating match (will show up in errors as `num_typos`)
 
 <Aside type="note">
-    `fields` and `weights` are used togther. If you pass in 2 fields to
-    search (ex: `name,name_personal`), you'll also need to pass in 2 weights (`5,1`).
+    `fields`, `weights` and `typos` are used together. If you pass in 2 fields to
+    search (ex: `name,name_personal`), you'll also need to pass in 2 weights (`5,1`) and 2 typos (`2,1`).
     Weights are relative to each other.
 </Aside>
 
@@ -50,6 +51,11 @@ Only `query` is required. If all other fields are blank, this will default to th
     Some fields for an object contain other objects or numerical data
     isn't useful for filtering, but could come in handy for sorting or to show
     more information about an entity.
+</Aside>
+
+<Aside type="note" title="Note #3">
+    Modifier fields like `weights` and `typos` also accept one value,
+    that value will then apply equally to all the `fields`.
 </Aside>
 
 
@@ -84,6 +90,7 @@ When searching authors, we use the following default values.
 - `fields`: `name,name_personal,alternate_names,series_names,books`
 - `sort`: `_text_match:desc,books_count:desc`
 - `weights`: `3,3,3,2,1`
+- `typos`: `5`
 
 <GraphQLExplorer query={`
     query BooksByRowling {
@@ -144,6 +151,7 @@ When searching books, we use the following default values.
 - `fields`: `title,isbns,series_names,author_names,alternative_titles`
 - `sort`: `_text_match:desc,users_count:desc`
 - `weights`: `5,5,3,1,1`
+- `typos`: `5,0,5,5,5`
 
 <GraphQLExplorer query={`
     query LordOfTheRingsBooks {
@@ -178,6 +186,7 @@ When searching characters, we use the following default values.
 - `fields`: `name,books,author_names`
 - `sort`: `_text_match:desc,books_count:desc`
 - `weights`: `4,2,2`
+- `typos`: `5`
 
 <GraphQLExplorer query={`
     query CharactersNamedPeter {
@@ -214,6 +223,7 @@ When searching lists, we use the following default values.
 - `fields`: `name,description,books`
 - `sort`: `_text_match:desc,likes_count:desc`
 - `weights`: `3,2,1`
+- `typos`: `5`
 
 <GraphQLExplorer query={`
     query ListsNamedBest {
@@ -249,6 +259,7 @@ When searching prompts, we use the following default values.
 - `fields`: `question,books`
 - `sort`: `_text_match:desc`
 - `weights`: `2,1`
+- `typos`: `5`
 
 <GraphQLExplorer query={`
     query PromptsAboutLearning {
@@ -281,6 +292,7 @@ When searching publishers, we use the following default values.
 - `fields`: `name`
 - `sort`: `_text_match:desc,editions_count:desc`
 - `weights`: `1`
+- `typos`: `5`
 
 <GraphQLExplorer query={`
     query PublishersNamedPenguin {
@@ -317,6 +329,7 @@ When searching series, we use the following default values.
 - `fields`: `name,books,author_name`
 - `sort`: `_text_match:desc,readers_count:desc`
 - `weights`: `2,1,1`
+- `typos`: `5`
 
 <GraphQLExplorer query={`
     query SeriesNamedHarryPotter {
@@ -354,6 +367,7 @@ When searching users, we use the following default values.
 - `sort`: `_text_match:desc,followers_count:desc`
 - `fields`: `name,username,location`
 - `weights`: `2,2,1`
+- `typos`: `5`
 
 <GraphQLExplorer query={`
     query UsersNamedAdam {

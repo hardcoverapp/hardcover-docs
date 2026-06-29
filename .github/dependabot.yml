@@ -1,0 +1,65 @@
+# Dependabot configuration.
+#
+# Dependabot runs on GitHub's infrastructure (not in deploy.yml) and opens
+# dependency-update PRs on a schedule.
+#
+# The `cooldown` blocks mirror the npm `min-release-age=7` in .npmrc: routine
+# version bumps must age before Dependabot proposes them, so a malicious or
+# broken fresh release is caught/yanked before it ever reaches a PR. Dependabot
+# resolves versions server-side and does NOT read .npmrc, so it needs its own
+# cooldown. Security updates are exempt from cooldown and still arrive promptly.
+version: 2
+updates:
+  # Application dependencies (package.json)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    ignore:
+      # Majors are deliberate, hand-done coordinated migrations (React 19,
+      # Astro 6, Tailwind 4). Dependabot handles minor/patch + security only;
+      # majors are pulled in manually when we choose to do them.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      # Starlight 0.39+ requires astro@^6 -- a 0.x "minor" that is actually
+      # breaking -- so hold it until the Astro 6 migration is done by hand.
+      - dependency-name: "@astrojs/starlight"
+    commit-message:
+      prefix: "deps"
+    labels:
+      - "dependencies"
+    groups:
+      # Roll all minor + patch bumps into a single PR to cut noise. Majors are
+      # intentionally left ungrouped so each migration (Astro 6, React 19,
+      # Tailwind 4, ...) arrives as its own PR and gets reviewed on its own.
+      npm-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions pinned in .github/workflows/*
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
