@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6.0.3
       - name: Set up Node from .nvmrc (Node 24 -> npm 11.11+, required for min-release-age)
         uses: actions/setup-node@v6
         with:
