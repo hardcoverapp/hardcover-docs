@@ -691,7 +691,7 @@ export const SchemaGraphViewer: React.FC<SchemaGraphViewerProps> = ({ typeName }
               placeholder="Search types..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-2 py-1 rounded border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-32"
+              className="px-2 py-1 rounded border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 w-32"
             />
           </div>
         </div>

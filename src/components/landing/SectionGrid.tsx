@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { useTranslation } from '@/lib/utils';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 

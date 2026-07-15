@@ -1,6 +1,6 @@
 import {defineConfig} from 'astro/config';
 import starlight from '@astrojs/starlight';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 
 import react from "@astrojs/react";
 
@@ -134,8 +134,8 @@ export default defineConfig({
                             it: useTranslation('sidebar.api.guides', 'it'),
                             pl: useTranslation('sidebar.api.guides', 'pl')
                         },
-                        autogenerate: {directory: 'api/guides'},
                         collapsed: true,
+                        items: [{ autogenerate: {directory: 'api/guides'} }],
                     },
                     {
                         label: useTranslation('sidebar.api.schemas', 'en'),
@@ -145,15 +145,15 @@ export default defineConfig({
                             it: useTranslation('sidebar.api.schemas', 'it'),
                             pl: useTranslation('sidebar.api.schemas', 'pl')
                         },
-                        autogenerate: {directory: 'api/GraphQL/Schemas'},
                         collapsed: true,
+                        items: [{ autogenerate: {directory: 'api/GraphQL/Schemas'} }],
                     }
                 ]
             },
             {
                 label: useTranslation('sidebar.contributing.title', 'en'),
                 collapsed: true,
-                autogenerate: {directory: 'contributing'},
+                items: [{ autogenerate: {directory: 'contributing'} }],
                 translations: {
                     es: useTranslation('sidebar.contributing.title', 'es'),
                     fr: useTranslation('sidebar.contributing.title', 'fr'),
@@ -200,7 +200,7 @@ export default defineConfig({
                     },
                     {
                         label: useTranslation('sidebar.librarians.resources', 'en'),
-                        autogenerate: {directory: 'librarians/Resources'},
+                        items: [{ autogenerate: {directory: 'librarians/Resources'} }],
 
                         translations: {
                             es: useTranslation('sidebar.librarians.resources', 'es'),
@@ -211,7 +211,7 @@ export default defineConfig({
                     },
                     {
                         label: useTranslation('sidebar.librarians.standards', 'en'),
-                        autogenerate: {directory: 'librarians/Standards'},
+                        items: [{ autogenerate: {directory: 'librarians/Standards'} }],
 
                         translations: {
                             es: useTranslation('sidebar.librarians.standards', 'es'),
@@ -239,11 +239,10 @@ export default defineConfig({
         title: {
             en: useTranslation('site.title', 'en'),
         }
-    }), tailwind({
-        applyBaseStyles: false
     }), react()],
     site: URLS.DOCS,
     vite: {
+        plugins: [tailwindcss()],
         resolve: {
             alias: {
                 '@': '/src'

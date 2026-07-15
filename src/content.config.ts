@@ -1,9 +1,11 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';
 import { docsLoader} from "@astrojs/starlight/loaders";
 import { docsSchema } from '@astrojs/starlight/schema';
 
 const showcaseCollection = defineCollection({
-	type: 'data',
+	loader: glob({ pattern: '**/*.yaml', base: './src/content/showcase' }),
 	schema: z.object({
 		name: z.string(),
 		slug: z.string(),
@@ -16,7 +18,7 @@ const showcaseCollection = defineCollection({
 		}),
 		links: z.array(z.object({
 			label: z.string(),
-			url: z.string().url(),
+			url: z.url(),
 			type: z.enum(['website', 'github', 'store', 'docs', 'demo']),
 		})),
 		categories: z.array(z.string()).min(1),
