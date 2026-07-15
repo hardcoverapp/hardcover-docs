@@ -72,14 +72,14 @@ export function ShowcaseFilters({
             placeholder="Search projects..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full h-10 pl-10 pr-4 rounded-md text-sm outline-none box-border bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
+            className="w-full h-10 pl-10 pr-4 rounded-md text-sm outline-hidden box-border bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
           />
         </div>
 
         <select
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value as SortOption)}
-          className="h-10 px-3 rounded-md text-sm outline-none w-[180px] box-border bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
+          className="h-10 px-3 rounded-md text-sm outline-hidden w-[180px] box-border bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
         >
           {sortOptions.map((option) => (
             <option key={option.value} value={option.value}>

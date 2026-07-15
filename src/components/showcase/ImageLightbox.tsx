@@ -37,7 +37,7 @@ export function ImageLightbox({ screenshots, initialIndex = 0 }: ImageLightboxPr
             setCurrentIndex(currentIndex);
             setLightboxOpen(true);
           }}
-          className="w-full rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors focus:outline-none focus:border-blue-500"
+          className="w-full rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors focus:outline-hidden focus:border-blue-500"
         >
           <img
             src={screenshots[currentIndex].src}
@@ -55,7 +55,7 @@ export function ImageLightbox({ screenshots, initialIndex = 0 }: ImageLightboxPr
                 onClick={() => setCurrentIndex(index)}
                 className={cn(
                   'flex-shrink-0 rounded-md overflow-hidden border-2 transition-all',
-                  'hover:border-blue-500 focus:border-blue-500 focus:outline-none',
+                  'hover:border-blue-500 focus:border-blue-500 focus:outline-hidden',
                   index === currentIndex
                     ? 'border-blue-500'
                     : 'border-gray-200 dark:border-gray-700'
