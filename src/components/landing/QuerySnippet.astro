@@ -4,27 +4,54 @@
  * query and its response, with a query/response toggle. Static + a tiny inline
  * script for the tabs. Copy from the design mock.
  */
-const qHTML = `<span style="color:#c792ea">query</span> <span style="color:#82aaff">MyReading</span> {
-  <span style="color:#f78c6c">me</span> {
-    <span style="color:#f78c6c">username</span>
-    <span style="color:#f78c6c">currentlyReading</span> {
-      <span style="color:#f78c6c">book</span> { <span style="color:#c3e88d">title</span> <span style="color:#c3e88d">pages</span> }
-      <span style="color:#f78c6c">progress</span>
-      <span style="color:#f78c6c">startedAt</span>
+const qHTML = `<span style="color:#c792ea">query</span> <span style="color:#82aaff">CurrentlyReading</span> {
+  <span style="color:#f78c6c">user_books</span>(
+    <span style="color:#c3e88d">where</span>: {
+      <span style="color:#c3e88d">status_id</span>: { <span style="color:#c3e88d">_eq</span>: <span style="color:#f78c6c">2</span> }
+      <span style="color:#c3e88d">user_id</span>: { <span style="color:#c3e88d">_eq</span>: <span style="color:#f78c6c">10714</span> }
+    }
+  ) {
+    <span style="color:#f78c6c">book</span> {
+      <span style="color:#c3e88d">title</span>
+      <span style="color:#c3e88d">pages</span>
+    }
+    <span style="color:#f78c6c">user_book_reads</span>(<span style="color:#c3e88d">order_by</span>: { <span style="color:#c3e88d">id</span>: <span style="color:#ecc48d">desc</span> }, <span style="color:#c3e88d">limit</span>: <span style="color:#f78c6c">1</span>) {
+      <span style="color:#c3e88d">progress</span>
+      <span style="color:#c3e88d">progress_pages</span>
+      <span style="color:#c3e88d">started_at</span>
     }
   }
 }`;
 const rHTML = `{
-  <span style="color:#c3e88d">"me"</span>: {
-    <span style="color:#c3e88d">"username"</span>: <span style="color:#ecc48d">"adam"</span>,
-    <span style="color:#c3e88d">"currentlyReading"</span>: [{
-      <span style="color:#c3e88d">"book"</span>: {
-        <span style="color:#c3e88d">"title"</span>: <span style="color:#ecc48d">"Pachinko"</span>,
-        <span style="color:#c3e88d">"pages"</span>: <span style="color:#f78c6c">528</span>
+  <span style="color:#c3e88d">"data"</span>: {
+    <span style="color:#c3e88d">"user_books"</span>: [
+      {
+        <span style="color:#c3e88d">"book"</span>: {
+          <span style="color:#c3e88d">"title"</span>: <span style="color:#ecc48d">"The Fires of Heaven"</span>,
+          <span style="color:#c3e88d">"pages"</span>: <span style="color:#f78c6c">928</span>
+        },
+        <span style="color:#c3e88d">"user_book_reads"</span>: [
+          {
+            <span style="color:#c3e88d">"progress"</span>: <span style="color:#f78c6c">63.01</span>,
+            <span style="color:#c3e88d">"progress_pages"</span>: <span style="color:#82aaff">null</span>,
+            <span style="color:#c3e88d">"started_at"</span>: <span style="color:#ecc48d">"2026-06-02"</span>
+          }
+        ]
       },
-      <span style="color:#c3e88d">"progress"</span>: <span style="color:#f78c6c">0.64</span>,
-      <span style="color:#c3e88d">"startedAt"</span>: <span style="color:#ecc48d">"2026-04-02"</span>
-    }]
+      {
+        <span style="color:#c3e88d">"book"</span>: {
+          <span style="color:#c3e88d">"title"</span>: <span style="color:#ecc48d">"All Systems Red"</span>,
+          <span style="color:#c3e88d">"pages"</span>: <span style="color:#f78c6c">149</span>
+        },
+        <span style="color:#c3e88d">"user_book_reads"</span>: [
+          {
+            <span style="color:#c3e88d">"progress"</span>: <span style="color:#f78c6c">3.47</span>,
+            <span style="color:#c3e88d">"progress_pages"</span>: <span style="color:#f78c6c">5</span>,
+            <span style="color:#c3e88d">"started_at"</span>: <span style="color:#ecc48d">"2026-06-02"</span>
+          }
+        ]
+      }
+    ]
   }
 }`;
 ---
@@ -111,7 +138,10 @@ const rHTML = `{
     font-size: 12.5px;
     line-height: 1.65;
     color: var(--hc-code-fg);
-    overflow: auto;
-    min-height: 268px;
+    height: 340px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
 </style>
