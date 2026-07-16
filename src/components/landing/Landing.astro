@@ -104,26 +104,30 @@ const tryChips = ['getting started', 'authentication', 'mutations', 'editions', 
 </div>
 
 <script>
-  // Open Starlight's search dialog, optionally prefilling the query.
-  // Pagefind mounts into #starlight__search (production only), so we poll for
-  // the input before setting it.
+  // Open Starlight's search dialog, optionally prefilling the query. Deferred a
+  // tick so the click that triggered us finishes propagating first — otherwise
+  // Starlight's "click outside to close" window handler (registered when the
+  // modal opens) catches that same click and closes it immediately. Pagefind
+  // mounts into #starlight__search (production only), so we poll for its input.
   function openSearch(query?: string) {
-    const btn = document.querySelector<HTMLButtonElement>('site-search button[data-open-modal]');
-    if (!btn) return;
-    btn.click();
-    if (!query) return;
-    let tries = 0;
-    const fill = () => {
-      const input = document.querySelector<HTMLInputElement>('#starlight__search input');
-      if (input) {
-        input.value = query;
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        input.focus();
-      } else if (tries++ < 40) {
-        setTimeout(fill, 50);
-      }
-    };
-    fill();
+    setTimeout(() => {
+      const btn = document.querySelector<HTMLButtonElement>('site-search button[data-open-modal]');
+      if (!btn) return;
+      btn.click();
+      if (!query) return;
+      let tries = 0;
+      const fill = () => {
+        const input = document.querySelector<HTMLInputElement>('#starlight__search input');
+        if (input) {
+          input.value = query;
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.focus();
+        } else if (tries++ < 40) {
+          setTimeout(fill, 50);
+        }
+      };
+      fill();
+    }, 0);
   }
 
   document.getElementById('hero-search')?.addEventListener('click', () => openSearch());
