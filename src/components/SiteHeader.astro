@@ -12,6 +12,7 @@
  */
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 
 // Our own overrides, not Starlight's defaults — importing the defaults here
@@ -27,10 +28,15 @@ import {URLS} from '@/Consts';
 const pathname = Astro.url.pathname;
 const isReference = /^\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?(?:api|librarians)(?:\/|$)/i.test(pathname);
 
-// Pages with a sidebar already get a mobile menu from Starlight (extended in
-// MobileMenuFooter), so the disclosure below stands down once that hamburger
-// appears. Splash pages get no hamburger at all — it's the only nav they have.
-const {hasSidebar} = Astro.locals.starlightRoute;
+// The disclosure is only rendered where there's no sidebar. Pages that have one
+// can always reach the nav — the tree on desktop, Starlight's hamburger below
+// 50rem — so a disclosure there would just duplicate it. Splash pages have
+// neither, which is what it exists for.
+//
+// `sidebar` is populated on every route (`hasSidebar` only gates *rendering* it,
+// per Starlight's `template !== 'splash'`), so splash pages can show the real
+// tree — translated labels and all — rather than a hardcoded list.
+const {hasSidebar, sidebar} = Astro.locals.starlightRoute;
 ---
 
 <div class:list={['header', isReference ? 'is-reference' : 'is-marketing']}>
@@ -54,7 +60,8 @@ const {hasSidebar} = Astro.locals.starlightRoute;
                         ))}
                     </nav>
 
-                    <details class:list={['site-menu', {'has-sidebar': hasSidebar}]}>
+                    {!hasSidebar && (
+                    <details class="site-menu">
                         <summary aria-label="Site menu">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
@@ -62,10 +69,8 @@ const {hasSidebar} = Astro.locals.starlightRoute;
                             </svg>
                         </summary>
                         <div class="site-menu-panel">
-                            <nav class="menu-links" aria-label="Sections">
-                                {NAV_LINKS.map((link) => (
-                                        <a href={link.href}>{link.label}</a>
-                                ))}
+                            <nav class="menu-tree" aria-label="Site navigation">
+                                <SidebarSublist sublist={sidebar}/>
                             </nav>
                             {/* Only surfaced once the right group itself is gone (<50rem). */}
                             <div class="menu-prefs">
@@ -81,6 +86,7 @@ const {hasSidebar} = Astro.locals.starlightRoute;
                             </div>
                         </div>
                     </details>
+                    )}
                 </>
         )}
     </div>
@@ -96,13 +102,31 @@ const {hasSidebar} = Astro.locals.starlightRoute;
 </div>
 
 <script>
-    // Dismiss the site menu on outside click or Escape. The <details> element
-    // handles open/close and keyboard focus on its own; this is just polish.
+    // The <details> element handles open/close and keyboard focus on its own;
+    // this adds dismissal and the body scroll lock for the full-screen state.
     const menu = document.querySelector<HTMLDetailsElement>('details.site-menu');
     if (menu) {
+        const isFullScreen = window.matchMedia('(max-width: 49.999rem)');
+
+        // Only lock scrolling while the panel covers the page — as a dropdown it
+        // should leave the page alone.
+        const syncLock = () => {
+            document.body.toggleAttribute('data-site-menu-open', menu.open && isFullScreen.matches);
+        };
+
+        menu.addEventListener('toggle', syncLock);
+
+        // Crossing the breakpoint changes the panel between dropdown and pane;
+        // close instead of stranding a full-screen overlay on a wide viewport.
+        isFullScreen.addEventListener('change', () => {
+            menu.open = false;
+            syncLock();
+        });
+
         document.addEventListener('click', (event) => {
             if (menu.open && !menu.contains(event.target as Node)) menu.open = false;
         });
+
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && menu.open) {
                 menu.open = false;
@@ -111,6 +135,16 @@ const {hasSidebar} = Astro.locals.starlightRoute;
         });
     }
 </script>
+
+<style is:global>
+    /* Starlight's equivalent rule ships with MobileMenuToggle, which splash
+       pages never render — so the lock has to come from here. */
+    @media (max-width: 49.999rem) {
+        body[data-site-menu-open] {
+            overflow: hidden;
+        }
+    }
+</style>
 
 <style>
     @layer starlight.core {
@@ -270,11 +304,6 @@ const {hasSidebar} = Astro.locals.starlightRoute;
         }
     }
 
-    @media (max-width: 49.999rem) {
-        .site-menu.has-sidebar {
-            display: none;
-        }
-    }
 
     /* Mirrors Starlight's own MobileMenuToggle (circle, --sl-color-white on
        --sl-color-black, inverted for light) so this reads as the same control
@@ -317,39 +346,51 @@ const {hasSidebar} = Astro.locals.starlightRoute;
         top: calc(100% + 10px);
         inset-inline-start: 0;
         z-index: 50;
-        min-width: 220px;
-        padding: 8px;
+        width: max-content;
+        min-width: 250px;
+        max-width: min(88vw, 340px);
+        /* The real tree is far taller than the four links this used to hold. */
+        max-height: min(70vh, 32rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 10px;
         background: var(--hc-card);
         border: 1px solid var(--hc-rule);
         border-radius: 12px;
         box-shadow: var(--hc-shadow-lg);
     }
 
+    /* Starlight's sublist ships its own styling; just rein in the indent so a
+       deep tree fits a dropdown, and let the group labels read as headings. */
+    .menu-tree :global(ul) {
+        padding-inline-start: 0.6rem;
+    }
+
+    .menu-tree :global(> ul) {
+        padding-inline-start: 0;
+    }
+
+    /* On mobile this stops being a dropdown and becomes the same full-screen
+       pane Starlight's hamburger opens on doc pages — same geometry, surface and
+       z-index, so the two menus are indistinguishable to a reader. */
     @media (max-width: 49.999rem) {
         .site-menu-panel {
-            inset-inline-start: auto;
-            inset-inline-end: 0;
+            position: fixed;
+            z-index: var(--sl-z-index-menu);
+            inset-block: var(--sl-nav-height) 0;
+            inset-inline: 0;
+            width: 100%;
+            min-width: 0;
+            max-width: none;
+            max-height: none;
+            padding: 1rem var(--sl-sidebar-pad-x) 2rem;
+            background: var(--sl-color-black);
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+            overflow-y: auto;
+            scrollbar-gutter: stable;
         }
-    }
-
-    .menu-links {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    .menu-links a {
-        font-size: 14px;
-        color: var(--hc-ink-2);
-        text-decoration: none;
-        padding: 8px 10px;
-        border-radius: 7px;
-        white-space: nowrap;
-    }
-
-    .menu-links a:hover {
-        color: var(--hc-ink);
-        background: var(--hc-paper-2);
     }
 
     /* The right group still carries these down to 50rem; only duplicate them

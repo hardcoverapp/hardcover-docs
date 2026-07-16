@@ -1,25 +1,20 @@
 ---
 /**
  * MobileMenuFooter override — Starlight's version carries socials/theme/locale;
- * this adds the section links and the "Open app" CTA so pages with a sidebar get
- * the full header nav inside the existing hamburger on small screens.
+ * this adds the "Open app" CTA so the header's one non-navigational control
+ * survives on small screens.
  *
- * Splash pages (home, showcase, 404) never render this: Starlight only mounts
- * the mobile menu when `hasSidebar`. They use the disclosure in SiteHeader.
+ * Deliberately no section links: this renders directly beneath the sidebar tree,
+ * which already lists those pages (and with translated labels). Splash pages get
+ * them from the SiteHeader disclosure instead — Starlight only mounts the mobile
+ * menu when `hasSidebar`, so they never see this component.
  */
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 
 import SocialIcons from './SocialIcons.astro';
-import {NAV_LINKS} from '@/lib/nav';
 import {URLS} from '@/Consts';
 ---
-
-<nav class="mobile-sections" aria-label="Sections">
-    {NAV_LINKS.map((link) => (
-            <a href={link.href}>{link.label}</a>
-    ))}
-</nav>
 
 <a class="mobile-open-app" href={URLS.APP} target="_blank" rel="noreferrer noopener">Open app</a>
 
@@ -52,27 +47,6 @@ import {URLS} from '@/Consts';
             column-gap: 1rem;
             padding: 0.5rem 0;
         }
-    }
-
-    .mobile-sections {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        border-top: 1px solid var(--hc-rule);
-        padding-block: 0.5rem;
-    }
-
-    .mobile-sections a {
-        font-size: 14px;
-        color: var(--hc-ink-2);
-        text-decoration: none;
-        padding: 8px 10px;
-        border-radius: 7px;
-    }
-
-    .mobile-sections a:hover {
-        color: var(--hc-ink);
-        background: var(--hc-paper-2);
     }
 
     .mobile-open-app {

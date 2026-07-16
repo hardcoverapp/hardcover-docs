@@ -202,7 +202,8 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
    menu footer inside .sidebar-content too, and its social icons paint with
    --sl-color-text-accent — inheriting the 13%-alpha soft indigo made them
    nearly invisible. */
-.sidebar-content ul.top-level {
+.sidebar-content ul.top-level,
+.site-menu-panel ul.top-level {
     --sl-color-text-accent: var(--hc-indigo-soft);
     --sl-color-text-invert: var(--hc-indigo);
 }
