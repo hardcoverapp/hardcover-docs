@@ -1,16 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-import { SectionGrid } from './SectionGrid';
-import { FeaturedShowcase } from './FeaturedShowcase';
+import PathCard from './PathCard.astro';
+import QuerySnippet from './QuerySnippet.astro';
+import StartHere from './StartHere.astro';
+import Community from './Community.astro';
+import BackToApp from './BackToApp.astro';
 import type { ShowcaseProject } from '../showcase/types';
-
-const locale = Astro.currentLocale ?? 'en';
-
-const sections = [
-  { id: 'api', href: '/api/getting-started', icon: 'api' },
-  { id: 'librarians', href: '/librarians/faq', icon: 'librarians' },
-  { id: 'contributing', href: '/contributing', icon: 'contributing' },
-];
 
 const showcaseEntries = await getCollection('showcase');
 
@@ -23,15 +18,250 @@ const featuredProjects: ShowcaseProject[] = showcaseEntries
   }))
   .sort((a, b) => (b.stats?.githubStars ?? 0) - (a.stats?.githubStars ?? 0))
   .slice(0, 3);
+
+// Copy from the design mock. Link targets are best-effort to existing routes.
+const devLinks = [
+  { label: 'Getting started', href: '/api/getting-started' },
+  { label: 'Making your first request', href: '/api/getting-started/#making-your-first-request' },
+  { label: 'Authentication & tokens', href: '/api/getting-started/#getting-an-api-key' },
+  { label: 'GraphQL schema reference', href: '/api/graphql/schemas' },
+];
+const libLinks = [
+  { label: 'Getting started as a librarian', href: '/librarians/getting-started' },
+  { label: 'Book standards', href: '/librarians/standards/bookstandards' },
+  { label: 'Merging & de-duping editions', href: '/librarians/standards/mergingstandards' },
+  { label: 'Librarian FAQ', href: '/librarians/faq' },
+];
+const tryChips = ['getting started', 'authentication', 'mutations', 'editions', 'librarian roles'];
 ---
 
-<div class="landing-container">
-  <SectionGrid client:only="react" sections={sections} locale={locale} />
-  <FeaturedShowcase client:only="react" projects={featuredProjects} locale={locale} />
+<div class="landing not-content">
+  <!-- Split hero: pitch + example query/response -->
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="hero-badge">
+        <span class="hero-v1">v1</span> GraphQL API · the same data as the app
+      </div>
+      <h1 class="hero-title">
+        Everything you need to <em class="em-dev">build with</em> and <em class="em-lib">curate</em> Hardcover.
+      </h1>
+      <p class="hero-tagline">
+        The developer API and the librarian handbook for the book-tracking platform readers actually love.
+      </p>
+    </div>
+    <QuerySnippet />
+  </section>
+
+  <!-- Search + try chips -->
+  <div class="hero-search-wrap">
+    <button type="button" class="hero-search" id="hero-search" aria-label="Search the docs">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg>
+      <span class="hero-search-ph">Search the docs — endpoints, guides, fields…</span>
+      <span class="hero-kbd">⌘K</span>
+    </button>
+    <div class="hero-chips">
+      {tryChips.map((c) => (
+        <button type="button" class="hero-chip" data-query={c}>
+          <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg>
+          {c}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Back to app + socials -->
+  <div class="backapp-wrap">
+    <BackToApp />
+  </div>
+
+  <!-- Two-path fork -->
+  <section class="paths">
+    <PathCard
+      kind="dev"
+      tag="For developers"
+      title="Build with the API"
+      desc="Query books, editions, and reading data over GraphQL — authentication, schema, and recipes."
+      links={devLinks}
+    />
+    <PathCard
+      kind="lib"
+      tag="For librarians"
+      title="Curate the library"
+      desc="Help keep book data accurate for everyone. Editing standards, roles, and the tools that keep the catalog clean."
+      links={libLinks}
+    />
+  </section>
+
+  <!-- Start here -->
+  <section class="section">
+    <StartHere />
+  </section>
+
+  <!-- Community + Discord -->
+  <section class="section">
+    <Community projects={featuredProjects} />
+  </section>
 </div>
 
+<script>
+  // Open Starlight's search dialog, optionally prefilling the query.
+  // Pagefind mounts into #starlight__search (production only), so we poll for
+  // the input before setting it.
+  function openSearch(query?: string) {
+    const btn = document.querySelector<HTMLButtonElement>('site-search button[data-open-modal]');
+    if (!btn) return;
+    btn.click();
+    if (!query) return;
+    let tries = 0;
+    const fill = () => {
+      const input = document.querySelector<HTMLInputElement>('#starlight__search input');
+      if (input) {
+        input.value = query;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.focus();
+      } else if (tries++ < 40) {
+        setTimeout(fill, 50);
+      }
+    };
+    fill();
+  }
+
+  document.getElementById('hero-search')?.addEventListener('click', () => openSearch());
+  document.querySelectorAll<HTMLButtonElement>('.hero-chip').forEach((chip) => {
+    chip.addEventListener('click', () => openSearch(chip.dataset.query || ''));
+  });
+</script>
+
 <style>
-  .landing-container {
-    margin-top: 1rem;
+  .landing {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 3rem);
+  }
+
+  /* Hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 4vw, 3rem);
+    align-items: center;
+    padding: clamp(2.5rem, 5vw, 3.75rem) 0 clamp(1.25rem, 3vw, 1.75rem);
+  }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--hc-ink-2);
+    background: var(--hc-paper-2);
+    border: 1px solid var(--hc-rule);
+    padding: 6px 13px;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-v1 {
+    font-family: var(--font-mono);
+    color: var(--hc-indigo);
+  }
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin: 0 0 1.125rem;
+    color: var(--hc-ink);
+  }
+  .hero-title .em-dev { font-style: italic; color: var(--hc-dev); }
+  .hero-title .em-lib { font-style: italic; color: var(--hc-lib); }
+  .hero-tagline {
+    font-size: 1.03rem;
+    line-height: 1.55;
+    color: var(--hc-ink-2);
+    max-width: 27rem;
+    margin: 0;
+  }
+
+  /* Search */
+  .hero-search-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-bottom: clamp(1.5rem, 3vw, 2rem);
+  }
+  .backapp-wrap {
+    padding-bottom: clamp(2.5rem, 5vw, 3.25rem);
+  }
+  .hero-search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--hc-card);
+    border: 1px solid var(--hc-rule);
+    border-radius: 12px;
+    padding: 15px 18px;
+    box-shadow: var(--hc-shadow);
+    cursor: pointer;
+    color: var(--hc-ink-3);
+    text-align: left;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .hero-search:hover {
+    border-color: var(--hc-indigo-line);
+    box-shadow: var(--hc-shadow-lg);
+  }
+  .hero-search-ph {
+    flex: 1;
+    font-size: 1rem;
+  }
+  .hero-kbd {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--hc-ink-3);
+    border: 1px solid var(--hc-rule);
+    border-radius: 5px;
+    padding: 3px 7px;
+    background: var(--hc-paper-2);
+  }
+  .hero-chips {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .hero-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--hc-ink-2);
+    background: var(--hc-paper-2);
+    border: 1px solid var(--hc-rule);
+    border-radius: 999px;
+    padding: 5px 11px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .hero-chip:hover { color: var(--hc-indigo); border-color: var(--hc-indigo-line); }
+  .hero-chip svg { color: var(--hc-ink-3); }
+
+  /* Paths */
+  .paths {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding-bottom: clamp(2.5rem, 5vw, 3.25rem);
+  }
+  @media (max-width: 640px) {
+    .paths { grid-template-columns: 1fr; }
+  }
+
+  .section {
+    padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
   }
 </style>

@@ -1,0 +1,133 @@
+---
+/**
+ * StartHere — "Start here" guide grid (mock's GuidesGrid). Three entry-point
+ * cards. Copy adapted from the mock to real guides; links are best-effort.
+ */
+const guides = [
+  {
+    icon: 'code',
+    title: 'Quickstart',
+    desc: 'Make your first authenticated GraphQL query in under five minutes.',
+    cat: 'API',
+    href: '/api/getting-started',
+  },
+  {
+    icon: 'search',
+    title: 'Search for content',
+    desc: 'Find books, authors, and editions by title, author, or identifier.',
+    cat: 'API',
+    href: '/api/guides/searching',
+  },
+  {
+    icon: 'book',
+    title: 'Editing editions',
+    desc: "The librarian's guide to clean, canonical book metadata.",
+    cat: 'Librarian',
+    href: '/librarians/getting-started',
+  },
+];
+---
+
+<div class="starthere not-content">
+  <div class="starthere-head">
+    <h2 class="starthere-title">Start here</h2>
+    <a class="starthere-all" href="/api/guides">
+      All guides
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+  <div class="starthere-grid">
+    {guides.map((g) => (
+      <a class="guide-card" href={g.href}>
+        <span class="guide-icon" aria-hidden="true">
+          {g.icon === 'code' && (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13 5l-2 14"/></svg>
+          )}
+          {g.icon === 'search' && (
+            <svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg>
+          )}
+          {g.icon === 'book' && (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/></svg>
+          )}
+        </span>
+        <div class="guide-title">{g.title}</div>
+        <p class="guide-desc">{g.desc}</p>
+        <span class="guide-pill">{g.cat}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .starthere-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .starthere-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 1.65rem;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--hc-ink);
+  }
+  .starthere-all {
+    font-size: 0.8125rem;
+    color: var(--hc-ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+  .starthere-all:hover { color: var(--hc-indigo); }
+  .starthere-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 720px) {
+    .starthere-grid { grid-template-columns: 1fr; }
+  }
+  .guide-card {
+    background: var(--hc-card);
+    border: 1px solid var(--hc-rule);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: var(--hc-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+  }
+  .guide-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--hc-shadow-lg);
+  }
+  .guide-icon { color: var(--hc-indigo); }
+  .guide-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 1.2rem;
+    color: var(--hc-ink);
+  }
+  .guide-desc {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--hc-ink-2);
+    margin: 0;
+    flex: 1;
+  }
+  .guide-pill {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--hc-ink-2);
+    background: var(--hc-paper-2);
+    border: 1px solid var(--hc-rule);
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+</style>

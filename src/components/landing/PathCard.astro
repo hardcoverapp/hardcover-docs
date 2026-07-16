@@ -1,0 +1,141 @@
+---
+/**
+ * PathCard — the audience "fork" card on the docs index.
+ * `kind` sets the accent (dev = indigo, lib = terracotta, oss = indigo) and icon.
+ * Static (hover is CSS); colours come from the --hc-* brand tokens so it adapts
+ * light/dark. Reused on the index now and the open-source home in pass 2.
+ */
+interface LinkItem {
+  label: string;
+  href?: string;
+}
+interface Props {
+  kind: 'dev' | 'lib' | 'oss';
+  tag: string;
+  title: string;
+  desc: string;
+  links: LinkItem[];
+}
+
+const { kind, tag, title, desc, links } = Astro.props;
+const colorVar =
+  kind === 'dev' ? 'var(--hc-dev)' : kind === 'lib' ? 'var(--hc-lib)' : 'var(--hc-indigo)';
+---
+
+<div class="path-card not-content" style={`--path-color: ${colorVar};`}>
+  <span class="path-bar" aria-hidden="true"></span>
+
+  <div class="path-head">
+    <span class="path-icon" aria-hidden="true">
+      {kind === 'dev' && (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13 5l-2 14"/></svg>
+      )}
+      {kind === 'lib' && (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/></svg>
+      )}
+      {kind === 'oss' && (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="9" r="2.5"/><path d="M6 8.5v7M18 11.5c0 3-2.5 4-5 4.5"/></svg>
+      )}
+    </span>
+    <span class="path-tag">{tag}</span>
+  </div>
+
+  <h3 class="path-title">{title}</h3>
+  <p class="path-desc">{desc}</p>
+
+  <div class="path-links">
+    {links.map((l) => (
+      <a class="path-link" href={l.href ?? '#'}>
+        <span>{l.label}</span>
+        <svg class="path-arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .path-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--hc-card);
+    border: 1px solid var(--hc-rule);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: var(--hc-shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .path-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--hc-shadow-lg);
+  }
+  .path-bar {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--path-color);
+  }
+  .path-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .path-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    color: var(--path-color);
+    background: color-mix(in oklab, var(--path-color) 12%, transparent);
+  }
+  .path-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--path-color);
+  }
+  .path-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 1.7rem;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin: 0 0 8px;
+    color: var(--hc-ink);
+  }
+  .path-desc {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--hc-ink-2);
+    margin: 0 0 18px;
+  }
+  .path-links {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--hc-rule);
+  }
+  .path-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 2px;
+    border-bottom: 1px solid var(--hc-rule-2);
+    font-size: 0.875rem;
+    color: var(--hc-ink);
+    text-decoration: none;
+    transition: color 0.12s ease;
+  }
+  .path-link:last-child {
+    border-bottom: none;
+  }
+  .path-link:hover {
+    color: var(--path-color);
+  }
+  .path-arrow {
+    color: var(--path-color);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+/**
+ * DocSectionIndex — card grid linking to every page directly under a docs
+ * section (all guides, all schemas, …). Serif title + description. Data-driven
+ * from the collection so it stays current; root-locale only.
+ */
+import { getCollection } from 'astro:content';
+
+interface Props {
+  /** Collection-id prefix whose direct children to list, e.g. "api/guides". */
+  prefix: string;
+}
+const { prefix } = Astro.props;
+const base = prefix.toLowerCase().replace(/^\/+|\/+$/g, '');
+
+const entries = (await getCollection('docs'))
+  .map((entry) => ({ entry, id: entry.id.toLowerCase() }))
+  .filter(({ id }) => {
+    if (!id.startsWith(`${base}/`)) return false;
+    const rest = id.slice(base.length + 1);
+    return rest.length > 0 && !rest.includes('/'); // direct children only
+  })
+  .sort((a, b) => (a.entry.data.title || '').localeCompare(b.entry.data.title || ''));
+---
+
+<div class="doc-index not-content">
+  {entries.map(({ entry, id }) => (
+    <a class="dsi-card" href={`/${id}/`}>
+      <span class="dsi-title">{entry.data.title}</span>
+      {entry.data.description && <p class="dsi-desc">{entry.data.description}</p>}
+    </a>
+  ))}
+</div>
+
+<style>
+  .doc-index {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 1.75rem;
+  }
+  .dsi-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--hc-card);
+    border: 1px solid var(--hc-rule);
+    border-radius: 14px;
+    padding: 20px;
+    text-decoration: none;
+    box-shadow: var(--hc-shadow);
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
+  }
+  .dsi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hc-shadow-lg);
+  }
+  .dsi-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 1.25rem;
+    line-height: 1.1;
+    color: var(--hc-ink);
+  }
+  .dsi-desc {
+    font-size: 0.8375rem;
+    line-height: 1.5;
+    color: var(--hc-ink-2);
+    margin: 0;
+  }
+</style>
