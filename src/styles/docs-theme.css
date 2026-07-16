@@ -1,0 +1,92 @@
+/* Doc content primitives — restyles Starlight's markdown output to the refresh
+   design. Scoped to `.sl-markdown-content` so every doc page inherits it, and
+   driven by the --hc-* brand tokens (defined in tailwind.css). */
+
+/* ── Sub-headings h3–h6: sans, semibold, tight (h1/h2 serif live in
+   tailwind.css). Matches the design's 18px sans H3, scaled down. ──── */
+.sl-markdown-content :is(h3, h4, h5, h6):not(:where(.not-content *)) {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--hc-ink);
+    letter-spacing: -0.01em;
+}
+.sl-markdown-content h3:not(:where(.not-content *)) { font-size: 1.125rem; }
+.sl-markdown-content h4:not(:where(.not-content *)) { font-size: 1rem; }
+.sl-markdown-content h5:not(:where(.not-content *)) { font-size: 0.875rem; }
+.sl-markdown-content h6:not(:where(.not-content *)) {
+    font-size: 0.8125rem;
+    color: var(--hc-ink-2);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ── Links: indigo with a soft underline ─────────────────────────── */
+.sl-markdown-content a:not(:where(.not-content *)) {
+    color: var(--hc-indigo);
+    text-decoration-color: var(--hc-indigo-line);
+    text-underline-offset: 0.2em;
+}
+.sl-markdown-content a:hover:not(:where(.not-content *)) {
+    text-decoration-color: var(--hc-indigo);
+}
+
+/* ── Inline code: paper-2 pill ───────────────────────────────────── */
+.sl-markdown-content :not(pre) > code:not(:where(.not-content *)) {
+    background: var(--hc-paper-2);
+    border: 1px solid var(--hc-rule);
+    border-radius: 5px;
+    padding: 0.05em 0.4em;
+    font-size: 0.85em;
+    font-weight: 400;
+    color: var(--hc-ink);
+}
+
+/* ── Callouts: notes read indigo, cautions read terracotta, full
+   rounded border + soft tinted fill (design's Callout) ───────────── */
+.sl-markdown-content .starlight-aside:not(:where(.not-content *)) {
+    border: 1px solid var(--sl-color-asides-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+.sl-markdown-content .starlight-aside--note,
+.sl-markdown-content .starlight-aside--tip {
+    --sl-color-asides-border: var(--hc-indigo-line);
+    --sl-color-asides-text-accent: var(--hc-indigo);
+    background: var(--hc-indigo-soft);
+}
+.sl-markdown-content .starlight-aside--caution {
+    --sl-color-asides-border: var(--hc-lib);
+    --sl-color-asides-text-accent: var(--hc-lib);
+    background: var(--hc-lib-soft);
+}
+.sl-markdown-content .starlight-aside--danger {
+    --sl-color-asides-border: var(--hc-closed-line);
+    --sl-color-asides-text-accent: var(--hc-closed);
+    background: var(--hc-closed-soft);
+}
+
+/* ── Tables: rounded frame, paper-2 uppercase header ─────────────── */
+.sl-markdown-content table:not(:where(.not-content *)) {
+    border: 1px solid var(--hc-rule);
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+}
+.sl-markdown-content table:not(:where(.not-content *)) th {
+    background: var(--hc-paper-2);
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--hc-ink);
+    border-bottom: 1px solid var(--hc-rule);
+}
+.sl-markdown-content table:not(:where(.not-content *)) :is(th, td) {
+    border-block-end: 1px solid var(--hc-rule-2);
+    border-inline: none;
+    padding: 0.65rem 0.9rem;
+}
+.sl-markdown-content table:not(:where(.not-content *)) tr:last-child td {
+    border-block-end: none;
+}

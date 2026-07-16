@@ -19,8 +19,8 @@ export const APIBanner = (locale: any = "en") => {
 
     return (
         <>
-            <div className="border-l-4 border-l-yellow-600 bg-yellow-100 dark:bg-yellow-900 p-4 dark:text-white">
-                <h5 className="!text-yellow-900 dark:!text-yellow-100">{
+            <div className="rounded-lg border border-indigo-line bg-indigo-soft p-4 text-foreground">
+                <h5 className="!mt-0 !text-primary">{
                     useTranslation('pages.api.disclaimerBanner.title', locale)
                 }:</h5>
                 <p dangerouslySetInnerHTML={sanitizedBannerText()}/>

@@ -6,6 +6,14 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 @import 'tw-animate-css';
 
+/* Self-hosted brand fonts (no external request). Serif carries an italic face
+   for the display headings. */
+@import '@fontsource-variable/newsreader/index.css';
+@import '@fontsource-variable/newsreader/wght-italic.css';
+@import '@fontsource-variable/instrument-sans/index.css';
+@import '@fontsource-variable/instrument-sans/wght-italic.css';
+@import '@fontsource-variable/jetbrains-mono/index.css';
+
 /* Match Starlight's theme signal (`data-theme="dark"` on <html>) so shadcn's
    `dark:` utilities and CSS variables track the site theme. */
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
@@ -15,20 +23,35 @@ Add additional Tailwind styles to this file, for example with @layer:
 https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 */
 
-/* Starlight accent + gray palette (ported from the former tailwind.config.mjs). */
+/* ── Design tokens exposed to Tailwind (fonts, Starlight palette, utilities) ──
+   The brand source-of-truth is the --hc-* layer below; these @theme entries
+   generate utilities (font-serif, text-dev, bg-lib-soft…) and feed the
+   Starlight accent/gray ramp. */
 @theme {
-    --color-accent-200: #b6c8f4;
-    --color-accent-600: #3d5dda;
-    --color-accent-900: #1d2d63;
-    --color-accent-950: #172143;
-    --color-gray-100: #f6f6f8;
-    --color-gray-200: #ededf2;
-    --color-gray-300: #c1c1c7;
-    --color-gray-400: #898b95;
-    --color-gray-500: #565761;
-    --color-gray-700: #363741;
-    --color-gray-800: #25262f;
-    --color-gray-900: #17181c;
+    /* Typography — self-hosted variable fonts */
+    --font-sans: "Instrument Sans Variable", -apple-system, system-ui, sans-serif;
+    --font-serif: "Newsreader Variable", Georgia, serif;
+    --font-mono: "JetBrains Mono Variable", ui-monospace, Menlo, monospace;
+
+    /* Starlight accent ramp — Hardcover indigo */
+    --color-accent-200: #c7c3f7;
+    --color-accent-600: #5850e6;
+    --color-accent-900: #211d63;
+    --color-accent-950: #171442;
+
+    /* NOTE: Tailwind's --color-gray-* is intentionally left as the neutral
+       default (starlight-tailwind maps it to zinc). Component `gray-*` utilities
+       expect neutral grays; the warm chrome comes from the --sl-color-* and
+       --hc-* wiring below, not from remapping the gray scale. */
+
+    /* Semantic path + status colors → utilities (text-dev, bg-lib-soft…) */
+    --color-dev: var(--hc-dev);
+    --color-lib: var(--hc-lib);
+    --color-lib-soft: var(--hc-lib-soft);
+    --color-closed: var(--hc-closed);
+    --color-closed-soft: var(--hc-closed-soft);
+    --color-indigo-soft: var(--hc-indigo-soft);
+    --color-indigo-line: var(--hc-indigo-line);
 }
 
 @theme inline {
@@ -84,27 +107,129 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
     --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* ── Brand tokens: single source of truth. Values swap by theme; everything
+   downstream (Starlight chrome, shadcn components, utilities) points at these,
+   so the palette is defined once and never styled one-off per component. */
+:root {
+    --hc-paper:      #f4f1ea;
+    --hc-paper-2:    #ece7dc;
+    --hc-card:       #fffdf8;
+    --hc-card-2:     #f7f3ea;
+    --hc-ink:        #16140e;
+    --hc-ink-2:      #4c4638;
+    --hc-ink-3:      #8a8173;
+    --hc-rule:       rgba(22, 20, 14, 0.11);
+    --hc-rule-2:     rgba(22, 20, 14, 0.06);
+    --hc-indigo:     #5850e6;
+    --hc-indigo-2:   #7a72f0;
+    --hc-indigo-ink: #ffffff;
+    --hc-indigo-soft: rgba(88, 80, 230, 0.10);
+    --hc-indigo-line: rgba(88, 80, 230, 0.28);
+    --hc-dev:        #5850e6;
+    --hc-lib:        #b5522e;
+    --hc-lib-soft:   rgba(181, 82, 46, 0.10);
+    --hc-closed:     #a35c2b;
+    --hc-closed-soft: rgba(178, 106, 59, 0.10);
+    --hc-closed-line: rgba(178, 106, 59, 0.30);
+    --hc-code-bg:    #17161f;
+    --hc-code-fg:    #e6e3f5;
+}
+
+:root[data-theme='dark'] {
+    --hc-paper:      #100f15;
+    --hc-paper-2:    #17161f;
+    --hc-card:       #1a1922;
+    --hc-card-2:     #17161f;
+    --hc-ink:        #f1eee5;
+    --hc-ink-2:      #b1ab9e;
+    --hc-ink-3:      #7c7566;
+    --hc-rule:       rgba(241, 238, 229, 0.12);
+    --hc-rule-2:     rgba(241, 238, 229, 0.06);
+    --hc-indigo:     #8b86f5;
+    --hc-indigo-2:   #a49ff8;
+    --hc-indigo-ink: #100f15;
+    --hc-indigo-soft: rgba(139, 134, 245, 0.13);
+    --hc-indigo-line: rgba(139, 134, 245, 0.34);
+    --hc-dev:        #8b86f5;
+    --hc-lib:        #e08a5f;
+    --hc-lib-soft:   rgba(224, 138, 95, 0.13);
+    --hc-closed:     #e0a06a;
+    --hc-closed-soft: rgba(224, 138, 95, 0.14);
+    --hc-closed-line: rgba(224, 138, 95, 0.34);
+    --hc-code-bg:    #0a0910;
+    --hc-code-fg:    #e6e3f5;
+}
+
+/* Starlight chrome ← brand tokens (documented --sl-* theme vars). Unlayered so
+   it overrides Starlight's defaults; one block covers both themes. */
+:root {
+    --sl-font: var(--font-sans);
+    --sl-font-mono: var(--font-mono);
+
+    --sl-color-accent-low:  var(--hc-indigo-soft);
+    --sl-color-accent:      var(--hc-indigo);
+    --sl-color-accent-high: var(--hc-indigo-2);
+
+    --sl-color-white:  var(--hc-ink);
+    --sl-color-gray-1: var(--hc-ink);
+    --sl-color-gray-2: var(--hc-ink-2);
+    --sl-color-gray-3: var(--hc-ink-3);
+    --sl-color-gray-4: var(--hc-ink-3);
+    --sl-color-gray-5: var(--hc-paper-2);
+    --sl-color-gray-6: var(--hc-paper-2);
+    --sl-color-black:  var(--hc-paper);
+
+    --sl-color-bg:             var(--hc-paper);
+    --sl-color-bg-nav:         var(--hc-paper);
+    --sl-color-bg-sidebar:     var(--hc-paper);
+    --sl-color-bg-inline-code: var(--hc-paper-2);
+    --sl-color-hairline:       var(--hc-rule);
+    --sl-color-hairline-light: var(--hc-rule-2);
+    --sl-color-hairline-shade: var(--hc-rule-2);
+    --sl-color-text:           var(--hc-ink-2);
+    --sl-color-text-accent:    var(--hc-indigo);
+    --sl-color-text-invert:    var(--hc-indigo-ink);
+}
+
+/* Sidebar active link: the design uses a dim soft-indigo fill with indigo text,
+   not Starlight's bright solid fill. Redefine the two vars its active rule reads,
+   scoped to the sidebar so descendants inherit them — no specificity fight. */
+.sidebar-content {
+    --sl-color-text-accent: var(--hc-indigo-soft);
+    --sl-color-text-invert: var(--hc-indigo);
+}
+
+/* Serif display (Newsreader) for page titles and top-level content headings.
+   H3 and below stay sans, matching the design. */
+h1#_top,
+.sl-markdown-content h1,
+.sl-markdown-content h2 {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    letter-spacing: -0.02em;
+}
+
 @layer base {
     :root {
-        --background: hsl(0 0% 98%);
-        --foreground: hsl(222.2 84% 4.9%);
-        --card: hsl(0 0% 100%);
-        --card-foreground: hsl(222.2 84% 4.9%);
-        --popover: hsl(0 0% 100%);
-        --popover-foreground: hsl(222.2 84% 4.9%);
-        --primary: hsl(221.2 83.2% 53.3%);
-        --primary-foreground: hsl(210 40% 98%);
-        --secondary: hsl(210 40% 96.1%);
-        --secondary-foreground: hsl(222.2 47.4% 11.2%);
-        --muted: hsl(217.2 32.6% 17.5%);
-        --muted-foreground: hsl(215 20.2% 65.1%);
-        --accent: hsl(217.2 32.6% 17.5%);
-        --accent-foreground: hsl(210 40% 98%);
-        --destructive: hsl(0 84.2% 60.2%);
-        --destructive-foreground: hsl(210 40% 98%);
-        --border: hsl(214.3 31.8% 91.4%);
-        --input: hsl(214.3 31.8% 91.4%);
-        --ring: hsl(221.2 83.2% 53.3%);
+        --background: var(--hc-paper);
+        --foreground: var(--hc-ink);
+        --card: var(--hc-card);
+        --card-foreground: var(--hc-ink);
+        --popover: var(--hc-card);
+        --popover-foreground: var(--hc-ink);
+        --primary: var(--hc-indigo);
+        --primary-foreground: var(--hc-indigo-ink);
+        --secondary: var(--hc-paper-2);
+        --secondary-foreground: var(--hc-ink);
+        --muted: var(--hc-paper-2);
+        --muted-foreground: var(--hc-ink-3);
+        --accent: var(--hc-paper-2);
+        --accent-foreground: var(--hc-ink);
+        --destructive: #c0392b;
+        --destructive-foreground: #ffffff;
+        --border: var(--hc-rule);
+        --input: var(--hc-rule);
+        --ring: var(--hc-indigo);
         --chart-1: oklch(0.5417 0.1790 288.0332);
         --chart-2: oklch(0.7042 0.1602 288.9880);
         --chart-3: oklch(0.5679 0.2113 276.7065);
@@ -118,9 +243,6 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
         --sidebar-accent-foreground: 240 5.9% 10%;
         --sidebar-border: 220 13% 91%;
         --sidebar-ring: 217.2 91.2% 59.8%;
-        --font-sans: Inter, sans-serif;
-        --font-serif: Georgia, serif;
-        --font-mono: JetBrains Mono, monospace;
         --radius: 0.5rem;
         --shadow-2xs: 0px 4px 10px 0px hsl(240 30% 25% / 0.06);
         --shadow-xs: 0px 4px 10px 0px hsl(240 30% 25% / 0.06);
@@ -136,25 +258,25 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
     }
 
     :root[data-theme='dark'] {
-        --background: hsl(222.2 84% 4.9%);
-        --foreground: hsl(210 40% 98%);
-        --card: hsl(222.2 84% 4.9%);
-        --card-foreground: hsl(210 40% 98%);
-        --popover: hsl(222.2 84% 4.9%);
-        --popover-foreground: hsl(210 40% 98%);
-        --primary: hsl(217.2 91.2% 59.8%);
-        --primary-foreground: hsl(222.2 47.4% 11.2%);
-        --secondary: hsl(217.2 32.6% 17.5%);
-        --secondary-foreground: hsl(210 40% 98%);
-        --muted: hsl(217.2 32.6% 17.5%);
-        --muted-foreground: hsl(215 20.2% 65.1%);
-        --accent: hsl(217.2 32.6% 17.5%);
-        --accent-foreground: hsl(210 40% 98%);
-        --destructive: hsl(0 62.8% 30.6%);
-        --destructive-foreground: hsl(210 40% 98%);
-        --border: hsl(217.2 32.6% 17.5%);
-        --input: hsl(217.2 32.6% 17.5%);
-        --ring: hsl(224.3 76.3% 48%);
+        --background: var(--hc-paper);
+        --foreground: var(--hc-ink);
+        --card: var(--hc-card);
+        --card-foreground: var(--hc-ink);
+        --popover: var(--hc-card);
+        --popover-foreground: var(--hc-ink);
+        --primary: var(--hc-indigo);
+        --primary-foreground: var(--hc-indigo-ink);
+        --secondary: var(--hc-paper-2);
+        --secondary-foreground: var(--hc-ink);
+        --muted: var(--hc-paper-2);
+        --muted-foreground: var(--hc-ink-3);
+        --accent: var(--hc-paper-2);
+        --accent-foreground: var(--hc-ink);
+        --destructive: #e05252;
+        --destructive-foreground: #ffffff;
+        --border: var(--hc-rule);
+        --input: var(--hc-rule);
+        --ring: var(--hc-indigo);
         --chart-1: oklch(0.7162 0.1597 290.3962);
         --chart-2: oklch(0.6382 0.1047 274.9117);
         --chart-3: oklch(0.7482 0.1235 244.7492);
@@ -168,9 +290,6 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
         --sidebar-accent-foreground: 240 4.8% 95.9%;
         --sidebar-border: 240 3.7% 15.9%;
         --sidebar-ring: 217.2 91.2% 59.8%;
-        --font-sans: Inter, sans-serif;
-        --font-serif: Georgia, serif;
-        --font-mono: JetBrains Mono, monospace;
         --radius: 0.5rem;
         --shadow-2xs: 0px 4px 10px 0px hsl(240 30% 25% / 0.06);
         --shadow-xs: 0px 4px 10px 0px hsl(240 30% 25% / 0.06);

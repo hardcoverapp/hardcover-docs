@@ -15,7 +15,7 @@ export default defineConfig({
             SocialIcons: './src/components/SocialIcons.astro',
             EditLink: './src/components/PageEdit.astro'
         },
-        customCss: ['./src/styles/tailwind.css'],
+        customCss: ['./src/styles/tailwind.css', './src/styles/docs-theme.css'],
         defaultLocale: 'root',
         editLink: {
             baseUrl: URLS.GITHUB_EDIT
