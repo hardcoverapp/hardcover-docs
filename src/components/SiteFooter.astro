@@ -1,0 +1,16 @@
+---
+/**
+ * Footer override — Starlight's default page footer (edit link, last updated,
+ * pagination), then the global marketing footer on full-width (no-sidebar)
+ * pages only. The 3-column doc layout skips it for now (full-bleed inside the
+ * center column is a follow-up).
+ */
+import Default from '@astrojs/starlight/components/Footer.astro';
+import MarketingFooter from './landing/Footer.astro';
+
+const { hasSidebar } = Astro.locals.starlightRoute;
+---
+
+<Default />
+
+{!hasSidebar && <MarketingFooter />}

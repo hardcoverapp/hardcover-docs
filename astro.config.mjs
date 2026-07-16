@@ -13,7 +13,8 @@ export default defineConfig({
     integrations: [starlight({
         components: {
             SocialIcons: './src/components/SocialIcons.astro',
-            EditLink: './src/components/PageEdit.astro'
+            EditLink: './src/components/PageEdit.astro',
+            Footer: './src/components/SiteFooter.astro'
         },
         customCss: ['./src/styles/tailwind.css', './src/styles/docs-theme.css'],
         defaultLocale: 'root',
