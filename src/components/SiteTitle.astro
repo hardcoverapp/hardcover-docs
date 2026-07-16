@@ -1,0 +1,62 @@
+---
+/**
+ * SiteTitle override — the design's mark lockup: the Hardcover mark beside a
+ * stacked "Hardcover / docs" wordmark.
+ *
+ * The mark is decorative (alt=""): the adjacent wordmark already names the site,
+ * so announcing it twice would just be noise for screen readers.
+ */
+import logo from '@/assets/hardcover.svg';
+
+const {siteTitle, siteTitleHref} = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title">
+    <img class="mark" src={logo.src} alt="" width="32" height="32"/>
+    <span class="mark-text">
+        <span class="mark-name" translate="no">{siteTitle}</span>
+        <span class="mark-sub">docs</span>
+    </span>
+</a>
+
+<style>
+    .site-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        white-space: nowrap;
+        min-width: 0;
+    }
+
+    .mark {
+        width: 32px;
+        height: 32px;
+        display: block;
+        flex-shrink: 0;
+        object-fit: contain;
+    }
+
+    .mark-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .mark-name {
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--hc-ink);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .mark-sub {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--hc-ink-3);
+        margin-top: 2px;
+    }
+</style>

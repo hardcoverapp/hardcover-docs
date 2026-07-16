@@ -196,9 +196,13 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 }
 
 /* Sidebar active link: the design uses a dim soft-indigo fill with indigo text,
-   not Starlight's bright solid fill. Redefine the two vars its active rule reads,
-   scoped to the sidebar so descendants inherit them — no specificity fight. */
-.sidebar-content {
+   not Starlight's bright solid fill. Redefine the two vars its active rule reads
+   and let the links inherit them — no specificity fight.
+   Scoped to the link list, NOT .sidebar-content: Starlight renders the mobile
+   menu footer inside .sidebar-content too, and its social icons paint with
+   --sl-color-text-accent — inheriting the 13%-alpha soft indigo made them
+   nearly invisible. */
+.sidebar-content ul.top-level {
     --sl-color-text-accent: var(--hc-indigo-soft);
     --sl-color-text-invert: var(--hc-indigo);
 }

@@ -14,7 +14,10 @@ export default defineConfig({
         components: {
             SocialIcons: './src/components/SocialIcons.astro',
             EditLink: './src/components/PageEdit.astro',
-            Footer: './src/components/SiteFooter.astro'
+            Footer: './src/components/SiteFooter.astro',
+            Header: './src/components/SiteHeader.astro',
+            MobileMenuFooter: './src/components/MobileMenuFooter.astro',
+            SiteTitle: './src/components/SiteTitle.astro'
         },
         customCss: ['./src/styles/tailwind.css', './src/styles/docs-theme.css'],
         defaultLocale: 'root',

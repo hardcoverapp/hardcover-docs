@@ -1,23 +1,13 @@
 ---
 title: '404'
+description: The page you were looking for could not be found.
 template: splash
+tableOfContents: false
 editUrl: false
-hero:
-    title: '404'
-    tagline: The requested page was not found. Check the URL or <br /> try using the search bar above or one of the options below.
+next: false
+prev: false
 ---
 
-import { LinkCard } from '@astrojs/starlight/components';
-import { URLS } from '@/Consts';
+import ErrorScreen from '@/components/error/ErrorScreen.astro';
 
-
-<LinkCard title="Documentation Home"
-          description="Go back to the documentation home page"
-          href="/"
-/>
-
-<LinkCard title="Hardcover App"
-          description="Go to the Hardcover app"
-          href={URLS.APP}
-          target="_blank"
-/>
+<ErrorScreen kind="404" />

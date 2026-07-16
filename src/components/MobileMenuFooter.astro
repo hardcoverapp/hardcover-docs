@@ -1,0 +1,91 @@
+---
+/**
+ * MobileMenuFooter override — Starlight's version carries socials/theme/locale;
+ * this adds the section links and the "Open app" CTA so pages with a sidebar get
+ * the full header nav inside the existing hamburger on small screens.
+ *
+ * Splash pages (home, showcase, 404) never render this: Starlight only mounts
+ * the mobile menu when `hasSidebar`. They use the disclosure in SiteHeader.
+ */
+import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+
+import SocialIcons from './SocialIcons.astro';
+import {NAV_LINKS} from '@/lib/nav';
+import {URLS} from '@/Consts';
+---
+
+<nav class="mobile-sections" aria-label="Sections">
+    {NAV_LINKS.map((link) => (
+            <a href={link.href}>{link.label}</a>
+    ))}
+</nav>
+
+<a class="mobile-open-app" href={URLS.APP}>Open app</a>
+
+<div class="mobile-preferences sl-flex">
+    <div class="social-icons">
+        <SocialIcons/>
+    </div>
+    <ThemeSelect/>
+    <LanguageSelect/>
+</div>
+
+<style>
+    @layer starlight.core {
+        .social-icons {
+            display: flex;
+            margin-inline-end: auto;
+            gap: 1rem;
+            align-items: center;
+            padding-block: 1rem;
+        }
+
+        .social-icons:empty {
+            display: none;
+        }
+
+        .mobile-preferences {
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--sl-color-gray-6);
+            column-gap: 1rem;
+            padding: 0.5rem 0;
+        }
+    }
+
+    .mobile-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        border-top: 1px solid var(--hc-rule);
+        padding-block: 0.5rem;
+    }
+
+    .mobile-sections a {
+        font-size: 14px;
+        color: var(--hc-ink-2);
+        text-decoration: none;
+        padding: 8px 10px;
+        border-radius: 7px;
+    }
+
+    .mobile-sections a:hover {
+        color: var(--hc-ink);
+        background: var(--hc-paper-2);
+    }
+
+    .mobile-open-app {
+        display: flex;
+        justify-content: center;
+        background: var(--hc-ink);
+        color: var(--hc-paper);
+        border: 1px solid var(--hc-ink);
+        font-size: 13.5px;
+        font-weight: 600;
+        padding: 10px 15px;
+        border-radius: 9px;
+        text-decoration: none;
+        margin-block: 0.5rem;
+    }
+</style>
