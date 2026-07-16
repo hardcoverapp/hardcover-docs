@@ -1,102 +1,93 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-export type SortOption = 'newest' | 'updated' | 'alphabetical' | 'featured' | 'stars' | 'recentlyActive';
-
-function getCategoryIcon(category: string): string {
-  const icons: Record<string, string> = {
-    'Browser Extension': '🧩',
-    'Mobile App': '📱',
-    'Web App': '🌐',
-    'CLI Tool': '⌨️',
-    'E-ink Display': '📊',
-    'Home Automation': '🏠',
-    'Desktop App': '💻',
-    'Widget': '📊',
-    'Integration': '🔗',
-    'Automation': '⚡',
-    'Other': '📦',
-  };
-  return icons[category] || '📦';
-}
+export type SourceFilter = 'All' | 'Open source' | 'Closed source';
 
 interface ShowcaseFiltersProps {
   search: string;
   onSearchChange: (value: string) => void;
+  source: SourceFilter;
+  onSourceChange: (source: SourceFilter) => void;
+  counts: { all: number; oss: number; closed: number };
   selectedCategory: string | null;
   onCategoryChange: (category: string | null) => void;
-  sortBy: SortOption;
-  onSortChange: (sort: SortOption) => void;
   availableCategories: string[];
 }
 
-const sortOptions: { value: SortOption; label: string }[] = [
-  { value: 'featured', label: 'Featured First' },
-  { value: 'newest', label: 'Newest' },
-  { value: 'updated', label: 'Recently Updated' },
-  { value: 'stars', label: 'Most Stars' },
-  { value: 'recentlyActive', label: 'Recently Active' },
-  { value: 'alphabetical', label: 'Alphabetical' },
-];
+const SOURCES: SourceFilter[] = ['All', 'Open source', 'Closed source'];
 
 export function ShowcaseFilters({
   search,
   onSearchChange,
+  source,
+  onSourceChange,
+  counts,
   selectedCategory,
   onCategoryChange,
-  sortBy,
-  onSortChange,
   availableCategories,
 }: ShowcaseFiltersProps) {
   return (
     <div className="not-content flex flex-col gap-4">
-      <div className="flex flex-row items-center gap-4 flex-wrap">
-        <div className="relative flex-[1_1_300px] min-w-[200px]">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.3-4.3" />
+      <div className="flex flex-wrap items-center gap-3.5">
+        {/* Search */}
+        <div className="flex max-w-[520px] flex-[1_1_340px] items-center gap-3 rounded-xl border border-border bg-card px-[18px] py-[15px] shadow-hc transition-colors focus-within:border-indigo-line">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" className="text-muted-foreground">
+            <circle cx="9" cy="9" r="6" />
+            <path d="m14 14 4 4" strokeLinecap="round" />
           </svg>
           <input
             type="search"
-            placeholder="Search projects..."
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full h-10 pl-10 pr-4 rounded-md text-sm outline-hidden box-border bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
+            placeholder="Search projects, tags, authors…"
+            className="flex-1 border-0 bg-transparent text-base text-foreground outline-hidden placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
           />
+          {search && (
+            <button
+              onClick={() => onSearchChange('')}
+              aria-label="Clear search"
+              className="cursor-pointer border-0 bg-transparent text-base text-muted-foreground"
+            >
+              ×
+            </button>
+          )}
         </div>
 
-        <select
-          value={sortBy}
-          onChange={(e) => onSortChange(e.target.value as SortOption)}
-          className="h-10 px-3 rounded-md text-sm outline-hidden w-[180px] box-border bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-        >
-          {sortOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+        {/* Source segmented control */}
+        <div className="inline-flex gap-0.5 rounded-[10px] border border-border bg-muted p-[3px] dark:bg-background">
+          {SOURCES.map((label) => {
+            const active = source === label;
+            const n = label === 'All' ? counts.all : label === 'Open source' ? counts.oss : counts.closed;
+            return (
+              <button
+                key={label}
+                onClick={() => onSourceChange(label)}
+                className={cn(
+                  'inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-[12.5px] transition-colors',
+                  active
+                    ? 'bg-card font-semibold text-foreground shadow-hc'
+                    : 'bg-transparent font-medium text-[var(--hc-ink-2)] hover:text-foreground'
+                )}
+              >
+                {label === 'Open source' && <span className="h-[7px] w-[7px] rounded-full bg-primary" />}
+                {label === 'Closed source' && <span className="h-[7px] w-[7px] rounded-full bg-closed" />}
+                {label}
+                <span className="font-medium opacity-55">{n}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 items-center">
+      {/* Category pills */}
+      <div className="flex flex-wrap gap-[7px]">
         <button
           onClick={() => onCategoryChange(null)}
           className={cn(
-            'h-8 px-3 text-sm font-medium rounded-md cursor-pointer inline-flex items-center justify-center box-border',
+            'cursor-pointer rounded-full border px-[13px] py-1.5 text-[12.5px] font-medium transition-colors',
             selectedCategory === null
-              ? 'bg-blue-600 text-white border-0'
-              : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+              ? 'border-foreground bg-foreground text-[var(--hc-paper)]'
+              : 'border-border bg-card text-[var(--hc-ink-2)]'
           )}
         >
           All
@@ -106,14 +97,13 @@ export function ShowcaseFilters({
             key={category}
             onClick={() => onCategoryChange(category)}
             className={cn(
-              'h-8 px-3 text-sm font-medium rounded-md cursor-pointer inline-flex items-center justify-center gap-1.5 box-border',
+              'cursor-pointer rounded-full border px-[13px] py-1.5 text-[12.5px] font-medium transition-colors',
               selectedCategory === category
-                ? 'bg-blue-600 text-white border-0'
-                : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                ? 'border-foreground bg-foreground text-[var(--hc-paper)]'
+                : 'border-border bg-card text-[var(--hc-ink-2)]'
             )}
           >
-            <span>{getCategoryIcon(category)}</span>
-            <span>{category}</span>
+            {category}
           </button>
         ))}
       </div>

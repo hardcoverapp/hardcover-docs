@@ -2,6 +2,12 @@
    design. Scoped to `.sl-markdown-content` so every doc page inherits it, and
    driven by the --hc-* brand tokens (defined in tailwind.css). */
 
+/* Splash pages (home, showcase) provide their own custom hero, so hide
+   Starlight's default page title to avoid a duplicate headline. */
+:root:not([data-has-sidebar]) h1#_top {
+    display: none;
+}
+
 /* ── Sub-headings h3–h6: sans, semibold, tight (h1/h2 serif live in
    tailwind.css). Matches the design's 18px sans H3, scaled down. ──── */
 .sl-markdown-content :is(h3, h4, h5, h6):not(:where(.not-content *)) {

@@ -25,14 +25,18 @@ const {
 
 const locale = Astro.currentLocale;
 
-
+// Prefer Starlight's resolved last-updated (git commit date when there's no
+// frontmatter override) over the raw frontmatter value.
+const resolvedLastUpdated =
+    Astro.locals.starlightRoute?.lastUpdated ??
+    (lastUpdated ? new Date(lastUpdated) : undefined);
 ---
 
 <div class="flex flex-auto flex-row justify-between mb-4">
     <p class="text-sm inline-block self-start">
-        {lastUpdated && (
+        {resolvedLastUpdated && (
                 <>
-                    {useTranslation('ui.lastUpdated', locale)} &nbsp; {new Date(lastUpdated).toLocaleDateString(locale, {
+                    {useTranslation('ui.lastUpdated', locale)} &nbsp; {resolvedLastUpdated.toLocaleDateString(locale, {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',

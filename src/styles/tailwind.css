@@ -52,6 +52,10 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
     --color-closed-soft: var(--hc-closed-soft);
     --color-indigo-soft: var(--hc-indigo-soft);
     --color-indigo-line: var(--hc-indigo-line);
+
+    /* Elevation → shadow-hc / shadow-hc-lg utilities (theme-aware) */
+    --shadow-hc: var(--hc-shadow);
+    --shadow-hc-lg: var(--hc-shadow-lg);
 }
 
 @theme inline {
