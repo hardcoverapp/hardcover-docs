@@ -1,10 +1,11 @@
 ---
-import Default from '@astrojs/starlight/components/SocialIcons.astro';
+import { Icon } from '@astrojs/starlight/components';
 import { URLS } from '@/Consts';
+import { SOCIAL_LINKS } from '@/lib/social';
 
 // Usable both as the Starlight header override (Starlight passes route data,
 // which we ignore) and standalone (e.g. the landing back-to-app band). Only
-// `iconSize` is read; everything else is forwarded to the default component.
+// `iconSize` is read.
 interface Props {
   iconSize?: string;
 }
@@ -82,9 +83,18 @@ so we'll need to create our own. -->
     </svg>
 </a>
 
-<Default {...Astro.props}>
-    <slot/>
-</Default>
+<!-- Rendered here rather than via Starlight's default component: that one
+hardcodes `<a rel="me">` with no way to set target, so the socials were the last
+off-site links still hijacking the tab. Icons come from the same list the
+`social` config uses (@/lib/social), so the two can't drift. -->
+{SOCIAL_LINKS.map((social) => (
+    <a href={social.href} rel="me noreferrer noopener" target="_blank" class="sl-flex">
+        <span class="sr-only">{social.label}</span>
+        <Icon name={social.icon}/>
+    </a>
+))}
+
+<slot/>
 
 <style define:vars={{'sl-icon-size': iconSize}}>
     svg {

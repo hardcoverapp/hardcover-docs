@@ -69,7 +69,8 @@ const {hasSidebar} = Astro.locals.starlightRoute;
                             </nav>
                             {/* Only surfaced once the right group itself is gone (<50rem). */}
                             <div class="menu-prefs">
-                                <a class="menu-open-app" href={URLS.APP}>Open app</a>
+                                <a class="menu-open-app" href={URLS.APP} target="_blank"
+                                   rel="noreferrer noopener">Open app</a>
                                 <div class="menu-prefs-row">
                                     <div class="sl-flex menu-socials">
                                         <SocialIcons/>
@@ -90,7 +91,7 @@ const {hasSidebar} = Astro.locals.starlightRoute;
         </div>
         <ThemeSelect/>
         <LanguageSelect/>
-        <a class="open-app" href={URLS.APP}>Open app</a>
+        <a class="open-app" href={URLS.APP} target="_blank" rel="noreferrer noopener">Open app</a>
     </div>
 </div>
 

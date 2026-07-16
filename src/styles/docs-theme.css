@@ -36,6 +36,30 @@
     text-decoration-color: var(--hc-indigo);
 }
 
+/* Off-site prose links get a trailing glyph, so a new tab isn't a surprise.
+   Applied via the .external-link class the rehype plugin adds — prose only;
+   UI chrome (Open app, socials, footer) would just look noisy with it.
+   A mask, not a background, so the glyph tracks the link's colour on hover. */
+.sl-markdown-content a.external-link:not(:where(.not-content *))::after {
+    content: '';
+    display: inline-block;
+    width: 0.78em;
+    height: 0.78em;
+    margin-inline-start: 0.22em;
+    vertical-align: -0.03em;
+    background-color: currentColor;
+    /* Heavier stroke than looks right in the raw SVG: at ~11px the 24-unit
+       viewBox scales a 2.25 stroke down to roughly a single hairline. */
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+}
+
+/* Don't hang a glyph off an image or a badge — only textual links. */
+.sl-markdown-content a.external-link:has(img):not(:where(.not-content *))::after {
+    content: none;
+}
+
 /* ── Inline code: paper-2 pill ───────────────────────────────────── */
 .sl-markdown-content :not(pre) > code:not(:where(.not-content *)) {
     background: var(--hc-paper-2);

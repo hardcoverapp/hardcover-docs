@@ -6,6 +6,8 @@ import react from "@astrojs/react";
 
 import {URLS} from './src/Consts';
 import {useTranslation} from './src/lib/utils'
+import {SOCIAL_LINKS} from './src/lib/social';
+import rehypeExternalLinks from './src/plugins/rehype-external-links.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -234,16 +236,16 @@ export default defineConfig({
                 }
             }
         ],
-        social: [
-            { icon: 'discord', label: 'Discord', href: URLS.DISCORD },
-            { icon: 'github', label: 'GitHub', href: URLS.GITHUB },
-            { icon: 'instagram', label: 'Instagram', href: URLS.INSTAGRAM },
-            { icon: 'mastodon', label: 'Mastodon', href: URLS.MASTODON },
-        ],
+        // Shared with the SocialIcons override, which renders these itself.
+        social: [...SOCIAL_LINKS],
         title: {
             en: useTranslation('site.title', 'en'),
         }
     }), react()],
+    markdown: {
+        // Off-site links in prose open in a new tab; markdown has no syntax for it.
+        rehypePlugins: [[rehypeExternalLinks, {site: URLS.DOCS}]],
+    },
     site: URLS.DOCS,
     vite: {
         plugins: [tailwindcss()],

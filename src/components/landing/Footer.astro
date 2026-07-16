@@ -5,6 +5,7 @@
  * Copy/layout from the design mock; token-styled and reusable.
  */
 import { URLS } from '@/Consts';
+import { isExternal } from '@/lib/nav';
 import SocialIcons from '@/components/SocialIcons.astro';
 
 const columns = [
@@ -70,7 +71,13 @@ const year = new Date().getFullYear();
           <div class="footer-col">
             <div class="footer-col-title">{col.title}</div>
             <div class="footer-col-links">
-              {col.links.map((l) => <a href={l.href}>{l.label}</a>)}
+              {col.links.map((l) => (
+                <a
+                  href={l.href}
+                  target={isExternal(l.href) ? '_blank' : undefined}
+                  rel={isExternal(l.href) ? 'noreferrer noopener' : undefined}
+                >{l.label}</a>
+              ))}
             </div>
           </div>
         ))}
