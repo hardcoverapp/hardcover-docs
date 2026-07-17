@@ -7,6 +7,15 @@ export function isExternal(href: string): boolean {
 }
 
 /**
+ * The reference sections (`/api`, `/librarians`) get the search-forward header;
+ * everything else gets the marketing nav. Tolerates a leading locale segment
+ * (e.g. `/it/api/…`).
+ */
+export function isReferenceSection(pathname: string): boolean {
+    return /^\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?(?:api|librarians)(?:\/|$)/i.test(pathname);
+}
+
+/**
  * Top-level section links, shared by the header nav and the mobile menu.
  * `labelKey` is resolved by the consumer so it can pass the current locale.
  */

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { getCategoryIcon, hueFromName, isOpenSource } from './ShowcaseCard';
+import { getLastActivity, isRepoActive, resolveProjectLinks } from '@/lib/showcase';
 import { useTranslation as t } from '@/lib/utils';
-import type { ShowcaseProject, ShowcaseLink } from './types';
+import type { ShowcaseProject } from './types';
 
 /**
  * The project detail layout — header, preview carousel, description, meta table
@@ -70,23 +71,6 @@ function MetaRow({ label, children }: { label: string; children: React.ReactNode
   );
 }
 
-/** Extract "owner/repo" from a GitHub URL. */
-function repoPath(url: string): string {
-  try {
-    return new URL(url).pathname.replace(/^\/|\/$/g, '');
-  } catch {
-    return '';
-  }
-}
-
-function hostname(url: string): string {
-  try {
-    return new URL(url).hostname.replace(/^www\./, '');
-  } catch {
-    return '';
-  }
-}
-
 export function ProjectDetail({
   project,
   title,
@@ -105,38 +89,15 @@ export function ProjectDetail({
     setPreviewIndex(0);
   }, [project.slug]);
 
-  const oss = isOpenSource(project);
   const stars = project.stats?.githubStars;
   const byHandle = project.author.github ? `@${project.author.github}` : project.author.name;
   const screenshots = project.screenshots ?? [];
   const hasScreenshots = screenshots.length > 0;
 
-  // Primary destination: the repo for OSS, else the first site/demo/store link.
-  const githubLink = project.links.find((l) => l.type === 'github');
-  const primaryLink: ShowcaseLink | undefined =
-    githubLink ??
-    project.links.find((l) => l.type === 'website' || l.type === 'demo' || l.type === 'store') ??
-    project.links[0];
-  // Everything else stays reachable as small chips so no link is dropped.
-  const secondaryLinks = project.links.filter((l) => l !== primaryLink);
-
-  const lastActivity = oss
-    ? project.stats?.lastPushed
-      ? new Date(project.stats.lastPushed)
-      : undefined
-    : project.dateUpdated;
-  // "active" = repo pushed within the last 90 days.
-  const isActive =
-    oss && project.stats?.lastPushed
-      ? (Date.now() - new Date(project.stats.lastPushed).getTime()) / 86400000 <= 90
-      : false;
-
-  const domainText =
-    oss && githubLink
-      ? `github.com/${repoPath(githubLink.url)}`
-      : primaryLink
-        ? hostname(primaryLink.url)
-        : t('ui.showcase.detail.visitDeveloperSite');
+  const { oss, primaryLink, secondaryLinks, domain } = resolveProjectLinks(project);
+  const lastActivity = getLastActivity(project);
+  const isActive = isRepoActive(project);
+  const domainText = domain ?? t('ui.showcase.detail.visitDeveloperSite');
 
   const handleShare = async () => {
     const url = `${window.location.origin}/showcase/${project.slug}`;

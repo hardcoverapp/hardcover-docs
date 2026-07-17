@@ -21,16 +21,15 @@ import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 import SiteTitle from './SiteTitle.astro';
 import SocialIcons from './SocialIcons.astro';
 
-import {NAV_LINKS} from '@/lib/nav';
+import {NAV_LINKS, isReferenceSection} from '@/lib/nav';
 import {useTranslation} from '@/lib/utils';
 import {URLS} from '@/Consts';
 
 const locale = Astro.currentLocale;
 const t = (key: string) => useTranslation(key, locale);
 
-// Tolerates a locale prefix, e.g. /it/api/…
 const pathname = Astro.url.pathname;
-const isReference = /^\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?(?:api|librarians)(?:\/|$)/i.test(pathname);
+const isReference = isReferenceSection(pathname);
 
 // The disclosure is only rendered where there's no sidebar. Pages that have one
 // can always reach the nav — the tree on desktop, Starlight's hamburger below
