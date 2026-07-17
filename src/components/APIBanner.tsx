@@ -1,4 +1,3 @@
-import React from "react";
 import DOMPurify from "dompurify";
 
 import {URLS} from "@/Consts";
@@ -7,7 +6,7 @@ import {useTokenTranslation, useTranslation} from "@/lib/utils";
 export const APIBanner = (locale: any = "en") => {
     // @ts-ignore
     const bannerText: string | Node = useTokenTranslation('pages.api.disclaimerBanner.text', locale, {
-        "a": (chunks: any) => {
+        "a": () => {
             return `<a href=${URLS.API_DISCORD}
                    target="_blank" rel="noreferrer noopener">{chunks}</a>`
         }
