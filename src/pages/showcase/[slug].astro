@@ -1,5 +1,17 @@
 ---
+/**
+ * Real per-project page. This used to be a <meta refresh> stub that bounced to
+ * /showcase?project=<slug>; it now renders the project, so the URL is a genuine
+ * destination — Plausible records it as an ordinary pageview, and there's no
+ * redirect hop between a shared link and the content.
+ *
+ * StarlightPage wraps it in the site chrome (header, footer, theme) even though
+ * it lives in src/pages rather than the docs collection.
+ */
 import { getCollection } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+import { ProjectPage } from '@/components/showcase/ProjectPage';
 
 export async function getStaticPaths() {
   const showcaseEntries = await getCollection('showcase');
@@ -12,49 +24,38 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { slug } = Astro.params;
 
-// Get the OG image - use first screenshot if available, otherwise default
-const ogImage = project.screenshots && project.screenshots.length > 0
-  ? `https://docs.hardcover.app${project.screenshots[0].src}`
-  : 'https://docs.hardcover.app/og-image.png';
+// First screenshot makes a better card than the generic OG image.
+const ogImage =
+  project.screenshots && project.screenshots.length > 0
+    ? `https://docs.hardcover.app${project.screenshots[0].src}`
+    : 'https://docs.hardcover.app/og-image.png';
 
 const pageTitle = `${project.name} - Community Showcase | Hardcover Docs`;
-const pageDescription = project.summary;
-const canonicalUrl = `https://docs.hardcover.app/showcase?project=${slug}`;
+const canonicalUrl = `https://docs.hardcover.app/showcase/${slug}`;
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="Hardcover Docs" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={ogImage} />
-
-    <!-- Discord theme color -->
-    <meta name="theme-color" content="#6366f1" />
-
-    <!-- Redirect to main showcase page with project open -->
-    <meta http-equiv="refresh" content="0;url=/showcase?project={slug}" />
-    <link rel="canonical" href={canonicalUrl} />
-  </head>
-  <body>
-    <p>Redirecting to <a href={`/showcase?project=${slug}`}>{project.name}</a>...</p>
-    <script define:vars={{ slug }}>
-      window.location.replace(`/showcase?project=${slug}`);
-    </script>
-  </body>
-</html>
+<StarlightPage
+    frontmatter={{
+        title: project.name,
+        description: project.summary,
+        template: 'splash',
+        tableOfContents: false,
+        editUrl: false,
+        next: false,
+        prev: false,
+        head: [
+            {tag: 'meta', attrs: {property: 'og:title', content: pageTitle}},
+            {tag: 'meta', attrs: {property: 'og:description', content: project.summary}},
+            {tag: 'meta', attrs: {property: 'og:image', content: ogImage}},
+            {tag: 'meta', attrs: {property: 'og:url', content: canonicalUrl}},
+            {tag: 'meta', attrs: {property: 'og:type', content: 'article'}},
+            {tag: 'meta', attrs: {name: 'twitter:card', content: 'summary_large_image'}},
+            {tag: 'meta', attrs: {name: 'twitter:title', content: pageTitle}},
+            {tag: 'meta', attrs: {name: 'twitter:description', content: project.summary}},
+            {tag: 'meta', attrs: {name: 'twitter:image', content: ogImage}},
+        ],
+    }}
+    hasSidebar={false}
+>
+    <ProjectPage project={project} client:load/>
+</StarlightPage>

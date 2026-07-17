@@ -77,32 +77,47 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
   const closed = useMemo(() => projects.filter((p) => !isOpenSource(p) && !p.featured && match(p)), [projects, search, source, selectedCategory]);
   const totalShown = featured.length + oss.length + closed.length;
 
+  // The modal mirrors the real /showcase/<slug> page, so the URL matches either
+  // way in: click a card and it's a modal over the grid; land on the URL cold and
+  // the page renders it. Reloading or sharing at any point lands on the page.
   const handleCardClick = (project: ShowcaseProject) => {
     setSelectedProject(project);
     setModalOpen(true);
-    const url = new URL(window.location.href);
-    url.searchParams.set('project', project.slug);
-    window.history.pushState({}, '', url.toString());
+    window.history.pushState({}, '', `/showcase/${project.slug}`);
   };
 
   const handleModalClose = (open: boolean) => {
     setModalOpen(open);
-    if (!open) {
-      const url = new URL(window.location.href);
-      url.searchParams.delete('project');
-      window.history.pushState({}, '', url.toString());
-    }
+    if (!open) window.history.pushState({}, '', '/showcase');
   };
 
+  // Keep the modal in step with the back/forward buttons, which only move the
+  // URL — without this, going back would leave the modal open over the grid.
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get('project');
-    if (slug) {
-      const project = projects.find((p) => p.slug === slug);
-      if (project) {
-        setSelectedProject(project);
-        setModalOpen(true);
-      }
+    const syncToUrl = () => {
+      const match = window.location.pathname.match(/^\/showcase\/([^/]+)\/?$/);
+      const project = match ? projects.find((p) => p.slug === match[1]) : undefined;
+      setSelectedProject(project ?? null);
+      setModalOpen(Boolean(project));
+    };
+    window.addEventListener('popstate', syncToUrl);
+    return () => window.removeEventListener('popstate', syncToUrl);
+  }, [projects]);
+
+  // Legacy ?project= links: the old redirect stub advertised
+  // /showcase?project=<slug> as canonical, so those are out in the wild. Open the
+  // project and rewrite the URL to its real page — replaceState, not push, so Back
+  // doesn't land on the dead query form.
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get('project');
+    if (!slug) return;
+    const project = projects.find((p) => p.slug === slug);
+    if (project) {
+      setSelectedProject(project);
+      setModalOpen(true);
+      window.history.replaceState({}, '', `/showcase/${project.slug}`);
+    } else {
+      window.history.replaceState({}, '', '/showcase');
     }
   }, [projects]);
 
