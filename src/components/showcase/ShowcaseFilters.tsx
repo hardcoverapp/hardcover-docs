@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { cn, useTranslation as t } from '@/lib/utils';
 
 export type SourceFilter = 'All' | 'Open source' | 'Closed source';

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useMemo, useEffect } from 'react';
 import { ShowcaseCard, isOpenSource } from './ShowcaseCard';
 import { ShowcaseModal } from './ShowcaseModal';

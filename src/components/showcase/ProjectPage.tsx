@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { ProjectDetail, ArrowIcon } from './ProjectDetail';
 import { useTranslation as t } from '@/lib/utils';
 import type { ShowcaseProject } from './types';
