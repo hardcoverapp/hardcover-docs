@@ -15,6 +15,10 @@ const base = prefix.toLowerCase().replace(/^\/+|\/+$/g, '');
 
 const entries = (await getCollection('docs'))
   .map((entry) => ({ entry, id: entry.id.toLowerCase() }))
+  // Drafts don't build in production, so listing them here links to a 404.
+  // Mirror Starlight's own predicate (routing/index.ts) exactly: keep drafts in
+  // dev so authors still see them, drop them from the production index.
+  .filter(({ entry }) => import.meta.env.MODE !== 'production' || entry.data.draft === false)
   .filter(({ id }) => {
     if (!id.startsWith(`${base}/`)) return false;
     const rest = id.slice(base.length + 1);
