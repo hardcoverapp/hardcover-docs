@@ -1,0 +1,349 @@
+---
+/**
+ * Error screens (404 / 500) from the refresh design. Rendered inside a Starlight
+ * splash page, so the site header and the marketing footer come from the layout —
+ * this component owns everything between them.
+ */
+import { useTranslation } from '@/lib/utils';
+import { URLS } from '@/Consts';
+
+interface Props {
+    kind?: '404' | '500';
+}
+
+const { kind = '404' } = Astro.props;
+
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
+
+// Which ui.json branch the copy comes from; the rest differs per screen.
+const scope = kind === '404' ? 'ui.error.notFound' : 'ui.error.serverError';
+const error = {
+    code: kind,
+    showSearch: kind === '404',
+};
+
+const HELP_LINKS = [
+    {icon: 'compass', key: 'quickstart', href: '/api/getting-started'},
+    {icon: 'code', key: 'apiReference', href: '/api/graphql/schemas'},
+    {icon: 'book', key: 'guides', href: '/api/guides'},
+    {icon: 'spark', key: 'showcase', href: '/showcase'},
+];
+---
+
+{/* `not-content` opts this subtree out of Starlight's markdown styles — without
+    it, `.sl-markdown-content a` (0-1-1) beats the scoped button rules and paints
+    every button label indigo. */}
+<main class="err not-content">
+    <div class="err-watermark" aria-hidden="true">{error.code}</div>
+
+    <div class="err-kicker">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0c.4 3.6 1.4 4.6 5 5-3.6.4-4.6 1.4-5 5-.4-3.6-1.4-4.6-5-5 3.6-.4 4.6-1.4 5-5z"/>
+        </svg>
+        {t(`${scope}.kicker`)}
+    </div>
+
+    <h1 class="err-title">{t(`${scope}.title`)}<em>{t(`${scope}.titleAccent`)}</em></h1>
+
+    <p class="err-body">{t(`${scope}.body`)}</p>
+
+    <div class:list={['err-actions', {'has-search': error.showSearch}]}>
+        {kind === '500' ? (
+                <button type="button" class="err-btn err-btn-primary" id="err-reload">{t(`${scope}.primary`)}</button>
+        ) : (
+                <a class="err-btn err-btn-primary" href="/">{t(`${scope}.primary`)}</a>
+        )}
+        <a class="err-btn err-btn-secondary" href={URLS.DISCORD} target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            {t('ui.error.askInDiscord')}
+        </a>
+    </div>
+
+    {error.showSearch && (
+            <div class="err-search-wrap">
+                <button type="button" class="err-search" id="err-search" aria-label={t('ui.error.searchLabel')}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"
+                         aria-hidden="true">
+                        <circle cx="9" cy="9" r="6"/>
+                        <path d="m14 14 4 4" stroke-linecap="round"/>
+                    </svg>
+                    <span class="err-search-ph">{t('ui.error.searchPlaceholder')}</span>
+                </button>
+            </div>
+    )}
+
+    <div class="err-links">
+        <div class="err-links-label">{t(`${scope}.linksLabel`)}</div>
+        <div class="err-links-grid">
+            {HELP_LINKS.map((link) => (
+                    <a class="err-link" href={link.href}>
+                <span class="err-link-ico">
+                  {link.icon === 'compass' && (
+                          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                               stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <circle cx="12" cy="12" r="9"/>
+                              <path d="m15.5 8.5-2 5-5 2 2-5z"/>
+                          </svg>
+                  )}
+                    {link.icon === 'code' && (
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="m8 6-6 6 6 6M16 6l6 6-6 6"/>
+                            </svg>
+                    )}
+                    {link.icon === 'book' && (
+                            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                            </svg>
+                    )}
+                    {link.icon === 'spark' && (
+                            <svg width="19" height="19" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                                <path d="M8 0c.4 3.6 1.4 4.6 5 5-3.6.4-4.6 1.4-5 5-.4-3.6-1.4-4.6-5-5 3.6-.4 4.6-1.4 5-5z"/>
+                            </svg>
+                    )}
+                </span>
+                        <span class="err-link-text">
+                  <span class="err-link-title">{t(`ui.error.links.${link.key}.title`)}</span>
+                  <span class="err-link-desc">{t(`ui.error.links.${link.key}.description`)}</span>
+                </span>
+                        <span class="err-link-arrow">
+                  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                  </svg>
+                </span>
+                    </a>
+            ))}
+        </div>
+    </div>
+</main>
+
+<script>
+    // Open Starlight's search dialog. Deferred a tick so the click that triggered
+    // us finishes propagating first — otherwise Starlight's "click outside to
+    // close" handler catches that same click and closes the modal immediately.
+    document.getElementById('err-search')?.addEventListener('click', () => {
+        setTimeout(() => {
+            document.querySelector<HTMLButtonElement>('site-search button[data-open-modal]')?.click();
+        }, 0);
+    });
+
+    document.getElementById('err-reload')?.addEventListener('click', () => location.reload());
+</script>
+
+<style>
+    .err {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: clamp(2.5rem, 7vw, 5.5rem) clamp(1rem, 4vw, 3rem) 2.5rem;
+        text-align: center;
+    }
+
+    /* Oversized ghost code behind the kicker */
+    .err-watermark {
+        font-family: var(--font-serif);
+        font-size: clamp(5rem, 14vw, 8.125rem);
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        color: var(--hc-indigo);
+        opacity: 0.16;
+        user-select: none;
+        margin-bottom: -22px;
+    }
+
+    .err-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--hc-indigo);
+        margin-bottom: 18px;
+    }
+
+    .err-title {
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 5vw, 2.875rem);
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+        font-weight: 400;
+        color: var(--hc-ink);
+        margin: 0 0 18px;
+    }
+
+    .err-title em {
+        font-style: italic;
+        color: var(--hc-indigo);
+    }
+
+    .err-body {
+        font-size: 16.5px;
+        color: var(--hc-ink-2);
+        line-height: 1.6;
+        max-width: 480px;
+        margin: 0 auto 30px;
+    }
+
+    /* Actions */
+    .err-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 44px;
+    }
+
+    .err-actions.has-search {
+        margin-bottom: 34px;
+    }
+
+    .err-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 11px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: opacity 0.15s ease, border-color 0.15s ease;
+    }
+
+    .err-btn-primary {
+        background: var(--hc-ink);
+        color: var(--hc-paper);
+        border: 1px solid var(--hc-ink);
+        font-family: inherit;
+    }
+
+    .err-btn-primary:hover {
+        opacity: 0.9;
+    }
+
+    .err-btn-secondary {
+        background: var(--hc-card);
+        color: var(--hc-ink);
+        border: 1px solid var(--hc-rule);
+    }
+
+    .err-btn-secondary:hover {
+        border-color: var(--hc-indigo-line);
+    }
+
+    /* Search — a button styled as a field; it opens the real Starlight modal */
+    .err-search-wrap {
+        max-width: 440px;
+        margin: 0 auto 44px;
+    }
+
+    .err-search {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--hc-card);
+        border: 1px solid var(--hc-rule);
+        border-radius: 12px;
+        padding: 14px 16px;
+        box-shadow: var(--hc-shadow);
+        cursor: pointer;
+        color: var(--hc-ink-3);
+        text-align: left;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .err-search:hover {
+        border-color: var(--hc-indigo-line);
+        box-shadow: var(--hc-shadow-lg);
+    }
+
+    .err-search-ph {
+        flex: 1;
+        font-size: 0.95rem;
+    }
+
+    /* Helpful links */
+    .err-links-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--hc-ink-3);
+        margin-bottom: 12px;
+    }
+
+    .err-links-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 11px;
+        text-align: left;
+    }
+
+    @media (max-width: 34rem) {
+        .err-links-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .err-link {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        padding: 13px 15px;
+        border-radius: 11px;
+        background: var(--hc-card);
+        border: 1px solid var(--hc-rule);
+        text-decoration: none;
+        transition: box-shadow 0.14s ease, transform 0.14s ease, border-color 0.14s ease;
+    }
+
+    .err-link:hover {
+        box-shadow: var(--hc-shadow);
+        transform: translateY(-1px);
+        border-color: var(--hc-indigo-line);
+    }
+
+    .err-link-ico {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+        color: var(--hc-indigo);
+        background: var(--hc-indigo-soft);
+        flex-shrink: 0;
+    }
+
+    .err-link-text {
+        min-width: 0;
+    }
+
+    .err-link-title {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--hc-ink);
+    }
+
+    .err-link-desc {
+        display: block;
+        font-size: 12.5px;
+        color: var(--hc-ink-3);
+    }
+
+    .err-link-arrow {
+        margin-left: auto;
+        color: var(--hc-ink-3);
+        flex-shrink: 0;
+        display: inline-flex;
+    }
+</style>

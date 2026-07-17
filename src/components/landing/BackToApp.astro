@@ -1,0 +1,119 @@
+---
+/**
+ * BackToApp — "just here to read?" band under the hero search: a back-to-app
+ * CTA plus the shared SocialIcons component (Hardcover app, App Store, Google
+ * Play, and the config socials), boxed to match the band. Copy from the mock.
+ */
+import { URLS } from '@/Consts';
+import SocialIcons from '@/components/SocialIcons.astro';
+import { useTranslation } from '@/lib/utils';
+
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
+---
+
+<div class="backapp not-content">
+  <div class="backapp-left">
+    <span class="backapp-text">{t('ui.landing.backToApp.text')}</span>
+    <a class="backapp-btn" href={URLS.APP} target="_blank" rel="noreferrer noopener">
+      <svg class="backapp-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      {t('ui.landing.backToApp.button')}
+    </a>
+  </div>
+
+  <div class="backapp-right">
+    <span class="backapp-find">{t('ui.landing.backToApp.findUs')}</span>
+    <div class="backapp-socials">
+      <SocialIcons iconSize="16px" />
+    </div>
+  </div>
+</div>
+
+<style>
+  .backapp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: var(--hc-paper-2);
+    border: 1px solid var(--hc-rule);
+    border-radius: 14px;
+    padding: 16px 22px;
+  }
+  .backapp-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .backapp-text {
+    font-size: 0.875rem;
+    color: var(--hc-ink-2);
+  }
+  .backapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--hc-indigo-ink);
+    background: var(--hc-indigo);
+    border: 1px solid var(--hc-indigo);
+    padding: 8px 15px;
+    border-radius: 9px;
+    text-decoration: none;
+    transition: background 0.14s ease;
+  }
+  .backapp-btn:hover { background: var(--hc-indigo-2); border-color: var(--hc-indigo-2); }
+  .backapp-arrow { transform: scaleX(-1); }
+
+  .backapp-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .backapp-find {
+    font-size: 0.75rem;
+    color: var(--hc-ink-3);
+    flex-shrink: 0;
+  }
+
+  /* Box the shared SocialIcons to match the band's icon buttons. */
+  .backapp-socials {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .backapp-socials :global(a.sl-flex) {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    color: var(--hc-indigo);
+    background: var(--hc-card);
+    border: 1px solid var(--hc-rule);
+    padding: 0;
+    margin: 0;
+    transition: border-color 0.14s ease, background 0.14s ease;
+  }
+  .backapp-socials :global(a.sl-flex:hover) {
+    border-color: var(--hc-indigo-line);
+    background: var(--hc-indigo-soft);
+    opacity: 1;
+  }
+  .backapp-socials :global(a.sl-flex) svg {
+    color: var(--hc-indigo);
+    width: 17px;
+    height: 17px;
+    min-width: 0;
+    transform: none;
+  }
+  /* The back-to-app button already links to the app, so hide the redundant
+     Hardcover glyph the shared component leads with (it also mis-sizes here). */
+  .backapp-socials :global(a.sl-flex:has(svg.hc-icon)) {
+    display: none;
+  }
+</style>

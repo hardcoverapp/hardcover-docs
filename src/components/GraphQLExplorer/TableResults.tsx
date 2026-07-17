@@ -1,6 +1,6 @@
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table.tsx";
 import {useTranslation} from "@/lib/utils.ts";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 
 export const TableResults = (props: {
     results: object,
@@ -104,8 +104,7 @@ export const TableResults = (props: {
     }, [results]);
 
     return (
-        <div className="rounded-lg bg-slate-50 border border-gray-300 text-gray-900 text-sm block w-full min-h-64 p-2.5
-                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white overflow-x-auto">
+        <div className="rounded-lg bg-card border border-border text-foreground text-sm block w-full min-h-64 p-2.5 overflow-x-auto">
             {hasResults && (
                 <Table>
                     <TableHeader>

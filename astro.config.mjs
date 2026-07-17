@@ -6,6 +6,12 @@ import react from "@astrojs/react";
 
 import {URLS} from './src/Consts';
 import {useTranslation} from './src/lib/utils'
+import {SOCIAL_LINKS} from './src/lib/social';
+import rehypeExternalLinks from './src/plugins/rehype-external-links.mjs';
+
+// The one host whose traffic is real. Everything else — preview builds, the
+// testing server, a local `astro preview` — must not report into it.
+const docsHost = new URL(URLS.DOCS).hostname;
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,21 +19,34 @@ export default defineConfig({
     integrations: [starlight({
         components: {
             SocialIcons: './src/components/SocialIcons.astro',
-            EditLink: './src/components/PageEdit.astro'
+            EditLink: './src/components/PageEdit.astro',
+            Footer: './src/components/SiteFooter.astro',
+            Header: './src/components/SiteHeader.astro',
+            MobileMenuFooter: './src/components/MobileMenuFooter.astro',
+            SiteTitle: './src/components/SiteTitle.astro'
         },
-        customCss: ['./src/styles/tailwind.css'],
+        customCss: ['./src/styles/tailwind.css', './src/styles/docs-theme.css'],
         defaultLocale: 'root',
         editLink: {
             baseUrl: URLS.GITHUB_EDIT
         },
         head: [
+            // Analytics — loaded only on the real host. The tag reports as
+            // docs.hardcover.app wherever it runs, so a testing deploy would
+            // otherwise land in production's numbers. The check is at runtime
+            // because the host isn't knowable at build time: testing deploys are
+            // production builds too. Plausible already ignores localhost.
             {
                 tag: 'script',
-                attrs: {
-                    src: 'https://plausible.hardcover.app/js/script.js',
-                    'data-domain': 'docs.hardcover.app',
-                    defer: true
-                },
+                content: [
+                    `if(location.hostname===${JSON.stringify(docsHost)}){`,
+                    `var s=document.createElement('script');`,
+                    `s.defer=true;`,
+                    `s.dataset.domain=${JSON.stringify(docsHost)};`,
+                    `s.src='https://plausible.hardcover.app/js/script.js';`,
+                    `document.head.appendChild(s);`,
+                    `}`,
+                ].join(''),
             },
             // Open Graph image for rich link previews (Discord, Slack, etc.)
             {
@@ -230,16 +249,16 @@ export default defineConfig({
                 }
             }
         ],
-        social: [
-            { icon: 'discord', label: 'Discord', href: URLS.DISCORD },
-            { icon: 'github', label: 'GitHub', href: URLS.GITHUB },
-            { icon: 'instagram', label: 'Instagram', href: URLS.INSTAGRAM },
-            { icon: 'mastodon', label: 'Mastodon', href: URLS.MASTODON },
-        ],
+        // Shared with the SocialIcons override, which renders these itself.
+        social: [...SOCIAL_LINKS],
         title: {
             en: useTranslation('site.title', 'en'),
         }
     }), react()],
+    markdown: {
+        // Off-site links in prose open in a new tab; markdown has no syntax for it.
+        rehypePlugins: [[rehypeExternalLinks, {site: URLS.DOCS}]],
+    },
     site: URLS.DOCS,
     vite: {
         plugins: [tailwindcss()],

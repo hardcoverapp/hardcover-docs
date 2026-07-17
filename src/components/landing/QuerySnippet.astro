@@ -1,0 +1,147 @@
+---
+/**
+ * QuerySnippet — decorative terminal-style card showing an example GraphQL
+ * query and its response, with a query/response toggle. Static + a tiny inline
+ * script for the tabs. Copy from the design mock.
+ */
+const qHTML = `<span style="color:#c792ea">query</span> <span style="color:#82aaff">CurrentlyReading</span> {
+  <span style="color:#f78c6c">user_books</span>(
+    <span style="color:#c3e88d">where</span>: {
+      <span style="color:#c3e88d">status_id</span>: { <span style="color:#c3e88d">_eq</span>: <span style="color:#f78c6c">2</span> }
+      <span style="color:#c3e88d">user_id</span>: { <span style="color:#c3e88d">_eq</span>: <span style="color:#f78c6c">10714</span> }
+    }
+  ) {
+    <span style="color:#f78c6c">book</span> {
+      <span style="color:#c3e88d">title</span>
+      <span style="color:#c3e88d">pages</span>
+    }
+    <span style="color:#f78c6c">user_book_reads</span>(<span style="color:#c3e88d">order_by</span>: { <span style="color:#c3e88d">id</span>: <span style="color:#ecc48d">desc</span> }, <span style="color:#c3e88d">limit</span>: <span style="color:#f78c6c">1</span>) {
+      <span style="color:#c3e88d">progress</span>
+      <span style="color:#c3e88d">progress_pages</span>
+      <span style="color:#c3e88d">started_at</span>
+    }
+  }
+}`;
+const rHTML = `{
+  <span style="color:#c3e88d">"data"</span>: {
+    <span style="color:#c3e88d">"user_books"</span>: [
+      {
+        <span style="color:#c3e88d">"book"</span>: {
+          <span style="color:#c3e88d">"title"</span>: <span style="color:#ecc48d">"The Fires of Heaven"</span>,
+          <span style="color:#c3e88d">"pages"</span>: <span style="color:#f78c6c">928</span>
+        },
+        <span style="color:#c3e88d">"user_book_reads"</span>: [
+          {
+            <span style="color:#c3e88d">"progress"</span>: <span style="color:#f78c6c">63.01</span>,
+            <span style="color:#c3e88d">"progress_pages"</span>: <span style="color:#82aaff">null</span>,
+            <span style="color:#c3e88d">"started_at"</span>: <span style="color:#ecc48d">"2026-06-02"</span>
+          }
+        ]
+      },
+      {
+        <span style="color:#c3e88d">"book"</span>: {
+          <span style="color:#c3e88d">"title"</span>: <span style="color:#ecc48d">"All Systems Red"</span>,
+          <span style="color:#c3e88d">"pages"</span>: <span style="color:#f78c6c">149</span>
+        },
+        <span style="color:#c3e88d">"user_book_reads"</span>: [
+          {
+            <span style="color:#c3e88d">"progress"</span>: <span style="color:#f78c6c">3.47</span>,
+            <span style="color:#c3e88d">"progress_pages"</span>: <span style="color:#f78c6c">5</span>,
+            <span style="color:#c3e88d">"started_at"</span>: <span style="color:#ecc48d">"2026-06-02"</span>
+          }
+        ]
+      }
+    ]
+  }
+}`;
+---
+
+<div class="qsnip not-content">
+  <div class="qsnip-bar">
+    <span class="qsnip-dot" style="background:#ff5f57"></span>
+    <span class="qsnip-dot" style="background:#febc2e"></span>
+    <span class="qsnip-dot" style="background:#28c840"></span>
+    <div class="qsnip-tabs">
+      <button type="button" class="qsnip-tab is-active" data-tab="query">query</button>
+      <button type="button" class="qsnip-tab" data-tab="response">response</button>
+    </div>
+    <span class="qsnip-endpoint">POST /v1/graphql</span>
+  </div>
+  <pre class="qsnip-pre" data-panel="query"><code set:html={qHTML} /></pre>
+  <pre class="qsnip-pre" data-panel="response" hidden><code set:html={rHTML} /></pre>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.qsnip').forEach((snip) => {
+    const tabs = snip.querySelectorAll<HTMLButtonElement>('.qsnip-tab');
+    const panels = snip.querySelectorAll<HTMLElement>('.qsnip-pre');
+    tabs.forEach((tab) =>
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+        panels.forEach((p) => {
+          p.hidden = p.dataset.panel !== tab.dataset.tab;
+        });
+      })
+    );
+  });
+</script>
+
+<style>
+  .qsnip {
+    background: var(--hc-code-bg);
+    border: 1px solid var(--hc-rule);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--hc-shadow-lg);
+  }
+  .qsnip-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .qsnip-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+  }
+  .qsnip-tabs {
+    display: flex;
+    gap: 4px;
+    margin-left: 12px;
+  }
+  .qsnip-tab {
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    padding: 4px 11px;
+    border-radius: 6px;
+    background: transparent;
+    color: rgba(230, 227, 245, 0.5);
+  }
+  .qsnip-tab.is-active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  .qsnip-endpoint {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: rgba(230, 227, 245, 0.4);
+  }
+  .qsnip-pre {
+    margin: 0;
+    padding: 18px 20px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--hc-code-fg);
+    height: 340px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+</style>

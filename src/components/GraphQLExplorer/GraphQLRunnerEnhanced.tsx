@@ -18,6 +18,7 @@ import { ChartResults } from "./ChartResults";
 import { JSONResults } from "./JSONResults";
 import { QueryBuilder } from "./QueryBuilder";
 import { TableResults } from "./TableResults";
+import { determineBestView } from '@/lib/graphqlView';
 
 export const GraphQLRunnerEnhanced = (props: {
   query: string,
@@ -37,7 +38,6 @@ export const GraphQLRunnerEnhanced = (props: {
     forcePresentation,
     locale = 'en',
     chartable = true,
-    chartConfigs,
     initialQueryType,
     showQueryTypeSelector = false,
     defaultMode = 'static',
@@ -195,56 +195,7 @@ export const GraphQLRunnerEnhanced = (props: {
   /**
    * Determine the best view based on the data structure
    */
-  const determineBestView = (data: any): 'json' | 'table' | 'chart' => {
-    if (!data) return 'json';
-
-    // Get the first key's data (e.g., data.books, data.users, etc.)
-    const firstKey = Object.keys(data)[ 0 ];
-    const firstValue = data[ firstKey ];
-
-    // If it's not an array, use JSON view
-    if (!Array.isArray(firstValue)) {
-      return 'json';
-    }
-
-    // If empty array, use JSON view
-    if (firstValue.length === 0) {
-      return 'json';
-    }
-
-    // Check if all items are objects with similar structure
-    const firstItem = firstValue[ 0 ];
-    if (typeof firstItem !== 'object' || firstItem === null) {
-      return 'json';
-    }
-
-    // Count numeric fields in the first item
-    const keys = Object.keys(firstItem);
-    const numericFields = keys.filter(key => {
-      const value = firstItem[ key ];
-      return typeof value === 'number' && !isNaN(value);
-    });
-
-    // If we have numeric data and the chart is available, use chart view
-    if (numericFields.length >= 1 && chartable) {
-      return 'chart';
-    }
-
-    // If it's an array of objects with consistent structure, use table view
-    // Check if first few items have similar keys
-    const allSimilar = firstValue.slice(0, 3).every((item: any) => {
-      if (typeof item !== 'object' || item === null) return false;
-      const itemKeys = Object.keys(item);
-      return itemKeys.length > 0 && itemKeys.length <= 15; // Not too many fields for a table
-    });
-
-    if (allSimilar) {
-      return 'table';
-    }
-
-    // Default to JSON for complex structures
-    return 'json';
-  };
+  // determineBestView is extracted to src/lib/graphqlView for testability.
 
   /**
    * Run the query
@@ -258,7 +209,7 @@ export const GraphQLRunnerEnhanced = (props: {
 
       // Auto-select best view unless presentation is forced
       if (!forcePresentation) {
-        const bestView = determineBestView(res.data);
+        const bestView = determineBestView(res.data, chartable);
         setCurrentPresentation(bestView);
       }
     }, (err: { message: string; }) => {

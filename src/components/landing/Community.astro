@@ -1,0 +1,260 @@
+---
+/**
+ * Community — "Built by the community" featured project cards + full-width
+ * Discord band (mock's FeaturedAndCommunity). Uses real featured showcase data.
+ */
+import { URLS } from '@/Consts';
+import type { ShowcaseProject } from '../showcase/types';
+import { useTranslation } from '@/lib/utils';
+
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
+
+interface Props {
+  projects: ShowcaseProject[];
+}
+const { projects } = Astro.props;
+
+// Deterministic avatar hue from the project name (no Math.random at build).
+function hueFromName(name: string): number {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 360;
+  return h;
+}
+---
+
+<div class="community not-content">
+  <div class="community-head">
+    <span class="community-eyebrow">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="spark"><path d="M8 0c.4 3.6 1.4 4.6 5 5-3.6.4-4.6 1.4-5 5-.4-3.6-1.4-4.6-5-5 3.6-.4 4.6-1.4 5-5z"/></svg>
+      <h2 class="community-title">{t('ui.landing.community.heading')}</h2>
+    </span>
+    <a class="community-all" href="/showcase">
+      Explore the showcase
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="community-grid">
+    {projects.map((app) => (
+      <a class="proj-card" href={`/showcase?project=${app.slug}`}>
+        <div class="proj-top">
+          <span class="proj-avatar" style={`background: oklch(0.62 0.13 ${hueFromName(app.name)});`}>
+            {app.name.charAt(0).toUpperCase()}
+          </span>
+          {app.stats?.githubStars != null && (
+            <span class="proj-stars">★ {app.stats.githubStars}</span>
+          )}
+        </div>
+        <div>
+          <div class="proj-name">{app.name}</div>
+          <div class="proj-by">{t('ui.landing.community.by')} {app.author?.name}</div>
+        </div>
+        <p class="proj-desc">{app.summary}</p>
+        <div class="proj-tags">
+          {(app.categories ?? []).slice(0, 2).map((c) => (
+            <span class="proj-pill">{c}</span>
+          ))}
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <div class="discord-band">
+    <svg class="discord-watermark" width="180" height="180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.8A8 8 0 1 1 21 12z"/></svg>
+    <div class="discord-lead">
+      <span class="discord-icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 5.6A17 17 0 0 0 15.4 4.3l-.3.5a13 13 0 0 1 3.7 1.9c-3.6-1.7-7.9-1.7-11.6 0a13 13 0 0 1 3.7-1.9l-.3-.5A17 17 0 0 0 4.4 5.6 17.6 17.6 0 0 0 1.4 17.5a17 17 0 0 0 5.2 2.6l.6-1a11 11 0 0 1-1.8-.9l.4-.3c3.4 1.6 7.1 1.6 10.5 0l.4.3c-.6.4-1.2.6-1.8.9l.6 1a17 17 0 0 0 5.2-2.6 17.6 17.6 0 0 0-3-11.9zM9 15c-.9 0-1.6-.8-1.6-1.8S8.1 11.4 9 11.4s1.6.8 1.6 1.8S9.9 15 9 15zm6 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8S15.9 15 15 15z"/></svg>
+      </span>
+      <div>
+        <h3 class="discord-title">{t('ui.landing.community.discordTitle')}</h3>
+        <p class="discord-desc">{t('ui.landing.community.discordDescription')}</p>
+      </div>
+    </div>
+    <a class="discord-btn" href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">
+      Join the Discord
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+</div>
+
+<style>
+  .community-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .community-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .community-eyebrow .spark { color: var(--hc-indigo); }
+  .community-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 1.65rem;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--hc-ink);
+  }
+  .community-all {
+    font-size: 0.8125rem;
+    color: var(--hc-ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+  .community-all:hover { color: var(--hc-indigo); }
+
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 720px) {
+    .community-grid { grid-template-columns: 1fr; }
+  }
+  .proj-card {
+    background: var(--hc-card);
+    border: 1px solid var(--hc-rule);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: var(--hc-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-decoration: none;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+  }
+  .proj-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--hc-shadow-lg);
+  }
+  .proj-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .proj-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: 17px;
+    color: #fff;
+  }
+  .proj-stars {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--hc-ink-3);
+  }
+  .proj-name {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 1.25rem;
+    line-height: 1.05;
+    color: var(--hc-ink);
+  }
+  .proj-by {
+    font-size: 12px;
+    color: var(--hc-ink-3);
+    margin-top: 3px;
+  }
+  .proj-desc {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--hc-ink-2);
+    margin: 0;
+    flex: 1;
+  }
+  .proj-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .proj-pill {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--hc-ink-2);
+    background: var(--hc-paper-2);
+    border: 1px solid var(--hc-rule);
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+
+  /* Discord band */
+  .discord-band {
+    position: relative;
+    overflow: hidden;
+    background: var(--hc-indigo);
+    color: var(--hc-indigo-ink);
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .discord-watermark {
+    position: absolute;
+    right: 180px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.14;
+    pointer-events: none;
+  }
+  .discord-lead {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    position: relative;
+  }
+  .discord-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+    background: var(--hc-indigo-ink);
+    color: var(--hc-indigo);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .discord-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 1.5rem;
+    line-height: 1.05;
+    margin: 0 0 4px;
+    color: var(--hc-indigo-ink);
+  }
+  .discord-desc {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    margin: 0;
+    opacity: 0.9;
+    max-width: 480px;
+  }
+  .discord-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--hc-indigo-ink);
+    color: var(--hc-indigo);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+    position: relative;
+  }
+</style>

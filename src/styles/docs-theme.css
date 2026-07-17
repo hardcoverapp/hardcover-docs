@@ -1,0 +1,122 @@
+/* Doc content primitives — restyles Starlight's markdown output to the refresh
+   design. Scoped to `.sl-markdown-content` so every doc page inherits it, and
+   driven by the --hc-* brand tokens (defined in tailwind.css). */
+
+/* Splash pages (home, showcase) provide their own custom hero, so hide
+   Starlight's default page title to avoid a duplicate headline. */
+:root:not([data-has-sidebar]) h1#_top {
+    display: none;
+}
+
+/* ── Sub-headings h3–h6: sans, semibold, tight (h1/h2 serif live in
+   tailwind.css). Matches the design's 18px sans H3, scaled down. ──── */
+.sl-markdown-content :is(h3, h4, h5, h6):not(:where(.not-content *)) {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--hc-ink);
+    letter-spacing: -0.01em;
+}
+.sl-markdown-content h3:not(:where(.not-content *)) { font-size: 1.125rem; }
+.sl-markdown-content h4:not(:where(.not-content *)) { font-size: 1rem; }
+.sl-markdown-content h5:not(:where(.not-content *)) { font-size: 0.875rem; }
+.sl-markdown-content h6:not(:where(.not-content *)) {
+    font-size: 0.8125rem;
+    color: var(--hc-ink-2);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ── Links: indigo with a soft underline ─────────────────────────── */
+.sl-markdown-content a:not(:where(.not-content *)) {
+    color: var(--hc-indigo);
+    text-decoration-color: var(--hc-indigo-line);
+    text-underline-offset: 0.2em;
+}
+.sl-markdown-content a:hover:not(:where(.not-content *)) {
+    text-decoration-color: var(--hc-indigo);
+}
+
+/* Off-site prose links get a trailing glyph, so a new tab isn't a surprise.
+   Applied via the .external-link class the rehype plugin adds — prose only;
+   UI chrome (Open app, socials, footer) would just look noisy with it.
+   A mask, not a background, so the glyph tracks the link's colour on hover. */
+.sl-markdown-content a.external-link:not(:where(.not-content *))::after {
+    content: '';
+    display: inline-block;
+    width: 0.78em;
+    height: 0.78em;
+    margin-inline-start: 0.22em;
+    vertical-align: -0.03em;
+    background-color: currentColor;
+    /* Heavier stroke than looks right in the raw SVG: at ~11px the 24-unit
+       viewBox scales a 2.25 stroke down to roughly a single hairline. */
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+}
+
+/* Don't hang a glyph off an image or a badge — only textual links. */
+.sl-markdown-content a.external-link:has(img):not(:where(.not-content *))::after {
+    content: none;
+}
+
+/* ── Inline code: paper-2 pill ───────────────────────────────────── */
+.sl-markdown-content :not(pre) > code:not(:where(.not-content *)) {
+    background: var(--hc-paper-2);
+    border: 1px solid var(--hc-rule);
+    border-radius: 5px;
+    padding: 0.05em 0.4em;
+    font-size: 0.85em;
+    font-weight: 400;
+    color: var(--hc-ink);
+}
+
+/* ── Callouts: notes read indigo, cautions read terracotta, full
+   rounded border + soft tinted fill (design's Callout) ───────────── */
+.sl-markdown-content .starlight-aside:not(:where(.not-content *)) {
+    border: 1px solid var(--sl-color-asides-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+.sl-markdown-content .starlight-aside--note,
+.sl-markdown-content .starlight-aside--tip {
+    --sl-color-asides-border: var(--hc-indigo-line);
+    --sl-color-asides-text-accent: var(--hc-indigo);
+    background: var(--hc-indigo-soft);
+}
+.sl-markdown-content .starlight-aside--caution {
+    --sl-color-asides-border: var(--hc-lib);
+    --sl-color-asides-text-accent: var(--hc-lib);
+    background: var(--hc-lib-soft);
+}
+.sl-markdown-content .starlight-aside--danger {
+    --sl-color-asides-border: var(--hc-closed-line);
+    --sl-color-asides-text-accent: var(--hc-closed);
+    background: var(--hc-closed-soft);
+}
+
+/* ── Tables: rounded frame, paper-2 uppercase header ─────────────── */
+.sl-markdown-content table:not(:where(.not-content *)) {
+    border: 1px solid var(--hc-rule);
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+}
+.sl-markdown-content table:not(:where(.not-content *)) th {
+    background: var(--hc-paper-2);
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--hc-ink);
+    border-bottom: 1px solid var(--hc-rule);
+}
+.sl-markdown-content table:not(:where(.not-content *)) :is(th, td) {
+    border-block-end: 1px solid var(--hc-rule-2);
+    border-inline: none;
+    padding: 0.65rem 0.9rem;
+}
+.sl-markdown-content table:not(:where(.not-content *)) tr:last-child td {
+    border-block-end: none;
+}

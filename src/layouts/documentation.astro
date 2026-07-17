@@ -5,34 +5,22 @@ import {uCFirst, useTranslation} from "@/lib/utils";
 import type { FrontmatterConfig } from '@/types';
 import { Components } from "@/components";
 
-const {
-    author,
-    banner,
-    category,
-    description,
-    draft,
-    editUrl,
-    head,
-    hero,
-    lastUpdated,
-    next,
-    prev,
-    sidebar,
-    slug,
-    template,
-    title,
-} = Astro.props.frontmatter as FrontmatterConfig;
+const {category, lastUpdated} = Astro.props.frontmatter as FrontmatterConfig;
 
 const locale = Astro.currentLocale;
 
-
+// Prefer Starlight's resolved last-updated (git commit date when there's no
+// frontmatter override) over the raw frontmatter value.
+const resolvedLastUpdated =
+    Astro.locals.starlightRoute?.lastUpdated ??
+    (lastUpdated ? new Date(lastUpdated) : undefined);
 ---
 
 <div class="flex flex-auto flex-row justify-between mb-4">
     <p class="text-sm inline-block self-start">
-        {lastUpdated && (
+        {resolvedLastUpdated && (
                 <>
-                    {useTranslation('ui.lastUpdated', locale)} &nbsp; {new Date(lastUpdated).toLocaleDateString(locale, {
+                    {useTranslation('ui.lastUpdated', locale)} &nbsp; {resolvedLastUpdated.toLocaleDateString(locale, {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',

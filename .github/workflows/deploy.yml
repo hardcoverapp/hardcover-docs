@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v7.0.0
+        with:
+          # Full history so Starlight can compute git-based "last updated" dates.
+          fetch-depth: 0
       - name: Set up Node from .nvmrc (Node 24 -> npm 11.11+, required for min-release-age)
         uses: actions/setup-node@v6
         with:

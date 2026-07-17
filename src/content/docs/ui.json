@@ -45,6 +45,55 @@
   },
   "ui": {
     "lastUpdated": "Last Updated",
+    "nav": {
+      "sections": "Sections",
+      "siteNavigation": "Site navigation",
+      "siteMenu": "Site menu",
+      "openApp": "Open app",
+      "guides": "Guides",
+      "apiReference": "API Reference",
+      "librarians": "Librarians",
+      "showcase": "Showcase"
+    },
+    "error": {
+      "askInDiscord": "Ask in Discord",
+      "searchPlaceholder": "Search the docs instead…",
+      "searchLabel": "Search the docs",
+      "notFound": {
+        "kicker": "Page not found",
+        "title": "This page seems to be ",
+        "titleAccent": "off the shelf",
+        "body": "We couldn't find what you were looking for. The link may be outdated, or the page may have moved as the docs evolved.",
+        "primary": "Back to docs home",
+        "linksLabel": "Popular destinations"
+      },
+      "serverError": {
+        "kicker": "Something went wrong",
+        "title": "A page in our ",
+        "titleAccent": "story tore",
+        "body": "An unexpected error occurred on our end. It's not you — try again in a moment, and if it keeps happening, let us know in Discord.",
+        "primary": "Reload the page",
+        "linksLabel": "While you wait"
+      },
+      "links": {
+        "quickstart": {
+          "title": "Quickstart",
+          "description": "First query in 5 minutes"
+        },
+        "apiReference": {
+          "title": "API Reference",
+          "description": "Full GraphQL schema"
+        },
+        "guides": {
+          "title": "Guides",
+          "description": "Walkthroughs & recipes"
+        },
+        "showcase": {
+          "title": "Showcase",
+          "description": "Community-built apps"
+        }
+      }
+    },
     "graphQLExplorer": {
       "query": "Query",
       "example": "Example query",
@@ -127,25 +176,163 @@
         }
       }
     },
-    "landing": {
+    "showcase": {
+      "badge": "Community showcase",
+      "title": "Built with ",
+      "titleAccent": "Hardcover",
+      "tagline": "Apps, scripts, and tools the community has built on the API — from e-ink displays to terminal clients. Open a pull request to add yours.",
+      "stats": {
+        "projects": "projects",
+        "categories": "categories",
+        "githubStars": "GitHub stars"
+      },
+      "rules": {
+        "badge": "Featured",
+        "text": "Open source · screenshots in English · usable by the community today · curated by the Hardcover team.",
+        "link": "How to submit →"
+      },
+      "filters": {
+        "searchPlaceholder": "Search projects, tags, authors…",
+        "clearSearch": "Clear search",
+        "all": "All",
+        "openSource": "Open source",
+        "closedSource": "Closed source"
+      },
       "sections": {
-        "heading": "Explore the docs",
-        "api": {
-          "title": "API Documentation",
-          "description": "Build integrations with the Hardcover GraphQL API."
+        "featured": {
+          "title": "Featured",
+          "subtitle": "Team picks · open source, with screenshots"
         },
-        "librarians": {
-          "title": "Librarian Guides",
-          "description": "Standards and resources for maintaining book data on Hardcover."
+        "openSource": {
+          "title": "Open source",
+          "subtitle": "Fork it, contribute, or just read the code"
         },
-        "contributing": {
-          "title": "Contributing",
-          "description": "Get involved with the Hardcover project and documentation."
+        "closedSource": {
+          "title": "Closed source",
+          "subtitle": "Download, sign up, or buy"
         }
       },
-      "showcase": {
+      "empty": {
+        "text": "No projects match.",
+        "reset": "Clear filters"
+      },
+      "card": {
+        "featured": "Featured",
+        "oss": "OSS",
+        "closed": "Closed"
+      },
+      "detail": {
+        "by": "by",
+        "share": "Share",
+        "copied": "Copied!",
+        "shareTitle": "Copy link to this project",
+        "close": "Close (Esc)",
+        "allProjects": "All projects",
+        "viewLarger": "View screenshot larger",
+        "previousScreenshot": "Previous screenshot",
+        "nextScreenshot": "Next screenshot",
+        "categories": "Categories",
+        "tags": "Tags",
+        "source": "Source",
+        "sourceOpen": "Open source — fork it, contribute, or read the code",
+        "sourceClosed": "Closed source — listed for discoverability, not vetted by Hardcover",
+        "createdBy": "Created by",
+        "githubStars": "GitHub stars",
+        "dateAdded": "Date added",
+        "lastRepoActivity": "Last repo activity",
+        "lastUpdated": "Last updated",
+        "active": "active",
+        "links": "Links",
+        "viewOnGitHub": "View on GitHub",
+        "visitSite": "Visit site",
+        "visitDeveloperSite": "Visit the developer's site"
+      }
+    },
+    "footer": {
+      "tagline": "The book-tracking platform for readers. Build with the API, or help curate the world's library.",
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "copyright": "Hardcover · Built with Astro + Starlight",
+      "cols": {
+        "docs": {
+          "title": "Docs",
+          "gettingStarted": "Getting started",
+          "apiGuides": "API guides",
+          "graphqlSchemas": "GraphQL schemas",
+          "librarianGuide": "Librarian guide"
+        },
+        "community": {
+          "title": "Community",
+          "showcase": "Showcase",
+          "discord": "Discord",
+          "github": "GitHub",
+          "contribute": "Contribute"
+        },
+        "hardcover": {
+          "title": "Hardcover",
+          "openTheApp": "Open the app",
+          "downloadIos": "Download for iOS",
+          "downloadAndroid": "Download for Android"
+        }
+      }
+    },
+    "landing": {
+      "hero": {
+        "badge": "GraphQL API · the same data as the app",
+        "title": "Everything you need to ",
+        "titleDev": "build with",
+        "titleAnd": " and ",
+        "titleLib": "curate",
+        "titleEnd": " Hardcover.",
+        "tagline": "The developer API and the librarian handbook for the book-tracking platform readers actually love.",
+        "searchLabel": "Search the docs",
+        "searchPlaceholder": "Search the docs — endpoints, guides, fields…"
+      },
+      "backToApp": {
+        "text": "Just here to read? Head back to the app.",
+        "button": "Back to Hardcover app",
+        "findUs": "Find us"
+      },
+      "paths": {
+        "dev": {
+          "tag": "For developers",
+          "title": "Build with the API",
+          "description": "Query books, editions, and reading data over GraphQL — authentication, schema, and recipes.",
+          "gettingStarted": "Getting started",
+          "firstRequest": "Making your first request",
+          "auth": "Authentication & tokens",
+          "schema": "GraphQL schema reference"
+        },
+        "lib": {
+          "tag": "For librarians",
+          "title": "Curate the library",
+          "description": "Help keep book data accurate for everyone. Editing standards, roles, and the tools that keep the catalog clean.",
+          "gettingStarted": "Getting started as a librarian",
+          "standards": "Editing standards",
+          "merging": "Merging & de-duping editions",
+          "faq": "Librarian FAQ"
+        }
+      },
+      "startHere": {
+        "heading": "Start here",
+        "quickstart": {
+          "title": "Quickstart",
+          "description": "Make your first authenticated GraphQL query in under five minutes."
+        },
+        "search": {
+          "title": "Search for content",
+          "description": "Find books, authors, and editions by title, author, or identifier."
+        },
+        "editions": {
+          "title": "Editing editions",
+          "description": "The librarian's guide to clean, canonical book metadata."
+        }
+      },
+      "community": {
         "heading": "Built by the community",
-        "viewAll": "View all projects"
+        "by": "by",
+        "discordTitle": "Talk to the team on Discord",
+        "discordDescription": "Where readers, builders, and librarians hang out — and the fastest way to reach the Hardcover team directly."
       }
     },
     "schemaGraph": {

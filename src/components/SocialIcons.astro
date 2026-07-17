@@ -1,8 +1,14 @@
 ---
-import type {Props} from '@astrojs/starlight/props';
-import Default from '@astrojs/starlight/components/SocialIcons.astro';
+import { Icon } from '@astrojs/starlight/components';
 import { URLS } from '@/Consts';
+import { SOCIAL_LINKS } from '@/lib/social';
 
+// Usable both as the Starlight header override (Starlight passes route data,
+// which we ignore) and standalone (e.g. the landing back-to-app band). Only
+// `iconSize` is read.
+interface Props {
+  iconSize?: string;
+}
 const {iconSize = '16px'} = Astro.props;
 ---
 
@@ -13,7 +19,7 @@ so we'll need to create our own. -->
     <span class="sr-only">Hardcover</span>
 
     <svg xmlns="http://www.w3.org/2000/svg" class="hc-icon min-w-10 transition-all duration-300 group-hover:rotate-12" fill="none"
-          viewBox="0 0 1 40" role="img" aria-labelledby="svgTitle svgDescription">
+          viewBox="0 0 40 40" role="img" aria-labelledby="svgTitle svgDescription">
         <title id="svgTitle">Hardcover</title>
         <desc id="svgDescription">Hardcover App Icon</desc>
         <path d="M12.8889 32.5982C12.666 31.7661 13.1598 30.9108 13.9919 30.6879L30.2971 26.3189C31.1292 26.096 31.9845
@@ -77,9 +83,18 @@ so we'll need to create our own. -->
     </svg>
 </a>
 
-<Default {...Astro.props}>
-    <slot/>
-</Default>
+<!-- Rendered here rather than via Starlight's default component: that one
+hardcodes `<a rel="me">` with no way to set target, so the socials were the last
+off-site links still hijacking the tab. Icons come from the same list the
+`social` config uses (@/lib/social), so the two can't drift. -->
+{SOCIAL_LINKS.map((social) => (
+    <a href={social.href} rel="me noreferrer noopener" target="_blank" class="sl-flex">
+        <span class="sr-only">{social.label}</span>
+        <Icon name={social.icon}/>
+    </a>
+))}
+
+<slot/>
 
 <style define:vars={{'sl-icon-size': iconSize}}>
     svg {

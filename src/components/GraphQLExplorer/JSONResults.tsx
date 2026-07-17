@@ -1,5 +1,4 @@
 import {useTranslation} from "@/lib/utils.ts";
-import React from "react";
 import {ScrollArea} from "@/components/ui/scroll-area"
 
 export const JSONResults = (props: {

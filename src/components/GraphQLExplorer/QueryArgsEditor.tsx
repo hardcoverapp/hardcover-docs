@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { LuPlus, LuX } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import {

@@ -28,8 +28,9 @@ const showOrigin = isAbsolute && !hideOrigin;
 const classes = "inline-block align-baseline whitespace-nowrap font-mono text-sm bg-muted rounded px-2 py-0.5";
 ---
 
+{/* Only absolute URLs render as links, and those always leave the docs. */}
 {isAbsolute ? (
-  <a href={href} aria-label={href} class={`${classes} no-underline hover:underline`}><span class="text-muted-foreground">{showOrigin ? origin : (hideOrigin ? "…" : "")}</span
+  <a href={href} aria-label={href} target="_blank" rel="noreferrer noopener" class={`${classes} no-underline hover:underline`}><span class="text-muted-foreground">{showOrigin ? origin : (hideOrigin ? "…" : "")}</span
   >{before}{match && <span class="text-primary font-semibold">{match}</span>}{after}</a>
 ) : (
 <span class={classes}

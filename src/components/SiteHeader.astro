@@ -1,0 +1,462 @@
+---
+/**
+ * Header override — the nav refresh from the design.
+ *
+ * The design draws two headers, so we gate on the URL: the reference sections
+ * (/api, /librarians) get the search-forward bar; every other page gets the
+ * section links plus an "Open app" CTA.
+ *
+ * Starlight's own Search / ThemeSelect / LanguageSelect are kept as-is (just
+ * restyled) so ⌘K, i18n and the mobile menu keep working. The three top-level
+ * children are preserved because Starlight's header grid targets them.
+ */
+import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
+import Search from '@astrojs/starlight/components/Search.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+
+// Our own overrides, not Starlight's defaults — importing the defaults here
+// would silently bypass them, since a replaced Header no longer resolves the
+// `virtual:starlight/components/*` indirection that applies overrides.
+import SiteTitle from './SiteTitle.astro';
+import SocialIcons from './SocialIcons.astro';
+
+import {NAV_LINKS, isReferenceSection} from '@/lib/nav';
+import {useTranslation} from '@/lib/utils';
+import {URLS} from '@/Consts';
+
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
+
+const pathname = Astro.url.pathname;
+const isReference = isReferenceSection(pathname);
+
+// The disclosure is only rendered where there's no sidebar. Pages that have one
+// can always reach the nav — the tree on desktop, Starlight's hamburger below
+// 50rem — so a disclosure there would just duplicate it. Splash pages have
+// neither, which is what it exists for.
+//
+// `sidebar` is populated on every route (`hasSidebar` only gates *rendering* it,
+// per Starlight's `template !== 'splash'`), so splash pages can show the real
+// tree — translated labels and all — rather than a hardcoded list.
+const {hasSidebar, sidebar} = Astro.locals.starlightRoute;
+---
+
+<div class:list={['header', isReference ? 'is-reference' : 'is-marketing']}>
+    <div class="title-wrapper sl-flex">
+        <SiteTitle/>
+    </div>
+
+    <div class="middle sl-flex print:hidden">
+        <div class:list={['search-slot', {'search-stowed': !isReference}]}>
+            <Search/>
+        </div>
+        {!isReference && (
+                <>
+                    <nav class="site-nav" aria-label={t('ui.nav.sections')}>
+                        {NAV_LINKS.map((link) => (
+                                <a
+                                        href={link.href}
+                                        class="site-nav-link"
+                                        aria-current={pathname.startsWith(link.href) ? 'page' : undefined}
+                                >{t(link.labelKey)}</a>
+                        ))}
+                    </nav>
+
+                    {!hasSidebar && (
+                    <details class="site-menu">
+                        <summary aria-label={t('ui.nav.siteMenu')}>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                                <path d="M4 7h16M4 12h16M4 17h16"/>
+                            </svg>
+                        </summary>
+                        <div class="site-menu-panel">
+                            <nav class="menu-tree" aria-label={t('ui.nav.siteNavigation')}>
+                                <SidebarSublist sublist={sidebar}/>
+                            </nav>
+                            {/* Only surfaced once the right group itself is gone (<50rem). */}
+                            <div class="menu-prefs">
+                                <a class="menu-open-app" href={URLS.APP} target="_blank"
+                                   rel="noreferrer noopener">{t('ui.nav.openApp')}</a>
+                                <div class="menu-prefs-row">
+                                    <div class="sl-flex menu-socials">
+                                        <SocialIcons/>
+                                    </div>
+                                    <ThemeSelect/>
+                                    <LanguageSelect/>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    )}
+                </>
+        )}
+    </div>
+
+    <div class="sl-hidden md:sl-flex print:hidden right-group">
+        <div class="sl-flex social-icons">
+            <SocialIcons/>
+        </div>
+        <ThemeSelect/>
+        <LanguageSelect/>
+        <a class="open-app" href={URLS.APP} target="_blank" rel="noreferrer noopener">{t('ui.nav.openApp')}</a>
+    </div>
+</div>
+
+<script>
+    // The <details> element handles open/close and keyboard focus on its own;
+    // this adds dismissal and the body scroll lock for the full-screen state.
+    const menu = document.querySelector<HTMLDetailsElement>('details.site-menu');
+    if (menu) {
+        const isFullScreen = window.matchMedia('(max-width: 49.999rem)');
+
+        // Only lock scrolling while the panel covers the page — as a dropdown it
+        // should leave the page alone.
+        const syncLock = () => {
+            document.body.toggleAttribute('data-site-menu-open', menu.open && isFullScreen.matches);
+        };
+
+        menu.addEventListener('toggle', syncLock);
+
+        // Crossing the breakpoint changes the panel between dropdown and pane;
+        // close instead of stranding a full-screen overlay on a wide viewport.
+        isFullScreen.addEventListener('change', () => {
+            menu.open = false;
+            syncLock();
+        });
+
+        document.addEventListener('click', (event) => {
+            if (menu.open && !menu.contains(event.target as Node)) menu.open = false;
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && menu.open) {
+                menu.open = false;
+                menu.querySelector('summary')?.focus();
+            }
+        });
+    }
+</script>
+
+<style is:global>
+    /* Starlight's equivalent rule ships with MobileMenuToggle, which splash
+       pages never render — so the lock has to come from here. */
+    @media (max-width: 49.999rem) {
+        body[data-site-menu-open] {
+            overflow: hidden;
+        }
+    }
+</style>
+
+<style>
+    @layer starlight.core {
+        .header {
+            display: flex;
+            gap: var(--sl-nav-gap);
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .title-wrapper {
+            /* Prevent long titles overflowing and covering the search and menu buttons on narrow viewports. */
+            overflow: clip;
+            /* Avoid clipping focus ring around link inside title wrapper. */
+            padding: 0.25rem;
+            margin: -0.25rem;
+            min-width: 0;
+        }
+
+        .right-group,
+        .social-icons {
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .social-icons::after {
+            content: '';
+            height: 2rem;
+            border-inline-end: 1px solid var(--sl-color-gray-5);
+        }
+
+        @media (min-width: 50rem) {
+            :global(:root[data-has-sidebar]) {
+                --__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
+            }
+
+            :global(:root:not([data-has-toc])) {
+                --__toc-width: 0rem;
+            }
+
+            .header {
+                --__sidebar-width: max(0rem, var(--sl-content-inline-start, 0rem) - var(--sl-nav-pad-x));
+                --__main-column-fr: calc(
+                        (
+                                100% + var(--__sidebar-pad, 0rem) - var(--__toc-width, var(--sl-sidebar-width)) -
+                                (2 * var(--__toc-width, var(--sl-nav-pad-x))) - var(--sl-content-inline-start, 0rem) -
+                                var(--sl-content-width)
+                        ) / 2
+                );
+                display: grid;
+                grid-template-columns:
+        /* 1 (site title): runs up until the main content column’s left edge or the width of the title, whichever is the largest  */
+					minmax(
+                                calc(var(--__sidebar-width) + max(0rem, var(--__main-column-fr) - var(--sl-nav-gap))),
+                                auto
+                        )
+					/* 2 (search box / section nav): all free space that is available. */
+					1fr
+					/* 3 (right items): use the space that these need. */
+					auto;
+                align-content: center;
+            }
+        }
+    }
+
+    .middle {
+        align-items: center;
+        gap: 1rem;
+        min-width: 0;
+    }
+
+    .search-slot {
+        min-width: 0;
+        flex: 1;
+    }
+
+    /* Starlight sizes the title column to reach the content column's left edge,
+       which strands a wide gap after our compact mark and shoves the middle
+       content right. The design does no such alignment — mark, then links (or
+       search) directly beside it. Unlayered, so it beats `starlight.core`. */
+    @media (min-width: 50rem) {
+        .header {
+            grid-template-columns: auto 1fr auto;
+        }
+
+        .header.is-reference .search-slot {
+            max-width: 400px;
+        }
+    }
+
+    /* On link pages the design has no header search — but Starlight's <site-search>
+       must stay mounted: it owns the ⌘K listener and the modal that the hero and
+       404 search buttons open by clicking button[data-open-modal]. So hide only
+       the trigger; the sibling <dialog> keeps working. */
+    .search-stowed {
+        flex: 0;
+    }
+
+    .search-stowed :global(site-search button[data-open-modal]) {
+        display: none;
+    }
+
+    /* Section links.
+       These live in the header's `1fr` column while the right group (socials +
+       theme + locale + Open app) is `auto`-sized, so the links are the first
+       thing to run out of room — and being `nowrap`, they overflow the column
+       and collide with the icons rather than wrapping. Starlight's `md` (50rem)
+       is far too early for logo + 4 links + that right group, so they get their
+       own breakpoint: the row needs ~1000px, and 66rem (1056px) leaves headroom
+       for the locale picker on translated pages. Below it they move into the
+       disclosure. */
+    .site-nav {
+        display: none;
+        align-items: center;
+        gap: 22px;
+        min-width: 0;
+    }
+
+    @media (min-width: 66rem) {
+        .site-nav {
+            display: flex;
+        }
+    }
+
+    .site-nav-link {
+        font-size: 14px;
+        color: var(--hc-ink-2);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 0.15s ease;
+    }
+
+    .site-nav-link:hover {
+        color: var(--hc-ink);
+    }
+
+    .site-nav-link[aria-current='page'] {
+        color: var(--hc-indigo);
+        font-weight: 600;
+    }
+
+    /* ── Mobile disclosure ───────────────────────────────────────────
+       Shown whenever the inline links can't fit. On pages with a sidebar it
+       hides again below 50rem, where Starlight's own hamburger takes over. */
+    .site-menu {
+        display: none;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    /* Sits where the links collapse from — beside the mark, not adrift next to
+       the social/theme cluster. Paired with the breakpoint on .site-nav. */
+    @media (max-width: 65.999rem) {
+        .site-menu {
+            display: block;
+        }
+    }
+
+
+    /* Mirrors Starlight's own MobileMenuToggle (circle, --sl-color-white on
+       --sl-color-black, inverted for light) so this reads as the same control
+       as the hamburger it stands in for. */
+    .site-menu > summary {
+        display: grid;
+        place-items: center;
+        width: var(--sl-menu-button-size);
+        height: var(--sl-menu-button-size);
+        padding: 0.5rem;
+        border: 0;
+        border-radius: 50%;
+        background-color: var(--sl-color-white);
+        color: var(--sl-color-black);
+        box-shadow: var(--sl-shadow-md);
+        cursor: pointer;
+        list-style: none;
+    }
+
+    .site-menu > summary::-webkit-details-marker {
+        display: none;
+    }
+
+    :global([data-theme='light']) .site-menu > summary {
+        background-color: var(--sl-color-black);
+        color: var(--sl-color-white);
+    }
+
+    .site-menu[open] > summary {
+        background-color: var(--sl-color-gray-2);
+        box-shadow: none;
+    }
+
+    /* Anchored to follow the toggle. Above 50rem the header is a grid and the
+       toggle sits beside the mark, so the panel hangs from its leading edge.
+       Below 50rem the header falls back to space-between with the right group
+       gone, which pushes the toggle to the far edge — see the flip below. */
+    .site-menu-panel {
+        position: absolute;
+        top: calc(100% + 10px);
+        inset-inline-start: 0;
+        z-index: 50;
+        width: max-content;
+        min-width: 250px;
+        max-width: min(88vw, 340px);
+        /* The real tree is far taller than the four links this used to hold. */
+        max-height: min(70vh, 32rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 10px;
+        background: var(--hc-card);
+        border: 1px solid var(--hc-rule);
+        border-radius: 12px;
+        box-shadow: var(--hc-shadow-lg);
+    }
+
+    /* Starlight's sublist ships its own styling; just rein in the indent so a
+       deep tree fits a dropdown, and let the group labels read as headings. */
+    .menu-tree :global(ul) {
+        padding-inline-start: 0.6rem;
+    }
+
+    .menu-tree :global(> ul) {
+        padding-inline-start: 0;
+    }
+
+    /* On mobile this stops being a dropdown and becomes the same full-screen
+       pane Starlight's hamburger opens on doc pages — same geometry, surface and
+       z-index, so the two menus are indistinguishable to a reader. */
+    @media (max-width: 49.999rem) {
+        .site-menu-panel {
+            position: fixed;
+            z-index: var(--sl-z-index-menu);
+            inset-block: var(--sl-nav-height) 0;
+            inset-inline: 0;
+            width: 100%;
+            min-width: 0;
+            max-width: none;
+            max-height: none;
+            padding: 1rem var(--sl-sidebar-pad-x) 2rem;
+            background: var(--sl-color-black);
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+            overflow-y: auto;
+            scrollbar-gutter: stable;
+        }
+    }
+
+    /* The right group still carries these down to 50rem; only duplicate them
+       into the panel once it's actually gone. */
+    .menu-prefs {
+        display: none;
+    }
+
+    @media (max-width: 49.999rem) {
+        .menu-prefs {
+            display: block;
+            border-top: 1px solid var(--hc-rule);
+            margin-top: 8px;
+            padding-top: 8px;
+        }
+    }
+
+    .menu-prefs-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 4px 6px;
+    }
+
+    .menu-socials {
+        gap: 0.75rem;
+        align-items: center;
+    }
+
+    .menu-open-app {
+        display: flex;
+        justify-content: center;
+        background: var(--hc-ink);
+        color: var(--hc-paper);
+        border: 1px solid var(--hc-ink);
+        font-size: 13.5px;
+        font-weight: 600;
+        padding: 9px 15px;
+        border-radius: 9px;
+        text-decoration: none;
+        margin: 4px 0 8px;
+    }
+
+    /* Open app CTA */
+    .open-app {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--hc-ink);
+        color: var(--hc-paper);
+        border: 1px solid var(--hc-ink);
+        font-size: 13.5px;
+        font-weight: 600;
+        padding: 9px 15px;
+        border-radius: 9px;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: opacity 0.15s ease;
+    }
+
+    .open-app:hover {
+        opacity: 0.9;
+    }
+</style>
