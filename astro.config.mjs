@@ -9,6 +9,10 @@ import {useTranslation} from './src/lib/utils'
 import {SOCIAL_LINKS} from './src/lib/social';
 import rehypeExternalLinks from './src/plugins/rehype-external-links.mjs';
 
+// The one host whose traffic is real. Everything else — preview builds, the
+// testing server, a local `astro preview` — must not report into it.
+const docsHost = new URL(URLS.DOCS).hostname;
+
 // https://astro.build/config
 export default defineConfig({
     favicon: './src/assets/hardcover.svg',
@@ -27,13 +31,22 @@ export default defineConfig({
             baseUrl: URLS.GITHUB_EDIT
         },
         head: [
+            // Analytics — loaded only on the real host. The tag reports as
+            // docs.hardcover.app wherever it runs, so a testing deploy would
+            // otherwise land in production's numbers. The check is at runtime
+            // because the host isn't knowable at build time: testing deploys are
+            // production builds too. Plausible already ignores localhost.
             {
                 tag: 'script',
-                attrs: {
-                    src: 'https://plausible.hardcover.app/js/script.js',
-                    'data-domain': 'docs.hardcover.app',
-                    defer: true
-                },
+                content: [
+                    `if(location.hostname===${JSON.stringify(docsHost)}){`,
+                    `var s=document.createElement('script');`,
+                    `s.defer=true;`,
+                    `s.dataset.domain=${JSON.stringify(docsHost)};`,
+                    `s.src='https://plausible.hardcover.app/js/script.js';`,
+                    `document.head.appendChild(s);`,
+                    `}`,
+                ].join(''),
             },
             // Open Graph image for rich link previews (Discord, Slack, etc.)
             {
