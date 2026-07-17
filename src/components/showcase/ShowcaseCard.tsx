@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTranslation as t } from '@/lib/utils';
 import type { ShowcaseProject } from './types';
 
 interface ShowcaseCardProps {
@@ -61,7 +62,7 @@ export function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
             <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               <path d="M8 0c.4 3.6 1.4 4.6 5 5-3.6.4-4.6 1.4-5 5-.4-3.6-1.4-4.6-5-5 3.6-.4 4.6-1.4 5-5z" />
             </svg>
-            Featured
+            {t('ui.showcase.card.featured')}
           </span>
         )}
       </div>
@@ -75,7 +76,7 @@ export function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
               <svg width="10" height="10" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
                 <path d="M6 0a6 6 0 0 0-1.9 11.7c.3.05.4-.13.4-.29l-.01-1.13c-1.67.36-2.02-.7-2.02-.7-.27-.7-.67-.88-.67-.88-.55-.37.04-.36.04-.36.6.04.92.62.92.62.54.92 1.41.65 1.76.5.05-.39.21-.66.38-.81-1.34-.15-2.74-.67-2.74-2.97 0-.66.24-1.19.62-1.61-.06-.15-.27-.77.06-1.6 0 0 .51-.16 1.66.62a5.78 5.78 0 0 1 3.02 0c1.15-.78 1.66-.62 1.66-.62.33.83.12 1.45.06 1.6.39.42.62.95.62 1.61 0 2.31-1.41 2.81-2.75 2.96.22.18.41.55.41 1.1l-.01 1.64c0 .16.11.34.41.28A6 6 0 0 0 6 0Z" />
               </svg>
-              OSS
+              {t('ui.showcase.card.oss')}
               {stars != null && (
                 <span className="font-medium opacity-70">
                   {' · ★'}
@@ -89,7 +90,7 @@ export function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
                 <rect x="1.5" y="5.5" width="7" height="5.5" rx="0.5" />
                 <path d="M3 5.5V3.5a2 2 0 0 1 4 0v2" />
               </svg>
-              Closed
+              {t('ui.showcase.card.closed')}
             </span>
           )}
         </div>

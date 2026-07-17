@@ -1,4 +1,8 @@
 ---
+import { useTranslation } from '@/lib/utils';
+
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
 /**
  * StartHere — "Start here" guide grid (mock's GuidesGrid). Three entry-point
  * cards. Copy adapted from the mock to real guides; links are best-effort.
@@ -6,22 +10,22 @@
 const guides = [
   {
     icon: 'code',
-    title: 'Quickstart',
-    desc: 'Make your first authenticated GraphQL query in under five minutes.',
+    title: t('ui.landing.startHere.quickstart.title'),
+    desc: t('ui.landing.startHere.quickstart.description'),
     cat: 'API',
     href: '/api/getting-started',
   },
   {
     icon: 'search',
-    title: 'Search for content',
-    desc: 'Find books, authors, and editions by title, author, or identifier.',
+    title: t('ui.landing.startHere.search.title'),
+    desc: t('ui.landing.startHere.search.description'),
     cat: 'API',
     href: '/api/guides/searching',
   },
   {
     icon: 'book',
-    title: 'Editing editions',
-    desc: "The librarian's guide to clean, canonical book metadata.",
+    title: t('ui.landing.startHere.editions.title'),
+    desc: t('ui.landing.startHere.editions.description'),
     cat: 'Librarian',
     href: '/librarians/getting-started',
   },
@@ -30,7 +34,7 @@ const guides = [
 
 <div class="starthere not-content">
   <div class="starthere-head">
-    <h2 class="starthere-title">Start here</h2>
+    <h2 class="starthere-title">{t('ui.landing.startHere.heading')}</h2>
     <a class="starthere-all" href="/api/guides">
       All guides
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>

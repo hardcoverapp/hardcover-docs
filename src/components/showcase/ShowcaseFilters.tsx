@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cn } from '@/lib/utils';
+import { cn, useTranslation as t } from '@/lib/utils';
 
 export type SourceFilter = 'All' | 'Open source' | 'Closed source';
 
@@ -15,6 +15,14 @@ interface ShowcaseFiltersProps {
 }
 
 const SOURCES: SourceFilter[] = ['All', 'Open source', 'Closed source'];
+
+// SourceFilter values double as state, so they stay English; only the visible
+// label is translated.
+const SOURCE_KEYS: Record<SourceFilter, string> = {
+  All: 'ui.showcase.filters.all',
+  'Open source': 'ui.showcase.filters.openSource',
+  'Closed source': 'ui.showcase.filters.closedSource',
+};
 
 export function ShowcaseFilters({
   search,
@@ -39,13 +47,13 @@ export function ShowcaseFilters({
             type="search"
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Search projects, tags, authors…"
+            placeholder={t('ui.showcase.filters.searchPlaceholder')}
             className="flex-1 border-0 bg-transparent text-base text-foreground outline-hidden placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
           />
           {search && (
             <button
               onClick={() => onSearchChange('')}
-              aria-label="Clear search"
+              aria-label={t('ui.showcase.filters.clearSearch')}
               className="cursor-pointer border-0 bg-transparent text-base text-muted-foreground"
             >
               ×
@@ -71,7 +79,7 @@ export function ShowcaseFilters({
               >
                 {label === 'Open source' && <span className="h-[7px] w-[7px] rounded-full bg-primary" />}
                 {label === 'Closed source' && <span className="h-[7px] w-[7px] rounded-full bg-closed" />}
-                {label}
+                {t(SOURCE_KEYS[label])}
                 <span className="font-medium opacity-55">{n}</span>
               </button>
             );

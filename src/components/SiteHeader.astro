@@ -22,7 +22,11 @@ import SiteTitle from './SiteTitle.astro';
 import SocialIcons from './SocialIcons.astro';
 
 import {NAV_LINKS} from '@/lib/nav';
+import {useTranslation} from '@/lib/utils';
 import {URLS} from '@/Consts';
+
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
 
 // Tolerates a locale prefix, e.g. /it/api/…
 const pathname = Astro.url.pathname;
@@ -50,32 +54,32 @@ const {hasSidebar, sidebar} = Astro.locals.starlightRoute;
         </div>
         {!isReference && (
                 <>
-                    <nav class="site-nav" aria-label="Sections">
+                    <nav class="site-nav" aria-label={t('ui.nav.sections')}>
                         {NAV_LINKS.map((link) => (
                                 <a
                                         href={link.href}
                                         class="site-nav-link"
                                         aria-current={pathname.startsWith(link.href) ? 'page' : undefined}
-                                >{link.label}</a>
+                                >{t(link.labelKey)}</a>
                         ))}
                     </nav>
 
                     {!hasSidebar && (
                     <details class="site-menu">
-                        <summary aria-label="Site menu">
+                        <summary aria-label={t('ui.nav.siteMenu')}>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
                                 <path d="M4 7h16M4 12h16M4 17h16"/>
                             </svg>
                         </summary>
                         <div class="site-menu-panel">
-                            <nav class="menu-tree" aria-label="Site navigation">
+                            <nav class="menu-tree" aria-label={t('ui.nav.siteNavigation')}>
                                 <SidebarSublist sublist={sidebar}/>
                             </nav>
                             {/* Only surfaced once the right group itself is gone (<50rem). */}
                             <div class="menu-prefs">
                                 <a class="menu-open-app" href={URLS.APP} target="_blank"
-                                   rel="noreferrer noopener">Open app</a>
+                                   rel="noreferrer noopener">{t('ui.nav.openApp')}</a>
                                 <div class="menu-prefs-row">
                                     <div class="sl-flex menu-socials">
                                         <SocialIcons/>
@@ -97,7 +101,7 @@ const {hasSidebar, sidebar} = Astro.locals.starlightRoute;
         </div>
         <ThemeSelect/>
         <LanguageSelect/>
-        <a class="open-app" href={URLS.APP} target="_blank" rel="noreferrer noopener">Open app</a>
+        <a class="open-app" href={URLS.APP} target="_blank" rel="noreferrer noopener">{t('ui.nav.openApp')}</a>
     </div>
 </div>
 

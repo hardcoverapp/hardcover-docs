@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { ProjectDetail } from './ProjectDetail';
+import { useTranslation as t } from '@/lib/utils';
 import type { ShowcaseProject } from './types';
 
 /**
@@ -56,12 +57,12 @@ export function ShowcaseModal({
           actions={
             <DialogClose
               className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border border-border bg-card text-[var(--hc-ink-2)] transition-colors hover:text-foreground"
-              title="Close (Esc)"
+              title={t('ui.showcase.detail.close')}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
                 <path d="M3 3l8 8M11 3l-8 8" />
               </svg>
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{t('ui.showcase.detail.close')}</span>
             </DialogClose>
           }
           onCategoryClick={filterAndClose(onCategoryClick)}

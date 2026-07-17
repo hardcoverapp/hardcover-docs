@@ -5,6 +5,10 @@
  */
 import { URLS } from '@/Consts';
 import type { ShowcaseProject } from '../showcase/types';
+import { useTranslation } from '@/lib/utils';
+
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
 
 interface Props {
   projects: ShowcaseProject[];
@@ -23,7 +27,7 @@ function hueFromName(name: string): number {
   <div class="community-head">
     <span class="community-eyebrow">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="spark"><path d="M8 0c.4 3.6 1.4 4.6 5 5-3.6.4-4.6 1.4-5 5-.4-3.6-1.4-4.6-5-5 3.6-.4 4.6-1.4 5-5z"/></svg>
-      <h2 class="community-title">Built by the community</h2>
+      <h2 class="community-title">{t('ui.landing.community.heading')}</h2>
     </span>
     <a class="community-all" href="/showcase">
       Explore the showcase
@@ -44,7 +48,7 @@ function hueFromName(name: string): number {
         </div>
         <div>
           <div class="proj-name">{app.name}</div>
-          <div class="proj-by">by {app.author?.name}</div>
+          <div class="proj-by">{t('ui.landing.community.by')} {app.author?.name}</div>
         </div>
         <p class="proj-desc">{app.summary}</p>
         <div class="proj-tags">
@@ -63,8 +67,8 @@ function hueFromName(name: string): number {
         <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 5.6A17 17 0 0 0 15.4 4.3l-.3.5a13 13 0 0 1 3.7 1.9c-3.6-1.7-7.9-1.7-11.6 0a13 13 0 0 1 3.7-1.9l-.3-.5A17 17 0 0 0 4.4 5.6 17.6 17.6 0 0 0 1.4 17.5a17 17 0 0 0 5.2 2.6l.6-1a11 11 0 0 1-1.8-.9l.4-.3c3.4 1.6 7.1 1.6 10.5 0l.4.3c-.6.4-1.2.6-1.8.9l.6 1a17 17 0 0 0 5.2-2.6 17.6 17.6 0 0 0-3-11.9zM9 15c-.9 0-1.6-.8-1.6-1.8S8.1 11.4 9 11.4s1.6.8 1.6 1.8S9.9 15 9 15zm6 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.6.8 1.6 1.8S15.9 15 15 15z"/></svg>
       </span>
       <div>
-        <h3 class="discord-title">Talk to the team on Discord</h3>
-        <p class="discord-desc">Where readers, builders, and librarians hang out — and the fastest way to reach the Hardcover team directly.</p>
+        <h3 class="discord-title">{t('ui.landing.community.discordTitle')}</h3>
+        <p class="discord-desc">{t('ui.landing.community.discordDescription')}</p>
       </div>
     </div>
     <a class="discord-btn" href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">

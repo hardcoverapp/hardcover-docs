@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ProjectDetail, ArrowIcon } from './ProjectDetail';
+import { useTranslation as t } from '@/lib/utils';
 import type { ShowcaseProject } from './types';
 
 /**
@@ -17,7 +18,7 @@ export function ProjectPage({ project }: { project: ShowcaseProject }) {
         <span className="inline-grid place-items-center [transform:scaleX(-1)]">
           <ArrowIcon size={14} />
         </span>
-        All projects
+        {t('ui.showcase.detail.allProjects')}
       </a>
 
       <div className="flex flex-col overflow-hidden rounded-[18px] border border-border bg-[var(--hc-paper)] shadow-hc">

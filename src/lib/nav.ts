@@ -6,10 +6,13 @@ export function isExternal(href: string): boolean {
     return /^https?:\/\//i.test(href);
 }
 
-/** Top-level section links, shared by the header nav and the mobile menu. */
+/**
+ * Top-level section links, shared by the header nav and the mobile menu.
+ * `labelKey` is resolved by the consumer so it can pass the current locale.
+ */
 export const NAV_LINKS = [
-    {label: 'Guides', href: '/api/guides'},
-    {label: 'API Reference', href: '/api/graphql/schemas'},
-    {label: 'Librarians', href: '/librarians/getting-started'},
-    {label: 'Showcase', href: '/showcase'},
+    {labelKey: 'ui.nav.guides', href: '/api/guides'},
+    {labelKey: 'ui.nav.apiReference', href: '/api/graphql/schemas'},
+    {labelKey: 'ui.nav.librarians', href: '/librarians/getting-started'},
+    {labelKey: 'ui.nav.showcase', href: '/showcase'},
 ] as const;

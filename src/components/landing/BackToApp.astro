@@ -6,19 +6,23 @@
  */
 import { URLS } from '@/Consts';
 import SocialIcons from '@/components/SocialIcons.astro';
+import { useTranslation } from '@/lib/utils';
+
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
 ---
 
 <div class="backapp not-content">
   <div class="backapp-left">
-    <span class="backapp-text">Just here to read? Head back to the app.</span>
+    <span class="backapp-text">{t('ui.landing.backToApp.text')}</span>
     <a class="backapp-btn" href={URLS.APP} target="_blank" rel="noreferrer noopener">
       <svg class="backapp-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-      Back to Hardcover app
+      {t('ui.landing.backToApp.button')}
     </a>
   </div>
 
   <div class="backapp-right">
-    <span class="backapp-find">Find us</span>
+    <span class="backapp-find">{t('ui.landing.backToApp.findUs')}</span>
     <div class="backapp-socials">
       <SocialIcons iconSize="16px" />
     </div>

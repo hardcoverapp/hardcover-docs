@@ -1,4 +1,5 @@
 ---
+import { useTranslation } from '@/lib/utils';
 import { getCollection } from 'astro:content';
 import PathCard from './PathCard.astro';
 import QuerySnippet from './QuerySnippet.astro';
@@ -20,17 +21,20 @@ const featuredProjects: ShowcaseProject[] = showcaseEntries
   .slice(0, 3);
 
 // Copy from the design mock. Link targets are best-effort to existing routes.
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
+
 const devLinks = [
-  { label: 'Getting started', href: '/api/getting-started' },
-  { label: 'Making your first request', href: '/api/getting-started/#making-your-first-request' },
-  { label: 'Authentication & tokens', href: '/api/getting-started/#getting-an-api-key' },
-  { label: 'GraphQL schema reference', href: '/api/graphql/schemas' },
+  { label: t('ui.landing.paths.dev.gettingStarted'), href: '/api/getting-started' },
+  { label: t('ui.landing.paths.dev.firstRequest'), href: '/api/getting-started/#making-your-first-request' },
+  { label: t('ui.landing.paths.dev.auth'), href: '/api/getting-started/#getting-an-api-key' },
+  { label: t('ui.landing.paths.dev.schema'), href: '/api/graphql/schemas' },
 ];
 const libLinks = [
-  { label: 'Getting started as a librarian', href: '/librarians/getting-started' },
-  { label: 'Editing standards', href: '/librarians/standards' },
-  { label: 'Merging & de-duping editions', href: '/librarians/standards/mergingstandards' },
-  { label: 'Librarian FAQ', href: '/librarians/faq' },
+  { label: t('ui.landing.paths.lib.gettingStarted'), href: '/librarians/getting-started' },
+  { label: t('ui.landing.paths.lib.standards'), href: '/librarians/standards' },
+  { label: t('ui.landing.paths.lib.merging'), href: '/librarians/standards/mergingstandards' },
+  { label: t('ui.landing.paths.lib.faq'), href: '/librarians/faq' },
 ];
 const tryChips = ['getting started', 'authentication', 'mutations', 'editions', 'librarian roles'];
 ---
@@ -40,13 +44,13 @@ const tryChips = ['getting started', 'authentication', 'mutations', 'editions', 
   <section class="hero">
     <div class="hero-copy">
       <div class="hero-badge">
-        <span class="hero-v1">v1</span> GraphQL API · the same data as the app
+        <span class="hero-v1">v1</span> {t('ui.landing.hero.badge')}
       </div>
       <h1 class="hero-title">
-        Everything you need to <em class="em-dev">build with</em> and <em class="em-lib">curate</em> Hardcover.
+        {t('ui.landing.hero.title')}<em class="em-dev">{t('ui.landing.hero.titleDev')}</em>{t('ui.landing.hero.titleAnd')}<em class="em-lib">{t('ui.landing.hero.titleLib')}</em>{t('ui.landing.hero.titleEnd')}
       </h1>
       <p class="hero-tagline">
-        The developer API and the librarian handbook for the book-tracking platform readers actually love.
+        {t('ui.landing.hero.tagline')}
       </p>
     </div>
     <QuerySnippet />
@@ -54,9 +58,9 @@ const tryChips = ['getting started', 'authentication', 'mutations', 'editions', 
 
   <!-- Search + try chips -->
   <div class="hero-search-wrap">
-    <button type="button" class="hero-search" id="hero-search" aria-label="Search the docs">
+    <button type="button" class="hero-search" id="hero-search" aria-label={t('ui.landing.hero.searchLabel')}>
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg>
-      <span class="hero-search-ph">Search the docs — endpoints, guides, fields…</span>
+      <span class="hero-search-ph">{t('ui.landing.hero.searchPlaceholder')}</span>
       <span class="hero-kbd">⌘K</span>
     </button>
     <div class="hero-chips">
@@ -78,16 +82,16 @@ const tryChips = ['getting started', 'authentication', 'mutations', 'editions', 
   <section class="paths">
     <PathCard
       kind="dev"
-      tag="For developers"
-      title="Build with the API"
-      desc="Query books, editions, and reading data over GraphQL — authentication, schema, and recipes."
+      tag={t('ui.landing.paths.dev.tag')}
+      title={t('ui.landing.paths.dev.title')}
+      desc={t('ui.landing.paths.dev.description')}
       links={devLinks}
     />
     <PathCard
       kind="lib"
-      tag="For librarians"
-      title="Curate the library"
-      desc="Help keep book data accurate for everyone. Editing standards, roles, and the tools that keep the catalog clean."
+      tag={t('ui.landing.paths.lib.tag')}
+      title={t('ui.landing.paths.lib.title')}
+      desc={t('ui.landing.paths.lib.description')}
       links={libLinks}
     />
   </section>

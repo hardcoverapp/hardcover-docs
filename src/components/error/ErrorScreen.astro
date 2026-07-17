@@ -4,6 +4,7 @@
  * splash page, so the site header and the marketing footer come from the layout —
  * this component owns everything between them.
  */
+import { useTranslation } from '@/lib/utils';
 import { URLS } from '@/Consts';
 
 interface Props {
@@ -12,34 +13,21 @@ interface Props {
 
 const { kind = '404' } = Astro.props;
 
-const ERRORS = {
-    '404': {
-        code: '404',
-        kicker: 'Page not found',
-        title: ['This page seems to be ', 'off the shelf'],
-        body: "We couldn't find what you were looking for. The link may be outdated, or the page may have moved as the docs evolved.",
-        primary: 'Back to docs home',
-        showSearch: true,
-        linksLabel: 'Popular destinations',
-    },
-    '500': {
-        code: '500',
-        kicker: 'Something went wrong',
-        title: ['A page in our ', 'story tore'],
-        body: "An unexpected error occurred on our end. It's not you — try again in a moment, and if it keeps happening, let us know in Discord.",
-        primary: 'Reload the page',
-        showSearch: false,
-        linksLabel: 'While you wait',
-    },
-} as const;
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
 
-const error = ERRORS[kind];
+// Which ui.json branch the copy comes from; the rest differs per screen.
+const scope = kind === '404' ? 'ui.error.notFound' : 'ui.error.serverError';
+const error = {
+    code: kind,
+    showSearch: kind === '404',
+};
 
 const HELP_LINKS = [
-    {icon: 'compass', title: 'Quickstart', desc: 'First query in 5 minutes', href: '/api/getting-started'},
-    {icon: 'code', title: 'API Reference', desc: 'Full GraphQL schema', href: '/api/graphql/schemas'},
-    {icon: 'book', title: 'Guides', desc: 'Walkthroughs & recipes', href: '/api/guides'},
-    {icon: 'spark', title: 'Showcase', desc: 'Community-built apps', href: '/showcase'},
+    {icon: 'compass', key: 'quickstart', href: '/api/getting-started'},
+    {icon: 'code', key: 'apiReference', href: '/api/graphql/schemas'},
+    {icon: 'book', key: 'guides', href: '/api/guides'},
+    {icon: 'spark', key: 'showcase', href: '/showcase'},
 ];
 ---
 
@@ -53,43 +41,43 @@ const HELP_LINKS = [
         <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
             <path d="M8 0c.4 3.6 1.4 4.6 5 5-3.6.4-4.6 1.4-5 5-.4-3.6-1.4-4.6-5-5 3.6-.4 4.6-1.4 5-5z"/>
         </svg>
-        {error.kicker}
+        {t(`${scope}.kicker`)}
     </div>
 
-    <h1 class="err-title">{error.title[0]}<em>{error.title[1]}</em></h1>
+    <h1 class="err-title">{t(`${scope}.title`)}<em>{t(`${scope}.titleAccent`)}</em></h1>
 
-    <p class="err-body">{error.body}</p>
+    <p class="err-body">{t(`${scope}.body`)}</p>
 
     <div class:list={['err-actions', {'has-search': error.showSearch}]}>
         {kind === '500' ? (
-                <button type="button" class="err-btn err-btn-primary" id="err-reload">{error.primary}</button>
+                <button type="button" class="err-btn err-btn-primary" id="err-reload">{t(`${scope}.primary`)}</button>
         ) : (
-                <a class="err-btn err-btn-primary" href="/">{error.primary}</a>
+                <a class="err-btn err-btn-primary" href="/">{t(`${scope}.primary`)}</a>
         )}
         <a class="err-btn err-btn-secondary" href={URLS.DISCORD} target="_blank" rel="noopener noreferrer">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
             </svg>
-            Ask in Discord
+            {t('ui.error.askInDiscord')}
         </a>
     </div>
 
     {error.showSearch && (
             <div class="err-search-wrap">
-                <button type="button" class="err-search" id="err-search" aria-label="Search the docs">
+                <button type="button" class="err-search" id="err-search" aria-label={t('ui.error.searchLabel')}>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"
                          aria-hidden="true">
                         <circle cx="9" cy="9" r="6"/>
                         <path d="m14 14 4 4" stroke-linecap="round"/>
                     </svg>
-                    <span class="err-search-ph">Search the docs instead…</span>
+                    <span class="err-search-ph">{t('ui.error.searchPlaceholder')}</span>
                 </button>
             </div>
     )}
 
     <div class="err-links">
-        <div class="err-links-label">{error.linksLabel}</div>
+        <div class="err-links-label">{t(`${scope}.linksLabel`)}</div>
         <div class="err-links-grid">
             {HELP_LINKS.map((link) => (
                     <a class="err-link" href={link.href}>
@@ -121,8 +109,8 @@ const HELP_LINKS = [
                     )}
                 </span>
                         <span class="err-link-text">
-                  <span class="err-link-title">{link.title}</span>
-                  <span class="err-link-desc">{link.desc}</span>
+                  <span class="err-link-title">{t(`ui.error.links.${link.key}.title`)}</span>
+                  <span class="err-link-desc">{t(`ui.error.links.${link.key}.description`)}</span>
                 </span>
                         <span class="err-link-arrow">
                   <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"

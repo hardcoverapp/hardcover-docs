@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { ShowcaseCard, isOpenSource } from './ShowcaseCard';
 import { ShowcaseModal } from './ShowcaseModal';
 import { ShowcaseFilters, type SourceFilter } from './ShowcaseFilters';
+import { useTranslation as t } from '@/lib/utils';
 import type { ShowcaseProject } from './types';
 
 interface ShowcaseGridProps {
@@ -122,25 +123,24 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
   }, [projects]);
 
   const stats: [string, string][] = [
-    [projects.length.toString(), 'projects'],
-    [availableCategories.length.toString(), 'categories'],
-    ...(totalStars > 0 ? ([[`★ ${totalStars.toLocaleString()}`, 'GitHub stars']] as [string, string][]) : []),
+    [projects.length.toString(), t('ui.showcase.stats.projects')],
+    [availableCategories.length.toString(), t('ui.showcase.stats.categories')],
+    ...(totalStars > 0 ? ([[`★ ${totalStars.toLocaleString()}`, t('ui.showcase.stats.githubStars')]] as [string, string][]) : []),
   ];
 
   return (
     <div className="not-content">
       {/* Hero */}
       <div className="inline-flex items-center gap-2 rounded-full border border-indigo-line bg-indigo-soft px-[13px] py-1.5 text-[12.5px] text-primary">
-        <Spark /> Community showcase
+        <Spark /> {t('ui.showcase.badge')}
       </div>
       <div className="mt-[22px] grid grid-cols-1 items-end gap-10 lg:grid-cols-[1.5fr_1fr]">
         <div>
           <h1 className="m-0 border-0 p-0 font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-[450] leading-[0.98] tracking-[-0.025em] text-foreground">
-            Built with <em className="italic text-primary">Hardcover</em>.
+            {t('ui.showcase.title')}<em className="italic text-primary">{t('ui.showcase.titleAccent')}</em>.
           </h1>
           <p className="m-0 mt-4 max-w-[480px] text-[16.5px] leading-[1.55] text-[var(--hc-ink-2)]">
-            Apps, scripts, and tools the community has built on the API — from e-ink displays to terminal
-            clients. Open a pull request to add yours.
+{t('ui.showcase.tagline')}
           </p>
         </div>
         <div className="flex justify-start gap-7 lg:justify-end">
@@ -170,20 +170,20 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
       {/* Rules note */}
       <div className="mt-8 flex flex-wrap items-center gap-3.5 rounded-xl border border-border bg-muted px-5 py-4">
         <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-primary">
-          <Spark /> Featured
+          <Spark /> {t('ui.showcase.rules.badge')}
         </span>
         <span className="text-[13.5px] text-[var(--hc-ink-2)]">
-          Open source · screenshots in English · usable by the community today · curated by the Hardcover team.
+{t('ui.showcase.rules.text')}
         </span>
         <a href="/showcase/submit" className="ml-auto inline-flex items-center gap-1.5 text-[13px] text-primary no-underline">
-          How to submit →
+          {t('ui.showcase.rules.link')}
         </a>
       </div>
 
       {/* Sections */}
       {totalShown === 0 ? (
         <div className="py-16 text-center text-sm text-muted-foreground">
-          No projects match.{' '}
+          {t('ui.showcase.empty.text')}{' '}
           <button
             onClick={() => {
               setSearch('');
@@ -192,14 +192,14 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
             }}
             className="cursor-pointer border-0 bg-transparent text-primary"
           >
-            Clear filters
+            {t('ui.showcase.empty.reset')}
           </button>
         </div>
       ) : (
         <>
           {featured.length > 0 && (
             <section className="mt-12">
-              <SectionHead title="Featured" sub="Team picks · open source, with screenshots" count={featured.length} />
+              <SectionHead title={t('ui.showcase.sections.featured.title')} sub={t('ui.showcase.sections.featured.subtitle')} count={featured.length} />
               <div className={gridClass}>
                 {featured.map((p) => (
                   <ShowcaseCard key={p.slug} project={p} onClick={() => handleCardClick(p)} />
@@ -209,7 +209,7 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
           )}
           {oss.length > 0 && (
             <section className="mt-12">
-              <SectionHead title="Open source" sub="Fork it, contribute, or just read the code" count={oss.length} />
+              <SectionHead title={t('ui.showcase.sections.openSource.title')} sub={t('ui.showcase.sections.openSource.subtitle')} count={oss.length} />
               <div className={gridClass}>
                 {oss.map((p) => (
                   <ShowcaseCard key={p.slug} project={p} onClick={() => handleCardClick(p)} />
@@ -219,7 +219,7 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
           )}
           {closed.length > 0 && (
             <section className="mt-12">
-              <SectionHead title="Closed source" sub="Download, sign up, or buy" count={closed.length} />
+              <SectionHead title={t('ui.showcase.sections.closedSource.title')} sub={t('ui.showcase.sections.closedSource.subtitle')} count={closed.length} />
               <div className={gridClass}>
                 {closed.map((p) => (
                   <ShowcaseCard key={p.slug} project={p} onClick={() => handleCardClick(p)} />

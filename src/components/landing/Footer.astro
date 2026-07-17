@@ -6,33 +6,37 @@
  */
 import { URLS } from '@/Consts';
 import { isExternal } from '@/lib/nav';
+import { useTranslation } from '@/lib/utils';
+
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
 import SocialIcons from '@/components/SocialIcons.astro';
 
 const columns = [
   {
-    title: 'Docs',
+    title: t('ui.footer.cols.docs.title'),
     links: [
-      { label: 'Getting started', href: '/api/getting-started' },
-      { label: 'API guides', href: '/api/guides' },
-      { label: 'GraphQL schemas', href: '/api/graphql/schemas' },
-      { label: 'Librarian guide', href: '/librarians/getting-started' },
+      { label: t('ui.footer.cols.docs.gettingStarted'), href: '/api/getting-started' },
+      { label: t('ui.footer.cols.docs.apiGuides'), href: '/api/guides' },
+      { label: t('ui.footer.cols.docs.graphqlSchemas'), href: '/api/graphql/schemas' },
+      { label: t('ui.footer.cols.docs.librarianGuide'), href: '/librarians/getting-started' },
     ],
   },
   {
-    title: 'Community',
+    title: t('ui.footer.cols.community.title'),
     links: [
-      { label: 'Showcase', href: '/showcase' },
-      { label: 'Discord', href: URLS.DISCORD },
-      { label: 'GitHub', href: URLS.GITHUB },
-      { label: 'Contribute', href: '/contributing' },
+      { label: t('ui.footer.cols.community.showcase'), href: '/showcase' },
+      { label: t('ui.footer.cols.community.discord'), href: URLS.DISCORD },
+      { label: t('ui.footer.cols.community.github'), href: URLS.GITHUB },
+      { label: t('ui.footer.cols.community.contribute'), href: '/contributing' },
     ],
   },
   {
-    title: 'Hardcover',
+    title: t('ui.footer.cols.hardcover.title'),
     links: [
-      { label: 'Open the app', href: URLS.APP },
-      { label: 'Download for iOS', href: URLS.APP_STORE },
-      { label: 'Download for Android', href: URLS.PLAY_STORE },
+      { label: t('ui.footer.cols.hardcover.openTheApp'), href: URLS.APP },
+      { label: t('ui.footer.cols.hardcover.downloadIos'), href: URLS.APP_STORE },
+      { label: t('ui.footer.cols.hardcover.downloadAndroid'), href: URLS.PLAY_STORE },
     ],
   },
 ];
@@ -52,16 +56,16 @@ const year = new Date().getFullYear();
           </span>
         </div>
         <p class="footer-tagline">
-          The book-tracking platform for readers. Build with the API, or help curate the world's library.
+          {t('ui.footer.tagline')}
         </p>
         <div class="footer-apps">
           <a class="footer-app" href={URLS.APP_STORE} target="_blank" rel="noreferrer noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 12.3c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9 .7 1.1 1.6 2.3 2.7 2.2 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7c1.2 0 1.9-1.1 2.6-2.2.8-1.2 1.2-2.4 1.2-2.5-.1 0-2.2-.9-2.2-3.3zM15.3 5.3c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.6.6-1 1.6-.9 2.6 1 .1 1.9-.5 2.5-1.2z"/></svg>
-            App Store
+            {t('ui.footer.appStore')}
           </a>
           <a class="footer-app" href={URLS.PLAY_STORE} target="_blank" rel="noreferrer noopener">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3 13 12 3.6 21.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1zM14.7 13.7l2.4 2.4-9.6 5.5zM17.8 10.6l3 1.7c.7.4.7 1.4 0 1.8l-3 1.7-2.7-2.6zM7.5 2.4l9.6 5.5-2.4 2.4z"/></svg>
-            Google Play
+            {t('ui.footer.googlePlay')}
           </a>
         </div>
       </div>
@@ -85,7 +89,7 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-bottom">
-      <span class="footer-copy">© {year} Hardcover · Built with Astro + Starlight</span>
+      <span class="footer-copy">© {year} {t('ui.footer.copyright')}</span>
       <div class="footer-social"><SocialIcons iconSize="15px" /></div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { getCategoryIcon, hueFromName, isOpenSource } from './ShowcaseCard';
+import { useTranslation as t } from '@/lib/utils';
 import type { ShowcaseProject, ShowcaseLink } from './types';
 
 /**
@@ -135,7 +136,7 @@ export function ProjectDetail({
       ? `github.com/${repoPath(githubLink.url)}`
       : primaryLink
         ? hostname(primaryLink.url)
-        : "Visit the developer's site";
+        : t('ui.showcase.detail.visitDeveloperSite');
 
   const handleShare = async () => {
     const url = `${window.location.origin}/showcase/${project.slug}`;
@@ -159,13 +160,13 @@ export function ProjectDetail({
                 <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                   <path d="M8 0c.4 3.6 1.4 4.6 5 5-3.6.4-4.6 1.4-5 5-.4-3.6-1.4-4.6-5-5 3.6-.4 4.6-1.4 5-5z" />
                 </svg>
-                Featured
+                {t('ui.showcase.card.featured')}
               </span>
             )}
             {oss ? (
               <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-soft px-[9px] py-[3px] text-[11px] font-semibold uppercase tracking-[0.03em] text-primary">
                 <GitHubIcon size={12} />
-                OSS
+                {t('ui.showcase.card.oss')}
                 {stars != null && (
                   <span className="font-medium opacity-70">
                     {' · ★'}
@@ -179,7 +180,7 @@ export function ProjectDetail({
                   <rect x="1.5" y="5.5" width="7" height="5.5" rx="0.5" />
                   <path d="M3 5.5V3.5a2 2 0 0 1 4 0v2" />
                 </svg>
-                Closed
+                {t('ui.showcase.card.closed')}
               </span>
             )}
           </div>
@@ -191,17 +192,17 @@ export function ProjectDetail({
             >
               {project.name.charAt(0).toUpperCase()}
             </span>
-            <span className="text-[13px] text-[var(--hc-ink-2)]">by {byHandle}</span>
+            <span className="text-[13px] text-[var(--hc-ink-2)]">{t('ui.showcase.detail.by')} {byHandle}</span>
           </div>
         </div>
         <div className="flex flex-shrink-0 gap-2">
           <button
             onClick={handleShare}
             className="inline-flex h-[34px] items-center gap-1.5 rounded-[9px] border border-border bg-card px-[13px] text-[12.5px] font-medium text-foreground transition-colors hover:border-indigo-line"
-            title="Copy link to this project"
+            title={t('ui.showcase.detail.shareTitle')}
           >
             <ArrowIcon size={14} />
-            {copied ? 'Copied!' : 'Share'}
+            {copied ? t('ui.showcase.detail.copied') : t('ui.showcase.detail.share')}
           </button>
           {actions}
         </div>
@@ -220,7 +221,7 @@ export function ProjectDetail({
                   setZoomOpen(true);
                 }}
                 className="block h-full w-full cursor-zoom-in"
-                aria-label="View screenshot larger"
+                aria-label={t('ui.showcase.detail.viewLarger')}
               >
                 <img
                   src={screenshots[previewIndex].src}
@@ -234,7 +235,7 @@ export function ProjectDetail({
                     type="button"
                     onClick={() => setPreviewIndex((i) => (i === 0 ? screenshots.length - 1 : i - 1))}
                     className="absolute left-2.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
-                    aria-label="Previous screenshot"
+                    aria-label={t('ui.showcase.detail.previousScreenshot')}
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
                   </button>
@@ -242,7 +243,7 @@ export function ProjectDetail({
                     type="button"
                     onClick={() => setPreviewIndex((i) => (i === screenshots.length - 1 ? 0 : i + 1))}
                     className="absolute right-2.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
-                    aria-label="Next screenshot"
+                    aria-label={t('ui.showcase.detail.nextScreenshot')}
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                   </button>
@@ -266,7 +267,7 @@ export function ProjectDetail({
 
         {/* Categories */}
         <div className="mt-5">
-          <SectionLabel>Categories</SectionLabel>
+          <SectionLabel>{t('ui.showcase.detail.categories')}</SectionLabel>
           <div className="flex flex-wrap gap-1.5">
             {project.categories.map((category) => (
               <button
@@ -285,7 +286,7 @@ export function ProjectDetail({
         {/* Tags */}
         {project.tags && project.tags.length > 0 && (
           <div className="mt-[18px]">
-            <SectionLabel>Tags</SectionLabel>
+            <SectionLabel>{t('ui.showcase.detail.tags')}</SectionLabel>
             <div className="flex flex-wrap gap-1.5">
               {project.tags.map((tag) => (
                 <button
@@ -304,37 +305,37 @@ export function ProjectDetail({
 
         {/* Meta table */}
         <div className="mt-5 mb-1.5">
-          <MetaRow label="Source">
+          <MetaRow label={t('ui.showcase.detail.source')}>
             <span className="inline-flex items-center gap-2">
               <span className={`h-[7px] w-[7px] rounded-full ${oss ? 'bg-primary' : 'bg-closed'}`} />
               {oss
-                ? 'Open source — fork it, contribute, or read the code'
-                : 'Closed source — listed for discoverability, not vetted by Hardcover'}
+                ? t('ui.showcase.detail.sourceOpen')
+                : t('ui.showcase.detail.sourceClosed')}
             </span>
           </MetaRow>
-          <MetaRow label="Created by">
+          <MetaRow label={t('ui.showcase.detail.createdBy')}>
             <span className="inline-flex items-center gap-2">
               {project.author.github && <GitHubIcon size={14} />}
               {byHandle}
             </span>
           </MetaRow>
-          {oss && stars != null && <MetaRow label="GitHub stars">★ {stars.toLocaleString()}</MetaRow>}
-          <MetaRow label="Date added">{formatDate(project.dateAdded)}</MetaRow>
+          {oss && stars != null && <MetaRow label={t('ui.showcase.detail.githubStars')}>★ {stars.toLocaleString()}</MetaRow>}
+          <MetaRow label={t('ui.showcase.detail.dateAdded')}>{formatDate(project.dateAdded)}</MetaRow>
           {lastActivity && (
-            <MetaRow label={oss ? 'Last repo activity' : 'Last updated'}>
+            <MetaRow label={oss ? t('ui.showcase.detail.lastRepoActivity') : t('ui.showcase.detail.lastUpdated')}>
               <span className="inline-flex items-center gap-2">
                 {formatDate(lastActivity)}
                 {isActive && (
                   <span className="inline-flex items-center gap-1.5 text-[12px] text-[var(--hc-ink-3)]">
                     · <span className="h-1.5 w-1.5 rounded-full bg-[#6fb088]" />
-                    active
+                    {t('ui.showcase.detail.active')}
                   </span>
                 )}
               </span>
             </MetaRow>
           )}
           {secondaryLinks.length > 0 && (
-            <MetaRow label="Links">
+            <MetaRow label={t('ui.showcase.detail.links')}>
               <div className="flex flex-wrap gap-1.5">
                 {secondaryLinks.map((link, i) => (
                   <a
@@ -369,11 +370,11 @@ export function ProjectDetail({
             {oss ? (
               <>
                 <GitHubIcon size={15} />
-                View on GitHub
+                {t('ui.showcase.detail.viewOnGitHub')}
               </>
             ) : (
               <>
-                Visit site
+                {t('ui.showcase.detail.visitSite')}
                 <ArrowIcon size={14} />
               </>
             )}
@@ -390,7 +391,7 @@ export function ProjectDetail({
                 type="button"
                 onClick={() => setZoomIndex((i) => (i === 0 ? screenshots.length - 1 : i - 1))}
                 className="absolute left-2 z-10 flex h-12 w-12 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
-                aria-label="Previous screenshot"
+                aria-label={t('ui.showcase.detail.previousScreenshot')}
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
               </button>
@@ -407,7 +408,7 @@ export function ProjectDetail({
                 type="button"
                 onClick={() => setZoomIndex((i) => (i === screenshots.length - 1 ? 0 : i + 1))}
                 className="absolute right-2 z-10 flex h-12 w-12 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
-                aria-label="Next screenshot"
+                aria-label={t('ui.showcase.detail.nextScreenshot')}
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
               </button>
