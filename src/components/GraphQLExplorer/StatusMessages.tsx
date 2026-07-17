@@ -1,7 +1,6 @@
 import {useTranslation} from "@/lib/utils.ts";
 import {Card, CardContent} from "@/components/ui/card.tsx";
 import DOMPurify from "dompurify";
-import React from "react";
 
 export const StatusMessages = (props: {
     queryStatus: 'running' | 'success' | 'error' | 'idle',

@@ -276,7 +276,7 @@ function toggleAllChildren(
 /**
  * Get common query arguments for a type
  */
-export function getCommonArgsForType(typeName: string): Record<string, string> {
+export function getCommonArgsForType(_typeName: string): Record<string, string> {
   // Common Hasura arguments
   const commonArgs: Record<string, string> = {
     limit: "number",

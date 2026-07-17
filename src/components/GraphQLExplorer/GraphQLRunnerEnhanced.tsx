@@ -37,7 +37,6 @@ export const GraphQLRunnerEnhanced = (props: {
     forcePresentation,
     locale = 'en',
     chartable = true,
-    chartConfigs,
     initialQueryType,
     showQueryTypeSelector = false,
     defaultMode = 'static',
@@ -225,8 +224,11 @@ export const GraphQLRunnerEnhanced = (props: {
       return typeof value === 'number' && !isNaN(value);
     });
 
-    // If we have numeric data and the chart is available, use chart view
-    if (numericFields.length >= 1 && chartable) {
+    // Auto-select chart only when there's something to plot. A single point is
+    // nothing to chart — and ChartResults itself refuses fewer than 2 items — so
+    // a one-row result would otherwise land on an empty "insufficient data"
+    // chart. Fall through to table/JSON in that case.
+    if (firstValue.length >= 2 && numericFields.length >= 1 && chartable) {
       return 'chart';
     }
 

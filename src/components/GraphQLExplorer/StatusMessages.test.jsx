@@ -1,4 +1,3 @@
-import React from "react";
 import { render } from "@testing-library/react";
 import { StatusMessages } from "./StatusMessages";
 import { expect, it, describe } from "vitest";

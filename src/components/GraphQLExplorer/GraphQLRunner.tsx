@@ -1,5 +1,4 @@
 import {Button} from "@/components/ui/button";
-import {Label} from "@/components/ui/label";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Textarea} from "@/components/ui/textarea";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
@@ -7,7 +6,7 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {URLS} from "@/Consts";
 import {useTranslation, getPreference, setPreference} from "@/lib/utils.ts";
 import React, {useEffect, useState} from "react";
-import {LuChartNoAxesCombined, LuChevronDown, LuChevronUp, LuCode, LuKeyRound, LuLoader, LuPlay, LuTable, LuTerminal} from "react-icons/lu";
+import {LuChartNoAxesCombined, LuCode, LuKeyRound, LuLoader, LuPlay, LuTable, LuTerminal} from "react-icons/lu";
 import {JSONResults} from "./JSONResults";
 import {StatusMessages} from "./StatusMessages";
 import {TableResults} from "./TableResults";
@@ -21,7 +20,7 @@ export const GraphQLRunner = (props: {
     chartConfigs?: any,
     locale?: string
 }) => {
-    const {description, forcePresentation, locale = 'en', chartable = true, chartConfigs} = props;
+    const {description, forcePresentation, locale = 'en', chartable = true} = props;
     let {presentation} = props;
 
     if (!presentation) {

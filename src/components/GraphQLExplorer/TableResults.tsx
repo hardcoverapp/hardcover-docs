@@ -1,6 +1,6 @@
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table.tsx";
 import {useTranslation} from "@/lib/utils.ts";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 
 export const TableResults = (props: {
     results: object,
