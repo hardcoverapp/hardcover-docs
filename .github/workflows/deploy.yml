@@ -24,11 +24,11 @@ jobs:
           # Full history so Starlight can compute git-based "last updated" dates.
           fetch-depth: 0
       - name: Set up Node from .nvmrc (Node 24 -> npm 11.11+, required for min-release-age)
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
       - name: Install, build, and upload your site output
-        uses: withastro/action@v6.1.1
+        uses: withastro/action@v6.1.2
         with:
           # withastro/action can't read .nvmrc, so keep this in sync with it
           node-version: 24
