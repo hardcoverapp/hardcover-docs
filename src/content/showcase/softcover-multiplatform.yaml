@@ -1,0 +1,63 @@
+name: "Softcover (Multiplatform)"
+slug: "softcover-multiplatform"
+summary: "Hardcover client for Android, iOS, and desktop from one Kotlin codebase"
+description: |
+  Softcover is an open-source Hardcover client that runs on Android, iOS, and desktop (Windows, macOS, Linux) from a single Kotlin Multiplatform codebase, with the UI shared across all three via Compose Multiplatform.
+
+  Features:
+  - Library organized by status: Want to Read, Currently Reading, Read, Did Not Finish, and Owned
+  - Progress tracking by page or percentage for books, and in HH:MM:SS or percentage for audiobooks
+  - Reading streak of consecutive days with logged reading, plus backdating for progress updates and finishes
+  - Focus mode reading sessions with a timer, pause/resume/stop, and inline page-progress editing
+  - Reading deadlines with a required daily pace and a forecast of when you will finish
+  - Explore trending books, an "Up next in your series" shelf, and hiding suggestions you are not interested in
+  - Catalogue search plus ISBN barcode scanning to add books straight to your library
+  - Tag editor with category-clustered suggestions drawn from your own tag vocabulary
+  - A reading-life recap with genre breakdown and author demographics, shareable as a card
+  - Offline browsing from a local cache, with progress and library changes queued and replayed once you are back online
+
+  Built on Hardcover's GraphQL API via Apollo Kotlin. Android 8.0+, iOS, and JVM desktop. Bring your own Hardcover API token, stored in each platform's secure store.
+
+  Not affiliated with, endorsed by, or sponsored by Hardcover.
+
+author:
+  name: "Cinque"
+  github: "CinqueIzumi"
+  hardcover: "Cinque"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/CinqueIzumi/Softcover"
+    type: "github"
+
+categories:
+  - "Mobile App"
+  - "Desktop App"
+
+dateAdded: 2026-07-23
+dateUpdated: 2026-07-23
+
+screenshots:
+  - src: "/showcase/softcover-multiplatform/01-reading.png"
+    alt: "Reading screen showing currently reading books with progress and a reading streak strip"
+  - src: "/showcase/softcover-multiplatform/02-library.png"
+    alt: "Library screen with books grouped by reading status"
+  - src: "/showcase/softcover-multiplatform/03-book-detail.png"
+    alt: "Book detail screen with cover, description, reading status, and progress controls"
+  - src: "/showcase/softcover-multiplatform/04-explore.png"
+    alt: "Explore screen showing trending books and series suggestions"
+
+tags:
+  - "android"
+  - "ios"
+  - "desktop"
+  - "kotlin"
+  - "kotlin-multiplatform"
+  - "compose-multiplatform"
+  - "open-source"
+
+featured: false
+
+stats:
+  githubStars: 6
+  lastPushed: "2026-07-23"
