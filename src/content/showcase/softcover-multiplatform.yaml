@@ -1,8 +1,8 @@
 name: "Softcover (Multiplatform)"
 slug: "softcover-multiplatform"
-summary: "Hardcover client for Android, iOS, and desktop from one Kotlin codebase"
+summary: "Hardcover client for Android and desktop from one Kotlin codebase"
 description: |
-  Softcover is an open-source Hardcover client that runs on Android, iOS, and desktop (Windows, macOS, Linux) from a single Kotlin Multiplatform codebase, with the UI shared across all three via Compose Multiplatform.
+  Softcover is an open-source Hardcover client that runs on Android and desktop (Windows, macOS, Linux) from a single Kotlin Multiplatform codebase, with the UI shared across both via Compose Multiplatform.
 
   Features:
   - Library organized by status: Want to Read, Currently Reading, Read, Did Not Finish, and Owned
@@ -16,7 +16,7 @@ description: |
   - A reading-life recap with genre breakdown and author demographics, shareable as a card
   - Offline browsing from a local cache, with progress and library changes queued and replayed once you are back online
 
-  Built on Hardcover's GraphQL API via Apollo Kotlin. Android 8.0+, iOS, and JVM desktop. Bring your own Hardcover API token, stored in each platform's secure store.
+  Built on Hardcover's GraphQL API via Apollo Kotlin. Android 8.0+ and JVM desktop. Bring your own Hardcover API token, stored in each platform's secure store.
 
   Not affiliated with, endorsed by, or sponsored by Hardcover.
 
@@ -49,7 +49,6 @@ screenshots:
 
 tags:
   - "android"
-  - "ios"
   - "desktop"
   - "kotlin"
   - "kotlin-multiplatform"
