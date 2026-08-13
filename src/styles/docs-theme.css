@@ -96,12 +96,27 @@
 }
 
 /* ── Tables: rounded frame, paper-2 uppercase header ─────────────── */
+/*
+ * `display: block` and `overflow-x: auto` are load-bearing, not decoration.
+ *
+ * Starlight sets both so a table wider than its column scrolls; this rule
+ * overrides the same selector, and an earlier version replaced them with
+ * `overflow: hidden` to clip children to the rounded corners. That clipped the
+ * overflow instead of scrolling it, so on narrow screens the schema tables were
+ * cut off with no way to reach the rest of the row.
+ *
+ * The radius survives regardless: any `overflow` value other than `visible`
+ * clips to the border box, so `auto` keeps the rounded frame *and* scrolls.
+ * `display: block` is what makes `overflow` apply to the table box at all.
+ */
 .sl-markdown-content table:not(:where(.not-content *)) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
     border: 1px solid var(--hc-rule);
     border-radius: 10px;
     border-collapse: separate;
     border-spacing: 0;
-    overflow: hidden;
 }
 .sl-markdown-content table:not(:where(.not-content *)) th {
     background: var(--hc-paper-2);

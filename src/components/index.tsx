@@ -57,12 +57,10 @@ import { Textarea } from "./ui/textarea";
 // import { Tooltip } from "./ui/tooltip";
 
 /** API Explorer components */
-// import { ChartResults } from "./GraphQLExplorer/ChartResults" /** Internal component to GraphQLRunner, most contributors should not need this */
 // import { GraphQLExplorer } from "./GraphQLExplorer/GraphQLExplorer"; /** Currently not a react component but an astro component */
-import { GraphQLRunner } from "./GraphQLExplorer/GraphQLRunner";
-import { JSONResults } from "./GraphQLExplorer/JSONResults";    /** Internal component to GraphQLRunner, most contributors should not need this */
-import { StatusMessages } from "./GraphQLExplorer/StatusMessages"; /** Internal component to GraphQLRunner, most contributors should not need this */
-import { TableResults } from "./GraphQLExplorer/TableResults"; /** Internal component to GraphQLRunner, most contributors should not need this */
+import { ChartResults } from "./GraphQLExplorer/ui/results/ChartResults"; /** Internal to the explorer, most contributors should not need this */
+import { JSONResults } from "./GraphQLExplorer/ui/results/JSONResults";   /** Internal to the explorer, most contributors should not need this */
+import { TableResults } from "./GraphQLExplorer/ui/results/TableResults"; /** Internal to the explorer, most contributors should not need this */
 
 /**
  * Doc Banner components
@@ -96,9 +94,8 @@ export const Components = {
         Textarea,
     },
     GraphQL: {
-        GraphQLRunner,
+        ChartResults,
         JSONResults,
-        StatusMessages,
         TableResults,
     },
     banners: {

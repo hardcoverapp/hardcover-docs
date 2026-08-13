@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { LuChevronDown, LuChevronRight } from "react-icons/lu";
-import type { SelectedField } from "@/lib/queryBuilderUtils";
-import { isScalarType, extractBaseType } from "@/lib/queryBuilderUtils";
-import { QUERY_BUILDER } from "@/Consts";
+import type { SelectedField } from "../lib/queryBuilderUtils";
+import { isScalarType, extractBaseType } from "../lib/queryBuilderUtils";
+import { QUERY_BUILDER } from "../lib/config";
 import { useTranslation } from "@/lib/utils";
+import { useExplorerLocale } from "../useExplorer";
 
 interface FieldTreeProps {
   fields: SelectedField[];
   onFieldToggle: (path: string[]) => void;
   path?: string[];
   level?: number;
-  locale?: string;
 }
 
 export function FieldTree({
@@ -18,7 +18,6 @@ export function FieldTree({
   onFieldToggle,
   path = [],
   level = 0,
-  locale = 'en',
 }: FieldTreeProps) {
   return (
     <div className="space-y-1">
@@ -29,7 +28,6 @@ export function FieldTree({
           onFieldToggle={onFieldToggle}
           path={[...path, field.name]}
           level={level}
-          locale={locale}
         />
       ))}
     </div>
@@ -41,10 +39,10 @@ interface FieldTreeItemProps {
   onFieldToggle: (path: string[]) => void;
   path: string[];
   level: number;
-  locale?: string;
 }
 
-function FieldTreeItem({ field, onFieldToggle, path, level, locale = 'en' }: FieldTreeItemProps) {
+function FieldTreeItem({ field, onFieldToggle, path, level }: FieldTreeItemProps) {
+  const locale = useExplorerLocale();
   const [isExpanded, setIsExpanded] = useState(false); // All collapsed by default
   const hasChildren = field.children && field.children.length > 0;
   const baseType = extractBaseType(field.type);
@@ -69,16 +67,19 @@ function FieldTreeItem({ field, onFieldToggle, path, level, locale = 'en' }: Fie
         {/* Expand/Collapse Icon */}
         {hasChildren && !isAtMaxDepth ? (
           <button
+            type="button"
+            aria-expanded={isExpanded}
+            aria-label={`${isExpanded ? t('collapse') : t('expand')} ${field.name}`}
             onClick={(e) => {
               e.stopPropagation();
               setIsExpanded(!isExpanded);
             }}
-            className="p-0.5 rounded transition-transform hover:scale-110"
+            className="p-0.5 rounded transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
           >
             {isExpanded ? (
-              <LuChevronDown className="w-4 h-4" />
+              <LuChevronDown aria-hidden="true" className="w-4 h-4" />
             ) : (
-              <LuChevronRight className="w-4 h-4" />
+              <LuChevronRight aria-hidden="true" className="w-4 h-4" />
             )}
           </button>
         ) : hasChildren && isAtMaxDepth ? (
@@ -92,6 +93,7 @@ function FieldTreeItem({ field, onFieldToggle, path, level, locale = 'en' }: Fie
           type="checkbox"
           checked={field.selected}
           onChange={() => onFieldToggle(path)}
+          aria-label={field.name}
           className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
           onClick={(e) => e.stopPropagation()}
         />
@@ -144,7 +146,6 @@ function FieldTreeItem({ field, onFieldToggle, path, level, locale = 'en' }: Fie
           onFieldToggle={onFieldToggle}
           path={path}
           level={level + 1}
-          locale={locale}
         />
       )}
     </div>

@@ -21,7 +21,7 @@ describe("ChartResults", () => {
     });
 
     it("renders chart with nested data structure", () => {
-        const { getByText } = render(
+        const { getByText, getAllByText } = render(
             <ChartResults
                 results={{
                     user_books: [
@@ -52,8 +52,9 @@ describe("ChartResults", () => {
         );
 
         expect(getByText("Chart Results")).toBeInTheDocument();
-        // Should flatten nested structure and detect book.pages
-        expect(getByText(/book\.pages/i)).toBeInTheDocument();
+        // Should flatten nested structure and detect book.pages, shown as a
+        // formatted label rather than the raw path.
+        expect(getAllByText(/Book Pages/i).length).toBeGreaterThan(0);
     });
 
     it("detects timeseries data and shows appropriate label", () => {
@@ -140,7 +141,7 @@ describe("ChartResults", () => {
     });
 
     it("formats nested field labels correctly", () => {
-        const { getByText } = render(
+        const { getAllByText } = render(
             <ChartResults
                 results={{
                     items: [
@@ -163,7 +164,8 @@ describe("ChartResults", () => {
             />
         );
 
-        // Should format "book.stats.pages" as readable label
-        expect(getByText(/Book Stats Pages/i)).toBeInTheDocument();
+        // Should format "book.stats.pages" as a readable label. It appears in
+        // both the summary line and the legend, hence getAllByText.
+        expect(getAllByText(/Book Stats Pages/i).length).toBeGreaterThan(0);
     });
 });

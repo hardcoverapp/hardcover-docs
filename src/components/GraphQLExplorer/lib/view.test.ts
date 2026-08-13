@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { determineBestView } from './graphqlView.ts';
+import { determineBestView } from './view.ts';
 
 describe('determineBestView', () => {
     test('a single numeric row is not charted (regression: empty-chart bug)', () => {
