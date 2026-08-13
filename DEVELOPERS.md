@@ -123,11 +123,21 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
 **Parameters:**
 
 - `canTry` - A boolean value determining whether the user can run the query in the explorer. The default is `true`.
+- `chartable` - A boolean value determining whether the chart view is offered. The default is `true`.
 - `description` - A string describing the query.
 - `forcePresentation` - A boolean value determining whether the presentation options should be hidden. The default is `false`.
-- `presentation` - The default presentation of the response, either `json` or `table`. The default is `json`.
+- `presentation` - The default presentation of the response, either `json`, `table` or `chart`. When omitted, the reader's saved preference is used.
 - `query` - A string containing the GraphQL query to be displayed in the explorer.
 - `title` - A string for the title of the query shown in the explorer. The default is `Example Query`. Change this when translating the page to another language.
+
+Query builder parameters:
+
+- `canToggleMode` - A boolean value determining whether the reader can switch between the static query and the query builder. The default is `false`.
+- `defaultMode` - Either `static` or `advanced`. The default is `static`.
+- `initialQueryType` - The type the builder starts on, for example `books`.
+- `showQueryTypeSelector` - A boolean value determining whether the builder shows its type dropdown. The default is `true`.
+
+Queries containing a mutation are never runnable: the "Try it Yourself" tab is omitted entirely.
 
 **Usage:**
 

@@ -3,7 +3,7 @@ title: GraphQL Query Builder Demo
 description: Interactive demo of the new GraphQL Query Builder with Advanced mode
 ---
 
-import GraphQLExplorerEnhanced from '@/components/GraphQLExplorer/GraphQLExplorerEnhanced.astro';
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
 ## GraphQL Query Builder
 
@@ -24,7 +24,7 @@ This is a demo of the new **GraphQL Query Builder** component with both **Static
 
 This example starts in Advanced mode and allows you to explore the `books` query type.
 
-<GraphQLExplorerEnhanced
+<GraphQLExplorer
   query={`query {
   books(limit: 10) {
     id
@@ -42,7 +42,7 @@ This example starts in Advanced mode and allows you to explore the `books` query
 
 This example starts in Static mode but you can switch to Advanced to modify the query.
 
-<GraphQLExplorerEnhanced
+<GraphQLExplorer
   query={`query {
   users(limit: 5) {
     id
@@ -60,7 +60,7 @@ This example starts in Static mode but you can switch to Advanced to modify the 
 
 This example hides the query type selector (useful when you want to lock the query type).
 
-<GraphQLExplorerEnhanced
+<GraphQLExplorer
   query={`query {
   authors(limit: 10) {
     id
@@ -81,10 +81,10 @@ To use the GraphQL Query Builder in your documentation pages:
 
 ```astro
 ---
-import GraphQLExplorerEnhanced from '@/components/GraphQLExplorer/GraphQLExplorerEnhanced.astro';
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 ---
 
-<GraphQLExplorerEnhanced
+<GraphQLExplorer
   query={`query { ... }`}
   description="Your query description"
   initialQueryType="books"

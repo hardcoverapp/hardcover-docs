@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import { LuCopy, LuCheck, LuRefreshCw } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -14,26 +14,21 @@ import {
   parseQueryArguments,
   selectFieldsByNames,
   type SelectedField,
-} from "@/lib/queryBuilderUtils";
-import { QUERY_BUILDER } from "@/Consts";
+} from "../lib/queryBuilderUtils";
+import { QUERY_BUILDER } from "../lib/config";
 import { useTranslation } from "@/lib/utils";
+import { useExplorer } from "../useExplorer";
 
-interface QueryBuilderProps {
-  initialQueryType?: string;
-  initialQuery?: string;
-  onQueryChange: (query: string) => void;
-  showQueryTypeSelector?: boolean;
-  locale?: string;
-}
+export function QueryBuilder() {
+  const { config, authoredQuery, setQuery } = useExplorer();
+  const { locale, showQueryTypeSelector } = config;
 
-export function QueryBuilder({
-  initialQueryType = "books",
-  initialQuery,
-  onQueryChange,
-  showQueryTypeSelector = true,
-  locale = 'en',
-}: QueryBuilderProps) {
-  const [queryType, setQueryType] = useState(initialQueryType);
+  // Seeded from the page-authored query, not the live one: the effect below
+  // emits a new query, and seeding from that would re-enter this loop.
+  const initialQuery = authoredQuery;
+  const onQueryChange = setQuery;
+
+  const [queryType, setQueryType] = useState(config.initialQueryType ?? "books");
   const [selectedFields, setSelectedFields] = useState<SelectedField[]>([]);
   const [queryArgs, setQueryArgs] = useState<Record<string, any>>({ limit: QUERY_BUILDER.DEFAULT_LIMIT });
   const [selectedLimit, setSelectedLimit] = useState<number>(QUERY_BUILDER.DEFAULT_LIMIT);
@@ -106,24 +101,30 @@ export function QueryBuilder({
 
   const selectedCount = countSelectedFields(selectedFields);
 
+  const limitLabelId = useId();
+  const fieldsLabelId = useId();
+  const generatedLabelId = useId();
+
   return (
     <div className="space-y-4">
       {/* Query Type Selector */}
       {showQueryTypeSelector && (
-        <QueryTypeSelector value={queryType} onChange={setQueryType} locale={locale} />
+        <QueryTypeSelector value={queryType} onChange={setQueryType} />
       )}
 
       {/* Limit Selector */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <span id={limitLabelId} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           {t('resultLimit')}
-        </label>
-        <div className="flex gap-2">
+        </span>
+        <div className="flex gap-2" role="group" aria-labelledby={limitLabelId}>
           {QUERY_BUILDER.LIMIT_OPTIONS.map((limit) => (
             <button
               key={limit}
+              type="button"
+              aria-pressed={selectedLimit === limit}
               onClick={() => handleLimitChange(limit)}
-              className={`px-4 py-2 text-sm font-medium rounded-md border transition-colors ${
+              className={`px-4 py-2 text-sm font-medium rounded-md border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-1 ${
                 selectedLimit === limit
                   ? "bg-accent-600 text-white border-accent-600"
                   : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -140,17 +141,21 @@ export function QueryBuilder({
         {/* Field Selection */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span id={fieldsLabelId} className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {t('selectFields')} ({selectedCount} {t('selected')})
-            </label>
+            </span>
             <Button onClick={handleResetFields} variant="ghost" size="sm">
-              <LuRefreshCw className="w-4 h-4 mr-2" />
+              <LuRefreshCw aria-hidden="true" className="w-4 h-4 mr-2" />
               {t('reset')}
             </Button>
           </div>
-          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 bg-transparent">
+          <div
+            role="group"
+            aria-labelledby={fieldsLabelId}
+            className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 bg-transparent"
+          >
             <ScrollArea className="h-[400px] pr-4">
-              <FieldTree fields={selectedFields} onFieldToggle={handleFieldToggle} locale={locale} />
+              <FieldTree fields={selectedFields} onFieldToggle={handleFieldToggle} />
             </ScrollArea>
           </div>
         </div>
@@ -158,9 +163,9 @@ export function QueryBuilder({
         {/* Generated Query Preview */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span id={generatedLabelId} className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {t('generatedQuery')}
-            </label>
+            </span>
             <Button
               onClick={handleCopyQuery}
               variant="outline"
@@ -180,7 +185,11 @@ export function QueryBuilder({
               )}
             </Button>
           </div>
-          <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div
+            role="region"
+            aria-labelledby={generatedLabelId}
+            className="border border-gray-200 dark:border-gray-700 rounded-lg p-3"
+          >
             <ScrollArea className="h-[400px] pr-4">
               <pre className="text-sm font-mono">
                 <code className="text-gray-900 dark:text-gray-50">{generatedQuery}</code>
@@ -195,7 +204,6 @@ export function QueryBuilder({
         args={queryArgs}
         onChange={setQueryArgs}
         availableFields={selectedFields.map(f => f.name)}
-        locale={locale}
       />
     </div>
   );
