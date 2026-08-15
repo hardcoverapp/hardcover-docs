@@ -1,0 +1,62 @@
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Code } from 'astro-expressive-code/components';
+import { extractSection } from '@/lib/codeExamples/codeSnippets';
+import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
+import { loadManifests, type Entry } from '@/lib/codeExamples/loadManifests';
+
+const rawFiles = import.meta.glob('/src/examples/**/*', {
+  query: '?raw', import: 'default', eager: true,
+}) as Record<string, string>;
+
+interface Props { dir: string; group?: string; section: string; dedent?: boolean }
+const { dir, group, section, dedent } = Astro.props;
+
+const manifest = loadManifests()[dir];
+if (!manifest) throw new Error(`No example.json(c) for example dir "${dir}"`);
+
+let entries: Entry[];
+if ('items' in manifest) {
+  if (group) throw new Error(`${dir}/example.json uses flat "items" (no groups) — remove group="${group}"`);
+
+  entries = manifest.items;
+} else {
+  if (!group) {
+    throw new Error(`${dir}/example.json defines groups — pass group= explicitly (available: ${Object.keys(manifest.groups).join(', ')})`);
+  }
+
+  const found = manifest.groups[group];
+  if (!found) throw new Error(`No group "${group}" in ${dir}/example.json (available: ${Object.keys(manifest.groups).join(', ')})`);
+
+  entries = found;
+}
+
+const resolved = entries.map((entry) => {
+  const { file } = entry;
+  const meta = resolveMeta(entry, `used by ${dir}/${file}`);
+  const source = rawFiles[`/src/examples/${dir}/${file}`];
+  if (!source) throw new Error(`${dir}/example.json references missing file "${file}"`);
+
+  let code: string;
+  try {
+    code = extractSection(source, section, { dedent });
+  } catch {
+    throw new Error(`Section "${section}" not found in ${dir}/${file}${group ? ` (group "${group}")` : ''}`);
+  }
+
+  return { ...meta, file, code };
+});
+---
+
+{resolved.length > 1 ? (
+  <Tabs syncKey="lang">
+    {resolved.map((item) => (
+      <TabItem label={item.label}>
+        <Code code={item.code} lang={item.lang} />
+      </TabItem>
+    ))}
+  </Tabs>
+) : (
+  <Code code={resolved[0].code} lang={resolved[0].lang} />
+)}
+

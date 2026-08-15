@@ -1,0 +1,8 @@
+{
+  "js": { "label": "JavaScript", "lang": "js" },
+  "js-node": { "label": "JavaScript (node)", "lang": "js" },
+  "python": { "label": "Python", "lang": "python" },
+  "ruby": { "label": "Ruby", "lang": "ruby" },
+  "go": { "label": "Go", "lang": "go" },
+  "graphql": { "label": "GraphQL", "lang": "graphql" }
+}
