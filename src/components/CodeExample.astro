@@ -23,4 +23,4 @@ if (!source) throw new Error(`Example file not found: ${file}`);
 const code = section ? extractSection(source, section, { dedent }) : source;
 ---
 
-<Code code={code} lang={lang ?? file.split(".").pop()} title={title ?? file} />
+<Code code={code} lang={lang ?? file.split(".").pop()} title={title} />

@@ -5,6 +5,14 @@ category: guide
 layout: /src/layouts/documentation.astro
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 import CodeExample from '@/components/CodeExample.astro';
 
-<CodeExample file="test/get-books.js" section="fetchBooks" />
+<Tabs syncKey="lang">
+  <TabItem label="JavaScript">
+    <CodeExample file="test/get-books.js" section="fetchBooks" />
+  </TabItem>
+  <TabItem label="Python">
+    <CodeExample file="test/get_books.py" section="fetchBooks" />
+  </TabItem>
+</Tabs>
