@@ -7,16 +7,25 @@ const rawFiles = import.meta.glob("/src/examples/**/*", {
   eager: true,
 }) as Record<string, string>;
 
-const MIME: Record<string, string> = {
-  js: "text/javascript",
+// mrmime (a tiny wrapper around the mime-db dataset)
+import { lookup } from "mrmime";
+
+// mrmime has a few wrong entries for programming languages, since they ware not registered
+// so this is a list of overrides
+const MIME_OVERRIDES: Record<string, string> = {
   ts: "text/typescript",
   py: "text/x-python",
+  rb: "text/x-ruby",
+  go: "text/x-go",
+  rs: "text/x-rust",
+  php: "text/x-php",
   graphql: "application/graphql",
-  css: "text/css",
-  html: "text/html",
-  json: "application/json",
   sh: "application/x-sh",
 };
+
+function mimeFor(ext: string): string {
+  return MIME_OVERRIDES[ext] ?? lookup(ext) ?? "text/plain";
+}
 
 export async function getStaticPaths() {
   // Enumerate only files a manifest actually lists
@@ -37,6 +46,6 @@ export const GET: APIRoute = ({ params }) => {
   // This renders inline as a plain page (GitHub's "Raw" view, not a download prompt), so a reader
   // can read/select/copy from it directly, or hit Ctrl+S themselves if they actually want the file saved.
   return new Response(source, {
-    headers: { "Content-Type": `${MIME[ext] ?? "text/plain"}; charset=utf-8` },
+    headers: { "Content-Type": `${mimeFor(ext)}; charset=utf-8` },
   });
 };
