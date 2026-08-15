@@ -5,7 +5,9 @@ category: guide
 layout: /src/layouts/documentation.astro
 ---
 
+import { bindExamples } from '@/lib/codeExamples/bindExamples';
+export const Examples = bindExamples('test');
 
-import CodeExampleGroup from '@/components/CodeExampleGroup.astro';
+<Examples section="setup" />
 
-<CodeExampleGroup dir="test" section="fetchBooks" />
+<Examples section="fetchBooks" />
