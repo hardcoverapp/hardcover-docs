@@ -1,0 +1,26 @@
+---
+import { Code } from "astro-expressive-code/components";
+import { extractSection } from "@/lib/codeSnippets";
+
+const files = import.meta.glob("/src/examples/**/*", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
+
+interface Props {
+  file: string;
+  section?: string;
+  dedent?: boolean;
+  lang?: string;
+  title?: string;
+}
+const { file, section, dedent, lang, title } = Astro.props;
+const source = files[`/src/examples/${file}`];
+
+if (!source) throw new Error(`Example file not found: ${file}`);
+
+const code = section ? extractSection(source, section, { dedent }) : source;
+---
+
+<Code code={code} lang={lang ?? file.split(".").pop()} title={title ?? file} />
