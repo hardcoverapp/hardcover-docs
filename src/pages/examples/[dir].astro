@@ -27,7 +27,7 @@ const groupedEntries = 'items' in manifest
   : Object.entries(manifest.groups);
 ---
 
-<StarlightPage frontmatter={{ title: dir, tableOfContents: false }}>
+<StarlightPage frontmatter={{ title: manifest.name ?? dir, tableOfContents: false }}>
   {groupedEntries.map(([groupLabel, entries]) => (
     <section id={groupLabel || undefined}>
       {groupLabel && <h2>{groupLabel}</h2>}
