@@ -20,15 +20,23 @@ export function validateExamples(): Issue[] {
     return [{ severity: "error", message: (e as Error).message }];
   }
 
-  // Group every non-manifest file under src/examples/*/ by directory, so
-  // "file exists on disk but isn't listed anywhere" can be checked below.
+  // Group every non-manifest file under src/examples/<dir>/ (any depth) by
+  // its top-level example directory, so "file exists on disk but isn't
+  // listed anywhere" can be checked below. Split on the *first* segment
+  // after the root, not the last two.
+  // a nested file like "mygo/cmd/main.go" has dir "mygo", file "cmd/main.go".
+  const EXAMPLES_ROOT = "/src/examples/";
   const rawFilePaths = Object.keys(
-    import.meta.glob("/src/examples/*/*", { eager: true }),
+    import.meta.glob("/src/examples/**/*", { eager: true }),
   );
   const filesByDir = new Map<string, string[]>();
   for (const path of rawFilePaths) {
-    const dir = path.split("/").at(-2)!;
-    const file = path.split("/").at(-1)!;
+    const rel = path.slice(EXAMPLES_ROOT.length);
+    const slash = rel.indexOf("/");
+    if (slash === -1) continue; // stray file directly under src/examples/, e.g. languages.jsonc
+
+    const dir = rel.slice(0, slash);
+    const file = rel.slice(slash + 1);
     if (file === "example.json" || file === "example.jsonc") continue;
 
     (filesByDir.get(dir) ?? filesByDir.set(dir, []).get(dir)!).push(file);
@@ -47,6 +55,12 @@ export function validateExamples(): Issue[] {
         : Object.entries(manifest.groups);
 
     for (const [groupLabel, entries] of groupedEntries) {
+      if (entries.length === 0) {
+        issues.push({
+          severity: "error",
+          message: `${dir}/example.json (${groupLabel}): empty -- must list at least one entry`,
+        });
+      }
       for (const entry of entries) {
         const { file } = entry;
         // Inline entries ({ label, lang, file }) skip this check entirely,
