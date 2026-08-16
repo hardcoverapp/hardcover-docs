@@ -4,11 +4,10 @@ import { Code } from 'astro-expressive-code/components';
 import { extractSection } from '@/lib/codeExamples/codeSnippets';
 import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
 import { loadManifests, type Entry } from '@/lib/codeExamples/loadManifests';
+import { loadRawFiles } from '@/lib/codeExamples/loadRawFiles';
 import CodeExampleViewLink from './CodeExampleViewLink.astro';
 
-const rawFiles = import.meta.glob('/src/examples/**/*', {
-  query: '?raw', import: 'default', eager: true,
-}) as Record<string, string>;
+const rawFiles = loadRawFiles();
 
 interface Props { dir: string; group?: string; section: string; dedent?: boolean; showViewLink?: boolean }
 const { dir, group, section, dedent, showViewLink = true } = Astro.props;

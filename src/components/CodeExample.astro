@@ -1,12 +1,9 @@
 ---
 import { Code } from "astro-expressive-code/components";
 import { extractSection } from "@/lib/codeExamples/codeSnippets";
+import { loadRawFiles } from "@/lib/codeExamples/loadRawFiles";
 
-const files = import.meta.glob("/src/examples/**/*", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
+const files = loadRawFiles();
 
 interface Props {
   file: string;

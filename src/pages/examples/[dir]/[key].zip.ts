@@ -1,12 +1,9 @@
 import type { APIRoute } from "astro";
 import JSZip from "jszip";
 import { loadManifests, type Entry } from "@/lib/codeExamples/loadManifests";
+import { loadRawFiles } from "@/lib/codeExamples/loadRawFiles";
 
-const rawFiles = import.meta.glob("/src/examples/**/*", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
+const rawFiles = loadRawFiles();
 
 export async function getStaticPaths() {
   return Object.entries(loadManifests()).flatMap(([dir, manifest]) => {

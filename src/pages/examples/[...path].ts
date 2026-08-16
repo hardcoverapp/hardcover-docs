@@ -1,11 +1,8 @@
 import type { APIRoute } from "astro";
 import { loadManifests } from "@/lib/codeExamples/loadManifests";
+import { loadRawFiles } from "@/lib/codeExamples/loadRawFiles";
 
-const rawFiles = import.meta.glob("/src/examples/**/*", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
+const rawFiles = loadRawFiles();
 
 // mrmime (a tiny wrapper around the mime-db dataset)
 import { lookup } from "mrmime";

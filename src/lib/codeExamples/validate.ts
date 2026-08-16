@@ -1,6 +1,7 @@
 import { loadLanguages } from "./loadLanguages";
 import { loadManifests } from "./loadManifests";
 import { findDuplicateSectionNames } from "./codeSnippets";
+import { loadRawFiles } from "./loadRawFiles";
 
 export interface Issue {
   severity: "error" | "warning";
@@ -27,11 +28,7 @@ export function validateExamples(): Issue[] {
   // after the root, not the last two.
   // a nested file like "mygo/cmd/main.go" has dir "mygo", file "cmd/main.go".
   const EXAMPLES_ROOT = "/src/examples/";
-  const rawFiles = import.meta.glob("/src/examples/**/*", {
-    query: "?raw",
-    import: "default",
-    eager: true,
-  }) as Record<string, string>;
+  const rawFiles = loadRawFiles();
   const filesByDir = new Map<string, string[]>();
   for (const path of Object.keys(rawFiles)) {
     const rel = path.slice(EXAMPLES_ROOT.length);

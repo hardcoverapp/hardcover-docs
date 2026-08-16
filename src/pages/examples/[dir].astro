@@ -5,6 +5,7 @@ import { Code } from 'astro-expressive-code/components';
 import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
 import { loadManifests } from '@/lib/codeExamples/loadManifests';
 import { listSectionLines } from '@/lib/codeExamples/codeSnippets';
+import { loadRawFiles } from '@/lib/codeExamples/loadRawFiles';
 import CodeExampleLinks from '@/components/CodeExampleLinks.astro';
 
 export async function getStaticPaths() {
@@ -16,9 +17,7 @@ export async function getStaticPaths() {
 
 const { dir } = Astro.params;
 const { manifest } = Astro.props;
-const rawFiles = import.meta.glob('/src/examples/**/*', {
-  query: '?raw', import: 'default', eager: true,
-}) as Record<string, string>;
+const rawFiles = loadRawFiles();
 
 // Empty group label ('') for the flat-items shape
 // a directory with only one group never needs a deep link, so it doesn't need an id either.
