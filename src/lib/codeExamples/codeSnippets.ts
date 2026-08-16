@@ -29,9 +29,11 @@ export function extractSection(
   if (!dedent) return body.join("\n");
 
   // remove indents
-  const indent = Math.min(
-    ...body.filter((l) => l.trim()).map((l) => l.match(/^\s*/)![0].length),
-  );
+  const nonBlank = body.filter((l) => l.trim());
+  // Math.min() of no arguments is Infinity -- guard against a section that's
+  // only blank lines instead of silently slicing every line to ''.
+  if (nonBlank.length === 0) return body.join("\n");
+  const indent = Math.min(...nonBlank.map((l) => l.match(/^\s*/)![0].length));
   return body.map((l) => l.slice(indent)).join("\n");
 }
 

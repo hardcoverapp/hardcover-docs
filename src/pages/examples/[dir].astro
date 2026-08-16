@@ -5,7 +5,7 @@ import { Code } from 'astro-expressive-code/components';
 import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
 import { loadManifests } from '@/lib/codeExamples/loadManifests';
 import { listSectionLines } from '@/lib/codeExamples/codeSnippets';
-import CodeExampleLinks from 'src/components/CodeExampleLinks.astro';
+import CodeExampleLinks from '@/components/CodeExampleLinks.astro';
 
 export async function getStaticPaths() {
   return Object.entries(loadManifests()).map(([dir, manifest]) => ({
