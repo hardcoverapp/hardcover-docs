@@ -1,6 +1,10 @@
 import type { APIRoute } from "astro";
 import JSZip from "jszip";
-import { loadManifests, loadRawFiles, type Entry } from "@/lib/codeExamples/loaders";
+import {
+  loadManifests,
+  loadRawFiles,
+  type Entry,
+} from "@/lib/codeExamples/loaders";
 
 const rawFiles = loadRawFiles();
 
@@ -23,9 +27,16 @@ export const GET: APIRoute = async ({ params, props }) => {
   // Nested under a folder named after the key, so extracting doesn't scatter
   // files into whatever directory the reader extracted it into.
   for (const file of [entry.file, ...(entry.files ?? []), ...dirFiles]) {
-    zip.file(`${params.key}/${file}`, rawFiles[`/src/examples/${params.dir}/${file}`]);
+    zip.file(
+      `${params.key}/${file}`,
+      rawFiles[`/src/examples/${params.dir}/${file}`],
+    );
   }
-  const buffer = await zip.generateAsync({ type: "arraybuffer" });
+  const buffer = await zip.generateAsync({
+    type: "arraybuffer",
+    compressionOptions: { level: 9 },
+    compression: "DEFLATE",
+  });
   return new Response(buffer, {
     headers: {
       "Content-Type": "application/zip",
