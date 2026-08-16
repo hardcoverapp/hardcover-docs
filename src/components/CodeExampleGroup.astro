@@ -40,22 +40,13 @@ const resolved = entries.map((entry) => {
 });
 ---
 
-{resolved.length > 1 ? (
-  <Tabs syncKey="lang">
-    {resolved.map((item) => (
-      <TabItem label={item.label}>
-        <Code code={item.code} lang={item.lang} />
-        {showViewLink && (
-          <CodeExampleViewLink dir={dir} group={group} section={section} key={item.key} />
-        )}
-      </TabItem>
-    ))}
-  </Tabs>
-) : (
-  <>
-    <Code code={resolved[0].code} lang={resolved[0].lang} />
-    {showViewLink && (
-      <CodeExampleViewLink dir={dir} group={group} section={section} key={resolved[0].key} />
-    )}
-  </>
-)}
+<Tabs syncKey="lang">
+  {resolved.map((item) => (
+    <TabItem label={item.label}>
+      <Code code={item.code} lang={item.lang} />
+      {showViewLink && (
+        <CodeExampleViewLink dir={dir} group={group} section={section} key={item.key} />
+      )}
+    </TabItem>
+  ))}
+</Tabs>
