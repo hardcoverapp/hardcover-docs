@@ -45,7 +45,9 @@ const resolved = entries.map((entry) => {
     <TabItem label={item.label}>
       <Code code={item.code} lang={item.lang} />
       {showViewLink && (
-        <CodeExampleViewLink dir={dir} group={group} section={section} key={item.key} />
+        <div class="flex justify-end">
+          <CodeExampleViewLink dir={dir} group={group} section={section} key={item.key} />
+        </div>
       )}
     </TabItem>
   ))}
