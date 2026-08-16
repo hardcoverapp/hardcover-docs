@@ -5,9 +5,16 @@ category: guide
 layout: /src/layouts/documentation.astro
 ---
 
+import CodeExampleViewLink from '@/components/CodeExampleViewLink.astro';
+import CodeExampleLinks from "@/components/CodeExampleLinks.astro"
+
 import { bindExamples } from '@/lib/codeExamples/bindExamples';
 export const Examples = bindExamples('test');
 
 <Examples section="setup" />
 
 <Examples section="fetchBooks" />
+
+<CodeExampleLinks dir="test" />
+e
+<CodeExampleViewLink dir="test" />

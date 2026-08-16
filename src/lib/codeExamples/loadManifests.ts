@@ -16,7 +16,7 @@ export function loadManifests(): Record<string, Manifest> {
     const dir = path.split("/").at(-2)!;
     if (byDir[dir]) {
       throw new Error(
-        `${dir} has both example.json and example.jsonc — pick one`,
+        `${dir} has both example.json and example.jsonc - pick one`,
       );
     }
     byDir[dir] = parse(text);

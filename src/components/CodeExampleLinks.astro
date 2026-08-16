@@ -1,0 +1,32 @@
+---
+import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
+import { loadManifests, type Entry } from '@/lib/codeExamples/loadManifests';
+
+interface Props { dir: string; raw?: boolean }
+const { dir, raw } = Astro.props;
+
+const manifest = loadManifests()[dir];
+if (!manifest) throw new Error(`No example.json(c) for example dir "${dir}"`);
+
+const entries: { entry: Entry; group?: string }[] = 'items' in manifest
+  ? manifest.items.map((entry) => ({ entry }))
+  : Object.entries(manifest.groups).flatMap(([group, groupEntries]) =>
+      groupEntries.map((entry) => ({ entry, group }))
+    );
+---
+
+<h3>View {raw ? "raw" : "source"}:</h3>
+<ul>
+  {entries.map(({ entry, group }) => {
+    const meta = resolveMeta(entry, `used by ${dir}/${entry.file}`);
+    const key = 'key' in entry ? entry.key : entry.label;
+    const href = raw
+      ? `/examples/${dir}/${entry.file}`
+      : `/examples/${dir}/?${new URLSearchParams({ key })}${group ? `#${group}` : ''}`;
+    return (
+      <li>
+        <a href={href}>{meta.label}</a>
+      </li>
+    );
+  })}
+</ul>
