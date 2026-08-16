@@ -2,6 +2,7 @@ import { loadLanguages } from "./loadLanguages";
 import { loadManifests } from "./loadManifests";
 import { findDuplicateSectionNames } from "./codeSnippets";
 import { loadRawFiles } from "./loadRawFiles";
+import { toGroupList } from "./manifestEntries";
 
 export interface Issue {
   severity: "error" | "warning";
@@ -49,12 +50,10 @@ export function validateExamples(): Issue[] {
 
     // Normalize both shapes to the same [groupLabel, entries][] form, so the
     // rest of the checks don't care which one this directory uses.
-    const groupedEntries =
-      "items" in manifest
-        ? [["items", manifest.items] as const]
-        : Object.entries(manifest.groups);
+    const groupedEntries = toGroupList(manifest);
 
-    for (const [groupLabel, entries] of groupedEntries) {
+    for (const [rawGroupLabel, entries] of groupedEntries) {
+      const groupLabel = rawGroupLabel ?? "items";
       if (entries.length === 0) {
         issues.push({
           severity: "error",

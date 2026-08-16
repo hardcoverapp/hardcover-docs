@@ -1,6 +1,7 @@
 ---
 import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
 import { loadManifests, type Entry } from '@/lib/codeExamples/loadManifests';
+import { toGroupList } from '@/lib/codeExamples/manifestEntries';
 
 interface Props { dir: string; raw?: boolean }
 const { dir, raw } = Astro.props;
@@ -8,11 +9,9 @@ const { dir, raw } = Astro.props;
 const manifest = loadManifests()[dir];
 if (!manifest) throw new Error(`No example.json(c) for example dir "${dir}"`);
 
-const entries: { entry: Entry; group?: string }[] = 'items' in manifest
-  ? manifest.items.map((entry) => ({ entry }))
-  : Object.entries(manifest.groups).flatMap(([group, groupEntries]) =>
-      groupEntries.map((entry) => ({ entry, group }))
-    );
+const entries: { entry: Entry; group?: string }[] = toGroupList(manifest).flatMap(
+  ([group, groupEntries]) => groupEntries.map((entry) => ({ entry, group: group ?? undefined }))
+);
 ---
 
 <h3>View {raw ? "raw" : "source"}:</h3>

@@ -6,6 +6,7 @@ import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
 import { loadManifests } from '@/lib/codeExamples/loadManifests';
 import { listSectionLines } from '@/lib/codeExamples/codeSnippets';
 import { loadRawFiles } from '@/lib/codeExamples/loadRawFiles';
+import { toGroupList } from '@/lib/codeExamples/manifestEntries';
 import CodeExampleLinks from '@/components/CodeExampleLinks.astro';
 
 export async function getStaticPaths() {
@@ -19,15 +20,15 @@ const { dir } = Astro.params;
 const { manifest } = Astro.props;
 const rawFiles = loadRawFiles();
 
-// Empty group label ('') for the flat-items shape
-// a directory with only one group never needs a deep link, so it doesn't need an id either.
-const groupedEntries = 'items' in manifest
-  ? ([['', manifest.items]] as const)
-  : Object.entries(manifest.groups);
+// null group label for the flat-items shape -- a directory with only one
+// group never needs a deep link, so it doesn't need an id either. `null` is
+// falsy the same way '' was, so id={groupLabel || undefined} and
+// {groupLabel && <h2>} below still work unchanged.
+const groupedEntries = toGroupList(manifest);
 
 for (const [groupLabel, entries] of groupedEntries) {
   if (entries.length === 0) {
-    throw new Error(`${dir}/example.json (${groupLabel || 'items'}): empty -- must list at least one entry`);
+    throw new Error(`${dir}/example.json (${groupLabel ?? 'items'}): empty -- must list at least one entry`);
   }
 }
 ---
