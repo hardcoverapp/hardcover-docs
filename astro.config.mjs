@@ -255,7 +255,20 @@ export default defineConfig({
         title: {
             en: useTranslation('site.title', 'en'),
         }
-    }), react()],
+    }), react(),
+    {
+        name: 'validate-code-examples',
+        hooks: {
+          'astro:build:start': async () => {
+            const { validateExamples } = await import('./src/lib/codeExamples/validate.ts');
+            const issues = validateExamples();
+            for (const i of issues) (i.severity === 'error' ? console.error : console.warn)(`[code-examples] ${i.message}`);
+            const errors = issues.filter((i) => i.severity === 'error');
+            if (errors.length) throw new Error(`${errors.length} code-example error(s) -- see log above`);
+          },
+        },
+      }
+    ],
     markdown: {
         // Sätteri is Astro's default Markdown processor and does not run remark or
         // rehype plugins. Opting into the unified processor is what keeps them
