@@ -1,9 +1,11 @@
 import { parse } from "jsonc-parser";
 
-export type Entry = { file: string } & (
+export type Entry = { file: string; files?: string[] } & (
   { key: string } | { label: string; lang: string }
 );
-export type Manifest = { items: Entry[] } | { groups: Record<string, Entry[]> };
+export type Manifest = (
+  { items: Entry[] } | { groups: Record<string, Entry[]> }
+) & { files?: string[]; name?: string };
 
 export function loadManifests(): Record<string, Manifest> {
   const raw = import.meta.glob(

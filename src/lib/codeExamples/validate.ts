@@ -45,7 +45,7 @@ export function validateExamples(): Issue[] {
   const issues: Issue[] = [];
   for (const [dir, manifest] of Object.entries(manifests)) {
     const onDisk = filesByDir.get(dir) ?? [];
-    const seen = new Map<string, string>(); // file -> group label, to catch duplicates
+    const seen = new Map<string, string>(); // file -> group label ('files' for support files), to catch duplicates
 
     // Normalize both shapes to the same [groupLabel, entries][] form, so the
     // rest of the checks don't care which one this directory uses.
@@ -84,7 +84,44 @@ export function validateExamples(): Issue[] {
           });
         }
         seen.set(file, groupLabel);
+
+        // Per-entry support files (entry.files) -- same existence/duplicate
+        // checks as a regular entry file, tagged under this entry's key.
+        const entryKey = "key" in entry ? entry.key : entry.label;
+        for (const supportFile of entry.files ?? []) {
+          if (!onDisk.includes(supportFile)) {
+            issues.push({
+              severity: "error",
+              message: `${dir}/example.json (${groupLabel}): support file "${supportFile}" for "${entryKey}" does not exist`,
+            });
+          }
+          if (seen.has(supportFile)) {
+            issues.push({
+              severity: "error",
+              message: `${dir}/${supportFile} is listed in both "${seen.get(supportFile)}" and "${entryKey}"'s files`,
+            });
+          }
+          seen.set(supportFile, `${entryKey}'s files`);
+        }
       }
+    }
+
+    // Directory-wide support files (manifest.files) -- shared across every
+    // entry regardless of language, e.g. a README.
+    for (const file of manifest.files ?? []) {
+      if (!onDisk.includes(file)) {
+        issues.push({
+          severity: "error",
+          message: `${dir}/example.json: support file "${file}" does not exist`,
+        });
+      }
+      if (seen.has(file)) {
+        issues.push({
+          severity: "error",
+          message: `${dir}/${file} is listed in both "${seen.get(file)}" and "files"`,
+        });
+      }
+      seen.set(file, "files");
     }
 
     for (const file of onDisk) {
