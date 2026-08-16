@@ -34,3 +34,25 @@ export function extractSection(
   );
   return body.map((l) => l.slice(indent)).join("\n");
 }
+
+export function listSectionLines(
+  source: string,
+): Record<string, { start: number; end: number }> {
+  const lines = source.split("\n");
+  const ranges: Record<string, { start: number; end: number }> = {};
+  const openStarts = new Map<string, number>();
+
+  lines.forEach((line, i) => {
+    const s = START_RE.exec(line);
+    if (s) openStarts.set(s[1], i);
+    const e = END_RE.exec(line);
+
+    if (e && openStarts.has(e[1])) {
+      const startIdx = openStarts.get(e[1])!;
+      // 1-indexed, matching Expressive Code's line numbering; startIdx+2 skips the 0-indexed start-marker line itself.
+      ranges[e[1]] = { start: startIdx + 2, end: i };
+    }
+  });
+
+  return ranges;
+}
