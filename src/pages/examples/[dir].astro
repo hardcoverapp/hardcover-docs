@@ -85,10 +85,14 @@ for (const [groupLabel, entries] of groupedEntries) {
   const params = new URLSearchParams(location.search);
   const key = params.get('key');
   const sectionName = params.get('section');
+  // Scope the data-key lookup to the group named in the hash, if any -- two
+  // groups could otherwise reuse the same key and match the wrong section.
+  const groupId = location.hash.slice(1);
+  const scope: ParentNode = (groupId && document.getElementById(groupId)) || document;
 
   let target: HTMLElement | null = null;
   if (key) {
-    target = document.querySelector(`[data-key="${CSS.escape(key)}"]`);
+    target = scope.querySelector(`[data-key="${CSS.escape(key)}"]`);
     if (target) {
       // Click the real tab button rather than reaching into Starlight's
       // private Tabs internals - reuses its own switching/sync logic.
@@ -100,7 +104,7 @@ for (const [groupLabel, entries] of groupedEntries) {
       }
     }
   }
-  target ??= document.querySelector('[data-sections]');
+  target ??= scope.querySelector('[data-sections]');
 
   if (sectionName && target) {
     const ranges = JSON.parse(target.getAttribute('data-sections') ?? '{}');
