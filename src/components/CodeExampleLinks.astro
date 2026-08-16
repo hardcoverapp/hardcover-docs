@@ -13,13 +13,6 @@ const entries: { entry: Entry; group?: string }[] = 'items' in manifest
   : Object.entries(manifest.groups).flatMap(([group, groupEntries]) =>
       groupEntries.map((entry) => ({ entry, group }))
     );
-
-// Support files (per-entry and directory-wide) -- always raw-linked, there's
-// no in-context "view" of a go.mod to jump to.
-const supportFiles = [
-  ...entries.flatMap(({ entry }) => entry.files ?? []),
-  ...(manifest.files ?? []),
-];
 ---
 
 <h3>View {raw ? "raw" : "source"}:</h3>
@@ -36,9 +29,4 @@ const supportFiles = [
       </li>
     );
   })}
-  {supportFiles.map((file) => (
-    <li>
-      <a href={`/examples/${dir}/${file}`}>{file}</a>
-    </li>
-  ))}
 </ul>
