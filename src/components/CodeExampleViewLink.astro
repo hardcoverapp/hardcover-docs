@@ -1,0 +1,24 @@
+---
+import { loadManifests } from '@/lib/codeExamples/loadManifests';
+
+interface Props { dir: string; group?: string; key?: string; section?: string; label?: string }
+const { dir, group, key, section, label } = Astro.props;
+
+const manifest = loadManifests()[dir];
+if (!manifest) throw new Error(`No example.json(c) for example dir "${dir}"`);
+
+if (group) {
+  if ('items' in manifest) throw new Error(`${dir}/example.json uses flat "items" (no groups) - remove group="${group}"`);
+  if (!manifest.groups[group]) throw new Error(`No group "${group}" in ${dir}/example.json`);
+}
+
+const params = new URLSearchParams();
+if (key) params.set('key', key);
+if (section) params.set('section', section);
+const query = params.toString();
+
+// Query before fragment, per URL syntax — ?key=...&section=...#group
+const href = `/examples/${dir}/${query ? `?${query}` : ''}${group ? `#${group}` : ''}`;
+---
+<a href={href}>{label ?? 'View full example'}</a>
+

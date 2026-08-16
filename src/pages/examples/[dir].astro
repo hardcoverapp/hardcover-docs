@@ -1,0 +1,55 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Code } from 'astro-expressive-code/components';
+import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
+import { loadManifests } from '@/lib/codeExamples/loadManifests';
+
+export async function getStaticPaths() {
+  return Object.entries(loadManifests()).map(([dir, manifest]) => ({
+    params: { dir },
+    props: { manifest },
+  }));
+}
+
+const { dir } = Astro.params;
+const { manifest } = Astro.props;
+const rawFiles = import.meta.glob('/src/examples/**/*', {
+  query: '?raw', import: 'default', eager: true,
+}) as Record<string, string>;
+
+// Empty group label ('') for the flat-items shape
+// a directory with only one group never needs a deep link, so it doesn't need an id either.
+const groupedEntries = 'items' in manifest
+  ? ([['', manifest.items]] as const)
+  : Object.entries(manifest.groups);
+---
+
+<StarlightPage frontmatter={{ title: dir, tableOfContents: false }}>
+  {groupedEntries.map(([groupLabel, entries]) => (
+    <section id={groupLabel || undefined}>
+      {groupLabel && <h2>{groupLabel}</h2>}
+      {entries.length > 1 ? (
+        <Tabs syncKey="lang">
+          {entries.map((entry) => (
+            <TabItem label={resolveMeta(entry, `used by ${dir}/${entry.file}`).label}>
+              <p><a href={`/examples/${dir}/${entry.file}`}>View raw file</a></p>
+              <Code
+                code={rawFiles[`/src/examples/${dir}/${entry.file}`]}
+                lang={resolveMeta(entry, `used by ${dir}/${entry.file}`).lang}
+              />
+            </TabItem>
+          ))}
+        </Tabs>
+      ) : (
+        <>
+          <p><a href={`/examples/${dir}/${entries[0].file}`}>View raw file</a></p>
+          <Code
+            code={rawFiles[`/src/examples/${dir}/${entries[0].file}`]}
+            lang={resolveMeta(entries[0], `used by ${dir}/${entries[0].file}`).lang}
+          />
+        </>
+      )}
+    </section>
+  ))}
+</StarlightPage>
