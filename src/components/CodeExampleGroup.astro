@@ -32,6 +32,10 @@ if ('items' in manifest) {
   entries = found;
 }
 
+if (entries.length === 0) {
+  throw new Error(`${dir}/example.json (${group ?? 'items'}): empty -- must list at least one entry`);
+}
+
 const resolved = entries.map((entry) => {
   const { file } = entry;
   const meta = resolveMeta(entry, `used by ${dir}/${file}`);

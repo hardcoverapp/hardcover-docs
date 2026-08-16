@@ -25,6 +25,12 @@ const rawFiles = import.meta.glob('/src/examples/**/*', {
 const groupedEntries = 'items' in manifest
   ? ([['', manifest.items]] as const)
   : Object.entries(manifest.groups);
+
+for (const [groupLabel, entries] of groupedEntries) {
+  if (entries.length === 0) {
+    throw new Error(`${dir}/example.json (${groupLabel || 'items'}): empty -- must list at least one entry`);
+  }
+}
 ---
 
 <StarlightPage frontmatter={{ title: manifest.name ?? dir, tableOfContents: false }}>
