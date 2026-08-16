@@ -37,10 +37,15 @@ const groupedEntries = 'items' in manifest
             const meta = resolveMeta(entry, `used by ${dir}/${entry.file}`);
             const source = rawFiles[`/src/examples/${dir}/${entry.file}`];
             const entryKey = 'key' in entry ? entry.key : entry.label;
+            const fileCount = 1 + (entry.files?.length ?? 0) + (manifest.files?.length ?? 0);
             return (
               <TabItem label={meta.label}>
                 <div data-key={entryKey} data-sections={JSON.stringify(listSectionLines(source))}>
-                  <p><a href={`/examples/${dir}/${entry.file}`}>View raw file</a></p>
+                  <p>
+                    <a href={`/examples/${dir}/${entry.file}`}>View raw file</a>
+                    {' • '}
+                    <a href={`/examples/${dir}/${entryKey}.zip`}>Download zip ({fileCount} file{fileCount === 1 ? '' : 's'})</a>
+                  </p>
                   <Code code={source} lang={meta.lang} />
                 </div>
               </TabItem>
@@ -52,7 +57,13 @@ const groupedEntries = 'items' in manifest
           data-key={'key' in entries[0] ? entries[0].key : entries[0].label}
           data-sections={JSON.stringify(listSectionLines(rawFiles[`/src/examples/${dir}/${entries[0].file}`]))}
         >
-          <p><a href={`/examples/${dir}/${entries[0].file}`}>View raw file</a></p>
+          <p>
+            <a href={`/examples/${dir}/${entries[0].file}`}>View raw file</a>
+            {' • '}
+            <a href={`/examples/${dir}/${'key' in entries[0] ? entries[0].key : entries[0].label}.zip`}>
+              Download zip ({1 + (entries[0].files?.length ?? 0) + (manifest.files?.length ?? 0)} file{1 + (entries[0].files?.length ?? 0) + (manifest.files?.length ?? 0) === 1 ? '' : 's'})
+            </a>
+          </p>
           <Code
             code={rawFiles[`/src/examples/${dir}/${entries[0].file}`]}
             lang={resolveMeta(entries[0], `used by ${dir}/${entries[0].file}`).lang}

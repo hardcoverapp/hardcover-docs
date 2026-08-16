@@ -26,6 +26,8 @@ const entries: { entry: Entry; group?: string }[] = 'items' in manifest
     return (
       <li>
         <a href={href}>{meta.label}</a>
+        {' • '}
+        <a href={`/examples/${dir}/${key}.zip`}>zip</a>
       </li>
     );
   })}
