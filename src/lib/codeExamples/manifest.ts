@@ -1,4 +1,19 @@
-import type { Entry, Manifest } from "./loadManifests";
+import { loadLanguages, type Entry, type Manifest } from "./loaders";
+
+const languages = loadLanguages();
+
+export function resolveMeta(
+  entry: Entry,
+  context: string,
+): { label: string; lang: string } {
+  if ("key" in entry) {
+    const meta = languages[entry.key];
+    if (!meta)
+      throw new Error(`Unknown language key "${entry.key}" (${context})`);
+    return meta;
+  }
+  return { label: entry.label, lang: entry.lang };
+}
 
 // null represents the flat "items" shape -- no named group. Callers map it
 // to whatever local convention they need ('items' for messages, undefined

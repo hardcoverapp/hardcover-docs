@@ -2,11 +2,9 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import { Code } from 'astro-expressive-code/components';
-import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
-import { loadManifests } from '@/lib/codeExamples/loadManifests';
 import { listSectionLines } from '@/lib/codeExamples/codeSnippets';
-import { loadRawFiles } from '@/lib/codeExamples/loadRawFiles';
-import { toGroupList } from '@/lib/codeExamples/manifestEntries';
+import { loadManifests, loadRawFiles } from '@/lib/codeExamples/loaders';
+import { resolveMeta, toGroupList } from '@/lib/codeExamples/manifest';
 import CodeExampleLinks from '@/components/CodeExampleLinks.astro';
 
 export async function getStaticPaths() {

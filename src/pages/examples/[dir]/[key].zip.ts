@@ -1,7 +1,6 @@
 import type { APIRoute } from "astro";
 import JSZip from "jszip";
-import { loadManifests, type Entry } from "@/lib/codeExamples/loadManifests";
-import { loadRawFiles } from "@/lib/codeExamples/loadRawFiles";
+import { loadManifests, loadRawFiles, type Entry } from "@/lib/codeExamples/loaders";
 
 const rawFiles = loadRawFiles();
 

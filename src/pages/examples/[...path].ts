@@ -1,6 +1,5 @@
 import type { APIRoute } from "astro";
-import { loadManifests } from "@/lib/codeExamples/loadManifests";
-import { loadRawFiles } from "@/lib/codeExamples/loadRawFiles";
+import { loadManifests, loadRawFiles } from "@/lib/codeExamples/loaders";
 
 const rawFiles = loadRawFiles();
 

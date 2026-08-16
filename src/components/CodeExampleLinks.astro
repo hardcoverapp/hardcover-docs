@@ -1,7 +1,6 @@
 ---
-import { resolveMeta } from '@/lib/codeExamples/resolveMeta';
-import { loadManifests, type Entry } from '@/lib/codeExamples/loadManifests';
-import { toGroupList } from '@/lib/codeExamples/manifestEntries';
+import { loadManifests, type Entry } from '@/lib/codeExamples/loaders';
+import { resolveMeta, toGroupList } from '@/lib/codeExamples/manifest';
 
 interface Props { dir: string; raw?: boolean }
 const { dir, raw } = Astro.props;

@@ -1,8 +1,6 @@
-import { loadLanguages } from "./loadLanguages";
-import { loadManifests } from "./loadManifests";
+import { loadLanguages, loadManifests, loadRawFiles } from "./loaders";
 import { findDuplicateSectionNames } from "./codeSnippets";
-import { loadRawFiles } from "./loadRawFiles";
-import { toGroupList } from "./manifestEntries";
+import { toGroupList } from "./manifest";
 
 export interface Issue {
   severity: "error" | "warning";
