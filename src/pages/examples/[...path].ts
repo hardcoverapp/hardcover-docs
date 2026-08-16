@@ -28,13 +28,18 @@ function mimeFor(ext: string): string {
 }
 
 export async function getStaticPaths() {
-  // Enumerate only files a manifest actually lists
+  // Enumerate only files a manifest actually lists -- entries, their own
+  // support files, and the directory-wide support files.
   return Object.entries(loadManifests()).flatMap(([dir, manifest]) => {
     const entries =
       "items" in manifest
         ? manifest.items
         : Object.values(manifest.groups).flat();
-    return entries.map(({ file }) => ({ params: { path: `${dir}/${file}` } }));
+    const files = [
+      ...entries.flatMap((entry) => [entry.file, ...(entry.files ?? [])]),
+      ...(manifest.files ?? []),
+    ];
+    return files.map((file) => ({ params: { path: `${dir}/${file}` } }));
   });
 }
 
