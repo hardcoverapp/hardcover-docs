@@ -1,5 +1,6 @@
 import { loadLanguages } from "./loadLanguages";
 import { loadManifests } from "./loadManifests";
+import { findDuplicateSectionNames } from "./codeSnippets";
 
 export interface Issue {
   severity: "error" | "warning";
@@ -26,11 +27,13 @@ export function validateExamples(): Issue[] {
   // after the root, not the last two.
   // a nested file like "mygo/cmd/main.go" has dir "mygo", file "cmd/main.go".
   const EXAMPLES_ROOT = "/src/examples/";
-  const rawFilePaths = Object.keys(
-    import.meta.glob("/src/examples/**/*", { eager: true }),
-  );
+  const rawFiles = import.meta.glob("/src/examples/**/*", {
+    query: "?raw",
+    import: "default",
+    eager: true,
+  }) as Record<string, string>;
   const filesByDir = new Map<string, string[]>();
-  for (const path of rawFilePaths) {
+  for (const path of Object.keys(rawFiles)) {
     const rel = path.slice(EXAMPLES_ROOT.length);
     const slash = rel.indexOf("/");
     if (slash === -1) continue; // stray file directly under src/examples/, e.g. languages.jsonc
@@ -129,6 +132,19 @@ export function validateExamples(): Issue[] {
         issues.push({
           severity: "error",
           message: `${dir}/${file} exists but is not listed in example.json(c)`,
+        });
+      }
+
+      // extractSection always matches the first START/END pair for a name;
+      // listSectionLines (used for the raw-file scroll-to-section highlight)
+      // ends up with the last one instead -- so a repeated name means the
+      // rendered snippet and the highlighted region point at different
+      // places. Catch the repeat itself rather than let the two disagree.
+      const content = rawFiles[`/src/examples/${dir}/${file}`];
+      for (const name of findDuplicateSectionNames(content)) {
+        issues.push({
+          severity: "error",
+          message: `${dir}/${file}: section "${name}" defined more than once`,
         });
       }
     }

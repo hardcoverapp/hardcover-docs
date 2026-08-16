@@ -35,6 +35,15 @@ export function extractSection(
   return body.map((l) => l.slice(indent)).join("\n");
 }
 
+export function findDuplicateSectionNames(source: string): string[] {
+  const counts = new Map<string, number>();
+  for (const line of source.split("\n")) {
+    const m = START_RE.exec(line);
+    if (m) counts.set(m[1], (counts.get(m[1]) ?? 0) + 1);
+  }
+  return [...counts.entries()].filter(([, n]) => n > 1).map(([name]) => name);
+}
+
 export function listSectionLines(
   source: string,
 ): Record<string, { start: number; end: number }> {
