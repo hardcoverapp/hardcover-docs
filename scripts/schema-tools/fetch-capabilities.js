@@ -1,7 +1,7 @@
 import fs from "fs";
 
 const HOST =
-  // "https://api.hardcover.app";
+  // "https://api.hardcover.app"; TODO: change when on prod
   "https://staging-api.hardcover.app";
 
 
