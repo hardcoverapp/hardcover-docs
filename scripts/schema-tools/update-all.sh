@@ -32,7 +32,7 @@ if [ -z "$BEARER_TOKEN" ]; then
     exit 1
 fi
 
-echo "📡 Step 1/5: Fetching schema from API..."
+echo "📡 Step 1/7: Fetching schema from API..."
 cd "$ROOT_DIR"
 curl -X POST https://api.hardcover.app/v1/graphql \
   -H "Content-Type: application/json" \
@@ -48,7 +48,29 @@ fi
 echo "✓ Schema fetched successfully"
 
 echo ""
-echo "🔄 Step 2/5: Converting to SDL format..."
+echo "🔑 Step 2/7: Fetching capabilities..."
+node "$SCRIPT_DIR/fetch-capabilities.js"
+
+if [ ! -f "capabilities.json" ]; then
+    echo "❌ Failed to create capabilities.json"
+    exit 1
+fi
+
+echo "✓ Capabilities fetched"
+
+echo ""
+echo "🏷️  Step 3/7: Indexing operation scopes..."
+node "$SCRIPT_DIR/extract-capability-scopes.js"
+
+if [ ! -f "capability-scopes.json" ]; then
+    echo "❌ Failed to create capability-scopes.json"
+    exit 1
+fi
+
+echo "✓ Scopes indexed"
+
+echo ""
+echo "🔄 Step 4/7: Converting to SDL format..."
 node "$SCRIPT_DIR/convert-schema.js"
 
 if [ ! -f "schema.graphql" ]; then
@@ -59,7 +81,7 @@ fi
 echo "✓ Conversion complete"
 
 echo ""
-echo "📊 Step 3/5: Extracting schema fields..."
+echo "📊 Step 5/7: Extracting schema fields..."
 node "$SCRIPT_DIR/extract-schema-fields.js"
 
 if [ ! -f "schema-fields.json" ]; then
@@ -70,13 +92,13 @@ fi
 echo "✓ Fields extracted"
 
 echo ""
-echo "📝 Step 4/5: Generating markdown tables..."
+echo "📝 Step 6/7: Generating markdown tables..."
 node "$SCRIPT_DIR/generate-schema-tables.js"
 
 echo "✓ Tables generated"
 
 echo ""
-echo "✏️  Step 5/5: Updating documentation files..."
+echo "✏️  Step 7/7: Updating documentation files..."
 node "$SCRIPT_DIR/update-schema-docs.js"
 
 echo ""
@@ -84,6 +106,8 @@ echo "✅ All done! Schema documentation has been updated."
 echo ""
 echo "Generated files:"
 echo "  - schema.json (API introspection result)"
+echo "  - capabilities.json (OAuth scope/capability data)"
+echo "  - capability-scopes.json (operation -> required scopes index)"
 echo "  - schema.graphql (SDL format)"
 echo "  - schema-fields.json (extracted fields)"
 echo "  - schema-tables/ (markdown previews)"
