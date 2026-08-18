@@ -1,7 +1,0 @@
-{
-  "name": "fake proj",
-  "items": [
-    { "key": "js-node", "file": "get-books.js" },
-    { "key": "python", "file": "get_books.py", "files":["requirements.txt"] }
-  ]
-}
