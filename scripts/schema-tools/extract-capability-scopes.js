@@ -2,8 +2,6 @@ import fs from "fs";
 
 const capabilities = JSON.parse(fs.readFileSync("capabilities.json", "utf8"));
 
-const byName = new Map(capabilities.scopes.map((s) => [s.scope, s]));
-
 // operation -> { read: Set<scope>, write: Set<scope> }
 const index = new Map();
 
@@ -18,20 +16,11 @@ for (const scope of capabilities.scopes) {
   }
 }
 
-// Keep only the narrowest scope(s) per operation: drop a candidate if it
-// implies another candidate already covering the same operation.
-function minimalScopes(scopeNames) {
-  const names = [...scopeNames];
-  return names
-    .filter((name) => !names.some((other) => other !== name && byName.get(name).implies.includes(other)))
-    .sort();
-}
-
 const result = {};
 for (const [operation, { read, write }] of index) {
   result[operation] = {
-    read: minimalScopes(read),
-    write: minimalScopes(write),
+    read: [...read].sort(),
+    write: [...write].sort(),
   };
 }
 

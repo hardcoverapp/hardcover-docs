@@ -1,6 +1,7 @@
 {
   "authors": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -8,6 +9,7 @@
   },
   "authors_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -15,6 +17,7 @@
   },
   "book_categories": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -22,6 +25,7 @@
   },
   "book_categories_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -29,6 +33,7 @@
   },
   "book_characters": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -36,6 +41,7 @@
   },
   "book_characters_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -43,6 +49,7 @@
   },
   "book_collections": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -50,6 +57,7 @@
   },
   "book_collections_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -57,6 +65,7 @@
   },
   "book_mappings": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -64,6 +73,7 @@
   },
   "book_mappings_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -71,6 +81,7 @@
   },
   "book_series": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -78,6 +89,7 @@
   },
   "book_series_aggregate": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -85,6 +97,7 @@
   },
   "book_series_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -92,6 +105,7 @@
   },
   "book_statuses": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -99,6 +113,7 @@
   },
   "book_statuses_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -106,6 +121,7 @@
   },
   "bookles": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -113,6 +129,7 @@
   },
   "bookles_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -120,6 +137,7 @@
   },
   "books": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -127,6 +145,7 @@
   },
   "books_aggregate": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -134,6 +153,7 @@
   },
   "books_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -141,6 +161,7 @@
   },
   "books_trending": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -148,6 +169,7 @@
   },
   "characters": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -155,6 +177,7 @@
   },
   "characters_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -162,6 +185,7 @@
   },
   "contributions": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -169,6 +193,7 @@
   },
   "contributions_aggregate": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -176,6 +201,7 @@
   },
   "contributions_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -183,6 +209,7 @@
   },
   "countries": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -190,6 +217,7 @@
   },
   "countries_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -197,6 +225,7 @@
   },
   "editions": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -204,6 +233,7 @@
   },
   "editions_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -211,6 +241,7 @@
   },
   "flag_statuses": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -218,6 +249,7 @@
   },
   "flag_statuses_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -225,6 +257,7 @@
   },
   "images": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -232,6 +265,7 @@
   },
   "images_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -239,6 +273,7 @@
   },
   "languages": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -246,6 +281,7 @@
   },
   "languages_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -253,6 +289,7 @@
   },
   "links": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -260,6 +297,7 @@
   },
   "links_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -267,6 +305,7 @@
   },
   "platforms": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -274,6 +313,7 @@
   },
   "platforms_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -281,6 +321,7 @@
   },
   "privacy_settings": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -288,6 +329,7 @@
   },
   "privacy_settings_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -295,6 +337,7 @@
   },
   "publishers": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -302,6 +345,7 @@
   },
   "publishers_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -309,6 +353,7 @@
   },
   "reading_formats": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -316,6 +361,7 @@
   },
   "reading_formats_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -323,12 +369,14 @@
   },
   "search": {
     "read": [
+      "read:catalog",
       "read:catalog:search"
     ],
     "write": []
   },
   "series": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -336,6 +384,7 @@
   },
   "series_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -343,6 +392,7 @@
   },
   "tag_categories": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -350,6 +400,7 @@
   },
   "tag_categories_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -357,6 +408,7 @@
   },
   "taggable_counts": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -364,6 +416,7 @@
   },
   "taggable_counts_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -371,6 +424,7 @@
   },
   "taggings": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -378,6 +432,7 @@
   },
   "taggings_aggregate": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -385,6 +440,7 @@
   },
   "taggings_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -392,6 +448,7 @@
   },
   "tags": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -399,6 +456,7 @@
   },
   "tags_aggregate": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -406,6 +464,7 @@
   },
   "tags_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -413,6 +472,7 @@
   },
   "user_book_statuses": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -420,6 +480,7 @@
   },
   "user_book_statuses_aggregate": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -427,6 +488,7 @@
   },
   "user_book_statuses_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -434,6 +496,7 @@
   },
   "user_statuses": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -441,6 +504,7 @@
   },
   "user_statuses_by_pk": {
     "read": [
+      "read:catalog",
       "read:catalog:data",
       "read:catalog:search"
     ],
@@ -448,6 +512,7 @@
   },
   "user_book_reads": {
     "read": [
+      "read:library",
       "read:library:following",
       "read:library:private",
       "read:library:public"
@@ -456,6 +521,7 @@
   },
   "user_book_reads_aggregate": {
     "read": [
+      "read:library",
       "read:library:following",
       "read:library:private",
       "read:library:public"
@@ -464,6 +530,7 @@
   },
   "user_book_reads_by_pk": {
     "read": [
+      "read:library",
       "read:library:following",
       "read:library:private",
       "read:library:public"
@@ -472,6 +539,7 @@
   },
   "user_books": {
     "read": [
+      "read:library",
       "read:library:following",
       "read:library:private",
       "read:library:public"
@@ -480,6 +548,7 @@
   },
   "user_books_aggregate": {
     "read": [
+      "read:library",
       "read:library:following",
       "read:library:private",
       "read:library:public"
@@ -488,6 +557,7 @@
   },
   "user_books_by_pk": {
     "read": [
+      "read:library",
       "read:library:following",
       "read:library:private",
       "read:library:public"
@@ -496,6 +566,7 @@
   },
   "reading_journals": {
     "read": [
+      "read:journal",
       "read:journal:following",
       "read:journal:private",
       "read:journal:public"
@@ -504,6 +575,7 @@
   },
   "reading_journals_by_pk": {
     "read": [
+      "read:journal",
       "read:journal:following",
       "read:journal:private",
       "read:journal:public"
@@ -512,6 +584,7 @@
   },
   "reading_journals_summary": {
     "read": [
+      "read:journal",
       "read:journal:following",
       "read:journal:private",
       "read:journal:public"
@@ -520,6 +593,7 @@
   },
   "filter_list_entities": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -528,6 +602,7 @@
   },
   "filter_list_entities_aggregate": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -536,6 +611,7 @@
   },
   "filter_list_entities_by_pk": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -544,6 +620,7 @@
   },
   "filter_list_subscriptions": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -552,6 +629,7 @@
   },
   "filter_list_subscriptions_aggregate": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -560,6 +638,7 @@
   },
   "filter_list_subscriptions_by_pk": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -568,6 +647,7 @@
   },
   "filter_lists": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -576,6 +656,7 @@
   },
   "filter_lists_aggregate": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -584,6 +665,7 @@
   },
   "filter_lists_by_pk": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -592,6 +674,7 @@
   },
   "followed_lists": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -600,6 +683,7 @@
   },
   "followed_lists_by_pk": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -608,6 +692,7 @@
   },
   "list_books": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -616,6 +701,7 @@
   },
   "list_books_aggregate": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -624,6 +710,7 @@
   },
   "list_books_by_pk": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -632,6 +719,7 @@
   },
   "lists": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -640,6 +728,7 @@
   },
   "lists_aggregate": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -648,6 +737,7 @@
   },
   "lists_by_pk": {
     "read": [
+      "read:lists",
       "read:lists:following",
       "read:lists:private",
       "read:lists:public"
@@ -656,6 +746,7 @@
   },
   "goals": {
     "read": [
+      "read:goals",
       "read:goals:following",
       "read:goals:private",
       "read:goals:public"
@@ -664,6 +755,7 @@
   },
   "goals_by_pk": {
     "read": [
+      "read:goals",
       "read:goals:following",
       "read:goals:private",
       "read:goals:public"
@@ -672,7 +764,9 @@
   },
   "me": {
     "read": [
+      "read:me",
       "read:me:content",
+      "read:me:email",
       "read:me:roles"
     ],
     "write": []
@@ -763,6 +857,7 @@
   },
   "followed_prompts": {
     "read": [
+      "read:prompts",
       "read:prompts:following",
       "read:prompts:private",
       "read:prompts:public"
@@ -771,6 +866,7 @@
   },
   "followed_prompts_by_pk": {
     "read": [
+      "read:prompts",
       "read:prompts:following",
       "read:prompts:private",
       "read:prompts:public"
@@ -779,6 +875,7 @@
   },
   "prompt_answers": {
     "read": [
+      "read:prompts",
       "read:prompts:following",
       "read:prompts:private",
       "read:prompts:public"
@@ -787,6 +884,7 @@
   },
   "prompt_answers_aggregate": {
     "read": [
+      "read:prompts",
       "read:prompts:following",
       "read:prompts:private",
       "read:prompts:public"
@@ -795,6 +893,7 @@
   },
   "prompt_answers_by_pk": {
     "read": [
+      "read:prompts",
       "read:prompts:following",
       "read:prompts:private",
       "read:prompts:public"
@@ -803,6 +902,7 @@
   },
   "prompt_books_summary": {
     "read": [
+      "read:prompts",
       "read:prompts:following",
       "read:prompts:private",
       "read:prompts:public"
@@ -811,6 +911,7 @@
   },
   "prompts": {
     "read": [
+      "read:prompts",
       "read:prompts:following",
       "read:prompts:private",
       "read:prompts:public"
@@ -819,6 +920,7 @@
   },
   "prompts_by_pk": {
     "read": [
+      "read:prompts",
       "read:prompts:following",
       "read:prompts:private",
       "read:prompts:public"
@@ -1410,127 +1512,164 @@
   "book_import_statuses": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "book_mapping_normalize": {
     "read": [],
     "write": [
+      "write:catalog",
       "write:catalog:map"
     ]
   },
   "book_normalize": {
     "read": [],
     "write": [
+      "write:catalog",
       "write:catalog:edit"
     ]
   },
   "delete_book_mapping": {
     "read": [],
     "write": [
+      "write:catalog",
       "write:catalog:map"
     ]
   },
   "edition_normalize": {
     "read": [],
     "write": [
+      "write:catalog",
       "write:catalog:edit"
     ]
   },
   "insert_author": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "insert_book": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "insert_book_mapping": {
     "read": [],
     "write": [
+      "write:catalog",
       "write:catalog:map"
     ]
   },
   "insert_character": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "insert_edition": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "insert_image": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "insert_publisher": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "insert_serie": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "update_author": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "update_book": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "update_character": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "update_edition": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "update_publisher": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "update_serie": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "upsert_book": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   },
   "upsert_tags": {
     "read": [],
     "write": [
-      "write:catalog:append"
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
     ]
   }
 }
