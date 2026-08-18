@@ -44,6 +44,8 @@ All scripts run from project root:
 
 ```bash
 node scripts/schema-tools/convert-schema.js
+node scripts/schema-tools/fetch-capabilities.js
+node scripts/schema-tools/extract-capability-scopes.js
 node scripts/schema-tools/extract-schema-fields.js
 node scripts/schema-tools/generate-schema-tables.js
 node scripts/schema-tools/update-schema-docs.js
@@ -54,6 +56,8 @@ node scripts/schema-tools/add-schema-graphs.js
 
 Created in project root:
 - `schema.json` - API introspection result
+- `capabilities.json` - OAuth scope/capability data from the API
+- `capability-scopes.json` - operation name -> `{ read: [scopes], write: [scopes] }` index, minimal-scope-reduced
 - `schema.graphql` - SDL format
 - `schema-fields.json` - Extracted field data
 - `field-descriptions.json` - Custom descriptions
