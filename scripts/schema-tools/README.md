@@ -26,6 +26,7 @@ gitignored.
 | `update-all.sh` | Run full pipeline | Bearer token | All outputs below |
 | `convert-schema.js` | Convert introspection to SDL | schema.json | schema.graphql |
 | `extract-schema-fields.js` | Extract field metadata | schema.json | schema-fields.json |
+| `fetch-capabilities.js` | Get updated capabilities.json | - | capabilities.json |
 | `generate-schema-tables.js` | Generate markdown tables | schema-fields.json | schema-tables/*.md |
 | `update-schema-docs.js` | Update MDX documentation | schema-tables/*.md | Schemas/*.mdx |
 | `add-schema-graphs.js` | Add SchemaGraph to new pages | - | Schemas/*.mdx |
