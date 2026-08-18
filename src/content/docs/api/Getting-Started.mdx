@@ -32,23 +32,21 @@ If you have any questions or need help, please reach out to us on <a href={URLS.
 ## Getting an API Key
 To get an API token, you need to go to your account settings page and click on the <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">Hardcover API</a> link; then click the `New API Key` button.
 
-You will be taken to a screen where you can make a token, you can fill in a name for you to remember what you are planning on using this token for, a duration or date for when you want the token to expire, and select from the list of scopes, what the token should be able to do.
-
-For this guide you can give the token the `all` scope, give it a short expiration time and give it a name so you will know in the future what you used it for.
+You will be taken to a screen where you can make a token, for this guide you can give the token the `all` scope, give it a short expiration time and give it a name so you will know in the future what you used it for.
 
 TODO: make for docs a link generator for scopes
 <ImageComponent imagePath="/src/content/images/api/getting-started/new_api_key_screen.png" description="The API token creation screen asking for an optional label, expiration time and allowed scopes" />
 
-You will the be taken back and your new API token will be shown, make sure to copy it, since you won't see it again once you leave the page.
+You will then be given your new API token, make sure to copy it, since you won't see it again once you leave the page.
 
 <ImageComponent imagePath="/src/content/images/api/getting-started/new_token_message.png" description="The box that appears when you create a new API token." />
 
 After you have your token, you can start making requests to the API.
 
 <Aside>
-    API tokens are not meant to be shared and should be kept private, especially with thee all scope they can be used to access your account and data, if a token is ever compromised you can revoke it.
+    API tokens are not meant to be shared and should be kept private, especially with the all scope they can be used to access your account and data, if a token is ever compromised you can revoke it.
 
-    Unless you are makign a script or a simple tool for yourself or if you want to make an application that other people can use then it is recommended to use OAuth,
+    And unless you are makign a script or a simple tool for yourself, and you want to make an application that other people can use; then it is recommended to use OAuth,
     TODO: link to guide
 </Aside>
 
