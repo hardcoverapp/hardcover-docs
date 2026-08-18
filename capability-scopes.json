@@ -1,0 +1,1536 @@
+{
+  "authors": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "authors_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_categories": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_categories_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_characters": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_characters_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_collections": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_collections_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_mappings": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_mappings_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_series": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_series_aggregate": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_series_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_statuses": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "book_statuses_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "bookles": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "bookles_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "books": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "books_aggregate": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "books_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "books_trending": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "characters": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "characters_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributions": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributions_aggregate": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributions_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "countries": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "countries_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "editions": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "editions_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "flag_statuses": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "flag_statuses_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "images": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "images_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "languages": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "languages_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "links": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "links_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "platforms": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "platforms_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "privacy_settings": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "privacy_settings_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "publishers": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "publishers_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "reading_formats": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "reading_formats_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "search": {
+    "read": [
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "series": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "series_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "tag_categories": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "tag_categories_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "taggable_counts": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "taggable_counts_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "taggings": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "taggings_aggregate": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "taggings_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "tags": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "tags_aggregate": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "tags_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "user_book_statuses": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "user_book_statuses_aggregate": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "user_book_statuses_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "user_statuses": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "user_statuses_by_pk": {
+    "read": [
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "user_book_reads": {
+    "read": [
+      "read:library:following",
+      "read:library:private",
+      "read:library:public"
+    ],
+    "write": []
+  },
+  "user_book_reads_aggregate": {
+    "read": [
+      "read:library:following",
+      "read:library:private",
+      "read:library:public"
+    ],
+    "write": []
+  },
+  "user_book_reads_by_pk": {
+    "read": [
+      "read:library:following",
+      "read:library:private",
+      "read:library:public"
+    ],
+    "write": []
+  },
+  "user_books": {
+    "read": [
+      "read:library:following",
+      "read:library:private",
+      "read:library:public"
+    ],
+    "write": []
+  },
+  "user_books_aggregate": {
+    "read": [
+      "read:library:following",
+      "read:library:private",
+      "read:library:public"
+    ],
+    "write": []
+  },
+  "user_books_by_pk": {
+    "read": [
+      "read:library:following",
+      "read:library:private",
+      "read:library:public"
+    ],
+    "write": []
+  },
+  "reading_journals": {
+    "read": [
+      "read:journal:following",
+      "read:journal:private",
+      "read:journal:public"
+    ],
+    "write": []
+  },
+  "reading_journals_by_pk": {
+    "read": [
+      "read:journal:following",
+      "read:journal:private",
+      "read:journal:public"
+    ],
+    "write": []
+  },
+  "reading_journals_summary": {
+    "read": [
+      "read:journal:following",
+      "read:journal:private",
+      "read:journal:public"
+    ],
+    "write": []
+  },
+  "filter_list_entities": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "filter_list_entities_aggregate": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "filter_list_entities_by_pk": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "filter_list_subscriptions": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "filter_list_subscriptions_aggregate": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "filter_list_subscriptions_by_pk": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "filter_lists": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "filter_lists_aggregate": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "filter_lists_by_pk": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "followed_lists": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "followed_lists_by_pk": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "list_books": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "list_books_aggregate": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "list_books_by_pk": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "lists": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "lists_aggregate": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "lists_by_pk": {
+    "read": [
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "goals": {
+    "read": [
+      "read:goals:following",
+      "read:goals:private",
+      "read:goals:public"
+    ],
+    "write": []
+  },
+  "goals_by_pk": {
+    "read": [
+      "read:goals:following",
+      "read:goals:private",
+      "read:goals:public"
+    ],
+    "write": []
+  },
+  "me": {
+    "read": [
+      "read:me:content",
+      "read:me:roles"
+    ],
+    "write": []
+  },
+  "users": {
+    "read": [
+      "read:users"
+    ],
+    "write": []
+  },
+  "users_aggregate_by_created_at_date": {
+    "read": [
+      "read:users"
+    ],
+    "write": []
+  },
+  "users_by_pk": {
+    "read": [
+      "read:users"
+    ],
+    "write": []
+  },
+  "notification_channels": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notification_channels_by_pk": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notification_deliveries": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notification_deliveries_aggregate": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notification_deliveries_by_pk": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notification_settings": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notification_settings_by_pk": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notification_types": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notification_types_by_pk": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notifications": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "notifications_by_pk": {
+    "read": [
+      "read:notifications"
+    ],
+    "write": []
+  },
+  "followed_prompts": {
+    "read": [
+      "read:prompts:following",
+      "read:prompts:private",
+      "read:prompts:public"
+    ],
+    "write": []
+  },
+  "followed_prompts_by_pk": {
+    "read": [
+      "read:prompts:following",
+      "read:prompts:private",
+      "read:prompts:public"
+    ],
+    "write": []
+  },
+  "prompt_answers": {
+    "read": [
+      "read:prompts:following",
+      "read:prompts:private",
+      "read:prompts:public"
+    ],
+    "write": []
+  },
+  "prompt_answers_aggregate": {
+    "read": [
+      "read:prompts:following",
+      "read:prompts:private",
+      "read:prompts:public"
+    ],
+    "write": []
+  },
+  "prompt_answers_by_pk": {
+    "read": [
+      "read:prompts:following",
+      "read:prompts:private",
+      "read:prompts:public"
+    ],
+    "write": []
+  },
+  "prompt_books_summary": {
+    "read": [
+      "read:prompts:following",
+      "read:prompts:private",
+      "read:prompts:public"
+    ],
+    "write": []
+  },
+  "prompts": {
+    "read": [
+      "read:prompts:following",
+      "read:prompts:private",
+      "read:prompts:public"
+    ],
+    "write": []
+  },
+  "prompts_by_pk": {
+    "read": [
+      "read:prompts:following",
+      "read:prompts:private",
+      "read:prompts:public"
+    ],
+    "write": []
+  },
+  "activities": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "activities_by_pk": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "followed_user_books": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "followed_user_books_aggregate": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "followed_users": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "followed_users_by_pk": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "following_user_books": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "following_user_books_aggregate": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "follows": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "follows_aggregate": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "follows_by_pk": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "likes": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "likes_by_pk": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "user_blocks": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "user_blocks_by_pk": {
+    "read": [
+      "read:social"
+    ],
+    "write": []
+  },
+  "collection_import_results": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "collection_import_results_by_pk": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "collection_imports": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "collection_imports_by_pk": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "newsletter": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "referrals_for_user": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "subscriptions": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "user_flags": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "user_flags_by_pk": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "user_referrals": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "user_referrals_by_pk": {
+    "read": [
+      "read:account"
+    ],
+    "write": []
+  },
+  "collection_import_result_reimport": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "collection_import_retry": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "delete_reading_journal": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "delete_reading_journals_for_book": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "delete_user_book": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "delete_user_book_read": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "edition_owned": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "insert_collection_import": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "insert_reading_journal": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "insert_user_book": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "insert_user_book_read": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "update_collection_import_results": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "update_collection_import_results_many": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "update_reading_journal": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "update_user_book": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "update_user_book_read": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "upsert_user_book_reads": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "add_to_default_filter_list": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "delete_filter_list": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "delete_filter_list_entity": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "delete_filter_list_subscription": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "delete_followed_list": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "delete_list": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "delete_list_book": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "insert_filter_list": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "insert_filter_list_entity": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "insert_list": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "insert_list_book": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "update_filter_list": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "update_list": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "update_list_books": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "update_list_books_by_pk": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "update_list_books_many": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "upsert_filter_list_subscription": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "upsert_followed_list": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "delete_goal": {
+    "read": [],
+    "write": [
+      "write:goals"
+    ]
+  },
+  "insert_goal": {
+    "read": [],
+    "write": [
+      "write:goals"
+    ]
+  },
+  "update_goal": {
+    "read": [],
+    "write": [
+      "write:goals"
+    ]
+  },
+  "update_goal_progress": {
+    "read": [],
+    "write": [
+      "write:goals"
+    ]
+  },
+  "delete_followed_prompt": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "delete_prompt_answer": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "delete_prompts": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "delete_prompts_by_pk": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "insert_prompt": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "insert_prompt_answer": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "update_prompt": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "update_prompt_answers": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "update_prompt_answers_by_pk": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "update_prompt_answers_many": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "upsert_followed_prompt": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
+  "delete_activities": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "delete_activities_by_pk": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "delete_follow": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "delete_followed_user": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "delete_followed_users": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "delete_followed_users_by_pk": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "delete_like": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "delete_user_blocks": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "delete_user_blocks_by_pk": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "insert_block": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "insert_follow": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "insert_followed_user": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "insert_user_blocks": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "insert_user_blocks_one": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "upsert_like": {
+    "read": [],
+    "write": [
+      "write:social"
+    ]
+  },
+  "insert_notification_settings": {
+    "read": [],
+    "write": [
+      "write:notifications"
+    ]
+  },
+  "insert_notification_settings_one": {
+    "read": [],
+    "write": [
+      "write:notifications"
+    ]
+  },
+  "update_notification_deliveries": {
+    "read": [],
+    "write": [
+      "write:notifications"
+    ]
+  },
+  "update_notification_deliveries_many": {
+    "read": [],
+    "write": [
+      "write:notifications"
+    ]
+  },
+  "update_notification_settings": {
+    "read": [],
+    "write": [
+      "write:notifications"
+    ]
+  },
+  "update_notification_settings_many": {
+    "read": [],
+    "write": [
+      "write:notifications"
+    ]
+  },
+  "book_import_statuses": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "book_mapping_normalize": {
+    "read": [],
+    "write": [
+      "write:catalog:map"
+    ]
+  },
+  "book_normalize": {
+    "read": [],
+    "write": [
+      "write:catalog:edit"
+    ]
+  },
+  "delete_book_mapping": {
+    "read": [],
+    "write": [
+      "write:catalog:map"
+    ]
+  },
+  "edition_normalize": {
+    "read": [],
+    "write": [
+      "write:catalog:edit"
+    ]
+  },
+  "insert_author": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "insert_book": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "insert_book_mapping": {
+    "read": [],
+    "write": [
+      "write:catalog:map"
+    ]
+  },
+  "insert_character": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "insert_edition": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "insert_image": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "insert_publisher": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "insert_serie": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "update_author": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "update_book": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "update_character": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "update_edition": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "update_publisher": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "update_serie": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "upsert_book": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  },
+  "upsert_tags": {
+    "read": [],
+    "write": [
+      "write:catalog:append"
+    ]
+  }
+}
