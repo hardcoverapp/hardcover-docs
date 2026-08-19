@@ -8,7 +8,7 @@ prev: false
 
 import {Badge, Steps} from "@astrojs/starlight/components";
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
-import { URLS } from "@/Consts";
+import { URLS, EMAILS } from "@/Consts";
 import ImageComponent from "@/components/ImageComponent.astro";
 
 ## Introduction
@@ -91,12 +91,33 @@ The API will return the following response codes:
     - You can only access this API from localhost or APIs.
     - Later on, we hope to allow developers to join a group that allowlists specific sites, but that's a way down the line.
 - <Badge text="Recommendation" variant="note" /> When authoring scripts that use the API, it is recommended to include a user-agent header with a description of the script.
-- API calls are rate-limited to 60 requests per minute.
 - Queries have a max timeout of 30 seconds.
+- By using the API, you agree not to use to train large language models that are made publicly available or used commerically.
+
+## Commerical API Use
+
+As mentioned on the <a href={URLS.POLICIES} target="_blank" rel="noreferrer noopener">Hardcover Policies Page</a>, we make no copyright or proprietary rights over this data, and it should be used at your own risk.
+
+If you're creating a commerical product, or making a publicly accessibly website, you *may not use data owned by users*. This includes, but is not limited to:
+
+- Users libraries and stats
+- User reviews, ratings, dates read
+- Reading journal entries
+- Prompts and prompt answers
+- Lists and books on lists
+- Vibes and vibe books
+- User Goals
+- User Network and activities
+
+This data should not be accessed in the API by commerical products unless on behalf a user who has allowed their data to be accessed.
+
+Using aggregate data is allowed, if it's mentioned to be Hardcover data (ex: number of Hardcover Readers, average Hardcover rating).
+
+### Public Data Warning
+
+Images on Hardcover are uploaded by users on the internet. If you use any images from the API and those images are open to the public, make absolutely sure you have a <a href={URLS.DMCA} target="_blank" rel="noreferrer noopener">DMCA takedown policy</a> listed on your site. Without that, copyright holders may attempt to extort you with legal action (this has happened to us, and this policy protected us). If you're running a full commerical site, I'd recommend also registering a DMCA Agent.
 
 ## Limitations
-- API tokens automatically expire after 1 year, and reset on January 1st.
-- API is rate-limited to 60 requests per minute.
 - The following queries are disabled:
     - `_like`
     - `_nlike`
@@ -108,10 +129,53 @@ The API will return the following response codes:
     - `_nsimilar`
     - `_similar`
 - Queries have a max timeout of 30 seconds.
+- Search querues have a max timeout of 2 seconds.
 - Queries are not allowed to run in the browser, they must be run in an environment where the token can be kept secure.
-- <Badge text="2025" variant="note" /> Queries have a maximum depth of 3.
-- <Badge text="2025" variant="note" /> Queries are limited to your own user data, public data, and user data of users you follow.
-- <Badge text="2025" variant="note" /> OAuth support will be added for external applications.
+
+## Rate Limits
+We have three distinct rate limits, which are designed to make the API as useful as possible.
+
+- **Daily Limit** - You can see your Daily Limit, and your number of used requests, on your <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">API Access</a> page. Once you reach your Daily Limit, all requests will return a `429: Too Many Requests, try again later` error.
+- **Burst Limit** - The number of queries per request.
+- **Per Minute Limit** - How fast your per-minute rate refreshes.
+
+Here are our current rate limits.
+
+| Plan        | Daily Limit | Burst Limit | Per Minute Limit | Intended Use |
+| ----------- | ----------- | ----------- | ---------------- | ------------ |
+| `Free`      | 5,000       | 10          | 60               | Personal ownership, progress sync, personal use, doing cool stuff |
+| `Supporter` | 50,000      | 15          | 60               | Heavy data needs, always running processes, research |
+
+These rate limites are intended to be plenty for the vast majority of use cases. If you're running a **project for the public good** (ex: the Hardcover bot in /r/suggestmeabook on Reddit to fetch book info) that uses Hardcover and would like to have your rate increased, please reach out to **{EMAILS.SUPPORT}** with information about your project, why you're requesting a rate increase and what limit you would like to request.
+
+If you're running a **commercial product** (or one that intends to be a commerical product in the future) that requires higher API limits, you're in luck! We're building that out right now. Look for that in the near future.
+
+Each top-level query within a GraphQL query counts as one request towards each of these limits. For example, this request would count as 2 requests towards your limit.
+
+```
+query Test {
+  me { username }
+  m2:me { name }
+}
+```
+
+The same query could be accomplished using a single query.
+
+```
+query Test {
+  me {
+    name
+    username
+  }
+}
+```
+
+## API Roadmap
+- <Badge text="2026" variant="note" /> OAuth support will be added for external applications.
+- <Badge text="2026" variant="note" /> Client-side API use will be supported
+- <Badge text="2026" variant="note" /> Queries will have a maximum depth of 3.
+- <Badge text="2026" variant="note" /> Queries may be limited to your own user data, public data, and user data of users you follow.
+
 
 ## Want to Contribute?
 We are actively looking for contributors to help us improve the API documentation.
