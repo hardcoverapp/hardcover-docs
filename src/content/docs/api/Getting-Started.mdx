@@ -30,11 +30,15 @@ We are currently looking for feedback on this API.
 If you have any questions or need help, please reach out to us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>.
 
 ## Getting an API Key
-To get an API token, you need to go to your account settings page and click on the <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">Hardcover API</a> link; the token will be available at the top of the page.
+To get an API token, you need to go to your account settings page and click on the <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">Hardcover API</a> link. Click on the "New API Key" button.
+
+Give your new token a memorable name to identify this use. If this is for a 3rd-party (ex: NickelHardcover, Hardcover KOReader Plugin), then using that as the token name can be helpful. Set a time period for how long you want this token to be active for (Expiration). After that time the token will no longer work, and you'll need to update it. 
+
+Next, select which permissions you want to allow this token to access. Tokens created using the previous system (before August 226) have access equivalent to "all". The new setup allows for specifying the exact permissions this token needs. This helps prevent a rogue token or application you're unfamiliar with from taking actions beyond what you're comfortable with. If you're generating a token for a specific application, read through that applications permission requirements to see what it needs. 
 
 API tokens are not meant to be shared and should be kept private, as they can be used to access your account and data.
 
-After you have your token, you can start making requests to the API.
+After you have your token, you can start making requests to the API!
 
 ## Making Your First Request
 After you have your token, you can head over to the [GraphQL console](https://cloud.hasura.io/public/graphiql?endpoint=https://api.hardcover.app/v1/graphql).
