@@ -142,7 +142,7 @@ Images on Hardcover are uploaded by users on the internet. If you use any images
 We have three distinct rate limits, which are designed to make the API as useful as possible.
 
 - **Daily Limit** - You can see your Daily Limit, and your number of used requests, on your <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">API Access</a> page. Once you reach your Daily Limit, all requests will return a `429: Too Many Requests, try again later` error.
-- **Burst Limit** - The number of queries per request.
+- **Burst Limit** - The number of queries per request. (Token Bucket)
 - **Per Minute Limit** - How fast your per-minute rate refreshes.
 
 Here are our current rate limits.
@@ -196,6 +196,10 @@ The API will always respond with rate limiting headers describing your current r
   `"Free";r=8;t=42, "daily";r=4231;t=51234`
   - `r` - requests remaining
   - `t` - seconds until that bucket resets
+
+Dividing the quota by the window will get you how many sustained requests you can do per second, and the burst is how many requests you can do at once.
+
+So with the example policy above, you can make a quick 10 requests back to back before either having to switch to making 1 request per second, or waiting 10 seconds for your bucket to refill.
 
 <Aside>
     Curious why these headers look like `"Free";r=8;t=42`?<br/>
