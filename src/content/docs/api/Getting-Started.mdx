@@ -38,12 +38,10 @@ Next, select which permissions you want to allow this token to access. Tokens cr
 
 <ImageComponent imagePath="/src/content/images/api/getting-started/new_api_key_screen.png" description="The API token creation screen asking for an optional label, expiration time and allowed scopes" />
 
-After you click "Create Key" make sure to copy your new token, since you won't see it again once you leave the page.
-
-<ImageComponent imagePath="/src/content/images/api/getting-started/new_token_message.png" description="The box that appears when you create a new API token." />
+<ImageComponent imagePath="/src/content/images/api/getting-started/new_token_message.png" description="The box that appears when you create a new API token. Make sure you copy your token!" />
 
 <Aside>
-    API tokens are not meant to be shared and should be kept private, especially with the `all` scope they can be used to access your account and data, if a token is ever compromised you should immediately revoke it.
+    The Personal Access Tokens for the API are not meant to be shared and should be kept private, especially with the `all` scope where they have full access to your account, if a token is ever leaked or compromised you should immediately revoke it.
 
     If you are not making a simple script or a simple tool for yourself, and you want to make it easier for your users, then it is recommended to use OAuth.<br/>
     OAuth let's your users not have to manually create tokens and give it the correct permissions your app requires.
