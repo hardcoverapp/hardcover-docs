@@ -176,6 +176,11 @@ query Test {
 }
 ```
 
+<Aside>
+    Personal Access Tokens get double the burst capacity of legacy JWT-based authentication on the same plan. If you're still authenticating with a JWT, switching to a PAT (see [Getting an API Key](#getting-an-api-key) above) is an easy way to raise your burst ceiling.
+</Aside>
+
+
 ### Rate Limit Headers
 
 The API will always respond with rate limiting headers describing your current rate limit state, so you can back off proactively instead of waiting for a `429`.
