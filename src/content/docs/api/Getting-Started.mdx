@@ -8,7 +8,7 @@ prev: false
 
 import {Badge, Steps, Aside} from "@astrojs/starlight/components";
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
-import { URLS } from "@/Consts";
+import { URLS, EMAILS } from "@/Consts";
 import ImageComponent from "@/components/ImageComponent.astro";
 
 ## Introduction
@@ -32,21 +32,22 @@ If you have any questions or need help, please reach out to us on <a href={URLS.
 ## Getting an API Key
 To get an API token, you need to go to your account settings page and click on the <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">Hardcover API</a> link; then click the <a href={URLS.API_NEW_TOKEN_URL} target="_blank" rel="noreferrer noopener">New API Key</a> button.
 
-You will be taken to a screen where you can make a token, for this guide you can give the token the `all` scope, give it a short expiration time and give it a name so you will know in the future what you used it for.
+Give your new token a memorable name to identify this use. If this is for a 3rd-party (ex: NickelHardcover, Hardcover KOReader Plugin), then using that as the token name can be helpful. Set a time period for how long you want this token to be active for (Expiration). After that time the token will no longer work, and you'll need to update it. 
+
+Next, select which permissions you want to allow this token to access. Tokens created using the previous system (before August 226) have access equivalent to "all". The new setup allows for specifying the exact permissions this token needs. This helps prevent a rogue token or application you're unfamiliar with from taking actions beyond what you're comfortable with. If you're generating a token for a specific application, read through that applications permission requirements to see what it needs. 
 
 TODO: make for docs a link generator for scopes
 <ImageComponent imagePath="/src/content/images/api/getting-started/new_api_key_screen.png" description="The API token creation screen asking for an optional label, expiration time and allowed scopes" />
 
-You will then be given your new API token, make sure to copy it, since you won't see it again once you leave the page.
+<ImageComponent imagePath="/src/content/images/api/getting-started/new_token_message.png" description="The box that appears when you create a new API token. Make sure you copy your token!" />
 
-<ImageComponent imagePath="/src/content/images/api/getting-started/new_token_message.png" description="The box that appears when you create a new API token." />
-
-After you have your token, you can start making requests to the API.
+After you have your token, you can start making requests to the API!
 
 <Aside>
-    API tokens are not meant to be shared and should be kept private, especially with the all scope they can be used to access your account and data, if a token is ever compromised you can revoke it.
+    The Personal Access Tokens for the API are not meant to be shared and should be kept private, especially with the `all` scope where they have full access to your account, if a token is ever leaked or compromised you should immediately revoke it.
 
-    And unless you are makign a script or a simple tool for yourself, and you want to make an application that other people can use; then it is recommended to use OAuth,
+    If you are not making a simple script or a simple tool for yourself, and you want to make it easier for your users, then it is recommended to use OAuth.<br/>
+    OAuth let's your users not have to manually create tokens and give it the correct permissions your app requires.
     TODO: link to guide
 </Aside>
 
@@ -81,12 +82,22 @@ The API will return the following response codes:
 
 | Code | Description                                                  | Example Body                                |
 |------|--------------------------------------------------------------|---------------------------------------------|
-| 200  | The request was successful                                   |                                             |
-| 401  | Expired or invalid token                                     | `{ error: "Unable to verify token" }`       |
-| 403  | User does not have access to the requested resource or query | `{ error: "Message describing the error" }` |
-| 404  | Not Found                                                    |                                             |
-| 429  | Too Many Requests, try again later                           | `{ error: "Throttled" }`                    |
-| 500  | Internal Server Error                                        | `{ error: "An unknown error occurred" }`    |
+| 200  | The request was successful                                   |                                                        |
+| 400  | Malformed request body, or an unparseable GraphQL query      | `{ error: "Malformed request body" }` or `{ error: "invalid_query", error_description: "..." }` |
+| 401  | Missing, invalid, or expired token                           | `{ error: "invalid_token", error_description: "..." }` |
+| 403  | Missing scope, disallowed operation, over the top-level query/mutation limit (see [Rate Limits](#rate-limits)), or no access to the requested resource | `{ error: "insufficient_scope", error_description: "...", scope: "..." }` (see note below) |
+| 404  | Not Found                                                    |                                                        |
+| 408  | Query exceeded the max timeout                               | `{ error: "Request timeout" }`                         |
+| 429  | Too Many Requests, try again later                           | `{ error: "Too Many Requests", message: "..." }`       |
+| 500  | Internal Server Error                                        | `{ error: "An unknown error occurred" }`               |
+| 503  | Temporarily unavailable, safe to retry                       | `{ error: "Service temporarily unavailable" }`         |
+
+#### Note:
+A `403` can come with a few different `error` values depending on the cause:
+- `insufficient_scope` - your token is missing a scope the query needs (also includes a `scope` field listing what's missing)
+- `unsupported_operation` - that operation isn't available to API tokens
+- `top_level_limit_exceeded` - the request has too many top-level queries/mutations (see [Rate Limits](#rate-limits)); comes back as an `errors` array instead of a single `error`
+- anything else - a plain `{ error: "<message>" }` describing why you don't have access
 
 ## Important Notes About the Hardcover API
 - The API is still heavily in flux right now. Anything you build using it could break in the future.
@@ -101,12 +112,33 @@ The API will return the following response codes:
     - You can only access this API from localhost or APIs.
     - Later on, we hope to allow developers to join a group that allowlists specific sites, but that's a way down the line.
 - <Badge text="Recommendation" variant="note" /> When authoring scripts that use the API, it is recommended to include a user-agent header with a description of the script.
-- API calls are rate-limited to 60 requests per minute.
 - Queries have a max timeout of 30 seconds.
+- By using the API, you agree not to use to train large language models that are made publicly available or used commerically.
+
+## Commerical API Use
+
+As mentioned on the <a href={URLS.POLICIES} target="_blank" rel="noreferrer noopener">Hardcover Policies Page</a>, we make no copyright or proprietary rights over this data, and it should be used at your own risk.
+
+If you're creating a commerical product, or making a publicly accessibly website, you *may not use data owned by users*. This includes, but is not limited to:
+
+- Users libraries and stats
+- User reviews, ratings, dates read
+- Reading journal entries
+- Prompts and prompt answers
+- Lists and books on lists
+- Vibes and vibe books
+- User Goals
+- User Network and activities
+
+This data should not be accessed in the API by commerical products unless on behalf a user who has allowed their data to be accessed.
+
+Using aggregate data is allowed, if it's mentioned to be Hardcover data (ex: number of Hardcover Readers, average Hardcover rating).
+
+### Public Data Warning
+
+Images on Hardcover are uploaded by users on the internet. If you use any images from the API and those images are open to the public, make absolutely sure you have a <a href={URLS.DMCA} target="_blank" rel="noreferrer noopener">DMCA takedown policy</a> listed on your site. Without that, copyright holders may attempt to extort you with legal action (this has happened to us, and this policy protected us). If you're running a full commerical site, I'd recommend also registering a DMCA Agent.
 
 ## Limitations
-- API tokens automatically expire after 1 year, and reset on January 1st.
-- API is rate-limited to 60 requests per minute.
 - The following queries are disabled:
     - `_like`
     - `_nlike`
@@ -118,10 +150,106 @@ The API will return the following response codes:
     - `_nsimilar`
     - `_similar`
 - Queries have a max timeout of 30 seconds.
+- Search querues have a max timeout of 2 seconds.
 - Queries are not allowed to run in the browser, they must be run in an environment where the token can be kept secure.
-- <Badge text="2025" variant="note" /> Queries have a maximum depth of 3.
-- <Badge text="2025" variant="note" /> Queries are limited to your own user data, public data, and user data of users you follow.
-- <Badge text="2025" variant="note" /> OAuth support will be added for external applications.
+
+## Rate Limits
+We have three distinct rate limits, which are designed to make the API as useful as possible.
+
+- **Daily Limit** - You can see your Daily Limit, and your number of used requests, on your <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">API Access</a> page. Once you reach your Daily Limit, all requests will return a `429: Too Many Requests, try again later` error.
+- **Per Minute Limit** - How fast your per-minute rate refreshes.
+- **Burst Limit** - The size of your token bucket. You can fire off this many requests back-to-back before being throttled; it refills continuously at your Per Minute Limit.
+  - Regardless of your plan, a single request can contain at most **5 top-level queries** (or 5 mutations, or 1 `search` query) - this is a fixed limit, separate from the Burst/Daily limits above. Requests over it are rejected outright with a `403` rather than being rate-limited, so batching more than 5 into one request won't work even if your bucket has room.
+
+Here are our current rate limits.
+
+| Plan        | Daily Limit | Burst Limit | Per Minute Limit | Intended Use |
+| ----------- | ----------- | ----------- | ---------------- | ------------ |
+| `Free`      | 5,000       | 10          | 60               | Personal ownership, progress sync, personal use, doing cool stuff |
+| `Supporter` | 50,000      | 15          | 60               | Heavy data needs, always running processes, research |
+
+These rate limites are intended to be plenty for the vast majority of use cases. If you're running a **project for the public good** (ex: the Hardcover bot in /r/suggestmeabook on Reddit to fetch book info) that uses Hardcover and would like to have your rate increased, please reach out to **{EMAILS.SUPPORT}** with information about your project, why you're requesting a rate increase and what limit you would like to request.
+
+If you're running a **commercial product** (or one that intends to be a commerical product in the future) that requires higher API limits, you're in luck! We're building that out right now. Look for that in the near future.
+
+Each top-level query within a GraphQL query counts as one request towards each of these limits. For example, this request would count as 2 requests towards your limit.
+
+```
+query Test {
+  me { username }
+  m2:me { name }
+}
+```
+
+The same query could be accomplished using a single query.
+
+```
+query Test {
+  me {
+    name
+    username
+  }
+}
+```
+
+<Aside>
+    Personal Access Tokens get double the burst capacity of legacy JWT-based authentication on the same plan. If you're still authenticating with a JWT, switching to a PAT (see [Getting an API Key](#getting-an-api-key) above) is an easy way to raise your burst ceiling.
+</Aside>
+
+
+### Rate Limit Headers
+
+The API will always respond with rate limiting headers describing your current rate limit state, so you can back off proactively instead of waiting for a `429`.
+
+#### `RateLimit` headers
+- **`RateLimit-Policy`** - the limits that apply to your token, one entry per bucket:<br/>
+  `"Free";q=60;w=60;burst=10, "daily";q=5000;w=86400`
+  - `Free` - The plan name for this token
+  - `q` - quota (requests per window)
+  - `w` - window length, in seconds
+  - `burst` - max burst size for that bucket (only present on the per-minute bucket)
+- **`RateLimit`** - your current standing, in the same shape:<br/>
+  `"Free";r=8;t=42, "daily";r=4231;t=51234`
+  - `r` - requests remaining
+  - `t` - seconds until that bucket resets
+
+The window will always be 60 seconds, so the quota will be your Per Minute Limit or how many evenly spaced requests you can do in a minute, and the burst is your Burst Limit or how many requests you can do at once.
+
+So with the example policy above, you can make a quick 10 requests back to back before either having to switch to making 1 request per second, or waiting 10 seconds for your bucket to refill completely.
+
+<Aside>
+    Curious why these headers look like `"Free";r=8;t=42`?<br/>
+    They follow the [IETF RateLimit header fields draft](https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/) - check it out if you want the full spec.
+</Aside>
+
+#### `X-RateLimit-*` headers (legacy)
+
+| Header | Description |
+| ------ | ----------- |
+| `X-RateLimit-Limit` | Your tier's burst capacity (e.g. 10 for Free, 15 for Supporter) |
+| `X-RateLimit-Remaining` | Requests remaining before you're throttled - the stricter of your burst and daily remaining |
+| `X-RateLimit-Reset` | Unix timestamp when your burst bucket refills |
+| `X-RateLimit-Daily-Limit` | Your plan's daily request cap |
+| `X-RateLimit-Daily-Remaining` | Requests remaining today |
+| `X-RateLimit-Daily-Reset` | Unix timestamp of your next daily reset (midnight UTC) |
+
+<Aside type="caution">
+    These headers are kept for backward compatibility and may be removed once the
+    `RateLimit`/`RateLimit-Policy` headers above are finalized as a published standard.
+
+    Build new integrations against those instead.
+</Aside>
+
+#### `Retry-After`
+
+When a request is throttled (`429`), the response also includes a `Retry-After` header with the number of seconds you have to wait before you can make another request.
+
+## API Roadmap
+- <Badge text="2026" variant="note" /> OAuth support will be added for external applications.
+- <Badge text="2026" variant="note" /> Client-side API use will be supported
+- <Badge text="2026" variant="note" /> Queries will have a maximum depth of 3.
+- <Badge text="2026" variant="note" /> Queries may be limited to your own user data, public data, and user data of users you follow.
+
 
 ## Want to Contribute?
 We are actively looking for contributors to help us improve the API documentation.
