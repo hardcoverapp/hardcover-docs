@@ -2,7 +2,10 @@ export const URLS = {
     APP: 'https://hardcover.app',
     API: 'https://api.hardcover.app',
     API_ACCOUNT_URL: 'https://hardcover.app/account/api',
+    API_NEW_TOKEN_URL: 'https://hardcover.app/account/api/keys/new',
     DOCS: 'https://docs.hardcover.app',
+    POLICIES: 'https://hardcover.app/pages/policies',
+    DMCA: 'https://hardcover.app/pages/dmca',
 
     GRAPHQL_URL: 'https://api.hardcover.app/v1/graphql',
 
@@ -38,4 +41,8 @@ export const defaultPreferences: {
     theme: 'auto',
     editMode: 'basic',
     graphQLResults: 'table',
+}
+
+export const EMAILS = {
+    SUPPORT: 'jules@hardcover.app'
 }
