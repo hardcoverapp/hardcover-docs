@@ -81,8 +81,8 @@ query {
 ## API Response Codes
 The API will return the following response codes:
 
-| Code | Description                                                  | Example Body                                |
-|------|--------------------------------------------------------------|---------------------------------------------|
+| Code | Description                                                  | Example Body                                           |
+|------|--------------------------------------------------------------|--------------------------------------------------------|
 | 200  | The request was successful                                   |                                                        |
 | 400  | Malformed request body, or an unparseable GraphQL query      | `{ error: "Malformed request body" }` or `{ error: "invalid_query", error_description: "..." }` |
 | 401  | Missing, invalid, or expired token                           | `{ error: "invalid_token", error_description: "..." }` |
@@ -108,10 +108,7 @@ A `403` can come with a few different `error` values depending on the cause:
     - This means you can't use the API to access and use someone else's data.
 - This API is running the same as if you were using the browser. Any actions you take will be under your user.
 - <Badge text="Don't share your token! Someone could delete your account with it." variant="danger" />
-- This should only be used from a code backend — never from a browser.
-- This is only for offline use at this time.
-    - You can only access this API from localhost or APIs.
-    - Later on, we hope to allow developers to join a group that allowlists specific sites, but that's a way down the line.
+- CORS are open, so you can make API requests from a website, but it is recommended to use OAuth and store your tokens securely. You should not be requesting a user take out a PAT for your app
 - <Badge text="Recommendation" variant="note" /> When authoring scripts that use the API, it is recommended to include a user-agent header with a description of the script.
 - Queries have a max timeout of 30 seconds.
 - By using the API, you agree not to use to train large language models that are made publicly available or used commerically.
