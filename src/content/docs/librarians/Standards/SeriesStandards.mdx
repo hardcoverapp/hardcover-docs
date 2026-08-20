@@ -11,8 +11,14 @@ banner:
 
 ## Duplicate Series Names
 For multiple series with the same name, adjust the additional series as follows:
-  - Append `(Author Name)` to the series name 
   - Append `-AuthorName` to the slug
+  - Add missing series ID
+
+If the duplicate series has multiple authors, the author of the first book is assigned as the series author and used for the slug disambiguation.
+
+We used to recommend adding (Author Name) as a disambiguation to series names. This recommendation has been removed because the system automatically creates unique series slugs using the series name and author name, while keeping the series name itself undisambiguated. You can still use the author name as a disambiguation for comics or other specific scenarios where it is necessary. 
+
+The Series ID field can save multiple IDs, so always check the original series to make sure the duplicate's ID has been removed and isn't still listed there.
 
 When a series has been adapted into a different format (e.g., a manga that was novelized), we create a separate series for the adaptation:
   - The source format retains the series name (e.g., `The Summer Hikaru Died`)
