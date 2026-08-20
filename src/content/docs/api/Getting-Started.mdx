@@ -186,13 +186,13 @@ query Test {
 The API will always respond with rate limiting headers describing your current rate limit state, so you can back off proactively instead of waiting for a `429`.
 
 #### `RateLimit` headers
-- **`RateLimit-Policy`** - the limits that apply to your token, one entry per bucket:
+- **`RateLimit-Policy`** - the limits that apply to your token, one entry per bucket:<br/>
   `"Free";q=60;w=60;burst=10, "daily";q=5000;w=86400`
   - `Free` - The plan name for this token
   - `q` - quota (requests per window)
   - `w` - window length, in seconds
   - `burst` - max burst size for that bucket (only present on the per-minute bucket)
-- **`RateLimit`** - your current standing, in the same shape:
+- **`RateLimit`** - your current standing, in the same shape:<br/>
   `"Free";r=8;t=42, "daily";r=4231;t=51234`
   - `r` - requests remaining
   - `t` - seconds until that bucket resets
