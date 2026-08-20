@@ -1,0 +1,1115 @@
+---
+title: Actions & Scopes
+description: Every GraphQL action recognized by the capabilities system, and which OAuth scope(s) grant access to it.
+category: reference
+layout: /src/layouts/documentation.astro
+---
+
+Each action below is a GraphQL query or mutation root field. To call it with an
+OAuth access token, the token needs **any one** of the listed scopes -- they are
+alternatives, not a combined requirement. Scopes can imply other, narrower scopes;
+see [capabilities.json](https://api.hardcover.app/capabilities.json) for the full
+scope definitions.
+
+## Queries
+
+<table>
+    <thead>
+    <tr>
+        <th>Action</th>
+        <th>Required Scopes</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>activities</td>
+        <td>read:social</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>activities_by_pk</td>
+        <td>read:social</td>
+        <td>fetch data from the table: "activities" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>authors</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "authors"</td>
+    </tr>
+    <tr>
+        <td>authors_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "authors" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>book_categories</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "book_categories"</td>
+    </tr>
+    <tr>
+        <td>book_categories_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "book_categories" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>book_characters</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>book_characters_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "book_characters" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>book_collections</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "book_collections"</td>
+    </tr>
+    <tr>
+        <td>book_collections_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "book_collections" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>book_mappings</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>book_mappings_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "book_mappings" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>book_series</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>book_series_aggregate</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>book_series_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "book_series" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>book_statuses</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "book_statuses"</td>
+    </tr>
+    <tr>
+        <td>book_statuses_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "book_statuses" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>bookles</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "bookles"</td>
+    </tr>
+    <tr>
+        <td>bookles_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "bookles" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>books</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>books_aggregate</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>books_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "books" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>books_trending</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>characters</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "characters"</td>
+    </tr>
+    <tr>
+        <td>characters_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "characters" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>collection_import_results</td>
+        <td>read:account</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>collection_import_results_by_pk</td>
+        <td>read:account</td>
+        <td>fetch data from the table: "collection_import_results" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>collection_imports</td>
+        <td>read:account</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>collection_imports_by_pk</td>
+        <td>read:account</td>
+        <td>fetch data from the table: "collection_imports" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>contributions</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>contributions_aggregate</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>contributions_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "contributions" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>countries</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "countries"</td>
+    </tr>
+    <tr>
+        <td>countries_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "countries" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>editions</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>editions_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "editions" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>flag_statuses</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "flag_statuses"</td>
+    </tr>
+    <tr>
+        <td>flag_statuses_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "flag_statuses" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>followed_lists</td>
+        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>followed_lists_by_pk</td>
+        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
+        <td>fetch data from the table: "followed_lists" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>followed_prompts</td>
+        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>followed_prompts_by_pk</td>
+        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
+        <td>fetch data from the table: "followed_prompts" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>followed_user_books</td>
+        <td>read:social</td>
+        <td>fetch data from the table: "followed_user_books"</td>
+    </tr>
+    <tr>
+        <td>followed_user_books_aggregate</td>
+        <td>read:social</td>
+        <td>fetch aggregated fields from the table: "followed_user_books"</td>
+    </tr>
+    <tr>
+        <td>followed_users</td>
+        <td>read:social</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>followed_users_by_pk</td>
+        <td>read:social</td>
+        <td>fetch data from the table: "followed_users" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>following_user_books</td>
+        <td>read:social</td>
+        <td>fetch data from the table: "following_user_books"</td>
+    </tr>
+    <tr>
+        <td>following_user_books_aggregate</td>
+        <td>read:social</td>
+        <td>fetch aggregated fields from the table: "following_user_books"</td>
+    </tr>
+    <tr>
+        <td>follows</td>
+        <td>read:social</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>follows_aggregate</td>
+        <td>read:social</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>follows_by_pk</td>
+        <td>read:social</td>
+        <td>fetch data from the table: "follows" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>goals</td>
+        <td>read:goals, read:goals:following, read:goals:private, read:goals:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>goals_by_pk</td>
+        <td>read:goals, read:goals:following, read:goals:private, read:goals:public</td>
+        <td>fetch data from the table: "goals" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>images</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>images_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "images" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>languages</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "languages"</td>
+    </tr>
+    <tr>
+        <td>languages_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "languages" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>likes</td>
+        <td>read:social</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>likes_by_pk</td>
+        <td>read:social</td>
+        <td>fetch data from the table: "likes" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>links</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "links"</td>
+    </tr>
+    <tr>
+        <td>links_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "links" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>list_books</td>
+        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>list_books_aggregate</td>
+        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>list_books_by_pk</td>
+        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
+        <td>fetch data from the table: "list_books" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>lists</td>
+        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>lists_aggregate</td>
+        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>lists_by_pk</td>
+        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
+        <td>fetch data from the table: "lists" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>me</td>
+        <td>read:me, read:me:content, read:me:email, read:me:roles</td>
+        <td>execute function "me" which returns "users"</td>
+    </tr>
+    <tr>
+        <td>newsletter</td>
+        <td>read:account</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>notification_channels</td>
+        <td>read:notifications</td>
+        <td>fetch data from the table: "notification_channels"</td>
+    </tr>
+    <tr>
+        <td>notification_channels_by_pk</td>
+        <td>read:notifications</td>
+        <td>fetch data from the table: "notification_channels" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>notification_deliveries</td>
+        <td>read:notifications</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>notification_deliveries_aggregate</td>
+        <td>read:notifications</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>notification_deliveries_by_pk</td>
+        <td>read:notifications</td>
+        <td>fetch data from the table: "notification_deliveries" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>notification_settings</td>
+        <td>read:notifications</td>
+        <td>fetch data from the table: "notification_settings"</td>
+    </tr>
+    <tr>
+        <td>notification_settings_by_pk</td>
+        <td>read:notifications</td>
+        <td>fetch data from the table: "notification_settings" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>notification_types</td>
+        <td>read:notifications</td>
+        <td>fetch data from the table: "notification_types"</td>
+    </tr>
+    <tr>
+        <td>notification_types_by_pk</td>
+        <td>read:notifications</td>
+        <td>fetch data from the table: "notification_types" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>notifications</td>
+        <td>read:notifications</td>
+        <td>fetch data from the table: "notifications"</td>
+    </tr>
+    <tr>
+        <td>notifications_by_pk</td>
+        <td>read:notifications</td>
+        <td>fetch data from the table: "notifications" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>platforms</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "platforms"</td>
+    </tr>
+    <tr>
+        <td>platforms_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "platforms" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>privacy_settings</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "privacy_settings"</td>
+    </tr>
+    <tr>
+        <td>privacy_settings_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "privacy_settings" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>prompt_answers</td>
+        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>prompt_answers_aggregate</td>
+        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>prompt_answers_by_pk</td>
+        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
+        <td>fetch data from the table: "prompt_answers" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>prompt_books_summary</td>
+        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
+        <td>fetch data from the table: "prompt_books_summary"</td>
+    </tr>
+    <tr>
+        <td>prompts</td>
+        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>prompts_by_pk</td>
+        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
+        <td>fetch data from the table: "prompts" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>publishers</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "publishers"</td>
+    </tr>
+    <tr>
+        <td>publishers_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "publishers" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>reading_formats</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "reading_formats"</td>
+    </tr>
+    <tr>
+        <td>reading_formats_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "reading_formats" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>reading_journals</td>
+        <td>read:journal, read:journal:following, read:journal:private, read:journal:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>reading_journals_by_pk</td>
+        <td>read:journal, read:journal:following, read:journal:private, read:journal:public</td>
+        <td>fetch data from the table: "reading_journals" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>reading_journals_summary</td>
+        <td>read:journal, read:journal:following, read:journal:private, read:journal:public</td>
+        <td>fetch data from the table: "reading_journals_summary"</td>
+    </tr>
+    <tr>
+        <td>referrals_for_user</td>
+        <td>read:account</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>search</td>
+        <td>read:catalog, read:catalog:search</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>series</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "series"</td>
+    </tr>
+    <tr>
+        <td>series_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "series" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>subscriptions</td>
+        <td>read:account</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>tag_categories</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "tag_categories"</td>
+    </tr>
+    <tr>
+        <td>tag_categories_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "tag_categories" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>taggable_counts</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>taggable_counts_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "taggable_counts" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>taggings</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>taggings_aggregate</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>taggings_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "taggings" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>tags</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>tags_aggregate</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>tags_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "tags" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>user_blocks</td>
+        <td>read:social</td>
+        <td>fetch data from the table: "user_blocks"</td>
+    </tr>
+    <tr>
+        <td>user_blocks_by_pk</td>
+        <td>read:social</td>
+        <td>fetch data from the table: "user_blocks" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>user_book_reads</td>
+        <td>read:library, read:library:following, read:library:private, read:library:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>user_book_reads_aggregate</td>
+        <td>read:library, read:library:following, read:library:private, read:library:public</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>user_book_reads_by_pk</td>
+        <td>read:library, read:library:following, read:library:private, read:library:public</td>
+        <td>fetch data from the table: "user_book_reads" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>user_book_statuses</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "user_book_statuses"</td>
+    </tr>
+    <tr>
+        <td>user_book_statuses_aggregate</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch aggregated fields from the table: "user_book_statuses"</td>
+    </tr>
+    <tr>
+        <td>user_book_statuses_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "user_book_statuses" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>user_books</td>
+        <td>read:library, read:library:following, read:library:private, read:library:public</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>user_books_aggregate</td>
+        <td>read:library, read:library:following, read:library:private, read:library:public</td>
+        <td>An aggregate relationship</td>
+    </tr>
+    <tr>
+        <td>user_books_by_pk</td>
+        <td>read:library, read:library:following, read:library:private, read:library:public</td>
+        <td>fetch data from the table: "user_books" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>user_flags</td>
+        <td>read:account</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>user_flags_by_pk</td>
+        <td>read:account</td>
+        <td>fetch data from the table: "user_flags" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>user_referrals</td>
+        <td>read:account</td>
+        <td>fetch data from the table: "user_referrals"</td>
+    </tr>
+    <tr>
+        <td>user_referrals_by_pk</td>
+        <td>read:account</td>
+        <td>fetch data from the table: "user_referrals" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>user_statuses</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "user_statuses"</td>
+    </tr>
+    <tr>
+        <td>user_statuses_by_pk</td>
+        <td>read:catalog, read:catalog:data, read:catalog:search</td>
+        <td>fetch data from the table: "user_statuses" using primary key columns</td>
+    </tr>
+    <tr>
+        <td>users</td>
+        <td>read:users</td>
+        <td>An array relationship</td>
+    </tr>
+    <tr>
+        <td>users_aggregate_by_created_at_date</td>
+        <td>read:users</td>
+        <td>fetch data from the table: "users_aggregate_by_created_at_date"</td>
+    </tr>
+    <tr>
+        <td>users_by_pk</td>
+        <td>read:users</td>
+        <td>fetch data from the table: "users" using primary key columns</td>
+    </tr>
+    </tbody>
+</table>
+
+## Mutations
+
+<table>
+    <thead>
+    <tr>
+        <th>Action</th>
+        <th>Required Scopes</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>book_mapping_normalize</td>
+        <td>write:catalog, write:catalog:map</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>book_normalize</td>
+        <td>write:catalog, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>collection_import_result_reimport</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>collection_import_retry</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_activities</td>
+        <td>write:social</td>
+        <td>delete data from the table: "activities"</td>
+    </tr>
+    <tr>
+        <td>delete_activities_by_pk</td>
+        <td>write:social</td>
+        <td>delete single row from the table: "activities"</td>
+    </tr>
+    <tr>
+        <td>delete_book_mapping</td>
+        <td>write:catalog, write:catalog:map</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_follow</td>
+        <td>write:social</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_followed_list</td>
+        <td>write:lists</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_followed_prompt</td>
+        <td>write:prompts</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_followed_user</td>
+        <td>write:social</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_followed_users</td>
+        <td>write:social</td>
+        <td>delete data from the table: "followed_users"</td>
+    </tr>
+    <tr>
+        <td>delete_followed_users_by_pk</td>
+        <td>write:social</td>
+        <td>delete single row from the table: "followed_users"</td>
+    </tr>
+    <tr>
+        <td>delete_goal</td>
+        <td>write:goals</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_like</td>
+        <td>write:social</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_list</td>
+        <td>write:lists</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_list_book</td>
+        <td>write:lists</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_prompt_answer</td>
+        <td>write:prompts</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_prompts</td>
+        <td>write:prompts</td>
+        <td>delete data from the table: "prompts"</td>
+    </tr>
+    <tr>
+        <td>delete_prompts_by_pk</td>
+        <td>write:prompts</td>
+        <td>delete single row from the table: "prompts"</td>
+    </tr>
+    <tr>
+        <td>delete_reading_journal</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_reading_journals_for_book</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_user_blocks</td>
+        <td>write:social</td>
+        <td>delete data from the table: "user_blocks"</td>
+    </tr>
+    <tr>
+        <td>delete_user_blocks_by_pk</td>
+        <td>write:social</td>
+        <td>delete single row from the table: "user_blocks"</td>
+    </tr>
+    <tr>
+        <td>delete_user_book</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>delete_user_book_read</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>edition_normalize</td>
+        <td>write:catalog, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>edition_owned</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_author</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_block</td>
+        <td>write:social</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_book</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_book_mapping</td>
+        <td>write:catalog, write:catalog:map</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_character</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_collection_import</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_edition</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_follow</td>
+        <td>write:social</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_followed_user</td>
+        <td>write:social</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_goal</td>
+        <td>write:goals</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_image</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_list</td>
+        <td>write:lists</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_list_book</td>
+        <td>write:lists</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_notification_settings</td>
+        <td>write:notifications</td>
+        <td>insert data into the table: "notification_settings"</td>
+    </tr>
+    <tr>
+        <td>insert_notification_settings_one</td>
+        <td>write:notifications</td>
+        <td>insert a single row into the table: "notification_settings"</td>
+    </tr>
+    <tr>
+        <td>insert_prompt</td>
+        <td>write:prompts</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_prompt_answer</td>
+        <td>write:prompts</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_publisher</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_reading_journal</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_serie</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td>insert_series</td>
+    </tr>
+    <tr>
+        <td>insert_user_blocks</td>
+        <td>write:social</td>
+        <td>insert data into the table: "user_blocks"</td>
+    </tr>
+    <tr>
+        <td>insert_user_blocks_one</td>
+        <td>write:social</td>
+        <td>insert a single row into the table: "user_blocks"</td>
+    </tr>
+    <tr>
+        <td>insert_user_book</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>insert_user_book_read</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_author</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_book</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_character</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_collection_import_results</td>
+        <td>write:library</td>
+        <td>update data of the table: "collection_import_results"</td>
+    </tr>
+    <tr>
+        <td>update_collection_import_results_many</td>
+        <td>write:library</td>
+        <td>update multiples rows of table: "collection_import_results"</td>
+    </tr>
+    <tr>
+        <td>update_edition</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_goal</td>
+        <td>write:goals</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_goal_progress</td>
+        <td>write:goals</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_list</td>
+        <td>write:lists</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_list_books</td>
+        <td>write:lists</td>
+        <td>update data of the table: "list_books"</td>
+    </tr>
+    <tr>
+        <td>update_list_books_by_pk</td>
+        <td>write:lists</td>
+        <td>update single row of the table: "list_books"</td>
+    </tr>
+    <tr>
+        <td>update_list_books_many</td>
+        <td>write:lists</td>
+        <td>update multiples rows of table: "list_books"</td>
+    </tr>
+    <tr>
+        <td>update_notification_deliveries</td>
+        <td>write:notifications</td>
+        <td>update data of the table: "notification_deliveries"</td>
+    </tr>
+    <tr>
+        <td>update_notification_deliveries_many</td>
+        <td>write:notifications</td>
+        <td>update multiples rows of table: "notification_deliveries"</td>
+    </tr>
+    <tr>
+        <td>update_notification_settings</td>
+        <td>write:notifications</td>
+        <td>update data of the table: "notification_settings"</td>
+    </tr>
+    <tr>
+        <td>update_notification_settings_many</td>
+        <td>write:notifications</td>
+        <td>update multiples rows of table: "notification_settings"</td>
+    </tr>
+    <tr>
+        <td>update_prompt</td>
+        <td>write:prompts</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_prompt_answers</td>
+        <td>write:prompts</td>
+        <td>update data of the table: "prompt_answers"</td>
+    </tr>
+    <tr>
+        <td>update_prompt_answers_by_pk</td>
+        <td>write:prompts</td>
+        <td>update single row of the table: "prompt_answers"</td>
+    </tr>
+    <tr>
+        <td>update_prompt_answers_many</td>
+        <td>write:prompts</td>
+        <td>update multiples rows of table: "prompt_answers"</td>
+    </tr>
+    <tr>
+        <td>update_publisher</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_reading_journal</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_serie</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_user_book</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>update_user_book_read</td>
+        <td>write:library</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>upsert_book</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>upsert_followed_list</td>
+        <td>write:lists</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>upsert_followed_prompt</td>
+        <td>write:prompts</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>upsert_like</td>
+        <td>write:social</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>upsert_tags</td>
+        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>upsert_user_book_reads</td>
+        <td>write:library</td>
+        <td>upsert_user_book_read</td>
+    </tr>
+    </tbody>
+</table>

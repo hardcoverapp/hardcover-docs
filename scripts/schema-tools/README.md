@@ -32,6 +32,7 @@ gitignored.
 | `generate-schema-tables.js` | Generate markdown tables | schema-fields.json | schema-tables/*.md |
 | `update-schema-docs.js` | Update MDX documentation | schema-tables/*.md | Schemas/*.mdx |
 | `add-schema-graphs.js` | Add SchemaGraph to new pages | - | Schemas/*.mdx |
+| `generate-capabilities-page.js` | Generate the actions/scopes reference page | schema.json, capability-scopes.json | GraphQL/Actions.mdx |
 
 ## Configuration
 
@@ -52,6 +53,7 @@ node scripts/schema-tools/extract-schema-fields.js
 node scripts/schema-tools/generate-schema-tables.js
 node scripts/schema-tools/update-schema-docs.js
 node scripts/schema-tools/add-schema-graphs.js
+node scripts/schema-tools/generate-capabilities-page.js
 ```
 
 ## Generated Files
@@ -59,7 +61,7 @@ node scripts/schema-tools/add-schema-graphs.js
 Created in project root:
 - `schema.json` - API introspection result
 - `capabilities.json` - OAuth scope/capability data from the API
-- `capability-scopes.json` - operation name -> `{ read: [scopes], write: [scopes] }` index, minimal-scope-reduced
+- `capability-scopes.json` - operation name -> `{ read: [scopes], write: [scopes] }` index; every scope that grants the operation is listed (any one suffices), not reduced to a minimal set
 - `capability-field-scopes.json` - lists out tables, columns then what scopes are needed to read or write
 - `schema.graphql` - SDL format
 - `schema-fields.json` - Extracted field data
