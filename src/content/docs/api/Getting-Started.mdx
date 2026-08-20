@@ -176,6 +176,49 @@ query Test {
 }
 ```
 
+### Rate Limit Headers
+
+The API will always respond with rate limiting headers describing your current rate limit state, so you can back off proactively instead of waiting for a `429`.
+
+#### `RateLimit` headers
+- **`RateLimit-Policy`** - the limits that apply to your token, one entry per bucket:
+  `"Free";q=60;w=60;burst=10, "daily";q=5000;w=86400`
+  - `Free` - The plan name for this token
+  - `q` - quota (requests per window)
+  - `w` - window length, in seconds
+  - `burst` - max burst size for that bucket (only present on the per-minute bucket)
+- **`RateLimit`** - your current standing, in the same shape:
+  `"Free";r=8;t=42, "daily";r=4231;t=51234`
+  - `r` - requests remaining
+  - `t` - seconds until that bucket resets
+
+<Aside>
+    Curious why these headers look like `"Free";r=8;t=42`?<br/>
+    They follow the [IETF RateLimit header fields draft](https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/) - check it out if you want the full spec.
+</Aside>
+
+#### `X-RateLimit-*` headers (legacy)
+
+| Header | Description |
+| ------ | ----------- |
+| `X-RateLimit-Limit` | Your tier's burst capacity (e.g. 10 for Free, 15 for Supporter) |
+| `X-RateLimit-Remaining` | Requests remaining before you're throttled - the stricter of your burst and daily remaining |
+| `X-RateLimit-Reset` | Unix timestamp when your burst bucket refills |
+| `X-RateLimit-Daily-Limit` | Your plan's daily request cap |
+| `X-RateLimit-Daily-Remaining` | Requests remaining today |
+| `X-RateLimit-Daily-Reset` | Unix timestamp of your next daily reset (midnight UTC) |
+
+<Aside type="caution">
+    These headers are kept for backward compatibility and will be removed once the
+    `RateLimit`/`RateLimit-Policy` headers above are finalized as a published standard.
+
+    Build new integrations against those instead.
+</Aside>
+
+#### `Retry-After`
+
+When a request is throttled (`429`), the response also includes a `Retry-After` header with the number of seconds you have to wait before you can make another request.
+
 ## API Roadmap
 - <Badge text="2026" variant="note" /> OAuth support will be added for external applications.
 - <Badge text="2026" variant="note" /> Client-side API use will be supported
