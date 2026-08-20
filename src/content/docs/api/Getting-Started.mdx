@@ -77,12 +77,22 @@ The API will return the following response codes:
 
 | Code | Description                                                  | Example Body                                |
 |------|--------------------------------------------------------------|---------------------------------------------|
-| 200  | The request was successful                                   |                                             |
-| 401  | Expired or invalid token                                     | `{ error: "Unable to verify token" }`       |
-| 403  | User does not have access to the requested resource or query, or the request exceeds the top-level query/mutation limit (see [Rate Limits](#rate-limits)) | `{ error: "Message describing the error" }` or `{ errors: ["top_level_limit_exceeded", "top_level_query_limit_exceeded"] }` |
-| 404  | Not Found                                                    |                                             |
-| 429  | Too Many Requests, try again later                           | `{ error: "Throttled" }`                    |
-| 500  | Internal Server Error                                        | `{ error: "An unknown error occurred" }`    |
+| 200  | The request was successful                                   |                                                        |
+| 400  | Malformed request body, or an unparseable GraphQL query      | `{ error: "Malformed request body" }` or `{ error: "invalid_query", error_description: "..." }` |
+| 401  | Missing, invalid, or expired token                           | `{ error: "invalid_token", error_description: "..." }` |
+| 403  | Missing scope, disallowed operation, over the top-level query/mutation limit (see [Rate Limits](#rate-limits)), or no access to the requested resource | `{ error: "insufficient_scope", error_description: "...", scope: "..." }` (see note below) |
+| 404  | Not Found                                                    |                                                        |
+| 408  | Query exceeded the max timeout                               | `{ error: "Request timeout" }`                         |
+| 429  | Too Many Requests, try again later                           | `{ error: "Too Many Requests", message: "..." }`       |
+| 500  | Internal Server Error                                        | `{ error: "An unknown error occurred" }`               |
+| 503  | Temporarily unavailable, safe to retry                       | `{ error: "Service temporarily unavailable" }`         |
+
+#### Note:
+A `403` can come with a few different `error` values depending on the cause:
+- `insufficient_scope` - your token is missing a scope the query needs (also includes a `scope` field listing what's missing)
+- `unsupported_operation` - that operation isn't available to API tokens
+- `top_level_limit_exceeded` - the request has too many top-level queries/mutations (see [Rate Limits](#rate-limits)); comes back as an `errors` array instead of a single `error`
+- anything else - a plain `{ error: "<message>" }` describing why you don't have access
 
 ## Important Notes About the Hardcover API
 - The API is still heavily in flux right now. Anything you build using it could break in the future.
