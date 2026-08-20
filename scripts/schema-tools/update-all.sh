@@ -70,7 +70,18 @@ fi
 echo "✓ Scopes indexed"
 
 echo ""
-echo "🔄 Step 4/7: Converting to SDL format..."
+echo "🏷️  Step 4/8: Indexing field-level scopes..."
+node "$SCRIPT_DIR/extract-capability-field-scopes.js"
+
+if [ ! -f "capability-field-scopes.json" ]; then
+    echo "❌ Failed to create capability-field-scopes.json"
+    exit 1
+fi
+
+echo "✓ Field scopes indexed"
+
+echo ""
+echo "🔄 Step 5/8: Converting to SDL format..."
 node "$SCRIPT_DIR/convert-schema.js"
 
 if [ ! -f "schema.graphql" ]; then
@@ -81,7 +92,7 @@ fi
 echo "✓ Conversion complete"
 
 echo ""
-echo "📊 Step 5/7: Extracting schema fields..."
+echo "📊 Step 6/8: Extracting schema fields..."
 node "$SCRIPT_DIR/extract-schema-fields.js"
 
 if [ ! -f "schema-fields.json" ]; then
@@ -92,13 +103,13 @@ fi
 echo "✓ Fields extracted"
 
 echo ""
-echo "📝 Step 6/7: Generating markdown tables..."
+echo "📝 Step 7/8: Generating markdown tables..."
 node "$SCRIPT_DIR/generate-schema-tables.js"
 
 echo "✓ Tables generated"
 
 echo ""
-echo "✏️  Step 7/7: Updating documentation files..."
+echo "✏️  Step 8/8: Updating documentation files..."
 node "$SCRIPT_DIR/update-schema-docs.js"
 
 echo ""
