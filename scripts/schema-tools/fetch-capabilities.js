@@ -1,9 +1,6 @@
 import fs from "fs";
 
-const HOST =
-  // "https://api.hardcover.app"; TODO: change when on prod
-  "https://staging-api.hardcover.app";
-
+const HOST = "https://api.hardcover.app";
 
 const url = `${HOST}/capabilities.json`;
 const response = await fetch(url);
