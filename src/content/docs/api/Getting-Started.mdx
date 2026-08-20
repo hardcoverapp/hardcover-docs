@@ -108,13 +108,13 @@ A `403` can come with a few different `error` values depending on the cause:
     - Later on, we hope to allow developers to join a group that allowlists specific sites, but that's a way down the line.
 - <Badge text="Recommendation" variant="note" /> When authoring scripts that use the API, it is recommended to include a user-agent header with a description of the script.
 - Queries have a max timeout of 30 seconds.
-- By using the API, you agree not to use to train large language models that are made publicly available or used commerically.
+- By using the API, you agree not to use to train large language models that are made publicly available or used commercially.
 
-## Commerical API Use
+## Commercial API Use
 
 As mentioned on the <a href={URLS.POLICIES} target="_blank" rel="noreferrer noopener">Hardcover Policies Page</a>, we make no copyright or proprietary rights over this data, and it should be used at your own risk.
 
-If you're creating a commerical product, or making a publicly accessibly website, you *may not use data owned by users*. This includes, but is not limited to:
+If you're creating a commercial product, or making a publicly accessible website, you *may not use data owned by users*. This includes, but is not limited to:
 
 - Users libraries and stats
 - User reviews, ratings, dates read
@@ -145,7 +145,7 @@ Images on Hardcover are uploaded by users on the internet. If you use any images
     - `_nsimilar`
     - `_similar`
 - Queries have a max timeout of 30 seconds.
-- Search querues have a max timeout of 2 seconds.
+- Search queries have a max timeout of 2 seconds.
 - Queries are not allowed to run in the browser, they must be run in an environment where the token can be kept secure.
 
 ## Rate Limits
@@ -163,9 +163,9 @@ Here are our current rate limits.
 | `Free`      | 5,000       | 10          | 60               | Personal ownership, progress sync, personal use, doing cool stuff |
 | `Supporter` | 50,000      | 15          | 60               | Heavy data needs, always running processes, research |
 
-These rate limites are intended to be plenty for the vast majority of use cases. If you're running a **project for the public good** (ex: the Hardcover bot in /r/suggestmeabook on Reddit to fetch book info) that uses Hardcover and would like to have your rate increased, please reach out to **{EMAILS.SUPPORT}** with information about your project, why you're requesting a rate increase and what limit you would like to request.
+These rate limits are intended to be plenty for the vast majority of use cases. If you're running a **project for the public good** (ex: the Hardcover bot in /r/suggestmeabook on Reddit to fetch book info) that uses Hardcover and would like to have your rate increased, please reach out to **{EMAILS.SUPPORT}** with information about your project, why you're requesting a rate increase and what limit you would like to request.
 
-If you're running a **commercial product** (or one that intends to be a commerical product in the future) that requires higher API limits, you're in luck! We're building that out right now. Look for that in the near future.
+If you're running a **commercial product** (or one that intends to be a commercial product in the future) that requires higher API limits, you're in luck! We're building that out right now. Look for that in the near future.
 
 Each top-level query within a GraphQL query counts as one request towards each of these limits. For example, this request would count as 2 requests towards your limit.
 
