@@ -177,6 +177,16 @@ export default defineConfig({
                             it: useTranslation('sidebar.api.actions', 'it'),
                             pl: useTranslation('sidebar.api.actions', 'pl')
                         }
+                    },
+                    {
+                        label: useTranslation('sidebar.api.patLinkBuilder', 'en'),
+                        slug: 'api/pat-link-builder',
+                        translations: {
+                            es: useTranslation('sidebar.api.patLinkBuilder', 'es'),
+                            fr: useTranslation('sidebar.api.patLinkBuilder', 'fr'),
+                            it: useTranslation('sidebar.api.patLinkBuilder', 'it'),
+                            pl: useTranslation('sidebar.api.patLinkBuilder', 'pl')
+                        }
                     }
                 ]
             },

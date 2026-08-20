@@ -82,6 +82,9 @@ alternatives, not a combined requirement. Scopes can imply other, narrower scope
 see [capabilities.json](https://api.hardcover.app/capabilities.json) for the full
 scope definitions.
 
+Distributing a tool that needs specific scopes? The [PAT Link Builder](/api/pat-link-builder)
+generates a link that pre-selects them on the New API Key form for your users.
+
 ## Queries
 
 ${renderTable(rows.query)}

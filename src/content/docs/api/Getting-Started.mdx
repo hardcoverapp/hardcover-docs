@@ -34,9 +34,7 @@ To get an API token, you need to go to your account settings page and click on t
 
 Give your new token a memorable name to identify this use. If this is for a 3rd-party (ex: NickelHardcover, Hardcover KOReader Plugin), then using that as the token name can be helpful. Set a time period for how long you want this token to be active for (Expiration). After that time the token will no longer work, and you'll need to update it. 
 
-Next, select which permissions you want to allow this token to access. Tokens created using the previous system (before August 2026) have access equivalent to `all`. The new setup allows for specifying the exact permissions this token needs. This helps prevent a rogue token or application you're unfamiliar with from taking actions beyond what you're comfortable with. If you're generating a token for a specific application, read through that applications permission requirements to see what it needs. 
-
-TODO: make for docs a link generator for scopes
+Next, select which permissions you want to allow this token to access. Tokens created using the previous system (before August 2026) have access equivalent to `all`. The new setup allows for specifying the exact permissions this token needs. This helps prevent a rogue token or application you're unfamiliar with from taking actions beyond what you're comfortable with. If you're generating a token for a specific application, read through that applications permission requirements to see what it needs.
 
 <ImageComponent imagePath="/src/content/images/api/getting-started/new_api_key_screen.png" description="The API token creation screen asking for an optional label, expiration time and allowed scopes" />
 
@@ -50,6 +48,8 @@ After you have your token, you can start making requests to the API!
     If you are not making a simple script or a simple tool for yourself, and you want to make it easier for your users, then it is recommended to use OAuth.<br/>
     OAuth let's your users not have to manually create tokens and give it the correct permissions your app requires.
     TODO: link to guide
+
+    However, if you are building tool or script that has to use PATs, then check out the [PAT Link Builder](/api/pat-link-builder) -- it generates a link that opens the new key form with the scopes your app needs already checked, so your users don't have to hunt through the list themselves.
 </Aside>
 
 ## Making Your First Request

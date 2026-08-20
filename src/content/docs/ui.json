@@ -23,7 +23,8 @@
       "gettingStarted": "Getting Started",
       "guides": "Guides",
       "schemas": "Schemas",
-      "actions": "Actions & Scopes"
+      "actions": "Actions & Scopes",
+      "patLinkBuilder": "PAT Link Builder"
     },
     "community": {
       "title": "Community",
