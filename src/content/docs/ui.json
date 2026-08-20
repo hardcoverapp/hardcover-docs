@@ -22,7 +22,8 @@
       "title": "API Docs",
       "gettingStarted": "Getting Started",
       "guides": "Guides",
-      "schemas": "Schemas"
+      "schemas": "Schemas",
+      "actions": "Actions & Scopes"
     },
     "community": {
       "title": "Community",

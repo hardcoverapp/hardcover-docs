@@ -167,6 +167,16 @@ export default defineConfig({
                         },
                         collapsed: true,
                         items: [{ autogenerate: {directory: 'api/GraphQL/Schemas'} }],
+                    },
+                    {
+                        label: useTranslation('sidebar.api.actions', 'en'),
+                        slug: 'api/graphql/actions',
+                        translations: {
+                            es: useTranslation('sidebar.api.actions', 'es'),
+                            fr: useTranslation('sidebar.api.actions', 'fr'),
+                            it: useTranslation('sidebar.api.actions', 'it'),
+                            pl: useTranslation('sidebar.api.actions', 'pl')
+                        }
                     }
                 ]
             },
