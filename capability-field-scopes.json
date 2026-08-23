@@ -1,0 +1,18 @@
+{
+  "users": {
+    "email": {
+      "read": [
+        "read:me",
+        "read:me:email"
+      ],
+      "write": []
+    },
+    "librarian_roles": {
+      "read": [
+        "read:me",
+        "read:me:roles"
+      ],
+      "write": []
+    }
+  }
+}

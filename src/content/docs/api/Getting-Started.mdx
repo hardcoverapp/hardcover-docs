@@ -30,11 +30,11 @@ We are currently looking for feedback on this API.
 If you have any questions or need help, please reach out to us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>.
 
 ## Getting an API Key
-To get an API token, you need to go to your account settings page and click on the <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">Hardcover API</a> link. Click on the <a href={URLS.API_NEW_TOKEN_URL} target="_blank" rel="noreferrer noopener">New API Key</a> button.
+To get an API token, you need to go to your account settings page and click on the <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">Hardcover API</a> link, then click the <a href={URLS.API_NEW_TOKEN_URL} target="_blank" rel="noreferrer noopener">New API Key</a> button.
 
 Give your new token a memorable name to identify this use. If this is for a 3rd-party (ex: NickelHardcover, Hardcover KOReader Plugin), then using that as the token name can be helpful. Set a time period for how long you want this token to be active for (Expiration). After that time the token will no longer work, and you'll need to update it. 
 
-Next, select which permissions you want to allow this token to access. Tokens created using the previous system (before August 2026) have access equivalent to "all". The new setup allows for specifying the exact permissions this token needs. This helps prevent a rogue token or application you're unfamiliar with from taking actions beyond what you're comfortable with. If you're generating a token for a specific application, read through that applications permission requirements to see what it needs. 
+Next, select which permissions you want to allow this token to access. Tokens created using the previous system (before August 2026) have access equivalent to `all`. The new setup allows for specifying the exact permissions this token needs. This helps prevent a rogue token or application you're unfamiliar with from taking actions beyond what you're comfortable with. If you're generating a token for a specific application, read through that applications permission requirements to see what it needs.
 
 <ImageComponent imagePath="/src/content/images/api/getting-started/new_api_key_screen.png" description="The API token creation screen asking for an optional label, expiration time and allowed scopes" />
 
@@ -42,6 +42,8 @@ Next, select which permissions you want to allow this token to access. Tokens cr
 
 <Aside>
     The Personal Access Tokens for the API are not meant to be shared and should be kept private, especially with the `all` scope where they have full access to your account, if a token is ever leaked or compromised you should immediately revoke it.
+
+    However, if you are building tool or script that has to use PATs, then check out the [PAT Link Builder](/api/pat-link-builder) -- it generates a link that opens the new key form with the scopes your app needs already checked, so your users don't have to hunt through the list themselves.
 </Aside>
 
 After you have your token, you can start making requests to the API!
@@ -75,8 +77,8 @@ query {
 ## API Response Codes
 The API will return the following response codes:
 
-| Code | Description                                                  | Example Body                                |
-|------|--------------------------------------------------------------|---------------------------------------------|
+| Code | Description                                                  | Example Body                                           |
+|------|--------------------------------------------------------------|--------------------------------------------------------|
 | 200  | The request was successful                                   |                                                        |
 | 400  | Malformed request body, or an unparseable GraphQL query      | `{ error: "Malformed request body" }` or `{ error: "invalid_query", error_description: "..." }` |
 | 401  | Missing, invalid, or expired token                           | `{ error: "invalid_token", error_description: "..." }` |

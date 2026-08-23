@@ -167,6 +167,26 @@ export default defineConfig({
                         },
                         collapsed: true,
                         items: [{ autogenerate: {directory: 'api/GraphQL/Schemas'} }],
+                    },
+                    {
+                        label: useTranslation('sidebar.api.actions', 'en'),
+                        slug: 'api/graphql/actions',
+                        translations: {
+                            es: useTranslation('sidebar.api.actions', 'es'),
+                            fr: useTranslation('sidebar.api.actions', 'fr'),
+                            it: useTranslation('sidebar.api.actions', 'it'),
+                            pl: useTranslation('sidebar.api.actions', 'pl')
+                        }
+                    },
+                    {
+                        label: useTranslation('sidebar.api.patLinkBuilder', 'en'),
+                        slug: 'api/pat-link-builder',
+                        translations: {
+                            es: useTranslation('sidebar.api.patLinkBuilder', 'es'),
+                            fr: useTranslation('sidebar.api.patLinkBuilder', 'fr'),
+                            it: useTranslation('sidebar.api.patLinkBuilder', 'it'),
+                            pl: useTranslation('sidebar.api.patLinkBuilder', 'pl')
+                        }
                     }
                 ]
             },
