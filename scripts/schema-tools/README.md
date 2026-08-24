@@ -26,9 +26,13 @@ gitignored.
 | `update-all.sh` | Run full pipeline | Bearer token | All outputs below |
 | `convert-schema.js` | Convert introspection to SDL | schema.json | schema.graphql |
 | `extract-schema-fields.js` | Extract field metadata | schema.json | schema-fields.json |
+| `fetch-capabilities.js` | Get updated capabilities.json | - | capabilities.json |
+| `extract-capability-scopes.js` | Index operations to required scopes | capabilities.json | capability-scopes.json |
+| `extract-capability-field-scopes.js` | Get scopes that affect columns | capabilities.json, schema.json | capability-field-scopes.json |
 | `generate-schema-tables.js` | Generate markdown tables | schema-fields.json | schema-tables/*.md |
 | `update-schema-docs.js` | Update MDX documentation | schema-tables/*.md | Schemas/*.mdx |
 | `add-schema-graphs.js` | Add SchemaGraph to new pages | - | Schemas/*.mdx |
+| `generate-capabilities-page.js` | Generate the actions/scopes reference page | schema.json, capability-scopes.json | GraphQL/Actions.mdx |
 
 ## Configuration
 
@@ -42,16 +46,24 @@ All scripts run from project root:
 
 ```bash
 node scripts/schema-tools/convert-schema.js
+node scripts/schema-tools/fetch-capabilities.js
+node scripts/schema-tools/extract-capability-scopes.js
+node scripts/schema-tools/extract-capability-field-scopes.js
 node scripts/schema-tools/extract-schema-fields.js
 node scripts/schema-tools/generate-schema-tables.js
 node scripts/schema-tools/update-schema-docs.js
 node scripts/schema-tools/add-schema-graphs.js
+node scripts/schema-tools/generate-capabilities-page.js
 ```
 
 ## Generated Files
 
 Created in project root:
+
 - `schema.json` - API introspection result
+- `capabilities.json` - OAuth scope/capability data from the API
+- `capability-scopes.json` - operation name -> `{ read: [scopes], write: [scopes] }` index - every scope that grants the operation is listed (any one suffices)
+- `capability-field-scopes.json` - lists out tables, columns then what scopes are needed to read or write
 - `schema.graphql` - SDL format
 - `schema-fields.json` - Extracted field data
 - `field-descriptions.json` - Custom descriptions

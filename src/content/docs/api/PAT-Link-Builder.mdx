@@ -1,0 +1,40 @@
+---
+title: PAT Link Builder
+description: Generate a link that opens the Hardcover API key form with the scopes your app needs pre-selected.
+category: tool
+layout: /src/layouts/documentation.astro
+---
+
+import ScopeLinkBuilder from '@/components/ScopeLinkBuilder/ScopeLinkBuilder.astro';
+import { Aside, Code } from "@astrojs/starlight/components";
+import { URLS } from "@/Consts";
+
+If you're distributing a script or tool that uses the Hardcover API,
+you can hand your users a link straight to the <a href={URLS.API_NEW_TOKEN_URL} target="_blank" rel="noreferrer noopener">New API Key</a>
+form with the scopes your app needs already checked.
+They just review, name the key, and create it. No hunting through the scope list themselves!
+
+Pick a preset or check individual scopes below, then copy the generated link.
+
+<ScopeLinkBuilder />
+
+<Aside>
+    The link only pre-fills the form. The person creating the key can still add or
+    remove scopes before submitting. Don't rely on it to enforce what a token ends up
+    with.
+
+    The [Actions & Scopes reference](/api/graphql/actions) documents what each
+    scope actually grants access to.
+</Aside>
+
+## Building the link yourself
+
+The scope picker above just sets a query string on the New API Key URL, so you can also build it by hand!
+Can be useful if you want to generate it dynamically (e.g. on the sign in page from a list of scopes your app already knows it needs):
+
+<Code code={`${URLS.API_NEW_TOKEN_URL}?scope=read:library+write:library+read:me:content`} lang="text" />
+
+- `scope` is a space-separated (`%20` or `+`) list of scope names.
+- Unknown scopes are silently dropped rather than rejected, so a stale link from an
+  older version of your app will still open the form instead of erroring out.
+- A full list of scopes and their descriptions is available in <a href={URLS.API_CAPABILITIES_URL} target="_blank" rel="noreferrer noopener">capabilities.json</a>
