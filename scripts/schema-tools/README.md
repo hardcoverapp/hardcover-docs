@@ -28,7 +28,7 @@ gitignored.
 | `extract-schema-fields.js` | Extract field metadata | schema.json | schema-fields.json |
 | `fetch-capabilities.js` | Get updated capabilities.json | - | capabilities.json |
 | `extract-capability-scopes.js` | Index operations to required scopes | capabilities.json | capability-scopes.json |
-| `extract-capability-field-scopes.js` | Get scopes that affects columns | capabilities.json, schema.json | capability-field-scopes.json |
+| `extract-capability-field-scopes.js` | Get scopes that affect columns | capabilities.json, schema.json | capability-field-scopes.json |
 | `generate-schema-tables.js` | Generate markdown tables | schema-fields.json | schema-tables/*.md |
 | `update-schema-docs.js` | Update MDX documentation | schema-tables/*.md | Schemas/*.mdx |
 | `add-schema-graphs.js` | Add SchemaGraph to new pages | - | Schemas/*.mdx |

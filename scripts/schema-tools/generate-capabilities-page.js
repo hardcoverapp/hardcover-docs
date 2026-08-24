@@ -82,10 +82,10 @@ category: reference
 layout: /src/layouts/documentation.astro
 ---
 
-Each action below is a GraphQL query or mutation root field. 
+Each action below is a GraphQL query or mutation root field.
 
 To call it with an access token (OAuth or PAT), the token needs at least one of the listed scopes,
-the overlap comes from scopes that imply other narrower scopes.<br/>
+multiple scopes are listed when a broader scope encompasses or implies a narrower one.<br/>
 See [capabilities.json](https://api.hardcover.app/capabilities.json) for the full scope definitions.
 
 Distributing a tool that needs specific scopes? The [PAT Link Builder](/api/pat-link-builder)

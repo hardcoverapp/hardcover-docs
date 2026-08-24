@@ -336,7 +336,7 @@ function LinkOutput({
       </div>
       <p className="text-xs text-muted-foreground">
         {hasSelection
-          ? "This link opens the new key form with these scopes pre-checked, the person creating the key can still add or remove any before they submit."
+          ? "This link opens the new key form with these scopes pre-checked. The person creating the key can still add or remove any before they submit."
           : "No scopes selected. The link opens the new key form empty."}
       </p>
     </div>
