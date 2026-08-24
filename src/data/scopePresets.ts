@@ -19,7 +19,7 @@ const SCOPE_PRESETS: ScopePreset[] = [
   {
     id: "readonly-dashboard",
     label: "Read-Only Stats / Export",
-    description: "View your library, lists, goals, and journal -- no writes.",
+    description: "View your library, lists, goals, and journal — no writes.",
     scopes: [
       "read:catalog",
       "read:library",
