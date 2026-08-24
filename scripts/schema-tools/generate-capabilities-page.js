@@ -1,6 +1,8 @@
 import fs from "fs";
 import { buildClientSchema } from "graphql";
 
+import { escapeHtml } from "../../src/lib/html.ts";
+
 const OUTPUT_PATH = "src/content/docs/api/GraphQL/Actions.mdx";
 
 const introspection = JSON.parse(fs.readFileSync("schema.json", "utf8"));
@@ -49,20 +51,6 @@ for (const [operation, { read, write }] of Object.entries(operationScopes)) {
 
 rows.query.sort((a, b) => a.operation.localeCompare(b.operation));
 rows.mutation.sort((a, b) => a.operation.localeCompare(b.operation));
-
-function escapeHtml(str) {
-  return str.replace(
-    /[&<>"']/g,
-    (c) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-      })[c],
-  );
-}
 
 function renderTable(entries) {
   const lines = [];
