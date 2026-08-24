@@ -1,5 +1,6 @@
 import fs from "fs";
 import { buildClientSchema } from "graphql";
+import { schemaTypes } from "./config.js";
 
 import { escapeHtml } from "../../src/lib/html.ts";
 
@@ -20,6 +21,13 @@ function describe(operation, fieldDef) {
   const description = fieldDef?.description || "";
   if (!description || description === operation) return "";
   return description;
+}
+
+function operationCell(operation) {
+  if (operation in schemaTypes) {
+    return `<a href="/api/graphql/schemas/${operation}">${escapeHtml(operation)}</a>`;
+  }
+  return escapeHtml(operation);
 }
 
 function scopesCell(scopeNames) {
@@ -65,7 +73,7 @@ function renderTable(entries) {
   lines.push("    <tbody>");
   for (const { operation, scopes, description } of entries) {
     lines.push("    <tr>");
-    lines.push(`        <td>${escapeHtml(operation)}</td>`);
+    lines.push(`        <td>${operationCell(operation)}</td>`);
     lines.push(`        <td>${scopesCell(scopes)}</td>`);
     lines.push(`        <td>${escapeHtml(description)}</td>`);
     lines.push("    </tr>");
