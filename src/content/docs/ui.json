@@ -21,6 +21,7 @@
     "api": {
       "title": "API Docs",
       "gettingStarted": "Getting Started",
+      "oauth": "OAuth",
       "guides": "Guides",
       "schemas": "Schemas",
       "actions": "Actions & Scopes",

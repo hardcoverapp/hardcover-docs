@@ -1,0 +1,239 @@
+---
+title: OAuth
+description: Let Hardcover members connect your app to their account, without ever seeing their password or a token they typed in themselves.
+category: guide
+layout: /src/layouts/documentation.astro
+---
+
+import { Steps, Aside } from "@astrojs/starlight/components";
+import { URLS } from "@/Consts";
+
+Personal Access Tokens are great for scripts and tools you run yourself.
+You create the token, you paste it into your own config, only you ever see it.
+But if you want other people to your use your application or tool then OAuth is way to go.
+OAuth lets each of your users authorize your app to act as them without ever handing you a password or a token they typed in themselves.
+
+Everything below builds on the same [scopes](/api/graphql/actions) as a Personal Access Token,
+and once you do an OAuth flow and get an OAuth Access Token it works exactly like a PAT with the API,
+the difference is entirely in how you get it.
+
+## How it works
+
+OAuth allows for a secure handshake between the auth provider (Hardcover) and your application by using the user as the courier.
+There are 2 flows for OAuth we support, the standard flow ([RFC6749](https://www.rfc-editor.org/rfc/rfc6749)) and device authorization grant ([RFC8628](https://www.rfc-editor.org/rfc/rfc8628)).
+
+### Standard flow
+
+<Steps>
+1. Your app generate 2 random strings, one is the `state` and the other is the `code_verifier` for PKCE that you then SHA256 hash to get the `code_challenge`.
+2. Your app sends the user to the authorize endpoint with your `client_id`, `redirect_uri` the place the user gets sent to after they finish on hardcover, the random `state`, and the PKCE `code_challenge`, and `scope` which is a subset of your allowed scopes.
+3. The user sees your app's name, icon, and the scopes you're asking for, and approves or denies.
+4. Hardcover redirects back to your `redirect_uri` with a short-lived `code` (plus your `state` value, and an `iss` parameter naming the issuer).
+5. Your app exchanges that code along with the PKCE `code_verifier` you generated in step 1 at the token endpoint for an access token and a refresh token.
+6. Use the access token as a Bearer token against the API, exactly like a PAT.
+</Steps>
+
+This is the authorization code flow with PKCE, which we require every client use regardless of type.
+There's no separate "simpler" flow for a trusted client (and also no implicit grant). 
+So PKCE (`code_challenge_method=S256`) is required on every request, confidential clients included, it isn't just for public clients.
+
+<Aside type="tip">
+  Different clients can have slight differences from the flow described above, as it is the general steps for when you are a website, either SPA or SSR. For other types clients you will have to do some extra steps.
+
+  Desktop and CLI apps have to start a webserver and bind to a random localhost port after step 1 to catch the user when they return on the `redirect_uri`.
+  Hardcover accepts any port on localhost (and other loopback addresses) so you don't have to worry if the port you wanted is already in use and you have to register another.
+  To send the user for the auth you can use `xdg-open`, `Start-Process` or other command/wrapper, but make sure you give the user the link, especially in CLIs, so they can still open it manually if the automated open does not work for whatever reason.
+
+  Mobile apps can set a custom scheme (instead of https) for the `redirect_uri` that will launch their app to collect the user. And when sending the user to Hardcover they can use a webview.
+</Aside>
+
+<Aside>
+    Check that `state` matches what you sent in step 2 (this is what makes the flow safe from CSRF),
+    and check that `iss` equals `https://api.hardcover.app` before treating `code` or `state` as valid.
+    Hardcover only has one authorization server today, but the `iss` check is what stops a malicious server from ever being able to hand your app a code that gets redeemed at the wrong place (a "mix-up" attack ([RFC9207](https://www.rfc-editor.org/rfc/rfc9207))).
+    It's cheap to check and there's no good reason to skip it.
+
+    This only applies to the flow above, the Device Authorization Grant has no redirect, so there's no `state` or `iss` to check.
+</Aside>
+
+### Device Authorization Grant
+
+The main reason to pick Device Grant over the standard flow is if the device you are running the flow on has no access to a web browser (or no good keyboard in the case of E-readers)
+
+<Steps>
+1. Your app requests a Device Auth Grant to start with your `client_id`, and optionally `scope` if you want a subset of your allowed scopes.
+2. Hardcover gives your app a json object (see table below) that has info on where to send the user, what code the user should enter and how often you should poll.
+3. Your app starts polling the device auth endpoint at `interval` seconds until `expires_in` elapses, and sends the `device_code` so hardcover knows which request is being discussed.
+4. Your app tells the user to go to `verification_uri` ([hardcover.app/link](https://hardcover.app/link)) and enter `user_code` (it will be in the format of "ABCD-1234"), additionally you can turn `verification_uri_complete` into a QR code, that will take the user and prefill the code for them.
+5. After the user enters the code the user sees your app's name, icon, and the scopes you're asking for, and approves or denies.
+6. Hardcover will respond to one of your poll requests with the access token and refresh token.
+7. Use the access token as a Bearer token against the API, exactly like a PAT.
+</Steps>
+
+Response for device auth flow start (step 2)
+| Field | Description |
+| --- | --- |
+| `device_code` | id you use to identify your polling requests |
+| `user_code` | the code you tell the user to enter |
+| `verification_uri` | where you tell the user to go |
+| `verification_uri_complete` | a complete url you can turn to a QR that will prefill the code |
+| `expires_in` | in seconds, how long you have to do the auth before giving up |
+| `interval` | in seconds, how often you should poll |
+
+
+<Aside>
+  When turning `verification_uri_complete` into a QR code, make sure that you are still displaying the instructions using `verification_uri` and `user_code` in case the user can't scan a QR code.
+</Aside>
+
+<Aside type="caution">
+  If you are not using device authorization grant then make sure to turn it off for your app, since it allows anyone with the apps public app id to start an OAuth flow in the name of your app.
+
+  For the standard OAuth flow on public clients this is not as much of a issue, for websites Hardcover will only accept registered `redirect_uri`, so unless someone takes over your domain they can not start an OAuth flow in your name. But it can be an issue for CLI and desktop apps, so unless your app needs it don't register a loopback address as an accepted `redirect_uri`.
+</Aside>
+
+## Which flow do I need?
+
+The app type you pick when [registering your app](#registering-an-app) is fixed and cannot be changed, so it's worth picking the right one up front.
+
+| You're building | Pick | Client type | Guide |
+| --- | --- | --- | --- |
+| A server-rendered app (Rails, Django, Node, PHP, etc.) or Backend-For-Frontend (BFF) server for an app, anything that runs on infrastructure you control | Web app (server-side) | Confidential: Gets a client secret, plus PKCE | [Confidential client guide](/api/oauth/gettingstartedapioauthserver) |
+| A React/Vue/Svelte app that runs in the user's browser | Single-page app | Public: no secret, PKCE only | [SPA guide](/api/oauth/gettingstartedapioauthspa) |
+| A mobile app, desktop app, CLI tool, or e-reader plugin | Mobile, desktop, or CLI | Public: no secret, PKCE only, Device Authorization Grant enabled and set can custom uri schemes | [Native / device guide](/api/oauth/gettingstartedapioauthdevice) |
+
+The distinction that matters is whether your app can keep a secret.
+If you are shipping on someone else device a browser, a phone, someone's laptop. Then you are unable to keep a secret,
+because the secret would ship inside it. Only an application (web server or other) running on your own server can.
+
+### What is a custom scheme
+
+The scheme is the part of the URI that is before the `:`, in URLs it is either `http` or `https`.
+Phone apps often use these to make Deep Links, links that directly open a screen in an app. You can use this as a `redirect_uri` for the OAuth flow, skipping the need to start a web server to catch the user, and taking them directly back to your app.
+
+It is also possible to use this for desktop apps, but it is much less common, modern browsers also ask you if you are sure that you want to open them, increasing friction, and if the application is not installed then nothing will happen.
+
+### What is PKCE?
+PKCE ([RFC 7636](https://datatracker.ietf.org/doc/html/rfc7636)) is an addition to the OAuth flow to make sure that the client that started the flow is the device that completed it.
+
+By having the device make up a secret with at least 256 bits entropy (`code_verifier`) then send a SHA256 hashed version (`code_challenge`) of it to the server when starting the flow, the auth provider can be sure that only someone who can provide the code that hashes to the challenge it initially got is the correct device when doing the key exchange.
+
+### Why should I disable Device Authorization Grant if I am not using it
+
+Unlike the standard flows where even for Public apps the auth provider can only send the user to pre-approved `redirect_uri`s,
+for Device Authorization Grant all you need is the apps public client id.
+
+So if you don't disable Device Auth Grant people will be able to take the client id that is embedded in your app, and in the standard flow is sent with the user, and start Auth flows with it in the name of your apps with whatever scopes have allowed for it.
+
+## Endpoints
+
+All of these (and the full set of grant types, scopes, and auth methods this server supports) are also published at the discovery document.
+It is recommended that you make a call to discovery and read it at startup rather than hardcoding these if you can,
+since if we ever have to change anything then your app can load in the new URLs automatically.
+
+| Purpose | URL |
+| --- | --- |
+| Discovery | <a href={URLS.OAUTH_DISCOVERY_URL} target="_blank" rel="noreferrer noopener">{URLS.OAUTH_DISCOVERY_URL}</a> |
+| Token | `POST` <a href={URLS.OAUTH_TOKEN_URL} target="_blank" rel="noreferrer noopener">{URLS.OAUTH_TOKEN_URL}</a> |
+| Revoke | `POST` <a href={URLS.OAUTH_REVOKE_URL} target="_blank" rel="noreferrer noopener">{URLS.OAUTH_REVOKE_URL}</a> |
+| Introspect (confidential clients only) | `POST` <a href={URLS.OAUTH_INTROSPECT_URL} target="_blank" rel="noreferrer noopener">{URLS.OAUTH_INTROSPECT_URL}</a> |
+| Device authorization | `POST` <a href={URLS.OAUTH_DEVICE_URL} target="_blank" rel="noreferrer noopener">{URLS.OAUTH_DEVICE_URL}</a> |
+| Authorize (browser redirect) | <a href={URLS.OAUTH_AUTHORIZE_URL} target="_blank" rel="noreferrer noopener">{URLS.OAUTH_AUTHORIZE_URL}</a> |
+| Device verification (human-facing) | <a href={URLS.DEVICE_LINK_URL} target="_blank" rel="noreferrer noopener">{URLS.DEVICE_LINK_URL}</a> |
+
+## Tokens
+
+Access and refresh tokens are opaque random strings, not JWTs. There's nothing to decode client-side.
+If you need to check whether a token is still valid, use the introspection endpoint (confidential clients only) or just try it against the API.
+
+- **Access tokens** (`hc_at_XXXXX`) last 1 week and work exactly like a PAT for API requests.
+- **Refresh tokens** (`hc_rt_XXXXX`) last 6 months, and **rotate on every use**.
+  Each refresh returns a new refresh token, and the one you just spent stops working.
+  If a refresh token ever gets used twice (yours got copied, or you're retrying a request that actually succeeded),
+  the server treats it as a replay and revokes that token's entire chain, making it so the user has to go through an OAuth flow again.
+  Your app should always save the newest refresh token and only ever use it once.
+
+## Scopes
+
+OAuth apps use the same [scopes](/api/graphql/actions) as Personal Access Tokens, But there are a few things work differently here than for a PATs:
+
+The scopes you list when [registering your app](#registering-an-app) are a cap, and are intersected with your requested scopes at consent time, that is then intersected with the user's allowed scope's at request time.
+That means that a user can consent to any of the librarian scopes even if they are not a librarian, but if you try to use those then you will get a missing scope error if the user does not have the required roles, but it also makes it so you don't have to restart the OAuth flow with the scopes if they do gain permission down the line.
+
+When you make a request to the OAuth authorize endpoint you have to include the scopes you want, they are not implied from your allowed scopes.
+But, it is possible to omit them when refreshing the token, you will then be issued a token with the same scopes.
+You can also request any subset of the scopes the user consented to when refreshing without having to go through the OAuth flow again.
+However if you want more scopes then what the user initially consented to you will have to do the flow again.
+
+## Registering an app
+
+Create an app in the <a href={URLS.NEW_DEVELOPER_APP_URL} target="_blank" rel="noreferrer noopener">Developer Apps</a> tab on the API page.
+Here's what each field is actually for:
+
+| Field | What it's for |
+| --- | --- |
+| Application type | Confidential vs. public, and can't be changed later -- see [Which flow do I need](#which-flow-do-i-need). |
+| Name | Shown to the user on the consent screen, and afterward in their list of connected apps. |
+| Icon | Same as Name -- consent screen and the connected apps list. |
+| Description | Not currently shown at consent time -- it only appears later, on the user's connected apps list. Reserved for a future use (either added to the consent screen, or a future app directory style feature) -- worth filling in for when that lands, even though it's not surfaced yet. |
+| Website URL | Shown as a link on the consent screen, right under your app's name -- it and the redirect host are the two things a user can actually verify, since `client_id` alone can be seen by anyone. |
+| Redirect URIs | Where Hardcover sends the user back after they approve or deny. Must be `https`, except loopback addresses (`127.0.0.1`, `[::1]`, `localhost`) where it can be `http` -- for local development or desktop apps. A custom URI scheme is possible for native apps. URIs are matched exactly -- no wildcards or prefixes. |
+| Device Authorization Grant toggle | Lets your app's `client_id` be used at the [device endpoint](#endpoints) and `hardcover.app/link`. Off unless you turn it on (pre-checked for native apps, but still changeable). |
+| Scopes this app may request | The ceiling described under [Scopes](#scopes) above. Only ask for what you actually need, the app can request a subset of these at auth time, shown on the consent screen. |
+
+## Consent and revoking access
+
+Users manage every app they've connected from the <a href={URLS.AUTHORIZED_APPS_URL} target="_blank" rel="noreferrer noopener">Authorized Apps</a> page.
+Revoking an app there kills every token it holds for that user immediately, and clears their consent record -- your app will need to send them through the authorize flow again from scratch, not just refresh.
+
+The same applies if you delete/revoke your own app from the developer dashboard, every token it ever issued, for every user, stops working immediately.
+
+## Storing tokens on the client
+
+How you store the token between requests depends heavily on what kind of app you're building.
+A browser tab, a phone, and a CLI tool all have different answers, and getting it wrong is the easiest way to accidentally leak credentials.
+This is covered specifically in each flow's guide rather than here, since the right answer for an SPA (prefer memory over `localStorage`) is close to the wrong answer for a native app (use the OS keychain, not a plain file).
+
+## Appearance in Authorized apps
+In the Authorized Apps page it shows your apps name, thumbnail, and description along with how many active and idle sessions the app has.
+The user is able to revoke access to your app, signing out all sessions and removing their stored consent, or they can sign out individual sessions, keeping consent even if they sign out of all locations.
+
+- Active sessions are sessions where the Access Token is still valid and might be in use.
+- Idle sessions are where the Access Token has expired, but the Refresh Token is still valid and can be used to reactivate the session.
+
+On each of the sessions we store the last used User Agent and parse that to show a client name,
+however it only parse out common user agents, and if it does not recognise the User Agent it will show up blank.
+If you want your client to show correctly (e.g. 'Softcover' or 'Hardcover.app for KOReader') then reach out on discord!
+
+## Compliance
+
+Hardcover's OAuth tries to be in compliance with the [OAuth 2.1 recommendations](https://oauth.net/2.1/).
+So the server has been checked against the current IETF specifications, but there are some deviations like mandating PKCE every client, confidential included, which exceeds what the spec requires.
+
+Specs implemented:
+
+- [draft-ietf-oauth-v2-1](https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/) -- OAuth 2.1 consolidation draft
+- [RFC6749](https://www.rfc-editor.org/rfc/rfc6749) -- The OAuth 2.0 Authorization Framework
+- [RFC6750](https://www.rfc-editor.org/rfc/rfc6750) -- Bearer Token Usage
+- [RFC7009](https://www.rfc-editor.org/rfc/rfc7009) -- Token Revocation
+- [RFC7636](https://www.rfc-editor.org/rfc/rfc7636) -- PKCE (S256 only, no `plain` fallback)
+- [RFC7662](https://www.rfc-editor.org/rfc/rfc7662) -- Token Introspection
+- [RFC8414](https://www.rfc-editor.org/rfc/rfc8414) -- Authorization Server Metadata (discovery)
+- [RFC8628](https://www.rfc-editor.org/rfc/rfc8628) -- Device Authorization Grant
+- [RFC8252](https://www.rfc-editor.org/rfc/rfc8252) -- OAuth for Native Apps (BCP 212)
+- [RFC9700](https://www.rfc-editor.org/rfc/rfc9700) -- OAuth 2.0 Security Best Current Practice (BCP 240)
+- [RFC9207](https://www.rfc-editor.org/rfc/rfc9207) -- Issuer Identification (the `iss` check above)
+
+Tokens are opaque rather than JWTs by design, so a few JWT-specific specs (RFC9068, DPoP/RFC9449) don't apply.
+Refresh token rotation with reuse detection is used instead as the mitigation for a stolen refresh token.
+
+## Rate limits
+
+OAuth tokens share the same [rate limits](/api/getting-started#rate-limits) as PATs.
+
+But do note, rate limiting is done per-user, so a user will have the same rate limit shared between all of their sessions on your app, and across all other apps (and their own PATs).
+
+## See also
+
+- [PAT Link Builder](/api/pat-link-builder)
+- [Actions & Scopes](/api/graphql/actions)
+- [Getting Started with the API](/api/getting-started)

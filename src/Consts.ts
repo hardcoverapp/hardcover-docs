@@ -3,9 +3,20 @@ export const URLS = {
     API: 'https://api.hardcover.app',
     API_ACCOUNT_URL: 'https://hardcover.app/account/api',
     API_NEW_TOKEN_URL: 'https://hardcover.app/account/api/keys/new',
+    DEVELOPER_APPS_URL: 'https://hardcover.app/account/developer-apps',
+    NEW_DEVELOPER_APP_URL: 'https://hardcover.app/account/developer-apps/new',
+    AUTHORIZED_APPS_URL: 'https://hardcover.app/account/api/authorized-apps',
     DOCS: 'https://docs.hardcover.app',
     POLICIES: 'https://hardcover.app/pages/policies',
     DMCA: 'https://hardcover.app/pages/dmca',
+
+    OAUTH_AUTHORIZE_URL: 'https://hardcover.app/oauth2/authorize',
+    OAUTH_TOKEN_URL: 'https://api.hardcover.app/oauth2/token',
+    OAUTH_REVOKE_URL: 'https://api.hardcover.app/oauth2/revoke',
+    OAUTH_INTROSPECT_URL: 'https://api.hardcover.app/oauth2/introspect',
+    OAUTH_DEVICE_URL: 'https://api.hardcover.app/oauth2/device',
+    OAUTH_DISCOVERY_URL: 'https://api.hardcover.app/.well-known/oauth-authorization-server',
+    DEVICE_LINK_URL: 'https://hardcover.app/link',
 
     GRAPHQL_URL: 'https://api.hardcover.app/v1/graphql',
 
