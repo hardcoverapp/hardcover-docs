@@ -6,6 +6,7 @@ export const URLS = {
     DEVELOPER_APPS_URL: 'https://hardcover.app/account/developer-apps',
     NEW_DEVELOPER_APP_URL: 'https://hardcover.app/account/developer-apps/new',
     AUTHORIZED_APPS_URL: 'https://hardcover.app/account/api/authorized-apps',
+    API_CAPABILITIES_URL: 'https://api.hardcover.app/capabilities.json',
     DOCS: 'https://docs.hardcover.app',
     POLICIES: 'https://hardcover.app/pages/policies',
     DMCA: 'https://hardcover.app/pages/dmca',

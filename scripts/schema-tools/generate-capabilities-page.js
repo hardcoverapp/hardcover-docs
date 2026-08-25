@@ -1,6 +1,9 @@
 import fs from "fs";
 import { buildClientSchema } from "graphql";
 
+import { schemaTypes } from "./config.js";
+import { escapeHtml } from "../../src/lib/html.ts";
+
 const OUTPUT_PATH = "src/content/docs/api/GraphQL/Actions.mdx";
 
 const introspection = JSON.parse(fs.readFileSync("schema.json", "utf8"));
@@ -18,6 +21,13 @@ function describe(operation, fieldDef) {
   const description = fieldDef?.description || "";
   if (!description || description === operation) return "";
   return description;
+}
+
+function operationCell(operation) {
+  if (operation in schemaTypes) {
+    return `<a href="/api/graphql/schemas/${operation}">${escapeHtml(operation)}</a>`;
+  }
+  return escapeHtml(operation);
 }
 
 function scopesCell(scopeNames) {
@@ -40,6 +50,10 @@ for (const [operation, { read, write }] of Object.entries(operationScopes)) {
       scopes: write,
       description: describe(operation, mutationFields[operation]),
     });
+  } else {
+    console.warn(
+      `Skipping "${operation}": not found in schema query/mutation fields`,
+    );
   }
 }
 
@@ -59,9 +73,9 @@ function renderTable(entries) {
   lines.push("    <tbody>");
   for (const { operation, scopes, description } of entries) {
     lines.push("    <tr>");
-    lines.push(`        <td>${operation}</td>`);
+    lines.push(`        <td>${operationCell(operation)}</td>`);
     lines.push(`        <td>${scopesCell(scopes)}</td>`);
-    lines.push(`        <td>${description}</td>`);
+    lines.push(`        <td>${escapeHtml(description)}</td>`);
     lines.push("    </tr>");
   }
   lines.push("    </tbody>");
@@ -76,11 +90,11 @@ category: reference
 layout: /src/layouts/documentation.astro
 ---
 
-Each action below is a GraphQL query or mutation root field. To call it with an
-access token (OAuth or PAT), the token needs **any one** of the listed scopes -- they are
-alternatives, not a combined requirement. Scopes can imply other, narrower scopes;
-see [capabilities.json](https://api.hardcover.app/capabilities.json) for the full
-scope definitions.
+Each action below is a GraphQL query or mutation root field.
+
+To call it with an access token (OAuth or PAT), the token needs at least one of the listed scopes,
+multiple scopes are listed when a broader scope encompasses or implies a narrower one.<br/>
+See [capabilities.json](https://api.hardcover.app/capabilities.json) for the full scope definitions.
 
 Distributing a tool that needs specific scopes? The [PAT Link Builder](/api/pat-link-builder)
 generates a link that pre-selects them on the New API Key form for your users.

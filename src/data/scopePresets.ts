@@ -1,5 +1,5 @@
-// Curated starting points for the PAT Link Builder. These mirror the presets
-// offered on the account settings API key form (rails app: constants/scopePresets.ts)
+// Curated starting points for the PAT Link Builder.
+// These mirror the presets offered on the account settings API key form (rails app: constants/scopePresets.ts)
 // -- update both together if you add or change one.
 
 export type ScopePreset = {
@@ -19,7 +19,7 @@ const SCOPE_PRESETS: ScopePreset[] = [
   {
     id: "readonly-dashboard",
     label: "Read-Only Stats / Export",
-    description: "View your library, lists, goals, and journal -- no writes.",
+    description: "View your library, lists, goals, and journal — no writes.",
     scopes: [
       "read:catalog",
       "read:library",

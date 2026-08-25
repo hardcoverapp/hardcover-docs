@@ -30,7 +30,7 @@ We are currently looking for feedback on this API.
 If you have any questions or need help, please reach out to us on <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Discord</a>.
 
 ## Getting an API Key
-To get an API token, you need to go to your account settings page and click on the <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">Hardcover API</a> link; then click the <a href={URLS.API_NEW_TOKEN_URL} target="_blank" rel="noreferrer noopener">New API Key</a> button.
+To get an API token, you need to go to your account settings page and click on the <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">Hardcover API</a> link, then click the <a href={URLS.API_NEW_TOKEN_URL} target="_blank" rel="noreferrer noopener">New API Key</a> button.
 
 Give your new token a memorable name to identify this use. If this is for a 3rd-party (ex: NickelHardcover, Hardcover KOReader Plugin), then using that as the token name can be helpful. Set a time period for how long you want this token to be active for (Expiration). After that time the token will no longer work, and you'll need to update it. 
 
@@ -49,7 +49,7 @@ After you have your token, you can start making requests to the API!
     OAuth let's your users not have to manually create tokens and give it the correct permissions your app requires.
     TODO: link to guide
 
-    However, if you are building tool or script that has to use PATs, then check out the [PAT Link Builder](/api/pat-link-builder) -- it generates a link that opens the new key form with the scopes your app needs already checked, so your users don't have to hunt through the list themselves.
+    However, if you are building tools or scripts that have to use PATs, then check out the [PAT Link Builder](/api/pat-link-builder) -- it generates a link that opens the new key form with the scopes your app needs already checked, so your users don't have to hunt through the list themselves.
 </Aside>
 
 ## Making Your First Request
@@ -111,13 +111,13 @@ A `403` can come with a few different `error` values depending on the cause:
 - CORS are open, so you can make API requests from a website, but it is recommended to use OAuth and store your tokens securely. You should not be requesting a user take out a PAT for your app
 - <Badge text="Recommendation" variant="note" /> When authoring scripts that use the API, it is recommended to include a user-agent header with a description of the script.
 - Queries have a max timeout of 30 seconds.
-- By using the API, you agree not to use to train large language models that are made publicly available or used commerically.
+- By using the API, you agree not to use to train large language models that are made publicly available or used commercially.
 
-## Commerical API Use
+## Commercial API Use
 
 As mentioned on the <a href={URLS.POLICIES} target="_blank" rel="noreferrer noopener">Hardcover Policies Page</a>, we make no copyright or proprietary rights over this data, and it should be used at your own risk.
 
-If you're creating a commerical product, or making a publicly accessibly website, you *may not use data owned by users*. This includes, but is not limited to:
+If you're creating a commercial product, or making a publicly accessible website, you *may not use data owned by users*. This includes, but is not limited to:
 
 - Users libraries and stats
 - User reviews, ratings, dates read
@@ -148,7 +148,7 @@ Images on Hardcover are uploaded by users on the internet. If you use any images
     - `_nsimilar`
     - `_similar`
 - Queries have a max timeout of 30 seconds.
-- Search querues have a max timeout of 2 seconds.
+- Search queries have a max timeout of 2 seconds.
 - Queries are not allowed to run in the browser, they must be run in an environment where the token can be kept secure.
 
 ## Rate Limits
@@ -166,9 +166,9 @@ Here are our current rate limits.
 | `Free`      | 5,000       | 10          | 60               | Personal ownership, progress sync, personal use, doing cool stuff |
 | `Supporter` | 50,000      | 15          | 60               | Heavy data needs, always running processes, research |
 
-These rate limites are intended to be plenty for the vast majority of use cases. If you're running a **project for the public good** (ex: the Hardcover bot in /r/suggestmeabook on Reddit to fetch book info) that uses Hardcover and would like to have your rate increased, please reach out to **{EMAILS.SUPPORT}** with information about your project, why you're requesting a rate increase and what limit you would like to request.
+These rate limits are intended to be plenty for the vast majority of use cases. If you're running a **project for the public good** (ex: the Hardcover bot in /r/suggestmeabook on Reddit to fetch book info) that uses Hardcover and would like to have your rate increased, please reach out to **{EMAILS.SUPPORT}** with information about your project, why you're requesting a rate increase and what limit you would like to request.
 
-If you're running a **commercial product** (or one that intends to be a commerical product in the future) that requires higher API limits, you're in luck! We're building that out right now. Look for that in the near future.
+If you're running a **commercial product** (or one that intends to be a commercial product in the future) that requires higher API limits, you're in luck! We're building that out right now. Look for that in the near future.
 
 Each top-level query within a GraphQL query counts as one request towards each of these limits. For example, this request would count as 2 requests towards your limit.
 
