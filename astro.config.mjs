@@ -157,6 +157,17 @@ export default defineConfig({
                         }
                     },
                     {
+                        label: useTranslation('sidebar.api.oauthGuides', 'en'),
+                        translations: {
+                            es: useTranslation('sidebar.api.oauthGuides', 'es'),
+                            fr: useTranslation('sidebar.api.oauthGuides', 'fr'),
+                            it: useTranslation('sidebar.api.oauthGuides', 'it'),
+                            pl: useTranslation('sidebar.api.oauthGuides', 'pl')
+                        },
+                        collapsed: true,
+                        items: [{ autogenerate: {directory: 'api/OAuth'} }],
+                    },
+                    {
                         label: useTranslation('sidebar.api.guides', 'en'),
                         translations: {
                             es: useTranslation('sidebar.api.guides', 'es'),

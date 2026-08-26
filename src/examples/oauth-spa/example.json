@@ -1,0 +1,10 @@
+{
+  "name": "OAuth SPA app",
+  "items": [
+    {
+      "key": "js",
+      "file": "oauth.js",
+      "files": "index.html"
+    }
+  ]
+}
