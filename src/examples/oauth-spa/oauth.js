@@ -1,5 +1,5 @@
 // SECTION START: clientId :SECTION
-const CLIENT_ID = "1ffaaf04-5aad-46f2-89ea-42c5ba7f5c65";
+const CLIENT_ID = "64003fc6-9a33-4787-b80b-4827f40d46c6";
 // SECTION END: clientId :SECTION
 
 // SECTION START: hardcoverOauthEndpoints :SECTION
@@ -56,41 +56,73 @@ function render({ signedIn, message }) {
   signOutBtn.hidden = !signedIn;
 }
 
-// --- step 1: send the user to the provider ---------------------------
+// entry point
+
+function main() {
+  signInBtn.addEventListener("click", signIn);
+  signOutBtn.addEventListener("click", signOut);
+
+  const params = new URLSearchParams(location.search);
+  const savedToken = localStorage.getItem("oauth_token")?.access_token;
+
+  if (params.has("error")) {
+    // The user declined, or the app is misconfigured.
+    history.replaceState({}, "", REDIRECT_URI);
+    render({
+      signedIn: false,
+      message: `Sign-in failed: ${params.get("error_description") ?? params.get("error")}`,
+    });
+  } else if (params.has("code")) {
+    handleCallback(params);
+  } else if (savedToken) {
+    showProfile(savedToken); // still signed in from a previous visit
+  }
+}
+
+// step 1/2: prep and send the user
 
 async function signIn() {
+  // SECTION START: setupValues :SECTION
   const state = randomString(24);
-  const verifier = randomString(32); // the spec wants a 43-128 long verifier
+  const verifier = randomString(32);
+  const challenge_code = await sha256(verifier);
+  // SECTION END: setupValues :SECTION
 
-  // Only the hash travels in the URL now. The verifier stays here and is
-  // sent in step 2, which proves the same browser started and finished the
-  // flow — so a stolen code is useless on its own. That's all PKCE is.
+  // SECTION START: storeSecrets :SECTION
   sessionStorage.setItem("pkce_verifier", verifier);
-  sessionStorage.setItem("oauth_state", state); // guards against a forged callback
+  sessionStorage.setItem("oauth_state", state);
+  // SECTION END: storeSecrets :SECTION
 
-  location.href = `${AUTHORIZE_ENDPOINT}?${new URLSearchParams({
+  // SECTION START: prepParams :SECTION
+  const queryParams = new URLSearchParams({
     response_type: "code",
     client_id: CLIENT_ID,
     redirect_uri: REDIRECT_URI,
-    state,
-    code_challenge: await sha256(verifier),
+    state: state,
+    code_challenge: challenge_code,
     code_challenge_method: "S256",
     scope: SCOPE,
-  })}`;
+  });
+  // SECTION END: prepParams :SECTION
+
+  // SECTION START: sendUser :SECTION
+  location.href = `${AUTHORIZE_ENDPOINT}?${queryParams}`;
+  // SECTION END: sendUser :SECTION
 }
 
-// --- step 2: trade the code for a token ------------------------------
+// step 4: catch and verify the user
 
 async function handleCallback(params) {
+  // SECTION START: fetchSecrets :SECTION
   const state = sessionStorage.getItem("oauth_state");
   const verifier = sessionStorage.getItem("pkce_verifier");
   sessionStorage.removeItem("oauth_state");
   sessionStorage.removeItem("pkce_verifier");
 
   history.replaceState({}, "", REDIRECT_URI); // drop ?code= so a refresh can't replay it
+  // SECTION END: fetchSecrets :SECTION
 
-  // No verifier means this tab never started the flow. No state match means
-  // someone else's callback landed here. Either way, stop.
+  // SECTION START: checkState :SECTION
   if (!verifier || params.get("state") !== state) {
     render({
       signedIn: false,
@@ -98,13 +130,9 @@ async function handleCallback(params) {
     });
     return;
   }
+  // SECTION END: checkState :SECTION
 
-  // Hardcover sets authorization_response_iss_parameter_supported, so every
-  // callback names the server that issued the code (RFC 9207). Check it.
-  // If your app supports more than one provider, this is what stops a
-  // malicious one from handing you a code that you then redeem at another
-  // provider's token endpoint — a mix-up attack. state can't catch that,
-  // because the state is legitimately yours.
+  // SECTION START: checkIssuer :SECTION
   if (params.get("iss") !== ISSUER) {
     render({
       signedIn: false,
@@ -112,14 +140,18 @@ async function handleCallback(params) {
     });
     return;
   }
+  // SECTION END: checkIssuer :SECTION
 
+  // step 5: trade for the token
+
+  // SECTION START: exchangeCode :SECTION
   const res = await fetch(TOKEN_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
       grant_type: "authorization_code",
       code: params.get("code"),
-      redirect_uri: REDIRECT_URI, // must match step 1 exactly
+      redirect_uri: REDIRECT_URI, // must match step 2 exactly
       client_id: CLIENT_ID,
       code_verifier: verifier,
     }),
@@ -127,24 +159,25 @@ async function handleCallback(params) {
   const token = await res.json().catch(() => ({}));
 
   if (!res.ok) {
-    // Read this one. Nearly every first-run failure lands here, usually a
-    // redirect_uri that doesn't match what's registered.
+    // Read this one. Nearly every first-run failure lands here, usually a redirect_uri that doesn't match what's registered.
     render({
       signedIn: false,
       message: `Sign-in failed: ${token.error_description ?? token.error ?? res.status}`,
     });
     return;
   }
+  // SECTION END: exchangeCode :SECTION
 
-  // token is also carrying expires_in, and a refresh_token if you asked for
-  // one. See the note at the bottom.
-  localStorage.setItem("access_token", token.access_token);
+  // SECTION START: storingToken :SECTION
+  localStorage.setItem("oauth_token", token);
+  // SECTION END: storingToken :SECTION
   showProfile(token.access_token);
 }
 
-// --- step 3: use the token -------------------------------------------
+// step 6: use the token
 
 async function showProfile(accessToken) {
+  // SECTION START: useAPI :SECTION
   const res = await fetch(GRAPHQL_ENDPOINT, {
     method: "POST",
     headers: {
@@ -157,10 +190,11 @@ async function showProfile(accessToken) {
   });
   const body = await res.json().catch(() => ({}));
   const user = body.data?.me?.[0];
+  // SECTION END: useAPI :SECTION
 
   if (!user) {
     // Usually a saved token that has expired or been revoked since last visit.
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("oauth_token");
     render({
       signedIn: false,
       message: "Your session expired. Sign in again.",
@@ -174,16 +208,17 @@ async function showProfile(accessToken) {
   });
 }
 
-// --- sign out ---------------------------------------------------------
+// sign out
 
 async function signOut() {
-  const accessToken = localStorage.getItem("access_token");
-  localStorage.removeItem("access_token");
+  const accessToken = localStorage.getItem("oauth_token")?.access_token;
+  localStorage.removeItem("oauth_token");
   render({ signedIn: false, message: "Signed out." });
 
   // Optional, but tells the server the token is dead now instead of leaving
   // it valid until it expires.
   if (accessToken) {
+    // SECTION START: revokingToken :SECTION
     fetch(REVOKE_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -193,46 +228,8 @@ async function signOut() {
         client_id: CLIENT_ID,
       }),
     }).catch(() => {});
+    // SECTION END: revokingToken :SECTION
   }
 }
 
-// --- entry point ------------------------------------------------------
-
-signInBtn.addEventListener("click", signIn);
-signOutBtn.addEventListener("click", signOut);
-
-const params = new URLSearchParams(location.search);
-const savedToken = localStorage.getItem("access_token");
-
-if (params.has("error")) {
-  // The user declined, or the app is misconfigured.
-  history.replaceState({}, "", REDIRECT_URI);
-  render({
-    signedIn: false,
-    message: `Sign-in failed: ${params.get("error_description") ?? params.get("error")}`,
-  });
-} else if (params.has("code")) {
-  handleCallback(params);
-} else if (savedToken) {
-  showProfile(savedToken); // still signed in from a previous visit
-}
-
-/*
-      Left out on purpose, in rough order of when you'll want them:
-
-      - Discovery. GET /.well-known/oauth-authorization-server returns every
-        endpoint, grant type, and scope this server supports. Reading it at
-        startup means you don't hardcode URLs that may move, and you can check
-        what's actually supported instead of guessing. Worth noting from that
-        document: token_endpoint_auth_methods_supported includes "none", which
-        is what says a public client like this page is allowed; and the only
-        response type is "code", so there's no implicit flow to fall back to.
-      - Refreshing. The token response includes expires_in. Store the expiry,
-        and when it passes, POST grant_type=refresh_token to the token endpoint
-        instead of sending the user through the redirect again.
-      - Token storage. localStorage is the common choice for a demo, and it means
-        any XSS on your page can read the token. A variable in memory plus a
-        silent refresh on load is the stricter version; a backend that holds the
-        token and sets a cookie is stricter still.
-      - Concurrency. Two tabs both refreshing at once will race.
-    */
+main();
