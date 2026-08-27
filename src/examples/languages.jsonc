@@ -4,5 +4,6 @@
   "python": { "label": "Python", "lang": "python" },
   "ruby": { "label": "Ruby", "lang": "ruby" },
   "go": { "label": "Go", "lang": "go" },
+  "bash": { "label": "cURL", "lang": "bash" },
   "graphql": { "label": "GraphQL", "lang": "graphql" }
 }

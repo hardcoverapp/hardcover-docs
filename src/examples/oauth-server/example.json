@@ -1,0 +1,9 @@
+{
+  "name": "OAuth confidential client",
+  "items": [
+    {
+      "key": "bash",
+      "file": "oauth.sh"
+    }
+  ]
+}
