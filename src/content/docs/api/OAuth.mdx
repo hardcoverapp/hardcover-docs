@@ -97,9 +97,9 @@ The app type you pick when [registering your app](#registering-an-app) is fixed 
 
 | You're building | Pick | Client type | Guide |
 | --- | --- | --- | --- |
-| A server-rendered app (Rails, Django, Node, PHP, etc.) or Backend-For-Frontend (BFF) server for an app, anything that runs on infrastructure you control | Web app (server-side) | Confidential: Gets a client secret, plus PKCE | [Confidential client guide](/api/oauth/gettingstartedapioauthserver) |
-| A React/Vue/Svelte app that runs in the user's browser | Single-page app | Public: no secret, PKCE only | [SPA guide](/api/oauth/gettingstartedapioauthspa) |
-| A mobile app, desktop app, CLI tool, or e-reader plugin | Mobile, desktop, or CLI | Public: no secret, PKCE only, Device Authorization Grant enabled and set can custom uri schemes | [Native / device guide](/api/oauth/gettingstartedapioauthdevice) |
+| A server-rendered app (Rails, Django, Node, PHP, etc.) or Backend-For-Frontend (BFF) server for an app, anything that runs on infrastructure you control | Web app (server-side) | Confidential: Gets a client secret, plus PKCE | [Confidential client guide](/api/oauth/getting-started-server) |
+| A React/Vue/Svelte app that runs in the user's browser | Single-page app | Public: no secret, PKCE only | [SPA guide](/api/oauth/getting-started-spa) |
+| A mobile app, desktop app, CLI tool, or e-reader plugin | Mobile, desktop, or CLI | Public: no secret, PKCE only, Device Authorization Grant enabled and set can custom uri schemes | [Native / device guide](/api/oauth/getting-started-device) |
 
 The distinction that matters is whether your app can keep a secret.
 If you are shipping on someone else device a browser, a phone, someone's laptop. Then you are unable to keep a secret,
