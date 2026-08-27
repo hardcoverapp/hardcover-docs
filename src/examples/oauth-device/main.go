@@ -22,7 +22,7 @@ const (
 // SECTION END: hardcoverOauthEndpoints :SECTION
 
 // SECTION START: credentials :SECTION
-// Public client -- no secret
+// Public client (no secret)
 const ClientID = "your-client-id"
 
 // SECTION END: credentials :SECTION

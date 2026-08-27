@@ -12,7 +12,7 @@ ISSUER="https://api.hardcover.app"
 # SECTION END: hardcoverOauthEndpoints :SECTION
 
 # SECTION START: credentials :SECTION
-# Public client -- no secret, PKCE is what proves this request is legit.
+# Public client (no secret), PKCE is what proves this request is legit.
 CLIENT_ID="your-client-id"
 # SECTION END: credentials :SECTION
 
