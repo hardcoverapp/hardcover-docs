@@ -56,7 +56,7 @@ func main() {
 
 	// SECTION START: showUserCode :SECTION
 	fmt.Printf("Go to %s and enter code: %s\n", device.VerificationURI, device.UserCode)
-	// or turn device.VerificationURIComplete into a QR code
+	// optionally turn device.VerificationURIComplete into a QR code
 	// SECTION END: showUserCode :SECTION
 
 	// SECTION START: pollForToken :SECTION

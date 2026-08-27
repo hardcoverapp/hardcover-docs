@@ -153,3 +153,74 @@ If you want to download the full demo yourself you can find it here
 <CodeExampleLinks dir="oauth-native" />
 
 ## Using Device Authorization Grant
+
+This flow has no redirect at all, which is the whole point, it's for devices with no browser (or no keyboard worth typing a password on). There's no `state` and no `iss` to check either, since there's no redirect for either of them to protect.
+
+### Step 1: Starting the flow
+
+Ask for a device code, same `client_id` and `scope` as before, but this time posted straight to the device endpoint instead of sending the user anywhere.
+
+<DeviceGrantExamples section="hardcoverOauthEndpoints" />
+
+<DeviceGrantExamples section="credentials" />
+
+<DeviceGrantExamples section="oauthWantedScope" />
+
+<DeviceGrantExamples section="startDeviceAuth" />
+
+The response has everything you need to get the user signed in and to know how to poll:
+
+| Field | Description |
+| --- | --- |
+| `device_code` | id you use to identify your polling requests |
+| `user_code` | the code you tell the user to enter |
+| `verification_uri` | where you tell the user to go |
+| `verification_uri_complete` | a complete url you can turn into a QR that will prefill the code |
+| `expires_in` | in seconds, how long you have to do the auth before giving up |
+| `interval` | in seconds, how often you should poll |
+
+### Step 2: Showing the user code
+
+Tell the user where to go and what to type in.
+
+{/* TODO: pictures with QR code */}
+
+<DeviceGrantExamples section="showUserCode" />
+
+If you turn `verification_uri_complete` into a QR code, still show `verification_uri` and `user_code` as text too, in case the user can't scan it.
+
+### Step 3: Polling for the token
+
+Poll the token endpoint every `interval` seconds until you get a token back, the user approves or denies, or `expires_in` runs out.
+
+<DeviceGrantExamples section="pollForToken" />
+
+While the user hasn't acted yet you'll get back `authorization_pending`, keep polling. If you get `slow_down`, keep polling too, but add a few seconds to your interval, you're polling faster than the server wants. Anything else (`access_denied`, `expired_token`, etc.) means stop, the flow is over.
+
+### Step 4: User approval
+
+The user goes to the <a href={URLS.DEVICE_LINK_URL} target="_blank" rel="noreferrer noopener">Link page</a> on a phone or computer and enters the code you gave them.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/device_grant_code.png" description="User is presented with a screen asking for the 8 character code" />
+
+They are then asked for approval, similar to the standard flow.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/device_grant_consent.png" description="OAuth consent screen, asking if the user is ok with giving 'Device demo app' access to their public profile fields. And verifying if that is the code they entered " />
+
+### Step 5: Use the API
+
+Same as every other flow, the token you end up with works exactly like a PAT.
+
+<DeviceGrantExamples section="useAPI" />
+
+### Wrapping up
+
+Revoke on sign out here too, same as the standard flow above.
+
+<DeviceGrantExamples section="revokingToken" />
+
+### Full code
+
+If you want to download the full demo yourself you can find it here
+
+<CodeExampleLinks dir="oauth-device" />
