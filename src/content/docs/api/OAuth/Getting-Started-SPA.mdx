@@ -135,9 +135,11 @@ We only sent the hash with the user, and Hardcover is now waiting for the code t
 <Examples section="exchangeCode" />
 
 The response for the server has 3 items:
-- `access_token` -- in the shape of `hc_at_xxxx`, your API Bearer token.
-- `refresh_token` -- in the shape of `hc_rt_xxxx`, the token you can use in the same token endpoint with the `refresh_token` grant type to get a new set of tokens.
-- `expires_in` -- when the access token will expire, you will still be able to use the refresh token, but the access token will no longer be valid.
+| Field | Description |
+| --- | --- |
+| `access_token` | in the shape of `hc_at_xxxx`, your API Bearer token. |
+| `refresh_token` | in the shape of `hc_rt_xxxx`, the token you can use in the same token endpoint with the `refresh_token` grant type to get a new set of tokens. |
+| `expires_in` | when the access token will expire, you will still be able to use the refresh token, but the access token will no longer be valid. |
 
 
 Now for storing the token `localStorage` is not the most secure option, but it will work for this demo.
