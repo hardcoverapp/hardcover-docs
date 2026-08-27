@@ -1,0 +1,11 @@
+{
+  "name": "OAuth native/device client",
+  "groups": {
+    "standard": [
+      { "key": "bash", "file": "standard/oauth.sh" }
+    ],
+    "device": [
+      { "key": "bash", "file": "device/oauth.sh" }
+    ]
+  }
+}
