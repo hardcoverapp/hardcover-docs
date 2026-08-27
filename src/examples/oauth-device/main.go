@@ -23,7 +23,7 @@ const (
 
 // SECTION START: credentials :SECTION
 // Public client (no secret)
-const ClientID = "your-client-id"
+const ClientID = "163f8e7c-970a-463d-b6b4-a4e51e4cb4dd"
 
 // SECTION END: credentials :SECTION
 

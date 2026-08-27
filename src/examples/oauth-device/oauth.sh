@@ -9,7 +9,7 @@ GRAPHQL_ENDPOINT="https://api.hardcover.app/v1/graphql"
 # SECTION END: hardcoverOauthEndpoints :SECTION
 
 # SECTION START: credentials :SECTION
-CLIENT_ID="your-client-id"
+CLIENT_ID="163f8e7c-970a-463d-b6b4-a4e51e4cb4dd"
 # SECTION END: credentials :SECTION
 
 # SECTION START: oauthWantedScope :SECTION
