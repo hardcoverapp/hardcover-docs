@@ -18,15 +18,18 @@ const (
 	RevokeEndpoint  = "https://api.hardcover.app/oauth2/revoke"
 	GraphQLEndpoint = "https://api.hardcover.app/v1/graphql"
 )
+
 // SECTION END: hardcoverOauthEndpoints :SECTION
 
 // SECTION START: credentials :SECTION
-// Public client -- no secret.
+// Public client -- no secret
 const ClientID = "your-client-id"
+
 // SECTION END: credentials :SECTION
 
 // SECTION START: oauthWantedScope :SECTION
 const Scope = "read:me:content"
+
 // SECTION END: oauthWantedScope :SECTION
 
 func main() {
@@ -82,9 +85,9 @@ func main() {
 		if token.AccessToken != "" {
 			break
 		}
-		// authorization_pending: keep polling.
-		// slow_down: also keep polling, a real client should add `interval` seconds to its wait each time it sees this.
-		// Anything else means give up.
+		// authorization_pending: keep polling
+		// slow_down: also keep polling, a real client should add `interval` seconds to its wait each time it sees this
+		// Anything else means give up
 		if token.Error != "authorization_pending" && token.Error != "slow_down" {
 			log.Fatalf("sign-in failed: %s", token.Error)
 		}
