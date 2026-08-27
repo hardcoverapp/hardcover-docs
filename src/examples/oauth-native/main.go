@@ -146,7 +146,7 @@ func main() {
 	// SECTION END: exchangeCode :SECTION
 
 	// SECTION START: storingToken :SECTION
-	// A CLI/desktop app should put these in the OS keychain, not a plain file -- e.g. github.com/zalando/go-keyring
+	// A CLI/desktop app should put these in the OS keychain, not a plain file (e.g. github.com/zalando/go-keyring)
 	saveToKeychain(token.AccessToken, token.RefreshToken)
 	// SECTION END: storingToken :SECTION
 
