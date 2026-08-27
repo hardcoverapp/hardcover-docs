@@ -208,8 +208,6 @@ async function showProfile(accessToken) {
   });
 }
 
-// sign out
-
 async function signOut() {
   const accessToken = localStorage.getItem("oauth_token")?.access_token;
   localStorage.removeItem("oauth_token");
