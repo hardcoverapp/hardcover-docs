@@ -69,8 +69,6 @@ func main() {
 		Error        string `json:"error"`
 	}
 	for time.Now().Before(deadline) {
-		time.Sleep(interval)
-
 		pollResp, err := http.PostForm(TokenEndpoint, url.Values{
 			"grant_type":  {"urn:ietf:params:oauth:grant-type:device_code"},
 			"device_code": {device.DeviceCode},
@@ -91,6 +89,8 @@ func main() {
 		if token.Error != "authorization_pending" && token.Error != "slow_down" {
 			log.Fatalf("sign-in failed: %s", token.Error)
 		}
+
+		time.Sleep(interval)
 	}
 	if token.AccessToken == "" {
 		log.Fatal("sign-in failed: timed out waiting for approval")
