@@ -17,6 +17,8 @@ CLIENT_ID="your-client-id"
 # SECTION END: credentials :SECTION
 
 # SECTION START: oauthReturnAddress :SECTION
+# A fixed port, since this script isn't actually listening on anything.
+# Hardcover ignores the port on loopback redirect URIs, so any value works.
 REDIRECT_URI="http://127.0.0.1:8080/callback"
 # SECTION END: oauthReturnAddress :SECTION
 

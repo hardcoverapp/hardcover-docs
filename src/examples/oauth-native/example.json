@@ -1,5 +1,5 @@
 {
-  "name": "OAuth Device Authorization Grant",
+  "name": "OAuth native client",
   "items": [
     { "key": "bash", "file": "oauth.sh" }
   ]
