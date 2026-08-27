@@ -4,7 +4,7 @@
     {
       "key": "js",
       "file": "oauth.js",
-      "files": "index.html"
+      "files": ["index.html"]
     }
   ]
 }
