@@ -83,7 +83,7 @@ Every vibe has a `vibe_type`. Only `custom` vibes are fully user-editable; the o
     <tbody>
     <tr>
         <td>books_generated_at</td>
-        <td>timestamptz</td>
+        <td>timestamp</td>
         <td>When the cached results were last generated. Results are regenerated after any edit or once a day.</td>
     </tr>
     <tr>
@@ -93,7 +93,7 @@ Every vibe has a `vibe_type`. Only `custom` vibes are fully user-editable; the o
     </tr>
     <tr>
         <td>created_at</td>
-        <td>timestamptz!</td>
+        <td>timestamp!</td>
         <td>Creation time</td>
     </tr>
     <tr>
@@ -108,7 +108,7 @@ Every vibe has a `vibe_type`. Only `custom` vibes are fully user-editable; the o
     </tr>
     <tr>
         <td>featured_at</td>
-        <td>timestamptz</td>
+        <td>timestamp</td>
         <td>When the vibe was featured</td>
     </tr>
     <tr>
@@ -163,12 +163,12 @@ Every vibe has a `vibe_type`. Only `custom` vibes are fully user-editable; the o
     </tr>
     <tr>
         <td>updated_at</td>
-        <td>timestamptz!</td>
+        <td>timestamp!</td>
         <td>Last update time (also bumped when signals or exclusions change)</td>
     </tr>
     <tr>
         <td>user</td>
-        <td>users!</td>
+        <td>users</td>
         <td>Vibe owner</td>
     </tr>
     <tr>
@@ -179,7 +179,7 @@ Every vibe has a `vibe_type`. Only `custom` vibes are fully user-editable; the o
     <tr>
         <td>vibe_type</td>
         <td>Int!</td>
-        <td>Vibe type (0=custom, 1=recommendation, 2=dynamic, 3=top_picks). See <a href="#vibe-types">Vibe Types</a>.</td>
+        <td>Vibe type (0=custom, 1=recommendation, 2=dynamic, 3=top_picks). See Vibe Types above.</td>
     </tr>
     </tbody>
 </table>
