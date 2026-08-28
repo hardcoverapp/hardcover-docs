@@ -61,12 +61,6 @@
       "hasArgs": false
     },
     {
-      "name": "original_book_id",
-      "type": "Int",
-      "description": "",
-      "hasArgs": false
-    },
-    {
       "name": "privacy_setting",
       "type": "privacy_settings!",
       "description": "An object relationship",
@@ -285,6 +279,12 @@
       "hasArgs": false
     },
     {
+      "name": "updated_at",
+      "type": "timestamp!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "user_id",
       "type": "Int",
       "description": "",
@@ -366,7 +366,7 @@
     },
     {
       "name": "cached_featured_series",
-      "type": "jsonb",
+      "type": "jsonb!",
       "description": "",
       "hasArgs": true
     },
@@ -381,6 +381,18 @@
       "type": "jsonb!",
       "description": "",
       "hasArgs": true
+    },
+    {
+      "name": "cached_similar_book_ids",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "cached_similar_books_updated_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
     },
     {
       "name": "cached_tags",
@@ -696,7 +708,7 @@
     },
     {
       "name": "state",
-      "type": "String",
+      "type": "String!",
       "description": "",
       "hasArgs": false
     },
@@ -860,7 +872,7 @@
     },
     {
       "name": "locked",
-      "type": "Boolean",
+      "type": "Boolean!",
       "description": "",
       "hasArgs": false
     },
@@ -941,6 +953,36 @@
     {
       "name": "contribution",
       "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "contributor_role",
+      "type": "contributor_roles",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "contributor_role_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "contributor_role_specialization",
+      "type": "contributor_role_specializations",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "contributor_specialization",
+      "type": "contributor_specializations",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "contributor_specialization_id",
+      "type": "Int",
       "description": "",
       "hasArgs": false
     },
@@ -1627,6 +1669,12 @@
       "type": "Int!",
       "description": "",
       "hasArgs": false
+    },
+    {
+      "name": "vibe",
+      "type": "vibes",
+      "description": "An object relationship",
+      "hasArgs": false
     }
   ],
   "lists": [
@@ -1718,6 +1766,12 @@
       "name": "list_books_aggregate",
       "type": "list_books_aggregate!",
       "description": "An aggregate relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "list_members",
+      "type": "[list_members!]!",
+      "description": "An array relationship",
       "hasArgs": true
     },
     {
@@ -2165,6 +2219,12 @@
       "hasArgs": false
     },
     {
+      "name": "journal_date",
+      "type": "date",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "likes",
       "type": "[likes!]!",
       "description": "An array relationship",
@@ -2528,7 +2588,7 @@
     },
     {
       "name": "imported",
-      "type": "Boolean",
+      "type": "Boolean!",
       "description": "",
       "hasArgs": false
     },
@@ -2594,7 +2654,7 @@
     },
     {
       "name": "owned_copies",
-      "type": "Int",
+      "type": "Int!",
       "description": "",
       "hasArgs": false
     },
@@ -2683,8 +2743,14 @@
       "hasArgs": false
     },
     {
+      "name": "review_markdown",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "review_migrated",
-      "type": "Boolean",
+      "type": "Boolean!",
       "description": "",
       "hasArgs": false
     },
@@ -2879,6 +2945,12 @@
     {
       "name": "current_sign_in_at",
       "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "default_reading_format_id",
+      "type": "Int",
       "description": "",
       "hasArgs": false
     },
@@ -3222,7 +3294,7 @@
   "vibes": [
     {
       "name": "books_generated_at",
-      "type": "timestamptz",
+      "type": "timestamp",
       "description": "",
       "hasArgs": false
     },
@@ -3234,7 +3306,7 @@
     },
     {
       "name": "created_at",
-      "type": "timestamptz!",
+      "type": "timestamp!",
       "description": "",
       "hasArgs": false
     },
@@ -3252,7 +3324,7 @@
     },
     {
       "name": "featured_at",
-      "type": "timestamptz",
+      "type": "timestamp",
       "description": "",
       "hasArgs": false
     },
@@ -3318,13 +3390,13 @@
     },
     {
       "name": "updated_at",
-      "type": "timestamptz!",
+      "type": "timestamp!",
       "description": "",
       "hasArgs": false
     },
     {
       "name": "user",
-      "type": "users!",
+      "type": "users",
       "description": "An object relationship",
       "hasArgs": false
     },

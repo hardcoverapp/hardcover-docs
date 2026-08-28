@@ -74,7 +74,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     </tr>
     <tr>
         <td>cached_featured_series</td>
-        <td>jsonb</td>
+        <td>jsonb!</td>
         <td>Cached featured series info</td>
     </tr>
     <tr>
@@ -86,6 +86,16 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>cached_image</td>
         <td>jsonb!</td>
         <td>Cached cover image data</td>
+    </tr>
+    <tr>
+        <td>cached_similar_book_ids</td>
+        <td>jsonb!</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>cached_similar_books_updated_at</td>
+        <td>timestamp</td>
+        <td></td>
     </tr>
     <tr>
         <td>cached_tags</td>
@@ -334,7 +344,7 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     </tr>
     <tr>
         <td>state</td>
-        <td>String</td>
+        <td>String!</td>
         <td>Record state (pending, processing, normalized, processed, error, duplicate)</td>
     </tr>
     <tr>

@@ -207,6 +207,70 @@
     ],
     "write": []
   },
+  "contributor_role_categories": {
+    "read": [
+      "read:catalog",
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributor_role_categories_by_pk": {
+    "read": [
+      "read:catalog",
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributor_role_specializations": {
+    "read": [
+      "read:catalog",
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributor_role_specializations_by_pk": {
+    "read": [
+      "read:catalog",
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributor_roles": {
+    "read": [
+      "read:catalog",
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributor_roles_by_pk": {
+    "read": [
+      "read:catalog",
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributor_specializations": {
+    "read": [
+      "read:catalog",
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
+  "contributor_specializations_by_pk": {
+    "read": [
+      "read:catalog",
+      "read:catalog:data",
+      "read:catalog:search"
+    ],
+    "write": []
+  },
   "countries": {
     "read": [
       "read:catalog",
@@ -717,6 +781,24 @@
     ],
     "write": []
   },
+  "list_members": {
+    "read": [
+      "read:lists",
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
+  "list_members_by_pk": {
+    "read": [
+      "read:lists",
+      "read:lists:following",
+      "read:lists:private",
+      "read:lists:public"
+    ],
+    "write": []
+  },
   "lists": {
     "read": [
       "read:lists",
@@ -1017,6 +1099,24 @@
     ],
     "write": []
   },
+  "vibes": {
+    "read": [
+      "read:vibes",
+      "read:vibes:following",
+      "read:vibes:private",
+      "read:vibes:public"
+    ],
+    "write": []
+  },
+  "vibes_by_pk": {
+    "read": [
+      "read:vibes",
+      "read:vibes:following",
+      "read:vibes:private",
+      "read:vibes:public"
+    ],
+    "write": []
+  },
   "collection_import_results": {
     "read": [
       "read:account"
@@ -1227,6 +1327,12 @@
       "write:lists"
     ]
   },
+  "delete_list_member": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
   "insert_filter_list": {
     "read": [],
     "write": [
@@ -1246,6 +1352,12 @@
     ]
   },
   "insert_list_book": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "insert_list_member": {
     "read": [],
     "write": [
       "write:lists"
@@ -1276,6 +1388,12 @@
     ]
   },
   "update_list_books_many": {
+    "read": [],
+    "write": [
+      "write:lists"
+    ]
+  },
+  "update_list_member": {
     "read": [],
     "write": [
       "write:lists"
@@ -1507,6 +1625,24 @@
     "read": [],
     "write": [
       "write:notifications"
+    ]
+  },
+  "delete_vibe": {
+    "read": [],
+    "write": [
+      "write:vibes"
+    ]
+  },
+  "insert_vibe": {
+    "read": [],
+    "write": [
+      "write:vibes"
+    ]
+  },
+  "update_vibe": {
+    "read": [],
+    "write": [
+      "write:vibes"
     ]
   },
   "book_import_statuses": {
