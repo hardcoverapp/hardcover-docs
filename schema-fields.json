@@ -3218,5 +3218,127 @@
       "description": "",
       "hasArgs": false
     }
+  ],
+  "vibes": [
+    {
+      "name": "books_generated_at",
+      "type": "timestamptz",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "cached_book_ids",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "created_at",
+      "type": "timestamptz!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "description",
+      "type": "String",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "featured",
+      "type": "Boolean!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "featured_at",
+      "type": "timestamptz",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "followers",
+      "type": "[followed_users!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "likes",
+      "type": "[likes!]!",
+      "description": "An array relationship",
+      "hasArgs": true
+    },
+    {
+      "name": "likes_count",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "object_type",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "privacy_setting",
+      "type": "privacy_settings",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "privacy_setting_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "result_type",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "slug",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "title",
+      "type": "String!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamptz!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "user",
+      "type": "users!",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "user_id",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    },
+    {
+      "name": "vibe_type",
+      "type": "Int!",
+      "description": "",
+      "hasArgs": false
+    }
   ]
 }
