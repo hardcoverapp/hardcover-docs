@@ -383,6 +383,18 @@
       "hasArgs": true
     },
     {
+      "name": "cached_similar_book_ids",
+      "type": "jsonb!",
+      "description": "",
+      "hasArgs": true
+    },
+    {
+      "name": "cached_similar_books_updated_at",
+      "type": "timestamp",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "cached_tags",
       "type": "jsonb!",
       "description": "",

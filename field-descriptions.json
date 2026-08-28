@@ -10,6 +10,8 @@
     "cached_featured_series": "Cached featured series info",
     "cached_header_image": "Cached header image data",
     "cached_image": "Cached cover image data",
+    "cached_similar_book_ids": "Cached list of book IDs similar to this book (currently ~100), ordered from most similar to least similar",
+    "cached_similar_books_updated_at": "When the similar books cache was last updated. Refreshed automatically after 7 days",
     "cached_tags": "Cached tags",
     "canonical_id": "Canonical book if this is a duplicate",
     "compilation": "Is a compilation or anthology",
