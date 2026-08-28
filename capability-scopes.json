@@ -789,6 +789,33 @@
     ],
     "write": []
   },
+  "vibes": {
+    "read": [
+      "read:vibes",
+      "read:vibes:following",
+      "read:vibes:private",
+      "read:vibes:public"
+    ],
+    "write": []
+  },
+  "vibes_aggregate": {
+    "read": [
+      "read:vibes",
+      "read:vibes:following",
+      "read:vibes:private",
+      "read:vibes:public"
+    ],
+    "write": []
+  },
+  "vibes_by_pk": {
+    "read": [
+      "read:vibes",
+      "read:vibes:following",
+      "read:vibes:private",
+      "read:vibes:public"
+    ],
+    "write": []
+  },
   "notification_channels": {
     "read": [
       "read:notifications"
@@ -1538,6 +1565,12 @@
       "write:catalog:map"
     ]
   },
+  "delete_vibe": {
+    "read": [],
+    "write": [
+      "write:vibes"
+    ]
+  },
   "edition_normalize": {
     "read": [],
     "write": [
@@ -1608,6 +1641,12 @@
       "write:catalog:edit"
     ]
   },
+  "insert_vibe": {
+    "read": [],
+    "write": [
+      "write:vibes"
+    ]
+  },
   "update_author": {
     "read": [],
     "write": [
@@ -1654,6 +1693,12 @@
       "write:catalog",
       "write:catalog:append",
       "write:catalog:edit"
+    ]
+  },
+  "update_vibe": {
+    "read": [],
+    "write": [
+      "write:vibes"
     ]
   },
   "upsert_book": {
