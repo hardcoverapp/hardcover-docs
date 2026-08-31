@@ -90,12 +90,12 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
     <tr>
         <td>cached_similar_book_ids</td>
         <td>jsonb!</td>
-        <td></td>
+        <td>Cached list of book IDs similar to this book (currently ~100), ordered from most similar to least similar</td>
     </tr>
     <tr>
         <td>cached_similar_books_updated_at</td>
         <td>timestamp</td>
-        <td></td>
+        <td>When the similar books cache was last updated. Refreshed automatically after 7 days</td>
     </tr>
     <tr>
         <td>cached_tags</td>
