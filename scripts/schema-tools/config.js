@@ -22,7 +22,8 @@ export const schemaTypes = {
   'book_series': 'src/content/docs/api/GraphQL/Schemas/BookSeries.mdx',
   'tags': 'src/content/docs/api/GraphQL/Schemas/Tags.mdx',
   'user_books': 'src/content/docs/api/GraphQL/Schemas/UserBooks.mdx',
-  'users': 'src/content/docs/api/GraphQL/Schemas/Users.mdx'
+  'users': 'src/content/docs/api/GraphQL/Schemas/Users.mdx',
+  'vibes': 'src/content/docs/api/GraphQL/Schemas/Vibes.mdx'
 };
 
 export const typeNames = Object.keys(schemaTypes);
