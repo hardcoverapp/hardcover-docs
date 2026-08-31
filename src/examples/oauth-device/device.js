@@ -92,7 +92,6 @@ async function signIn() {
 
     const token = await pollForToken(device, controller.signal);
     localStorage.setItem("access_token", token.access_token);
-    await wait(200, controller.signal); // small delay to let token get ready
     await showProfile(token.access_token);
   } catch (err) {
     if (err.name === "AbortError") {
@@ -161,6 +160,7 @@ async function pollForToken(
   let delay = interval * 1000;
 
   while (Date.now() < deadline) {
+    await wait(delay, signal);
     if (signal.aborted) throw new DOMException("Cancelled", "AbortError");
 
     const { res, body } = await postForm(
@@ -195,9 +195,6 @@ async function pollForToken(
           body.error_description ?? body.error ?? `HTTP ${res.status}`,
         );
     }
-
-    // Wait for next poll
-    await wait(delay, signal);
   }
 
   throw new Error("Timed out waiting for approval.");
