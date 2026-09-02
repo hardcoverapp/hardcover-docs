@@ -59,7 +59,7 @@ def random_string(n_bytes):
     return base64.urlsafe_b64encode(secrets.token_bytes(n_bytes)).rstrip(b"=").decode()
 
 
-def challenge(verifier):
+def base64url_sha256(verifier):
     digest = hashlib.sha256(verifier.encode()).digest()
     return base64.urlsafe_b64encode(digest).rstrip(b"=").decode()
 
@@ -141,7 +141,7 @@ class Handler(BaseHTTPRequestHandler):
         # SECTION START: setupValues :SECTION
         state = random_string(24)
         verifier = random_string(32)
-        code_challenge = challenge(verifier)
+        code_challenge = base64url_sha256(verifier)
         # SECTION END: setupValues :SECTION
 
         # SECTION START: storeSecrets :SECTION

@@ -48,7 +48,7 @@ func randomString(n int) string {
 	return base64.RawURLEncoding.EncodeToString(b)
 }
 
-func challenge(verifier string) string {
+func base64URLSHA256(verifier string) string {
 	sum := sha256.Sum256([]byte(verifier))
 	return base64.RawURLEncoding.EncodeToString(sum[:])
 }
@@ -79,7 +79,7 @@ func main() {
 	// SECTION START: setupValues :SECTION
 	state := randomString(24)
 	verifier := randomString(32)
-	codeChallenge := challenge(verifier)
+	codeChallenge := base64URLSHA256(verifier)
 	// SECTION END: setupValues :SECTION
 
 	// SECTION START: prepParams :SECTION
