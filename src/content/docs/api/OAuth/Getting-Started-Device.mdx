@@ -183,11 +183,11 @@ The response has everything you need to get the user signed in and to know how t
 
 Tell the user where to go and what to type in.
 
-{/* TODO: pictures with QR code */}
-
 <DeviceGrantExamples section="showUserCode" />
 
 If you turn `verification_uri_complete` into a QR code, still show `verification_uri` and `user_code` as text too, in case the user can't scan it.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/device_link_code.png" description="A screen telling the user to go to the link page and endter the code, or to scan the QR code" />
 
 ### Step 3: Polling for the token
 
