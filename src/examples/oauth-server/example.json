@@ -6,6 +6,10 @@
       "file": "main.go"
     },
     {
+      "key": "python",
+      "file": "main.py"
+    },
+    {
       "key": "bash",
       "file": "oauth.sh"
     }

@@ -14,7 +14,6 @@ import (
 	"net/url"
 	"os/exec"
 	"runtime"
-	"time"
 )
 
 // SECTION START: hardcoverOauthEndpoints :SECTION
@@ -149,9 +148,6 @@ func main() {
 	// A CLI/desktop app should put these in the OS keychain, not a plain file (e.g. github.com/zalando/go-keyring)
 	saveToKeychain(token.AccessToken, token.RefreshToken)
 	// SECTION END: storingToken :SECTION
-
-	// Give a moment for the token to be ready on hardcovers side before using in the API
-	time.Sleep(50 * time.Millisecond)
 
 	// SECTION START: useAPI :SECTION
 	body, _ := json.Marshal(map[string]string{"query": "{ me { id username name } }"})
