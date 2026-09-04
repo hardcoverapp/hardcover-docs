@@ -40,13 +40,16 @@ Next, select which permissions you want to allow this token to access. Tokens cr
 
 <ImageComponent imagePath="/src/content/images/api/getting-started/new_token_message.png" description="The box that appears when you create a new API token. Make sure you copy your token!" />
 
+After you have your token, you can start making requests to the API!
+
 <Aside>
     The Personal Access Tokens for the API are not meant to be shared and should be kept private, especially with the `all` scope where they have full access to your account, if a token is ever leaked or compromised you should immediately revoke it.
 
-    However, if you are building tools or scripts for other people, then check out the [PAT Link Builder](/api/pat-link-builder) -- it generates a link that opens the new key form with the scopes your app needs already checked, so your users don't have to hunt through the list themselves.
-</Aside>
+    If you are not making a simple script or a simple tool for yourself, and you want to make it easier for your users, then it is recommended to use OAuth.<br/>.
+    OAuth let's your users not have to manually create tokens and give it the correct permissions your app requires, [Read more about OAuth](/api/oauth).
 
-After you have your token, you can start making requests to the API!
+    However, if you are building tools or scripts that have to use PATs, then check out the [PAT Link Builder](/api/pat-link-builder) -- it generates a link that opens the new key form with the scopes your app needs already checked, so your users don't have to hunt through the list themselves.
+</Aside>
 
 ## Making Your First Request
 After you have your token, you can head over to the [GraphQL console](https://cloud.hasura.io/public/graphiql?endpoint=https://api.hardcover.app/v1/graphql&header=Authorization%3ABearer%20).
@@ -104,10 +107,7 @@ A `403` can come with a few different `error` values depending on the cause:
     - This means you can't use the API to access and use someone else's data.
 - This API is running the same as if you were using the browser. Any actions you take will be under your user.
 - <Badge text="Don't share your token! Someone could delete your account with it." variant="danger" />
-- This should only be used from a code backend — never from a browser.
-- This is only for offline use at this time.
-    - You can only access this API from localhost or APIs.
-    - Later on, we hope to allow developers to join a group that allowlists specific sites, but that's a way down the line.
+- CORS are open, so you can make API requests from a website, but it is recommended to use OAuth and store your tokens securely. You should not be requesting a user take out a PAT for your app
 - <Badge text="Recommendation" variant="note" /> When authoring scripts that use the API, it is recommended to include a user-agent header with a description of the script.
 - Queries have a max timeout of 30 seconds.
 - By using the API, you agree not to use to train large language models that are made publicly available or used commercially.

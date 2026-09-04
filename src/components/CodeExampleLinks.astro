@@ -1,0 +1,32 @@
+---
+import { loadManifests, type Entry } from '@/lib/codeExamples/loaders';
+import { resolveMeta, toGroupList } from '@/lib/codeExamples/manifest';
+
+interface Props { dir: string; raw?: boolean }
+const { dir, raw } = Astro.props;
+
+const manifest = loadManifests()[dir];
+if (!manifest) throw new Error(`No example.json(c) for example dir "${dir}"`);
+
+const entries: { entry: Entry; group?: string }[] = toGroupList(manifest).flatMap(
+  ([group, groupEntries]) => groupEntries.map((entry) => ({ entry, group: group ?? undefined }))
+);
+---
+
+<h3>View {raw ? "raw" : "source"}:</h3>
+<ul>
+  {entries.map(({ entry, group }) => {
+    const meta = resolveMeta(entry, `used by ${dir}/${entry.file}`);
+    const key = 'key' in entry ? entry.key : entry.label;
+    const href = raw
+      ? `/examples/${dir}/${entry.file}`
+      : `/examples/${dir}/?${new URLSearchParams({ key })}${group ? `#${group}` : ''}`;
+    return (
+      <li>
+        <a href={href}>{meta.label}</a>
+        {' • '}
+        <a href={`/examples/${dir}/${key}.zip`}>zip</a>
+      </li>
+    );
+  })}
+</ul>

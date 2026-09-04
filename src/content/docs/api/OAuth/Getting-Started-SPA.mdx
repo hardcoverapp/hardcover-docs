@@ -1,0 +1,170 @@
+---
+title: "Getting Started with OAuth: Single Page Apps"
+description: How to use OAuth to make a single page application
+category: guide
+layout: /src/layouts/documentation.astro
+---
+
+import { URLS } from "@/Consts";
+import CodeExampleLinks from "@/components/CodeExampleLinks.astro"
+import ImageComponent from "@/components/ImageComponent.astro";
+
+import { bindExamples } from '@/lib/codeExamples/bindExamples';
+export const Examples = bindExamples('oauth-spa');
+
+This guide will walk you through the steps for making a simple Single Page App (SPA) application using hardcover OAuth, this is going to be a basic example, and there are a bunch of improvements you can make, but this is the bare bones.
+
+If you're building a server-rendered app or a backend-for-frontend instead, see the [confidential client guide](/api/oauth/getting-started-server). Building a CLI tool, desktop app, or anything else without a browser tab to redirect through? See the [native/device guide](/api/oauth/getting-started-device). Not sure which fits? Check [Which flow do I need?](/api/oauth#which-flow-do-i-need)
+
+## Setting up the app
+
+You first need to acquire an app, head over to the <a href={URLS.NEW_DEVELOPER_APP_URL} target="_blank" rel="noreferrer noopener">New Developer App</a> page.
+
+For this guide you only need to set the Application Type, Name, OAuth Redirect URI and Scopes.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_spa.png" description="Creating a new app, select Single-page app." />
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_name.png" description="Name the app something, this is shown to your users!" />
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_spa_oauth.png" description="OAuth information, the redirect URI's and allowed scopes." />
+
+For this guide you will only need the `read:me:content` scope, but you want can set whatever scopes you need.
+And I will be using `python -m http.server` to serve it, so I am setting the Redirect URI to `http://localhost/` and `http://localhost/index.html`. Since this is loopback (localhost) the port does not matter, but if you are going to host this publicly you will have to use https, and if you are not using port 443 (omitted by default) you will have to specify the port.
+
+After you click create you will be taken to the apps info page, when you are here, copy the 
+
+## Step 0: Discovery
+
+To do OAuth, the first thing you have to do is know where you have to call.
+
+For the sake of this Guide we will be hard coding the endpoints, but the info you need can be found at the <a href={URLS.OAUTH_DISCOVERY_URL} target="_blank" rel="noreferrer noopener">OAuth Discovery Endpoint</a>. You can fetch it dynamically, so the app will still work even if in the future we change the locations.
+
+<Examples section="hardcoverOauthEndpoints" />
+
+## Step 1: Prepping secrets
+
+The first step is to generating the secrets needed for the flow.
+
+The spec asks for the `verifier` to be between 43 and 128 characters long, this is because it wants a minimum of 256 bits (32 bytes) of entropy, and when you base64url encode that you get 43 characters.
+
+<Examples section="setupValues" />
+
+Store the PKCE verifier and the state, we will be needing them in step 4.
+<Examples section="storeSecrets" />
+
+## Step 2: Sending off the user
+
+Here are the parameters we are going to be sending the authentication server.
+
+<Examples section="prepParams" />
+
+The important ones we haven't mentioned are:
+##### `client_id`
+The client's public id, for this example you can use mine, but if you want a different domain then localhost, or more permission then identifying the user, you will need to make your own app.
+
+<Examples section="clientId" />
+
+##### `redirect_uri`
+Tells hardcover which of our pre approved redirect uris to send the user to after they finish.
+
+<Examples section="oauthReturnAddress" />
+
+##### `redirect_uri`
+
+<Examples section="oauthReturnAddress" />
+
+##### `scope`
+Which of our pre approved permissions do we want. In this case we just want to b able to get the user id, username, name, and profile image.
+The publicly available user information
+
+<Examples section="oauthWantedScope" />
+
+##### Others
+`response_type` and `code_challenge_method` do not have any other options.
+For the response type "code" means that we want a code that we can exchange for the key back.
+And for the challenge method "S256" means we used sha256 to hash the secret, so the server knows what to use when verifying.
+
+
+Since this is a barebones example, so we don't have any fancy open in new tab or opening a window just for the OAuth flow then closing it, we are just redirecting the user in the same tab.
+Though think those over for your own implementations since they make for a much nicer user experience.
+
+So off they go!
+
+<Examples section="sendUser" />
+
+## Step 3: User approval
+
+The user has now landed on the consent screen, they are given the option to approve or deny access to your app.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/spa_auth_consent.png" description="OAuth consent screen, asking if the user is ok with giving 'SPA demo app' access to their public profile fields." />
+
+Once the user has consented to your app, the consent screen will not show up again for an entire year, as long as you only request the same or a subset of the consented scope, if you want a scope they have not consented to the they will be shown the consent screen again upon going through the flow.
+
+## Step 4: The user is back
+
+The user is redirected back to your website!
+
+There are now 2 possibilities, either the user will have the `error` query param set, in that case the user has either rejected or the sign up has failed (in which case you will also have a `error_description`).
+
+Or, the user has the `code` param set, in that case we can start with step 4.
+First you want to fetch the secrets we stored earlier, we will now make use of them. And lets clean up after ourselves.
+
+<Examples section="fetchSecrets" />
+
+And now we can begin our checks.
+
+First lets make sure we have a verifier code stored and that state matches, if this is wrong it means the user probably started multiple login flows and we somehow have the wrong one (or there was an attacker trying to fake us out). Either way, stop.
+
+<Examples section="checkState" />
+
+Hardcover sets `authorization_response_iss_parameter_supported`, so every callback names the server that issued the code (RFC 9207). Check it.
+
+If your app supports more than one provider, this is what stops a malicious one from handing you a code that you then redeem at another provider's token endpoint (a mix-up attack). State can't catch that, because the state is legitimately yours.
+
+<Examples section="oauthIssuer" />
+
+<Examples section="checkIssuer" />
+
+
+## Step 5: Getting the real tokens
+
+You now are sure that you are the one that sent off the user, and that the data they returned with is real, it is time to trade the `code` that the user came back with for a real OAuth token!
+
+We only sent the hash with the user, and Hardcover is now waiting for the code that hashes to it to prove the client is really the same one who initiated the transaction. That's all PKCE is.
+
+<Examples section="exchangeCode" />
+
+The response for the server has 3 items:
+| Field | Description |
+| --- | --- |
+| `access_token` | in the shape of `hc_at_xxxx`, your API Bearer token. |
+| `refresh_token` | in the shape of `hc_rt_xxxx`, the token you can use in the same token endpoint with the `refresh_token` grant type to get a new set of tokens. |
+| `expires_in` | when the access token will expire, you will still be able to use the refresh token, but the access token will no longer be valid. |
+
+
+Now for storing the token `localStorage` is not the most secure option, but it will work for this demo.
+
+<Examples section="storingToken" />
+
+## Step 6: Use the API
+
+That's it. You're all set. You now have an API token that you can use to make requess, for example, getting the user info.
+
+<Examples section="useAPI" />
+
+## Wrapping up
+
+One final thing before we go, when signing out, you could technically just delete the tokens from your storage, no one else has them, so the user is now signed out.
+
+However, hardcover tracks the sessions, so the user will see o their authorized apps page that your app still has an active or idle session. So it is recommended to revoke the tokens when signing out.
+
+<Examples section="revokingToken" />
+
+You can use either the access token or the refresh token, it does not matter, they are revoked together.
+
+
+## Full code
+
+If you want to download the full demo yourself you can find it here
+
+<CodeExampleLinks dir="oauth-spa" />

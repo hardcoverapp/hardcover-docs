@@ -1,7 +1,7 @@
 import fs from "fs";
 import { buildClientSchema } from "graphql";
-import { schemaTypes } from "./config.js";
 
+import { schemaTypes } from "./config.js";
 import { escapeHtml } from "../../src/lib/html.ts";
 
 const OUTPUT_PATH = "src/content/docs/api/GraphQL/Actions.mdx";
