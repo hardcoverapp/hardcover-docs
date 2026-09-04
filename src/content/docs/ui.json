@@ -22,7 +22,9 @@
       "title": "API Docs",
       "gettingStarted": "Getting Started",
       "guides": "Guides",
-      "schemas": "Schemas"
+      "schemas": "Schemas",
+      "actions": "Actions & Scopes",
+      "patLinkBuilder": "PAT Link Builder"
     },
     "community": {
       "title": "Community",

@@ -10,6 +10,8 @@
     "cached_featured_series": "Cached featured series info",
     "cached_header_image": "Cached header image data",
     "cached_image": "Cached cover image data",
+    "cached_similar_book_ids": "Cached list of book IDs similar to this book (currently ~100), ordered from most similar to least similar",
+    "cached_similar_books_updated_at": "When the similar books cache was last updated. Refreshed automatically after 7 days",
     "cached_tags": "Cached tags",
     "canonical_id": "Canonical book if this is a duplicate",
     "compilation": "Is a compilation or anthology",
@@ -540,12 +542,34 @@
     "privacy_setting": "Privacy setting details",
     "user": "User who performed this activity"
   },
-  "book_series":{
+  "book_series": {
     "compilation": "Indicates if this is a compilation of books in the series",
     "featured": "Indicates if the series is featured on the book",
     "position": "The numeric position of the book in the series, for collections it will be the first book",
     "details": "Text form of position",
     "book": "The book in this series entry",
     "series": "The series"
+  },
+  "vibes": {
+    "books_generated_at": "When the cached results were last generated. Results are regenerated after any edit or once a day.",
+    "cached_book_ids": "Ordered array of book IDs in the most recently generated results",
+    "created_at": "Creation time",
+    "description": "Description",
+    "featured": "Featured site-wide",
+    "featured_at": "When the vibe was featured",
+    "followers": "Users following the vibe's owner",
+    "id": "Unique identifier",
+    "likes": "Likes on this vibe",
+    "likes_count": "Likes",
+    "object_type": "Always 'Vibe'",
+    "privacy_setting": "Privacy setting details",
+    "privacy_setting_id": "Privacy (1=Public, 2=Followers, 3=Private). Defaults to 3.",
+    "result_type": "What the vibe recommends. Currently always 0 (books).",
+    "slug": "URL-friendly identifier, unique per user (/@username/vibes/slug)",
+    "title": "Vibe title, unique per user",
+    "updated_at": "Last update time (also bumped when signals or exclusions change)",
+    "user": "Vibe owner",
+    "user_id": "Owner",
+    "vibe_type": "Vibe type (0=custom, 1=recommendation, 2=dynamic, 3=top_picks). See Vibe Types above."
   }
 }
