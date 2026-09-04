@@ -1,12 +1,7 @@
-import schemaFields from "../../schema-fields.json";
-import { QUERY_BUILDER } from "@/Consts";
+import { schemaFields, type FieldDefinition } from "./schemaFields";
+import { QUERY_BUILDER } from "./config";
 
-export interface FieldDefinition {
-  name: string;
-  type: string;
-  description: string;
-  hasArgs: boolean;
-}
+export type { FieldDefinition };
 
 export interface SelectedField {
   name: string;
@@ -51,7 +46,7 @@ export function getAvailableQueryTypes(): string[] {
  * Get fields for a given type
  */
 export function getFieldsForType(typeName: string): FieldDefinition[] {
-  return (schemaFields as Record<string, FieldDefinition[]>)[typeName] || [];
+  return schemaFields[typeName] || [];
 }
 
 /**

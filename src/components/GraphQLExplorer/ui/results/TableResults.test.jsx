@@ -26,6 +26,19 @@ describe("TableResults", () => {
         expect(getByRole("log")).toHaveTextContent("No results found");
     });
 
+    it("labels headers like the chart legend, keeping the path on hover", () => {
+        const { getByRole } = render(
+            <TableResults
+                results={{ rows: [{ book: { release_date: "1990-11-20" } }, { book: { release_date: "1991-01-01" } }] }}
+            />
+        );
+
+        const header = getByRole("columnheader", { name: "Book Release Date" });
+        expect(header).toBeInTheDocument();
+        // The exact field path stays reachable rather than being thrown away.
+        expect(header).toHaveAttribute("title", "book.release_date");
+    });
+
     it("renders nested objects with flattening", () => {
         const { getAllByRole } = render(
             <TableResults

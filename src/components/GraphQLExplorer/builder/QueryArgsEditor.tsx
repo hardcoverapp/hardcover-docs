@@ -8,8 +8,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { QUERY_BUILDER } from "@/Consts";
+import { QUERY_BUILDER } from "../lib/config";
 import { useTranslation } from "@/lib/utils";
+import { useExplorerLocale } from "../useExplorer";
 
 interface QueryArgsEditorProps {
   args: Record<string, any>;
@@ -24,7 +25,8 @@ interface ArgField {
   type: "number" | "string" | "object";
 }
 
-export function QueryArgsEditor({ args, onChange, availableFields = [], locale = 'en' }: QueryArgsEditorProps) {
+export function QueryArgsEditor({ args, onChange, availableFields = [] }: QueryArgsEditorProps) {
+  const locale = useExplorerLocale();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const t = (key: string) => useTranslation(`ui.graphQLExplorer.queryBuilder.${key}`, locale);

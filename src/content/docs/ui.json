@@ -22,7 +22,9 @@
       "title": "API Docs",
       "gettingStarted": "Getting Started",
       "guides": "Guides",
-      "schemas": "Schemas"
+      "schemas": "Schemas",
+      "actions": "Actions & Scopes",
+      "patLinkBuilder": "PAT Link Builder"
     },
     "community": {
       "title": "Community",
@@ -98,6 +100,7 @@
       "query": "Query",
       "example": "Example query",
       "viewQuery": "View query",
+      "viewAuthToken": "View authorization token",
       "results": "Results",
       "tryIt": "Try it yourself",
       "authToken": "Authorization Token",
@@ -122,6 +125,11 @@
         "invalidQuery": "Invalid query",
         "emptyToken": "No auth token provided",
         "invalidToken": "Invalid or expired auth token",
+        "expiredCredential": "This token has expired. Replace it with a current one.",
+        "insufficientScope": "This token does not have permission to run this query.",
+        "blockedOperation": "The API refused this query. See the limitations in Getting Started.",
+        "rateLimited": "Too many requests. Wait a moment and try again.",
+        "userIdUnavailable": "Your user id could not be read, so ##USER_ID## was left in the query. The token may not include the read:me scope.",
         "success": "Success!",
         "noResults": "No results found",
         "viewUnavailable": "This view is not available for this query's results."
@@ -135,6 +143,8 @@
         "selectFields": "Select Fields",
         "selected": "selected",
         "reset": "Reset",
+        "expand": "Expand",
+        "collapse": "Collapse",
         "generatedQuery": "Generated Query",
         "copyQuery": "Copy Query",
         "copied": "Copied!",

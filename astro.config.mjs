@@ -8,6 +8,7 @@ import {URLS} from './src/Consts';
 import {useTranslation} from './src/lib/utils'
 import {SOCIAL_LINKS} from './src/lib/social';
 import rehypeExternalLinks from './src/plugins/rehype-external-links.mjs';
+import {unified} from '@astrojs/markdown-remark';
 
 // The one host whose traffic is real. Everything else — preview builds, the
 // testing server, a local `astro preview` — must not report into it.
@@ -166,6 +167,26 @@ export default defineConfig({
                         },
                         collapsed: true,
                         items: [{ autogenerate: {directory: 'api/GraphQL/Schemas'} }],
+                    },
+                    {
+                        label: useTranslation('sidebar.api.actions', 'en'),
+                        slug: 'api/graphql/actions',
+                        translations: {
+                            es: useTranslation('sidebar.api.actions', 'es'),
+                            fr: useTranslation('sidebar.api.actions', 'fr'),
+                            it: useTranslation('sidebar.api.actions', 'it'),
+                            pl: useTranslation('sidebar.api.actions', 'pl')
+                        }
+                    },
+                    {
+                        label: useTranslation('sidebar.api.patLinkBuilder', 'en'),
+                        slug: 'api/pat-link-builder',
+                        translations: {
+                            es: useTranslation('sidebar.api.patLinkBuilder', 'es'),
+                            fr: useTranslation('sidebar.api.patLinkBuilder', 'fr'),
+                            it: useTranslation('sidebar.api.patLinkBuilder', 'it'),
+                            pl: useTranslation('sidebar.api.patLinkBuilder', 'pl')
+                        }
                     }
                 ]
             },
@@ -256,8 +277,14 @@ export default defineConfig({
         }
     }), react()],
     markdown: {
-        // Off-site links in prose open in a new tab; markdown has no syntax for it.
-        rehypePlugins: [[rehypeExternalLinks, {site: URLS.DOCS}]],
+        // Sätteri is Astro's default Markdown processor and does not run remark or
+        // rehype plugins. Opting into the unified processor is what keeps them
+        // working; `markdown.rehypePlugins` on its own is deprecated and, since
+        // astro 7.1.x, fails the build outright.
+        processor: unified({
+            // Off-site links in prose open in a new tab; markdown has no syntax for it.
+            rehypePlugins: [[rehypeExternalLinks, {site: URLS.DOCS}]],
+        }),
     },
     site: URLS.DOCS,
     vite: {

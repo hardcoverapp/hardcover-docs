@@ -1,5 +1,7 @@
 import fs from 'fs';
 
+import { escapeHtml } from "../../src/lib/html.ts";
+
 // Read the extracted schema fields
 const schemaFields = JSON.parse(fs.readFileSync('schema-fields.json', 'utf8'));
 
@@ -44,9 +46,9 @@ function generateMarkdownTable(typeName, fields) {
     // Prefer custom description, fall back to schema description
     const description = typeDescriptions[field.name] || field.description || '';
     markdown += '    <tr>\n';
-    markdown += `        <td>${field.name}</td>\n`;
-    markdown += `        <td>${field.type}</td>\n`;
-    markdown += `        <td>${description}</td>\n`;
+    markdown += `        <td>${escapeHtml(field.name)}</td>\n`;
+    markdown += `        <td>${escapeHtml(field.type)}</td>\n`;
+    markdown += `        <td>${escapeHtml(description)}</td>\n`;
     markdown += '    </tr>\n';
   }
 

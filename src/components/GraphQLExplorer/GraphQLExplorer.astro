@@ -1,7 +1,8 @@
 ---
 import {Code, Tabs, TabItem} from '@astrojs/starlight/components';
-import {useTranslation} from "../../lib/utils";
-import {GraphQLRunnerEnhanced} from './GraphQLRunnerEnhanced.tsx';
+import {useTranslation} from "@/lib/utils";
+import {ExplorerIsland} from './ExplorerIsland.tsx';
+import {isMutation} from './lib/policy';
 
 const locale = Astro.currentLocale;
 
@@ -12,13 +13,18 @@ const {
     presentation = undefined, // Undefined will default to the user's preference
     forcePresentation = false,
     chartable = true,
-    title = useTranslation("ui.graphQLExplorer.example", locale)
+    title = useTranslation("ui.graphQLExplorer.example", locale),
+    // Query builder options
+    initialQueryType = undefined,
+    showQueryTypeSelector = true,
+    defaultMode = 'static',
+    canToggleMode = false
 } = Astro.props;
 
-// Is the query a mutation?
-// If so, we don't allow it to run it in the explorer,
-// and we don't show the "Try it Yourself" tab
-const isMutation = query.trim().includes('mutation');
+// Mutations cannot be run here, so they get no "Try it Yourself" tab.
+// The check is shared with the runtime rather than reimplemented, which is what
+// previously let a `Mutation {` document get a tab it would then refuse to run.
+const mutation = isMutation(query ?? '');
 ---
 
 <Tabs>
@@ -31,16 +37,20 @@ const isMutation = query.trim().includes('mutation');
                       code={useTranslation("ui.graphQLExplorer.statusMessages.emptyQuery", locale)}/>
         )}
     </TabItem>
-    {canTry && !isMutation && (
+    {canTry && !mutation && (
             <TabItem label={useTranslation("ui.graphQLExplorer.tryIt", locale)} icon="seti:graphql">
                 <div class="not-content">
-                    <GraphQLRunnerEnhanced query={query}
-                                   description={description}
-                                   presentation={presentation}
-                                   forcePresentation={forcePresentation ? presentation : null}
-                                   chartable={chartable}
-                                   locale={locale}
-                                   client:only="react" />
+                    <ExplorerIsland query={query}
+                                    description={description}
+                                    presentation={presentation}
+                                    forcePresentation={forcePresentation ? presentation : null}
+                                    chartable={chartable}
+                                    locale={locale}
+                                    initialQueryType={initialQueryType}
+                                    showQueryTypeSelector={showQueryTypeSelector}
+                                    defaultMode={defaultMode}
+                                    canToggleMode={canToggleMode}
+                                    client:only="react"/>
                 </div>
             </TabItem>
     )}

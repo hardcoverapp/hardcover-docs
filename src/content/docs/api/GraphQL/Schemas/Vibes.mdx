@@ -1,0 +1,824 @@
+---
+title: Vibes
+category: reference
+layout: /src/layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import {Aside} from "@astrojs/starlight/components";
+
+## What Is a Vibe?
+
+A vibe is a personalized, auto-generated book recommendation feed. Instead of hand-picking books like a [list](/api/graphql/schemas/lists), you describe the *inputs* — which readers, genres, authors, books, or moods to lean toward or away from — and Hardcover's recommendation engine builds and refreshes the results for you.
+
+A vibe is made up of three kinds of inputs, all documented in [Vibe Inputs](#vibe-inputs) below:
+
+- **Signals** — weighted features such as "genre: romance +4", "author #123 +5", or "user #42 +5".
+- **Exclusions** — specific books or authors that must never appear in the results.
+- **Dynamic signals** — rules like "my last 5 read books" that resolve to concrete book/author signals at request time, so they stay current as the reader's activity changes.
+
+### Vibe Types
+
+Every vibe has a `vibe_type`. Only `custom` vibes are fully user-editable; the others are system-managed.
+
+<table>
+    <thead>
+    <tr>
+        <th>Value</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>0</td>
+        <td>custom</td>
+        <td>A user-built vibe. The only type that can be created through the API, and the only type that can be deleted or have its title, description, and privacy changed.</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>recommendation</td>
+        <td>The auto-created "Recommendations" vibe every user gets, seeded with their own user signal at +5.</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>dynamic</td>
+        <td>System-managed vibes powering the Discover page's personalized rows (e.g. "Because you read …"), driven by dynamic signals.</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>top_picks</td>
+        <td>The auto-created "Top Picks" vibe behind the Discover hero: popularity +5 crossed with the owner's user signal +5.</td>
+    </tr>
+    </tbody>
+</table>
+
+### Permissions
+
+<Aside type="note">
+    Creating vibes is a **Supporter** feature. `insert_vibe` returns an error for non-Supporter accounts.
+    Existing vibes can always have their exclusions edited by their owner, but changing signals or dynamic signals also requires Supporter status.
+</Aside>
+
+- Vibes are visible to their owner, to everyone when public (`privacy_setting_id: 1`), and to the owner's followers when followers-only (`2`).
+- A vibe's `user` signals may only target the owner or readers who follow the owner.
+- Only `custom` vibes can be deleted.
+- API tokens need the `read:vibes` scope (or one of `read:vibes:public`, `read:vibes:following`, `read:vibes:private`) to query vibes, and `write:vibes` to call the mutations.
+
+## Schema Relationships
+
+<SchemaGraph typeName="vibes" />
+
+## Fields
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>books_generated_at</td>
+        <td>timestamp</td>
+        <td>When the cached results were last generated. Results are regenerated after any edit or once a day.</td>
+    </tr>
+    <tr>
+        <td>cached_book_ids</td>
+        <td>jsonb!</td>
+        <td>Ordered array of book IDs in the most recently generated results</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>timestamp!</td>
+        <td>Creation time</td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>String</td>
+        <td>Description</td>
+    </tr>
+    <tr>
+        <td>featured</td>
+        <td>Boolean!</td>
+        <td>Featured site-wide</td>
+    </tr>
+    <tr>
+        <td>featured_at</td>
+        <td>timestamp</td>
+        <td>When the vibe was featured</td>
+    </tr>
+    <tr>
+        <td>followers</td>
+        <td>[followed_users!]!</td>
+        <td>Users following the vibe's owner</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>Int!</td>
+        <td>Unique identifier</td>
+    </tr>
+    <tr>
+        <td>likes</td>
+        <td>[likes!]!</td>
+        <td>Likes on this vibe</td>
+    </tr>
+    <tr>
+        <td>likes_count</td>
+        <td>Int!</td>
+        <td>Likes</td>
+    </tr>
+    <tr>
+        <td>object_type</td>
+        <td>String!</td>
+        <td>Always 'Vibe'</td>
+    </tr>
+    <tr>
+        <td>privacy_setting</td>
+        <td>privacy_settings</td>
+        <td>Privacy setting details</td>
+    </tr>
+    <tr>
+        <td>privacy_setting_id</td>
+        <td>Int!</td>
+        <td>Privacy (1=Public, 2=Followers, 3=Private). Defaults to 3.</td>
+    </tr>
+    <tr>
+        <td>result_type</td>
+        <td>Int!</td>
+        <td>What the vibe recommends. Currently always 0 (books).</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>String!</td>
+        <td>URL-friendly identifier, unique per user (/@username/vibes/slug)</td>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>String!</td>
+        <td>Vibe title, unique per user</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>timestamp!</td>
+        <td>Last update time (also bumped when signals or exclusions change)</td>
+    </tr>
+    <tr>
+        <td>user</td>
+        <td>users</td>
+        <td>Vibe owner</td>
+    </tr>
+    <tr>
+        <td>user_id</td>
+        <td>Int!</td>
+        <td>Owner</td>
+    </tr>
+    <tr>
+        <td>vibe_type</td>
+        <td>Int!</td>
+        <td>Vibe type (0=custom, 1=recommendation, 2=dynamic, 3=top_picks). See Vibe Types above.</td>
+    </tr>
+    </tbody>
+</table>
+
+<Aside type="note">
+    Signals, exclusions, and dynamic signals are write-only through the API today: they are set via `insert_vibe` / `update_vibe` but are not exposed as queryable fields or relationships on `vibes`.
+</Aside>
+
+### Available Queries
+
+<table>
+    <thead>
+    <tr>
+        <th>Query</th>
+        <th>Returns</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>vibes</td>
+        <td>vibes[]</td>
+        <td>Fetch an array of vibes with filtering and pagination (max 100 per request)</td>
+    </tr>
+    <tr>
+        <td>vibes_aggregate</td>
+        <td>vibes_aggregate</td>
+        <td>Get aggregated data about vibes (count, etc.)</td>
+    </tr>
+    <tr>
+        <td>vibes_by_pk</td>
+        <td>vibes</td>
+        <td>Fetch a single vibe by its primary key (id)</td>
+    </tr>
+    </tbody>
+</table>
+
+### Related Schemas
+
+- [Users](/api/graphql/schemas/users) - Vibe owners and the readers a vibe can be tuned for
+- [Books](/api/graphql/schemas/books) - The results a vibe produces, and a valid signal/exclusion target
+- [Authors](/api/graphql/schemas/authors) - A valid signal/exclusion target
+- [Likes](/api/graphql/schemas/likes) - Vibes can be liked with `upsert_like`
+- [Lists](/api/graphql/schemas/lists) - Hand-curated alternative to vibes
+
+## Query Examples
+
+### Get Your Vibes
+
+Fetch all the vibes you own, including the system-managed ones.
+
+<GraphQLExplorer query={`
+query MyVibes {
+    vibes(
+        where: {user_id: {_eq: ##USER_ID##}}
+        order_by: {updated_at: desc}
+    ) {
+        id
+        title
+        slug
+        description
+        vibe_type
+        privacy_setting_id
+        likes_count
+        books_generated_at
+    }
+}
+`} title="My Vibes"/>
+
+### Get a Single Vibe by ID
+
+Fetch one vibe along with its cached results.
+
+<GraphQLExplorer query={`
+query GetVibe {
+    vibes_by_pk(id: 1) {
+        id
+        title
+        slug
+        description
+        vibe_type
+        privacy_setting_id
+        cached_book_ids
+        books_generated_at
+        user {
+            username
+        }
+    }
+}
+`} title="Get Vibe"/>
+
+### Get the Books in a Vibe
+
+`cached_book_ids` holds the generated results in ranked order. Look the books up with a second query.
+
+<GraphQLExplorer query={`
+query VibeBooks {
+    books(where: {id: {_in: [1, 2, 3]}}) {
+        id
+        title
+        slug
+        cached_contributors
+        cached_image
+    }
+}
+`} title="Vibe Books"/>
+
+### Get Popular Public Vibes
+
+<GraphQLExplorer query={`
+query PopularVibes {
+    vibes(
+        where: {privacy_setting_id: {_eq: 1}, vibe_type: {_eq: 0}}
+        order_by: {likes_count: desc}
+        limit: 20
+    ) {
+        id
+        title
+        slug
+        likes_count
+        user {
+            username
+        }
+    }
+}
+`} title="Popular Vibes"/>
+
+### Get Featured Vibes
+
+<GraphQLExplorer query={`
+query FeaturedVibes {
+    vibes(
+        where: {featured: {_eq: true}}
+        order_by: {featured_at: desc}
+    ) {
+        id
+        title
+        slug
+        description
+        featured_at
+        user {
+            username
+        }
+    }
+}
+`} title="Featured Vibes"/>
+
+## Vibe Inputs
+
+The interesting part of a vibe is its inputs. All three input kinds are passed inside the `object` argument of `insert_vibe` and `update_vibe`, and they share the same weight scale.
+
+### Weights
+
+Signals and dynamic signals carry an integer `weight` from **-5** to **5**. Positive weights pull matching books toward the top of the results; negative weights push them away. `0` is allowed but has no effect. Exclusions have no weight — they are always applied at maximum strength (-5).
+
+### Signals (`vibe_signals_attributes`)
+
+Each signal is a `VibeSignalInput`:
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>Int</td>
+        <td>ID of an existing signal. Omit when creating; include when updating or destroying (update only).</td>
+    </tr>
+    <tr>
+        <td>signal_type</td>
+        <td>String!</td>
+        <td>One of the signal types below</td>
+    </tr>
+    <tr>
+        <td>value</td>
+        <td>String</td>
+        <td>Depends on <code>signal_type</code> (see below). Always a string, even for numeric IDs. Required for every type except <code>popularity</code>.</td>
+    </tr>
+    <tr>
+        <td>weight</td>
+        <td>Int!</td>
+        <td>-5 to 5</td>
+    </tr>
+    <tr>
+        <td>position</td>
+        <td>Int</td>
+        <td>Display order (defaults to 0)</td>
+    </tr>
+    <tr>
+        <td>_destroy</td>
+        <td>Boolean</td>
+        <td>Set to <code>true</code> with an <code>id</code> to remove that signal (update only)</td>
+    </tr>
+    </tbody>
+</table>
+
+#### Signal Types
+
+<table>
+    <thead>
+    <tr>
+        <th>signal_type</th>
+        <th>value</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>user</td>
+        <td>A user ID, e.g. <code>"42"</code></td>
+        <td>Tune the results toward that reader's taste. Must be you or a user who follows you. New vibes typically start with the creator at +5.</td>
+    </tr>
+    <tr>
+        <td>book</td>
+        <td>A book ID, e.g. <code>"1234"</code></td>
+        <td>Find books similar to this one (positive) or unlike it (negative)</td>
+    </tr>
+    <tr>
+        <td>author</td>
+        <td>An author ID, e.g. <code>"567"</code></td>
+        <td>Lean toward or away from this author's work</td>
+    </tr>
+    <tr>
+        <td>genre</td>
+        <td>A genre key (see <a href="#genre-values">Genre values</a>)</td>
+        <td>Lean toward or away from a genre</td>
+    </tr>
+    <tr>
+        <td>axiom</td>
+        <td><code>magic</code>, <code>science</code>, <code>realistic</code></td>
+        <td>The broad flavor of the world: Fantasy / Magic, Science Fiction, or Realistic / Literary</td>
+    </tr>
+    <tr>
+        <td>audience</td>
+        <td><code>young_adult</code>, <code>middle_grade</code>, <code>children</code>, <code>erotica</code>, <code>smut</code></td>
+        <td>Target audience: Young Adult (YA), Middle Grade, Children's, Erotica, Spicy / Steamy</td>
+    </tr>
+    <tr>
+        <td>format</td>
+        <td><code>graphic_novel</code>, <code>audio</code>, <code>drama</code>, <code>short_form</code>, <code>poetry</code></td>
+        <td>Format: Graphic Novel & Comics, Audiobook, Drama & Theatre, Short Stories & Novellas, Poetry</td>
+    </tr>
+    <tr>
+        <td>series</td>
+        <td><code>first</code>, <code>standalone</code>, <code>first_or_standalone</code></td>
+        <td>A hard filter (not a ranking boost) on series position: only first-in-series books, only books not in a series, or either. <code>weight</code> is ignored. A vibe should have at most one series signal. System vibes default to <code>first_or_standalone</code>. Note: this filter is applied when the vibe is displayed on hardcover.app; <code>cached_book_ids</code> returned by the API is the unfiltered pool.</td>
+    </tr>
+    <tr>
+        <td>semantic</td>
+        <td>Free text, e.g. <code>"cozy small-town mystery with a cat"</code></td>
+        <td>Natural-language description of what you're looking for</td>
+    </tr>
+    <tr>
+        <td>popularity</td>
+        <td>Omit, or <code>""</code></td>
+        <td>Weight only. Positive boosts bestsellers; negative digs up hidden gems. New vibes default to +3.</td>
+    </tr>
+    </tbody>
+</table>
+
+#### Genre Values
+
+<table>
+    <thead>
+    <tr>
+        <th>value</th>
+        <th>Label</th>
+        <th>value</th>
+        <th>Label</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td>mystery</td><td>Mystery & Crime</td><td>biography</td><td>Biography & Memoir</td></tr>
+    <tr><td>thriller</td><td>Thriller & Suspense</td><td>history</td><td>History</td></tr>
+    <tr><td>romance</td><td>Romance</td><td>science</td><td>Science</td></tr>
+    <tr><td>horror</td><td>Horror</td><td>self_help</td><td>Self-Help</td></tr>
+    <tr><td>adventure</td><td>Adventure</td><td>business</td><td>Business & Economics</td></tr>
+    <tr><td>war</td><td>War & Military</td><td>philosophy</td><td>Philosophy</td></tr>
+    <tr><td>historical</td><td>Historical</td><td>psychology</td><td>Psychology & Mental Health</td></tr>
+    <tr><td>literary</td><td>Literary Fiction</td><td>religion</td><td>Religion & Spirituality</td></tr>
+    <tr><td>humor</td><td>Humor & Comedy</td><td>true_crime</td><td>True Crime</td></tr>
+    <tr><td>western</td><td>Western</td><td>politics</td><td>Politics</td></tr>
+    <tr><td>sports</td><td>Sports</td><td>cooking</td><td>Cooking & Food</td></tr>
+    <tr><td>family</td><td>Family & Relationships</td><td>travel</td><td>Travel</td></tr>
+    <tr><td>classics</td><td>Classics</td><td>art</td><td>Art & Visual Arts</td></tr>
+    <tr><td>mythology</td><td>Mythology & Folklore</td><td>music</td><td>Music</td></tr>
+    <tr><td>litrpg</td><td>LitRPG & Progression</td><td>technology</td><td>Technology</td></tr>
+    <tr><td>media</td><td>Media & Pop Culture</td><td>health</td><td>Health & Wellness</td></tr>
+    <tr><td>lgbtq</td><td>LGBTQ+</td><td>nature</td><td>Nature & Environment</td></tr>
+    <tr><td></td><td></td><td>essays</td><td>Essays & Journalism</td></tr>
+    <tr><td></td><td></td><td>education</td><td>Education & Learning</td></tr>
+    <tr><td></td><td></td><td>social</td><td>Social Sciences</td></tr>
+    <tr><td></td><td></td><td>reference</td><td>Reference</td></tr>
+    <tr><td></td><td></td><td>crafts</td><td>Crafts & Hobbies</td></tr>
+    </tbody>
+</table>
+
+<Aside type="note">
+    `genre`, `axiom`, `audience`, `format`, and `series` values are validated against this taxonomy. An unknown value (e.g. `"genre": "scifi"`) makes the mutation return an error rather than silently ignoring the signal. Science fiction and fantasy are `axiom` values (`science`, `magic`), not genres.
+</Aside>
+
+### Exclusions (`vibe_exclusions_attributes`)
+
+Exclusions hard-remove a book or author from the results regardless of how well it scores. Each is a `VibeExclusionInput`:
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>Int</td>
+        <td>ID of an existing exclusion. Omit when creating; include when destroying (update only).</td>
+    </tr>
+    <tr>
+        <td>excluded_type</td>
+        <td>String!</td>
+        <td><code>"Book"</code> or <code>"Author"</code> (case-sensitive)</td>
+    </tr>
+    <tr>
+        <td>excluded_id</td>
+        <td>Int!</td>
+        <td>The book ID or author ID to exclude</td>
+    </tr>
+    <tr>
+        <td>_destroy</td>
+        <td>Boolean</td>
+        <td>Set to <code>true</code> with an <code>id</code> to remove that exclusion (update only)</td>
+    </tr>
+    </tbody>
+</table>
+
+A given book or author can only be excluded once per vibe. Unlike signals, any vibe owner can edit exclusions — Supporter status is not required.
+
+### Dynamic Signals (`dynamic_signals`)
+
+Dynamic signals are rules that resolve to concrete `book` or `author` signals every time the vibe's results are generated, based on the current reading activity of the viewer (the owner on the normal page, the viewer on the "For You" tab). Each is a `DynamicSignalInput`:
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>category</td>
+        <td>String!</td>
+        <td>One of the categories below</td>
+    </tr>
+    <tr>
+        <td>count</td>
+        <td>Int</td>
+        <td>How many books/authors to pull in, 1 to 50 (default 5). Values outside the range are clamped.</td>
+    </tr>
+    <tr>
+        <td>weight</td>
+        <td>Int</td>
+        <td>Weight applied to each resolved signal, -5 to 5 (default 3)</td>
+    </tr>
+    <tr>
+        <td>min_rating</td>
+        <td>numeric</td>
+        <td>Only for <code>recent_rated_books</code>: minimum rating (0–5) a book must have</td>
+    </tr>
+    <tr>
+        <td>max_rating</td>
+        <td>numeric</td>
+        <td>Only for <code>recent_rated_books</code>: maximum rating (0–5) a book may have</td>
+    </tr>
+    </tbody>
+</table>
+
+#### Dynamic Signal Categories
+
+<table>
+    <thead>
+    <tr>
+        <th>category</th>
+        <th>Resolves to</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>recently_read_books</td>
+        <td><code>count</code> book signals</td>
+        <td>The reader's most recently finished books, by last read date</td>
+    </tr>
+    <tr>
+        <td>recently_read_authors</td>
+        <td><code>count</code> author signals</td>
+        <td>The primary authors of the reader's most recently finished books, deduped, most recent first</td>
+    </tr>
+    <tr>
+        <td>recent_rated_books</td>
+        <td><code>count</code> book signals</td>
+        <td>The reader's most recently rated books, optionally filtered to a rating range with <code>min_rating</code> / <code>max_rating</code>. Pair a high <code>min_rating</code> with a positive weight for "more like my favorites", or a low <code>max_rating</code> with a negative weight for "less like the ones I disliked".</td>
+    </tr>
+    </tbody>
+</table>
+
+<Aside type="tip">
+    Unlike regular signals, `dynamic_signals` is replaced wholesale on every `update_vibe` call that includes it — there are no `id` or `_destroy` fields. Send the full array you want to keep, or an empty array to clear them. Omit the key entirely to leave existing dynamic signals untouched. Entries with an unknown `category` are silently dropped.
+</Aside>
+
+## Mutation Examples
+
+### Available Vibe Mutations
+
+<table>
+    <thead>
+    <tr>
+        <th>Mutation</th>
+        <th>Arguments</th>
+        <th>Returns</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>insert_vibe</td>
+        <td>object: VibeInput!</td>
+        <td>VibeIdType</td>
+        <td>Create a new custom vibe (Supporters only)</td>
+    </tr>
+    <tr>
+        <td>update_vibe</td>
+        <td>id: Int!, object: VibeInput!</td>
+        <td>VibeIdType</td>
+        <td>Update a vibe you own</td>
+    </tr>
+    <tr>
+        <td>delete_vibe</td>
+        <td>id: Int!</td>
+        <td>VibeDeleteType</td>
+        <td>Delete a custom vibe you own</td>
+    </tr>
+    </tbody>
+</table>
+
+### VibeInput
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>title</td>
+        <td>String</td>
+        <td>Vibe title (required on create; unique among your vibes)</td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>String</td>
+        <td>Description</td>
+    </tr>
+    <tr>
+        <td>privacy_setting_id</td>
+        <td>Int</td>
+        <td>1=Public, 2=Followers, 3=Private (default 3)</td>
+    </tr>
+    <tr>
+        <td>vibe_signals_attributes</td>
+        <td>[VibeSignalInput!]</td>
+        <td>See <a href="#signals-vibe_signals_attributes">Signals</a></td>
+    </tr>
+    <tr>
+        <td>vibe_exclusions_attributes</td>
+        <td>[VibeExclusionInput!]</td>
+        <td>See <a href="#exclusions-vibe_exclusions_attributes">Exclusions</a></td>
+    </tr>
+    <tr>
+        <td>dynamic_signals</td>
+        <td>[DynamicSignalInput!]</td>
+        <td>See <a href="#dynamic-signals-dynamic_signals">Dynamic Signals</a></td>
+    </tr>
+    </tbody>
+</table>
+
+On `update_vibe`, fields the caller isn't allowed to change are silently ignored rather than rejected: `title`, `description`, and `privacy_setting_id` only apply to `custom` vibes, and `vibe_signals_attributes` / `dynamic_signals` only apply for Supporters.
+
+### Mutation Response Types
+
+#### VibeIdType (for insert_vibe, update_vibe)
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>Int</td>
+        <td>ID of the created/updated vibe (null on failure)</td>
+    </tr>
+    <tr>
+        <td>errors</td>
+        <td>[String]</td>
+        <td>Validation or permission errors, e.g. "Creating vibes is a Supporter feature." or "You can only tune a vibe for yourself or readers who follow you."</td>
+    </tr>
+    </tbody>
+</table>
+
+#### VibeDeleteType (for delete_vibe)
+
+<table>
+    <thead>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>success</td>
+        <td>Boolean!</td>
+        <td>Whether the deletion was successful</td>
+    </tr>
+    </tbody>
+</table>
+
+### Create a Vibe
+
+Create a vibe that leans toward cozy fantasy for readers who loved a specific book, skips an author, and keeps pulling in your five most recently read books.
+
+<Aside type="note">
+    Replace the book and author IDs with real ones. The `user` signal must be your own ID (filled in below) or the ID of someone who follows you.
+</Aside>
+
+<GraphQLExplorer query={`
+mutation CreateVibe {
+    insert_vibe(
+        object: {
+            title: "Cozy Fantasy Picks"
+            description: "Low-stakes magic, warm found families, and the occasional dragon."
+            privacy_setting_id: 1
+            vibe_signals_attributes: [
+                { signal_type: "user", value: "##USER_ID##", weight: 5, position: 0 }
+                { signal_type: "axiom", value: "magic", weight: 4, position: 1 }
+                { signal_type: "genre", value: "romance", weight: 2, position: 2 }
+                { signal_type: "genre", value: "horror", weight: -5, position: 3 }
+                { signal_type: "book", value: "370917", weight: 4, position: 4 }
+                { signal_type: "series", value: "first_or_standalone", weight: 5, position: 5 }
+                { signal_type: "semantic", value: "cozy, hopeful, low stakes", weight: 3, position: 6 }
+                { signal_type: "popularity", weight: 2, position: 7 }
+            ]
+            vibe_exclusions_attributes: [
+                { excluded_type: "Author", excluded_id: 123 }
+            ]
+            dynamic_signals: [
+                { category: "recently_read_books", count: 5, weight: 3 }
+            ]
+        }
+    ) {
+        id
+        errors
+    }
+}
+`} title="Create Vibe"/>
+
+### Update a Vibe
+
+Rename a vibe, add a new signal, remove an existing signal by its `id`, and replace the dynamic signals with a "loved books" rule.
+
+<Aside type="note">
+    Signals and exclusions are edited incrementally: existing rows without an `id` are created, rows with an `id` are updated, and rows with `id` + `_destroy: true` are removed. Rows you don't mention are left alone. `dynamic_signals` is replaced as a whole.
+</Aside>
+
+<GraphQLExplorer query={`
+mutation UpdateVibe {
+    update_vibe(
+        id: 1
+        object: {
+            title: "Cozy Fantasy Picks (Updated)"
+            vibe_signals_attributes: [
+                { signal_type: "author", value: "456", weight: 5 }
+                { id: 99, _destroy: true, signal_type: "genre", weight: 0 }
+            ]
+            vibe_exclusions_attributes: [
+                { excluded_type: "Book", excluded_id: 789 }
+            ]
+            dynamic_signals: [
+                { category: "recent_rated_books", count: 10, weight: 4, min_rating: 4 }
+            ]
+        }
+    ) {
+        id
+        errors
+    }
+}
+`} title="Update Vibe"/>
+
+### Delete a Vibe
+
+Delete a custom vibe you own. System vibes (recommendation, dynamic, top_picks) cannot be deleted.
+
+<Aside type="caution">
+    This action is irreversible. The vibe's signals, exclusions, and likes are removed with it.
+</Aside>
+
+<GraphQLExplorer query={`
+mutation DeleteVibe {
+    delete_vibe(id: 1) {
+        success
+    }
+}
+`} title="Delete Vibe"/>
+
+### Like a Vibe
+
+Vibes use the standard likes flow. See [Likes](/api/graphql/schemas/likes) for details.
+
+<GraphQLExplorer query={`
+mutation LikeVibe {
+    upsert_like(likeable_type: "Vibe", likeable_id: 1) {
+        id
+    }
+}
+`} title="Like Vibe"/>

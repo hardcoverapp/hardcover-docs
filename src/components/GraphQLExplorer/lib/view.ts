@@ -7,10 +7,16 @@
  * so a one-row numeric result falls through to table/JSON rather than landing on
  * an empty "insufficient data" chart.
  */
+import { extractStatTiles } from './shape';
+
 export type ResultView = 'json' | 'table' | 'chart';
 
 export function determineBestView(data: any, chartable: boolean): ResultView {
   if (!data) return 'json';
+
+  // Aggregate results are a handful of headline numbers with no series in them.
+  // They render as stat tiles under the chart view, which beats raw JSON.
+  if (chartable && extractStatTiles(data)) return 'chart';
 
   // The first key's value (e.g. data.books, data.users, …).
   const firstKey = Object.keys(data)[0];
