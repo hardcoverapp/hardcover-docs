@@ -7,12 +7,14 @@ banner:
     content: "🚧 Mind your step, this page is a work in progress."
 ---
 
+import {Aside} from "@astrojs/starlight/components";
+
 *This page covers standards for naming and organizing series, including multiple series with the same name, adaptations, and publisher collection edge cases.*
 
 ## Distinct Series with the Same Name
 When two or more distinct series share the same name:
-- Retain the published series name. Do not append `(Author Name)` to the displayed series name solely for disambiguation.
-- Where manual slug disambiguation is required, append -AuthorName to the slug (e.g., `series-name-jane-smith`).
+- Retain the published series name. Do not append `(Author Name)` to the displayed series name solely for disambiguation between shared names of distinct series.
+- Where manual slug disambiguation is required, append `-AuthorName` to the slug (e.g., `series-name-jane-smith`).
 
 Hardcover automatically generates a unique slug for newly created series using the series and author names. However, this behaviour does not apply retroactively to historical series metadata, so existing same-named series may still require manual slug disambiguation.
 
@@ -21,12 +23,16 @@ Where the books in a same-named series have different authors, assign the author
 A series’ unique numerical ID appears in its edit URL (e.g., `https://hardcover.app/series/1092/edit`). Use this ID to confirm that you are selecting the correct series when multiple series share a name. Because the Series ID field can retain multiple values, check it after correcting a series association and remove any ID belonging to an incorrectly associated same-named series.
 
 ## Series Adaptations in Multiple Formats
-When a series has been adapted into another format (e.g., when a manga is adapted into a light novel), create a separate series for the adapted format. Retain the original name and slug for the source series, and disambiguate the adapted series as follows:
-  - Source series: Retain the existing series name (e.g., `The Summer Hikaru Died`).
-  - Adapted series name: Append `(Format)` to the series name (e.g., `The Summer Hikaru Died (Light Novel)`).
-  - Adapted series slug: Append `-format` to the slug (e.g., `the-summer-hikaru-died-lightnovel`)
+When a series has been adapted into another format (e.g., when a manga is adapted into a light novel), create a separate series for the adapted format. Unless format-specific standards state otherwise, retain the original name and slug for the source series, and disambiguate the adapted series as follows:
+  - **Source series:** Retain the existing series name (e.g., `The Summer Hikaru Died`).
+  - **Adapted series name:** Append `(Format)` to the series name (e.g., `The Summer Hikaru Died (Light Novel)`).
+  - **Adapted series slug:** Append `-format` to the slug (e.g., `the-summer-hikaru-died-lightnovel`)
+
+<Aside type="note">
+In specific cases where a format qualifier alone does not adequately distinguish between series, `(Author Name)` may be used as an additional series-name disambiguator (e.g., for some comics, graphic adaptations or other edge cases).
+</Aside>
 
 See the [Manga & Light Novel Standards](/librarians/standards/mangalightnovelstandards/) for the corresponding book and volume naming conventions.
 
-## Publisher Collections (E.g., Penguin Little Black Classics)
-For publisher or other collections where only a specific edition of a book is part of the series, a Hardcover series should not be created. The book may be instead added to a list.
+## Publisher Collections (e.g., Penguin Little Black Classics)
+For publisher or other collections where only a specific edition of a book is part of the series, a Hardcover series should not be created. The book may instead be added to a list.
