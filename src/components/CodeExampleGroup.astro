@@ -1,0 +1,54 @@
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Code } from 'astro-expressive-code/components';
+import { extractSection } from '@/lib/codeExamples/codeSnippets';
+import { loadManifests, loadRawFiles } from '@/lib/codeExamples/loaders';
+import { resolveMeta, getGroupEntries } from '@/lib/codeExamples/manifest';
+import CodeExampleViewLink from './CodeExampleViewLink.astro';
+
+const rawFiles = loadRawFiles();
+
+interface Props { dir: string; group?: string; section: string; dedent?: boolean; showViewLink?: boolean }
+const { dir, group, section, dedent, showViewLink = true } = Astro.props;
+
+const manifest = loadManifests()[dir];
+if (!manifest) throw new Error(`No example.json(c) for example dir "${dir}"`);
+
+const entries = getGroupEntries(manifest, dir, group);
+
+if (entries.length === 0) {
+  throw new Error(`${dir}/example.json (${group ?? 'items'}): empty -- must list at least one entry`);
+}
+
+const resolved = entries.map((entry) => {
+  const { file } = entry;
+  const meta = resolveMeta(entry, `used by ${dir}/${file}`);
+  const source = rawFiles[`/src/examples/${dir}/${file}`];
+  if (!source) throw new Error(`${dir}/example.json references missing file "${file}"`);
+
+  let code: string;
+  try {
+    code = extractSection(source, section, { dedent });
+  } catch {
+    throw new Error(`Section "${section}" not found in ${dir}/${file}${group ? ` (group "${group}")` : ''}`);
+  }
+
+  // Kept alongside file/code so each rendered block can pass its own key
+  // through to its own CodeExampleViewLink below.
+  const key = 'key' in entry ? entry.key : entry.label;
+  return { ...meta, key, file, code };
+});
+---
+
+<Tabs syncKey="lang">
+  {resolved.map((item) => (
+    <TabItem label={item.label}>
+      <Code code={item.code} lang={item.lang} />
+      {showViewLink && (
+        <div class="flex justify-end">
+          <CodeExampleViewLink dir={dir} group={group} section={section} key={item.key} />
+        </div>
+      )}
+    </TabItem>
+  ))}
+</Tabs>
