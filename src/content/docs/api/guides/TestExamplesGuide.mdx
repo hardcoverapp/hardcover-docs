@@ -1,0 +1,24 @@
+---
+title: Demo guide for testing code examples
+category: guide
+layout: /src/layouts/documentation.astro
+draft: true
+---
+
+import CodeExampleLinks from "@/components/CodeExampleLinks.astro"
+
+import { bindExamples } from "@/lib/codeExamples/bindExamples";
+export const Examples = bindExamples("test");
+
+First you create a client
+
+<Examples section="setup" />
+
+Then you can make a query
+
+<Examples section="fetchBooks" />
+
+
+## Full code
+
+<CodeExampleLinks dir="test" />

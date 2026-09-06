@@ -1,0 +1,7 @@
+{
+  "name": "Test Example",
+  "items": [
+    { "key": "python", "file": "main.py" },
+    { "key": "js-node", "file": "main.js" }
+  ]
+}
