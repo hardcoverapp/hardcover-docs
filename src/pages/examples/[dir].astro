@@ -1,0 +1,103 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Code } from 'astro-expressive-code/components';
+import { listSectionLines } from '@/lib/codeExamples/codeSnippets';
+import { loadManifests, loadRawFiles } from '@/lib/codeExamples/loaders';
+import { resolveMeta, toGroupList } from '@/lib/codeExamples/manifest';
+import CodeExampleLinks from '@/components/CodeExampleLinks.astro';
+
+export async function getStaticPaths() {
+  return Object.entries(loadManifests()).map(([dir, manifest]) => ({
+    params: { dir },
+    props: { manifest },
+  }));
+}
+
+const { dir } = Astro.params;
+const { manifest } = Astro.props;
+const rawFiles = loadRawFiles();
+
+// null group label for the flat-items shape -- a directory with only one
+// group never needs a deep link, so it doesn't need an id either. `null` is
+// falsy the same way '' was, so id={groupLabel || undefined} and
+// {groupLabel && <h2>} below still work unchanged.
+const groupedEntries = toGroupList(manifest);
+
+for (const [groupLabel, entries] of groupedEntries) {
+  if (entries.length === 0) {
+    throw new Error(`${dir}/example.json (${groupLabel ?? 'items'}): empty -- must list at least one entry`);
+  }
+}
+---
+
+<StarlightPage frontmatter={{ title: manifest.name ?? dir, tableOfContents: false }}>
+  {groupedEntries.map(([groupLabel, entries]) => (
+    <section id={groupLabel || undefined}>
+      {groupLabel && <h2>{groupLabel}</h2>}
+      <Tabs syncKey="lang">
+        {entries.map((entry) => {
+          const meta = resolveMeta(entry, `used by ${dir}/${entry.file}`);
+          const source = rawFiles[`/src/examples/${dir}/${entry.file}`];
+          const entryKey = 'key' in entry ? entry.key : entry.label;
+          const fileCount = 1 + (entry.files?.length ?? 0) + (manifest.files?.length ?? 0);
+          return (
+            <TabItem label={meta.label}>
+              <div data-key={entryKey} data-sections={JSON.stringify(listSectionLines(source))}>
+                <p>
+                  <a href={`/examples/${dir}/${entry.file}`}>View raw file</a>
+                  {' • '}
+                  <a href={`/examples/${dir}/${entryKey}.zip`}>Download zip ({fileCount} file{fileCount === 1 ? '' : 's'})</a>
+                </p>
+                <Code code={source} lang={meta.lang} />
+              </div>
+            </TabItem>
+          );
+        })}
+      </Tabs>
+    </section>
+  ))}
+  <CodeExampleLinks dir={dir} raw={true}/>
+</StarlightPage>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const key = params.get('key');
+  const sectionName = params.get('section');
+  // Scope the data-key lookup to the group named in the hash, if any -- two
+  // groups could otherwise reuse the same key and match the wrong section.
+  const groupId = location.hash.slice(1);
+  const scope: ParentNode = (groupId && document.getElementById(groupId)) || document;
+
+  let target: HTMLElement | null = null;
+  if (key) {
+    target = scope.querySelector(`[data-key="${CSS.escape(key)}"]`);
+    if (target) {
+      // Click the real tab button rather than reaching into Starlight's
+      // private Tabs internals - reuses its own switching/sync logic.
+      const labelledBy = target.closest('[role="tabpanel"]')?.getAttribute('aria-labelledby');
+      const tabButton = labelledBy ? document.getElementById(labelledBy) : null;
+      if (tabButton) {
+        tabButton.click();
+        tabButton.blur();
+      }
+    }
+  }
+  target ??= scope.querySelector('[data-sections]');
+
+  if (sectionName && target) {
+    const ranges = JSON.parse(target.getAttribute('data-sections') ?? '{}');
+    const range = ranges[sectionName];
+    const lines = target.querySelectorAll('.ec-line');
+    if (range && lines.length) {
+      lines[range.start - 1]?.scrollIntoView({ block: 'center' });
+      for (let i = range.start - 1; i < range.end; i++) {
+        lines[i]?.classList.add('ec-highlighted-section');
+      }
+    }
+  }
+</script>
+
+<style>
+  .ec-highlighted-section { background: var(--sl-color-accent-low); }
+</style>
