@@ -1,8 +1,9 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, FileTree } from '@astrojs/starlight/components';
 import { Code } from 'astro-expressive-code/components';
 import { listSectionLines } from '@/lib/codeExamples/codeSnippets';
+import { fileListToTreeHtml } from '@/lib/codeExamples/fileTree';
 import { loadManifests, loadRawFiles } from '@/lib/codeExamples/loaders';
 import { resolveMeta, toGroupList } from '@/lib/codeExamples/manifest';
 import CodeExampleLinks from '@/components/CodeExampleLinks.astro';
@@ -41,6 +42,11 @@ for (const [groupLabel, entries] of groupedEntries) {
           const source = rawFiles[`/src/examples/${dir}/${entry.file}`];
           const entryKey = 'key' in entry ? entry.key : entry.label;
           const fileCount = 1 + (entry.files?.length ?? 0) + (manifest.files?.length ?? 0);
+          const entryFiles = [
+            entry.file,
+            ...(entry.files ?? []),
+            ...(manifest.files ?? []),
+          ];
           return (
             <TabItem label={meta.label}>
               <div data-key={entryKey} data-sections={JSON.stringify(listSectionLines(source))}>
@@ -50,6 +56,11 @@ for (const [groupLabel, entries] of groupedEntries) {
                   <a href={`/examples/${dir}/${entryKey}.zip`}>Download zip ({fileCount} file{fileCount === 1 ? '' : 's'})</a>
                 </p>
                 <Code code={source} lang={meta.lang} />
+                <div class="my-4">
+                  <FileTree>
+                    <Fragment set:html={fileListToTreeHtml(entryFiles, entry.file)} />
+                  </FileTree>
+                </div>
               </div>
             </TabItem>
           );
