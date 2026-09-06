@@ -6,7 +6,11 @@ layout: /src/layouts/documentation.astro
 ---
 
 import { URLS } from "@/Consts";
+import CodeExampleLinks from "@/components/CodeExampleLinks.astro"
 import ImageComponent from "@/components/ImageComponent.astro";
+
+import { bindExamples } from '@/lib/codeExamples/bindExamples';
+export const Examples = bindExamples('oauth-spa');
 
 This guide will walk you through the steps for making a simple Single Page App (SPA) application using hardcover OAuth, this is going to be a basic example, and there are a bunch of improvements you can make, but this is the bare bones.
 
@@ -35,15 +39,7 @@ To do OAuth, the first thing you have to do is know where you have to call.
 
 For the sake of this Guide we will be hard coding the endpoints, but the info you need can be found at the <a href={URLS.OAUTH_DISCOVERY_URL} target="_blank" rel="noreferrer noopener">OAuth Discovery Endpoint</a>. You can fetch it dynamically, so the app will still work even if in the future we change the locations.
 
-```javascript
-// Values can come from discovery
-// https://api.hardcover.app/.well-known/oauth-authorization-server
-const AUTHORIZE_ENDPOINT = "https://hardcover.app/oauth2/authorize";
-const TOKEN_ENDPOINT = "https://api.hardcover.app/oauth2/token";
-const REVOKE_ENDPOINT = "https:/api.hardcover.app/oauth2/revoke";
-const GRAPHQL_ENDPOINT = "https://api.hardcover.app/v1/graphql";
-const ISSUER = "https://api.hardcover.app";
-```
+<Examples section="hardcoverOauthEndpoints" />
 
 ## Step 1: Prepping secrets
 
@@ -51,57 +47,34 @@ The first step is to generating the secrets needed for the flow.
 
 The spec asks for the `verifier` to be between 43 and 128 characters long, this is because it wants a minimum of 256 bits (32 bytes) of entropy, and when you base64url encode that you get 43 characters.
 
-
-```javascript
-const state = randomString(24);
-const verifier = randomString(32);
-const challenge_code = await sha256(verifier);
-```
+<Examples section="setupValues" />
 
 Store the PKCE verifier and the state, we will be needing them in step 4.
-```javascript
-sessionStorage.setItem("pkce_verifier", verifier);
-sessionStorage.setItem("oauth_state", state);
-```
+<Examples section="storeSecrets" />
 
 ## Step 2: Sending off the user
 
 Here are the parameters we are going to be sending the authentication server.
 
-```javascript
-const queryParams = new URLSearchParams({
-  response_type: "code",
-  client_id: CLIENT_ID,
-  redirect_uri: REDIRECT_URI,
-  state: state,
-  code_challenge: challenge_code,
-  code_challenge_method: "S256",
-  scope: SCOPE,
-});
-```
+<Examples section="prepParams" />
 
 The important ones we haven't mentioned are:
 ##### `client_id`
 The client's public id, for this example you can use mine, but if you want a different domain then localhost, or more permission then identifying the user, you will need to make your own app.
 
-```javascript
-const CLIENT_ID = "64003fc6-9a33-4787-b80b-4827f40d46c6";
-```
+<Examples section="clientId" />
 
 ##### `redirect_uri`
 Tells hardcover which of our pre approved redirect uris to send the user to after they finish.
 
-```javascript
-const REDIRECT_URI = location.origin + location.pathname;
-```
+<Examples section="oauthReturnAddress" />
+
 
 ##### `scope`
 Which of our pre approved permissions do we want. In this case we just want to b able to get the user id, username, name, and profile image.
 The publicly available user information
 
-```javascript
-const SCOPE = "read:me:content";
-```
+<Examples section="oauthWantedScope" />
 
 ##### Others
 `response_type` and `code_challenge_method` do not have any other options.
@@ -114,9 +87,7 @@ Though think those over for your own implementations since they make for a much 
 
 So off they go!
 
-```javascript
-location.href = `${AUTHORIZE_ENDPOINT}?${queryParams}`;
-```
+<Examples section="sendUser" />
 
 ## Step 3: User approval
 
@@ -135,46 +106,21 @@ There are now 2 possibilities, either the user will have the `error` query param
 Or, the user has the `code` param set, in that case we can start with step 4.
 First you want to fetch the secrets we stored earlier, we will now make use of them. And lets clean up after ourselves.
 
-```javascript
-const state = sessionStorage.getItem("oauth_state");
-const verifier = sessionStorage.getItem("pkce_verifier");
-sessionStorage.removeItem("oauth_state");
-sessionStorage.removeItem("pkce_verifier");
-
-history.replaceState({}, "", REDIRECT_URI); // drop ?code= so a refresh can't replay it
-```
+<Examples section="fetchSecrets" />
 
 And now we can begin our checks.
 
 First lets make sure we have a verifier code stored and that state matches, if this is wrong it means the user probably started multiple login flows and we somehow have the wrong one (or there was an attacker trying to fake us out). Either way, stop.
 
-```javascript
-if (!verifier || params.get("state") !== state) {
-  render({
-    signedIn: false,
-    message: "Sign-in failed: unexpected callback. Try again.",
-  });
-  return;
-}
-```
+<Examples section="checkState" />
 
 Hardcover sets `authorization_response_iss_parameter_supported`, so every callback names the server that issued the code (RFC 9207). Check it.
 
 If your app supports more than one provider, this is what stops a malicious one from handing you a code that you then redeem at another provider's token endpoint (a mix-up attack). State can't catch that, because the state is legitimately yours.
 
-```javascript
-const ISSUER = "https://api.hardcover.app";
-```
+<Examples section="oauthIssuer" />
 
-```javascript
-if (params.get("iss") !== ISSUER) {
-  render({
-    signedIn: false,
-    message: "Sign-in failed: response came from the wrong issuer.",
-  });
-  return;
-}
-```
+<Examples section="checkIssuer" />
 
 
 ## Step 5: Getting the real tokens
@@ -183,29 +129,7 @@ You now are sure that you are the one that sent off the user, and that the data 
 
 We only sent the hash with the user, and Hardcover is now waiting for the code that hashes to it to prove the client is really the same one who initiated the transaction. That's all PKCE is.
 
-```javascript
-const res = await fetch(TOKEN_ENDPOINT, {
-  method: "POST",
-  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  body: new URLSearchParams({
-    grant_type: "authorization_code",
-    code: params.get("code"),
-    redirect_uri: REDIRECT_URI, // must match step 2 exactly
-    client_id: CLIENT_ID,
-    code_verifier: verifier,
-  }),
-});
-const token = await res.json().catch(() => ({}));
-
-if (!res.ok) {
-  // Read this one. Nearly every first-run failure lands here, usually a redirect_uri that doesn't match what's registered.
-  render({
-    signedIn: false,
-    message: `Sign-in failed: ${token.error_description ?? token.error ?? res.status}`,
-  });
-  return;
-}
-```
+<Examples section="exchangeCode" />
 
 The response for the server has 3 items:
 | Field | Description |
@@ -217,28 +141,13 @@ The response for the server has 3 items:
 
 Now for storing the token `localStorage` is not the most secure option, but it will work for this demo.
 
-```javascript
-localStorage.setItem("oauth_token", token);
-```
+<Examples section="storingToken" />
 
 ## Step 6: Use the API
 
 That's it. You're all set. You now have an API token that you can use to make requess, for example, getting the user info.
 
-```javascript
-const res = await fetch(GRAPHQL_ENDPOINT, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
-  },
-  body: JSON.stringify({
-    query: "{ me { id username name image { url } } }",
-  }),
-});
-const body = await res.json().catch(() => ({}));
-const user = body.data?.me?.[0];
-```
+<Examples section="useAPI" />
 
 ## Wrapping up
 
@@ -246,245 +155,13 @@ One final thing before we go, when signing out, you could technically just delet
 
 However, hardcover tracks the sessions, so the user will see o their authorized apps page that your app still has an active or idle session. So it is recommended to revoke the tokens when signing out.
 
-```javascript
-fetch(REVOKE_ENDPOINT, {
-  method: "POST",
-  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  body: new URLSearchParams({
-    token: accessToken,
-    token_type_hint: "access_token",
-    client_id: CLIENT_ID,
-  }),
-}).catch(() => {});
-```
+<Examples section="revokingToken" />
 
 You can use either the access token or the refresh token, it does not matter, they are revoked together.
 
 
 ## Full code
 
-Full example code, save both files somewhere and then serve them using something like `python -m http.server`
+If you want to download the full demo yourself you can find it here
 
-```html
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Hardcover OAuth demo</title>
-</head>
-<body>
-  <button id="sign-in">Sign in with Hardcover</button>
-  <button id="sign-out" hidden>Sign out</button>
-  <p id="status" role="status"></p>
-
-  <script src="./oauth.js"></script>
-</body>
-</html>
-```
-
-```javascript
-// oauth.js
-
-const CLIENT_ID = "64003fc6-9a33-4787-b80b-4827f40d46c6";
-
-// Values can come from discovery
-// https://api.hardcover.app/.well-known/oauth-authorization-server
-const AUTHORIZE_ENDPOINT = "https://hardcover.app/oauth2/authorize";
-const TOKEN_ENDPOINT = "https://api.hardcover.app/oauth2/token";
-const REVOKE_ENDPOINT = "https:/api.hardcover.app/oauth2/revoke";
-const GRAPHQL_ENDPOINT = "https://api.hardcover.app/v1/graphql";
-const ISSUER = "https://api.hardcover.app";
-
-const REDIRECT_URI = location.origin + location.pathname;
-
-const SCOPE = "read:me:content";
-
-const signInBtn = document.getElementById("sign-in");
-const signOutBtn = document.getElementById("sign-out");
-const statusEl = document.getElementById("status");
-
-// helpers
-
-// Modern browsers can use `Uint8Array.prototype.toBase64({ alphabet: "base64url" })`
-// But since it was was only added to all browsers in 2025 https://caniuse.com/mdn-javascript_builtins_uint8array_tobase64
-// We will be using btoa and replacing the chars needed to get to the url alphabet, also dropping the padding
-const base64url = (bytes) =>
-  btoa(String.fromCharCode(...bytes))
-    .replaceAll("+", "-")
-    .replaceAll("/", "_")
-    .replace(/=+$/, "");
-
-const randomString = (byteLength) =>
-  base64url(crypto.getRandomValues(new Uint8Array(byteLength)));
-
-async function sha256(input) {
-  const digest = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(input),
-  );
-  return base64url(new Uint8Array(digest));
-}
-
-// ui helper
-
-function render({ signedIn, message }) {
-  statusEl.textContent = message;
-  signInBtn.hidden = signedIn;
-  signOutBtn.hidden = !signedIn;
-}
-
-// entry point
-
-function main() {
-  signInBtn.addEventListener("click", signIn);
-  signOutBtn.addEventListener("click", signOut);
-
-  const params = new URLSearchParams(location.search);
-  const savedToken = localStorage.getItem("oauth_token")?.access_token;
-
-  if (params.has("error")) {
-    // The user declined, or the app is misconfigured.
-    history.replaceState({}, "", REDIRECT_URI);
-    render({
-      signedIn: false,
-      message: `Sign-in failed: ${params.get("error_description") ?? params.get("error")}`,
-    });
-  } else if (params.has("code")) {
-    handleCallback(params);
-  } else if (savedToken) {
-    showProfile(savedToken); // still signed in from a previous visit
-  }
-}
-
-// step 1/2: prep and send the user
-
-async function signIn() {
-  const state = randomString(24);
-  const verifier = randomString(32);
-  const challenge_code = await sha256(verifier);
-
-  sessionStorage.setItem("pkce_verifier", verifier);
-  sessionStorage.setItem("oauth_state", state);
-
-  const queryParams = new URLSearchParams({
-    response_type: "code",
-    client_id: CLIENT_ID,
-    redirect_uri: REDIRECT_URI,
-    state: state,
-    code_challenge: challenge_code,
-    code_challenge_method: "S256",
-    scope: SCOPE,
-  });
-
-  location.href = `${AUTHORIZE_ENDPOINT}?${queryParams}`;
-}
-
-// step 4: catch and verify the user
-
-async function handleCallback(params) {
-  const state = sessionStorage.getItem("oauth_state");
-  const verifier = sessionStorage.getItem("pkce_verifier");
-  sessionStorage.removeItem("oauth_state");
-  sessionStorage.removeItem("pkce_verifier");
-
-  history.replaceState({}, "", REDIRECT_URI); // drop ?code= so a refresh can't replay it
-
-  if (!verifier || params.get("state") !== state) {
-    render({
-      signedIn: false,
-      message: "Sign-in failed: unexpected callback. Try again.",
-    });
-    return;
-  }
-
-  if (params.get("iss") !== ISSUER) {
-    render({
-      signedIn: false,
-      message: "Sign-in failed: response came from the wrong issuer.",
-    });
-    return;
-  }
-
-  // step 5: trade for the token
-
-  const res = await fetch(TOKEN_ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      grant_type: "authorization_code",
-      code: params.get("code"),
-      redirect_uri: REDIRECT_URI, // must match step 2 exactly
-      client_id: CLIENT_ID,
-      code_verifier: verifier,
-    }),
-  });
-  const token = await res.json().catch(() => ({}));
-
-  if (!res.ok) {
-    // Read this one. Nearly every first-run failure lands here, usually a redirect_uri that doesn't match what's registered.
-    render({
-      signedIn: false,
-      message: `Sign-in failed: ${token.error_description ?? token.error ?? res.status}`,
-    });
-    return;
-  }
-
-  localStorage.setItem("oauth_token", token);
-  showProfile(token.access_token);
-}
-
-// step 6: use the token
-
-async function showProfile(accessToken) {
-  const res = await fetch(GRAPHQL_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify({
-      query: "{ me { id username name image { url } } }",
-    }),
-  });
-  const body = await res.json().catch(() => ({}));
-  const user = body.data?.me?.[0];
-
-  if (!user) {
-    // Usually a saved token that has expired or been revoked since last visit.
-    localStorage.removeItem("oauth_token");
-    render({
-      signedIn: false,
-      message: "Your session expired. Sign in again.",
-    });
-    return;
-  }
-
-  render({
-    signedIn: true,
-    message: `Signed in as ${user.name} (@${user.username})`,
-  });
-}
-
-async function signOut() {
-  const accessToken = localStorage.getItem("oauth_token")?.access_token;
-  localStorage.removeItem("oauth_token");
-  render({ signedIn: false, message: "Signed out." });
-
-  // Optional, but tells the server the token is dead now instead of leaving
-  // it valid until it expires.
-  if (accessToken) {
-    fetch(REVOKE_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        token: accessToken,
-        token_type_hint: "access_token",
-        client_id: CLIENT_ID,
-      }),
-    }).catch(() => {});
-  }
-}
-
-main();
-```
+<CodeExampleLinks dir="oauth-spa" />

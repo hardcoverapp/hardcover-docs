@@ -6,7 +6,12 @@ layout: /src/layouts/documentation.astro
 ---
 
 import { URLS } from "@/Consts";
+import CodeExampleLinks from "@/components/CodeExampleLinks.astro"
 import ImageComponent from "@/components/ImageComponent.astro";
+
+import { bindExamples } from '@/lib/codeExamples/bindExamples';
+export const NativeExamples = bindExamples('oauth-native');
+export const DeviceGrantExamples = bindExamples('oauth-device');
 
 This guide covers native apps: CLI tools, desktop apps, mobile apps, e-reader plugins, anything that ships on a device you don't control. Like the [SPA](/api/oauth/getting-started-spa) and [confidential client](/api/oauth/getting-started-server) guides this is a bare bones example.
 
@@ -44,13 +49,7 @@ To do OAuth, the first thing you have to do is know where you have to call.
 
 For the sake of this guide we will be hard coding the endpoints, but the info you need can be found at the <a href={URLS.OAUTH_DISCOVERY_URL} target="_blank" rel="noreferrer noopener">OAuth Discovery Endpoint</a>. You can fetch it dynamically, so the app will still work even if in the future we change the locations.
 
-```python
-AUTHORIZE_ENDPOINT = "https://hardcover.app/oauth2/authorize"
-TOKEN_ENDPOINT = "https://api.hardcover.app/oauth2/token"
-REVOKE_ENDPOINT = "https://api.hardcover.app/oauth2/revoke"
-GRAPHQL_ENDPOINT = "https://api.hardcover.app/v1/graphql"
-ISSUER = "https://api.hardcover.app"
-```
+<NativeExamples section="hardcoverOauthEndpoints" />
 
 ### Step 1: Prepping secrets and a redirect URI
 
@@ -58,64 +57,33 @@ The spec asks for the `verifier` to be between 43 and 128 characters long, this 
 
 A CLI/desktop app can't wait for a page reload, so it starts a webserver bound to a loopback address and catches the redirect itself. Hardcover matches loopback redirect URIs by scheme/host/path only, so the port doesn't have to match what you registered.
 
-```python
-# Bind to any free loopback port.
-# Hardcover matches loopback redirect URIs by scheme/host/path only, so the registered URI doesn't need to name a specific port
-server = http.server.HTTPServer(("127.0.0.1", 0), CallbackHandler)
-port = server.server_address[1]
-redirect_uri = f"http://127.0.0.1:{port}/callback"
-```
+<NativeExamples section="oauthReturnAddress" />
 
-```python
-state = random_string(24)
-verifier = random_string(32)
-code_challenge = base64url_sha256(verifier)
-```
+<NativeExamples section="setupValues" />
 
 ### Step 2: Sending off the user
 
 Here are the parameters we are going to be sending the authentication server.
 
-```python
-params = urllib.parse.urlencode(
-    {
-        "response_type": "code",
-        "client_id": CLIENT_ID,
-        "redirect_uri": redirect_uri,
-        "state": state,
-        "code_challenge": code_challenge,
-        "code_challenge_method": "S256",
-        "scope": SCOPE,
-    }
-)
-auth_url = f"{AUTHORIZE_ENDPOINT}?{params}"
-```
+<NativeExamples section="prepParams" />
 
 The important ones we haven't mentioned are:
 ##### `client_id`
 Public clients don't get a secret, anyone can decompile your app or read your script, so it has to be safe for this to be public. That's the whole reason PKCE exists.
 
-```python
-# Public client (no secret). Anyone can pull this out of the installed app, which is exactly why a native app can't be trusted with a secret
-CLIENT_ID = "163f8e7c-970a-463d-b6b4-a4e51e4cb4dd"
-```
+<NativeExamples section="credentials" />
 
 ##### `scope`
 Which of our pre approved permissions do we want. In this case we just want to be able to get the user id, username and name.
 
-```python
-SCOPE = "read:me:content"
-```
+<NativeExamples section="oauthWantedScope" />
 
 ##### Others
 `response_type` and `code_challenge_method` do not have any other options.
 For the response type "code" means that we want a code that we can exchange for the key back.
 And for the challenge method "S256" means we used sha256 to hash the secret, so the server knows what to use when verifying.
 
-```python
-print("Open this URL and approve access:", auth_url)
-webbrowser.open(auth_url)
-```
+<NativeExamples section="sendUser" />
 
 Make sure you print the link even if you also try to open it automatically (`xdg-open`, `open`, `Start-Process`, etc.), the automated open won't always work, especially over SSH or in a container, and the user needs a way to get there regardless.
 
@@ -131,27 +99,19 @@ Once the user has consented to your app, the consent screen will not show up aga
 
 The browser hits your redirect URI with the result. You can tell the user that it is safe to close the tab or close it automatically.
 
-```python
-q = await_callback(server)
-```
+<NativeExamples section="fetchSecrets" />
 
 And now we can begin our checks.
 
 First lets make sure `state` actually matches and that a `code` came back, if this is wrong it means the user probably started multiple login flows, or there was an attacker trying to fake us out. Either way, stop.
 
-```python
-if not q.get("code") or q.get("state") != state:
-    sys.exit("sign-in failed: unexpected callback, try again")
-```
+<NativeExamples section="checkState" />
 
 Hardcover sets `authorization_response_iss_parameter_supported`, so every callback names the server that issued the code (RFC 9207). Check it.
 
 If your app supports more than one provider, this is what stops a malicious one from handing you a code that you then redeem at another provider's token endpoint (a mix-up attack). State can't catch that, because the state is legitimately yours.
 
-```python
-if q.get("iss") != ISSUER:
-    sys.exit("sign-in failed: response came from the wrong issuer")
-```
+<NativeExamples section="checkIssuer" />
 
 ### Step 5: Getting the real tokens
 
@@ -159,25 +119,7 @@ You now are sure that you are the one that sent off the user, and that the data 
 
 There's no secret here, the PKCE `code_verifier` is what proves this request came from the same app that started the flow.
 
-```python
-resp = requests.post(
-    TOKEN_ENDPOINT,
-    data={
-        "grant_type": "authorization_code",
-        "code": q["code"],
-        "redirect_uri": redirect_uri,  # must match step 2 exactly, port included
-        "code_verifier": verifier,
-        "client_id": CLIENT_ID,  # no secret -- PKCE alone authenticates a public client
-    },
-)
-token = resp.json()
-
-if not resp.ok:
-    # Read this one. Nearly every first-run failure lands here, usually a redirect_uri that doesn't match what's registered
-    sys.exit(
-        f"sign-in failed: {token.get('error_description', token.get('error'))}"
-    )
-```
+<NativeExamples section="exchangeCode" />
 
 The response has 3 items:
 | Field | Description |
@@ -188,179 +130,27 @@ The response has 3 items:
 
 A plain file is not a great place for these on a shared machine, use the OS keychain if one is available (macOS Keychain, Windows Credential Manager, libsecret on Linux, etc.).
 
-```python
-# A CLI/desktop app should put these in the OS keychain, not a plain file (e.g. the `keyring` package)
-save_to_keychain(token["access_token"], token["refresh_token"])
-```
+<NativeExamples section="storingToken" />
 
 ### Step 6: Use the API
 
 That's it. You're all set. You now have an API token that you can use to make requests, for example, getting the user info.
 
-```python
-api = requests.post(
-    GRAPHQL_ENDPOINT,
-    headers={"Authorization": f"Bearer {token['access_token']}"},
-    json={"query": "{ me { id username name } }"},
-)
-print(api.text)
-```
+<NativeExamples section="useAPI" />
 
 ### Wrapping up
 
 When signing out, revoke the tokens rather than just deleting them locally, otherwise hardcover will keep showing this as an active or idle session on the user's authorized apps page.
 
-```python
-requests.post(
-    REVOKE_ENDPOINT,
-    data={
-        "token": token["refresh_token"],
-        "token_type_hint": "refresh_token",
-        "client_id": CLIENT_ID,
-    },
-)
-```
+<NativeExamples section="revokingToken" />
 
 You can use either the access token or the refresh token, it does not matter, they are revoked together.
 
 ### Full code
 
-To run this full demo you will need to have `requests` installed.
+If you want to download the full demo yourself you can find it here
 
-```python
-# main.py
-
-import base64
-import hashlib
-import http.server
-import secrets
-import sys
-import time
-import urllib.parse
-import webbrowser
-
-import requests
-
-AUTHORIZE_ENDPOINT = "https://hardcover.app/oauth2/authorize"
-TOKEN_ENDPOINT = "https://api.hardcover.app/oauth2/token"
-REVOKE_ENDPOINT = "https://api.hardcover.app/oauth2/revoke"
-GRAPHQL_ENDPOINT = "https://api.hardcover.app/v1/graphql"
-ISSUER = "https://api.hardcover.app"
-
-# Public client (no secret). Anyone can pull this out of the installed app, which is exactly why a native app can't be trusted with a secret
-CLIENT_ID = "163f8e7c-970a-463d-b6b4-a4e51e4cb4dd"
-
-SCOPE = "read:me:content"
-
-
-def random_string(n_bytes):
-    return base64.urlsafe_b64encode(secrets.token_bytes(n_bytes)).rstrip(b"=").decode()
-
-
-def base64url_sha256(verifier):
-    digest = hashlib.sha256(verifier.encode()).digest()
-    return base64.urlsafe_b64encode(digest).rstrip(b"=").decode()
-
-
-class CallbackHandler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-Type", "text/plain")
-        self.end_headers()
-        self.wfile.write(b"Signed in, you can close this tab.")
-        self.server.query = urllib.parse.parse_qs(
-            urllib.parse.urlparse(self.path).query
-        )
-
-    def log_message(self, format, *args):
-        pass  # keep stdout clean
-
-
-def await_callback(server):
-    server.handle_request()  # blocks until the browser hits us back, handles exactly one request
-    return {k: v[0] for k, v in server.query.items()}
-
-
-def main():
-    # Bind to any free loopback port.
-    # Hardcover matches loopback redirect URIs by scheme/host/path only, so the registered URI doesn't need to name a specific port
-    server = http.server.HTTPServer(("127.0.0.1", 0), CallbackHandler)
-    port = server.server_address[1]
-    redirect_uri = f"http://127.0.0.1:{port}/callback"
-
-    state = random_string(24)
-    verifier = random_string(32)
-    code_challenge = base64url_sha256(verifier)
-
-    params = urllib.parse.urlencode(
-        {
-            "response_type": "code",
-            "client_id": CLIENT_ID,
-            "redirect_uri": redirect_uri,
-            "state": state,
-            "code_challenge": code_challenge,
-            "code_challenge_method": "S256",
-            "scope": SCOPE,
-        }
-    )
-    auth_url = f"{AUTHORIZE_ENDPOINT}?{params}"
-
-    print("Open this URL and approve access:", auth_url)
-    webbrowser.open(auth_url)
-
-    q = await_callback(server)
-
-    if not q.get("code") or q.get("state") != state:
-        sys.exit("sign-in failed: unexpected callback, try again")
-
-    if q.get("iss") != ISSUER:
-        sys.exit("sign-in failed: response came from the wrong issuer")
-
-    resp = requests.post(
-        TOKEN_ENDPOINT,
-        data={
-            "grant_type": "authorization_code",
-            "code": q["code"],
-            "redirect_uri": redirect_uri,  # must match step 2 exactly, port included
-            "code_verifier": verifier,
-            "client_id": CLIENT_ID,  # no secret -- PKCE alone authenticates a public client
-        },
-    )
-    token = resp.json()
-
-    if not resp.ok:
-        # Read this one. Nearly every first-run failure lands here, usually a redirect_uri that doesn't match what's registered
-        sys.exit(
-            f"sign-in failed: {token.get('error_description', token.get('error'))}"
-        )
-
-    # A CLI/desktop app should put these in the OS keychain, not a plain file (e.g. the `keyring` package)
-    save_to_keychain(token["access_token"], token["refresh_token"])
-
-    api = requests.post(
-        GRAPHQL_ENDPOINT,
-        headers={"Authorization": f"Bearer {token['access_token']}"},
-        json={"query": "{ me { id username name } }"},
-    )
-    print(api.text)
-
-    requests.post(
-        REVOKE_ENDPOINT,
-        data={
-            "token": token["refresh_token"],
-            "token_type_hint": "refresh_token",
-            "client_id": CLIENT_ID,
-        },
-    )
-
-
-def save_to_keychain(access_token, refresh_token):
-    pass  # left as an exercise -- e.g. the `keyring` package
-
-
-if __name__ == "__main__":
-    main()
-```
+<CodeExampleLinks dir="oauth-native" />
 
 ## Using Device Authorization Grant
 
@@ -370,27 +160,13 @@ This flow has no redirect at all, which is the whole point, it's for devices wit
 
 Ask for a device code, same `client_id` and `scope` as before, but this time posted straight to the device endpoint instead of sending the user anywhere.
 
-```python
-# Published at /.well-known/oauth-authorization-server
-DEVICE_ENDPOINT = "https://api.hardcover.app/oauth2/device"
-TOKEN_ENDPOINT = "https://api.hardcover.app/oauth2/token"
-REVOKE_ENDPOINT = "https://api.hardcover.app/oauth2/revoke"
-GRAPHQL_ENDPOINT = "https://api.hardcover.app/v1/graphql"
-```
+<DeviceGrantExamples section="hardcoverOauthEndpoints" />
 
-```python
-CLIENT_ID = "163f8e7c-970a-463d-b6b4-a4e51e4cb4dd"
-```
+<DeviceGrantExamples section="credentials" />
 
-```python
-SCOPE = "read:me:content"
-```
+<DeviceGrantExamples section="oauthWantedScope" />
 
-```python
-resp = requests.post(DEVICE_ENDPOINT, data={"client_id": CLIENT_ID, "scope": SCOPE})
-resp.raise_for_status()
-device = resp.json()
-```
+<DeviceGrantExamples section="startDeviceAuth" />
 
 The response has everything you need to get the user signed in and to know how to poll:
 
@@ -407,10 +183,7 @@ The response has everything you need to get the user signed in and to know how t
 
 Tell the user where to go and what to type in.
 
-```python
-print(f"Go to {device['verification_uri']} and enter code: {device['user_code']}")
-# optionally turn device["verification_uri_complete"] into a QR code
-```
+<DeviceGrantExamples section="showUserCode" />
 
 If you turn `verification_uri_complete` into a QR code, still show `verification_uri` and `user_code` as text too, in case the user can't scan it.
 
@@ -420,39 +193,7 @@ If you turn `verification_uri_complete` into a QR code, still show `verification
 
 Poll the token endpoint every `interval` seconds until you get a token back, the user approves or denies, or `expires_in` runs out.
 
-```python
-deadline = time.monotonic() + device.get("expires_in", 900)
-interval = device.get("interval", 5)
-
-token = None
-while time.monotonic() < deadline:
-    time.sleep(interval)
-
-    poll = requests.post(
-        TOKEN_ENDPOINT,
-        data={
-            "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
-            "device_code": device["device_code"],
-            "client_id": CLIENT_ID,
-        },
-    )
-    body = poll.json()
-
-    if poll.ok:
-        token = body
-        break
-
-    # authorization_pending: keep polling
-    # slow_down: also keep polling, a real client should add `interval` seconds to its wait each time it sees this
-    error = body.get("error")
-    if error not in ("authorization_pending", "slow_down"):
-        sys.exit(f"sign-in failed: {error}")
-    if error == "slow_down":
-        interval += 5
-
-if token is None:
-    sys.exit("sign-in failed: timed out waiting for approval")
-```
+<DeviceGrantExamples section="pollForToken" />
 
 While the user hasn't acted yet you'll get back `authorization_pending`, keep polling. If you get `slow_down`, keep polling too, but add a few seconds to your interval, you're polling faster than the server wants. Anything else (`access_denied`, `expired_token`, etc.) means stop, the flow is over.
 
@@ -470,110 +211,16 @@ They are then asked for approval, similar to the standard flow.
 
 Same as every other flow, the token you end up with works exactly like a PAT.
 
-```python
-api = requests.post(
-    GRAPHQL_ENDPOINT,
-    headers={"Authorization": f"Bearer {token['access_token']}"},
-    json={"query": "{ me { id username name } }"},
-)
-print(api.text)
-```
+<DeviceGrantExamples section="useAPI" />
 
 ### Wrapping up
 
 Revoke on sign out here too, same as the standard flow above.
 
-```python
-requests.post(
-    REVOKE_ENDPOINT,
-    data={
-        "token": token["refresh_token"],
-        "token_type_hint": "refresh_token",
-        "client_id": CLIENT_ID,
-    },
-)
-```
+<DeviceGrantExamples section="revokingToken" />
 
 ### Full code
 
-To run this full demo you will need to have `requests` installed.
+If you want to download the full demo yourself you can find it here
 
-```python
-# main.py
-
-import sys
-import time
-
-import requests
-
-# Published at /.well-known/oauth-authorization-server
-DEVICE_ENDPOINT = "https://api.hardcover.app/oauth2/device"
-TOKEN_ENDPOINT = "https://api.hardcover.app/oauth2/token"
-REVOKE_ENDPOINT = "https://api.hardcover.app/oauth2/revoke"
-GRAPHQL_ENDPOINT = "https://api.hardcover.app/v1/graphql"
-
-CLIENT_ID = "163f8e7c-970a-463d-b6b4-a4e51e4cb4dd"
-
-SCOPE = "read:me:content"
-
-
-def main():
-    resp = requests.post(DEVICE_ENDPOINT, data={"client_id": CLIENT_ID, "scope": SCOPE})
-    resp.raise_for_status()
-    device = resp.json()
-
-    print(f"Go to {device['verification_uri']} and enter code: {device['user_code']}")
-    # optionally turn device["verification_uri_complete"] into a QR code
-
-    deadline = time.monotonic() + device.get("expires_in", 900)
-    interval = device.get("interval", 5)
-
-    token = None
-    while time.monotonic() < deadline:
-        time.sleep(interval)
-
-        poll = requests.post(
-            TOKEN_ENDPOINT,
-            data={
-                "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
-                "device_code": device["device_code"],
-                "client_id": CLIENT_ID,
-            },
-        )
-        body = poll.json()
-
-        if poll.ok:
-            token = body
-            break
-
-        # authorization_pending: keep polling
-        # slow_down: also keep polling, a real client should add `interval` seconds to its wait each time it sees this
-        error = body.get("error")
-        if error not in ("authorization_pending", "slow_down"):
-            sys.exit(f"sign-in failed: {error}")
-        if error == "slow_down":
-            interval += 5
-
-    if token is None:
-        sys.exit("sign-in failed: timed out waiting for approval")
-
-    api = requests.post(
-        GRAPHQL_ENDPOINT,
-        headers={"Authorization": f"Bearer {token['access_token']}"},
-        json={"query": "{ me { id username name } }"},
-    )
-    print(api.text)
-
-    requests.post(
-        REVOKE_ENDPOINT,
-        data={
-            "token": token["refresh_token"],
-            "token_type_hint": "refresh_token",
-            "client_id": CLIENT_ID,
-        },
-    )
-
-
-if __name__ == "__main__":
-    main()
-```
+<CodeExampleLinks dir="oauth-device" />
