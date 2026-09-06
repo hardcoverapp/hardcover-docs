@@ -1,0 +1,17 @@
+{
+  "name": "OAuth confidential client",
+  "items": [
+    {
+      "key": "go",
+      "file": "main.go"
+    },
+    {
+      "key": "python",
+      "file": "main.py"
+    },
+    {
+      "key": "bash",
+      "file": "oauth.sh"
+    }
+  ]
+}

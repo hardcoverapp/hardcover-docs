@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hardcover device flow demo</title>
+  <style>
+    /* The code is the only thing a human reads across a room, so it's the only styling in the file. */
+    #user-code {
+      font: 2.5rem/1 ui-monospace, monospace;
+      letter-spacing: 0.15em;
+      margin: 0.5em 0;
+    }
+    #panel[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <button id="sign-in">Sign in with Hardcover</button>
+  <button id="sign-out" hidden>Sign out</button>
+
+  <div id="panel" hidden>
+    <p>Go to <a id="verification-uri" target="_blank" rel="noopener"></a> and enter:</p>
+    <p id="user-code"></p>
+    <p id="direct-link"></p>
+    <button id="cancel">Cancel</button>
+  </div>
+
+  <p id="status" role="status"></p>
+
+  <script src="./device.js"></script>
+</body>
+</html>

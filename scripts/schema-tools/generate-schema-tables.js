@@ -13,6 +13,8 @@ if (fs.existsSync(descriptionsFile)) {
   console.log(`Loaded custom descriptions for ${Object.keys(customDescriptions).length - 1} types`);
 }
 
+// TODO: make use of capability-field-scopes.json, mark columns with scopes they are locked behind (if any)
+
 // Function to generate markdown table for a type
 function generateMarkdownTable(typeName, fields) {
   // Include:
