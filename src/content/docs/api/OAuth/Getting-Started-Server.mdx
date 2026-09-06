@@ -1,0 +1,157 @@
+---
+title: "Getting Started with OAuth: Confidential Client"
+description: How to use OAuth to make a confidential (server-side) application using the Standard flow
+category: guide
+layout: /src/layouts/documentation.astro
+---
+
+import { URLS } from "@/Consts";
+import CodeExampleLinks from "@/components/CodeExampleLinks.astro"
+import ImageComponent from "@/components/ImageComponent.astro";
+
+import { bindExamples } from '@/lib/codeExamples/bindExamples';
+export const Examples = bindExamples('oauth-server');
+
+This guide will walk you through making a confidential client, an app that runs on a server you control (server-rendered, or a backend-for-frontend behind an SPA), using hardcover OAuth. Like the [SPA guide](/api/oauth/getting-started-spa) this is a bare bones example, there's a bunch of hardening you'd want to add for production, but this is the shape of it.
+
+The thing that makes a client confidential rather than public is that it can hold a secret: a client secret issued alongside your `client_id` that only your server ever sees. That's also the only real difference from the SPA flow, everything else (PKCE, `state`, checking `iss`) still applies, confidential clients included.
+
+## Setting up the app
+
+Head over to the <a href={URLS.NEW_DEVELOPER_APP_URL} target="_blank" rel="noreferrer noopener">New Developer App</a> page and create an app.
+
+For this guide you only need to set the Application Type (pick "Web app (server-side)"), Name, OAuth Redirect URI and Scopes.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_confidential.png" description="Creating a new app, select Web app." />
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_name.png" description="Name the app something, this is shown to your users!" />
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_confidential_oauth.png" description="OAuth information, the redirect URI's and allowed scopes." />
+
+Once you create it you'll be shown a client secret, this is only ever shown once (unless you rotate it). Copy it into wherever your server reads secrets from (an env var, a secret manager, etc.) never commit it into your repo.
+
+For this guide you will only need the `read:me:content` scope. The examples run a plain HTTP server on `localhost:8080`, so the Redirect URI is `http://localhost:8080/callback`, since this is loopback it's fine over `http`, if you're hosting this for real you'll need `https`.
+
+## Step 0: Discovery
+
+To do OAuth, the first thing you have to do is know where you have to call.
+
+For the sake of this guide we will be hard coding the endpoints, but the info you need can be found at the <a href={URLS.OAUTH_DISCOVERY_URL} target="_blank" rel="noreferrer noopener">OAuth Discovery Endpoint</a>. You can fetch it dynamically, so the app will still work even if in the future we change the locations.
+
+<Examples section="hardcoverOauthEndpoints" />
+
+## Step 1: Prepping secrets
+
+Even though this client can keep a secret, we still do PKCE, Hardcover requires it on every client, confidential included.
+
+The spec asks for the `verifier` to be between 43 and 128 characters long, this is because it wants a minimum of 256 bits (32 bytes) of entropy, and when you base64url encode that you get 43 characters.
+
+<Examples section="setupValues" />
+
+Unlike the SPA (where the same page just reloads), sending the user off means the *next* request your server sees is a fresh one to `/callback`, with none of these local variables still around. So `state` and the verifier need to be kept somewhere your server can find them again, a real app would key this off the user's session, stored in a cookie.
+
+<Examples section="storeSecrets" />
+
+## Step 2: Sending off the user
+
+Here are the parameters we are going to be sending the authentication server.
+
+<Examples section="prepParams" />
+
+The important ones we haven't mentioned are:
+##### `client_id` and `client_secret`
+Unlike the SPA guide, you can't reuse my demo app's `client_id` here, a confidential client needs a `client_secret` only your server has, so you'll need to have made your own app in the step above.
+
+<Examples section="credentials" />
+
+##### `redirect_uri`
+Tells hardcover which of our pre approved redirect URIs to send the user to after they finish.
+
+<Examples section="oauthReturnAddress" />
+
+##### `scope`
+Which of our pre approved permissions do we want. In this case we just want to be able to get the user id, username and name.
+
+<Examples section="oauthWantedScope" />
+
+##### Others
+`response_type` and `code_challenge_method` do not have any other options.
+For the response type "code" means that we want a code that we can exchange for the key back.
+And for the challenge method "S256" means we used sha256 to hash the secret, so the server knows what to use when verifying.
+
+So off they go!
+
+<Examples section="sendUser" />
+
+## Step 3: User approval
+
+The user has now landed on the consent screen, they are given the option to approve or deny access to your app.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/conf_auth_consent.png" description="OAuth consent screen, asking if the user is ok with giving 'SPA demo app' access to their public profile fields." />
+
+Once the user has consented to your app, the consent screen will not show up again for an entire year, as long as you only request the same or a subset of the consented scope, if you want a scope they have not consented to then they will be shown the consent screen again upon going through the flow.
+
+## Step 4: The user is back
+
+The user's browser is redirected back to your `redirect_uri`, the user is now back, and they come with some query parameters.
+
+There are now 2 possibilities, either the request will have the `error` query param set, in that case the user has either rejected or the sign up has failed (in which case you will also have an `error_description`).
+
+Or, the request has the `code` param set, in that case we can continue. Grab `code`, `state`, and `iss` off of it before moving on.
+
+<Examples section="fetchSecrets" />
+
+And now we can begin our checks.
+
+First lets make sure `state` actually matches and that a `code` came back, if this is wrong it means the user probably started multiple login flows, the state expired, or there was an attacker trying to fake us out. Either way, stop.
+
+<Examples section="checkState" />
+
+Hardcover sets `authorization_response_iss_parameter_supported`, so every callback names the server that issued the code (RFC 9207). Check it.
+
+If your app supports more than one provider, this is what stops a malicious one from handing you a code that you then redeem at another provider's token endpoint (a mix-up attack). State can't catch that, because the state is legitimately yours.
+
+<Examples section="checkIssuer" />
+
+## Step 5: Getting the real tokens
+
+You now are sure that you are the one that sent off the user, and that the data they came back with is real, it is time to trade the `code` for a real OAuth token.
+
+This request is the one place a confidential client actually behaves differently, alongside the PKCE `code_verifier` we also authenticate the request itself with `client_id`/`client_secret` over HTTP Basic auth. The verifier proves this is the same backend that sent the user off in step 2, the secret proves it's really your backend at all.
+
+<Examples section="exchangeCode" />
+
+The response for the server has 3 items:
+| Field | Description |
+| --- | --- |
+| `access_token` | in the shape of `hc_at_xxxx`, your API Bearer token. |
+| `refresh_token` | in the shape of `hc_rt_xxxx`, the token you can use in the same token endpoint with the `refresh_token` grant type to get a new set of tokens. |
+| `expires_in` | when the access token will expire, you will still be able to use the refresh token, but the access token will no longer be valid. |
+
+Since we are running in a trusted environment, we can either store and use the tokens locally, or we can just keep the refresh token and give the access token to the frontend to use however it wants.
+
+<Examples section="storingToken" />
+
+## Step 6: Use the API
+
+That's it. You're all set. You now have an API token that you can use to make requests, for example, getting the user info.
+
+<Examples section="useAPI" />
+
+## Wrapping up
+
+One final thing before we go, when signing out, you could technically just drop the tokens from wherever you stored them, no one else has them, so the user is now signed out.
+
+However, hardcover tracks the sessions, so the user will see on their authorized apps page that your app still has an active or idle session. So it is recommended to revoke the tokens when signing out.
+
+<Examples section="revokingToken" />
+
+You can use either the access token or the refresh token, it does not matter, they are revoked together.
+
+Also, since you're a confidential client you also have the [introspection endpoint](/api/oauth#endpoints) available, useful if you ever want to check whether a token is still valid without spending an API call to find out.
+
+## Full code
+
+If you want to download the full demo yourself you can find it here
+
+<CodeExampleLinks dir="oauth-server" />

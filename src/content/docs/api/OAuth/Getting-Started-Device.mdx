@@ -1,0 +1,226 @@
+---
+title: "Getting Started with OAuth: Native/Local clients"
+description: How to use OAuth to make a local application, using both the Standard flow and the Device Authorization Grant flow
+category: guide
+layout: /src/layouts/documentation.astro
+---
+
+import { URLS } from "@/Consts";
+import CodeExampleLinks from "@/components/CodeExampleLinks.astro"
+import ImageComponent from "@/components/ImageComponent.astro";
+
+import { bindExamples } from '@/lib/codeExamples/bindExamples';
+export const NativeExamples = bindExamples('oauth-native');
+export const DeviceGrantExamples = bindExamples('oauth-device');
+
+This guide covers native apps: CLI tools, desktop apps, mobile apps, e-reader plugins, anything that ships on a device you don't control. Like the [SPA](/api/oauth/getting-started-spa) and [confidential client](/api/oauth/getting-started-server) guides this is a bare bones example.
+
+These are always public clients, no secret, PKCE only, same as an SPA. What's different is you get to pick between two flows: the Standard flow (same shape as the SPA, just caught by a local webserver instead of a page reload), or the Device Authorization Grant (no browser needed on the device at all). See [Which flow do I need?](/api/oauth#which-flow-do-i-need) if you haven't picked yet, most apps with access to a browser should use the Standard flow, Device Authorization Grant is for devices that don't (TVs, e-readers, headless boxes).
+
+**Jump to:** [Using the standard flow](#using-the-standard-flow) &middot; [Using Device Authorization Grant](#using-device-authorization-grant)
+
+## Setting up the app
+
+Head over to the <a href={URLS.NEW_DEVELOPER_APP_URL} target="_blank" rel="noreferrer noopener">New Developer App</a> page and create an app, Application Type "Mobile, desktop, or CLI".
+
+For this guide you only need to set the Application Type, Name, and Scopes, plus the Redirect URI if you're doing the Standard flow.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_device.png" description="Creating a new app, select Mobile, Desktop or CLI." />
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_name.png" description="Name the app something, this is shown to your users!" />
+
+If you are not using Device Authorization grant then turn it off, there are not pro approval gates, so anyone with the public id of your app can initiate an Auth flow in it's name.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_device_standard.png" description="OAuth information, the redirect URI's and allowed scopes." />
+
+If you are using Device Authorization grant, then you don't necessarily need the redirect URIs, you can keep it if you are using both.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/new_app_device_grant.png" description="OAuth information, the device auth grant and allowed scopes." />
+
+Either way, for this guide you will only need the `read:me:content` scope.
+
+## Using the standard flow
+
+This is the same flow as the [SPA guide](/api/oauth/getting-started-spa), the only real difference is who's listening for the redirect: a browser tab there, a webserver your app starts here.
+
+### Step 0: Discovery
+
+To do OAuth, the first thing you have to do is know where you have to call.
+
+For the sake of this guide we will be hard coding the endpoints, but the info you need can be found at the <a href={URLS.OAUTH_DISCOVERY_URL} target="_blank" rel="noreferrer noopener">OAuth Discovery Endpoint</a>. You can fetch it dynamically, so the app will still work even if in the future we change the locations.
+
+<NativeExamples section="hardcoverOauthEndpoints" />
+
+### Step 1: Prepping secrets and a redirect URI
+
+The spec asks for the `verifier` to be between 43 and 128 characters long, this is because it wants a minimum of 256 bits (32 bytes) of entropy, and when you base64url encode that you get 43 characters.
+
+A CLI/desktop app can't wait for a page reload, so it starts a webserver bound to a loopback address and catches the redirect itself. Hardcover matches loopback redirect URIs by scheme/host/path only, so the port doesn't have to match what you registered.
+
+<NativeExamples section="oauthReturnAddress" />
+
+<NativeExamples section="setupValues" />
+
+### Step 2: Sending off the user
+
+Here are the parameters we are going to be sending the authentication server.
+
+<NativeExamples section="prepParams" />
+
+The important ones we haven't mentioned are:
+##### `client_id`
+Public clients don't get a secret, anyone can decompile your app or read your script, so it has to be safe for this to be public. That's the whole reason PKCE exists.
+
+<NativeExamples section="credentials" />
+
+##### `scope`
+Which of our pre approved permissions do we want. In this case we just want to be able to get the user id, username and name.
+
+<NativeExamples section="oauthWantedScope" />
+
+##### Others
+`response_type` and `code_challenge_method` do not have any other options.
+For the response type "code" means that we want a code that we can exchange for the key back.
+And for the challenge method "S256" means we used sha256 to hash the secret, so the server knows what to use when verifying.
+
+<NativeExamples section="sendUser" />
+
+Make sure you print the link even if you also try to open it automatically (`xdg-open`, `open`, `Start-Process`, etc.), the automated open won't always work, especially over SSH or in a container, and the user needs a way to get there regardless.
+
+### Step 3: User approval
+
+The user has now landed on the consent screen, they are given the option to approve or deny access to your app.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/device_standard_consent.png" description="OAuth consent screen, asking if the user is ok with giving 'Device demo app' access to their public profile fields." />
+
+Once the user has consented to your app, the consent screen will not show up again for an entire year, as long as you only request the same or a subset of the consented scope, if you want a scope they have not consented to then they will be shown the consent screen again upon going through the flow.
+
+### Step 4: The user is back
+
+The browser hits your redirect URI with the result. You can tell the user that it is safe to close the tab or close it automatically.
+
+<NativeExamples section="fetchSecrets" />
+
+And now we can begin our checks.
+
+First lets make sure `state` actually matches and that a `code` came back, if this is wrong it means the user probably started multiple login flows, or there was an attacker trying to fake us out. Either way, stop.
+
+<NativeExamples section="checkState" />
+
+Hardcover sets `authorization_response_iss_parameter_supported`, so every callback names the server that issued the code (RFC 9207). Check it.
+
+If your app supports more than one provider, this is what stops a malicious one from handing you a code that you then redeem at another provider's token endpoint (a mix-up attack). State can't catch that, because the state is legitimately yours.
+
+<NativeExamples section="checkIssuer" />
+
+### Step 5: Getting the real tokens
+
+You now are sure that you are the one that sent off the user, and that the data they came back with is real, it is time to trade the `code` for a real OAuth token.
+
+There's no secret here, the PKCE `code_verifier` is what proves this request came from the same app that started the flow.
+
+<NativeExamples section="exchangeCode" />
+
+The response has 3 items:
+| Field | Description |
+| --- | --- |
+| `access_token` | in the shape of `hc_at_xxxx`, your API Bearer token. |
+| `refresh_token` | in the shape of `hc_rt_xxxx`, the token you can use in the same token endpoint with the `refresh_token` grant type to get a new set of tokens. |
+| `expires_in` | when the access token will expire, you will still be able to use the refresh token, but the access token will no longer be valid. |
+
+A plain file is not a great place for these on a shared machine, use the OS keychain if one is available (macOS Keychain, Windows Credential Manager, libsecret on Linux, etc.).
+
+<NativeExamples section="storingToken" />
+
+### Step 6: Use the API
+
+That's it. You're all set. You now have an API token that you can use to make requests, for example, getting the user info.
+
+<NativeExamples section="useAPI" />
+
+### Wrapping up
+
+When signing out, revoke the tokens rather than just deleting them locally, otherwise hardcover will keep showing this as an active or idle session on the user's authorized apps page.
+
+<NativeExamples section="revokingToken" />
+
+You can use either the access token or the refresh token, it does not matter, they are revoked together.
+
+### Full code
+
+If you want to download the full demo yourself you can find it here
+
+<CodeExampleLinks dir="oauth-native" />
+
+## Using Device Authorization Grant
+
+This flow has no redirect at all, which is the whole point, it's for devices with no browser (or no keyboard worth typing a password on). There's no `state` and no `iss` to check either, since there's no redirect for either of them to protect.
+
+### Step 1: Starting the flow
+
+Ask for a device code, same `client_id` and `scope` as before, but this time posted straight to the device endpoint instead of sending the user anywhere.
+
+<DeviceGrantExamples section="hardcoverOauthEndpoints" />
+
+<DeviceGrantExamples section="credentials" />
+
+<DeviceGrantExamples section="oauthWantedScope" />
+
+<DeviceGrantExamples section="startDeviceAuth" />
+
+The response has everything you need to get the user signed in and to know how to poll:
+
+| Field | Description |
+| --- | --- |
+| `device_code` | id you use to identify your polling requests |
+| `user_code` | the code you tell the user to enter |
+| `verification_uri` | where you tell the user to go |
+| `verification_uri_complete` | a complete url you can turn into a QR that will prefill the code |
+| `expires_in` | in seconds, how long you have to do the auth before giving up |
+| `interval` | in seconds, how often you should poll |
+
+### Step 2: Showing the user code
+
+Tell the user where to go and what to type in.
+
+<DeviceGrantExamples section="showUserCode" />
+
+If you turn `verification_uri_complete` into a QR code, still show `verification_uri` and `user_code` as text too, in case the user can't scan it.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/device_link_code.png" description="A screen telling the user to go to the link page and endter the code, or to scan the QR code" />
+
+### Step 3: Polling for the token
+
+Poll the token endpoint every `interval` seconds until you get a token back, the user approves or denies, or `expires_in` runs out.
+
+<DeviceGrantExamples section="pollForToken" />
+
+While the user hasn't acted yet you'll get back `authorization_pending`, keep polling. If you get `slow_down`, keep polling too, but add a few seconds to your interval, you're polling faster than the server wants. Anything else (`access_denied`, `expired_token`, etc.) means stop, the flow is over.
+
+### Step 4: User approval
+
+The user goes to the <a href={URLS.DEVICE_LINK_URL} target="_blank" rel="noreferrer noopener">Link page</a> on a phone or computer and enters the code you gave them.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/device_grant_code.png" description="User is presented with a screen asking for the 8 character code" />
+
+They are then asked for approval, similar to the standard flow.
+
+<ImageComponent imagePath="/src/content/images/api/oauth/device_grant_consent.png" description="OAuth consent screen, asking if the user is ok with giving 'Device demo app' access to their public profile fields. And verifying if that is the code they entered " />
+
+### Step 5: Use the API
+
+Same as every other flow, the token you end up with works exactly like a PAT.
+
+<DeviceGrantExamples section="useAPI" />
+
+### Wrapping up
+
+Revoke on sign out here too, same as the standard flow above.
+
+<DeviceGrantExamples section="revokingToken" />
+
+### Full code
+
+If you want to download the full demo yourself you can find it here
+
+<CodeExampleLinks dir="oauth-device" />
