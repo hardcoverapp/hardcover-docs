@@ -107,7 +107,8 @@ A `403` can come with a few different `error` values depending on the cause:
     - This means you can't use the API to access and use someone else's data.
 - This API is running the same as if you were using the browser. Any actions you take will be under your user.
 - <Badge text="Don't share your token! Someone could delete your account with it." variant="danger" />
-- CORS are open, so you can make API requests from a website, but it is recommended to use OAuth and store your tokens securely. You should not be requesting a user take out a PAT for your app
+- CORS is open, so requests from a web browser will work, but it is recommended to use OAuth and store your tokens securely. Anything your page sends is visible to anyone who opens devtools (or XSS that is running on your site), and a PAT can have a long expiration window and be used to delete the account outright with the `all` scope.
+- For anything a user signs into, use [OAuth](/api/oauth): those tokens are short-lived, limited to the scopes you request and permit, and the user can revoke them. Never ask a user to paste a PAT into your app.
 - <Badge text="Recommendation" variant="note" /> When authoring scripts that use the API, it is recommended to include a user-agent header with a description of the script.
 - Queries have a max timeout of 30 seconds.
 - By using the API, you agree not to use to train large language models that are made publicly available or used commercially.
