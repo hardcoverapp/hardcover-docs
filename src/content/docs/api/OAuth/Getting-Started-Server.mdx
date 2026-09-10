@@ -135,7 +135,9 @@ Once the user has consented to your app, the consent screen will not show up aga
 
 The user's browser is redirected back to your `redirect_uri`, the user is now back, and they come with some query parameters.
 
-There are now 2 possibilities, either the request will have the `error` query param set, in that case the user has either rejected or the sign up has failed (in which case you will also have an `error_description`).
+There are now 2 possibilities:
+- The user has the `error` query param set. Meaning the user was either rejected your app or the sign-in has failed (in which case you will also have a `error_description`).
+- The user has the `code` param set, in that case we can continue with step 4.
 
 Or, the request has the `code` param set, in that case we can continue. Grab `code`, `state`, and `iss` off of it before moving on.
 
