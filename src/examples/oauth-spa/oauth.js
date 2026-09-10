@@ -7,7 +7,7 @@ const CLIENT_ID = "64003fc6-9a33-4787-b80b-4827f40d46c6";
 // https://api.hardcover.app/.well-known/oauth-authorization-server
 const AUTHORIZE_ENDPOINT = "https://hardcover.app/oauth2/authorize";
 const TOKEN_ENDPOINT = "https://api.hardcover.app/oauth2/token";
-const REVOKE_ENDPOINT = "https:/api.hardcover.app/oauth2/revoke";
+const REVOKE_ENDPOINT = "https://api.hardcover.app/oauth2/revoke";
 const GRAPHQL_ENDPOINT = "https://api.hardcover.app/v1/graphql";
 // SECTION START: oauthIssuer :SECTION
 const ISSUER = "https://api.hardcover.app";
@@ -63,7 +63,7 @@ function main() {
   signOutBtn.addEventListener("click", signOut);
 
   const params = new URLSearchParams(location.search);
-  const savedToken = localStorage.getItem("oauth_token")?.access_token;
+  const savedToken = localStorage.getItem("oauth_token");
 
   if (params.has("error")) {
     // The user declined, or the app is misconfigured.
@@ -169,7 +169,7 @@ async function handleCallback(params) {
   // SECTION END: exchangeCode :SECTION
 
   // SECTION START: storingToken :SECTION
-  localStorage.setItem("oauth_token", token);
+  localStorage.setItem("oauth_token", token.access_token);
   // SECTION END: storingToken :SECTION
   showProfile(token.access_token);
 }
@@ -209,7 +209,7 @@ async function showProfile(accessToken) {
 }
 
 async function signOut() {
-  const accessToken = localStorage.getItem("oauth_token")?.access_token;
+  const accessToken = localStorage.getItem("oauth_token");
   localStorage.removeItem("oauth_token");
   render({ signedIn: false, message: "Signed out." });
 
