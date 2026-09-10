@@ -24,10 +24,10 @@ For this guide you only need to set the Application Type, Name, OAuth Redirect U
 
 <ImageComponent imagePath="/src/content/images/api/oauth/new_app_spa_oauth.png" description="OAuth information, the redirect URI's and allowed scopes." />
 
-For this guide you will only need the `read:me:content` scope, but you want can set whatever scopes you need.
+For this guide you will only need the `read:me:content` scope, but you can set whatever scopes you need.
 And I will be using `python -m http.server` to serve it, so I am setting the Redirect URI to `http://localhost/` and `http://localhost/index.html`. Since this is loopback (localhost) the port does not matter, but if you are going to host this publicly you will have to use https, and if you are not using port 443 (omitted by default) you will have to specify the port.
 
-After you click create you will be taken to the apps info page, when you are here, copy the 
+After you click create you will be taken to the apps info page, when you are here, copy the client ID, this is how hardcover will know what app is doing the authentication.
 
 ## Step 0: Discovery
 
@@ -82,21 +82,21 @@ const queryParams = new URLSearchParams({
 
 The important ones we haven't mentioned are:
 ##### `client_id`
-The client's public id, for this example you can use mine, but if you want a different domain then localhost, or more permission then identifying the user, you will need to make your own app.
+The client's public ID, for this example you can use mine, but if you want a different domain then localhost, or more permission then identifying the user, you will need to make your own app.
 
 ```javascript
 const CLIENT_ID = "64003fc6-9a33-4787-b80b-4827f40d46c6";
 ```
 
 ##### `redirect_uri`
-Tells hardcover which of our pre approved redirect uris to send the user to after they finish.
+Tells hardcover which of our pre approved redirect URIs to send the user to after they finish.
 
 ```javascript
 const REDIRECT_URI = location.origin + location.pathname;
 ```
 
 ##### `scope`
-Which of our pre approved permissions do we want. In this case we just want to b able to get the user id, username, name, and profile image.
+Which of our pre approved permissions do we want. In this case we just want to be able to get the user id, username, name, and profile image.
 The publicly available user information
 
 ```javascript
@@ -106,7 +106,7 @@ const SCOPE = "read:me:content";
 ##### Others
 `response_type` and `code_challenge_method` do not have any other options.
 For the response type "code" means that we want a code that we can exchange for the key back.
-And for the challenge method "S256" means we used sha256 to hash the secret, so the server knows what to use when verifying.
+And for the challenge method "S256" means we used SHA256 to hash the secret, so the server knows what to use when verifying.
 
 
 Since this is a barebones example, so we don't have any fancy open in new tab or opening a window just for the OAuth flow then closing it, we are just redirecting the user in the same tab.
@@ -124,15 +124,16 @@ The user has now landed on the consent screen, they are given the option to appr
 
 <ImageComponent imagePath="/src/content/images/api/oauth/spa_auth_consent.png" description="OAuth consent screen, asking if the user is ok with giving 'SPA demo app' access to their public profile fields." />
 
-Once the user has consented to your app, the consent screen will not show up again for an entire year, as long as you only request the same or a subset of the consented scope, if you want a scope they have not consented to the they will be shown the consent screen again upon going through the flow.
+Once the user has consented to your app, the consent screen will not show up again for an entire year, as long as you only request the same or a subset of the consented scope, if you want a scope they have not consented to, then the user will be shown the consent screen again upon going through the flow.
 
 ## Step 4: The user is back
 
 The user is redirected back to your website!
 
-There are now 2 possibilities, either the user will have the `error` query param set, in that case the user has either rejected or the sign up has failed (in which case you will also have a `error_description`).
+There are now 2 possibilities:
+- The user has the `error` query param set. Meaning the user was either rejected your app or the sign-in has failed (in which case you will also have a `error_description`).
+- The user has the `code` param set, in that case we can continue with step 4.
 
-Or, the user has the `code` param set, in that case we can start with step 4.
 First you want to fetch the secrets we stored earlier, we will now make use of them. And lets clean up after ourselves.
 
 ```javascript
@@ -225,7 +226,7 @@ For this example we wont be implementing the refresh functionality, we will only
 
 ## Step 6: Use the API
 
-That's it. You're all set. You now have an API token that you can use to make requess, for example, getting the user info.
+That's it. You're all set. You now have an API token that you can use to make request, for example, getting the user info.
 
 ```javascript
 const res = await fetch(GRAPHQL_ENDPOINT, {
@@ -246,7 +247,7 @@ const user = body.data?.me?.[0];
 
 One final thing before we go, when signing out, you could technically just delete the tokens from your storage, no one else has them, so the user is now signed out.
 
-However, hardcover tracks the sessions, so the user will see o their authorized apps page that your app still has an active or idle session. So it is recommended to revoke the tokens when signing out.
+However, hardcover tracks the sessions, so the user will see on their authorized apps page that your app still has an active or idle session. So it is recommended to revoke the tokens when signing out.
 
 ```javascript
 fetch(REVOKE_ENDPOINT, {
