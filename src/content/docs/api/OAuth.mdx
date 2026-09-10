@@ -10,8 +10,9 @@ import { URLS } from "@/Consts";
 
 Personal Access Tokens are great for scripts and tools you run yourself.
 You create the token, you paste it into your own config, only you ever see it.
-But if you want other people to your use your application or tool then OAuth is way to go.
-OAuth lets each of your users authorize your app to act as them without ever handing you a password or a token they typed in themselves.
+But if you want other people to use your application or tool then OAuth is the way to go.
+
+OAuth lets each of your users authorize your app to act as them without ever handing you a password or a token they typed (or pasted) in themselves.
 
 Everything below builds on the same [scopes](/api/graphql/actions) as a Personal Access Token,
 and once you do an OAuth flow and get an OAuth Access Token it works exactly like a PAT with the API,
@@ -99,11 +100,11 @@ The app type you pick when [registering your app](#registering-an-app) is fixed 
 | --- | --- | --- | --- |
 | A server-rendered app (Rails, Django, Node, PHP, etc.) or Backend-For-Frontend (BFF) server for an app, anything that runs on infrastructure you control | Web app (server-side) | Confidential: Gets a client secret, plus PKCE | [Confidential client guide](/api/oauth/getting-started-server) |
 | A React/Vue/Svelte app that runs in the user's browser | Single-page app | Public: no secret, PKCE only | [SPA guide](/api/oauth/getting-started-spa) |
-| A mobile app, desktop app, CLI tool, or e-reader plugin | Mobile, desktop, or CLI | Public: no secret, PKCE only, Device Authorization Grant enabled and set can custom uri schemes | [Native / device guide](/api/oauth/getting-started-device) |
+| A mobile app, desktop app, CLI tool, or e-reader plugin | Mobile, desktop, or CLI | Public: no secret, PKCE only, Device Authorization Grant enabled, can have custom URI schemes in redirect | [Native / device guide](/api/oauth/getting-started-device) |
 
 The distinction that matters is whether your app can keep a secret.
-If you are shipping on someone else device a browser, a phone, someone's laptop. Then you are unable to keep a secret,
-because the secret would ship inside it. Only an application (web server or other) running on your own server can.
+If your application runs on someone else's device (a browser tab, a phone, a laptop), anywhere it can't keep a secret because it has to ship with the app, then it cannot be confidential.
+Only an application running on your own server can be trusted to be confidential.
 
 ### What is a custom scheme
 
@@ -154,13 +155,13 @@ If you need to check whether a token is still valid, use the introspection endpo
 
 ## Scopes
 
-OAuth apps use the same [scopes](/api/graphql/actions) as Personal Access Tokens, But there are a few things work differently here than for a PATs:
+OAuth apps use the same [scopes](/api/graphql/actions) as Personal Access Tokens, but there are a some differences between them and PATs:
 
-The scopes you list when [registering your app](#registering-an-app) are a cap, and are intersected with your requested scopes at consent time, that is then intersected with the user's allowed scope's at request time.
+The scopes you list when [registering your app](#registering-an-app) are a cap, and are intersected with your requested scopes at consent time, that is then intersected with the user's allowed scopes at request time.
 That means that a user can consent to any of the librarian scopes even if they are not a librarian, but if you try to use those then you will get a missing scope error if the user does not have the required roles, but it also makes it so you don't have to restart the OAuth flow with the scopes if they do gain permission down the line.
 
 When you make a request to the OAuth authorize endpoint you have to include the scopes you want, they are not implied from your allowed scopes.
-But, it is possible to omit them when refreshing the token, you will then be issued a token with the same scopes.
+But, it is possible to omit them when refreshing the token, you will then be issued a token with the same scopes as the last one.
 You can also request any subset of the scopes the user consented to when refreshing without having to go through the OAuth flow again.
 However if you want more scopes then what the user initially consented to you will have to do the flow again.
 
