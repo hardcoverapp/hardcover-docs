@@ -24,11 +24,13 @@ For this guide you only need to set the Application Type, Name, and Scopes, plus
 
 <ImageComponent imagePath="/src/content/images/api/oauth/new_app_name.png" description="Name the app something, this is shown to your users!" />
 
-If you are not using Device Authorization grant then turn it off, there are not pro approval gates, so anyone with the public id of your app can initiate an Auth flow in it's name.
+If you are not using Device Authorization Grant then turn it off.
+There are no approval gates, so anyone with the public id of your app can initiate an Auth flow in its name.
+They don't need to spoof a redirect URI or know a client secret.
 
 <ImageComponent imagePath="/src/content/images/api/oauth/new_app_device_standard.png" description="OAuth information, the redirect URI's and allowed scopes." />
 
-If you are using Device Authorization grant, then you don't necessarily need the redirect URIs, you can keep it if you are using both.
+If you are using Device Authorization Grant, then you don't need the redirect URIs, however you can keep it if you are using both flows.
 
 <ImageComponent imagePath="/src/content/images/api/oauth/new_app_device_grant.png" description="OAuth information, the device auth grant and allowed scopes." />
 
@@ -344,6 +346,7 @@ def main():
     )
     print(api.text)
 
+    # Sign out the user after we are done
     requests.post(
         REVOKE_ENDPOINT,
         data={
@@ -414,7 +417,7 @@ print(f"Go to {device['verification_uri']} and enter code: {device['user_code']}
 
 If you turn `verification_uri_complete` into a QR code, still show `verification_uri` and `user_code` as text too, in case the user can't scan it.
 
-<ImageComponent imagePath="/src/content/images/api/oauth/device_link_code.png" description="A screen telling the user to go to the link page and endter the code, or to scan the QR code" />
+<ImageComponent imagePath="/src/content/images/api/oauth/device_link_code.png" description="A screen telling the user to go to the link page and enter the code, or to scan the QR code" />
 
 ### Step 3: Polling for the token
 
@@ -564,6 +567,7 @@ def main():
     )
     print(api.text)
 
+    # Sign out the user after we are done
     requests.post(
         REVOKE_ENDPOINT,
         data={
