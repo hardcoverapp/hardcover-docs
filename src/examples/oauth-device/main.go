@@ -112,6 +112,7 @@ func main() {
 	fmt.Println(string(out))
 	// SECTION END: useAPI :SECTION
 
+	// Sign out the user after we are done
 	// SECTION START: revokingToken :SECTION
 	http.PostForm(RevokeEndpoint, url.Values{
 		"token":           {token.RefreshToken},

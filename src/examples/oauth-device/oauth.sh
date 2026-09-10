@@ -65,6 +65,7 @@ curl -s "$GRAPHQL_ENDPOINT" \
   -d '{"query": "{ me { id username name } }"}'
 # SECTION END: useAPI :SECTION
 
+# Sign out the user after we are done
 # SECTION START: revokingToken :SECTION
 curl -s "$REVOKE_ENDPOINT" \
   --data-urlencode "token=${REFRESH_TOKEN}" \

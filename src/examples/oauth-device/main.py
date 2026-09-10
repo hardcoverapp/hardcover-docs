@@ -78,6 +78,7 @@ def main():
     print(api.text)
     # SECTION END: useAPI :SECTION
 
+    # Sign out the user after we are done
     # SECTION START: revokingToken :SECTION
     requests.post(
         REVOKE_ENDPOINT,
