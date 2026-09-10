@@ -45,8 +45,8 @@ After you have your token, you can start making requests to the API!
 <Aside>
     The Personal Access Tokens for the API are not meant to be shared and should be kept private, especially with the `all` scope where they have full access to your account, if a token is ever leaked or compromised you should immediately revoke it.
 
-    If you are not making a simple script or a simple tool for yourself, and you want to make it easier for your users, then it is recommended to use OAuth.<br/>.
-    OAuth let's your users not have to manually create tokens and give it the correct permissions your app requires, [Read more about OAuth](/api/oauth).
+    If you are not making a simple script or a simple tool for yourself, and you want to make it easier for your users, then it is recommended to use OAuth.<br/>
+    OAuth lets your users not have to manually create tokens and give it the correct permissions your app requires, [Read more about OAuth](/api/oauth).
 
     However, if you are building tools or scripts that have to use PATs, then check out the [PAT Link Builder](/api/pat-link-builder) -- it generates a link that opens the new key form with the scopes your app needs already checked, so your users don't have to hunt through the list themselves.
 </Aside>
@@ -107,8 +107,8 @@ A `403` can come with a few different `error` values depending on the cause:
     - This means you can't use the API to access and use someone else's data.
 - This API is running the same as if you were using the browser. Any actions you take will be under your user.
 - <Badge text="Don't share your token! Someone could delete your account with it." variant="danger" />
-- CORS is open, so requests from a web browser will work, but it is recommended to use OAuth and store your tokens securely. Anything your page sends is visible to anyone who opens devtools (or XSS that is running on your site), and a PAT can have a long expiration window and be used to delete the account outright with the `all` scope.
-- For anything a user signs into, use [OAuth](/api/oauth): those tokens are short-lived, limited to the scopes you request and permit, and the user can revoke them. Never ask a user to paste a PAT into your app.
+- CORS is open, so requests from a web browser will work, but make sure you store your tokens securely. Anything your page sends is visible to anyone who opens devtools (or XSS on your site). A PAT can have a long expiration window and be used to delete the account outright with the `all` scope.
+- For anything a user signs into, use [OAuth](/api/oauth): those tokens are short-lived, limited to the scopes you request and permit, and the user can easily revoke them. Never ask a user to paste a PAT into your app.
 - <Badge text="Recommendation" variant="note" /> When authoring scripts that use the API, it is recommended to include a user-agent header with a description of the script.
 - Queries have a max timeout of 30 seconds.
 - By using the API, you agree not to use to train large language models that are made publicly available or used commercially.
