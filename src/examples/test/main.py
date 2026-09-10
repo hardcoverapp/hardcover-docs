@@ -2,7 +2,7 @@ from hardcover_sdk import HardcoverClient
 import os
 
 # SECTION START: setup :SECTION
-client = HardcoverCLient(apikey=os.enviorn["HARDCOVER_API_KEY"])
+client = HardcoverClient(api_key=os.environ["HARDCOVER_API_KEY"])
 # SECTION END: setup :SECTION
 
 # SECTION START: fetchBooks :SECTION
