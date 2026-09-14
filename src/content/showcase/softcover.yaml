@@ -37,6 +37,7 @@ tags:
 screenshots:
   - src: "/showcase/softcover/reading-list.png"
     alt: "Softcover currently reading view showing books with progress bars"
+    origin: "8%"
   - src: "/showcase/softcover/widget.png"
     alt: "iOS home screen widget displaying reading progress"
   - src: "/showcase/softcover/stats.png"

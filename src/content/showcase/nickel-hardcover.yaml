@@ -35,6 +35,7 @@ tags:
 screenshots:
   - src: "/showcase/nickel-hardcover/updating.png"
     alt: "Kobo screen showing reading progress being synced to Hardcover"
+    origin: "center"
   - src: "/showcase/nickel-hardcover/review.png"
     alt: "Review dialog for rating a book on Kobo"
   - src: "/showcase/nickel-hardcover/menu.png"

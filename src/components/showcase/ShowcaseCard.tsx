@@ -46,12 +46,13 @@ export function ShowcaseCard({ project, onClick }: ShowcaseCardProps) {
       className="group flex cursor-pointer flex-col overflow-hidden rounded-[14px] border border-border bg-card shadow-hc transition-[transform,box-shadow] duration-150 hover:-translate-y-[3px] hover:shadow-hc-lg"
     >
       {/* Preview */}
-      <div className="relative flex h-[158px] flex-shrink-0 items-center justify-center overflow-hidden border-b border-border bg-muted">
+      <div className="relative flex aspect-[16/10] flex-shrink-0 items-center justify-center overflow-hidden border-b border-border bg-muted">
         {hasScreenshots ? (
           <img
             src={project.screenshots![0].src}
             alt={project.screenshots![0].alt}
             className="h-full w-full object-cover"
+            style={{ objectPosition: `center ${project.screenshots![0].origin ?? 'top'}` }}
           />
         ) : (
           <div className="text-5xl opacity-40">{getCategoryIcon(project.categories[0])}</div>

@@ -27,6 +27,10 @@ const showcaseCollection = defineCollection({
 		screenshots: z.array(z.object({
 			src: z.string(),
 			alt: z.string(),
+			origin: z.union([
+				z.enum(['top', 'center', 'bottom']),
+				z.string().regex(/^(100|[1-9]?\d)%$/),
+			]).optional(),
 		})).optional(),
 		tags: z.array(z.string()).optional(),
 		featured: z.boolean().default(false),
