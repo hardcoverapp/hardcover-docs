@@ -1,0 +1,33 @@
+name: "hardcover-rs"
+slug: "hardcover-rs"
+summary: "A strongly typed Rust client library for the Hardcover GraphQL API."
+description: |
+  hardcover-rs is a strongly typed Rust client library for the Hardcover GraphQL API. It is currently in alpha, with no error handling and direct field access for data. Do not use in production!
+  
+  Features:
+  - Natural Interface: Abstracts away querying, authentication, and response parsing.
+  - Typed Data Models: Rich Rust structs and enums matching Hardcover's schema (Books, Editions, Authors, Users, etc).
+  - Asynchronous API: Built with Tokio and Reqwest for async network requests.
+
+author:
+  name: "socalledtheraven"
+  github: "socalledtheraven"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/socalledtheraven/hardcover-rs"
+    type: "github"
+
+categories:
+  - "Integration"
+
+tags:
+  - "rust"
+  - "wrapper"
+  - "sdk"
+  - "graphql"
+
+dateAdded: 2026-09-11
+dateUpdated: 2026-09-11
+
+featured: false
