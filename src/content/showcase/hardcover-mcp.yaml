@@ -9,9 +9,12 @@ description: |
   Features:
   - Get your currently-reading books with page progress
   - List your library filtered by status (want to read, reading, read, paused, DNF)
+  - Recently-read books, most recent first
   - Pull your own written reviews and ratings
-  - Search Hardcover's catalog
-  - Get book details by id or slug
+  - Browse your Hardcover lists and the books inside them
+  - Check your reading goal and current progress
+  - Search Hardcover's catalog and get book details by id or slug
+  - Automatic retry with backoff on rate limits
   - Works with Claude Code, Claude Desktop, or any MCP-compatible client
 
 author:
@@ -44,4 +47,4 @@ featured: false
 
 stats:
   githubStars: 0
-  lastPushed: "2026-09-21"
+  lastPushed: "2026-09-22"
