@@ -33,6 +33,10 @@ links:
 categories:
   - "Integration"
 
+screenshots:
+  - src: "/showcase/hardcover-mcp/currently-reading-chat.png"
+    alt: "Asking a Claude chat 'What am I currently reading right now?' and getting an answer built from live Hardcover data via the hardcover_currently_reading tool"
+
 tags:
   - "mcp"
   - "claude"
