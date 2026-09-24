@@ -13,6 +13,8 @@ export interface ShowcaseLink {
 export interface ShowcaseScreenshot {
   src: string;
   alt: string;
+  /** Vertical crop anchor for the card thumbnail. Percentages are of the overflow, not the image. */
+  origin?: string;
 }
 
 export interface ShowcaseStats {

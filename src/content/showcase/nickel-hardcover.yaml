@@ -35,6 +35,7 @@ tags:
 screenshots:
   - src: "/showcase/nickel-hardcover/updating.png"
     alt: "Kobo screen showing reading progress being synced to Hardcover"
+    origin: "center"
   - src: "/showcase/nickel-hardcover/review.png"
     alt: "Review dialog for rating a book on Kobo"
   - src: "/showcase/nickel-hardcover/menu.png"
@@ -48,5 +49,5 @@ dateUpdated: 2026-02-09
 featured: true
 
 stats:
-  githubStars: 105
-  lastPushed: "2026-09-07"
+  githubStars: 107
+  lastPushed: "2026-09-21"

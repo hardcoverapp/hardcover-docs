@@ -1,0 +1,54 @@
+name: "Hardcover MCP"
+slug: "hardcover-mcp"
+summary: "MCP server exposing your Hardcover library, reviews and progress to any LLM client"
+description: |
+  An MCP (Model Context Protocol) server that wraps Hardcover's GraphQL API, so any MCP-compatible LLM client — Claude, or others — can answer questions about your reading life, or use it as real personal context for something else you're building (a blog automation, a yearly reading recap, whatever).
+
+  It's a thin wrapper: no database, no server to host, just a stdio process your MCP client launches with your own API token.
+
+  Features:
+  - Get your currently-reading books with page progress
+  - List your library filtered by status (want to read, reading, read, paused, DNF)
+  - Recently-read books, most recent first
+  - Pull your own written reviews and ratings
+  - Browse your Hardcover lists and the books inside them
+  - Check your reading goal and current progress
+  - Search Hardcover's catalog and get book details by id or slug
+  - Automatic retry with backoff on rate limits
+  - Works with Claude Code, Claude Desktop, or any MCP-compatible client
+
+author:
+  name: "ivdorado"
+  github: "ivdorado"
+  hardcover: "ivstack"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/ivdorado/hardcover-mcp"
+    type: "github"
+  - label: "Website"
+    url: "https://ivdorado.es"
+    type: "website"
+
+categories:
+  - "Integration"
+
+screenshots:
+  - src: "/showcase/hardcover-mcp/currently-reading-chat.png"
+    alt: "Asking a Claude chat 'What am I currently reading right now?' and getting an answer built from live Hardcover data via the hardcover_currently_reading tool"
+
+tags:
+  - "mcp"
+  - "claude"
+  - "llm"
+  - "ai"
+  - "open-source"
+
+dateAdded: 2026-09-22
+dateUpdated: 2026-09-22
+
+featured: false
+
+stats:
+  githubStars: 0
+  lastPushed: "2026-09-23"

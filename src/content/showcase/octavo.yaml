@@ -42,6 +42,7 @@ tags:
 screenshots:
   - src: "/showcase/octavo/01-reading.jpg"
     alt: "Reading tab showing currently-reading books as a cover-forward grid"
+    origin: "8%"
   - src: "/showcase/octavo/02-details.jpg"
     alt: "Book detail view with cover, status row, and progress editor"
   - src: "/showcase/octavo/03-library.jpg"
