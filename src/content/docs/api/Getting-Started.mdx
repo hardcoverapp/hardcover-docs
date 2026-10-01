@@ -207,14 +207,19 @@ The API will always respond with rate limiting headers describing your current r
   - `w` - window length, in seconds
   - `burst` - max burst size for that bucket (only present on the per-minute bucket)
 - **`RateLimit`** - your current standing, in the same shape:<br/>
-  `"Free";r=8;t=42, "daily";r=4231;t=51234`
+  `"Free";r=8;t=0, "daily";r=4231;t=51234`
   - `r` - requests remaining
   - `t` - seconds until that bucket resets
 
-The window will always be 60 seconds, so the quota will be your Per Minute Limit or how many evenly spaced requests you can do in a minute, and the burst is your Burst Limit or how many requests you can do at once.
+The per-minute window will always be 60 seconds, so the quota will be your Per Minute Limit or how many evenly spaced requests you can do in a minute, and the burst is your Burst Limit or how many requests you can do at once.
 
 So with the example policy above, you can make a quick 10 requests back to back before either having to switch to making 1 request per second, or waiting 10 seconds for your bucket to refill completely.
 
+<Aside type="tip">
+    Your plan's `r` is capped by your remaining daily requests, and once the daily limit is used up the plan entry is left out and only the `daily` entry is sent.
+
+    The `t` in the per-minute bucket is 0 while you have tokens left, and once it's empty it will be seconds until slots are available; for `daily` it is the time until the reset (midnight UTC). You can take the minimum of both values to know how long you have to wait until you can make your next request.
+</Aside>
 <Aside>
     Curious why these headers look like `"Free";r=8;t=42`?<br/>
     They follow the [IETF RateLimit header fields draft](https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/) - check it out if you want the full spec.
