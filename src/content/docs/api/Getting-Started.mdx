@@ -85,7 +85,7 @@ The API will return the following response codes:
 | 200  | The request was successful                                   |                                                        |
 | 400  | Malformed request body, or an unparseable GraphQL query      | `{ error: "Malformed request body" }` or `{ error: "invalid_query", error_description: "..." }` |
 | 401  | Missing, invalid, or expired token                           | `{ error: "invalid_token", error_description: "..." }` |
-| 403  | Missing scope, disallowed operation, over the top-level query/mutation limit (see [Rate Limits](#rate-limits)), or no access to the requested resource | `{ error: "insufficient_scope", error_description: "...", scope: "..." }` (see note below) |
+| 403  | Missing scope, disallowed operation, a request with more top-level fields than your Burst Limit (see [Rate Limits](#rate-limits)), or no access to the requested resource | `{ error: "insufficient_scope", error_description: "...", scope: "..." }` (see note below) |
 | 404  | Not Found                                                    |                                                        |
 | 408  | Query exceeded the max timeout                               | `{ error: "Request timeout" }`                         |
 | 429  | Too Many Requests, try again later                           | `{ error: "Too Many Requests", message: "..." }`       |
@@ -96,7 +96,7 @@ The API will return the following response codes:
 A `403` can come with a few different `error` values depending on the cause:
 - `insufficient_scope` - your token is missing a scope the query needs (also includes a `scope` field listing what's missing)
 - `unsupported_operation` - that operation isn't available to API tokens
-- `top_level_limit_exceeded` - the request has too many top-level queries/mutations (see [Rate Limits](#rate-limits)); comes back as an `errors` array instead of a single `error`
+- `request_exceeds_capacity` - the request has more top-level fields than your Burst Limit (see [Rate Limits](#rate-limits)); comes back as `{ errors: ["request_exceeds_capacity"], message: "..." }` instead of a single `error`
 - anything else - a plain `{ error: "<message>" }` describing why you don't have access
 
 ## Important Notes About the Hardcover API
@@ -157,7 +157,7 @@ We have three distinct rate limits, which are designed to make the API as useful
 - **Daily Limit** - You can see your Daily Limit, and your number of used requests, on your <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">API Access</a> page. Once you reach your Daily Limit, all requests will return a `429: Too Many Requests, try again later` error.
 - **Per Minute Limit** - How fast your per-minute rate refreshes.
 - **Burst Limit** - The size of your token bucket. You can fire off this many requests back-to-back before being throttled; it refills continuously at your Per Minute Limit.
-  - Regardless of your plan, a single request can contain at most **5 top-level queries** (or 5 mutations, or 1 `search` query) - this is a fixed limit, separate from the Burst/Daily limits above. Requests over it are rejected outright with a `403` rather than being rate-limited, so batching more than 5 into one request won't work even if your bucket has room.
+  - Each top-level field in a request costs one token, so a single request can contain at most as many top-level fields as your Burst Limit. Requests over it are rejected outright with a `403` (`request_exceeds_capacity`) rather than being rate-limited, because the bucket can never hold enough tokens. Split them into several requests.
 
 Here are our current rate limits.
 
@@ -170,7 +170,7 @@ These rate limits are intended to be plenty for the vast majority of use cases. 
 
 If you're running a **commercial product** (or one that intends to be a commercial product in the future) that requires higher API limits, you're in luck! We're building that out right now. Look for that in the near future.
 
-Each top-level query within a GraphQL query counts as one request towards each of these limits. For example, this request would count as 2 requests towards your limit.
+Each top-level query within a GraphQL query counts as one request towards each of these limits (introspection fields such as `__typename` don't count). For example, this request would count as 2 requests towards your limit.
 
 ```
 query Test {
@@ -207,14 +207,19 @@ The API will always respond with rate limiting headers describing your current r
   - `w` - window length, in seconds
   - `burst` - max burst size for that bucket (only present on the per-minute bucket)
 - **`RateLimit`** - your current standing, in the same shape:<br/>
-  `"Free";r=8;t=42, "daily";r=4231;t=51234`
+  `"Free";r=8;t=0, "daily";r=4231;t=51234`
   - `r` - requests remaining
   - `t` - seconds until that bucket resets
 
-The window will always be 60 seconds, so the quota will be your Per Minute Limit or how many evenly spaced requests you can do in a minute, and the burst is your Burst Limit or how many requests you can do at once.
+The per-minute window will always be 60 seconds, so the quota will be your Per Minute Limit or how many evenly spaced requests you can do in a minute, and the burst is your Burst Limit or how many requests you can do at once.
 
 So with the example policy above, you can make a quick 10 requests back to back before either having to switch to making 1 request per second, or waiting 10 seconds for your bucket to refill completely.
 
+<Aside type="tip">
+    Your plan's `r` is capped by your remaining daily requests, and once the daily limit is used up the plan entry is left out and only the `daily` entry is sent.
+
+    The `t` in the per-minute bucket is 0 while you have tokens left, and once it's empty it will be seconds until slots are available; for `daily` it is the time until the reset (midnight UTC). You can take the minimum of both values to know how long you have to wait until you can make your next request.
+</Aside>
 <Aside>
     Curious why these headers look like `"Free";r=8;t=42`?<br/>
     They follow the [IETF RateLimit header fields draft](https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/) - check it out if you want the full spec.
