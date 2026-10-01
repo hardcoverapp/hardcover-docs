@@ -157,7 +157,7 @@ We have three distinct rate limits, which are designed to make the API as useful
 - **Daily Limit** - You can see your Daily Limit, and your number of used requests, on your <a href={URLS.API_ACCOUNT_URL} target="_blank" rel="noreferrer noopener">API Access</a> page. Once you reach your Daily Limit, all requests will return a `429: Too Many Requests, try again later` error.
 - **Per Minute Limit** - How fast your per-minute rate refreshes.
 - **Burst Limit** - The size of your token bucket. You can fire off this many requests back-to-back before being throttled; it refills continuously at your Per Minute Limit.
-  - Regardless of your plan, a single request can contain at most **5 top-level queries** (or 5 mutations, or 1 `search` query) - this is a fixed limit, separate from the Burst/Daily limits above. Requests over it are rejected outright with a `403` rather than being rate-limited, so batching more than 5 into one request won't work even if your bucket has room.
+  - Each top-level field in a request costs one token, so a single request can contain at most as many top-level fields as your Burst Limit. Requests over it are rejected outright with a `403` (`request_exceeds_capacity`) rather than being rate-limited, because the bucket can never hold enough tokens. Split them into several requests.
 
 Here are our current rate limits.
 
