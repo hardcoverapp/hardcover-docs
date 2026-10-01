@@ -170,7 +170,7 @@ These rate limits are intended to be plenty for the vast majority of use cases. 
 
 If you're running a **commercial product** (or one that intends to be a commercial product in the future) that requires higher API limits, you're in luck! We're building that out right now. Look for that in the near future.
 
-Each top-level query within a GraphQL query counts as one request towards each of these limits. For example, this request would count as 2 requests towards your limit.
+Each top-level query within a GraphQL query counts as one request towards each of these limits (introspection fields such as `__typename` don't count). For example, this request would count as 2 requests towards your limit.
 
 ```
 query Test {
