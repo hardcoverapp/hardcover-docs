@@ -1,0 +1,50 @@
+name: 'Bibliopile'
+slug: 'bibliopile'
+summary: 'Arrange, customise, and share a digital bookshelf'
+description: |
+  Bibliopile is a web app for creating and curating your personal virtual bookshelf. Add your books, then arrange and style them as you please.
+
+  Features:
+  - Bulk import your book catalog from Hardcover, Goodreads, or StoryGraph CSV exports
+  - Search Hardcover by book title or series, or add custom books
+  - Organise virtual bookshelves using easy drag-and-drop arrangement
+  - Sort books into sections that can be placed vertically or stacked horizontally
+  - Choose from theme presets that can be edited, with customisable colours and fonts
+  - Style individual books by setting the orientation, size, colours, and font
+  - Optionally create a shareable link to your library
+
+author:
+  name: 'Dan Wessels'
+  github: 'danwessels'
+  hardcover: 'danwessels'
+
+links:
+  - label: 'Website'
+    url: 'https://bibliopile.com'
+    type: 'website'
+
+categories:
+  - 'Web App'
+
+dateAdded: 2026-10-03
+dateUpdated: 2026-10-03
+
+screenshots:
+  - src: '/showcase/bibliopile/01-shared-shelf.png'
+    alt: 'A publically-shared Bibliopile library'
+    origin: 'top'
+  - src: '/showcase/bibliopile/02-import-books.png'
+    alt: 'Bulk import books from a Hardcover CSV file'
+  - src: '/showcase/bibliopile/03-add-books.png'
+    alt: 'Book search results from the Hardcover catalog'
+  - src: '/showcase/bibliopile/04-edit-theme.png'
+    alt: 'Sidebar for customising default shelf theme colours and fonts'
+  - src: '/showcase/bibliopile/05-edit-book.png'
+    alt: 'Per-book styling controls for orientation, height, colour, and font'
+
+tags:
+  - 'library'
+  - 'virtual bookshelf'
+  - 'web-app'
+
+featured: false
