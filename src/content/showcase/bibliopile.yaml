@@ -5,10 +5,10 @@ description: |
   Bibliopile is a web app for creating and curating your personal virtual bookshelf. Add your books, then arrange and style them as you please.
 
   Features:
-  - Bulk import your book catalog from Hardcover, Goodreads, or StoryGraph CSV exports
-  - Search Hardcover by book title or series, or add custom books
-  - Organise virtual bookshelves using easy drag-and-drop arrangement
-  - Sort books into sections that can be placed vertically or stacked horizontally
+  - Bulk import your books from Hardcover, Goodreads, or StoryGraph
+  - Add individual books by searching the Hardcover catalog or manually entering details
+  - Organise virtual bookshelves using simple drag-and-drop arrangement
+  - Sort books into sections with various vertical and horizontal (stacked) alignment options
   - Choose from theme presets that can be edited, with customisable colours and fonts
   - Style individual books by setting the orientation, size, colours, and font
   - Optionally create a shareable link to your library
