@@ -1,0 +1,53 @@
+name: "JustRead"
+slug: "justread"
+summary: "EPUB, PDF, comic and audiobook reader for iPhone and iPad with two-way Hardcover sync"
+description: |
+  JustRead is an ebook and audiobook reader for iPhone and iPad. It connects to Hardcover with your API token and keeps your reading in step both ways.
+
+  Features:
+  - Pushes status (Want to Read, Currently Reading, Read, Did Not Finish), progress, start and finish dates, and your rating
+  - Pulls status and rating changes made on Hardcover back into the app
+  - Matches books by ISBN automatically, with a picker when no match is found
+  - Shows the Hardcover community rating on a book's details
+  - Optionally pushes your review text
+  - Hardcover sync is free, no subscription needed
+
+  Requires iOS 18.1 or later.
+
+author:
+  name: "Petr Jahoda"
+  github: "petrjahoda"
+
+links:
+  - label: "Website"
+    url: "https://justread.app"
+    type: "website"
+  - label: "App Store"
+    url: "https://apps.apple.com/app/id6757948605"
+    type: "store"
+
+categories:
+  - "Mobile App"
+  - "Integration"
+
+tags:
+  - "ios"
+  - "e-reader"
+  - "audiobooks"
+  - "reading-progress"
+
+screenshots:
+  - src: "/showcase/justread/details.webp"
+    alt: "Book details with status, your rating and reading progress"
+    origin: "top"
+  - src: "/showcase/justread/home.webp"
+    alt: "Home with the book in progress and the daily goal"
+    origin: "top"
+  - src: "/showcase/justread/reader.webp"
+    alt: "EPUB reader with highlights"
+    origin: "top"
+
+dateAdded: 2026-10-06
+dateUpdated: 2026-10-06
+
+featured: false
