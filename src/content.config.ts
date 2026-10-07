@@ -15,6 +15,8 @@ const showcaseCollection = defineCollection({
 			name: z.string(),
 			github: z.string().optional(),
 			hardcover: z.string().optional(),
+		}).refine((author) => author.github || author.hardcover, {
+			message: 'author needs a github or hardcover username',
 		}),
 		links: z.array(z.object({
 			label: z.string(),

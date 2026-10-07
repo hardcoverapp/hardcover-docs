@@ -3,26 +3,15 @@ title: Add Your Project
 description: How to submit your project to the Hardcover community showcase.
 ---
 
-Built something cool with the Hardcover API? We'd love to feature it!
+Built something cool with the Hardcover API? We'd love to add it to the showcase!
 
-## What It Takes to Be Featured
-
-Featured projects appear at the top of the showcase and get extra visibility. To be considered for featuring, your project should meet these criteria:
-
-**Required:**
-- **Uses the Hardcover API** - Your project should integrate with Hardcover's GraphQL API
-- **Available to the community** - Must be publicly accessible, open source, or available for download (not just a personal demo or proof of concept)
-- **Complete submission** - Include author name with GitHub and/or Hardcover username, working links, and appropriate categories
-- **English screenshots** - Screenshots must be in English for featuring (this may change in the future)
-
-**Recommended:**
-- **Quality screenshots** - 2-4 screenshots showing your project in action, reasonable file size (under 500KB each)
-- **Detailed description** - Explain what your project does, its key features, and how it uses Hardcover
-- **Active maintenance** - Project should be functional and reasonably maintained
-
-Projects without screenshots or with non-English screenshots can still be listed but won't be eligible for featuring.
+The showcase is about building a community of developers and the readers who use what they make. Entries should be publicly available projects people can use and engage with, whether they're open source or closed source.
 
 ## How to Submit
+
+Not comfortable with GitHub pull requests? [Fill out the showcase submission form](https://github.com/hardcoverapp/hardcover-docs/issues/new?template=showcase_submission.yml) and we'll add your project for you.
+
+To submit it yourself:
 
 1. Fork the [docs repository](https://github.com/hardcoverapp/hardcover-docs)
 2. Create a new file: `src/content/showcase/your-project-slug.yaml`
@@ -44,8 +33,8 @@ description: |
 
 author:
   name: "Your Name"
-  github: "your-github-username"      # optional
-  hardcover: "your-hardcover-username"  # optional
+  github: "your-github-username"      # at least one of github or hardcover is required
+  hardcover: "your-hardcover-username"
 
 links:
   - label: "GitHub"
@@ -65,7 +54,7 @@ dateUpdated: 2025-01-15
 screenshots:
   - src: "/showcase/your-project-slug/screenshot-1.png"
     alt: "Description of screenshot"
-    origin: "top"  # Optional card crop: top (default), center, bottom, or a percentage like "8%"
+    origin: "top"  # Optional crop position: top (default), center, bottom, or a percentage like "8%"
 
 tags:
   - "relevant"
@@ -91,3 +80,36 @@ stats:
 - Integration
 - Automation
 - Other
+
+## Screenshot Tips
+
+Screenshots are the first thing people see on the showcase. A few things that make them more compelling:
+
+- **Lead with your best shot** - The first screenshot is used on your showcase card and as the preview image when your project is shared on social media or Discord
+- **Show Hardcover in action** - If your project integrates with Hardcover, include a screenshot of that integration, like syncing, matching books, or Hardcover data in your UI
+- **Think in 16:10** - Cards and the detail view display screenshots at a 16:10 ratio. Landscape images around 1600x1000 fit without being cropped. Taller images are cropped, so use `origin` to choose which part shows
+- **Make each one count** - Show a different feature in each screenshot, captured at rest rather than mid-scroll or mid-animation
+
+## Getting Featured
+
+Featured projects appear at the top of the showcase and get extra visibility. To be considered for featuring, your project should meet these criteria:
+
+**Required:**
+- **Uses the Hardcover API** - Your project should integrate with Hardcover's GraphQL API
+- **Available to the community** - Must be publicly accessible, open source, or available for download (not just a personal demo or proof of concept)
+- **Complete submission** - Include author name with GitHub and/or Hardcover username, working links, and appropriate categories
+- **English screenshots** - Screenshots must be in English for featuring (this may change in the future)
+
+**Recommended:**
+- **Quality screenshots** - 2-4 screenshots showing your project in action, reasonable file size (under 500KB each). See [Screenshot Tips](#screenshot-tips)
+- **Detailed description** - Explain what your project does, its key features, and how it uses Hardcover
+- **Active maintenance** - Project should be functional and reasonably maintained
+
+Projects without screenshots or with non-English screenshots can still be listed but won't be eligible for featuring.
+
+## Reporting a Project
+
+Spotted a problem with a project already in the showcase? Let us know if a project has broken links, is no longer maintained, has stopped working with Hardcover, or has a listing that's inaccurate or misleading.
+
+- Tag `@revelry` or `@team` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8)
+- Or [fill out the report form](https://github.com/hardcoverapp/hardcover-docs/issues/new?template=showcase_report.yml) on GitHub
