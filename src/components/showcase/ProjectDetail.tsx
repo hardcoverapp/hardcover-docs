@@ -172,7 +172,7 @@ export function ProjectDetail({
       {/* Body */}
       <div className={`px-[26px] pb-1 pt-[22px] ${scrollBody ? 'flex-1 overflow-y-auto' : ''}`}>
         {/* Preview */}
-        <div className="relative mb-[22px] h-[260px] overflow-hidden rounded-xl border border-border bg-muted">
+        <div className="relative mb-[22px] aspect-[16/10] overflow-hidden rounded-xl border border-border bg-muted">
           {hasScreenshots ? (
             <>
               <button
@@ -188,6 +188,7 @@ export function ProjectDetail({
                   src={screenshots[previewIndex].src}
                   alt={screenshots[previewIndex].alt}
                   className="h-full w-full object-cover"
+                  style={{ objectPosition: `center ${screenshots[previewIndex].origin ?? 'top'}` }}
                 />
               </button>
               {screenshots.length > 1 && (
