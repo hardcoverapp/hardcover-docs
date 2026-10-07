@@ -12,11 +12,13 @@ We are currently looking for contributions in the following areas:
 - Bug Fixes: Help us fix bugs in the documentation site.
 - Reporting Issues: Report any issues you encounter with the documentation
   site.
-  [Create an Issue](https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=)
+  [Create an Issue](https://github.com/hardcoverapp/hardcover-docs/issues/new?template=bug_report.yml)
 - Feature Requests: Share your ideas for new features or improvements to the documentation
   site.
-  [Suggest a Feature](https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=)
+  [Suggest a Feature](https://github.com/hardcoverapp/hardcover-docs/issues/new?template=feature_request.yml)
 - Librarian Guides: Share your expertise by writing guides on how to use the Librarian tools.
+- Showcase Projects: Built something with the Hardcover API? Add it to the community showcase.
+  [Add Your Project](https://docs.hardcover.app/showcase/submit/)
 
 ## Finding Something to Work On
 
@@ -56,8 +58,8 @@ To contribute to Hardcover, follow these steps:
 8. Commit your changes.
 9. Push your changes to your fork on GitHub.
 10. Create a pull request to the main Hardcover Docs Repository.
-11. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have
-	submitted a pull request.
+11. When your pull request is ready for review, let us know by leaving a comment on it tagging `@KylieBenfield`, or by
+	posting in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) (#API, #librarians, or tagging `@revelry`).
 12. Wait for feedback and review from the Hardcover team.
 13. Make any requested changes.
 14. Once your pull request is approved, it will be merged into the main branch.
@@ -72,20 +74,26 @@ To contribute to Hardcover, follow these steps:
 3. Make your changes in the editor.
 4. Preview your changes for formatting and accuracy.
 5. Submit your changes opening a pull request.
-6. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have
-   submitted a pull request.
+6. When your pull request is ready for review, let us know by leaving a comment on it tagging `@KylieBenfield`, or by
+   posting in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) (#API, #librarians, or tagging `@revelry`).
 7. Wait for feedback and review from the Hardcover team.
 8. Make any requested changes.
 9. Once your pull request is approved, it will be merged into the main branch.
 10. Celebrate your contribution!
 11. Continue contributing to Hardcover!
 
+Changes to the Librarian guides also need sign-off from the Hardcover librarians team before they're merged.
+
 ### For Contribution Suggestions
 
 If you have a suggestion for a contribution, but don't want to make the changes yourself, follow these steps:
 
-1. Create a new issue on the [Issues Board](https://github.com/hardcoverapp/hardcover-docs/issues)
-2. Provide a detailed description of the bug or feature request.
+1. [Open a new issue](https://github.com/hardcoverapp/hardcover-docs/issues/new/choose) and pick the form that fits:
+   - Report a problem with the docs
+   - Suggest an improvement
+   - Submit a project to the showcase
+   - Report a showcase project
+2. Fill out the form. No technical knowledge is needed.
 3. Wait for feedback and review from the Hardcover team.
 
 ## FAQ

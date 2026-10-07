@@ -1,0 +1,33 @@
+name: Suggest an improvement
+description: Ideas for new pages, better explanations, or changes to the docs site.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to make the docs better? We'd love to hear it. No technical knowledge needed.
+  - type: textarea
+    id: idea
+    attributes:
+      label: What's your idea?
+      description: Describe what you'd like to see added or changed.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why would it help?
+      description: What were you trying to do, or what was hard to find or understand?
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Related page
+      description: Optional. A link to the page this is about, if there is one.
+      placeholder: https://docs.hardcover.app/...
+  - type: input
+    id: username
+    attributes:
+      label: Your Hardcover or Discord username
+      description: Optional. Lets us follow up with you if we have questions.

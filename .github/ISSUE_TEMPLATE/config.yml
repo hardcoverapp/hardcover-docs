@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask in the Hardcover Discord
+    url: https://discord.gg/edGpYN8ym8
+    about: Have a quick question or not sure where something goes? Ask us in Discord.
+  - name: Report a problem with Hardcover itself
+    url: https://discord.com/channels/835558721115389962/1105920773257953310
+    about: Bugs in the Hardcover app or website go in the #bugs channel on Discord, not here.

@@ -1,38 +1,30 @@
-# Description
-Include a summary of the change, relevant motivation, context, and images/videos.
+<!--
+Thanks for contributing to the Hardcover docs!
+Fill in what you can. Anything in these arrow brackets is hidden and can be left as is.
+-->
 
-- If this is a new content, describe the content and where it should be placed.
-- If this is an updated content, describe the changes and where they should be placed.
-- If this is a deleted content, describe the content and why it should be removed.
-
-- If this is a broken link, provide what the link should be and where it should go.
-
-- If this is a new feature, describe the feature and how it should work.
-- Is there a link to the issue or feature request that this PR solves?
-
-- If this is other, describe the change and why it should be made.
+# What does this change?
+<!-- A short summary of what you changed and why. Screenshots are welcome. If this fixes an issue, link it here (for example: Fixes #123). -->
 
 
-# Hardcover or Discord Username
-Include your Hardcover or discord usernames so we can find you and follow up if needed.
+# Your Hardcover or Discord username
+<!-- So we can find you and follow up if needed. -->
 
-# Types of changes
-- [ ] New content
-- [ ] Updated content
-- [ ] Deleted content
-- [ ] Broken link
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Other
 
-# Checklist:
-- [ ] I have read the [CONTRIBUTING](https://github.com/hardcoverapp/hardcover-docs/blob/main/CONTRIBUTING.md) document.
-- [ ] I have explained why the change is necessary and how it fits into the existing content.
-- [ ] I have communicated this change in the [#API](https://discord.com/channels/835558721115389962/1278040045324075050) or [#librarians](https://discord.com/channels/835558721115389962/1105918193022812282) discord channels.
+# What kind of change is this?
+- [ ] New page or content
+- [ ] Update to existing content
+- [ ] Removing content
+- [ ] Fixing a broken link
+- [ ] Showcase project
+- [ ] Site bug fix or feature
+- [ ] Something else
 
-# How to test it?
-If this is a new feature or bug fix, describe how to test it.
-- Describe how to navigate to the changed content and what to look for.
-- Describe how to test the new feature or bug fix, and what the expected outcome is.
-- List any additional steps that should be taken to verify the change.
-- Have you added any new automatic tests to verify the change?
+# Checklist
+- [ ] I have read the [CONTRIBUTING](https://github.com/hardcoverapp/hardcover-docs/blob/main/CONTRIBUTING.md) guide.
+- [ ] When this is ready for review, I'll let you know by leaving a comment tagging @KylieBenfield, or by posting in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) ([#API](https://discord.com/channels/835558721115389962/1278040045324075050), [#librarians](https://discord.com/channels/835558721115389962/1105918193022812282), or tagging @revelry).
+
+Changes to the Librarian guides also need sign-off from the Hardcover librarians team before they're merged.
+
+# How can we check it?
+<!-- Optional. Which page should we look at, and what should we look for? For site changes, how to test it. -->

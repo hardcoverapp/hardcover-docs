@@ -26,8 +26,8 @@ export const URLS = {
     GITHUB_DEV: 'https://github.dev/hardcoverapp/hardcover-docs/blob/main/',
 
     ISSUES: 'https://github.com/hardcoverapp/hardcover-docs/issues',
-    CREATE_ISSUE: 'https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=',
-    SUGGEST_FEATURE: 'https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=',
+    CREATE_ISSUE: 'https://github.com/hardcoverapp/hardcover-docs/issues/new?template=bug_report.yml',
+    SUGGEST_FEATURE: 'https://github.com/hardcoverapp/hardcover-docs/issues/new?template=feature_request.yml',
 
     DISCORD: 'https://discord.gg/edGpYN8ym8',
     API_DISCORD: 'https://discord.com/channels/835558721115389962/1278040045324075050',
