@@ -37,17 +37,18 @@ tags:
   - "reading-progress"
 
 screenshots:
-  - src: "/showcase/justread/details.webp"
-    alt: "Book details with status, your rating and reading progress"
-    origin: "top"
-  - src: "/showcase/justread/home.webp"
-    alt: "Home with the book in progress and the daily goal"
-    origin: "top"
+  - src: "/showcase/justread/hardcover-sync.webp"
+    alt: "Hardcover settings in JustRead: the connected account, Sync Now and the What Syncs switches"
+  - src: "/showcase/justread/hardcover-rating.webp"
+    alt: "Book details with your rating and the Hardcover community rating right below it"
+  - src: "/showcase/justread/hardcover-match.webp"
+    alt: "Match on Hardcover picker searching Hardcover for a book that has no ISBN match"
   - src: "/showcase/justread/reader.webp"
-    alt: "EPUB reader with highlights"
-    origin: "top"
+    alt: "EPUB reader showing an illustrated page"
+  - src: "/showcase/justread/library.webp"
+    alt: "Library grid with EPUB, PDF, comic and audiobook covers"
 
 dateAdded: 2026-10-06
-dateUpdated: 2026-10-06
+dateUpdated: 2026-10-07
 
 featured: false
