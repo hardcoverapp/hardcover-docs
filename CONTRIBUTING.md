@@ -116,8 +116,8 @@ Each Markdown file can include frontmatter to provide metadata about the documen
 | Field           | Description                                                                                                                                                                             | Required    |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
 | title           | String containing the title of the page                                                                                                                                                 | Yes         |
-| category        | String of the category the page should be included in `guide` or `reference`                                                                                                            | Yes         |
-| layout          | relative path to `/src/layouts/documentation.astro`                                                                                                                                     | Yes         |
+| category        | `guide`, `reference`, or `tool`. Shown as a badge at the top of the page by the documentation layout                                                                                    | Recommended |
+| layout          | Required for doc pages. Use `/src/layouts/documentation.astro`, which adds the last updated date and category badge                                                                  | Yes         |
 | description     | String containing the descriptive text to use in HTML meta tags                                                                                                                         | Recommended |
 | lastUpdated     | String in the format `YYYY-MM-DD HH:MM:SS`                                                                                                                                              | Recommended |
 | draft           | Boolean value determining whether the page should be hidden from the production site                                                                                                    | No          |
@@ -138,7 +138,7 @@ title: Getting Started with the API
 description: Get started with the Hardcover GraphQL API.
 category: guide
 lastUpdated: 2025-02-01 17:03:00
-layout: ../../layouts/documentation.astro
+layout: /src/layouts/documentation.astro
 ---
 ```
 

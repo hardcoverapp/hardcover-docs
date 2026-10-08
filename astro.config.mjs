@@ -21,6 +21,7 @@ export default defineConfig({
         components: {
             SocialIcons: './src/components/SocialIcons.astro',
             EditLink: './src/components/PageEdit.astro',
+            LastUpdated: './src/components/LastUpdated.astro',
             Footer: './src/components/SiteFooter.astro',
             Header: './src/components/SiteHeader.astro',
             MobileMenuFooter: './src/components/MobileMenuFooter.astro',
