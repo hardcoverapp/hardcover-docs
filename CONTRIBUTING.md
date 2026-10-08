@@ -105,7 +105,7 @@ If you have a suggestion for a contribution, but don't want to make the changes 
 Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory.
 Each file is exposed as a route based on its file name.
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+Images for doc pages go in `src/content/images/` and are embedded with the `ImageComponent`.
 
 Static assets, like favicons, can be placed in the `public/` directory.
 

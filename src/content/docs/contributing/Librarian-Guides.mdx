@@ -15,6 +15,7 @@ We are currently looking for contributions in the following areas:
 - Reporting Issues: Report any issues you encounter with the documentation site. <a href={URLS.CREATE_ISSUE} target="_blank" rel="noreferrer noopener">Create Issue</a>
 - Feature Requests: Share your ideas for new features or improvements to the documentation site. <a href={URLS.SUGGEST_FEATURE} target="_blank" rel="noreferrer noopener">Suggest Feature</a>
 - Librarian Guides: Share your expertise by writing guides on how to use the Librarian tools.
+- Showcase Projects: Built something with the Hardcover API? <a href="/showcase/submit">Add it to the community showcase</a>.
 
 ## Finding Something to Work On
 You can find issues to work on
@@ -37,6 +38,8 @@ When contributing to Hardcover, please follow these guidelines:
 - Be willing to accept that not all contributions will be accepted.
 
 ## How Do I Add a New Page or Update an Existing Page?
+Changes to the Librarian guides need sign-off from the Hardcover librarians team before they're merged, so expect a librarian to review your pull request as well.
+
 ### Adding a New Page
 1. Navigate to the <a href={URLS.GITHUB} target="_blank" rel="noreferrer noopener">Hardcover Docs GitHub</a>
 2. Navigate to the `src/content/docs/` directory.
@@ -52,7 +55,7 @@ When contributing to Hardcover, please follow these guidelines:
 12. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
 13. Give your branch a short, descriptive name.
 14. Click the "Propose changes" button to save your changes.
-15. Notify the Hardcover team, namely `@revelry` in the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> that you have submitted a pull request.
+15. When your pull request is ready for review, let us know by leaving a comment on it tagging `@KylieBenfield`, or by posting in the <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> channel on Discord.
 16. Wait for feedback and review from the Hardcover team.
 17. Make any requested changes.
 18. Once your pull request is approved, it will be merged into the main branch.
@@ -71,7 +74,7 @@ When contributing to Hardcover, please follow these guidelines:
 9. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
 10. Give your branch a short, descriptive name.
 11. Click the "Propose changes" button to save your changes.
-12. Notify the Hardcover team, namely `@revelry` in the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> that you have submitted a pull request.
+12. When your pull request is ready for review, let us know by leaving a comment on it tagging `@KylieBenfield`, or by posting in the <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> channel on Discord.
 13. Wait for feedback and review from the Hardcover team.
 14. Make any requested changes.
 15. Once your pull request is approved, it will be merged into the main branch.
@@ -82,8 +85,8 @@ When contributing to Hardcover, please follow these guidelines:
 Currently, images have to be added as a separate pull request. To add an image:
 
 1. Navigate to the <a href={URLS.GITHUB} target="_blank" rel="noreferrer noopener">Hardcover Docs Github</a>
-2. Navigate to the `public/images/` directory.
-3. Navigate to the appropriate subdirectory `api` or `librarians` depending on where the image will be used.
+2. Navigate to the `src/content/images/` directory.
+3. Navigate to the appropriate subdirectory `api` or `librarians` depending on where the image will be used. Pages with several images usually have their own folder, like `librarians/contributor-standards/`.
 4. Click the "Add file" button near the top right of the file list.
 5. Click the "Upload files" option.
 6. Drag and drop the image file(s) into the upload area.
@@ -91,20 +94,29 @@ Currently, images have to be added as a separate pull request. To add an image:
 8. Ensure the "Create a new branch for this commit and start a pull request" option is selected.
 9. Give your branch a short, descriptive name.
 10. Click the "Propose changes" button to save your changes.
-11. Notify the Hardcover team, namely `@revelry` in the <a href={URLS.DISCORD} target="_blank" rel="noreferrer noopener">Hardcover Discord</a> that you have submitted a pull request.
+11. When your pull request is ready for review, let us know by leaving a comment on it tagging `@KylieBenfield`, or by posting in the <a href={URLS.LIBRARIAN_DISCORD} target="_blank" rel="noreferrer noopener">#librarians</a> channel on Discord.
 12. Wait for feedback and review from the Hardcover team.
 13. Make any requested changes.
 14. Once your pull request is approved, it will be merged into the main branch.
-15. After the image is merged, follow the steps in the [Editing an Existing Page](#editing-an-existing-page) section to add the image to and reference it using the relative path: `/images/subdirectory/your-image.png`.
+15. After the image is merged, follow the steps in the [Editing an Existing Page](#editing-an-existing-page) section to add the image to the page using the `ImageComponent`.
 
-```md
-<img src="/images/librarians/long-title-example.png" alt="Example of a long title on Hardcover" />```
+Add the import once, below the frontmatter, then use the component wherever the image should appear.
+The `imagePath` is the full path to the image starting with `/src/content/images/`, and the `description` is shown as the caption and used as alt text.
+
+```mdx
+import ImageComponent from "@/components/ImageComponent.astro";
+
+<ImageComponent
+  imagePath="/src/content/images/librarians/long-title-example.png"
+  description="Example of a long title on Hardcover"
+/>
+```
 
 ## Page Frontmatter
-Moved to [Frontmatter](../frontmatter)
+Moved to [Frontmatter](/contributing/frontmatter)
 
 ## Available Components
-Moved to [Astro Components](../astro-components) for Astro components and [React Components](../react-components) for React components.
+Moved to [Astro Components](/contributing/astro-components) for Astro components and [React Components](/contributing/react-components) for React components.
 
 ## Translation Support
 While we currently only support English, we are open to adding translations in the future.

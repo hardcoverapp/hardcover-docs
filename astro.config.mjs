@@ -214,7 +214,16 @@ export default defineConfig({
             {
                 label: useTranslation('sidebar.contributing.title', 'en'),
                 collapsed: true,
-                items: [{ autogenerate: {directory: 'contributing'} }],
+                items: [
+                    'contributing/api-docs',
+                    'showcase/submit',
+                    'contributing/astro-components',
+                    'contributing/frontmatter',
+                    'contributing/librarian-guides',
+                    'contributing/react-components',
+                    'contributing/translating-documentation',
+                    'contributing/using-translations',
+                ],
                 translations: {
                     es: useTranslation('sidebar.contributing.title', 'es'),
                     fr: useTranslation('sidebar.contributing.title', 'fr'),
