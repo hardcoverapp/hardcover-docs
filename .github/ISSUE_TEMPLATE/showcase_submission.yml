@@ -1,0 +1,95 @@
+name: Submit a project to the showcase
+description: Add something you built with the Hardcover API to the community showcase, no coding or pull request needed.
+title: "[Showcase]: "
+labels: ["showcase"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Built something with the Hardcover API? Fill this out and we'll add it to the [community showcase](https://docs.hardcover.app/showcase/) for you.
+
+        Comfortable with GitHub? You can also [open a pull request](https://docs.hardcover.app/showcase/submit/) yourself.
+  - type: input
+    id: name
+    attributes:
+      label: Project name
+    validations:
+      required: true
+  - type: input
+    id: summary
+    attributes:
+      label: One-line summary
+      description: A short description shown on the showcase card. Under 100 characters.
+      placeholder: Syncs your e-reader progress to Hardcover
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does your project do, what are its main features, and how does it use Hardcover?
+    validations:
+      required: true
+  - type: input
+    id: author
+    attributes:
+      label: Your name
+      description: How you'd like to be credited.
+    validations:
+      required: true
+  - type: input
+    id: hardcover
+    attributes:
+      label: Your Hardcover username
+      description: Please give at least one of your Hardcover or GitHub usernames.
+  - type: input
+    id: github
+    attributes:
+      label: Your GitHub username
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      description: Where can people find your project? Website, app store page, source code, docs. One per line.
+      placeholder: |
+        https://example.com
+        https://apps.apple.com/app/...
+    validations:
+      required: true
+  - type: dropdown
+    id: categories
+    attributes:
+      label: Categories
+      description: Pick everything that fits.
+      multiple: true
+      options:
+        - Browser Extension
+        - Mobile App
+        - Web App
+        - CLI Tool
+        - E-ink Display
+        - Home Automation
+        - Desktop App
+        - Widget
+        - Integration
+        - Automation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: |
+        Drag and drop your screenshots here, best one first. Landscape images around 1600x1000 work best. See the [screenshot tips](https://docs.hardcover.app/showcase/submit/#screenshot-tips).
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Before you submit
+      options:
+        - label: My project uses the Hardcover API.
+          required: true
+        - label: My project is publicly available for people to use.
+          required: true
+        - label: I made this project or have permission to submit it.
+          required: true

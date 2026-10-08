@@ -1,0 +1,34 @@
+---
+interface Props {
+    date: Date | string;
+}
+
+const date = new Date(Astro.props.date);
+const lang = Astro.locals.starlightRoute?.lang ?? 'en';
+---
+
+<time datetime={date.toISOString()} data-local-date>
+    {date.toLocaleDateString(lang, { dateStyle: 'medium', timeZone: 'UTC' })}
+</time>
+
+<script>
+    const UNITS: [Intl.RelativeTimeFormatUnit, number][] = [
+        ['year', 31536000],
+        ['month', 2592000],
+        ['week', 604800],
+        ['day', 86400],
+        ['hour', 3600],
+        ['minute', 60],
+    ];
+
+    const lang = document.documentElement.lang || 'en';
+    const relative = new Intl.RelativeTimeFormat(lang, { numeric: 'auto' });
+
+    for (const el of document.querySelectorAll<HTMLTimeElement>('time[data-local-date]')) {
+        const date = new Date(el.dateTime);
+        const seconds = (date.getTime() - Date.now()) / 1000;
+        const [unit, size] = UNITS.find(([, size]) => Math.abs(seconds) >= size) ?? ['minute', 60];
+        el.textContent = relative.format(Math.round(seconds / size), unit);
+        el.title = date.toLocaleString(lang, { dateStyle: 'long', timeStyle: 'short' });
+    }
+</script>

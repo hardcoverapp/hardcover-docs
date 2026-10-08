@@ -1,0 +1,38 @@
+name: Report a showcase project
+description: Let us know about a problem with a project already listed in the showcase.
+title: "[Showcase report]: "
+labels: ["showcase"]
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Which project?
+      description: The project name or a link to its showcase page.
+      placeholder: https://docs.hardcover.app/showcase/...
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: What's the problem?
+      multiple: true
+      options:
+        - Links are broken
+        - No longer maintained or available
+        - Stopped working with Hardcover
+        - Listing is inaccurate or misleading
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Tell us what you noticed. Screenshots are welcome, just drag and drop them here.
+    validations:
+      required: true
+  - type: input
+    id: username
+    attributes:
+      label: Your Hardcover or Discord username
+      description: Optional. Lets us follow up with you if we have questions.

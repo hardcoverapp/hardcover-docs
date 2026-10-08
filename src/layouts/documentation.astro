@@ -4,27 +4,30 @@ import {Badge} from '@astrojs/starlight/components';
 import {uCFirst, useTranslation} from "@/lib/utils";
 import type { FrontmatterConfig } from '@/types';
 import { Components } from "@/components";
+import LocalDate from "@/components/LocalDate.astro";
+
+// Pages outside api/ that should still show the API disclaimer banner.
+const API_BANNER_ROUTES = ['contributing/api-docs'];
 
 const {category, lastUpdated} = Astro.props.frontmatter as FrontmatterConfig;
 
 const locale = Astro.currentLocale;
+const route = Astro.locals.starlightRoute;
+const slug = route?.locale ? route.id.replace(`${route.locale}/`, '') : route?.id ?? '';
+const showApiBanner = slug.startsWith('api/') || API_BANNER_ROUTES.includes(slug);
 
 // Prefer Starlight's resolved last-updated (git commit date when there's no
 // frontmatter override) over the raw frontmatter value.
 const resolvedLastUpdated =
-    Astro.locals.starlightRoute?.lastUpdated ??
+    route?.lastUpdated ??
     (lastUpdated ? new Date(lastUpdated) : undefined);
 ---
 
 <div class="flex flex-auto flex-row justify-between mb-4">
-    <p class="text-sm inline-block self-start">
+    <p class="text-sm inline-block self-start" data-header-last-updated={resolvedLastUpdated ? '' : undefined}>
         {resolvedLastUpdated && (
                 <>
-                    {useTranslation('ui.lastUpdated', locale)} &nbsp; {resolvedLastUpdated.toLocaleDateString(locale, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                })}
+                    {useTranslation('ui.lastUpdated', locale)} &nbsp; <LocalDate date={resolvedLastUpdated}/>
                 </>
         )}
     </p>
@@ -32,7 +35,8 @@ const resolvedLastUpdated =
             <Badge text={uCFirst(category)} variant="note" class="w-fit"/>
     )}
 </div>
+<hr>
 
-<Components.banners.api locale={locale} client:only="react"/>
+{showApiBanner && <Components.banners.api locale={locale} client:only="react"/>}
 
 <slot/>

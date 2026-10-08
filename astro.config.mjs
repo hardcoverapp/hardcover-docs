@@ -21,6 +21,7 @@ export default defineConfig({
         components: {
             SocialIcons: './src/components/SocialIcons.astro',
             EditLink: './src/components/PageEdit.astro',
+            LastUpdated: './src/components/LastUpdated.astro',
             Footer: './src/components/SiteFooter.astro',
             Header: './src/components/SiteHeader.astro',
             MobileMenuFooter: './src/components/MobileMenuFooter.astro',
@@ -220,7 +221,16 @@ export default defineConfig({
             {
                 label: useTranslation('sidebar.contributing.title', 'en'),
                 collapsed: true,
-                items: [{ autogenerate: {directory: 'contributing'} }],
+                items: [
+                    'contributing/api-docs',
+                    'showcase/submit',
+                    'contributing/astro-components',
+                    'contributing/frontmatter',
+                    'contributing/librarian-guides',
+                    'contributing/react-components',
+                    'contributing/translating-documentation',
+                    'contributing/using-translations',
+                ],
                 translations: {
                     es: useTranslation('sidebar.contributing.title', 'es'),
                     fr: useTranslation('sidebar.contributing.title', 'fr'),

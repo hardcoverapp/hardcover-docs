@@ -1,7 +1,7 @@
 ---
 title: Translating Documentation Guide
 category: guide
-layout: /src/layouts/librarians.astro
+layout: /src/layouts/documentation.astro
 ---
 import ImageComponent from "@/components/ImageComponent.astro";
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
@@ -23,7 +23,7 @@ import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
             6. In the modal that appears, add a title and description to describe your changes, then click the "Propose changes" button.
 
-            7. In Discord ping `@Revelry` to review your changes.
+            7. When your pull request is ready for review, leave a comment on it tagging `@KylieBenfield`, or let us know in the Hardcover Discord.
 
         </Steps>
     </TabItem>
@@ -52,9 +52,7 @@ import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 ## Adding New Languages to the Language Dropdown
 
 If you want to add a new language that is not currently available in the language dropdown,
-you can do so by following these steps:
-
-For more information, see [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n).
+add it to the `locales` in the Starlight config in `astro.config.mjs`. See [Starlight - Configure i18n](https://starlight.astro.build/guides/i18n/#configure-i18n) for more details.
 
 ### Important Notes
 - The root language should **not** be changed from English.
@@ -83,4 +81,4 @@ Haga clic en el botón <kbd>Save</kbd> "Guardar" para guardar los cambios.
 
 
 ## Using the New Translations
-See [Using Translations in Doc Pages](./using-translations) for more information on how to use the new translations in your documentation pages.
+See [Using Translations in Doc Pages](/contributing/using-translations) for more information on how to use the new translations in your documentation pages.
