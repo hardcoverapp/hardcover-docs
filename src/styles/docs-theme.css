@@ -135,3 +135,9 @@
 .sl-markdown-content table:not(:where(.not-content *)) tr:last-child td {
     border-block-end: none;
 }
+
+/* Text size from the display settings panel. Percentages scale from the
+   browser's own default, so a reader's browser setting still applies. */
+:root[data-text-size='small'] { font-size: 87.5%; }
+:root[data-text-size='large'] { font-size: 112.5%; }
+:root[data-text-size='xlarge'] { font-size: 125%; }

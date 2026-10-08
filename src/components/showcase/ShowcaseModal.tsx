@@ -43,19 +43,19 @@ export function ShowcaseModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showClose={false}
-        className="flex max-h-[90vh] w-full max-w-[720px] flex-col gap-0 overflow-hidden rounded-[18px] border border-border bg-[var(--hc-paper)] p-0 shadow-[0_32px_80px_-24px_rgba(0,0,0,0.5),0_12px_30px_-12px_rgba(0,0,0,0.3)]"
+        className="flex max-h-[90vh] w-full max-w-[45rem] flex-col gap-0 overflow-hidden rounded-[1.125rem] border border-border bg-[var(--hc-paper)] p-0 shadow-[0_32px_80px_-24px_rgba(0,0,0,0.5),0_12px_30px_-12px_rgba(0,0,0,0.3)]"
       >
         <ProjectDetail
           project={project}
           scrollBody
           title={
-            <DialogTitle className="m-0 font-serif text-[32px] font-normal leading-[1.02] tracking-[-0.02em] text-foreground">
+            <DialogTitle className="m-0 font-serif text-[2rem] font-normal leading-[1.02] tracking-[-0.02em] text-foreground">
               {project.name}
             </DialogTitle>
           }
           actions={
             <DialogClose
-              className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border border-border bg-card text-[var(--hc-ink-2)] transition-colors hover:text-foreground"
+              className="inline-flex h-[2.125rem] w-[2.125rem] items-center justify-center rounded-[0.5625rem] border border-border bg-card text-[var(--hc-ink-2)] transition-colors hover:text-foreground"
               title={t('ui.showcase.detail.close')}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">

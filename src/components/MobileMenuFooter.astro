@@ -10,7 +10,7 @@
  * menu when `hasSidebar`, so they never see this component.
  */
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
-import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import DisplayPrefs from './DisplayPrefs.astro';
 
 import SocialIcons from './SocialIcons.astro';
 import {useTranslation} from '@/lib/utils';
@@ -26,9 +26,10 @@ const locale = Astro.currentLocale;
     <div class="social-icons">
         <SocialIcons/>
     </div>
-    <ThemeSelect/>
     <LanguageSelect/>
 </div>
+
+<DisplayPrefs inline/>
 
 <style>
     @layer starlight.core {
@@ -59,7 +60,7 @@ const locale = Astro.currentLocale;
         background: var(--hc-ink);
         color: var(--hc-paper);
         border: 1px solid var(--hc-ink);
-        font-size: 13.5px;
+        font-size: 0.8438rem;
         font-weight: 600;
         padding: 10px 15px;
         border-radius: 9px;

@@ -37,7 +37,7 @@ export function ShowcaseFilters({
     <div className="not-content flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-3.5">
         {/* Search */}
-        <div className="flex max-w-[520px] flex-[1_1_340px] items-center gap-3 rounded-xl border border-border bg-card px-[18px] py-[15px] shadow-hc transition-colors focus-within:border-indigo-line">
+        <div className="flex max-w-[32.5rem] flex-[1_1_21.25rem] items-center gap-3 rounded-xl border border-border bg-card px-[1.125rem] py-[0.9375rem] shadow-hc transition-colors focus-within:border-indigo-line">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" className="text-muted-foreground">
             <circle cx="9" cy="9" r="6" />
             <path d="m14 14 4 4" strokeLinecap="round" />
@@ -61,7 +61,7 @@ export function ShowcaseFilters({
         </div>
 
         {/* Source segmented control */}
-        <div className="inline-flex gap-0.5 rounded-[10px] border border-border bg-muted p-[3px] dark:bg-background">
+        <div className="inline-flex gap-0.5 rounded-[0.625rem] border border-border bg-muted p-[0.1875rem] dark:bg-background">
           {SOURCES.map((label) => {
             const active = source === label;
             const n = label === 'All' ? counts.all : label === 'Open source' ? counts.oss : counts.closed;
@@ -70,14 +70,14 @@ export function ShowcaseFilters({
                 key={label}
                 onClick={() => onSourceChange(label)}
                 className={cn(
-                  'inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-[12.5px] transition-colors',
+                  'inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-[0.7812rem] transition-colors',
                   active
                     ? 'bg-card font-semibold text-foreground shadow-hc'
                     : 'bg-transparent font-medium text-[var(--hc-ink-2)] hover:text-foreground'
                 )}
               >
-                {label === 'Open source' && <span className="h-[7px] w-[7px] rounded-full bg-primary" />}
-                {label === 'Closed source' && <span className="h-[7px] w-[7px] rounded-full bg-closed" />}
+                {label === 'Open source' && <span className="h-[0.4375rem] w-[0.4375rem] rounded-full bg-primary" />}
+                {label === 'Closed source' && <span className="h-[0.4375rem] w-[0.4375rem] rounded-full bg-closed" />}
                 {t(SOURCE_KEYS[label])}
                 <span className="font-medium opacity-55">{n}</span>
               </button>
@@ -87,11 +87,11 @@ export function ShowcaseFilters({
       </div>
 
       {/* Category pills */}
-      <div className="flex flex-wrap gap-[7px]">
+      <div className="flex flex-wrap gap-[0.4375rem]">
         <button
           onClick={() => onCategoryChange(null)}
           className={cn(
-            'cursor-pointer rounded-full border px-[13px] py-1.5 text-[12.5px] font-medium transition-colors',
+            'cursor-pointer rounded-full border px-[0.8125rem] py-1.5 text-[0.7812rem] font-medium transition-colors',
             selectedCategory === null
               ? 'border-foreground bg-foreground text-[var(--hc-paper)]'
               : 'border-border bg-card text-[var(--hc-ink-2)]'
@@ -104,7 +104,7 @@ export function ShowcaseFilters({
             key={category}
             onClick={() => onCategoryChange(category)}
             className={cn(
-              'cursor-pointer rounded-full border px-[13px] py-1.5 text-[12.5px] font-medium transition-colors',
+              'cursor-pointer rounded-full border px-[0.8125rem] py-1.5 text-[0.7812rem] font-medium transition-colors',
               selectedCategory === category
                 ? 'border-foreground bg-foreground text-[var(--hc-paper)]'
                 : 'border-border bg-card text-[var(--hc-ink-2)]'
