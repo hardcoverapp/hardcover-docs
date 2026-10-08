@@ -49,6 +49,12 @@ export default defineConfig({
                     `}`,
                 ].join(''),
             },
+            // Applies the saved text size before first paint so the page doesn't
+            // reflow. Theme is handled by Starlight's own ThemeProvider.
+            {
+                tag: 'script',
+                content: `try{var t=localStorage.getItem('hc-text-size');if(t)document.documentElement.dataset.textSize=t}catch(e){}`,
+            },
             // Open Graph image for rich link previews (Discord, Slack, etc.)
             {
                 tag: 'meta',

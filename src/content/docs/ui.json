@@ -48,6 +48,15 @@
     "title": "Hardcover"
   },
   "ui": {
+    "display": {
+      "button": "Display settings",
+      "theme": "Theme",
+      "textSize": "Text size",
+      "small": "Small",
+      "default": "Default",
+      "large": "Large",
+      "xlarge": "Extra large"
+    },
     "lastUpdated": "Last Updated",
     "nav": {
       "sections": "Sections",

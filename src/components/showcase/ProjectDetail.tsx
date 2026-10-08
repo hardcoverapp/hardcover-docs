@@ -53,7 +53,7 @@ export function ArrowIcon({ size = 14 }: { size?: number }) {
 /** UPPERCASE section label shared by Categories / Tags. */
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--hc-ink-3)]">
+    <div className="mb-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-[var(--hc-ink-3)]">
       {children}
     </div>
   );
@@ -62,11 +62,11 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 /** A label/value row in the meta table (Source, Created by, …). */
 function MetaRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-baseline gap-3 border-t border-border py-[11px]">
-      <span className="flex-[0_0_118px] text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--hc-ink-3)]">
+    <div className="flex items-baseline gap-3 border-t border-border py-[0.6875rem]">
+      <span className="flex-[0_0_7.375rem] text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-[var(--hc-ink-3)]">
         {label}
       </span>
-      <div className="flex-1 text-[13.5px] text-foreground">{children}</div>
+      <div className="flex-1 text-[0.8438rem] text-foreground">{children}</div>
     </div>
   );
 }
@@ -113,11 +113,11 @@ export function ProjectDetail({
   return (
     <>
       {/* Header */}
-      <div className="flex flex-row items-start justify-between gap-4 border-b border-border p-[22px_26px_18px] text-left">
+      <div className="flex flex-row items-start justify-between gap-4 border-b border-border p-[1.375rem_1.625rem_1.125rem] text-left">
         <div className="flex min-w-0 flex-col gap-2.5">
           <div className="flex flex-wrap items-center gap-2.5">
             {project.featured && (
-              <span className="inline-flex items-center gap-1 rounded-md bg-primary px-2 py-[3px] text-[10.5px] font-semibold uppercase tracking-[0.06em] text-[var(--hc-indigo-ink)]">
+              <span className="inline-flex items-center gap-1 rounded-md bg-primary px-2 py-[0.1875rem] text-[0.6562rem] font-semibold uppercase tracking-[0.06em] text-[var(--hc-indigo-ink)]">
                 <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                   <path d="M8 0c.4 3.6 1.4 4.6 5 5-3.6.4-4.6 1.4-5 5-.4-3.6-1.4-4.6-5-5 3.6-.4 4.6-1.4 5-5z" />
                 </svg>
@@ -125,7 +125,7 @@ export function ProjectDetail({
               </span>
             )}
             {oss ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-soft px-[9px] py-[3px] text-[11px] font-semibold uppercase tracking-[0.03em] text-primary">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-soft px-[0.5625rem] py-[0.1875rem] text-[0.6875rem] font-semibold uppercase tracking-[0.03em] text-primary">
                 <GitHubIcon size={12} />
                 {t('ui.showcase.card.oss')}
                 {stars != null && (
@@ -136,7 +136,7 @@ export function ProjectDetail({
                 )}
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--hc-closed-line)] bg-closed-soft px-[9px] py-[3px] text-[11px] font-semibold uppercase tracking-[0.03em] text-closed">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--hc-closed-line)] bg-closed-soft px-[0.5625rem] py-[0.1875rem] text-[0.6875rem] font-semibold uppercase tracking-[0.03em] text-closed">
                 <svg width="9" height="10" viewBox="0 0 10 12" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
                   <rect x="1.5" y="5.5" width="7" height="5.5" rx="0.5" />
                   <path d="M3 5.5V3.5a2 2 0 0 1 4 0v2" />
@@ -148,18 +148,18 @@ export function ProjectDetail({
           {title}
           <div className="flex items-center gap-2">
             <span
-              className="grid h-5 w-5 flex-shrink-0 place-items-center rounded-full text-[10px] font-semibold text-white"
+              className="grid h-5 w-5 flex-shrink-0 place-items-center rounded-full text-[0.625rem] font-semibold text-white"
               style={{ background: `oklch(0.62 0.13 ${hueFromName(project.name)})` }}
             >
               {project.name.charAt(0).toUpperCase()}
             </span>
-            <span className="text-[13px] text-[var(--hc-ink-2)]">{t('ui.showcase.detail.by')} {byHandle}</span>
+            <span className="text-[0.8125rem] text-[var(--hc-ink-2)]">{t('ui.showcase.detail.by')} {byHandle}</span>
           </div>
         </div>
         <div className="flex flex-shrink-0 gap-2">
           <button
             onClick={handleShare}
-            className="inline-flex h-[34px] items-center gap-1.5 rounded-[9px] border border-border bg-card px-[13px] text-[12.5px] font-medium text-foreground transition-colors hover:border-indigo-line"
+            className="inline-flex h-[2.125rem] items-center gap-1.5 rounded-[0.5625rem] border border-border bg-card px-[0.8125rem] text-[0.7812rem] font-medium text-foreground transition-colors hover:border-indigo-line"
             title={t('ui.showcase.detail.shareTitle')}
           >
             <ArrowIcon size={14} />
@@ -170,9 +170,9 @@ export function ProjectDetail({
       </div>
 
       {/* Body */}
-      <div className={`px-[26px] pb-1 pt-[22px] ${scrollBody ? 'flex-1 overflow-y-auto' : ''}`}>
+      <div className={`px-[1.625rem] pb-1 pt-[1.375rem] ${scrollBody ? 'flex-1 overflow-y-auto' : ''}`}>
         {/* Preview */}
-        <div className="relative mb-[22px] aspect-[16/10] overflow-hidden rounded-xl border border-border bg-muted">
+        <div className="relative mb-[1.375rem] aspect-[16/10] overflow-hidden rounded-xl border border-border bg-muted">
           {hasScreenshots ? (
             <>
               <button
@@ -209,7 +209,7 @@ export function ProjectDetail({
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                   </button>
-                  <span className="pointer-events-none absolute bottom-2.5 right-2.5 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-medium text-white">
+                  <span className="pointer-events-none absolute bottom-2.5 right-2.5 rounded-full bg-black/60 px-2 py-0.5 text-[0.6875rem] font-medium text-white">
                     {previewIndex + 1} / {screenshots.length}
                   </span>
                 </>
@@ -223,7 +223,7 @@ export function ProjectDetail({
         </div>
 
         {/* Description */}
-        <p className="m-0 mb-2 whitespace-pre-wrap text-[15px] leading-[1.6] text-[var(--hc-ink-2)]">
+        <p className="m-0 mb-2 whitespace-pre-wrap text-[0.9375rem] leading-[1.6] text-[var(--hc-ink-2)]">
           {project.description}
         </p>
 
@@ -235,7 +235,7 @@ export function ProjectDetail({
               <button
                 key={category}
                 onClick={() => onCategoryClick?.(category)}
-                className={`rounded-lg border border-border bg-card px-[11px] py-1.5 text-[12.5px] font-medium text-[var(--hc-ink-2)] transition-colors ${
+                className={`rounded-lg border border-border bg-card px-[0.6875rem] py-1.5 text-[0.7812rem] font-medium text-[var(--hc-ink-2)] transition-colors ${
                   onCategoryClick ? 'cursor-pointer hover:border-indigo-line hover:text-primary' : ''
                 }`}
               >
@@ -247,14 +247,14 @@ export function ProjectDetail({
 
         {/* Tags */}
         {project.tags && project.tags.length > 0 && (
-          <div className="mt-[18px]">
+          <div className="mt-[1.125rem]">
             <SectionLabel>{t('ui.showcase.detail.tags')}</SectionLabel>
             <div className="flex flex-wrap gap-1.5">
               {project.tags.map((tag) => (
                 <button
                   key={tag}
                   onClick={() => onTagClick?.(tag)}
-                  className={`rounded-full border border-border bg-muted px-[9px] py-[3px] text-[12px] text-[var(--hc-ink-3)] transition-colors ${
+                  className={`rounded-full border border-border bg-muted px-[0.5625rem] py-[0.1875rem] text-[0.75rem] text-[var(--hc-ink-3)] transition-colors ${
                     onTagClick ? 'cursor-pointer hover:border-indigo-line hover:text-primary' : ''
                   }`}
                 >
@@ -269,7 +269,7 @@ export function ProjectDetail({
         <div className="mt-5 mb-1.5">
           <MetaRow label={t('ui.showcase.detail.source')}>
             <span className="inline-flex items-center gap-2">
-              <span className={`h-[7px] w-[7px] rounded-full ${oss ? 'bg-primary' : 'bg-closed'}`} />
+              <span className={`h-[0.4375rem] w-[0.4375rem] rounded-full ${oss ? 'bg-primary' : 'bg-closed'}`} />
               {oss
                 ? t('ui.showcase.detail.sourceOpen')
                 : t('ui.showcase.detail.sourceClosed')}
@@ -288,7 +288,7 @@ export function ProjectDetail({
               <span className="inline-flex items-center gap-2">
                 {formatDate(lastActivity)}
                 {isActive && (
-                  <span className="inline-flex items-center gap-1.5 text-[12px] text-[var(--hc-ink-3)]">
+                  <span className="inline-flex items-center gap-1.5 text-[0.75rem] text-[var(--hc-ink-3)]">
                     · <span className="h-1.5 w-1.5 rounded-full bg-[#6fb088]" />
                     {t('ui.showcase.detail.active')}
                   </span>
@@ -305,7 +305,7 @@ export function ProjectDetail({
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1 text-[12.5px] font-medium text-[var(--hc-ink-2)] no-underline transition-colors hover:border-indigo-line hover:text-primary"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1 text-[0.7812rem] font-medium text-[var(--hc-ink-2)] no-underline transition-colors hover:border-indigo-line hover:text-primary"
                   >
                     {link.type === 'github' && <GitHubIcon size={13} />}
                     {link.label}
@@ -318,8 +318,8 @@ export function ProjectDetail({
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between gap-3.5 border-t border-border bg-muted px-[26px] py-4">
-        <span className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[12px] text-[var(--hc-ink-3)]">
+      <div className="flex items-center justify-between gap-3.5 border-t border-border bg-muted px-[1.625rem] py-4">
+        <span className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-[0.75rem] text-[var(--hc-ink-3)]">
           {domainText}
         </span>
         {primaryLink && (
@@ -327,7 +327,7 @@ export function ProjectDetail({
             href={primaryLink.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex flex-shrink-0 items-center gap-2 rounded-[10px] border border-[var(--hc-ink)] bg-[var(--hc-ink)] px-[18px] py-2.5 text-[13px] font-semibold text-[var(--hc-paper)] no-underline transition-opacity hover:opacity-90"
+            className="inline-flex flex-shrink-0 items-center gap-2 rounded-[0.625rem] border border-[var(--hc-ink)] bg-[var(--hc-ink)] px-[1.125rem] py-2.5 text-[0.8125rem] font-semibold text-[var(--hc-paper)] no-underline transition-opacity hover:opacity-90"
           >
             {oss ? (
               <>
