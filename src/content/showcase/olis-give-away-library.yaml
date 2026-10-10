@@ -1,0 +1,47 @@
+name: "Oli’s give-away library"
+slug: "olis-give-away-library"
+summary: "Books are meant to be read, happy to give away my books"
+description: |
+  It was bothering me that I have so many books just collecting dust, so I made this little website to share books with anyone who would like one, free of cost.
+
+  The goal was to make it as easy as possible. It's connected to a few Hardcover lists, and I get an email when someone requests a book.
+
+  Features:
+  - Browse the shelf and filter by year, length, format, language and genre
+  - Request a book with a simple form, no account needed
+  - Recommendations from books borrowed from the library or read on an e-reader
+  - Available in English and German
+
+author:
+  name: "Oli"
+  github: "olikami"
+  hardcover: "olikami"
+
+links:
+  - label: "Website"
+    url: "https://books.oli.fan/"
+    type: "website"
+  - label: "Website (German)"
+    url: "https://bücher.oli.fan/"
+    type: "website"
+
+categories:
+  - "Web App"
+
+tags:
+  - "giveaway"
+  - "lists"
+  - "books"
+
+screenshots:
+  - src: "/showcase/olis-give-away-library/01-shelf.webp"
+    alt: "The give-away shelf with a search box, filters and book covers"
+  - src: "/showcase/olis-give-away-library/02-request.webp"
+    alt: "A book page for The Vegetarian with the request form"
+  - src: "/showcase/olis-give-away-library/03-recommendations.webp"
+    alt: "Recommendations from books borrowed from the library and read on an e-reader"
+
+dateAdded: 2026-10-09
+dateUpdated: 2026-10-09
+
+featured: false
