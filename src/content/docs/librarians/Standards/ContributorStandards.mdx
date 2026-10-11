@@ -2,15 +2,17 @@
 title: Contributor Standards
 description: Standards for adding and editing contributor credits in Hardcover.
 category: guide
-lastUpdated: 2026-10-05
-layout: /src/layouts/documentation.astro
+lastUpdated: 2026-10-11
+layout: /src/layouts/librarians.astro
 ---
 import { URLS } from "@/Consts";
 import {Aside} from "@astrojs/starlight/components";
 import FlagButton from "@/components/FlagButton.astro";
 import ImageComponent from "@/components/ImageComponent.astro";
 
-*Guidance for librarians adding and editing contributor credits on Hardcover. Contributors include authors, translators, illustrators, editors, narrators and many others credited for their work. Hardcover uses standardized contribution terms, with optional specializations where further detail may be useful, to accurately describe and credit that work consistently.*
+*Guidance for librarians adding and editing contributor credits on Hardcover.*
+
+Contributors include authors, translators, illustrators, editors, narrators and many others credited for their work. Hardcover uses standardized contribution roles, with optional specializations where further detail may be useful, to accurately describe and credit that work consistently.
 
 <div className="section-heading">
 ## Understanding Contribution Terms
@@ -24,16 +26,19 @@ import ImageComponent from "@/components/ImageComponent.astro";
 
 A contribution term is an agreed upon standardized credit assigned within Hardcover that records what a person contributed to a particular work.
 
-| **Type of Term**                        | **Meaning**                                                                                             | **Examples**                                                                |
-|---------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| Primary term                    | The main standardized term for an assigned contribution or credit. Every contribution row requires one. | `Author`, `Illustrator`, `Adaptation`                  |
-| Person role                     | A primary term describing what someone did.                                                             | `Editor`, `Illustrator`, `Narrator`                                   |
-| Content contribution            | A primary term describing what someone supplied, such as material or a credited section of work.        | `Foreword`, `Introduction`, `Adaptation`               |
-| Secondary term (specialization) | Optional additional detail attached to a primary term.                                                  | `Editor • Artistic`, `Translator • Preface`, `Cover Artist • Variant` |
-| Category                        | A grouping to help browse related terms. Not an assignable contribution.                                | `Authorship / Literary`, `Translation / Language`                       |
+| **Concept** | **Meaning** | **Examples** |
+|-------------|-------------|--------------|
+| Base term | The canonical top-level role selected for a contribution row. Every contribution row requires one base term. | `Author`, `Editor`, `Translator`, `Foreword`|
+| Person role | A term describing what someone did. | `Editor`, `Illustrator`, `Narrator` |
+| Content role | A term describing what someone supplied, such as material, a credited section, or another contribution of content. | `Foreword`, `Introduction`, `Adaptation`, `Photographs` |
+| Specialization | Optional additional secondary term detail attached to a base term. | `Editor • Artistic`, `Translator • Preface`, `Cover Artist • Variant` |
+| Primary / starred term | A role that displays by default within compact contributor displays such as short book-page info, search results, and list displays | `Author`, `Translator`, `Writer` |
+| Category | A grouping to help browse related roles. Not an assignable contribution. | `Authorship / Literary`, `Translation / Language` |
+
+<hr />
 
 <div className="section-heading">
-### Choosing a Primary Contribution Term
+### Choosing a Base Contribution Role
 </div>
 <style>{`
   .section-heading h3 {
@@ -52,20 +57,22 @@ Select the available term that best preserves the meaning of the source credit. 
 4.  Use reliable library or bibliographic sources as supporting evidence.
 :::
 
-Both role and content contribution terms are valid forms of attribution. In some cases, it may be preferred to use a person-role when the credit establishes a responsibility, and to use a content term when the source credits particular material. The source credit’s wording and context can help determine which is appropriate:
+Both person and content roles are valid forms of attribution. In some cases, it may be preferred to use a person role when the credit establishes a responsibility, and to use a content role when the source credits particular material. The source credit’s wording and context can help determine which is appropriate:
 
-| **Source Credit** | **Suitable Term**               | **Reason**                                          |
-|-------------------|---------------------------------|-----------------------------------------------------|
-| “Translated by”   | `Translator`, `Translation` | Either term can represent the credited translation. |
-| “Cover artist”    | `Cover Artist`                | Identifies the person’s role.                       |
-| “Cover art”       | `Cover`, `Cover Art`        | Identifies the contributed content.                 |
+| **Source Credit** | **Suitable Role** | **Reason** |
+|-------------------|-------------------|------------|
+| “Translated by” | `Translator`, `Translation` | Either role can represent the credited translation, depending on whether the source emphasizes the person’s role or the translated content. |
+| “Cover artist” | `Cover Artist` | Identifies the person’s role. |
+| “Cover art” | `Cover`, `Cover Art` | Identifies the contributed content. |
 
 <Aside type="caution" title="Avoid duplicate contributions">
-  Avoid adding both a person role and its equivalent content term solely to describe the same contribution. For example, one photographic credit does not usually need separate `Photographer` and `Photographs` entries.
+  Avoid adding both a person role and its equivalent content role solely to describe the same contribution. For example, one photographic credit does not usually need separate `Photographer` and `Photographs` entries.
 </Aside>
 
+<hr />
+
 <div className="section-heading">
-### Using Specializations (aka Secondary Terms)
+### Selecting a Specialization
 </div>
 <style>{`
   .section-heading h3 {
@@ -74,39 +81,38 @@ Both role and content contribution terms are valid forms of attribution. In some
   }
 `}</style>
 
-Secondary terms, displayed as **specializations**, record a useful distinction that the source establishes, beyond the primary contribution term alone. Check for a more precise primary term before combining a broad term with a specialization.
+**Specializations** record a useful distinction that the source establishes, beyond the base contribution alone. Check for a more precise base role before combining a broader term with a specialization.
+
+Some terms can be selected as a base role or as a specialization under another base term. For example, `Cover` is a content role, while `Illustrator • Cover` uses `Cover` as a specialization. A term’s meaning and position as either a base term or specialization are dependent on context.
 
 **Choose a specialization only when:**
 
 - The source credit supports it; **and**
-
 - It adds useful information about that contribution.
 
 <div style={{ maxWidth: "620px", margin: "0 auto" }}>
   <ImageComponent
     imagePath="/src/content/images/librarians/contributor-standards/specialization-selector.png"
-    description="Choosing contribution terms in the selector"
+    description=""
   />
 </div>
 
-**Example:** In the selector, `Consultant Editor` offers both `Lead` and `Senior` as specialization options. Select Consultant Editor • Lead only when the credit identifies that lead responsibility; an ordinary consultant-editor credit needs only Consultant Editor.
+<div style={{ maxWidth: "620px", margin: "0 auto" }}>
+  <ImageComponent
+    imagePath="/src/content/images/librarians/contributor-standards/choosing-a-spec-example.png"
+    description="Choosing contribution terms in the selector and contributions displayed on an edition."
+  />
+</div>
 
-| **Source meaning**        | **Primary term** | **Specialization** | **Displayed as**           |
+**Example:** In the selector, `Consultant Editor` offers both `Lead` and `Senior` as specialization options. Select `Consultant Editor • Lead` only when the credit identifies that lead responsibility; an ordinary consultant-editor credit needs only `Consultant Editor`.
+
+| **Source meaning**        | **Base term** | **Specialization** | **Displayed as**           |
 |---------------------------|------------------|--------------------|----------------------------|
 | Lead author               | Author           | Lead               | `Author • Lead`          |
 | Artistic editor           | Editor           | Artistic           | `Editor • Artistic`      |
 | Translator of the preface | Translator       | Preface            | `Translator • Preface`   |
 | Variant cover artist      | Cover Artist     | Variant            | `Cover Artist • Variant` |
 | Additional narrator       | Narrator         | Additional         | `Narrator • Additional`  |
-
-<div style={{ maxWidth: "620px", margin: "0 auto" }}>
-  <ImageComponent
-    imagePath="/src/content/images/librarians/contributor-standards/specialization-example.png"
-    description="Contributions displayed on an edition"
-  />
-</div>
-
-Some terms can be selected as a primary contribution or as a specialization under another primary term. For example, ‘Cover’ is a primary content contribution, while `Illustrator • Cover` uses `Cover` as a secondary term specialization. A term's meaning and position as either primary or secondary are largely dependent on context.
 
 <hr />
 
@@ -122,7 +128,9 @@ Some terms can be selected as a primary contribution or as a specialization unde
 
 Contribution editing primarily applies to **Editions.** Different editions of the same work or **Book** may credit different translators, narrators, illustrators, or writers of supplementary material.
 
-Before changing a contribution, use [verified sources](#choosing-a-primary-contribution-term) to confirm that you are editing the correct **Edition** by double checking its [ISBN or other identifier](https://docs.hardcover.app/librarians/resources/isbnandasin/), language, publisher, and format.
+Before changing a contribution, use [verified sources](#choosing-a-base-contribution-role) to confirm that you are editing the correct **Edition** by double checking its [ISBN or other identifier](https://docs.hardcover.app/librarians/resources/isbnandasin/), language, publisher, and format.
+
+<hr />
 
 <div className="section-heading">
 ### Add or Edit a Contribution
@@ -138,10 +146,10 @@ Before changing a contribution, use [verified sources](#choosing-a-primary-contr
 2. **Select Add more?** This adds a new contribution row.
 3. **Search for the contributor.** Although the field currently says “Search for an author…”, use it to find any existing contributor profile.
 4. **Select the correct profile.** Check distinguishing information carefully when people share a name.
-5. **Check the contribution term.** New rows default to `Author`; change this whenever another term more accurately describes the source credit.
+5. **Check the base role.** New rows default to `Author`; change this whenever another base role more accurately describes the source credit.
 6. **Open the contribution selector.** Search directly, use **Quick select**, or browse the available categories. On mobile, select **All roles** to open the wider list.
-7. **Select the appropriate term.** Choose the person role or content contribution that matches the source credit.
-8. **Add a specialisation where appropriate.** If the source credit supports useful additional detail, expand the term’s available specialisations and select the appropriate secondary term.
+7. **Select the appropriate base role.** Choose the person role or content role that matches the source credit.
+8. **Add a specialization where appropriate.** If the source credit supports useful additional detail, expand the base role’s available specializations and select the appropriate secondary term.
 9. **Review and save.** Check all contribution rows, then select **Update Edition**.
 
 To correct an existing credit, change the term in the relevant row’s contribution selector. If the row links to the wrong person, use **Remove?** beside that credit and add the correct existing profile. Check that unrelated, legitimate credits remain present before saving.
@@ -149,18 +157,20 @@ To correct an existing credit, change the term in the relevant row’s contribut
 <div style={{ maxWidth: "620px", margin: "0 auto" }}>
   <ImageComponent
     imagePath="/src/content/images/librarians/contributor-standards/edition-contribution-editor.png"
-    description="Editing edition level contribution rows"
+    description="Editing edition level contribution rows."
   />
 </div>
 
-If no available term fits a new edition credit, or its meaning remains uncertain, select `Contributor` as the temporary primary role and flag the edition with the source wording.
+If no available role fits a new edition credit, or its meaning remains uncertain, select `Contributor` as the temporary base role and flag the edition with the source wording.
 
 :::note
 Book-level attributions are maintained separately and cannot currently be edited through the main book-edit interface. If attribution on a **Book** page needs correcting, flag it directly or flag a relevant **Edition** of the book.
 :::
 
+<hr />
+
 <div className="section-heading">
-### Assign a Profile to a Contribution Row
+### Assigning Profiles to Contributions
 </div>
 <style>{`
   .section-heading h3 {
@@ -177,8 +187,10 @@ While a contributor’s **profile** (commonly referred to as an 'Author Profile'
   If two or more profiles have been created for the same individual person, follow the standards for [Merging Authors](https://docs.hardcover.app/librarians/standards/mergingstandards/#merging-authors) only once confirmed that they are genuine duplicate profiles.
 </Aside>
 
+<hr />
+
 <div className="section-heading">
-### Multiple and Compound Contributions
+### Multiple & Compound Contributions
 </div>
 <style>{`
   .section-heading h3 {
@@ -192,25 +204,27 @@ Give one person separate rows when the source credits them with genuinely differ
 <div style={{ maxWidth: "620px", margin: "0 auto" }}>
   <ImageComponent
     imagePath="/src/content/images/librarians/contributor-standards/multiple-contributions.png"
-    description="Displayed multiple roles for the same person"
+    description="Displayed multiple roles for the same person."
   />
 </div>
 
 | **Meaning Example**                                                        | **How to Record It**                                                                  |
 |----------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| The same person edited and translated the edition.                         | Add separate `Editor` and `Translator` contribution rows with the same profile.   |
+| The same person edited and translated the edition.                         | Add separate `Editor` and `Translator` contribution rows with the same profile. |
 | The main author also wrote the introduction.                               | Add separate `Author` and `Introduction` contribution rows with the same profile. |
-| A person wrote the introduction but is not an author of the main work.     | Add one `Introduction` contribution row.                                            |
-| A known artist is credited for creating the cover.                         | Add one `Artist • Cover` contribution row.                                          |
-| A person is specifically credited for their distinct role of cover artist. | Add one `Cover Artist` contribution row.                                            |
+| A person wrote the introduction but is not an author of the main work.      | Add one `Introduction` content-role row. |
+| A known artist is credited for creating the cover.                         | Add one `Artist • Cover` contribution row. |
+| A person is specifically credited for their distinct role of cover artist.  | Add one `Cover Artist` contribution row. |
 
 :::note[Comics, manga and illustrated works]
 
 Preserve separate responsibilities when the source identifies them. For example, a comic may credit a `Writer` separately from an `Illustrator`, `Penciller`, `Inker`, `Colorist`, or `Letterer`. For a single manga creator, follow the source wording rather than assuming separate writing and art roles and use `Mangaka` only when that role is explicitly supported.
 :::
 
+<hr />
+
 <div className="section-heading">
-### Ordering Contribution Entries
+### Ordering Contributions
 </div>
 <style>{`
   .section-heading h3 {
@@ -219,22 +233,64 @@ Preserve separate responsibilities when the source identifies them. For example,
   }
 `}</style>
 
-For an edition with multiple distinct people listed as **primary authors**, the row order determines their position in the saved edition information. Generally, prefer to keep primary authors in the order shown on the edition cover or title page ([such as in this edition](https://hardcover.app/books/this-is-how-you-lose-the-time-war/editions/30399350)). Additional contributors can be added in any order. Additional contribution terms displayed in edition information are sorted as primary first, then alphabetically.
+For an edition with multiple distinct people credited under the `Author` base role, row order determines their position in the saved edition information. Generally, keep authors in the order shown on the edition cover or title page ([such as in this edition](https://hardcover.app/books/this-is-how-you-lose-the-time-war/editions/30399350)). Additional contributors can be added in any order. Additional visible contribution roles displayed in edition information are sorted with primary / starred contributions first, then alphabetically.
 
 <div style={{ maxWidth: "500px", margin: "0 auto" }}>
   <ImageComponent
     imagePath="/src/content/images/librarians/contributor-standards/author-order.png"
-    description="Ordering and display of multiple authors"
+    description="Ordering and display of multiple authors."
   />
 </div>
 
-For **anthologies** and other works containing many separately credited authors, list each author individually under `Author`, when possible and practical. In these cases, the presence of several authors does not itself require the use of `Co-Author` or `Contributing Author`. Follow the [Edition Standards](https://docs.hardcover.app/librarians/standards/editionstandards/#anthologies-with-multiple-authors) when deciding how contributions or credits within an anthology should be ordered.
+For works containing many separately credited authors, list each author individually under `Author`, when possible and practical. In these cases, the presence of several authors does not itself require the use of `Co-Author` or `Contributing Author`. For **anthologies**, **collections**, and other works where the compact book-page byline should highlight a collector, editor, or another contributor instead of every individual author, use the row’s **display setting** rather than changing the underlying role.
+
+Follow the [Edition Standards](https://docs.hardcover.app/librarians/standards/editionstandards/#anthologies-with-multiple-authors) when deciding how contributions or credits within an anthology should be ordered.
 
 The [Various](https://hardcover.app/authors/various) Author profile is commonly used as a stand-in for multiple authors who cannot reasonably be entered individually due to unavailable edition or author information. If used, this profile should always be linked with the default `Author` contribution term.
 
 :::note[How contribution terms are displayed]
-The default `Author` term (when no specialization is added) will display as the contributor’s name/s without an explicit role label. This is expected. Likewise, book and series summaries may show fewer credits than the edition, so use the edition to verify edition-specific contributions. A contributor’s profile also may not show the role they held on a particular edition.
+The default `Author` base role, when no specialization is added, will display as the contributor’s name/s without an explicit role label. This is expected.
 :::
+
+<hr />
+
+<div className="section-heading">
+### Primary & Displayed Roles
+</div>
+<style>{`
+  .section-heading h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+`}</style>
+
+**Some base roles are set as primary terms, which are shown in the interface by a star next to the role name.** A primary / starred term is displayed by default in compact contributor displays, such as book-page bylines, search results, lists, and other shortened views of who made the book.
+
+<div style={{ maxWidth: "620px", margin: "0 auto" }}>
+  <ImageComponent
+    imagePath="/src/content/images/librarians/contributor-standards/primary-starred.png"
+    description="The contribution role selector showing starred roles in the quick select list and category browser."
+  />
+</div>
+
+Primary / starred terms determine whether that contribution is normally shown in shortened contributor lists. Contribution rows may also include a display setting:
+
+| **Setting** | **Meaning** |
+|-------------|-------------|
+| Default | Follow the base term’s normal primary / starred behavior. |
+| Display | Show this contribution in compact contributor displays, even if the base term is not normally primary / starred. |
+| Don’t display | Do not show this contribution in compact contributor displays, even if the base term is normally primary / starred. |
+
+<div style={{ maxWidth: "620px", margin: "0 auto" }}>
+  <ImageComponent
+    imagePath="/src/content/images/librarians/contributor-standards/primary-display-override.png"
+    description="Contribution rows showing default, display, and don't display settings."
+  />
+</div>
+
+**Use these settings to control where the role is displayed.** For a large collection, the individual story authors may be recorded as `Author` but set not to display, while the collection editor may be recorded as `Editor` and set to display. This allows the book page to highlight the editor without changing the underlying contribution roles.
+
+<hr />
 
 <div className="section-heading">
 ### Check What Readers Can See
@@ -249,21 +305,32 @@ The default `Author` term (when no specialization is added) will display as the 
 After saving by selecting **Update Edition**, verify the intended people, terms, and order on the correct edition. Check that:
 
 - Every credit links to the correct contributor profile.
-- Primary terms and specializations match the edition’s source credits.
+- Base roles and specializations match the edition’s source credits.
+- Display settings produce the intended compact contributor list.
 - All distinct contributions remain present for people with multiple separate credits.
 - Corrected or removed contributions reflect the intended change.
 
 <div style={{ maxWidth: "620px", margin: "0 auto" }}>
   <ImageComponent
     imagePath="/src/content/images/librarians/contributor-standards/saved-edition-credits.png"
-    description="The new standardized contribution terms will display as linked / underlined when saved"
+    description="The new standardized contribution terms will display as linked / underlined when saved."
   />
 </div>
 
 <hr />
 
 <div className="section-heading">
-### Contribution Term Pages
+## Managing Contributions
+</div>
+<style>{`
+  .section-heading h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+`}</style>
+
+<div className="section-heading">
+### Role Description Pages
 </div>
 <style>{`
   .section-heading h3 {
@@ -272,18 +339,43 @@ After saving by selecting **Update Edition**, verify the intended people, terms,
   }
 `}</style>
 
-The [Contributor Roles overview](https://hardcover.app/browse/roles) organizes and groups person-based roles and content-contribution terms into searchable categories. Individual ‘role’ pages describe each term for readers and let them browse related books and editions.
+The [Contributor Roles overview](https://hardcover.app/browse/roles) organizes person roles and content roles into searchable categories. Individual role pages describe each base role for readers and let them browse related books and editions.
 
 <div style={{ maxWidth: "620px", margin: "0 auto" }}>
   <ImageComponent
     imagePath="/src/content/images/librarians/contributor-standards/contributor-role-page.png"
-    description="An early preview of a contribution person-role pages and filtering options"
+    description="An early preview of a contribution person-role pages and filtering options."
   />
 </div>
 
-On an edition page, each *displayed* contribution term should link directly to its role page. Librarians can also see additional guidance on these pages and use filters to explore books, editions, and specializations associated with the term.
+On an edition page, each visible contribution role should link directly to its role page. Librarians can also see additional guidance on these pages and use filters to explore books, editions, and specializations associated with the role.
 
 Existing uses can help clarify how a term is applied, but they do not establish that every credit is correct. Check the edition’s source credits when deciding whether to add or change an attribution. Report any missing terms, unclear descriptions or broken role links.
+
+<hr />
+
+<div className="section-heading">
+### Customizing Quick Select Roles
+</div>
+<style>{`
+  .section-heading h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+`}</style>
+
+The contribution selector includes a **Quick select** area for commonly used roles. This list is intended to make routine editing faster, but it does not limit which roles can be used. If the correct role is not shown in Quick select, search for it directly or browse the full role categories.
+
+Librarians can customize their quick role lists in **Librarian Settings**. Custom lists can include person roles, content roles, and roles with specializations, such as `Composition • Series`.
+
+Each book category can use Hardcover’s default list, the librarian’s default list, or another custom list. This allows librarians to keep different quick role sets for different kinds of work, such as general books, novellas, short stories, or graphic novels.
+
+<div style={{ maxWidth: "620px", margin: "0 auto" }}>
+  <ImageComponent
+    imagePath="/src/content/images/librarians/contributor-standards/librarian-settings-roles.png"
+    description="Librarian settings page for customizing quick select contributor role lists."
+  />
+</div>
 
 <hr />
 
@@ -297,17 +389,17 @@ Existing uses can help clarify how a term is applied, but they do not establish 
   }
 `}</style>
 
-Older contribution strings have been consolidated into standardized terms, and imports may introduce further raw wording. Correct a clear error when the source supports the change. Flag the edition if an imported mapping is ambiguous, a credit reappears after correction, or the editor behaves unexpectedly. Include the source credit and a brief description of what happened.
+Older contribution strings have been consolidated into standardized roles, and imports may introduce further raw wording. Correct a clear error when the source supports the change. Flag the edition if an imported mapping is ambiguous, a credit reappears after correction, or the editor behaves unexpectedly. Include the source credit and a brief description of what happened.
 
-Hardcover team librarians can implement rules that automatically map or merge recurring raw strings into standardized contributor terms. If the same imported wording appears repeatedly, let a team librarian know through the Discord librarian channel so they can assess and implement an appropriate rule. Include:
+Hardcover team librarians can implement rules that automatically map or merge recurring raw strings into standardized contributor roles. If the same imported wording appears repeatedly, let a team librarian know through the Discord librarian channel so they can assess and implement an appropriate rule. Include:
 
 - The exact raw string.
 - Example edition links.
 - The import source, if known.
-- The proposed associated standardized term.
+- The proposed associated standardized role.
 
 If the meaning is uncertain, preserve the existing credit and raise it for review. Do not remove useful attribution, guess a replacement or treat uncertain wording as a new canonical role.
 
 :::note[Ongoing improvements to contributions]
-Raw contribution terms have been remapped into the new contributor system. Some secondary terms available helped to preserve useful detail from older credits consolidated into the newer standardized system. Some of these distinctions are common; others come from unusual source credits. Their availability does not mean every contribution needs one. Hardcover will continue reviewing the use of specializations and improve mapping and merge rules so that the available terms become more consistent over time.
+Raw contribution strings have been remapped into the new contributor role system. Some specializations helped preserve useful detail from older credits consolidated into the newer standardized system. Some of these distinctions are common; others come from unusual source credits. Their availability does not mean every contribution needs one. Hardcover will continue reviewing the use of specializations and improving mapping and merge rules so that the available roles become more consistent over time.
 :::
