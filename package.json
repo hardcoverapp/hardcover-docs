@@ -47,7 +47,7 @@
     "cytoscape-popper": "^4.0.1",
     "dompurify": "^3.4.16",
     "graphql": "^17.0.0",
-    "lucide-react": "^1.48.0",
+    "lucide-react": "^1.52.0",
     "react": "^19.3.0",
     "react-cytoscapejs": "^2.0.0",
     "react-dom": "^19.3.0",
