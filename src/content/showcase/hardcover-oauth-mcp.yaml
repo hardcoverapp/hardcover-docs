@@ -1,0 +1,59 @@
+name: "Hardcover OAuth MCP"
+slug: "hardcover-oauth-mcp"
+summary: "Remote MCP server: sign in with Hardcover, then let Claude or any MCP client manage your books"
+description: |
+  A remote MCP (Model Context Protocol) server for Hardcover. Instead of pasting an API key, you sign in with Hardcover's OAuth and choose which permissions to grant. Claude (web, desktop, mobile or Claude Code), ChatGPT, Cursor or any other MCP client can then read and update your reading life. Revoke access any time from Hardcover's Authorized apps page.
+
+  Connect any Hardcover account to the public instance at https://hardcover.benjuntilla.com/mcp (in Claude, add it as a custom connector; in ChatGPT, as a custom MCP server), or self-host it on Cloudflare Workers with one command.
+
+  Features:
+  - Sign in with Hardcover (OAuth with PKCE) and pick permissions on a consent page; tools you didn't grant stay hidden
+  - Update your library: status, reading progress (pages, time or percent), finishing, ratings, reviews and reading sessions
+  - Manage your journal, lists (including ordering), reading goals, follows and notifications
+  - Search books, editions, authors and series, and browse trending books
+  - Guarded raw GraphQL tools with schema lookup reach the rest of the API
+  - Supporter-only and librarian-only actions are labelled as such
+  - Respects Hardcover's rate limits and says when an update may not have gone through
+  - Open source (MIT); self-host on Cloudflare Workers via Alchemy
+
+author:
+  name: "Ben Juntilla"
+  github: "benjuntilla"
+  hardcover: "benjuntilla"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/benjuntilla/hardcover-oauth-mcp"
+    type: "github"
+  - label: "Website"
+    url: "https://hardcover.benjuntilla.com"
+    type: "website"
+
+categories:
+  - "Integration"
+
+screenshots:
+  - src: "/showcase/hardcover-oauth-mcp/01-claude-update-progress.png"
+    alt: "Claude updating reading progress on Hardcover through the Hardcover OAuth MCP connector"
+  - src: "/showcase/hardcover-oauth-mcp/02-consent.png"
+    alt: "The consent page, where you choose which Hardcover permissions the MCP client gets"
+  - src: "/showcase/hardcover-oauth-mcp/03-authorized-apps.png"
+    alt: "Hardcover's Authorized Apps page listing Hardcover OAuth MCP, with its scopes, sessions, and a button to revoke access"
+
+tags:
+  - "mcp"
+  - "claude"
+  - "llm"
+  - "ai"
+  - "oauth"
+  - "cloudflare-workers"
+  - "open-source"
+
+dateAdded: 2026-10-19
+dateUpdated: 2026-10-19
+
+featured: false
+
+stats:
+  githubStars: 2
+  lastPushed: "2026-10-19"
