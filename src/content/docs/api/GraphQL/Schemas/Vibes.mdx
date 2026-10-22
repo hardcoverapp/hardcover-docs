@@ -6,7 +6,7 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
-import SchemaScopes from '@/components/ScopePill/SchemaScopes.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
 import {Aside} from "@astrojs/starlight/components";
 import ScopePill from '@/components/ScopePill/ScopePill.astro';
 
@@ -68,9 +68,9 @@ Every vibe has a `vibe_type`. Only `custom` vibes are fully user-editable; the o
 - Only `custom` vibes can be deleted.
 - API tokens need the <ScopePill scope="read:vibes" /> scope (or one of <ScopePill scope="read:vibes:public" />, <ScopePill scope="read:vibes:following" />, <ScopePill scope="read:vibes:private" />) to query vibes, and <ScopePill scope="write:vibes" /> to call the mutations.
 
-## Scopes
+## Scopes and limits
 
-<SchemaScopes typeName="vibes" />
+<SchemaAccess typeName="vibes" />
 
 ## Schema Relationships
 

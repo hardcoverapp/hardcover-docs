@@ -1,0 +1,63 @@
+---
+/**
+ * A schema page's "Scopes and limits": the scope reading the type needs, and
+ * the most rows each of its queries returns per request.
+ *   <SchemaAccess typeName="lists" queries={["lists", "list_members", "list_books"]} />
+ * From capabilities.json and row-limits.json.
+ */
+import { operationScope } from "@/data/queryScopes";
+import { rowLimit } from "@/data/rowLimits";
+import { useTranslation } from "@/lib/utils";
+import ScopePill from "./ScopePill.astro";
+
+interface Props {
+    typeName: string;
+    /** The queries to list row limits for; the type's own query by default. */
+    queries?: string[];
+}
+
+const { typeName, queries = [typeName] } = Astro.props;
+const locale = Astro.currentLocale;
+
+const scope = operationScope(typeName);
+const [before, after] = String(useTranslation("ui.scopes.readType", locale)).split("{type}");
+
+// Queries the API lists, with their cap (null for none).
+const limits = queries.flatMap((query) => {
+    const limit = rowLimit(query);
+    return limit === undefined ? [] : [{ query, limit }];
+});
+
+const anyCapped = limits.some((row) => row.limit !== null);
+---
+
+{scope && (
+    <p>{before}<code>{typeName}</code>{after} <ScopePill scope={scope} /></p>
+)}
+
+{limits.length > 0 && (
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Query</th>
+                <th scope="col">Most rows per request</th>
+            </tr>
+        </thead>
+        <tbody>
+            {limits.map(({ query, limit }) => (
+                <tr>
+                    <td><code>{query}</code></td>
+                    <td>{limit === null ? "No cap" : limit.toLocaleString("en-US")}</td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+)}
+
+<p>
+    {anyCapped && (
+        <>A larger <code>limit</code> is cut to the cap without an error, so page through with <code>offset</code> until a page comes back short. </>
+    )}
+    Each top-level query in a request costs one request against your <a href="/api/getting-started/#rate-limits">rate limit</a>.
+    Each example below lists the scopes it uses, and <a href="/api/graphql/actions/">Actions &amp; Scopes</a> lists every query and mutation.
+</p>

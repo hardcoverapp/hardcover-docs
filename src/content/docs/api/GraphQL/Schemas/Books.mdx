@@ -6,11 +6,11 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
-import SchemaScopes from '@/components/ScopePill/SchemaScopes.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
 
-## Scopes
+## Scopes and limits
 
-<SchemaScopes typeName="books" />
+<SchemaAccess typeName="books" />
 
 ## Schema Relationships
 
@@ -506,6 +506,25 @@ query GetEditionsFromTitle {
 }
 `} description='Get all of the editions for the specific title of `Oathbringer`'
     title="Editions from Title"
+/>
+
+### Get Trending Books
+
+`books_trending` returns the ids of the books most readers finished in a window: `week`, `month` (the default),
+`three_month`, `one_year` or `all`. It returns ids only, 25 by default and at most 100 per request, in ranked order;
+page with `offset`. Look the books up with a second query, such as `books(where: {id: {_in: [...]}})`.
+
+<GraphQLExplorer query={`
+{
+    books_trending(duration: week, limit: 10) {
+        ids
+        error
+    }
+}
+`} description={`
+    The 10 books the most readers finished this week, as book ids in ranked order.
+`}
+    title="Trending Books"
 />
 
 ### Create a New Book
