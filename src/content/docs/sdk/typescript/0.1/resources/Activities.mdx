@@ -24,7 +24,7 @@ A reader's activity, newest first.
 |---|---|---|---|
 | `userId` | number | yes | A reader's id, from users.getByUsername (e.g. "adam") |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="activities.forUser" version="0.1" compact />
@@ -41,7 +41,7 @@ Activity about a book, newest first.
 |---|---|---|---|
 | `bookId` | number | yes | 427578 is Project Hail Mary |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="activities.forBook" version="0.1" compact />
@@ -57,7 +57,7 @@ Activity from the people you follow, newest first.
 | Parameter | Type | Required | Notes |
 |---|---|---|---|
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="activities.following" version="0.1" compact />

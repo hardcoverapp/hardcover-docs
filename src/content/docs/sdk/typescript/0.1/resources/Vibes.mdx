@@ -23,7 +23,7 @@ Your vibes, most recently changed first.
 | Parameter | Type | Required | Notes |
 |---|---|---|---|
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="vibes.mine" version="0.1" compact />
@@ -40,7 +40,7 @@ Someone's vibes that you can see.
 |---|---|---|---|
 | `userId` | number | yes | A reader's id, from users.getByUsername (e.g. "adam") |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="vibes.forUser" version="0.1" compact />
@@ -71,7 +71,7 @@ A vibe's books in ranked order, a page at a time. Check `resultsPending` before 
 |---|---|---|---|
 | `id` | number | yes | A vibe's id, from vibes.mine |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 1,000: a larger one is sent as 1,000. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="vibes.books" version="0.1" compact />

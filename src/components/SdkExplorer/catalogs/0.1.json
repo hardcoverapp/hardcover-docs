@@ -82,7 +82,8 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "hint": "Page size, 25 by default."
                 },
                 {
                   "name": "offset",
@@ -153,7 +154,8 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "hint": "Changes per call, 25 by default."
                 }
               ]
             }
@@ -594,7 +596,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 1000,
+                  "hint": "Page size, 25 by default. At most 1,000: a larger one is sent as 1,000."
                 },
                 {
                   "name": "offset",
@@ -909,7 +913,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 1000,
+                  "hint": "Page size, 25 by default. At most 1,000: a larger one is sent as 1,000."
                 },
                 {
                   "name": "offset",
@@ -946,7 +952,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -989,7 +997,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -1027,7 +1037,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 50
+                  "example": 50,
+                  "max": 1000,
+                  "hint": "Page size, 50 by default. At most 1,000: a larger one is sent as 1,000."
                 },
                 {
                   "name": "offset",
@@ -1431,7 +1443,8 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "hint": "Page size, 25 by default."
                 },
                 {
                   "name": "offset",
@@ -2336,7 +2349,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 5000,
+                  "hint": "Page size, 25 by default. At most 5,000: a larger one is sent as 5,000."
                 },
                 {
                   "name": "offset",
@@ -2397,7 +2412,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 1000,
+                  "hint": "How many, 25 by default. At most 1,000."
                 }
               ]
             }
@@ -2487,7 +2504,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 1000,
+                  "hint": "Page size, 25 by default. At most 1,000: a larger one is sent as 1,000."
                 },
                 {
                   "name": "offset",
@@ -2530,7 +2549,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -2613,7 +2634,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 1000,
+                  "hint": "Page size, 25 by default. At most 1,000: a larger one is sent as 1,000."
                 },
                 {
                   "name": "offset",
@@ -2716,7 +2739,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 50
+                  "example": 50,
+                  "max": 997,
+                  "hint": "Page size, 50 by default. At most 997: a larger one is sent as 997."
                 },
                 {
                   "name": "offset",
@@ -2761,7 +2786,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -3357,7 +3384,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -3400,7 +3429,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -3475,7 +3506,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 1000,
+                  "hint": "Page size, 25 by default. At most 1,000: a larger one is sent as 1,000."
                 },
                 {
                   "name": "offset",
@@ -3753,7 +3786,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -3784,7 +3819,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -3827,7 +3864,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -3865,7 +3904,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -3903,7 +3944,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -3955,7 +3998,8 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "hint": "Page size, 25 by default."
                 },
                 {
                   "name": "offset",
@@ -4280,7 +4324,8 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "hint": "Page size, 25 by default."
                 },
                 {
                   "name": "offset",
@@ -4323,7 +4368,8 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 25
+                  "example": 25,
+                  "hint": "Page size, 25 by default."
                 },
                 {
                   "name": "offset",
@@ -4588,7 +4634,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -4626,7 +4674,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -4657,7 +4707,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",
@@ -4723,7 +4775,9 @@
                   "name": "limit",
                   "kind": "number",
                   "label": "Limit",
-                  "example": 10
+                  "example": 10,
+                  "max": 100,
+                  "hint": "Page size, 25 by default. At most 100: a larger one is sent as 100."
                 },
                 {
                   "name": "offset",

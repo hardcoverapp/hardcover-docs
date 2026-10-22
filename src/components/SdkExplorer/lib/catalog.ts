@@ -26,6 +26,9 @@ export interface Param {
   /** With a token, look up an example in the reader's own account (it wins over `example`). */
   exampleFrom?: import("./lookup").Lookup;
 
+  /** A limit's cap: the most the API returns per page; the SDK sends a larger one as this. */
+  max?: number;
+
   /** kind "lines": what each line is. */
   itemKind?: "number" | "text";
 

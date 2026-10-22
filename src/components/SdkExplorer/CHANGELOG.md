@@ -35,6 +35,10 @@ The first release.
   scopes, `RateLimitError` says how long to wait, `SignedOutError` means show
   sign-in, and more. Reads are retried after network and server errors; writes
   are never sent twice.
+- **Paging.** List methods return pages (`items`, `limit`, `offset`,
+  `hasMore`) and never ask for more than the API returns for that list, so
+  `hasMore` stays right when you ask for a large page. `allPages(...)` walks
+  every page of any list method for you.
 - **Incremental sync.** `library.changes()` returns what changed since a
   cursor, and can report removed entries.
 - **Testing.** `MockTransport` (`@hardcover/sdk/testing`) drives a real client

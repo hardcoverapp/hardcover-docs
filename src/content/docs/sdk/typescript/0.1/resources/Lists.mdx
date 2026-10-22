@@ -23,7 +23,7 @@ Your lists.
 | Parameter | Type | Required | Notes |
 |---|---|---|---|
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="lists.mine" version="0.1" compact />
@@ -40,7 +40,7 @@ Someone's lists that you can see.
 |---|---|---|---|
 | `userId` | number | yes | A reader's id, from users.getByUsername (e.g. "adam") |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="lists.forUser" version="0.1" compact />
@@ -57,7 +57,7 @@ A list with a page of its books, or null.
 |---|---|---|---|
 | `id` | number | yes | A list's id, from lists.mine or search.lists |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 50 by default. At most 1,000: a larger one is sent as 1,000. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="lists.get" version="0.1" compact />
@@ -221,7 +221,7 @@ Lists you follow, most recently followed first.
 | Parameter | Type | Required | Notes |
 |---|---|---|---|
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="lists.followed" version="0.1" compact />

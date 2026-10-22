@@ -24,7 +24,7 @@ Your journal entries for a book, newest first.
 |---|---|---|---|
 | `bookId` | number | yes | 427578 is Project Hail Mary |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="journal.forBook" version="0.1" compact />

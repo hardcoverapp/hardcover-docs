@@ -24,7 +24,7 @@ Your shelf, a page at a time, optionally one status.
 |---|---|---|---|
 | `options` | object |  | Only the fields you set are sent. |
 | `options.status` | UserBookStatus |  | The SDK also takes an array of statuses |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="library.list" version="0.1" compact />
@@ -57,7 +57,7 @@ What changed in your library since a cursor, for keeping a local copy in sync. S
 | `options` | object |  | Only the fields you set are sent. |
 | `options.since` | string |  | The cursor from the previous result. Empty for everything |
 | `options.knownIds` | number[] |  | To get removedIds back. Adds one ids-only read of the whole library |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Changes per call, 25 by default. |
 
 <SdkExplorer method="library.changes" version="0.1" compact />
 
@@ -221,7 +221,7 @@ Books on your Owned list, most recently marked first.
 | Parameter | Type | Required | Notes |
 |---|---|---|---|
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 1,000: a larger one is sent as 1,000. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="library.owned" version="0.1" compact />

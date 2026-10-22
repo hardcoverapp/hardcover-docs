@@ -52,7 +52,7 @@ Who follows a reader, most recent first.
 |---|---|---|---|
 | `userId` | number | yes | A reader's id, from users.getByUsername (e.g. "adam") |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="users.followers" version="0.1" compact />
@@ -69,7 +69,7 @@ Who a reader follows, most recent first.
 |---|---|---|---|
 | `userId` | number | yes | A reader's id, from users.getByUsername (e.g. "adam") |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="users.following" version="0.1" compact />

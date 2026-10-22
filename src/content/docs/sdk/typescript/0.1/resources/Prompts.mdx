@@ -53,7 +53,7 @@ Browse prompts, most answered first unless `sort` says otherwise.
 | `options` | object |  | Only the fields you set are sent. |
 | `options.sort` | "popular" \\| "newest" |  | Sort |
 | `options.featured` | boolean |  | Only featured |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="prompts.list" version="0.1" compact />
@@ -69,7 +69,7 @@ Prompts you asked, newest first.
 | Parameter | Type | Required | Notes |
 |---|---|---|---|
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="prompts.mine" version="0.1" compact />
@@ -86,7 +86,7 @@ Prompts someone asked, newest first.
 |---|---|---|---|
 | `userId` | number | yes | A reader's id, from users.getByUsername (e.g. "adam") |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="prompts.forUser" version="0.1" compact />
@@ -103,7 +103,7 @@ A prompt's books, most picked first: the ranking the site shows.
 |---|---|---|---|
 | `promptId` | number | yes | A prompt's id, from prompts.getBySlug or prompts.list |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="prompts.books" version="0.1" compact />
@@ -120,7 +120,7 @@ The prompts a book was given as an answer to, where it was picked most first.
 |---|---|---|---|
 | `bookId` | number | yes | 427578 is Project Hail Mary |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="prompts.forBook" version="0.1" compact />
@@ -150,7 +150,7 @@ Prompts you follow, most recently followed first.
 | Parameter | Type | Required | Notes |
 |---|---|---|---|
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="prompts.following" version="0.1" compact />

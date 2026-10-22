@@ -52,7 +52,7 @@ Every entry in the series, in position order; entries without a position (box se
 |---|---|---|---|
 | `seriesId` | number | yes | A series id, from series.getBySlug (e.g. "red-rising-saga") |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 50 by default. At most 997: a larger one is sent as 997. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="series.books" version="0.1" compact />

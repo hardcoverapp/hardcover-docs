@@ -120,7 +120,7 @@ Your reads finished between two days (inclusive), newest first, each with its bo
 | `options` | object | yes | Only the fields you set are sent. |
 | `options.from` | date (YYYY-MM-DD) | yes | From |
 | `options.to` | date (YYYY-MM-DD) | yes | To |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 1,000: a larger one is sent as 1,000. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="reads.finished" version="0.1" compact />

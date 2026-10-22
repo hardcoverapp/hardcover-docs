@@ -66,7 +66,7 @@ A book's editions, most-read first.
 |---|---|---|---|
 | `bookId` | number | yes | 427578 is Project Hail Mary |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 5,000: a larger one is sent as 5,000. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="books.editions" version="0.1" compact />
@@ -97,7 +97,7 @@ The library entries of people you follow, for one book: who has it, their status
 |---|---|---|---|
 | `bookId` | number | yes | 427578 is Project Hail Mary |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | How many, 25 by default. At most 1,000. |
 
 <SdkExplorer method="books.friends" version="0.1" compact />
 
@@ -143,7 +143,7 @@ Books first released between two days (inclusive), most readers first.
 | `options` | object | yes | Only the fields you set are sent. |
 | `options.from` | date (YYYY-MM-DD) | yes | From |
 | `options.to` | date (YYYY-MM-DD) | yes | To |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 1,000: a larger one is sent as 1,000. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="books.released" version="0.1" compact />
@@ -160,7 +160,7 @@ Trending books, in trending order. At most 100 per call; page on with `offset`.
 |---|---|---|---|
 | `options` | object |  | Only the fields you set are sent. |
 | `options.duration` | "week" \\| "month" \\| "three_month" \\| "one_year" \\| "all" |  | Period |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 100: a larger one is sent as 100. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="books.trending" version="0.1" compact />

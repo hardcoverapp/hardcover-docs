@@ -52,7 +52,7 @@ Books the author has a credit on, most readers first. Each book appears once.
 |---|---|---|---|
 | `authorId` | number | yes | An author's id, from authors.getBySlug (e.g. "becky-chambers") |
 | `options` | object |  | Only the fields you set are sent. |
-| `options.limit` | number |  | Limit |
+| `options.limit` | number |  | Page size, 25 by default. At most 1,000: a larger one is sent as 1,000. |
 | `options.offset` | number |  | Offset |
 
 <SdkExplorer method="authors.books" version="0.1" compact />
