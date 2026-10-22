@@ -9,7 +9,7 @@
 // The catalog is saved under the SDK's minor version (catalogs/0.1.json), so
 // each version keeps its own pages. Syncing a new minor version adds a
 // catalog; older ones stay as they were released.
-import { copyFileSync, existsSync, readFileSync } from "node:fs";
+import { copyFileSync, existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const repo = resolve(process.env.SDK_REPO ?? "../hardcover-sdk");
@@ -36,3 +36,12 @@ for (const [source, target] of targets) {
   copyFileSync(source, resolve(target));
   console.log(`Copied ${source} → ${target}`);
 }
+
+// Record the release this version is at, so a tagged one (1.0.0-beta.2) is
+// shown as a pre-release until the plain release (1.0.0) is synced.
+const releasesFile = resolve("src/components/SdkExplorer/releases.json");
+const releases = existsSync(releasesFile) ? JSON.parse(readFileSync(releasesFile, "utf8")) : {};
+
+releases.typescript = { ...releases.typescript, [minor]: version };
+writeFileSync(releasesFile, `${JSON.stringify(releases, null, 2)}\n`);
+console.log(`Recorded typescript ${minor} at ${version}`);

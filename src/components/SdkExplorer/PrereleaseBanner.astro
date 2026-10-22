@@ -1,20 +1,23 @@
 ---
-/** Shown on every page of a pre-1.0 SDK version (sdk/<language>/0.x/...). */
+/** Shown on every page of a pre-release SDK version: 0.x, or a tagged release like 1.0.0-beta.2. */
 import { useTokenTranslation, useTranslation } from "@/lib/utils";
 
 interface Props {
-    version: string;
+    /** "typescript" */
+    language: string;
+    /** How the version is named: "0.1.x" or "1.0.0-beta.2". */
+    label: string;
     locale?: string;
 }
 
-const { version, locale = "en" } = Astro.props;
+const { language, label, locale = "en" } = Astro.props;
 
 const text = String(
     useTokenTranslation("pages.sdk.prereleaseBanner.text", locale, {
-        changelog: () => `<a href="/sdk/typescript/changelog/">{chunks}</a>`,
+        changelog: () => `<a href="/sdk/${language}/changelog/">{chunks}</a>`,
         issues: () => `<a href="https://github.com/hardcoverapp/community-sdk/issues" target="_blank" rel="noreferrer noopener">{chunks}</a>`,
     }),
-).replace("{version}", `${version}.x`);
+).replace("{version}", label);
 ---
 
 <aside class="rounded-lg border border-indigo-line bg-indigo-soft p-4 text-foreground mb-6" aria-labelledby="sdk-prerelease-title">

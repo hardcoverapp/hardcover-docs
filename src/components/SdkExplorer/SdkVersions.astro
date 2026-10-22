@@ -1,6 +1,7 @@
 ---
 /** The TypeScript SDK's documented versions, newest first, from the synced catalogs. */
 import { versions } from "./lib/catalog";
+import { prereleaseLabel, releaseOf } from "./lib/releases";
 ---
 
 <table>
@@ -14,8 +15,8 @@ import { versions } from "./lib/catalog";
     <tbody>
         {versions.map((version, i) => (
             <tr>
-                <th scope="row">{version}.x</th>
-                <td>{[i === 0 ? "Latest" : "Older", version.startsWith("0.") ? "pre-release" : ""].filter(Boolean).join(", ")}</td>
+                <th scope="row">{releaseOf("typescript", version) ?? `${version}.x`}</th>
+                <td>{[i === 0 ? "Latest" : "Older", prereleaseLabel("typescript", version) ? "pre-release" : ""].filter(Boolean).join(", ")}</td>
                 <td>
                     <a href={`/sdk/typescript/${version}/getting-started/`}>Getting started</a> ·{" "}
                     <a href={`/sdk/typescript/${version}/`}>Overview</a> ·{" "}

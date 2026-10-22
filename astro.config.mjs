@@ -11,6 +11,7 @@ import {SOCIAL_LINKS} from './src/lib/social';
 import rehypeExternalLinks from './src/plugins/rehype-external-links.mjs';
 import {unified} from '@astrojs/markdown-remark';
 import {readdirSync} from 'node:fs';
+import {prereleaseLabel} from './src/components/SdkExplorer/lib/releases';
 
 // The one host whose traffic is real. Everything else — preview builds, the
 // testing server, a local `astro preview` — must not report into it.
@@ -253,6 +254,11 @@ export default defineConfig({
                             // One group per documented minor version, newest first and open.
                             ...sdkVersions('typescript').map((version, i) => ({
                                 label: `${version}.x`,
+                                // Pre-releases (0.x, or tagged like 1.0.0-beta.2) say so, like the
+                                // banner on their pages; the newest stable version is Latest, in green.
+                                badge: prereleaseLabel('typescript', version)
+                                    ? 'Pre-release'
+                                    : i === 0 ? { text: 'Latest', variant: 'success' } : undefined,
                                 collapsed: i > 0,
                                 items: [
                                     { label: useTranslation('sidebar.sdk.overview', 'en'), slug: `sdk/typescript/${version}` },

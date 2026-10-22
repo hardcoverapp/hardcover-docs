@@ -19,7 +19,7 @@
     "sdk": {
       "prereleaseBanner": {
         "title": "Pre-release",
-        "text": "Version {version} is a pre-release. Names and behavior may change in a new minor version before 1.0; the <changelog>changelog</changelog> says what changed and how to update. Something getting in your way? <issues>Open an issue</issues>."
+        "text": "Version {version} is a pre-release, so names and behavior may still change before it's stable. The <changelog>changelog</changelog> says what changed and how to update. Something getting in your way? <issues>Open an issue</issues>."
       }
     }
   },
