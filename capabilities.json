@@ -5,6 +5,10 @@
       "action": null,
       "description": "Full access to all scopes",
       "implies": [
+        "email",
+        "offline_access",
+        "openid",
+        "profile",
         "read:account",
         "read:catalog",
         "read:catalog:data",
@@ -84,6 +88,8 @@
         "books_trending",
         "characters",
         "characters_by_pk",
+        "collection_import_result_create_book",
+        "collection_import_result_match",
         "collection_import_result_reimport",
         "collection_import_results",
         "collection_import_results_by_pk",
@@ -299,6 +305,7 @@
         "user_flags_by_pk",
         "user_referrals",
         "user_referrals_by_pk",
+        "user_settings",
         "user_statuses",
         "user_statuses_by_pk",
         "users",
@@ -876,7 +883,8 @@
         "read:me:roles"
       ],
       "operations": [
-        "me"
+        "me",
+        "user_settings"
       ],
       "columns": [
         "email",
@@ -887,10 +895,11 @@
     {
       "scope": "read:me:content",
       "action": "read",
-      "description": "Public profile fields (id, name, username, avatar)",
+      "description": "Your public profile (id, username, name, avatar)",
       "implies": [],
       "operations": [
-        "me"
+        "me",
+        "user_settings"
       ],
       "columns": [],
       "arguments": []
@@ -903,7 +912,8 @@
         "read:me:content"
       ],
       "operations": [
-        "me"
+        "me",
+        "user_settings"
       ],
       "columns": [
         "email"
@@ -917,7 +927,8 @@
       "description": "Your Hardcover roles (librarian_roles, including hardcover_admin for staff)",
       "implies": [],
       "operations": [
-        "me"
+        "me",
+        "user_settings"
       ],
       "columns": [
         "librarian_roles"
@@ -1138,6 +1149,8 @@
       "description": "Add and update books in your library (includes reading journal and imports)",
       "implies": [],
       "operations": [
+        "collection_import_result_create_book",
+        "collection_import_result_match",
         "collection_import_result_reimport",
         "collection_import_retry",
         "delete_reading_journal",
@@ -1409,6 +1422,50 @@
       "operations": [],
       "columns": [],
       "arguments": []
+    },
+    {
+      "scope": "openid",
+      "action": null,
+      "description": "Confirm your identity (required for Sign in with Hardcover)",
+      "implies": [],
+      "operations": [],
+      "columns": [],
+      "arguments": []
+    },
+    {
+      "scope": "profile",
+      "action": null,
+      "description": "Your public profile (id, username, name, avatar)",
+      "implies": [
+        "openid"
+      ],
+      "operations": [],
+      "columns": [],
+      "arguments": []
+    },
+    {
+      "scope": "email",
+      "action": null,
+      "description": "Your email address",
+      "implies": [
+        "openid"
+      ],
+      "operations": [],
+      "columns": [],
+      "arguments": [],
+      "warning": true
+    },
+    {
+      "scope": "offline_access",
+      "action": null,
+      "description": "Maintain access to your account in the background when you are offline",
+      "implies": [
+        "openid"
+      ],
+      "operations": [],
+      "columns": [],
+      "arguments": [],
+      "warning": "Allows the app to refresh your login and access information while you are not using it."
     }
   ],
   "operations": [
@@ -1582,18 +1639,14 @@
     },
     {
       "operation": "bookles",
-      "type": "read",
-      "tables": [
-        "bookles"
-      ],
+      "type": null,
+      "tables": [],
       "calls_internal": false
     },
     {
       "operation": "bookles_by_pk",
-      "type": "read",
-      "tables": [
-        "bookles"
-      ],
+      "type": null,
+      "tables": [],
       "calls_internal": false
     },
     {
@@ -1643,6 +1696,22 @@
         "characters"
       ],
       "calls_internal": false
+    },
+    {
+      "operation": "collection_import_result_create_book",
+      "type": "write",
+      "tables": [
+        "collection_import_results"
+      ],
+      "calls_internal": true
+    },
+    {
+      "operation": "collection_import_result_match",
+      "type": "write",
+      "tables": [
+        "collection_import_results"
+      ],
+      "calls_internal": true
     },
     {
       "operation": "collection_import_result_reimport",
@@ -3357,6 +3426,14 @@
       "type": "read",
       "tables": [
         "user_referrals"
+      ],
+      "calls_internal": false
+    },
+    {
+      "operation": "user_settings",
+      "type": "read",
+      "tables": [
+        "user_settings"
       ],
       "calls_internal": false
     },

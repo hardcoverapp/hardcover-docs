@@ -9,6 +9,9 @@ export interface ScopeInfo {
 
   /** Broader scopes that grant this one too (read:me grants read:me:content). "all" is left out. */
   grantedBy: string[];
+
+  /** Narrower scopes under this one (read:library includes read:library:public). */
+  includes: string[];
 }
 
 interface Scope {
@@ -33,5 +36,6 @@ export function scopeInfo(scope: string): ScopeInfo {
     kind: found?.action === "read" || found?.action === "write" ? found.action : null,
     description: found?.description ?? "",
     grantedBy,
+    includes: (found?.implies ?? []).filter((implied) => implied.startsWith(`${scope}:`)),
   };
 }

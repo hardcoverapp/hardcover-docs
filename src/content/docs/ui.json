@@ -382,6 +382,10 @@
       "layout": "Layout",
       "showLabels": "Show Labels",
       "hideLabels": "Hide Labels"
+    },
+    "scopes": {
+      "required": "Scopes:",
+      "readType": "Reading {type} needs"
     }
   }
 }

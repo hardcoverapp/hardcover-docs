@@ -27,21 +27,25 @@ export const ScopePill = ({ scope }: { scope: string }) => {
 
         <span className="scope-pill-tip-body">{sentence(info.description || "A scope your token needs")}</span>
 
-        {info.grantedBy.length > 0 && (
-          <span className="scope-pill-tip-foot">
-            Also granted by{" "}
-            {info.grantedBy.map((other, i) => (
-              <span key={other}>
-                {i > 0 && (i === info.grantedBy.length - 1 ? " or " : ", ")}
-                <code>{other}</code>
-              </span>
-            ))}
-          </span>
-        )}
+        {info.includes.length > 0 && <ScopeList label="Includes" scopes={info.includes} last="and" />}
+        {info.grantedBy.length > 0 && <ScopeList label="Also granted by" scopes={info.grantedBy} last="or" />}
       </span>
     </span>
   );
 };
+
+// "Includes read:library:public, read:library:following and read:library:private".
+const ScopeList = ({ label, scopes, last }: { label: string; scopes: string[]; last: "and" | "or" }) => (
+  <span className="scope-pill-tip-foot">
+    {label}{" "}
+    {scopes.map((scope, i) => (
+      <span key={scope}>
+        {i > 0 && (i === scopes.length - 1 ? ` ${last} ` : ", ")}
+        <code>{scope}</code>
+      </span>
+    ))}
+  </span>
+);
 
 // Descriptions in capabilities.json have no closing period.
 const sentence = (text: string) => (/[.!?]$/.test(text) ? text : `${text}.`);

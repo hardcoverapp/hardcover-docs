@@ -118,16 +118,6 @@ generates a link that pre-selects them on the New API Key form for your users.
         <td data-label="Description">fetch data from the table: "book_<wbr/>statuses" using primary key columns</td>
     </tr>
     <tr>
-        <td>bookles</td>
-        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
-        <td data-label="Description">fetch data from the table: "bookles"</td>
-    </tr>
-    <tr>
-        <td>bookles_<wbr/>by_<wbr/>pk</td>
-        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
-        <td data-label="Description">fetch data from the table: "bookles" using primary key columns</td>
-    </tr>
-    <tr>
         <td><a href="/api/graphql/schemas/books/">books</a></td>
         <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
         <td data-label="Description">An array relationship</td>
@@ -763,6 +753,11 @@ generates a link that pre-selects them on the New API Key form for your users.
         <td data-label="Description">fetch data from the table: "user_<wbr/>referrals" using primary key columns</td>
     </tr>
     <tr>
+        <td>user_<wbr/>settings</td>
+        <td data-label="Scopes"><ScopePill scope="read:me" /> <ScopePill scope="read:me:content" /> <ScopePill scope="read:me:email" /> <ScopePill scope="read:me:roles" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>settings"</td>
+    </tr>
+    <tr>
         <td>user_<wbr/>statuses</td>
         <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
         <td data-label="Description">fetch data from the table: "user_<wbr/>statuses"</td>
@@ -824,6 +819,16 @@ generates a link that pre-selects them on the New API Key form for your users.
     <tr>
         <td>book_<wbr/>normalize</td>
         <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
+    </tr>
+    <tr>
+        <td>collection_<wbr/>import_<wbr/>result_<wbr/>create_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
+    </tr>
+    <tr>
+        <td>collection_<wbr/>import_<wbr/>result_<wbr/>match</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
         <td data-label="Description"></td>
     </tr>
     <tr>

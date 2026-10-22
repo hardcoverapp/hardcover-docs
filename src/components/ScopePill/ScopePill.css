@@ -135,6 +135,12 @@
     color: var(--hc-ink-2);
 }
 
+/* One divider above the footer lines, not one each. */
+.scope-pill-tip-foot + .scope-pill-tip-foot {
+    padding-top: 0;
+    border-top: 0;
+}
+
 .scope-pill .scope-pill-tip-foot code {
     font-weight: 500;
     font-size: 0.75rem;

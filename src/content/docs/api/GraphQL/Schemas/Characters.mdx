@@ -6,10 +6,15 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaScopes from '@/components/ScopePill/SchemaScopes.astro';
 
 ## What Is a Character?
 
 Characters are fictional individuals that appear in books. The characters schema in Hardcover allows you to track and explore characters across different books, including information about their attributes, the books they appear in, and their creators.
+
+## Scopes
+
+<SchemaScopes typeName="characters" />
 
 ## Schema Relationships
 

@@ -6,6 +6,7 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaScopes from '@/components/ScopePill/SchemaScopes.astro';
 import {Aside} from "@astrojs/starlight/components";
 
 ## What Is a User Book?
@@ -22,6 +23,10 @@ User books represent the relationship between a user and a book in their library
 | 4 | Paused |
 | 5 | Did Not Finish |
 | 6 | Ignored |
+
+## Scopes
+
+<SchemaScopes typeName="user_books" />
 
 ## Schema Relationships
 
@@ -297,6 +302,11 @@ User books represent the relationship between a user and a book in their library
         <td>user_id</td>
         <td>Int!</td>
         <td>Owner</td>
+    </tr>
+    <tr>
+        <td>viewer_buddy_read_privacy_setting_id</td>
+        <td>Int</td>
+        <td>Per-book buddy-read setting, only on the viewer's own row</td>
     </tr>
     </tbody>
 </table>

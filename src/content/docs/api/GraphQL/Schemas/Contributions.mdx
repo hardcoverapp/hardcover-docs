@@ -6,11 +6,16 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaScopes from '@/components/ScopePill/SchemaScopes.astro';
 import {Aside} from "@astrojs/starlight/components";
 
 ## What Is a Contribution?
 
 A Contribution in Hardcover represents the relationship between an author and a book or edition, along with the specific role the author played. This flexible system allows for various types of contributions including writing, illustration, translation, editing, and more, providing detailed credit information for all contributors to a work.
+
+## Scopes
+
+<SchemaScopes typeName="contributions" />
 
 ## Schema Relationships
 
@@ -91,6 +96,11 @@ A Contribution in Hardcover represents the relationship between an author and a 
         <td>id</td>
         <td>bigint!</td>
         <td>Unique identifier</td>
+    </tr>
+    <tr>
+        <td>primary_override</td>
+        <td>Boolean</td>
+        <td></td>
     </tr>
     <tr>
         <td>updated_at</td>

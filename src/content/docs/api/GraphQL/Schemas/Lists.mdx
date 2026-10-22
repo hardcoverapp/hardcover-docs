@@ -6,11 +6,16 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaScopes from '@/components/ScopePill/SchemaScopes.astro';
 import {Aside} from "@astrojs/starlight/components";
 
 ## What Is a List?
 
 Lists in Hardcover are user-created collections of books organized around themes, genres, or personal preferences. Users can create public or private lists to organize and share their reading recommendations with the community.
+
+## Scopes
+
+<SchemaScopes typeName="lists" />
 
 ## Schema Relationships
 
