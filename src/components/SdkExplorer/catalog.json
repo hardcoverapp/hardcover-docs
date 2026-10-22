@@ -1,0 +1,4807 @@
+{
+  "$comment": "Every public SDK method, as language-neutral data: the playground (packages/playground) builds its forms from it, the docs site's SDK explorer reads it, and other SDKs generate code snippets from it. tests/catalog.test.ts (TypeScript) checks it against the code. A resource is a client property (hc.library), except where `call` is \"function\": then each method is a function imported from `module` and called with the client first. Calling a method: pass `params` positionally, in order. An unset optional param is left out (trailing ones dropped). An `options` param becomes an object holding only the fields that were set (nested `options` fields the same way); a required `options` param is passed even when empty. `enum` values are written as the SDK enum's member key (\"WantToRead\") and passed as that member (UserBookStatus.WantToRead). `lines` is an array of `itemKind` values. `datetime` is an instant (a Date, or an ISO string). `json` is passed as parsed JSON. `nullable` means an empty value is passed as null rather than left out. Kinds: number, text, longText (multi-line), lines, date (YYYY-MM-DD), datetime, boolean, enum (`enum` names an SDK enum; optional `values` limits it to those member keys), literal (`values` are the accepted strings), options (`fields`), json, period (stats only: {kind: life|year|month|custom, year, month, from, to}, built with the stats module's `period` helpers). `example` values work against production; ids that belong to the signed-in reader (library entries, lists, goals) have no example, and their `hint` says where to get one. `scopes` copies the method's Scopes: doc line. `writes`: it changes data on the server. `destructive`: it deletes or removes something. `returns` is the TypeScript return type, for reference. `exampleFrom` (optional) is a read-only lookup that finds an example in the signed-in reader's own account: call `method` with `args` (\"$me\" is the reader's id, \"$<input>\" another input's current value, \"$entry\" the reader's newest library entry id) and take `pick` from the result (a dot path; `*` maps over an array). Fixed examples are production ids. When an input has both, `example` is the fallback without a signed-in reader and `exampleFrom` wins with one. An empty `pick` takes the whole result.",
+  "resources": [
+    {
+      "name": "me",
+      "summary": "The signed-in user, fetched once per client and cached.",
+      "methods": [
+        {
+          "name": "get",
+          "summary": "The token's user. Concurrent callers share one request; later calls use the cache.",
+          "scopes": [
+            "read:me:content"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Me",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "refresh",
+                  "kind": "boolean",
+                  "label": "Fetch again instead of using the cache"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "id",
+          "summary": "The token's user id.",
+          "scopes": [
+            "read:me:content"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "number",
+          "params": []
+        },
+        {
+          "name": "forget",
+          "summary": "Drops the cached user, so the next call asks the server. Sends no request.",
+          "scopes": [],
+          "writes": false,
+          "destructive": false,
+          "returns": "void",
+          "params": []
+        }
+      ]
+    },
+    {
+      "name": "library",
+      "summary": "Your library: the books on your shelves, their status, rating and review.",
+      "methods": [
+        {
+          "name": "list",
+          "summary": "Your shelf, a page at a time, optionally one status.",
+          "scopes": [
+            "read:me:content",
+            "read:library"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<LibraryListItem>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "status",
+                  "kind": "enum",
+                  "label": "Status",
+                  "enum": "UserBookStatus",
+                  "hint": "The SDK also takes an array of statuses"
+                },
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "count",
+          "summary": "How many books are on your shelf, optionally one status.",
+          "scopes": [
+            "read:me:content",
+            "read:library"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "number",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "status",
+                  "kind": "enum",
+                  "label": "Status",
+                  "enum": "UserBookStatus",
+                  "hint": "The SDK also takes an array of statuses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "changes",
+          "summary": "What changed in your library since a cursor, for keeping a local copy in sync. Start with no `since`, then pass each result's `cursor`; while `hasMore`, call again right away.",
+          "scopes": [
+            "read:me:content",
+            "read:library"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "LibraryChanges",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "since",
+                  "kind": "text",
+                  "label": "Since (cursor)",
+                  "hint": "The cursor from the previous result. Empty for everything"
+                },
+                {
+                  "name": "knownIds",
+                  "kind": "lines",
+                  "label": "Entry ids you hold",
+                  "itemKind": "number",
+                  "hint": "To get removedIds back. Adds one ids-only read of the whole library"
+                },
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "forBook",
+          "summary": "Your entry for a book, or null if it isn't in your library.",
+          "scopes": [
+            "read:me:content",
+            "read:library"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "LibraryEntryForBook | null",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            }
+          ]
+        },
+        {
+          "name": "get",
+          "summary": "A library entry by its id, with its book and edition, or null.",
+          "scopes": [
+            "read:library"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "LibraryEntryWithBook | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Library entry id",
+              "hint": "Your library entry's id, from library.list or library.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "library.list",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "add",
+          "summary": "Adds a book (Want to Read unless `status` says otherwise). Marking it Read without a date records today in your timezone.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "LibraryEntry",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "status",
+                  "kind": "enum",
+                  "label": "Status",
+                  "enum": "UserBookStatus",
+                  "example": "WantToRead"
+                },
+                {
+                  "name": "date",
+                  "kind": "date",
+                  "label": "Date",
+                  "hint": "The day of the status change. Leave empty for today in your timezone"
+                },
+                {
+                  "name": "startDate",
+                  "kind": "date",
+                  "label": "Start date"
+                },
+                {
+                  "name": "rating",
+                  "kind": "number",
+                  "label": "Rating",
+                  "hint": "0.5 to 5 in half steps"
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting"
+                },
+                {
+                  "name": "editionId",
+                  "kind": "number",
+                  "label": "Edition id",
+                  "hint": "An edition of this book, from books.editions"
+                },
+                {
+                  "name": "notes",
+                  "kind": "longText",
+                  "label": "Private notes"
+                },
+                {
+                  "name": "readCount",
+                  "kind": "number",
+                  "label": "Read count"
+                },
+                {
+                  "name": "recommendedBy",
+                  "kind": "text",
+                  "label": "Recommended by"
+                },
+                {
+                  "name": "recommendedFor",
+                  "kind": "text",
+                  "label": "Recommended for"
+                },
+                {
+                  "name": "review",
+                  "kind": "options",
+                  "label": "Review",
+                  "hint": "Every review field needs the write:reviews scope",
+                  "fields": [
+                    {
+                      "name": "markdown",
+                      "kind": "longText",
+                      "label": "Review (Markdown)"
+                    },
+                    {
+                      "name": "hasSpoilers",
+                      "kind": "boolean",
+                      "label": "Has spoilers"
+                    },
+                    {
+                      "name": "reviewedAt",
+                      "kind": "date",
+                      "label": "Reviewed on"
+                    }
+                  ]
+                },
+                {
+                  "name": "occurredAt",
+                  "kind": "datetime",
+                  "label": "When it happened",
+                  "hint": "Leave empty for now. Backdates the journal entry"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "summary": "Changes a library entry. Only the fields you set are sent.",
+          "scopes": [
+            "write:library",
+            "write:reviews"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "LibraryEntry",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Library entry id",
+              "hint": "Your library entry's id, from library.list or library.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "library.list",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "patch",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "status",
+                  "kind": "enum",
+                  "label": "Status",
+                  "enum": "UserBookStatus"
+                },
+                {
+                  "name": "date",
+                  "kind": "date",
+                  "label": "Date",
+                  "hint": "The day of the status change. Leave empty for today in your timezone"
+                },
+                {
+                  "name": "startDate",
+                  "kind": "date",
+                  "label": "Start date"
+                },
+                {
+                  "name": "rating",
+                  "kind": "number",
+                  "label": "Rating",
+                  "hint": "0.5 to 5 in half steps"
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting"
+                },
+                {
+                  "name": "editionId",
+                  "kind": "number",
+                  "label": "Edition id",
+                  "hint": "An edition of this book, from books.editions"
+                },
+                {
+                  "name": "notes",
+                  "kind": "longText",
+                  "label": "Private notes"
+                },
+                {
+                  "name": "readCount",
+                  "kind": "number",
+                  "label": "Read count"
+                },
+                {
+                  "name": "recommendedBy",
+                  "kind": "text",
+                  "label": "Recommended by"
+                },
+                {
+                  "name": "recommendedFor",
+                  "kind": "text",
+                  "label": "Recommended for"
+                },
+                {
+                  "name": "review",
+                  "kind": "options",
+                  "label": "Review",
+                  "hint": "Every review field needs the write:reviews scope",
+                  "fields": [
+                    {
+                      "name": "markdown",
+                      "kind": "longText",
+                      "label": "Review (Markdown)"
+                    },
+                    {
+                      "name": "hasSpoilers",
+                      "kind": "boolean",
+                      "label": "Has spoilers"
+                    },
+                    {
+                      "name": "reviewedAt",
+                      "kind": "date",
+                      "label": "Reviewed on"
+                    }
+                  ]
+                },
+                {
+                  "name": "occurredAt",
+                  "kind": "datetime",
+                  "label": "When it happened",
+                  "hint": "Leave empty for now. Backdates the journal entry"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "setStatus",
+          "summary": "Changes a book's status. Currently Reading starts a read (a new one on a re-read) and Read finishes it; the server writes the journal entries.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "LibraryEntry",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Library entry id",
+              "hint": "Your library entry's id, from library.list or library.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "library.list",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "status",
+              "kind": "enum",
+              "label": "Status",
+              "enum": "UserBookStatus",
+              "required": true,
+              "example": "CurrentlyReading"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "date",
+                  "kind": "date",
+                  "label": "Date",
+                  "hint": "The day of the change. Leave empty for today"
+                },
+                {
+                  "name": "occurredAt",
+                  "kind": "datetime",
+                  "label": "When it happened",
+                  "hint": "Leave empty for now"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rate",
+          "summary": "Rates a book 0.5 to 5 in half steps, or clears the rating.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "LibraryEntry",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Library entry id",
+              "hint": "Your library entry's id, from library.list or library.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "library.list",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "rating",
+              "kind": "number",
+              "label": "Rating",
+              "hint": "0.5 to 5 in half steps. Empty clears it (null)",
+              "required": true,
+              "nullable": true,
+              "example": 4.5
+            }
+          ]
+        },
+        {
+          "name": "markOwned",
+          "summary": "Marks an edition as owned: it goes on your Owned list, which the server creates the first time. Safe to repeat.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "OwnedMark",
+          "params": [
+            {
+              "name": "editionId",
+              "kind": "number",
+              "label": "Edition id",
+              "hint": "An edition's id, from books.editions or books.findByIsbn",
+              "required": true,
+              "example": 3274049
+            }
+          ]
+        },
+        {
+          "name": "unmarkOwned",
+          "summary": "Takes a book off your Owned list. Returns false if it wasn't on it.",
+          "scopes": [
+            "read:me:content",
+            "read:lists",
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "boolean",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            }
+          ]
+        },
+        {
+          "name": "owned",
+          "summary": "Books on your Owned list, most recently marked first.",
+          "scopes": [
+            "read:me:content",
+            "read:lists"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<OwnedBook>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "remove",
+          "summary": "Takes a book off your shelf.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Library entry id",
+              "hint": "Your library entry's id, from library.list or library.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "library.list",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "reads",
+      "summary": "Reading sessions for a library entry: progress, dates and re-reads.",
+      "methods": [
+        {
+          "name": "list",
+          "summary": "Every read of a library entry, newest first.",
+          "scopes": [
+            "read:library"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Read[]",
+          "params": [
+            {
+              "name": "userBookId",
+              "kind": "number",
+              "label": "Library entry id",
+              "hint": "Your library entry's id, from library.list or library.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "library.list",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "current",
+          "summary": "The read in progress (started, not finished), or null.",
+          "scopes": [
+            "read:library"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Read | null",
+          "params": [
+            {
+              "name": "userBookId",
+              "kind": "number",
+              "label": "Library entry id",
+              "hint": "Your library entry's id, from library.list or library.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "library.list",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "setProgress",
+          "summary": "Records progress on the read in progress. Progress of 100% finishes the read and marks the book Read.",
+          "scopes": [
+            "read:library",
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "UpdatedRead",
+          "params": [
+            {
+              "name": "userBookId",
+              "kind": "number",
+              "label": "Library entry id",
+              "hint": "Your library entry's id, from library.list or library.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "library.list",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "input",
+              "kind": "json",
+              "label": "Progress",
+              "hint": "Exactly one of {pages}, {seconds} or {percent}, plus an optional occurredAt (ISO date and time)",
+              "required": true,
+              "example": {
+                "pages": 142
+              }
+            }
+          ]
+        },
+        {
+          "name": "add",
+          "summary": "Logs a read, e.g. one from before you used Hardcover. With a finish date, the server records it as finished.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "UpdatedRead",
+          "params": [
+            {
+              "name": "userBookId",
+              "kind": "number",
+              "label": "Library entry id",
+              "hint": "Your library entry's id, from library.list or library.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "library.list",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "dates",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "startedAt",
+                  "kind": "date",
+                  "label": "Started"
+                },
+                {
+                  "name": "finishedAt",
+                  "kind": "date",
+                  "label": "Finished"
+                },
+                {
+                  "name": "precision",
+                  "kind": "enum",
+                  "label": "Finish date precision",
+                  "enum": "DatePrecision",
+                  "hint": "How exact the finish date is, e.g. Month for \"sometime in March\""
+                },
+                {
+                  "name": "editionId",
+                  "kind": "number",
+                  "label": "Edition id",
+                  "hint": "The edition read, if not the library entry's own"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "summary": "Changes a read's dates or edition. Only the fields you set change.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "UpdatedRead",
+          "params": [
+            {
+              "name": "readId",
+              "kind": "number",
+              "label": "Read id",
+              "hint": "A read's id, from reads.list",
+              "required": true,
+              "exampleFrom": {
+                "method": "reads.list",
+                "args": [
+                  "$entry"
+                ],
+                "pick": "0.id"
+              }
+            },
+            {
+              "name": "patch",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "startedAt",
+                  "kind": "date",
+                  "label": "Started"
+                },
+                {
+                  "name": "finishedAt",
+                  "kind": "date",
+                  "label": "Finished",
+                  "hint": "The SDK takes null to clear it, so the read is in progress again"
+                },
+                {
+                  "name": "precision",
+                  "kind": "enum",
+                  "label": "Finish date precision",
+                  "enum": "DatePrecision",
+                  "hint": "How exact the finish date is, e.g. Month for \"sometime in March\""
+                },
+                {
+                  "name": "editionId",
+                  "kind": "number",
+                  "label": "Edition id",
+                  "hint": "The edition read, if not the library entry's own"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "summary": "Deletes a read and the journal entries it wrote.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "readId",
+              "kind": "number",
+              "label": "Read id",
+              "hint": "A read's id, from reads.list",
+              "required": true,
+              "exampleFrom": {
+                "method": "reads.list",
+                "args": [
+                  "$entry"
+                ],
+                "pick": "0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "finished",
+          "summary": "Your reads finished between two days (inclusive), newest first, each with its book.",
+          "scopes": [
+            "read:me:content",
+            "read:library"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<FinishedRead>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "from",
+                  "kind": "date",
+                  "label": "From",
+                  "required": true,
+                  "example": "2026-01-01"
+                },
+                {
+                  "name": "to",
+                  "kind": "date",
+                  "label": "To",
+                  "required": true,
+                  "example": "2026-12-31"
+                },
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lists",
+      "summary": "Lists: yours and other readers', their books, order, following and members.",
+      "methods": [
+        {
+          "name": "mine",
+          "summary": "Your lists.",
+          "scopes": [
+            "read:me:content",
+            "read:lists"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<List>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "forUser",
+          "summary": "Someone's lists that you can see.",
+          "scopes": [
+            "read:lists"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<List>",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "get",
+          "summary": "A list with a page of its books, or null.",
+          "scopes": [
+            "read:lists"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "ListWithBooks | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "List id",
+              "hint": "A list's id, from lists.mine or search.lists",
+              "required": true,
+              "example": 3
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 50
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "create",
+          "summary": "Makes a list.",
+          "scopes": [
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "List",
+          "params": [
+            {
+              "name": "input",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "name",
+                  "kind": "text",
+                  "label": "Name",
+                  "required": true,
+                  "example": "Playground list"
+                },
+                {
+                  "name": "description",
+                  "kind": "longText",
+                  "label": "Description"
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting",
+                  "example": "Private"
+                },
+                {
+                  "name": "ranked",
+                  "kind": "boolean",
+                  "label": "Ranked"
+                },
+                {
+                  "name": "defaultView",
+                  "kind": "text",
+                  "label": "Default view"
+                },
+                {
+                  "name": "featuredProfile",
+                  "kind": "boolean",
+                  "label": "Featured on profile"
+                },
+                {
+                  "name": "url",
+                  "kind": "text",
+                  "label": "Link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "summary": "Changes a list. Only the fields you set are sent.",
+          "scopes": [
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "List",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "List id",
+              "hint": "One of your lists' ids, from lists.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "patch",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "name",
+                  "kind": "text",
+                  "label": "Name"
+                },
+                {
+                  "name": "description",
+                  "kind": "longText",
+                  "label": "Description"
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting"
+                },
+                {
+                  "name": "ranked",
+                  "kind": "boolean",
+                  "label": "Ranked"
+                },
+                {
+                  "name": "defaultView",
+                  "kind": "text",
+                  "label": "Default view"
+                },
+                {
+                  "name": "featuredProfile",
+                  "kind": "boolean",
+                  "label": "Featured on profile"
+                },
+                {
+                  "name": "url",
+                  "kind": "text",
+                  "label": "Link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "summary": "Deletes a list.",
+          "scopes": [
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "List id",
+              "hint": "One of your lists' ids, from lists.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "addBook",
+          "summary": "Adds a book. Adding a book that's already on the list returns the existing row, so this is safe to repeat.",
+          "scopes": [
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "ListBookRow",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "One of your lists' ids, from lists.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "editionId",
+                  "kind": "number",
+                  "label": "Edition id",
+                  "hint": "Without it, the list shows the book's default edition"
+                },
+                {
+                  "name": "position",
+                  "kind": "number",
+                  "label": "Position",
+                  "hint": "On a ranked list"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "removeBook",
+          "summary": "Takes a book off a list. Returns false if it wasn't on it.",
+          "scopes": [
+            "read:lists",
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "boolean",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "One of your lists' ids, from lists.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            }
+          ]
+        },
+        {
+          "name": "addBooks",
+          "summary": "Bulk add by ISBN, e.g. from a shelf of barcode scans. Exact matches only: anything without an exact edition is reported, never guessed.",
+          "scopes": [
+            "read:catalog",
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "AddBooksResult",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "One of your lists' ids, from lists.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "codes",
+              "kind": "lines",
+              "label": "Scanned codes, one per line",
+              "itemKind": "text",
+              "required": true,
+              "example": [
+                "978-0-593-13520-4",
+                "071612345678"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "reorder",
+          "summary": "Puts a ranked list's books in a new order: pass every list-book id on the list, first to last.",
+          "scopes": [
+            "read:lists",
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "void",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "One of your lists' ids, from lists.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "listBookIds",
+              "kind": "lines",
+              "label": "List-book ids, in the new order",
+              "itemKind": "number",
+              "hint": "The id of every row in the list's listBooks, from lists.get",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.get",
+                "args": [
+                  "$listId"
+                ],
+                "pick": "listBooks.*.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "follow",
+          "summary": "Follows a list. Safe to repeat.",
+          "scopes": [
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "void",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "A list's id, from lists.mine or search.lists",
+              "required": true,
+              "example": 3
+            }
+          ]
+        },
+        {
+          "name": "unfollow",
+          "summary": "Stops following a list. Returns false if you weren't following it.",
+          "scopes": [
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "boolean",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "A list's id, from lists.mine or search.lists",
+              "required": true,
+              "example": 3
+            }
+          ]
+        },
+        {
+          "name": "followed",
+          "summary": "Lists you follow, most recently followed first.",
+          "scopes": [
+            "read:me:content",
+            "read:lists"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<FollowedList>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "members",
+          "summary": "Everyone invited to a list, with their status.",
+          "scopes": [
+            "read:lists"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "ListMember[]",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "A list's id, from lists.mine or search.lists",
+              "required": true,
+              "example": 3
+            }
+          ]
+        },
+        {
+          "name": "memberships",
+          "summary": "Your list invites and memberships, newest first.",
+          "scopes": [
+            "read:me:content",
+            "read:lists"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "ListMembership[]",
+          "params": []
+        },
+        {
+          "name": "invite",
+          "summary": "Invites a reader to edit your list. Owner only, and behind a feature flag for now.",
+          "scopes": [
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "void",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "One of your lists' ids, from lists.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "respond",
+          "summary": "Answers an invite to someone else's list. Only the invitee can.",
+          "scopes": [
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "void",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "A list's id, from lists.mine or search.lists",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "response",
+              "kind": "enum",
+              "label": "Response",
+              "enum": "ListMemberStatus",
+              "values": [
+                "Accepted",
+                "Ignored",
+                "Spam"
+              ],
+              "required": true,
+              "example": "Accepted"
+            }
+          ]
+        },
+        {
+          "name": "removeMember",
+          "summary": "Takes a member off a list: the owner can remove anyone, and a member can remove themself (leave). Returns false if they weren't a member.",
+          "scopes": [
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "boolean",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "A list's id, from lists.mine or search.lists",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "summary": "Search the catalog and community. Your query goes to the API unchanged.",
+      "methods": [
+        {
+          "name": "books",
+          "summary": "Searches books. The query goes to the API unchanged.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SearchResults<BookHit>",
+          "params": [
+            {
+              "name": "query",
+              "kind": "text",
+              "label": "Query",
+              "required": true,
+              "example": "project hail mary"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "perPage",
+                  "kind": "number",
+                  "label": "Per page",
+                  "example": 5
+                },
+                {
+                  "name": "page",
+                  "kind": "number",
+                  "label": "Page"
+                },
+                {
+                  "name": "fields",
+                  "kind": "lines",
+                  "label": "Fields to search",
+                  "itemKind": "text",
+                  "hint": "Index fields, e.g. title and author_names"
+                },
+                {
+                  "name": "weights",
+                  "kind": "lines",
+                  "label": "Weights",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "typos",
+                  "kind": "lines",
+                  "label": "Typo tolerance",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "sort",
+                  "kind": "text",
+                  "label": "Sort",
+                  "hint": "e.g. users_count:desc"
+                },
+                {
+                  "name": "filterBy",
+                  "kind": "text",
+                  "label": "Filter",
+                  "hint": "e.g. release_year:>2000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "authors",
+          "summary": "Searches authors. The query goes to the API unchanged.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SearchResults<AuthorHit>",
+          "params": [
+            {
+              "name": "query",
+              "kind": "text",
+              "label": "Query",
+              "required": true,
+              "example": "andy weir"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "perPage",
+                  "kind": "number",
+                  "label": "Per page",
+                  "example": 5
+                },
+                {
+                  "name": "page",
+                  "kind": "number",
+                  "label": "Page"
+                },
+                {
+                  "name": "fields",
+                  "kind": "lines",
+                  "label": "Fields to search",
+                  "itemKind": "text",
+                  "hint": "Index fields, e.g. title and author_names"
+                },
+                {
+                  "name": "weights",
+                  "kind": "lines",
+                  "label": "Weights",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "typos",
+                  "kind": "lines",
+                  "label": "Typo tolerance",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "sort",
+                  "kind": "text",
+                  "label": "Sort",
+                  "hint": "e.g. users_count:desc"
+                },
+                {
+                  "name": "filterBy",
+                  "kind": "text",
+                  "label": "Filter",
+                  "hint": "e.g. release_year:>2000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "series",
+          "summary": "Searches series. The query goes to the API unchanged.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SearchResults<SeriesHit>",
+          "params": [
+            {
+              "name": "query",
+              "kind": "text",
+              "label": "Query",
+              "required": true,
+              "example": "stormlight"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "perPage",
+                  "kind": "number",
+                  "label": "Per page",
+                  "example": 5
+                },
+                {
+                  "name": "page",
+                  "kind": "number",
+                  "label": "Page"
+                },
+                {
+                  "name": "fields",
+                  "kind": "lines",
+                  "label": "Fields to search",
+                  "itemKind": "text",
+                  "hint": "Index fields, e.g. title and author_names"
+                },
+                {
+                  "name": "weights",
+                  "kind": "lines",
+                  "label": "Weights",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "typos",
+                  "kind": "lines",
+                  "label": "Typo tolerance",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "sort",
+                  "kind": "text",
+                  "label": "Sort",
+                  "hint": "e.g. users_count:desc"
+                },
+                {
+                  "name": "filterBy",
+                  "kind": "text",
+                  "label": "Filter",
+                  "hint": "e.g. release_year:>2000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "characters",
+          "summary": "Searches characters. The query goes to the API unchanged.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SearchResults<CharacterHit>",
+          "params": [
+            {
+              "name": "query",
+              "kind": "text",
+              "label": "Query",
+              "required": true,
+              "example": "rocky"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "perPage",
+                  "kind": "number",
+                  "label": "Per page",
+                  "example": 5
+                },
+                {
+                  "name": "page",
+                  "kind": "number",
+                  "label": "Page"
+                },
+                {
+                  "name": "fields",
+                  "kind": "lines",
+                  "label": "Fields to search",
+                  "itemKind": "text",
+                  "hint": "Index fields, e.g. title and author_names"
+                },
+                {
+                  "name": "weights",
+                  "kind": "lines",
+                  "label": "Weights",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "typos",
+                  "kind": "lines",
+                  "label": "Typo tolerance",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "sort",
+                  "kind": "text",
+                  "label": "Sort",
+                  "hint": "e.g. users_count:desc"
+                },
+                {
+                  "name": "filterBy",
+                  "kind": "text",
+                  "label": "Filter",
+                  "hint": "e.g. release_year:>2000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "lists",
+          "summary": "Searches lists. The query goes to the API unchanged.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SearchResults<ListHit>",
+          "params": [
+            {
+              "name": "query",
+              "kind": "text",
+              "label": "Query",
+              "required": true,
+              "example": "best"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "perPage",
+                  "kind": "number",
+                  "label": "Per page",
+                  "example": 5
+                },
+                {
+                  "name": "page",
+                  "kind": "number",
+                  "label": "Page"
+                },
+                {
+                  "name": "fields",
+                  "kind": "lines",
+                  "label": "Fields to search",
+                  "itemKind": "text",
+                  "hint": "Index fields, e.g. title and author_names"
+                },
+                {
+                  "name": "weights",
+                  "kind": "lines",
+                  "label": "Weights",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "typos",
+                  "kind": "lines",
+                  "label": "Typo tolerance",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "sort",
+                  "kind": "text",
+                  "label": "Sort",
+                  "hint": "e.g. users_count:desc"
+                },
+                {
+                  "name": "filterBy",
+                  "kind": "text",
+                  "label": "Filter",
+                  "hint": "e.g. release_year:>2000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "prompts",
+          "summary": "Searches prompts. The query goes to the API unchanged.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SearchResults<PromptHit>",
+          "params": [
+            {
+              "name": "query",
+              "kind": "text",
+              "label": "Query",
+              "required": true,
+              "example": "favorite"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "perPage",
+                  "kind": "number",
+                  "label": "Per page",
+                  "example": 5
+                },
+                {
+                  "name": "page",
+                  "kind": "number",
+                  "label": "Page"
+                },
+                {
+                  "name": "fields",
+                  "kind": "lines",
+                  "label": "Fields to search",
+                  "itemKind": "text",
+                  "hint": "Index fields, e.g. title and author_names"
+                },
+                {
+                  "name": "weights",
+                  "kind": "lines",
+                  "label": "Weights",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "typos",
+                  "kind": "lines",
+                  "label": "Typo tolerance",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "sort",
+                  "kind": "text",
+                  "label": "Sort",
+                  "hint": "e.g. users_count:desc"
+                },
+                {
+                  "name": "filterBy",
+                  "kind": "text",
+                  "label": "Filter",
+                  "hint": "e.g. release_year:>2000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "publishers",
+          "summary": "Searches publishers. The query goes to the API unchanged.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SearchResults<PublisherHit>",
+          "params": [
+            {
+              "name": "query",
+              "kind": "text",
+              "label": "Query",
+              "required": true,
+              "example": "penguin"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "perPage",
+                  "kind": "number",
+                  "label": "Per page",
+                  "example": 5
+                },
+                {
+                  "name": "page",
+                  "kind": "number",
+                  "label": "Page"
+                },
+                {
+                  "name": "fields",
+                  "kind": "lines",
+                  "label": "Fields to search",
+                  "itemKind": "text",
+                  "hint": "Index fields, e.g. title and author_names"
+                },
+                {
+                  "name": "weights",
+                  "kind": "lines",
+                  "label": "Weights",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "typos",
+                  "kind": "lines",
+                  "label": "Typo tolerance",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "sort",
+                  "kind": "text",
+                  "label": "Sort",
+                  "hint": "e.g. users_count:desc"
+                },
+                {
+                  "name": "filterBy",
+                  "kind": "text",
+                  "label": "Filter",
+                  "hint": "e.g. release_year:>2000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "users",
+          "summary": "Searches readers. The query goes to the API unchanged.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SearchResults<UserHit>",
+          "params": [
+            {
+              "name": "query",
+              "kind": "text",
+              "label": "Query",
+              "required": true,
+              "example": "adam"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "perPage",
+                  "kind": "number",
+                  "label": "Per page",
+                  "example": 5
+                },
+                {
+                  "name": "page",
+                  "kind": "number",
+                  "label": "Page"
+                },
+                {
+                  "name": "fields",
+                  "kind": "lines",
+                  "label": "Fields to search",
+                  "itemKind": "text",
+                  "hint": "Index fields, e.g. title and author_names"
+                },
+                {
+                  "name": "weights",
+                  "kind": "lines",
+                  "label": "Weights",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "typos",
+                  "kind": "lines",
+                  "label": "Typo tolerance",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "sort",
+                  "kind": "text",
+                  "label": "Sort",
+                  "hint": "e.g. users_count:desc"
+                },
+                {
+                  "name": "filterBy",
+                  "kind": "text",
+                  "label": "Filter",
+                  "hint": "e.g. release_year:>2000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "raw",
+          "summary": "The untouched API response, including Typesense's raw `results`.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "RawSearch",
+          "params": [
+            {
+              "name": "query",
+              "kind": "text",
+              "label": "Query",
+              "required": true,
+              "example": "project hail mary"
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "type",
+                  "kind": "enum",
+                  "label": "Type",
+                  "enum": "SearchType",
+                  "example": "Book",
+                  "hint": "Defaults to books"
+                },
+                {
+                  "name": "perPage",
+                  "kind": "number",
+                  "label": "Per page",
+                  "example": 5
+                },
+                {
+                  "name": "page",
+                  "kind": "number",
+                  "label": "Page"
+                },
+                {
+                  "name": "fields",
+                  "kind": "lines",
+                  "label": "Fields to search",
+                  "itemKind": "text",
+                  "hint": "Index fields, e.g. title and author_names"
+                },
+                {
+                  "name": "weights",
+                  "kind": "lines",
+                  "label": "Weights",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "typos",
+                  "kind": "lines",
+                  "label": "Typo tolerance",
+                  "itemKind": "number",
+                  "hint": "One per field"
+                },
+                {
+                  "name": "sort",
+                  "kind": "text",
+                  "label": "Sort",
+                  "hint": "e.g. users_count:desc"
+                },
+                {
+                  "name": "filterBy",
+                  "kind": "text",
+                  "label": "Filter",
+                  "hint": "e.g. release_year:>2000"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "books",
+      "summary": "Books and editions in the catalog.",
+      "methods": [
+        {
+          "name": "get",
+          "summary": "A book with its contributors and series, or null.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Book | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            }
+          ]
+        },
+        {
+          "name": "getBySlug",
+          "summary": "A book by its slug, or null.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Book | null",
+          "params": [
+            {
+              "name": "slug",
+              "kind": "text",
+              "label": "Slug",
+              "required": true,
+              "example": "project-hail-mary"
+            }
+          ]
+        },
+        {
+          "name": "getMany",
+          "summary": "Books in the order you list their ids; ids that don't exist are skipped.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "BookSummary[]",
+          "params": [
+            {
+              "name": "ids",
+              "kind": "lines",
+              "label": "Book ids, one per line",
+              "itemKind": "number",
+              "required": true,
+              "example": [
+                427578,
+                386446
+              ]
+            }
+          ]
+        },
+        {
+          "name": "editions",
+          "summary": "A book's editions, most-read first.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Edition>",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "findByIsbn",
+          "summary": "Editions with exactly these ISBN-13s or ISBN-10s, each with its book. Spaces and hyphens are fine.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "EditionWithBook[]",
+          "params": [
+            {
+              "name": "isbns",
+              "kind": "lines",
+              "label": "ISBNs, one per line",
+              "itemKind": "text",
+              "required": true,
+              "example": [
+                "9780593135204"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "friends",
+          "summary": "The library entries of people you follow, for one book: who has it, their status and rating, and any review.",
+          "scopes": [
+            "read:me:content",
+            "read:social"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "FriendEntry[]",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "edition",
+          "summary": "An edition by id, with its book, or null.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "EditionWithBook | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Edition id",
+              "hint": "An edition's id, from books.editions or books.findByIsbn",
+              "required": true,
+              "example": 3274049
+            }
+          ]
+        },
+        {
+          "name": "findByExternalIds",
+          "summary": "Books other services know by these ids, e.g. Goodreads or Open Library ids from an import. Ids with no match are left out.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "ExternalMatch[]",
+          "params": [
+            {
+              "name": "platform",
+              "kind": "enum",
+              "label": "Platform",
+              "enum": "Platform",
+              "required": true,
+              "example": "Goodreads"
+            },
+            {
+              "name": "ids",
+              "kind": "lines",
+              "label": "External ids, one per line",
+              "itemKind": "text",
+              "hint": "15839976 is Red Rising on Goodreads",
+              "required": true,
+              "example": [
+                "15839976"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "released",
+          "summary": "Books first released between two days (inclusive), most readers first.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<BookSummary>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "from",
+                  "kind": "date",
+                  "label": "From",
+                  "required": true,
+                  "example": "2026-09-01"
+                },
+                {
+                  "name": "to",
+                  "kind": "date",
+                  "label": "To",
+                  "required": true,
+                  "example": "2026-09-30"
+                },
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "trending",
+          "summary": "Trending books, in trending order. At most 100 per call; page on with `offset`.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<BookSummary>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "duration",
+                  "kind": "literal",
+                  "label": "Period",
+                  "values": [
+                    "week",
+                    "month",
+                    "three_month",
+                    "one_year",
+                    "all"
+                  ],
+                  "example": "month"
+                },
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "authors",
+      "summary": "Authors and their books.",
+      "methods": [
+        {
+          "name": "get",
+          "summary": "An author, or null.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Author | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Author id",
+              "hint": "An author's id, from authors.getBySlug (e.g. \"becky-chambers\")",
+              "required": true,
+              "example": 123645
+            }
+          ]
+        },
+        {
+          "name": "getBySlug",
+          "summary": "An author by their slug, or null.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Author | null",
+          "params": [
+            {
+              "name": "slug",
+              "kind": "text",
+              "label": "Slug",
+              "required": true,
+              "example": "becky-chambers"
+            }
+          ]
+        },
+        {
+          "name": "books",
+          "summary": "Books the author has a credit on, most readers first. Each book appears once.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<BookSummary>",
+          "params": [
+            {
+              "name": "authorId",
+              "kind": "number",
+              "label": "Author id",
+              "hint": "An author's id, from authors.getBySlug (e.g. \"becky-chambers\")",
+              "required": true,
+              "example": 123645
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "series",
+          "summary": "Series with at least one of the author's books, by name.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SeriesSummary[]",
+          "params": [
+            {
+              "name": "authorId",
+              "kind": "number",
+              "label": "Author id",
+              "hint": "An author's id, from authors.getBySlug (e.g. \"becky-chambers\")",
+              "required": true,
+              "example": 123645
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "series",
+      "summary": "Series and their books.",
+      "methods": [
+        {
+          "name": "get",
+          "summary": "A series, or null.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Series | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Series id",
+              "hint": "A series id, from series.getBySlug (e.g. \"red-rising-saga\")",
+              "required": true,
+              "example": 1033
+            }
+          ]
+        },
+        {
+          "name": "getBySlug",
+          "summary": "A series by its slug, or null.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Series | null",
+          "params": [
+            {
+              "name": "slug",
+              "kind": "text",
+              "label": "Slug",
+              "required": true,
+              "example": "red-rising-saga"
+            }
+          ]
+        },
+        {
+          "name": "books",
+          "summary": "Every entry in the series, in position order; entries without a position (box sets, mostly) come last.",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<SeriesEntry>",
+          "params": [
+            {
+              "name": "seriesId",
+              "kind": "number",
+              "label": "Series id",
+              "hint": "A series id, from series.getBySlug (e.g. \"red-rising-saga\")",
+              "required": true,
+              "example": 1033
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 50
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "journal",
+      "summary": "Your reading journal: notes, quotes and the entries the server writes for you.",
+      "methods": [
+        {
+          "name": "forBook",
+          "summary": "Your journal entries for a book, newest first.",
+          "scopes": [
+            "read:me:content",
+            "read:journal"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<JournalEntry>",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "add",
+          "summary": "Adds a journal entry (a note unless `event` says otherwise). The server already journals status changes, progress, ratings and reviews.",
+          "scopes": [
+            "write:library",
+            "read:me:content"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "JournalEntry",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "input",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "event",
+                  "kind": "enum",
+                  "label": "Event",
+                  "enum": "JournalEvent",
+                  "example": "Note"
+                },
+                {
+                  "name": "entry",
+                  "kind": "longText",
+                  "label": "Entry",
+                  "example": "The Rocky chapters are the best part."
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting",
+                  "hint": "Defaults to your activity privacy setting (one extra request)"
+                },
+                {
+                  "name": "editionId",
+                  "kind": "number",
+                  "label": "Edition id"
+                },
+                {
+                  "name": "date",
+                  "kind": "date",
+                  "label": "Day"
+                },
+                {
+                  "name": "tags",
+                  "kind": "json",
+                  "label": "Tags",
+                  "hint": "[{tag, category, spoiler}], e.g. category \"Tag\" or \"Mood\""
+                },
+                {
+                  "name": "metadata",
+                  "kind": "json",
+                  "label": "Metadata",
+                  "hint": "Free-form, e.g. {\"page\": 212} for a quote"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "summary": "Changes a journal entry. Only the fields you set are sent.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "JournalEntry",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Journal entry id",
+              "hint": "Your journal entry's id, from journal.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "journal.forBook",
+                "args": [
+                  427578,
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "patch",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "event",
+                  "kind": "enum",
+                  "label": "Event",
+                  "enum": "JournalEvent"
+                },
+                {
+                  "name": "entry",
+                  "kind": "longText",
+                  "label": "Entry"
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting"
+                },
+                {
+                  "name": "editionId",
+                  "kind": "number",
+                  "label": "Edition id"
+                },
+                {
+                  "name": "date",
+                  "kind": "date",
+                  "label": "Day"
+                },
+                {
+                  "name": "tags",
+                  "kind": "json",
+                  "label": "Tags",
+                  "hint": "[{tag, category, spoiler}]"
+                },
+                {
+                  "name": "metadata",
+                  "kind": "json",
+                  "label": "Metadata"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "summary": "Deletes one journal entry.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Journal entry id",
+              "hint": "Your journal entry's id, from journal.forBook",
+              "required": true,
+              "exampleFrom": {
+                "method": "journal.forBook",
+                "args": [
+                  427578,
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "clearForBook",
+          "summary": "Deletes every journal entry you have for a book, including the ones the server wrote. Returns the removed ids.",
+          "scopes": [
+            "write:library"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "number[]",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "goals",
+      "summary": "Reading goals. The server calculates progress.",
+      "methods": [
+        {
+          "name": "list",
+          "summary": "Your reading goals, newest end date first.",
+          "scopes": [
+            "read:me:content",
+            "read:goals"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Goal[]",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "includeArchived",
+                  "kind": "boolean",
+                  "label": "Include archived"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "get",
+          "summary": "A goal, or null.",
+          "scopes": [
+            "read:goals"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Goal | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Goal id",
+              "hint": "Your goal's id, from goals.list",
+              "required": true,
+              "exampleFrom": {
+                "method": "goals.list",
+                "args": [],
+                "pick": "0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "create",
+          "summary": "Sets a reading goal. Progress is calculated on creation.",
+          "scopes": [
+            "write:goals"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "Goal",
+          "params": [
+            {
+              "name": "fields",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "metric",
+                  "kind": "enum",
+                  "label": "Metric",
+                  "enum": "GoalMetric",
+                  "required": true,
+                  "example": "Book"
+                },
+                {
+                  "name": "goal",
+                  "kind": "number",
+                  "label": "Target",
+                  "hint": "In the metric's unit (hours for hour goals)",
+                  "required": true,
+                  "example": 50
+                },
+                {
+                  "name": "description",
+                  "kind": "text",
+                  "label": "Description",
+                  "required": true,
+                  "example": "50 books in 2026"
+                },
+                {
+                  "name": "startDate",
+                  "kind": "date",
+                  "label": "Start",
+                  "required": true,
+                  "example": "2026-01-01"
+                },
+                {
+                  "name": "endDate",
+                  "kind": "date",
+                  "label": "End",
+                  "required": true,
+                  "example": "2026-12-31"
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting"
+                },
+                {
+                  "name": "conditions",
+                  "kind": "options",
+                  "label": "Only count",
+                  "hint": "Optional filters on which books count",
+                  "fields": [
+                    {
+                      "name": "readingFormatId",
+                      "kind": "enum",
+                      "label": "Format",
+                      "enum": "ReadingFormat"
+                    },
+                    {
+                      "name": "bookCategoryIds",
+                      "kind": "lines",
+                      "label": "Book category ids",
+                      "itemKind": "number"
+                    },
+                    {
+                      "name": "authorGenderIds",
+                      "kind": "lines",
+                      "label": "Author gender ids",
+                      "itemKind": "number"
+                    },
+                    {
+                      "name": "authorBipoc",
+                      "kind": "number",
+                      "label": "Author BIPOC"
+                    },
+                    {
+                      "name": "authorLgbtqia",
+                      "kind": "number",
+                      "label": "Author LGBTQIA+"
+                    }
+                  ]
+                },
+                {
+                  "name": "archived",
+                  "kind": "boolean",
+                  "label": "Archived"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "summary": "Changes only what you pass; everything else stays.",
+          "scopes": [
+            "read:goals",
+            "write:goals"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "Goal",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Goal id",
+              "hint": "Your goal's id, from goals.list",
+              "required": true,
+              "exampleFrom": {
+                "method": "goals.list",
+                "args": [],
+                "pick": "0.id"
+              }
+            },
+            {
+              "name": "patch",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "metric",
+                  "kind": "enum",
+                  "label": "Metric",
+                  "enum": "GoalMetric"
+                },
+                {
+                  "name": "goal",
+                  "kind": "number",
+                  "label": "Target",
+                  "hint": "In the metric's unit (hours for hour goals)"
+                },
+                {
+                  "name": "description",
+                  "kind": "text",
+                  "label": "Description"
+                },
+                {
+                  "name": "startDate",
+                  "kind": "date",
+                  "label": "Start"
+                },
+                {
+                  "name": "endDate",
+                  "kind": "date",
+                  "label": "End"
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting"
+                },
+                {
+                  "name": "conditions",
+                  "kind": "options",
+                  "label": "Only count",
+                  "hint": "Optional filters on which books count",
+                  "fields": [
+                    {
+                      "name": "readingFormatId",
+                      "kind": "enum",
+                      "label": "Format",
+                      "enum": "ReadingFormat"
+                    },
+                    {
+                      "name": "bookCategoryIds",
+                      "kind": "lines",
+                      "label": "Book category ids",
+                      "itemKind": "number"
+                    },
+                    {
+                      "name": "authorGenderIds",
+                      "kind": "lines",
+                      "label": "Author gender ids",
+                      "itemKind": "number"
+                    },
+                    {
+                      "name": "authorBipoc",
+                      "kind": "number",
+                      "label": "Author BIPOC"
+                    },
+                    {
+                      "name": "authorLgbtqia",
+                      "kind": "number",
+                      "label": "Author LGBTQIA+"
+                    }
+                  ]
+                },
+                {
+                  "name": "archived",
+                  "kind": "boolean",
+                  "label": "Archived"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "archive",
+          "summary": "Hides a goal from the default list.",
+          "scopes": [
+            "read:goals",
+            "write:goals"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "Goal",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Goal id",
+              "hint": "Your goal's id, from goals.list",
+              "required": true,
+              "exampleFrom": {
+                "method": "goals.list",
+                "args": [],
+                "pick": "0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "unarchive",
+          "summary": "Brings an archived goal back.",
+          "scopes": [
+            "read:goals",
+            "write:goals"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "Goal",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Goal id",
+              "hint": "Your goal's id, from goals.list",
+              "required": true,
+              "exampleFrom": {
+                "method": "goals.list",
+                "args": [
+                  {
+                    "includeArchived": true
+                  }
+                ],
+                "pick": "0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "refreshProgress",
+          "summary": "Asks the server to recalculate a goal's progress now.",
+          "scopes": [
+            "write:goals"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "Goal",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Goal id",
+              "hint": "Your goal's id, from goals.list",
+              "required": true,
+              "exampleFrom": {
+                "method": "goals.list",
+                "args": [],
+                "pick": "0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "summary": "Deletes a goal.",
+          "scopes": [
+            "write:goals"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Goal id",
+              "hint": "Your goal's id, from goals.list",
+              "required": true,
+              "exampleFrom": {
+                "method": "goals.list",
+                "args": [],
+                "pick": "0.id"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "vibes",
+      "summary": "Vibes: book recommendations built from signals.",
+      "methods": [
+        {
+          "name": "mine",
+          "summary": "Your vibes, most recently changed first.",
+          "scopes": [
+            "read:me:content",
+            "read:vibes"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Vibe>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "forUser",
+          "summary": "Someone's vibes that you can see.",
+          "scopes": [
+            "read:vibes"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Vibe>",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "get",
+          "summary": "A vibe, or null.",
+          "scopes": [
+            "read:vibes"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Vibe | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Vibe id",
+              "hint": "A vibe's id, from vibes.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "vibes.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "books",
+          "summary": "A vibe's books in ranked order, a page at a time. Check `resultsPending` before treating an empty page as no matches.",
+          "scopes": [
+            "read:vibes",
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "VibeBooks",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Vibe id",
+              "hint": "A vibe's id, from vibes.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "vibes.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "create",
+          "summary": "Makes a vibe from signals. Supporter perk (the server enforces it).",
+          "scopes": [
+            "write:vibes"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "Vibe",
+          "params": [
+            {
+              "name": "input",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "title",
+                  "kind": "text",
+                  "label": "Title",
+                  "required": true,
+                  "example": "Cozy mysteries"
+                },
+                {
+                  "name": "description",
+                  "kind": "longText",
+                  "label": "Description"
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting",
+                  "example": "Private"
+                },
+                {
+                  "name": "signals",
+                  "kind": "json",
+                  "label": "Signals",
+                  "example": [
+                    {
+                      "type": "genre",
+                      "value": "mystery",
+                      "weight": 4
+                    },
+                    {
+                      "type": "semantic",
+                      "text": "small towns, tea, no gore",
+                      "weight": 3
+                    }
+                  ],
+                  "hint": "Each signal is {type, value|id|text, weight}; weight -5 to 5, negative steers away"
+                },
+                {
+                  "name": "exclusions",
+                  "kind": "json",
+                  "label": "Exclusions",
+                  "example": [
+                    {
+                      "type": "book",
+                      "id": 427578
+                    }
+                  ],
+                  "hint": "Books or authors to leave out: [{type: \"book\" | \"author\", id}]"
+                },
+                {
+                  "name": "dynamicSignals",
+                  "kind": "json",
+                  "label": "Dynamic signals",
+                  "example": [
+                    {
+                      "category": "recent_rated_books",
+                      "count": 5,
+                      "minRating": 4.5,
+                      "weight": 3
+                    }
+                  ],
+                  "hint": "Signals from your own history, e.g. your recent five-star books"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "summary": "Changes a vibe. Exclusions work for everyone; signals need Supporter; title, description and privacy only change on custom vibes.",
+          "scopes": [
+            "write:vibes"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "Vibe",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Vibe id",
+              "hint": "A vibe's id, from vibes.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "vibes.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "patch",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "title",
+                  "kind": "text",
+                  "label": "Title",
+                  "hint": "Custom vibes only"
+                },
+                {
+                  "name": "description",
+                  "kind": "longText",
+                  "label": "Description",
+                  "hint": "Custom vibes only"
+                },
+                {
+                  "name": "privacy",
+                  "kind": "enum",
+                  "label": "Privacy",
+                  "enum": "PrivacySetting",
+                  "hint": "Custom vibes only"
+                },
+                {
+                  "name": "addSignals",
+                  "kind": "json",
+                  "label": "Add signals",
+                  "hint": "Supporter perk. Added to the existing ones. Each signal is {type, value|id|text, weight}; weight -5 to 5, negative steers away"
+                },
+                {
+                  "name": "addExclusions",
+                  "kind": "json",
+                  "label": "Add exclusions",
+                  "example": [
+                    {
+                      "type": "book",
+                      "id": 427578
+                    }
+                  ],
+                  "hint": "Books or authors to leave out: [{type: \"book\" | \"author\", id}]"
+                },
+                {
+                  "name": "dynamicSignals",
+                  "kind": "json",
+                  "label": "Dynamic signals",
+                  "hint": "Supporter perk. Replaces the whole set"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "summary": "Deletes a custom vibe. System vibes always exist.",
+          "scopes": [
+            "write:vibes"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Vibe id",
+              "hint": "A vibe's id, from vibes.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "vibes.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "prompts",
+      "summary": "Prompts: community questions that readers answer with books.",
+      "methods": [
+        {
+          "name": "get",
+          "summary": "A prompt, or null.",
+          "scopes": [
+            "read:prompts"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Prompt | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Prompt id",
+              "hint": "A prompt's id, from prompts.getBySlug or prompts.list",
+              "required": true,
+              "example": 1
+            }
+          ]
+        },
+        {
+          "name": "getBySlug",
+          "summary": "A prompt by its slug, or null.",
+          "scopes": [
+            "read:prompts"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Prompt | null",
+          "params": [
+            {
+              "name": "slug",
+              "kind": "text",
+              "label": "Slug",
+              "required": true,
+              "example": "whats-your-favorite-cozy-fantasy"
+            }
+          ]
+        },
+        {
+          "name": "list",
+          "summary": "Browse prompts, most answered first unless `sort` says otherwise.",
+          "scopes": [
+            "read:prompts"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Prompt>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "sort",
+                  "kind": "literal",
+                  "label": "Sort",
+                  "values": [
+                    "popular",
+                    "newest"
+                  ],
+                  "example": "popular"
+                },
+                {
+                  "name": "featured",
+                  "kind": "boolean",
+                  "label": "Only featured"
+                },
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "mine",
+          "summary": "Prompts you asked, newest first.",
+          "scopes": [
+            "read:me:content",
+            "read:prompts"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Prompt>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "forUser",
+          "summary": "Prompts someone asked, newest first.",
+          "scopes": [
+            "read:prompts"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Prompt>",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "books",
+          "summary": "A prompt's books, most picked first: the ranking the site shows.",
+          "scopes": [
+            "read:prompts"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<PromptBook>",
+          "params": [
+            {
+              "name": "promptId",
+              "kind": "number",
+              "label": "Prompt id",
+              "hint": "A prompt's id, from prompts.getBySlug or prompts.list",
+              "required": true,
+              "example": 1
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "forBook",
+          "summary": "The prompts a book was given as an answer to, where it was picked most first.",
+          "scopes": [
+            "read:prompts"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<PromptForBook>",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "myAnswers",
+          "summary": "Your answers to a prompt, newest first.",
+          "scopes": [
+            "read:me:content",
+            "read:prompts"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "PromptAnswerWithBook[]",
+          "params": [
+            {
+              "name": "promptId",
+              "kind": "number",
+              "label": "Prompt id",
+              "hint": "A prompt's id, from prompts.getBySlug or prompts.list",
+              "required": true,
+              "example": 1
+            }
+          ]
+        },
+        {
+          "name": "following",
+          "summary": "Prompts you follow, most recently followed first.",
+          "scopes": [
+            "read:me:content",
+            "read:prompts"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<FollowedPrompt>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "create",
+          "summary": "Asks a new prompt. Prompts are always public; the question must be unique and at most 140 characters.",
+          "scopes": [
+            "write:prompts"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "Prompt",
+          "params": [
+            {
+              "name": "input",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "question",
+                  "kind": "text",
+                  "label": "Question",
+                  "hint": "At most 140 characters, and unique",
+                  "required": true,
+                  "example": "What book made you laugh out loud on a plane?"
+                },
+                {
+                  "name": "description",
+                  "kind": "longText",
+                  "label": "Description",
+                  "hint": "Say what kind of answers you're after",
+                  "required": true,
+                  "example": "Books that are funny enough to embarrass you in public."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "summary": "Changes your prompt. Once it has more than 5 answers, the server only changes the description.",
+          "scopes": [
+            "read:prompts",
+            "write:prompts"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "Prompt",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Prompt id",
+              "hint": "A prompt's id, from prompts.getBySlug or prompts.list",
+              "required": true,
+              "example": 1
+            },
+            {
+              "name": "patch",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "question",
+                  "kind": "text",
+                  "label": "Question"
+                },
+                {
+                  "name": "description",
+                  "kind": "longText",
+                  "label": "Description"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "summary": "Deletes your prompt and every answer to it.",
+          "scopes": [
+            "write:prompts"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Prompt id",
+              "hint": "A prompt's id, from prompts.getBySlug or prompts.list",
+              "required": true,
+              "example": 1
+            }
+          ]
+        },
+        {
+          "name": "answer",
+          "summary": "Answers a prompt with a book. Answering with the same book again updates its description, so this is safe to repeat.",
+          "scopes": [
+            "write:prompts"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "PromptAnswerResult",
+          "params": [
+            {
+              "name": "promptId",
+              "kind": "number",
+              "label": "Prompt id",
+              "hint": "A prompt's id, from prompts.getBySlug or prompts.list",
+              "required": true,
+              "example": 1
+            },
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "description",
+                  "kind": "longText",
+                  "label": "Why this book"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "updateAnswer",
+          "summary": "Changes why you picked a book.",
+          "scopes": [
+            "write:prompts"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "PromptAnswer",
+          "params": [
+            {
+              "name": "answerId",
+              "kind": "number",
+              "label": "Answer id",
+              "hint": "Your answer's id, from prompts.myAnswers",
+              "required": true,
+              "exampleFrom": {
+                "method": "prompts.myAnswers",
+                "args": [
+                  1
+                ],
+                "pick": "0.id"
+              }
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": true,
+              "fields": [
+                {
+                  "name": "description",
+                  "kind": "longText",
+                  "label": "Why this book"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "deleteAnswer",
+          "summary": "Takes back your answer.",
+          "scopes": [
+            "write:prompts"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "answerId",
+              "kind": "number",
+              "label": "Answer id",
+              "hint": "Your answer's id, from prompts.myAnswers",
+              "required": true,
+              "exampleFrom": {
+                "method": "prompts.myAnswers",
+                "args": [
+                  1
+                ],
+                "pick": "0.id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "follow",
+          "summary": "Follows a prompt, so its new answers show up for you. Safe to repeat.",
+          "scopes": [
+            "write:prompts"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "void",
+          "params": [
+            {
+              "name": "promptId",
+              "kind": "number",
+              "label": "Prompt id",
+              "hint": "A prompt's id, from prompts.getBySlug or prompts.list",
+              "required": true,
+              "example": 1
+            }
+          ]
+        },
+        {
+          "name": "unfollow",
+          "summary": "Stops following a prompt. Returns false if you weren't following it.",
+          "scopes": [
+            "write:prompts"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "boolean",
+          "params": [
+            {
+              "name": "promptId",
+              "kind": "number",
+              "label": "Prompt id",
+              "hint": "A prompt's id, from prompts.getBySlug or prompts.list",
+              "required": true,
+              "example": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "summary": "Readers: profiles, who follows whom, and blocks.",
+      "methods": [
+        {
+          "name": "get",
+          "summary": "A reader's public profile, or null.",
+          "scopes": [
+            "read:users"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "UserProfile | null",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1
+            }
+          ]
+        },
+        {
+          "name": "getByUsername",
+          "summary": "A reader by username, or null. Usernames are case-insensitive; a leading @ is fine.",
+          "scopes": [
+            "read:users"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "UserProfile | null",
+          "params": [
+            {
+              "name": "username",
+              "kind": "text",
+              "label": "Username",
+              "required": true,
+              "example": "adam"
+            }
+          ]
+        },
+        {
+          "name": "followers",
+          "summary": "Who follows a reader, most recent first.",
+          "scopes": [
+            "read:social"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Follower>",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "following",
+          "summary": "Who a reader follows, most recent first.",
+          "scopes": [
+            "read:social"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Following>",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 25
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "follow",
+          "summary": "Follows a reader.",
+          "scopes": [
+            "write:social"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "void",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "unfollow",
+          "summary": "Stops following a reader.",
+          "scopes": [
+            "write:social"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "void",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "removeFollower",
+          "summary": "Removes a reader who follows you.",
+          "scopes": [
+            "write:social"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "block",
+          "summary": "Blocks a reader. A full block (the default) also ends follows both ways and stops their likes and notifications.",
+          "scopes": [
+            "write:social"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "void",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "type",
+                  "kind": "enum",
+                  "label": "Kind of block",
+                  "enum": "BlockType",
+                  "hint": "Full (the default) or Invites, which only stops club and buddy-read invites"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "unblock",
+          "summary": "Lifts every block on a reader. Returns false if they weren't blocked.",
+          "scopes": [
+            "read:me:content",
+            "read:social",
+            "write:social"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "boolean",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "blocked",
+          "summary": "Readers you blocked, most recent first.",
+          "scopes": [
+            "read:me:content",
+            "read:social"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "BlockedUser[]",
+          "params": []
+        }
+      ]
+    },
+    {
+      "name": "likes",
+      "summary": "Likes on activities, lists, journal entries, reviews and vibes.",
+      "methods": [
+        {
+          "name": "like",
+          "summary": "Likes something. Safe to repeat. Returns its new like count.",
+          "scopes": [
+            "write:social"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "number",
+          "params": [
+            {
+              "name": "type",
+              "kind": "enum",
+              "label": "What to like",
+              "enum": "LikeableType",
+              "hint": "A review is liked as its library entry: Review with the entry's id",
+              "required": true,
+              "example": "List"
+            },
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Its id",
+              "hint": "The id of the list, activity, journal entry, library entry or vibe",
+              "required": true,
+              "example": 3
+            }
+          ]
+        },
+        {
+          "name": "unlike",
+          "summary": "Takes a like back. Returns the new like count.",
+          "scopes": [
+            "write:social"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "number",
+          "params": [
+            {
+              "name": "type",
+              "kind": "enum",
+              "label": "What to unlike",
+              "enum": "LikeableType",
+              "required": true,
+              "example": "List"
+            },
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Its id",
+              "hint": "The id of the list, activity, journal entry, library entry or vibe",
+              "required": true,
+              "example": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "activities",
+      "summary": "Activity feeds: what readers did, as the site shows it.",
+      "methods": [
+        {
+          "name": "forUser",
+          "summary": "A reader's activity, newest first.",
+          "scopes": [
+            "read:social"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Activity>",
+          "params": [
+            {
+              "name": "userId",
+              "kind": "number",
+              "label": "User id",
+              "hint": "A reader's id, from users.getByUsername (e.g. \"adam\")",
+              "required": true,
+              "example": 1,
+              "exampleFrom": {
+                "method": "me.id",
+                "args": [],
+                "pick": ""
+              }
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "forBook",
+          "summary": "Activity about a book, newest first.",
+          "scopes": [
+            "read:social"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Activity>",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "following",
+          "summary": "Activity from the people you follow, newest first.",
+          "scopes": [
+            "read:me:content",
+            "read:social"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Activity>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "summary": "Deletes one of your own activity entries.",
+          "scopes": [
+            "write:social"
+          ],
+          "writes": true,
+          "destructive": true,
+          "returns": "void",
+          "params": [
+            {
+              "name": "id",
+              "kind": "number",
+              "label": "Activity id",
+              "hint": "Your activity's id, from activities.forUser",
+              "required": true,
+              "exampleFrom": {
+                "method": "activities.forUser",
+                "args": [
+                  "$me",
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "notifications",
+      "summary": "Your in-app notifications, as the site's bell shows them.",
+      "methods": [
+        {
+          "name": "list",
+          "summary": "Your notifications, newest first.",
+          "scopes": [
+            "read:me:content",
+            "read:notifications"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "Page<Notification>",
+          "params": [
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "unreadCount",
+          "summary": "How many notifications are unread: the number on the bell.",
+          "scopes": [
+            "read:me:content",
+            "read:notifications"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "number",
+          "params": []
+        },
+        {
+          "name": "markRead",
+          "summary": "Marks notifications read: these, or every unread one when no ids are given. Returns how many changed.",
+          "scopes": [
+            "read:me:content",
+            "write:notifications"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "number",
+          "params": [
+            {
+              "name": "ids",
+              "kind": "lines",
+              "label": "Notification ids, one per line",
+              "itemKind": "number",
+              "hint": "The ids from notifications.list. Empty marks every unread one",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "summary": "Your reading stats for a period, matching the site's Stats page.",
+      "call": "function",
+      "module": "@hardcover/sdk/stats",
+      "$comment": "Not a client resource: a function from the stats entry point, called with the client first, e.g. readingStats(hc, period.year(2026)).",
+      "methods": [
+        {
+          "name": "readingStats",
+          "summary": "Your stats for a period: books, pages, time, authors, genres and more. Fetches your counted library each time (one request per 100 books).",
+          "scopes": [
+            "read:me:content",
+            "read:library",
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "ReadingStats",
+          "params": [
+            {
+              "name": "period",
+              "kind": "period",
+              "label": "Period",
+              "hint": "life, a year, a month, or a custom range of days",
+              "required": true,
+              "example": {
+                "kind": "year",
+                "year": 2026
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

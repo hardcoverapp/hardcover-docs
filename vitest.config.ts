@@ -17,6 +17,9 @@ export default defineConfig(
             alias: {
                 '@': resolve(__dirname, 'src'),
             },
+            // The linked @hardcover/sdk's source, as in astro.config.mjs.
+            // REMOVE when switching to the published npm package.
+            conditions: ['@hardcover/source', 'module', 'browser', 'development|production'],
         }
     }
 );

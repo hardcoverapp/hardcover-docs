@@ -28,6 +28,12 @@
       "actions": "Actions & Scopes",
       "patLinkBuilder": "PAT Link Builder"
     },
+    "sdk": {
+      "title": "SDKs",
+      "typescript": "TypeScript",
+      "overview": "Overview",
+      "resources": "Resources"
+    },
     "community": {
       "title": "Community",
       "showcase": "Showcase"

@@ -1,0 +1,462 @@
+/* SDK explorer. Built on the site's --hc-* brand tokens, so it follows the
+   light and dark themes. Status is always spelled out in text; color only
+   reinforces it. */
+
+.sdkx {
+    container-type: inline-size;
+    border: 1px solid var(--hc-rule);
+    border-radius: 12px;
+    background: var(--hc-card);
+    color: var(--hc-ink);
+    padding: 1.25rem;
+    display: grid;
+    gap: 1rem;
+    font-family: var(--font-sans);
+}
+
+.sdkx code,
+.sdkx pre {
+    font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+/* Header ------------------------------------------------------------- */
+
+.sdkx-head {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.sdkx-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+}
+
+.sdkx-title h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.sdkx-title h4 code {
+    background: none;
+    padding: 0;
+    color: var(--hc-ink);
+}
+
+.sdkx-summary {
+    margin: 0;
+    color: var(--hc-ink-2);
+    font-size: 0.9rem;
+}
+
+.sdkx-scopes {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--hc-ink-2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+}
+
+.sdkx-scopes code,
+.sdkx-error code {
+    font-size: 0.75rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 6px;
+    background: var(--hc-indigo-soft);
+    color: var(--hc-ink);
+}
+
+.sdkx-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+}
+
+.sdkx-badge.is-read {
+    color: var(--hc-indigo);
+    background: var(--hc-indigo-soft);
+}
+
+.sdkx-badge.is-write,
+.sdkx-badge.is-delete {
+    color: var(--hc-closed);
+    background: var(--hc-closed-soft);
+}
+
+/* Body: inputs beside the code, stacked on narrow screens ------------- */
+
+.sdkx-body {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+/* Side by side only when the explorer itself is wide; inside a doc page's
+   text column the code gets the full width below the inputs. */
+@container (min-width: 56rem) {
+    .sdkx-body {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    }
+}
+
+.sdkx-form {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+}
+
+.sdkx fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.7rem;
+    min-width: 0;
+}
+
+.sdkx legend {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--hc-ink-2);
+    margin-bottom: 0.25rem;
+}
+
+.sdkx .sdkx-options {
+    border-left: 2px solid var(--hc-rule);
+    padding-left: 0.85rem;
+}
+
+.sdkx-more summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--hc-indigo);
+    width: fit-content;
+}
+
+.sdkx-more[open] summary {
+    margin-bottom: 0.7rem;
+}
+
+.sdkx-more > div {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.sdkx-field {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.sdkx-field label {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.sdkx-required {
+    font-weight: 400;
+    color: var(--hc-ink-2);
+}
+
+.sdkx-field.is-check {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+.sdkx-field.is-check label {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.sdkx-field.is-check input {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.sdkx-field.is-check .sdkx-hint {
+    grid-column: 1 / -1;
+}
+
+.sdkx input:not([type="checkbox"]),
+.sdkx select,
+.sdkx textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 0.875rem;
+    color: var(--hc-ink);
+    background: var(--hc-paper);
+    border: 1px solid var(--hc-rule);
+    border-radius: 8px;
+    padding: 0.45rem 0.6rem;
+}
+
+.sdkx textarea {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    resize: vertical;
+}
+
+.sdkx input[aria-invalid="true"],
+.sdkx textarea[aria-invalid="true"] {
+    border-color: var(--hc-closed);
+}
+
+.sdkx-hint {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--hc-ink-2);
+}
+
+.sdkx-from-account {
+    font-weight: 600;
+    color: var(--hc-indigo);
+}
+
+.sdkx-field-error {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--hc-closed);
+}
+
+.sdkx-field-error::before {
+    content: "Error: ";
+}
+
+/* Actions and token ---------------------------------------------------- */
+
+.sdkx-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+}
+
+.sdkx button {
+    font: inherit;
+    cursor: pointer;
+}
+
+.sdkx-run {
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 8px;
+    border: 0;
+    background: var(--hc-indigo);
+    color: var(--hc-indigo-ink);
+}
+
+.sdkx-run:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.sdkx-token-status {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--hc-ink-2);
+}
+
+.sdkx-link {
+    border: 0;
+    background: none;
+    padding: 0;
+    color: var(--hc-indigo);
+    text-decoration: underline;
+    text-decoration-color: var(--hc-indigo-line);
+    text-underline-offset: 0.2em;
+}
+
+.sdkx-token-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.sdkx-token-row button,
+.sdkx-code-head button {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    border: 1px solid var(--hc-rule);
+    background: var(--hc-card-2);
+    color: var(--hc-ink);
+}
+
+.sdkx a {
+    color: var(--hc-indigo);
+}
+
+/* Code ---------------------------------------------------------------- */
+
+.sdkx-code {
+    border-radius: 10px;
+    background: var(--hc-code-bg);
+    color: var(--hc-code-fg);
+    overflow: hidden;
+    display: grid;
+    align-content: start;
+}
+
+.sdkx-code-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--hc-code-fg);
+    border-bottom: 1px solid rgba(230, 227, 245, 0.12);
+}
+
+.sdkx-code-head button {
+    background: transparent;
+    color: var(--hc-code-fg);
+    border-color: rgba(230, 227, 245, 0.25);
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.sdkx-code pre {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    background: none;
+    color: inherit;
+}
+
+/* Results --------------------------------------------------------------- */
+
+.sdkx-results {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.sdkx-tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--hc-rule);
+}
+
+.sdkx-tabs [role="tab"] {
+    border: 0;
+    background: none;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--hc-ink-2);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+.sdkx-tabs [role="tab"][aria-selected="true"] {
+    color: var(--hc-ink);
+    font-weight: 600;
+    border-bottom-color: var(--hc-indigo);
+}
+
+.sdkx-panel pre,
+.sdkx-requests pre {
+    margin: 0;
+    max-height: 22rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Long strings (descriptions, URLs) wrap instead of scrolling sideways. */
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: var(--hc-paper);
+    border: 1px solid var(--hc-rule-2);
+    color: var(--hc-ink);
+}
+
+.sdkx-requests {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.sdkx-requests p {
+    margin: 0 0 0.35rem;
+    font-size: 0.85rem;
+}
+
+.sdkx-limits {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.35rem 1rem;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.sdkx-limits dt {
+    color: var(--hc-ink-2);
+}
+
+.sdkx-limits dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.sdkx-error {
+    border: 1px solid var(--hc-closed-line);
+    background: var(--hc-closed-soft);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    display: grid;
+    gap: 0.4rem;
+}
+
+.sdkx-error p,
+.sdkx-error dl {
+    margin: 0;
+}
+
+.sdkx-error dl div {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.sdkx-error dt {
+    color: var(--hc-ink-2);
+}
+
+.sdkx-error dd {
+    margin: 0;
+}
+
+.sdkx-missing {
+    color: var(--hc-closed);
+}
+
+/* Focus: always visible, on every control ------------------------------ */
+
+.sdkx :is(button, input, select, textarea, a, pre, summary, [role="tabpanel"]):focus-visible {
+    outline: 2px solid var(--hc-indigo);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .sdkx-run,
+    .sdkx-tabs [role="tab"] {
+        transition: background-color 120ms ease, border-color 120ms ease, opacity 120ms ease;
+    }
+}
