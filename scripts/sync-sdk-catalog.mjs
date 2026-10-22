@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// Copies the TypeScript SDK's method catalog and changelog from a
-// community-sdk checkout into the docs. Run after the SDK changes, then
-// `npm run generate:sdk-pages`.
+// Copies the TypeScript SDK's method catalog and changelog, and the language
+// matrix, from a community-sdk checkout into the docs. Run after the SDK
+// changes, then `npm run generate:sdk-pages`.
 //
 //   npm run sync:sdk-catalog                    from ../hardcover-sdk
 //   SDK_REPO=/path/to/community-sdk npm run sync:sdk-catalog
@@ -16,8 +16,9 @@ const repo = resolve(process.env.SDK_REPO ?? "../hardcover-sdk");
 const catalog = resolve(repo, "shared/catalog.json");
 const changelog = resolve(repo, "packages/typescript/CHANGELOG.md");
 const pkg = resolve(repo, "packages/typescript/package.json");
+const languages = resolve(repo, "languages.json");
 
-for (const file of [catalog, changelog, pkg]) {
+for (const file of [catalog, changelog, pkg, languages]) {
   if (!existsSync(file)) {
     console.error(`Missing ${file}. Set SDK_REPO to a community-sdk checkout.`);
     process.exit(1);
@@ -30,6 +31,8 @@ const minor = version.split(".").slice(0, 2).join(".");
 const targets = [
   [catalog, `src/components/SdkExplorer/catalogs/${minor}.json`],
   [changelog, "src/components/SdkExplorer/CHANGELOG.md"],
+  // Which languages exist and what each supports, for the SDKs overview page.
+  [languages, "src/components/SdkExplorer/languages.json"],
 ];
 
 for (const [source, target] of targets) {

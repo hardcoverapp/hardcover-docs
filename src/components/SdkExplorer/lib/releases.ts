@@ -8,9 +8,22 @@ export function isPrerelease(release: string): boolean {
   return release.startsWith("0.") || release.includes("-");
 }
 
+const byLanguage = releases as Record<string, Record<string, string>>;
+
 /** The release synced for a documented version ("0.1" → "0.1.0"), if any. */
 export function releaseOf(language: string, version: string): string | undefined {
-  return (releases as Record<string, Record<string, string>>)[language]?.[version];
+  return byLanguage[language]?.[version];
+}
+
+/** A language's newest documented release ("0.1.0"), or undefined when it has none yet. */
+export function latestRelease(language: string): string | undefined {
+  const versions = Object.keys(byLanguage[language] ?? {}).sort((a, b) => {
+    const [aMajor = 0, aMinor = 0] = a.split(".").map(Number);
+    const [bMajor = 0, bMinor = 0] = b.split(".").map(Number);
+    return bMajor - aMajor || bMinor - aMinor;
+  });
+
+  return versions[0] ? releaseOf(language, versions[0]) : undefined;
 }
 
 /**

@@ -241,6 +241,10 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                     {
+                        label: useTranslation('sidebar.sdk.overview', 'en'),
+                        slug: 'sdk',
+                    },
+                    {
                         label: useTranslation('sidebar.sdk.typescript', 'en'),
                         items: [
                             {

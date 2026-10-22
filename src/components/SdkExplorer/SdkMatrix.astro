@@ -1,0 +1,421 @@
+---
+/**
+ * The SDK languages and what each supports, from languages.json:
+ *   <SdkMatrix part="languages" />   one row per language
+ *   <SdkMatrix part="features" />    the feature matrix, in reader-facing groups
+ */
+import { DOCS, languages, languageStatus, matrix, packageName, PARTIAL_NOTES, SHORT_NAMES, type Status } from "./lib/languages";
+
+interface Props {
+    part: "languages" | "features";
+}
+
+const { part } = Astro.props;
+
+// Each status as a shape (not only a color) and a word for screen readers.
+const STATUS: Record<Status, string> = {
+    done: "Done",
+    partial: "Partial",
+    planned: "Planned",
+    "n/a": "Not applicable",
+};
+
+// `code` in a label or note, as the SDK repo writes them.
+const inline = (text: string) => text.split(/(`[^`]+`)/).map((piece) => (piece.startsWith("`") ? { code: piece.slice(1, -1) } : { text: piece }));
+
+// Partial cells with a note, numbered in reading order.
+const groups = matrix();
+const notes: { key: string; language: string; text: string }[] = [];
+
+for (const group of groups) {
+    for (const row of group.rows) {
+        for (const language of languages) {
+            const text = PARTIAL_NOTES[row.key]?.[language.id];
+            if (text && row.status[language.id] === "partial") notes.push({ key: row.key, language: language.id, text });
+        }
+    }
+}
+
+const noteNumber = (key: string, language: string) => notes.findIndex((n) => n.key === key && n.language === language) + 1;
+const languageName = (id: string) => languages.find((language) => language.id === id)?.name ?? id;
+---
+
+{part === "languages" && (
+    <table class="sdk-languages">
+        <thead>
+            <tr>
+                <th scope="col">Language</th>
+                <th scope="col">Status</th>
+                <th scope="col">Package</th>
+            </tr>
+        </thead>
+        <tbody>
+            {languages.map((language) => (
+                <tr>
+                    <th scope="row">{DOCS[language.id] ? <a href={DOCS[language.id]}>{language.name}</a> : language.name}</th>
+                    <td>{languageStatus(language)}</td>
+                    <td>{packageName(language) ? <code>{packageName(language)}</code> : "Not yet"}</td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+)}
+
+{part === "features" && (
+    <div class="not-content sdkm">
+        <ul class="sdkm-legend" aria-label="What the marks mean">
+            {(Object.keys(STATUS) as Status[]).map((status) => (
+                <li><span class={`sdkm-mark is-${status}`} aria-hidden="true" />{STATUS[status]}</li>
+            ))}
+        </ul>
+
+        <div class="sdkm-scroll" tabindex="0" role="region" aria-label="What each language supports">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col" class="sdkm-feature">Feature</th>
+                        {languages.map((language) => (
+                            <th scope="col">
+                                <span class="sdkm-lang">
+                                    {DOCS[language.id] ? (
+                                        <a href={DOCS[language.id]}>{SHORT_NAMES[language.id]?.name ?? language.name}</a>
+                                    ) : (
+                                        SHORT_NAMES[language.id]?.name ?? language.name
+                                    )}
+                                </span>
+                                {SHORT_NAMES[language.id] && <span class="sdkm-lang-status">{SHORT_NAMES[language.id]!.note}</span>}
+                                <span class="sdkm-lang-status">{languageStatus(language)}</span>
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+
+                {groups.map((group) => (
+                    <tbody>
+                        <tr class="sdkm-group">
+                            <th scope="colgroup" colspan={languages.length + 1}>{group.name}</th>
+                        </tr>
+                        {group.rows.map((row) => (
+                            <tr>
+                                <th scope="row" class="sdkm-feature">
+                                    {inline(row.label).map((piece) => ("code" in piece ? <code>{piece.code}</code> : piece.text))}
+                                </th>
+                                {languages.map((language) => {
+                                    const status = row.status[language.id] ?? "planned";
+                                    const note = status === "partial" ? noteNumber(row.key, language.id) : 0;
+
+                                    return (
+                                        <td>
+                                            <span class={`sdkm-mark is-${status}`} aria-hidden="true" />
+                                            {/* Shown only when the table stacks on a narrow screen, where there's no header row. */}
+                                            <span class="sdkm-cell-lang" aria-hidden="true">{SHORT_NAMES[language.id]?.name ?? language.name}</span>
+                                            <span class="sr-only">{STATUS[status]}</span>
+                                            {note > 0 && (
+                                                <sup class="sdkm-note-ref">
+                                                    <a href={`#sdk-note-${note}`} aria-label={`Note ${note}`}>{note}</a>
+                                                </sup>
+                                            )}
+                                        </td>
+                                    );
+                                })}
+                            </tr>
+                        ))}
+                    </tbody>
+                ))}
+            </table>
+        </div>
+
+        {notes.length > 0 && (
+            <ol class="sdkm-notes">
+                {notes.map((note, i) => (
+                    <li id={`sdk-note-${i + 1}`}>
+                        <strong>{languageName(note.language)}:</strong>{" "}
+                        {inline(note.text).map((piece) => ("code" in piece ? <code>{piece.code}</code> : piece.text))}
+                    </li>
+                ))}
+            </ol>
+        )}
+    </div>
+)}
+
+<style>
+    /* Language table: row headers read as plain text (the site uppercases th). */
+    .sdk-languages th[scope="row"] {
+        text-transform: none;
+        letter-spacing: normal;
+        font-size: inherit;
+        font-weight: 500;
+        color: var(--hc-ink);
+        background: none;
+    }
+
+    /* Feature matrix ------------------------------------------------------ */
+
+    .sdkm {
+        display: grid;
+        /* One column no wider than the page; the table scrolls inside it. */
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.9rem;
+        margin-block: 1.25rem;
+        font-size: 0.92rem;
+        color: var(--hc-ink);
+    }
+
+    .sdkm-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1.25rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 0.82rem;
+        color: var(--hc-ink-2);
+    }
+
+    .sdkm-legend li {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+    }
+
+    .sdkm-scroll {
+        /* Holds the cells' screen-reader text, which is positioned absolutely;
+           without this it escapes the scroll box and widens the page. */
+        position: relative;
+        overflow-x: auto;
+        border: 1px solid var(--hc-rule);
+        border-radius: 12px;
+        background: var(--hc-card);
+    }
+
+    .sdkm-scroll:focus-visible {
+        outline: 2px solid var(--hc-indigo);
+        outline-offset: 2px;
+    }
+
+    .sdkm table {
+        width: 100%;
+        min-width: 36rem;
+        border-collapse: collapse;
+    }
+
+    .sdkm th,
+    .sdkm td {
+        padding: 0.55rem 0.75rem;
+        border-bottom: 1px solid var(--hc-rule-2);
+        vertical-align: middle;
+    }
+
+    .sdkm tbody:last-of-type tr:last-child > * {
+        border-bottom: 0;
+    }
+
+    .sdkm thead th {
+        background: var(--hc-paper-2);
+        border-bottom: 1px solid var(--hc-rule);
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .sdkm thead th.sdkm-feature {
+        text-align: left;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--hc-ink-2);
+    }
+
+    .sdkm-lang {
+        display: block;
+        font-size: 0.88rem;
+    }
+
+    .sdkm-lang-status {
+        display: block;
+        margin-top: 0.1rem;
+        font-size: 0.72rem;
+        font-weight: 400;
+        color: var(--hc-ink-2);
+    }
+
+    .sdkm th[scope="row"] {
+        text-align: left;
+        font-weight: 400;
+        line-height: 1.4;
+    }
+
+    .sdkm td {
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    /* Group headings: a quiet band that starts each section. */
+    .sdkm-group th {
+        padding-top: 1rem;
+        background: var(--hc-indigo-soft);
+        border-bottom: 1px solid var(--hc-indigo-line);
+        text-align: left;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--hc-indigo);
+    }
+
+    .sdkm code {
+        font-size: 0.82em;
+        padding: 0.05rem 0.35rem;
+        border-radius: 5px;
+        background: var(--hc-paper-2);
+        border: 1px solid var(--hc-rule-2);
+    }
+
+    .sdkm a {
+        color: var(--hc-indigo);
+    }
+
+    /* Marks: shape and color both carry the status. */
+    .sdkm-mark {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        vertical-align: middle;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    .sdkm-mark.is-done {
+        background: var(--hc-indigo);
+    }
+
+    /* A check drawn inside the filled circle. */
+    .sdkm-mark.is-done::after {
+        content: "";
+        position: absolute;
+        left: 0.33rem;
+        top: 0.17rem;
+        width: 0.28rem;
+        height: 0.5rem;
+        border: solid var(--hc-indigo-ink, #fff);
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+
+    .sdkm-mark.is-partial {
+        border: 2px solid var(--hc-closed);
+        background: linear-gradient(90deg, var(--hc-closed) 50%, transparent 50%);
+    }
+
+    .sdkm-mark.is-planned {
+        border: 2px solid var(--hc-ink-3, var(--hc-rule));
+    }
+
+    .sdkm-mark.is-n\/a {
+        width: 0.9rem;
+        height: 2px;
+        border-radius: 1px;
+        background: var(--hc-ink-3, var(--hc-rule));
+    }
+
+    .sdkm-note-ref {
+        margin-left: 0.2rem;
+        font-size: 0.7rem;
+    }
+
+    .sdkm-cell-lang {
+        display: none;
+    }
+
+    /* Narrow: each feature becomes a card, its name above one chip per language. */
+    .sdkm {
+        container-type: inline-size;
+    }
+
+    @container (max-width: 34rem) {
+        .sdkm-scroll {
+            overflow-x: visible;
+        }
+
+        .sdkm table {
+            min-width: 0;
+        }
+
+        .sdkm thead {
+            display: none;
+        }
+
+        .sdkm :is(table, tbody, tr, th, td) {
+            display: block;
+        }
+
+        .sdkm tbody tr:not(.sdkm-group) {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            padding: 0.7rem 0.85rem;
+            border-bottom: 1px solid var(--hc-rule-2);
+        }
+
+        .sdkm tbody:last-of-type tr:last-child {
+            border-bottom: 0;
+        }
+
+        .sdkm tbody tr:not(.sdkm-group) > * {
+            padding: 0;
+            border: 0;
+        }
+
+        .sdkm th[scope="row"] {
+            flex-basis: 100%;
+            margin-bottom: 0.15rem;
+            font-weight: 500;
+        }
+
+        /* As specific as the reset above, so each cell keeps its chip. */
+        .sdkm tbody tr:not(.sdkm-group) > td {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.2rem 0.55rem 0.2rem 0.35rem;
+            border-radius: 999px;
+            border: 1px solid var(--hc-rule-2);
+            background: var(--hc-paper-2);
+            font-size: 0.8rem;
+        }
+
+        .sdkm td .sdkm-mark:not(.is-n\/a) {
+            width: 0.85rem;
+            height: 0.85rem;
+        }
+
+        .sdkm td .sdkm-mark.is-done::after {
+            left: 0.27rem;
+            top: 0.12rem;
+            width: 0.24rem;
+            height: 0.42rem;
+        }
+
+        .sdkm-cell-lang {
+            display: inline;
+        }
+
+        .sdkm-note-ref {
+            margin-left: 0;
+        }
+    }
+
+    .sdkm-notes {
+        margin: 0;
+        padding-left: 1.25rem;
+        display: grid;
+        gap: 0.35rem;
+        font-size: 0.84rem;
+        color: var(--hc-ink-2);
+    }
+
+    .sdkm-notes li:target {
+        color: var(--hc-ink);
+    }
+</style>
