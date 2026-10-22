@@ -169,7 +169,7 @@ export function QueryArgsEditor({ args, onChange, availableFields = [] }: QueryA
                     ))}
                   </SelectContent>
                 </Select>
-                <Select value={orderByDirection} onValueChange={(dir: "asc" | "desc") => handleOrderByChange(orderByField, dir)}>
+                <Select value={orderByDirection} onValueChange={(dir) => handleOrderByChange(orderByField, dir === "desc" ? "desc" : "asc")}>
                   <SelectTrigger className="w-28 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600">
                     <SelectValue />
                   </SelectTrigger>
