@@ -15,6 +15,12 @@
         "title": "Note",
         "text": "The rules and guidelines included in the standards sections of this documentation are intended to provide a general framework to guide new librarians, provide examples about how to handle common editing scenarios, and present consistency across the site. That said, no two books are the same, and so it is impossible for any single standard to be perfectly applicable in all situations. If you believe a particular work does not fit into these standards or have suggestions for improvement, please let us know in the <a>#librarians</a> Discord channel."
       }
+    },
+    "sdk": {
+      "prereleaseBanner": {
+        "title": "Pre-release",
+        "text": "Version {version} is a pre-release. Names and behavior may change in a new minor version before 1.0; the <changelog>changelog</changelog> says what changed and how to update. Something getting in your way? <issues>Open an issue</issues>."
+      }
     }
   },
   "sidebar": {
@@ -32,7 +38,10 @@
       "title": "SDKs",
       "typescript": "TypeScript",
       "overview": "Overview",
-      "resources": "Resources"
+      "resources": "Resources",
+      "gettingStarted": "Getting started",
+      "changelog": "Changelog",
+      "versions": "Versions"
     },
     "community": {
       "title": "Community",

@@ -1,10 +1,9 @@
 /**
- * The SDK method catalog: every method, its inputs, examples and whether it
- * changes data. It's the SDK repo's shared/catalog.json, copied here by
- * `npm run sync:sdk-catalog`, so the explorer describes exactly what the SDK
- * does.
+ * The SDK method catalogs: every method, its inputs, examples and whether it
+ * changes data. Each is the SDK repo's shared/catalog.json as of a minor
+ * version (catalogs/0.1.json), copied by `npm run sync:sdk-catalog`, so each
+ * version's pages describe exactly what that version does.
  */
-import data from "../catalog.json";
 
 /** One input: a positional parameter, or a field inside an options object. */
 export interface Param {
@@ -68,14 +67,32 @@ export interface Resource {
   module?: string;
 }
 
-export const resources = (data as unknown as { resources: Resource[] }).resources;
+const files = import.meta.glob<{ resources: Resource[] }>("../catalogs/*.json", { eager: true, import: "default" });
 
-/** "library.add" → its resource and method, or undefined. */
-export function findMethod(id: string): { resource: Resource; method: Method } | undefined {
+/** Each documented minor version ("0.1") and its resources. */
+export const catalogs: Record<string, Resource[]> = Object.fromEntries(
+  Object.entries(files).map(([path, data]) => [path.replace(/^.*\/(.+)\.json$/, "$1"), data.resources]),
+);
+
+/** Minor versions, newest first. */
+export const versions = Object.keys(catalogs).sort(byVersion).reverse();
+export const latestVersion = versions[0]!;
+
+/** The newest version's resources. */
+export const resources = catalogs[latestVersion]!;
+
+/** "library.add" → its resource and method in that version (the newest by default), or undefined. */
+export function findMethod(id: string, version = latestVersion): { resource: Resource; method: Method } | undefined {
   const [resourceName, methodName] = id.split(".");
 
-  const resource = resources.find((r) => r.name === resourceName);
+  const resource = catalogs[version]?.find((r) => r.name === resourceName);
   const method = resource?.methods.find((m) => m.name === methodName);
 
   return resource && method ? { resource, method } : undefined;
+}
+
+function byVersion(a: string, b: string): number {
+  const [aMajor = 0, aMinor = 0] = a.split(".").map(Number);
+  const [bMajor = 0, bMinor = 0] = b.split(".").map(Number);
+  return aMajor - bMajor || aMinor - bMinor;
 }

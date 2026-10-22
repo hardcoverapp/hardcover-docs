@@ -12,6 +12,7 @@ import { clearCredential, readCredential, writeCredential } from "@/components/G
 import { lookupExample, lookupInputs, rememberViewer } from "./lib/lookup";
 import { URLS } from "@/Consts";
 import { buildArgs, exampleValues, InputError, type Values } from "./lib/args";
+import { ScopePill } from "@/components/ScopePill/ScopePill";
 import { findMethod, type Param } from "./lib/catalog";
 import { snippet } from "./lib/codegen";
 import { call, type Outcome } from "./lib/run";
@@ -20,6 +21,8 @@ import "./SdkExplorer.css";
 export interface SdkExplorerProps {
   /** "library.add" */
   method: string;
+  /** The SDK minor version ("0.1") whose catalog to use; the newest when left out. */
+  version?: string;
   /** Overrides for the catalog's example values, by input path ("bookId", "options.status"). */
   values?: Values;
   /** On a page that already shows the summary and scopes: show just the call and its badge. */
@@ -29,8 +32,8 @@ export interface SdkExplorerProps {
 type Status = "idle" | "running" | "done";
 type Tab = "result" | "requests" | "rateLimit";
 
-export const SdkExplorerIsland = ({ method: id, values: overrides, compact = false }: SdkExplorerProps) => {
-  const found = findMethod(id);
+export const SdkExplorerIsland = ({ method: id, version, values: overrides, compact = false }: SdkExplorerProps) => {
+  const found = findMethod(id, version);
   const headingId = useId();
 
   const [values, setValues] = useState<Values>(() => (found ? { ...exampleValues(found.method), ...overrides } : {}));
@@ -184,7 +187,7 @@ export const SdkExplorerIsland = ({ method: id, values: overrides, compact = fal
           <p className="sdkx-scopes">
             <span>Scopes:</span>{" "}
             {method.scopes.map((scope) => (
-              <code key={scope}>{scope}</code>
+              <ScopePill key={scope} scope={scope} />
             ))}
           </p>
         )}
@@ -546,7 +549,7 @@ function ErrorCard({ error }: { error: NonNullable<Outcome["error"]> }) {
       </p>
       {missing && (
         <p>
-          Your token is missing {missing.map((scope) => <code key={scope}>{scope}</code>)}.{" "}
+          Your token is missing {missing.map((scope) => <ScopePill key={scope} scope={scope} />)}.{" "}
           <a href={`${URLS.API_NEW_TOKEN_URL}?scope=${encodeURIComponent(missing.join(" "))}`}>Create a token with them</a>.
         </p>
       )}

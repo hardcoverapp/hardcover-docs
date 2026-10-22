@@ -2,7 +2,8 @@
 // arguments and code, and the code reads the way an app would write it.
 import { describe, expect, it } from "vitest";
 import { buildArgs, exampleValues, InputError } from "./args";
-import { findMethod, resources } from "./catalog";
+import { catalogs, findMethod } from "./catalog";
+import { scopeInfo } from "@/data/scopes";
 import { snippet } from "./codegen";
 
 const lookup = (id: string) => {
@@ -17,17 +18,24 @@ const codeFor = (id: string, values?: Record<string, string | boolean>) => {
 };
 
 describe("every catalog method", () => {
-  for (const resource of resources) {
-    for (const method of resource.methods) {
-      it(`${resource.name}.${method.name} builds from its examples or names the missing input`, () => {
-        try {
-          const args = buildArgs(method, exampleValues(method));
-          expect(snippet(resource, method.name, args).code).toContain(method.name);
-        } catch (error) {
-          // Ids that belong to the reader have no example; the form asks for them.
-          expect(error).toBeInstanceOf(InputError);
-        }
-      });
+  for (const [version, resources] of Object.entries(catalogs)) {
+    for (const resource of resources) {
+      for (const method of resource.methods) {
+        it(`${version}: ${resource.name}.${method.name} builds from its examples or names the missing input`, () => {
+          try {
+            const args = buildArgs(method, exampleValues(method));
+            expect(snippet(resource, method.name, args).code).toContain(method.name);
+          } catch (error) {
+            // Ids that belong to the reader have no example; the form asks for them.
+            expect(error).toBeInstanceOf(InputError);
+          }
+        });
+
+        it(`${version}: ${resource.name}.${method.name} needs only scopes the API describes`, () => {
+          const unknown = method.scopes.filter((scope) => !scopeInfo(scope).description);
+          expect(unknown).toEqual([]);
+        });
+      }
     }
   }
 });

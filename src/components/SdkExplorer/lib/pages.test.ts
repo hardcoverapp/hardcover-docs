@@ -4,24 +4,48 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { expect, it } from "vitest";
+import { versions } from "./catalog";
 
-const dir = join(import.meta.dirname, "../../../content/docs/sdk/typescript/resources");
+const root = join(import.meta.dirname, "../../../content/docs/sdk/typescript");
+
+// Every version's resource pages, and the changelog.
+const pages = [
+  ...versions.flatMap((version) => {
+    const dir = join(root, version, "resources");
+    return readdirSync(dir).filter((name) => name.endsWith(".mdx")).map((name) => join(dir, name));
+  }),
+  join(root, "changelog.mdx"),
+];
 
 it("generated pages have no unescaped braces or angle brackets in prose", () => {
   const problems: string[] = [];
 
-  for (const file of readdirSync(dir).filter((name) => name.endsWith(".mdx"))) {
-    readFileSync(join(dir, file), "utf8")
+  for (const file of pages) {
+    let fenced = false;
+
+    readFileSync(file, "utf8")
       .split("\n")
       .forEach((line, i) => {
-        // Frontmatter, imports, comments and components are meant to be code.
-        if (/^(---|import |\{\/\*|<SdkExplorer |title:|description:|layout:)/.test(line)) return;
+        // Code blocks, frontmatter, imports, comments and components are meant to be code.
+        if (line.startsWith("```")) fenced = !fenced;
+        if (fenced || /^(```|---|import |\{\/\*|<SdkExplorer |title:|description:|slug:|layout:)/.test(line)) return;
 
-        // Inline code is literal; check what's outside it.
-        const prose = line.replace(/`[^`]*`/g, "");
-        if (/(?<!\\)[{}]|<(?!\/?br)/.test(prose)) problems.push(`${file}:${i + 1}: ${line.trim()}`);
+        // Inline code and scope pills are literal; check what's outside them.
+        const prose = line.replace(/`[^`]*`/g, "").replace(/<ScopePill scope="[^"]+" \/>/g, "");
+        if (/(?<!\\)[{}]|<(?!\/?br)/.test(prose)) problems.push(`${file.slice(root.length + 1)}:${i + 1}: ${line.trim()}`);
       });
   }
 
   expect(problems).toEqual([]);
+});
+
+it("every page of a version says which version it documents in its URL", () => {
+  const wrong = pages
+    .filter((file) => !file.endsWith("changelog.mdx"))
+    .filter((file) => {
+      const version = file.slice(root.length + 1).split("/")[0];
+      return !readFileSync(file, "utf8").includes(`slug: sdk/typescript/${version}/`);
+    });
+
+  expect(wrong).toEqual([]);
 });

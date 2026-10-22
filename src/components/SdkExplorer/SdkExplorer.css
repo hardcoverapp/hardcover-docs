@@ -61,15 +61,6 @@
     align-items: center;
 }
 
-.sdkx-scopes code,
-.sdkx-error code {
-    font-size: 0.75rem;
-    padding: 0.1rem 0.4rem;
-    border-radius: 6px;
-    background: var(--hc-indigo-soft);
-    color: var(--hc-ink);
-}
-
 .sdkx-badge {
     display: inline-block;
     font-size: 0.72rem;

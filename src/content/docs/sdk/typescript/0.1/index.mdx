@@ -1,11 +1,9 @@
 ---
-title: TypeScript SDK
-description: The official TypeScript client for the Hardcover API.
+title: TypeScript SDK 0.1
+description: Version 0.1 of the official TypeScript client for the Hardcover API.
+slug: sdk/typescript/0.1
 layout: /src/layouts/documentation.astro
 ---
-
-import SdkExplorer from '@/components/SdkExplorer/SdkExplorer.astro';
-import {Aside} from "@astrojs/starlight/components";
 
 `@hardcover/sdk` is the official TypeScript client for the Hardcover API. It
 runs in Node 22.12+, browsers, Deno, Bun and React Native, with no
@@ -13,65 +11,8 @@ dependencies. It handles what every app would otherwise repeat: signing users
 in and keeping their tokens fresh, rate limits, retries, and typed results and
 errors.
 
-<Aside type="note">
-The SDK is in its 0.x releases: everything works against the live API, and
-names may still change before 1.0 based on what people building with it tell
-us. [Open an issue](https://github.com/hardcoverapp/community-sdk/issues) with
-anything that gets in your way.
-</Aside>
-
-## Install
-
-```sh
-npm install @hardcover/sdk
-```
-
-## Quick start
-
-Create a client with a [personal access token](/api/getting-started/), then
-call any resource. Every example on these pages can be run right here with
-your own token.
-
-```ts
-import { HardcoverClient, UserBookStatus } from "@hardcover/sdk";
-
-const hc = new HardcoverClient({ token: process.env.HARDCOVER_TOKEN, userAgent: "my-app/1.0" });
-
-const me = await hc.me.get();
-const reading = await hc.library.list({ status: UserBookStatus.CurrentlyReading });
-```
-
-<SdkExplorer method="library.list" />
-
-Keep personal access tokens out of source control and out of browser bundles.
-Apps that act for other people sign them in with OAuth instead.
-
-## Signing people in
-
-`@hardcover/sdk/oauth` signs people in with [OAuth](/api/oauth/) and keeps
-their tokens working: it refreshes them before they expire, never spends a
-refresh token twice, stores each new pair before using it, and tells you once
-when the person needs to sign in again. You decide where tokens are stored.
-
-```ts
-import { HardcoverClient } from "@hardcover/sdk";
-import { OAuthSession, secureStore } from "@hardcover/sdk/oauth";
-
-const session = new OAuthSession({
-  clientId: "your-client-id",
-  redirectUri: "yourapp://oauth/callback",
-  store: secureStore(SecureStore, "hardcover-tokens"), // Keychain / Keystore
-  onSignedOut: () => showSignIn(),
-});
-const hc = new HardcoverClient({ auth: session });
-
-const attempt = session.authorize({ scopes: ["read:me:content", "read:library"] });
-// Open attempt.url in a browser, then hand the redirect back:
-await session.completeAuthorization(redirectUrl, attempt);
-```
-
-TVs and command-line tools use `session.signInWithDevice(...)`, which shows a
-short code to enter at hardcover.app/link.
+New here? [Getting started](/sdk/typescript/0.1/getting-started/) installs it
+from npm and makes a first call.
 
 ## Errors
 
@@ -95,7 +36,7 @@ Pass `batch: true` to send concurrent reads as one request.
 
 `@hardcover/sdk/stats` computes a reader's stats for a year, a month or their
 whole history, the same way the Stats page on hardcover.app does. See
-[Stats](/sdk/typescript/resources/stats/).
+[Stats](/sdk/typescript/0.1/resources/stats/).
 
 ```ts
 import { readingStats, period } from "@hardcover/sdk/stats";
@@ -108,23 +49,27 @@ const year = await readingStats(hc, period.thisYear({ timeZone: "America/Denver"
 `MockTransport` from `@hardcover/sdk/testing` drives a real client with
 canned responses, so your tests exercise the same code your app runs.
 
+```ts
+import { MockTransport } from "@hardcover/sdk/testing";
+```
+
 ## Resources
 
 Each resource page lists its methods with their scopes, parameters and a live
-example: [Library](/sdk/typescript/resources/library/),
-[Reads](/sdk/typescript/resources/reads/),
-[Lists](/sdk/typescript/resources/lists/),
-[Search](/sdk/typescript/resources/search/),
-[Books](/sdk/typescript/resources/books/),
-[Authors](/sdk/typescript/resources/authors/),
-[Series](/sdk/typescript/resources/series/),
-[Journal](/sdk/typescript/resources/journal/),
-[Goals](/sdk/typescript/resources/goals/),
-[Vibes](/sdk/typescript/resources/vibes/),
-[Prompts](/sdk/typescript/resources/prompts/),
-[Users](/sdk/typescript/resources/users/),
-[Likes](/sdk/typescript/resources/likes/),
-[Activities](/sdk/typescript/resources/activities/),
-[Notifications](/sdk/typescript/resources/notifications/),
-[Me](/sdk/typescript/resources/me/) and
-[Stats](/sdk/typescript/resources/stats/).
+example: [Library](/sdk/typescript/0.1/resources/library/),
+[Reads](/sdk/typescript/0.1/resources/reads/),
+[Lists](/sdk/typescript/0.1/resources/lists/),
+[Search](/sdk/typescript/0.1/resources/search/),
+[Books](/sdk/typescript/0.1/resources/books/),
+[Authors](/sdk/typescript/0.1/resources/authors/),
+[Series](/sdk/typescript/0.1/resources/series/),
+[Journal](/sdk/typescript/0.1/resources/journal/),
+[Goals](/sdk/typescript/0.1/resources/goals/),
+[Vibes](/sdk/typescript/0.1/resources/vibes/),
+[Prompts](/sdk/typescript/0.1/resources/prompts/),
+[Users](/sdk/typescript/0.1/resources/users/),
+[Likes](/sdk/typescript/0.1/resources/likes/),
+[Activities](/sdk/typescript/0.1/resources/activities/),
+[Notifications](/sdk/typescript/0.1/resources/notifications/),
+[Me](/sdk/typescript/0.1/resources/me/) and
+[Stats](/sdk/typescript/0.1/resources/stats/).
