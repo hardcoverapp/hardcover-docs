@@ -335,11 +335,12 @@
         "dev": {
           "tag": "For developers",
           "title": "Build with the API",
-          "description": "Query books, editions, and reading data over GraphQL — authentication, schema, and recipes.",
+          "description": "Query books, editions, and reading data over GraphQL, or with an official SDK. Authentication, schema, and recipes.",
           "gettingStarted": "Getting started",
           "firstRequest": "Making your first request",
           "auth": "Authentication & tokens",
-          "schema": "GraphQL schema reference"
+          "schema": "GraphQL schema reference",
+          "sdk": "Official SDKs"
         },
         "lib": {
           "tag": "For librarians",
