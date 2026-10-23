@@ -9,7 +9,7 @@
 // The catalog is saved under the SDK's minor version (catalogs/0.1.json), so
 // each version keeps its own pages. Syncing a new minor version adds a
 // catalog; older ones stay as they were released.
-import { copyFileSync, cpSync, existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const repo = resolve(process.env.SDK_REPO ?? "../hardcover-sdk");
@@ -18,8 +18,10 @@ const changelog = resolve(repo, "packages/typescript/CHANGELOG.md");
 const pkg = resolve(repo, "packages/typescript/package.json");
 const languages = resolve(repo, "languages.json");
 const examples = resolve(repo, "packages/typescript/examples");
+const enums = resolve(repo, "shared/enums.json");
+const errors = resolve(repo, "shared/errors.json");
 
-for (const file of [catalog, changelog, pkg, languages, examples]) {
+for (const file of [catalog, changelog, pkg, languages, examples, enums, errors]) {
   if (!existsSync(file)) {
     console.error(`Missing ${file}. Set SDK_REPO to a community-sdk checkout.`);
     process.exit(1);
@@ -47,6 +49,13 @@ const examplesTarget = resolve(`src/components/SdkExplorer/examples/${minor}`);
 rmSync(examplesTarget, { recursive: true, force: true });
 cpSync(examples, examplesTarget, { recursive: true, filter: (path) => !path.endsWith("README.md") });
 console.log(`Copied ${examples} → src/components/SdkExplorer/examples/${minor}`);
+
+// The enums and errors every SDK shares, for this version's reference page.
+mkdirSync(resolve(`src/components/SdkExplorer/reference/${minor}`), { recursive: true });
+for (const [source, name] of [[enums, "enums.json"], [errors, "errors.json"]]) {
+  copyFileSync(source, resolve(`src/components/SdkExplorer/reference/${minor}/${name}`));
+}
+console.log(`Copied shared enums and errors → src/components/SdkExplorer/reference/${minor}`);
 
 // Record the release this version is at, so a tagged one (1.0.0-beta.2) is
 // shown as a pre-release until the plain release (1.0.0) is synced.

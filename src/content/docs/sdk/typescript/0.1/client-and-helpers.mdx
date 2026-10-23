@@ -1,0 +1,151 @@
+---
+title: Client and helpers
+description: The client's options, running any query, paging, dates, goals, transports, testing, OAuth building blocks, and every enum and error.
+slug: sdk/typescript/0.1/client-and-helpers
+layout: /src/layouts/documentation.astro
+---
+
+import SdkReference from '@/components/SdkExplorer/SdkReference.astro';
+
+Everything in `@hardcover/sdk` besides the [resources](/sdk/typescript/0.1/resources/library/): the client itself,
+its escape hatches, the helpers apps reach for, and the enums and errors every resource uses.
+
+## The client
+
+```ts wrap
+import { HardcoverClient } from "@hardcover/sdk";
+
+const hc = new HardcoverClient({ token: process.env.HARDCOVER_TOKEN, userAgent: "my-app/1.0" });
+```
+
+| Option | What it does |
+|---|---|
+| `token` | A personal access token, or an OAuth access token your app manages itself. A pasted `Bearer ` prefix and stray whitespace are cleaned up. Pass this or `auth`. |
+| `auth` | An [OAuth session](/sdk/typescript/0.1/guides/sign-in/) that refreshes and stores tokens itself. Pass this or `token`. |
+| `userAgent` | Your app's name, sent ahead of the SDK's so problems can be traced to it. Browsers don't let it through; Node and native apps do. |
+| `batch` | Send concurrent reads as one request, sized to what the rate limit allows, with identical reads sent once. Writes still run alone, in order. Off by default. |
+| `pace` | Wait for the rate limit to refill instead of sending into a `429`. On by default. The daily limit is never waited out. |
+| `onRateLimit` | Called with the rate-limit state after each response. |
+| `maxRetries` | How often to retry a `429`, and reads that hit a network, timeout or server error. 3 by default. |
+| `timeoutMs` | How long one request may take, 35 seconds by default. |
+| `environment` | `"prod"` (the default), `"staging"` or `"local"`. `endpoint` overrides the GraphQL URL directly. |
+| `transport` | How requests are sent. See [transports](#transports). |
+| `onWarning` | Called for problems that don't stop the client, such as a legacy token. `console.warn` by default. |
+
+`hc.rateLimit` holds the state from the most recent response: the plan's name, the burst allowance (`limit`,
+`remaining`, `resetSeconds`) and the daily one.
+
+## Any operation
+
+Two escape hatches run what the resources don't cover, with the same auth, retries, rate limiting and errors.
+
+`request` runs one of the SDK's built-in operations, typed end to end:
+
+```ts wrap
+import { operations } from "@hardcover/sdk";
+
+const { me } = await hc.request(operations.Me);
+```
+
+`graphql` runs any query your token's scopes allow. Describe the result's shape yourself:
+
+```ts wrap
+const { books } = await hc.graphql<{ books: { title: string }[] }>(
+  "query { books(where: {slug: {_eq: \"project-hail-mary\"}}) { title } }",
+);
+```
+
+## Paging
+
+List methods return one page at a time: `{ items, limit, offset, hasMore }`, 25 items unless you ask for more.
+`allPages` walks every page of any list method. See [Paging](/sdk/typescript/0.1/#paging) in the overview.
+
+```ts wrap
+import { allPages } from "@hardcover/sdk";
+
+for await (const entry of allPages((page) => hc.library.list(page))) {
+  console.log(entry.book.title);
+}
+```
+
+## Dates
+
+The API stores reader dates, like the day a book was finished, as plain dates in the reader's time zone.
+`localDate` gives you that date for any moment:
+
+```ts wrap
+import { localDate } from "@hardcover/sdk";
+
+localDate(new Date(), "America/Denver"); // "2026-10-22"
+```
+
+Methods that record when something happened, like `reads.setProgress`, take an `occurredAt`: a `Date` or an
+ISO string, for logging something after the fact.
+
+## Goal progress
+
+Hour goals store their target in hours, while the API reports progress in seconds. `goalProgress` lines them up,
+for any goal:
+
+```ts wrap
+import { goalProgress } from "@hardcover/sdk";
+
+const [goal] = await hc.goals.list();
+if (goal) {
+  const { current, target, percent } = goalProgress(goal);
+  console.log(`${current} of ${target} (${Math.round(percent)}%)`);
+}
+```
+
+## Transports
+
+A transport sends one HTTP request and returns the response. The default, `fetchTransport`, uses `fetch`, which
+works in Node, browsers, Deno, Bun and React Native. Pass your own to add logging, route through a proxy, or use
+another HTTP library. A transport that fails without a response throws `TransportFailure`, which the client turns
+into a `NetworkError` or `TimeoutError`.
+
+```ts wrap
+import { fetchTransport, HardcoverClient, type Transport } from "@hardcover/sdk";
+
+const base = fetchTransport();
+const logged: Transport = {
+  async send(request) {
+    const response = await base.send(request);
+    console.log(response.status, request.url);
+    return response;
+  },
+};
+
+const hc = new HardcoverClient({ token: process.env.HARDCOVER_TOKEN, transport: logged });
+```
+
+## Testing
+
+`MockTransport` from `@hardcover/sdk/testing` answers with canned responses, so your tests drive a real client
+without the network. See [testing your app](/sdk/typescript/0.1/guides/errors-and-testing/#test-without-the-network).
+
+## OAuth building blocks
+
+`OAuthSession` handles sign-in and the whole token lifecycle, and most apps should use it. A server that keeps
+tokens per user in its own database can use the steps on their own instead, from `@hardcover/sdk/oauth`:
+
+| Function | What it does |
+|---|---|
+| `createAuthorization` | Builds the sign-in URL with PKCE and `state`. Keep the attempt it returns. |
+| `parseRedirect` | Checks the redirect belongs to that attempt and returns the code. Throws `OAuthError` if the reader declined. |
+| `exchangeCode` | Trades the code for tokens. A code works once. |
+| `refreshTokens` | Trades a refresh token for a new pair. The old one is spent: store the new pair before anything else. |
+| `revokeToken` | Revokes a token. Revoking either one revokes both. |
+| `startDeviceAuthorization`, `pollDeviceToken` | The device sign-in for TVs and command-line tools: show the code, then wait for the reader to approve it. |
+
+## Enums
+
+Enums are plain objects of named values, so `UserBookStatus.Read` is `3`. Every resource uses these.
+
+<SdkReference version="0.1" part="enums" />
+
+## Errors
+
+<SdkReference version="0.1" part="errors" />
+
+The [errors guide](/sdk/typescript/0.1/guides/errors-and-testing/) shows how an app handles the common ones.

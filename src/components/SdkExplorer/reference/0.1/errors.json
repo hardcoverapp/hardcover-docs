@@ -1,0 +1,253 @@
+{
+  "$comment": "Every SDK maps raw API failures onto this taxonomy. Class names are canonical; languages may adapt the suffix (Error / Exception) but not the hierarchy. `match` describes how to recognize the raw response. The conformance suite in shared/conformance exercises each one. Every error carries baseFields: `operationName` is the GraphQL operation that failed (e.g. AddUserBook), when the request had one. `fields` are the properties an error adds beyond baseFields (`status`, `operationName`); the API's own error_description goes into the message.",
+  "base": "HardcoverError",
+  "errors": [
+    {
+      "name": "AuthenticationError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": 401,
+          "body.error": "invalid_token"
+        }
+      ],
+      "fields": [],
+      "retry": false,
+      "notes": "Expired, revoked or malformed token, or an anonymous JWT. With a refreshable OAuth token provider, the client refreshes once and replays before surfacing this."
+    },
+    {
+      "name": "SignedOutError",
+      "parent": "AuthenticationError",
+      "match": [
+        {
+          "source": "oauth-session"
+        }
+      ],
+      "fields": [
+        "reason"
+      ],
+      "reasons": [
+        "not-signed-in",
+        "signed-out",
+        "revoked",
+        "expired"
+      ],
+      "retry": false,
+      "notes": "Raised only by an OAuth session, never mapped from a response. The session has no usable tokens: never signed in, the app called signOut, the server refused the refresh token (invalid_grant: revoked, re-authorization required, replayed), or the access token expired with no refresh token (identity-only grant). The store is already cleared and onSignedOut was called; the app shows sign-in. Reasons are defined in auth.json."
+    },
+    {
+      "name": "ScopeError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": 403,
+          "body.error": "insufficient_scope"
+        }
+      ],
+      "fields": [
+        "missingScopes"
+      ],
+      "retry": false,
+      "notes": "body.scope is a SPACE-SEPARATED list of every missing scope, e.g. \"write:library write:reviews\". Split it into missingScopes. The server is authoritative; SDKs never check scopes before sending. Also raised for protected columns (users.email, users.librarian_roles) and protected arguments (review_* fields need write:reviews)."
+    },
+    {
+      "name": "UnsupportedOperationError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": 403,
+          "body.error": "unsupported_operation"
+        }
+      ],
+      "fields": [],
+      "retry": false,
+      "notes": "Operation is blocked for tokens entirely (e.g. update_user, insert_report)."
+    },
+    {
+      "name": "RequestTooLargeError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": 403,
+          "body.errors[0]": "request_exceeds_capacity"
+        },
+        {
+          "status": 403,
+          "body.error": "top_level_limit_exceeded"
+        }
+      ],
+      "fields": [],
+      "retry": false,
+      "notes": "Too many top-level fields in one request: more than the token's burst capacity, the only per-request limit (app PR #3744). The SDK chunks its own batches to avoid this; users hit it only via the raw escape hatch. top_level_limit_exceeded is the code from the earlier flat limits, still matched in case an older gateway answers."
+    },
+    {
+      "name": "RateLimitError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": 429
+        }
+      ],
+      "fields": [
+        "retryAfterSeconds",
+        "window",
+        "limit",
+        "remaining"
+      ],
+      "retry": "after Retry-After, up to maxRetries",
+      "notes": "window is 'burst' or 'daily', read from RateLimit headers. A daily exhaustion is not auto-retried."
+    },
+    {
+      "name": "InvalidRequestError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": 400,
+          "body.error": "invalid_request"
+        },
+        {
+          "status": 400,
+          "body.error": "invalid_query"
+        }
+      ],
+      "fields": [],
+      "retry": false,
+      "notes": "Unparseable query, or a banned filter operator (_like, _ilike, _regex, _similar)."
+    },
+    {
+      "name": "GraphQLError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": 200,
+          "body.errors": "present"
+        }
+      ],
+      "fields": [
+        "errors",
+        "data"
+      ],
+      "retry": false,
+      "notes": "Standard Hasura errors array. data may be partial; the SDK throws by default and exposes partial data on the error."
+    },
+    {
+      "name": "ActionError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": 200,
+          "data.<field>.error": "non-null string"
+        },
+        {
+          "status": 200,
+          "data.<field>.errors": "non-empty array"
+        }
+      ],
+      "fields": [
+        "operation",
+        "messages",
+        "data"
+      ],
+      "retry": false,
+      "notes": "Hasura actions return HTTP 200 with a failure inside data. Outputs use either `error: String` (UserBookIdType, SearchOutput, FollowedUserType, TrendingBookType) or `errors: [String]` (ListIdType, GoalIdType, ReadingJournalOutput). Normalize both to messages[]."
+    },
+    {
+      "name": "OAuthError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "endpoint": "oauth2/*",
+          "body.error": "any"
+        }
+      ],
+      "fields": [
+        "code",
+        "description"
+      ],
+      "codes": [
+        "invalid_request",
+        "invalid_client",
+        "invalid_grant",
+        "invalid_scope",
+        "unsupported_grant_type",
+        "unsupported_response_type",
+        "unauthorized_client",
+        "access_denied",
+        "expired_token",
+        "temporarily_unavailable",
+        "invalid_response",
+        "state_mismatch",
+        "issuer_mismatch"
+      ],
+      "retry": false,
+      "notes": "authorization_pending and slow_down are handled inside the device-grant poll loop and never surface. access_denied, invalid_scope and the other authorize errors arrive on the redirect, not a response. invalid_response, state_mismatch and issuer_mismatch are client-side. invalid_response: a success answer missing a required field. For the other two, the redirect's state or iss didn't match the attempt (possible CSRF or mix-up attack), and the code is never exchanged."
+    },
+    {
+      "name": "NotFoundError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "client": "a method that changes or reads through something by id found nothing (e.g. update a goal that doesn't exist, remove an entry that isn't there)"
+        }
+      ],
+      "fields": [
+        "resource",
+        "id"
+      ],
+      "retry": false,
+      "notes": "Raised by SDK resource methods, not mapped from an HTTP status. Lookups that can legitimately find nothing (get, forBook, current) return null instead."
+    },
+    {
+      "name": "ServerError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": [
+            500,
+            502,
+            503,
+            504
+          ]
+        }
+      ],
+      "fields": [],
+      "retry": "queries only, with backoff",
+      "notes": "Includes 503 oauth_gateway_unavailable."
+    },
+    {
+      "name": "TimeoutError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "status": 408
+        },
+        {
+          "client": "deadline exceeded"
+        }
+      ],
+      "fields": [
+        "mayHaveSucceeded"
+      ],
+      "retry": "queries only",
+      "notes": "Server query timeout is 30s (search 2s)."
+    },
+    {
+      "name": "NetworkError",
+      "parent": "HardcoverError",
+      "match": [
+        {
+          "client": "connection failed or dropped before a response"
+        }
+      ],
+      "fields": [
+        "mayHaveSucceeded"
+      ],
+      "retry": "queries only",
+      "notes": "Mutations are NOT retried on a dropped connection; the write may have landed."
+    }
+  ],
+  "baseFields": [
+    "status",
+    "operationName"
+  ]
+}

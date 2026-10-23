@@ -1,0 +1,148 @@
+---
+/**
+ * The SDK's shared enums and errors for one version, from the synced
+ * shared/enums.json and shared/errors.json:
+ *   <SdkReference version="0.1" part="enums" />
+ *   <SdkReference version="0.1" part="errors" />
+ */
+import schema from "../../../schema.json";
+import { enumDocs, ERROR_TEXT, errorDocs } from "./lib/reference";
+
+interface Props {
+    version: string;
+    part: "enums" | "errors";
+}
+
+const { version, part } = Astro.props;
+
+// Enums the API defines itself take their values from the schema.
+const types = (schema as { data: { __schema: { types: { name: string; enumValues?: { name: string }[] | null }[] } } }).data.__schema.types;
+const generated = Object.fromEntries(types.filter((t) => t.enumValues?.length).map((t) => [t.name, t.enumValues!.map((v) => v.name)]));
+
+const enums = part === "enums" ? enumDocs(version, generated) : [];
+const errors = part === "errors" ? errorDocs(version) : undefined;
+
+// `code` in the reader-facing text.
+const inline = (text: string) => text.split(/(`[^`]+`)/).map((piece) => (piece.startsWith("`") ? { code: piece.slice(1, -1) } : { text: piece }));
+---
+
+{part === "enums" && enums.map((e) => (
+    <section class="sdk-ref-enum" aria-labelledby={`enum-${e.name}`}>
+        <h3 id={`enum-${e.name}`}><code>{e.name}</code></h3>
+        {e.description && <p>{e.description}</p>}
+        {e.note && <p>{e.note}</p>}
+        {e.members.length > 0 && (
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Member</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Means</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {e.members.map((m) => (
+                        <tr>
+                            <td><code>{m.member.startsWith('"') ? m.member : `${e.name}.${m.member}`}</code></td>
+                            <td><code>{JSON.stringify(m.value)}</code></td>
+                            <td>{m.label ?? ""}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        )}
+    </section>
+))}
+
+{part === "errors" && errors && (
+    <>
+        <p>
+            Every error extends <code>{errors.base}</code>, so <code>error instanceof {errors.base}</code> catches them all, and
+            every one carries {errors.baseFields.map((field, i) => <>{i > 0 && " and "}<code>{field}</code></>)}: the HTTP
+            status, and the operation that failed (such as <code>AddUserBook</code>).
+        </p>
+        <ul class="sdk-ref-errors">
+            {errors.errors.map((error) => (
+                <li id={`error-${error.name}`} style={`margin-left: ${error.depth * 1.25}rem`}>
+                    <p class="sdk-ref-error-name">
+                        <code>{error.name}</code>
+                        {error.depth > 0 && <span class="sdk-ref-parent">a kind of <code>{error.parent}</code></span>}
+                    </p>
+                    <p>
+                        {inline(ERROR_TEXT[error.name] ?? "").map((piece) => ("code" in piece ? <code>{piece.code}</code> : piece.text))}
+                        {error.reasons && (
+                            <> Reasons: {error.reasons.map((reason, i) => <>{i > 0 && ", "}<code>{reason}</code></>)}.</>
+                        )}
+                    </p>
+                    <p class="sdk-ref-error-meta">
+                        <span>
+                            <strong>Also has:</strong>{" "}
+                            {error.fields.length ? error.fields.map((field, i) => <>{i > 0 && ", "}<code>{field}</code></>) : "nothing more"}
+                        </span>
+                        <span><strong>Retried first:</strong> {error.retried.replace(/^./, (c) => c.toLowerCase())}</span>
+                    </p>
+                </li>
+            ))}
+        </ul>
+    </>
+)}
+
+<style>
+    .sdk-ref-enum h3 {
+        margin-top: 2rem;
+    }
+
+    /* Long member names (DynamicSignalCategory.RecentlyRead) wrap instead of
+       pushing the table wider than the page. */
+    .sdk-ref-enum td code {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    /* Errors: one entry each, children indented under their parent. */
+    .sdk-ref-errors {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0 0;
+        display: grid;
+        gap: 0.75rem;
+    }
+
+    .sdk-ref-errors li {
+        margin-top: 0 !important;
+        padding: 0.8rem 1rem;
+        border: 1px solid var(--hc-rule);
+        border-radius: 10px;
+        background: var(--hc-card);
+    }
+
+    .sdk-ref-errors p {
+        margin: 0;
+    }
+
+    .sdk-ref-errors li > p + p {
+        margin-top: 0.4rem;
+    }
+
+    .sdk-ref-error-name {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.2rem 0.6rem;
+        font-weight: 600;
+    }
+
+    .sdk-ref-error-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2rem 1.5rem;
+        font-size: 0.85rem;
+        color: var(--hc-ink-2);
+    }
+
+    .sdk-ref-parent {
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: var(--hc-ink-2);
+    }
+</style>
