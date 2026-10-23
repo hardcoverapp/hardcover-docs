@@ -8,10 +8,7 @@
       ]
     },
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "customConditions": [
-      "@hardcover/source"
-    ]
+    "jsxImportSource": "react"
   },
   "exclude": [
     "dist",

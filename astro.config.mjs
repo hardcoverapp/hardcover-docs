@@ -1,7 +1,6 @@
 import {defineConfig} from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
-import {defaultClientConditions, defaultServerConditions} from 'vite';
 
 import react from "@astrojs/react";
 
@@ -394,17 +393,6 @@ export default defineConfig({
         resolve: {
             alias: {
                 '@': '/src'
-            },
-            // While @hardcover/sdk is linked from ../hardcover-sdk, load its
-            // source (its "@hardcover/source" export condition) so changes there
-            // show up here without a build. REMOVE this (and customConditions in
-            // tsconfig.json) when switching to the published npm package, which
-            // doesn't include the source.
-            conditions: [...defaultClientConditions, '@hardcover/source']
-        },
-        ssr: {
-            resolve: {
-                conditions: [...defaultServerConditions, '@hardcover/source']
             }
         },
         optimizeDeps: {

@@ -57,9 +57,6 @@ export const PARTIAL_NOTES: Record<string, Record<string, string>> = {
   "test-mock": {
     typescript: "`MockTransport` is ready. Recorded API responses to test against come later.",
   },
-  "rt-web": {
-    typescript: "Fully tested on Node, and runs in the browser in these docs. The published package gets its own browser check when the docs switch to it.",
-  },
   "rt-react-native": {
     typescript: "Runs on React Native's Hermes engine in every test run. Not yet tried in an app on a device.",
   },

@@ -222,7 +222,7 @@
         "test-mock": "partial",
         "test-conformance": "done",
         "test-contract": "done",
-        "rt-web": "partial",
+        "rt-web": "done",
         "test-live-read": "done",
         "res-me": "done",
         "res-library-read": "done",
@@ -248,7 +248,8 @@
         "res-users": "done",
         "res-social": "done",
         "res-notifications": "done",
-        "stats": "done"
+        "stats": "done",
+        "published": "done"
       },
       "examples": {
         "res-me": "examples/quick-start.ts",
