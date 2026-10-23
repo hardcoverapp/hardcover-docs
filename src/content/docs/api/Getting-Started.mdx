@@ -190,6 +190,14 @@ query Test {
 }
 ```
 
+A few more details on counting:
+
+- **Every request costs at least one**, even one made only of introspection fields.
+- **Aliases count separately.** `a: books(...)` and `b: books(...)` in one request cost two.
+- **Only top-level fields count.** Nested selections are free, however deep they go.
+- **Batched requests add up.** A batch (a JSON array of queries sent in one request) costs the total of all their top-level fields.
+- **Some fields are exempt** so tools that already batch them keep working. Today that's `insert_reading_journal`: a request of several journal entries costs one.
+
 <Aside>
     Personal Access Tokens get double the burst capacity of legacy JWT-based authentication on the same plan. If you're still authenticating with a JWT, switching to a PAT (see [Getting an API Key](#getting-an-api-key) above) is an easy way to raise your burst ceiling.
 </Aside>

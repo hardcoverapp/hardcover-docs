@@ -6,11 +6,16 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
 import {Aside} from "@astrojs/starlight/components";
 
 ## What Is a Publisher?
 
 A Publisher in Hardcover represents a company or organization that publishes books. Publishers are linked to specific editions of books, as the same book may be published by different publishers in different regions or formats. Publishers help users find books from their favorite publishing houses and understand the publishing history of editions.
+
+## Scopes and limits
+
+<SchemaAccess typeName="publishers" />
 
 ## Schema Relationships
 

@@ -8,6 +8,7 @@ layout: /src/layouts/documentation.astro
 import { Code } from '@astrojs/starlight/components';
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
 
 ## What Is an Activity?
 
@@ -25,6 +26,10 @@ There are many types of activities that can be performed on the platform. Some e
 - A user answers a prompt
 
 See some [example payloads below](#example-payloads) for more information on the different types of activities.
+
+## Scopes and limits
+
+<SchemaAccess typeName="activities" />
 
 ## Schema Relationships
 

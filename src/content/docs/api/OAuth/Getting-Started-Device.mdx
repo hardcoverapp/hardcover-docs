@@ -7,6 +7,7 @@ layout: /src/layouts/documentation.astro
 
 import { URLS } from "@/Consts";
 import ImageComponent from "@/components/ImageComponent.astro";
+import ScopePill from '@/components/ScopePill/ScopePill.astro';
 
 This guide covers native apps: CLI tools, desktop apps, mobile apps, e-reader plugins, anything that ships on a device you don't control. Like the [SPA](/api/oauth/getting-started-spa) and [confidential client](/api/oauth/getting-started-server) guides this is a bare bones example.
 
@@ -34,7 +35,7 @@ If you are using Device Authorization Grant, then you don't need the redirect UR
 
 <ImageComponent imagePath="/src/content/images/api/oauth/new_app_device_grant.png" description="OAuth information, the device auth grant and allowed scopes." />
 
-Either way, for this guide you will only need the `read:me:content` scope.
+Either way, for this guide you will only need the <ScopePill scope="read:me:content" /> scope.
 
 ## Using the standard flow
 

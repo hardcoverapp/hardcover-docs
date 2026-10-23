@@ -1,0 +1,907 @@
+{
+  "$comment": "Stable ID enums the API expects as raw integers or strings. Each SDK generates idiomatic enums from this file.",
+  "UserBookStatus": {
+    "type": "int",
+    "description": "Where a book is on a reader's shelves.",
+    "values": [
+      {
+        "id": 1,
+        "key": "WANT_TO_READ",
+        "slug": "want-to-read",
+        "label": "Want to Read"
+      },
+      {
+        "id": 2,
+        "key": "CURRENTLY_READING",
+        "slug": "currently-reading",
+        "label": "Currently Reading"
+      },
+      {
+        "id": 3,
+        "key": "READ",
+        "slug": "read",
+        "label": "Read"
+      },
+      {
+        "id": 4,
+        "key": "PAUSED",
+        "slug": "paused",
+        "label": "Paused"
+      },
+      {
+        "id": 5,
+        "key": "DID_NOT_FINISH",
+        "slug": "did-not-finish",
+        "label": "Did Not Finish"
+      },
+      {
+        "id": 6,
+        "key": "IGNORED",
+        "slug": "ignored",
+        "label": "Ignored"
+      }
+    ]
+  },
+  "PrivacySetting": {
+    "type": "int",
+    "description": "Who can see something: everyone, followers, or only the reader.",
+    "values": [
+      {
+        "id": 1,
+        "key": "PUBLIC",
+        "label": "Public",
+        "readScopeSuffix": "public"
+      },
+      {
+        "id": 2,
+        "key": "FOLLOWS",
+        "label": "Follows",
+        "readScopeSuffix": "following"
+      },
+      {
+        "id": 3,
+        "key": "PRIVATE",
+        "label": "Private",
+        "readScopeSuffix": "private"
+      }
+    ]
+  },
+  "ReadingFormat": {
+    "type": "int",
+    "values": [
+      {
+        "id": 1,
+        "key": "PHYSICAL",
+        "label": "Physical",
+        "progressField": "progress_pages",
+        "totalField": "pages"
+      },
+      {
+        "id": 2,
+        "key": "AUDIOBOOK",
+        "label": "Audiobook",
+        "progressField": "progress_seconds",
+        "totalField": "audio_seconds"
+      },
+      {
+        "id": 4,
+        "key": "EBOOK",
+        "label": "E-Book",
+        "progressField": "progress_pages",
+        "totalField": "pages"
+      }
+    ],
+    "notes": "ID 3 is unused."
+  },
+  "Platform": {
+    "source": "platforms table (api.hardcover.app, 2026-10-20)",
+    "type": "int",
+    "notes": "Where an external id comes from, for books.findByExternalIds. The API stores mappings per platform.",
+    "values": [
+      {
+        "id": 1,
+        "key": "GOODREADS",
+        "label": "Goodreads"
+      },
+      {
+        "id": 2,
+        "key": "LIBRARY_THING",
+        "label": "LibraryThing"
+      },
+      {
+        "id": 3,
+        "key": "OPEN_LIBRARY",
+        "label": "Open Library"
+      },
+      {
+        "id": 4,
+        "key": "OCLC",
+        "label": "OCLC (WorldCat)"
+      },
+      {
+        "id": 5,
+        "key": "LCCN",
+        "label": "Library of Congress control number"
+      },
+      {
+        "id": 18,
+        "key": "WIKIDATA",
+        "label": "Wikidata"
+      },
+      {
+        "id": 19,
+        "key": "AMAZON",
+        "label": "Amazon (ASIN)"
+      },
+      {
+        "id": 20,
+        "key": "GOOGLE",
+        "label": "Google Books"
+      },
+      {
+        "id": 21,
+        "key": "ALIBRIS",
+        "label": "Alibris"
+      },
+      {
+        "id": 22,
+        "key": "AMAZON_CA",
+        "label": "Amazon.ca (ASIN)"
+      },
+      {
+        "id": 23,
+        "key": "PAPERBACK_SWAP",
+        "label": "PaperBackSwap"
+      },
+      {
+        "id": 24,
+        "key": "AMAZON_DE",
+        "label": "Amazon.de (ASIN)"
+      },
+      {
+        "id": 25,
+        "key": "CANADIAN_NATIONAL_LIBRARY",
+        "label": "Library and Archives Canada"
+      },
+      {
+        "id": 26,
+        "key": "AMAZON_UK",
+        "label": "Amazon.co.uk (ASIN)"
+      },
+      {
+        "id": 27,
+        "key": "STORY_GRAPH",
+        "label": "The StoryGraph"
+      },
+      {
+        "id": 28,
+        "key": "INVENTAIRE",
+        "label": "Inventaire"
+      },
+      {
+        "id": 29,
+        "key": "ABE_BOOKS",
+        "label": "AbeBooks"
+      },
+      {
+        "id": 30,
+        "key": "HARDCOVER_CSV",
+        "label": "Hardcover CSV import"
+      },
+      {
+        "id": 32,
+        "key": "AUDIBLE",
+        "label": "Audible"
+      }
+    ]
+  },
+  "ListMemberStatus": {
+    "type": "int",
+    "notes": "A collaborative list member's status. Invitees answer with accepted, ignored or spam (lists.respond).",
+    "values": [
+      {
+        "id": 0,
+        "key": "INVITED",
+        "label": "Invited"
+      },
+      {
+        "id": 1,
+        "key": "ACCEPTED",
+        "label": "Accepted"
+      },
+      {
+        "id": 2,
+        "key": "IGNORED",
+        "label": "Ignored"
+      },
+      {
+        "id": 3,
+        "key": "SPAM",
+        "label": "Marked as spam"
+      }
+    ]
+  },
+  "LikeableType": {
+    "type": "string",
+    "notes": "What a like is on, for likes.like / likes.unlike. A review is liked as its library entry (UserBook).",
+    "values": [
+      {
+        "id": "Activity",
+        "key": "ACTIVITY",
+        "label": "An activity in a feed"
+      },
+      {
+        "id": "List",
+        "key": "LIST",
+        "label": "A list"
+      },
+      {
+        "id": "ReadingJournal",
+        "key": "JOURNAL_ENTRY",
+        "label": "A journal entry"
+      },
+      {
+        "id": "UserBook",
+        "key": "REVIEW",
+        "label": "A review (its library entry)"
+      },
+      {
+        "id": "Vibe",
+        "key": "VIBE",
+        "label": "A vibe"
+      }
+    ]
+  },
+  "BlockType": {
+    "type": "string",
+    "notes": "A full block stops follows, likes and notifications; an invite block only stops club and buddy-read invites.",
+    "values": [
+      {
+        "id": "UserBlock",
+        "key": "FULL",
+        "label": "Full block"
+      },
+      {
+        "id": "BlockInvite",
+        "key": "INVITES",
+        "label": "Invites only"
+      }
+    ]
+  },
+  "DatePrecision": {
+    "type": "int",
+    "description": "How exact a finished date is, for when only the month or year is known.",
+    "field": "finished_at_precision",
+    "values": [
+      {
+        "id": 0,
+        "key": "UNKNOWN"
+      },
+      {
+        "id": 1,
+        "key": "DAY"
+      },
+      {
+        "id": 2,
+        "key": "MONTH"
+      },
+      {
+        "id": 3,
+        "key": "YEAR"
+      }
+    ]
+  },
+  "SearchType": {
+    "source": "docs: src/content/docs/api/guides/Searching.mdx",
+    "type": "string",
+    "description": "What to search. Defaults to books.",
+    "field": "query_type",
+    "caseInsensitive": true,
+    "default": "book",
+    "values": [
+      {
+        "id": "author",
+        "key": "AUTHOR"
+      },
+      {
+        "id": "book",
+        "key": "BOOK"
+      },
+      {
+        "id": "character",
+        "key": "CHARACTER"
+      },
+      {
+        "id": "list",
+        "key": "LIST"
+      },
+      {
+        "id": "prompt",
+        "key": "PROMPT"
+      },
+      {
+        "id": "publisher",
+        "key": "PUBLISHER"
+      },
+      {
+        "id": "series",
+        "key": "SERIES"
+      },
+      {
+        "id": "user",
+        "key": "USER"
+      }
+    ]
+  },
+  "TrendingDuration": {
+    "source": "api-snapshot/schema.graphql (enum TrendingDuration)",
+    "type": "string",
+    "generated": true,
+    "notes": "Real GraphQL enum; codegen owns it. Listed so SDK docs can link here."
+  },
+  "Rating": {
+    "type": "decimal",
+    "min": 0.5,
+    "max": 5,
+    "step": 0.5,
+    "notes": "null clears the rating."
+  },
+  "JournalEvent": {
+    "type": "string",
+    "field": "event",
+    "notes": "The API accepts any of these from journal.add. Only notes and quotes are normally written by apps; the rest are journaled by the server as a side effect of library, reads, lists and prompts calls, so apps don't add them. A manual progress_updated merges into that day's entry.",
+    "values": [
+      {
+        "id": "note",
+        "key": "NOTE",
+        "label": "Notes"
+      },
+      {
+        "id": "quote",
+        "key": "QUOTE",
+        "label": "Quotes"
+      },
+      {
+        "id": "progress_updated",
+        "key": "PROGRESS_UPDATED",
+        "label": "Progress updates",
+        "doc": "Written by the server when you use reads.setProgress. A manual entry merges into that day's progress entry."
+      },
+      {
+        "id": "rated",
+        "key": "RATED",
+        "label": "Ratings",
+        "doc": "Written by the server when you use library.rate or library.update; adding it yourself duplicates it."
+      },
+      {
+        "id": "reviewed",
+        "key": "REVIEWED",
+        "label": "Reviews",
+        "doc": "Written by the server when you use library.update with a review; adding it yourself duplicates it."
+      },
+      {
+        "id": "status_want_to_read",
+        "key": "STATUS_WANT_TO_READ",
+        "label": "Want to read",
+        "doc": "Written by the server when you use library.add or library.setStatus; adding it yourself duplicates it."
+      },
+      {
+        "id": "status_currently_reading",
+        "key": "STATUS_CURRENTLY_READING",
+        "label": "Started reading",
+        "doc": "Written by the server when you use library.setStatus; adding it yourself duplicates it."
+      },
+      {
+        "id": "status_read",
+        "key": "STATUS_READ",
+        "label": "Finished reading",
+        "doc": "Written by the server when you use library.setStatus; adding it yourself duplicates it."
+      },
+      {
+        "id": "status_paused",
+        "key": "STATUS_PAUSED",
+        "label": "Paused",
+        "doc": "Written by the server when you use library.setStatus; adding it yourself duplicates it."
+      },
+      {
+        "id": "status_stopped",
+        "key": "STATUS_STOPPED",
+        "label": "Stopped",
+        "doc": "Written by the server when you use library.setStatus; adding it yourself duplicates it."
+      },
+      {
+        "id": "user_book_read_started",
+        "key": "USER_BOOK_READ_STARTED",
+        "label": "Started an edition",
+        "doc": "Written by the server when you use library.setStatus (Currently Reading starts a read); adding it yourself duplicates it."
+      },
+      {
+        "id": "user_book_read_finished",
+        "key": "USER_BOOK_READ_FINISHED",
+        "label": "Finished an edition",
+        "doc": "Written by the server when you use library.setStatus (Read finishes the read); adding it yourself duplicates it."
+      },
+      {
+        "id": "list_book",
+        "key": "LIST_BOOK",
+        "label": "Added to a list",
+        "doc": "Written by the server when you use lists.addBook or lists.addBooks; adding it yourself duplicates it."
+      },
+      {
+        "id": "prompt_book",
+        "key": "PROMPT_BOOK",
+        "label": "Prompt answers",
+        "doc": "Written by the server when a book is added to a prompt answer."
+      },
+      {
+        "id": "referral_to",
+        "key": "REFERRAL_TO",
+        "label": "Recommendations sent",
+        "doc": "Written by the server from a library entry's recommendedFor."
+      },
+      {
+        "id": "referred_by",
+        "key": "REFERRED_BY",
+        "label": "Recommendations received",
+        "doc": "Written by the server from a library entry's recommendedBy."
+      }
+    ]
+  },
+  "GoalMetric": {
+    "type": "string",
+    "field": "metric",
+    "notes": "Progress is calculated by the server; apps never set it. For hour goals, `goal` is hours and `progress` is seconds.",
+    "values": [
+      {
+        "id": "book",
+        "key": "BOOK",
+        "label": "Books finished"
+      },
+      {
+        "id": "page",
+        "key": "PAGE",
+        "label": "Pages read"
+      },
+      {
+        "id": "hour",
+        "key": "HOUR",
+        "label": "Hours listened or read",
+        "doc": "The goal is in hours but the API's `progress` is in seconds. Compare them with goalProgress()."
+      }
+    ]
+  },
+  "VibeType": {
+    "type": "int",
+    "field": "vibe_type",
+    "notes": "Only custom vibes can be deleted or have their title, description and privacy edited; the others are system vibes the site creates per user.",
+    "values": [
+      {
+        "id": 0,
+        "key": "CUSTOM",
+        "label": "Custom"
+      },
+      {
+        "id": 1,
+        "key": "RECOMMENDATION",
+        "label": "Recommendation",
+        "doc": "System vibe, created by the site."
+      },
+      {
+        "id": 2,
+        "key": "DYNAMIC",
+        "label": "Dynamic",
+        "doc": "System vibe built from recent reading."
+      },
+      {
+        "id": 3,
+        "key": "TOP_PICKS",
+        "label": "Top picks",
+        "doc": "System vibe, created by the site."
+      },
+      {
+        "id": 4,
+        "key": "BOOK_CLUB",
+        "label": "Book club"
+      }
+    ]
+  },
+  "VibeSignalType": {
+    "type": "string",
+    "description": "What a vibe signal points at.",
+    "field": "signal_type",
+    "values": [
+      {
+        "id": "genre",
+        "key": "GENRE",
+        "label": "Genre",
+        "doc": "value: a VibeGenre key."
+      },
+      {
+        "id": "axiom",
+        "key": "AXIOM",
+        "label": "Kind of world",
+        "doc": "value: a VibeAxiom key."
+      },
+      {
+        "id": "audience",
+        "key": "AUDIENCE",
+        "label": "Audience",
+        "doc": "value: a VibeAudience key."
+      },
+      {
+        "id": "format",
+        "key": "FORMAT",
+        "label": "Format",
+        "doc": "value: a VibeFormat key."
+      },
+      {
+        "id": "series",
+        "key": "SERIES",
+        "label": "Series preference",
+        "doc": "value: a VibeSeries key."
+      },
+      {
+        "id": "book",
+        "key": "BOOK",
+        "label": "Like this book",
+        "doc": "A book id."
+      },
+      {
+        "id": "author",
+        "key": "AUTHOR",
+        "label": "Like this author",
+        "doc": "An author id."
+      },
+      {
+        "id": "user",
+        "key": "USER",
+        "label": "Like this reader",
+        "doc": "A user id: you, or someone who follows you."
+      },
+      {
+        "id": "semantic",
+        "key": "SEMANTIC",
+        "label": "Described in words",
+        "doc": "Free text."
+      },
+      {
+        "id": "popularity",
+        "key": "POPULARITY",
+        "label": "Popularity",
+        "doc": "No value. Negative weight digs up hidden gems; positive boosts bestsellers."
+      }
+    ]
+  },
+  "VibeGenre": {
+    "type": "string",
+    "suggested": true,
+    "notes": "Suggested values; the server validates and the taxonomy can grow, so SDKs accept any string.",
+    "values": [
+      {
+        "id": "mystery",
+        "key": "MYSTERY",
+        "label": "Mystery & Crime"
+      },
+      {
+        "id": "thriller",
+        "key": "THRILLER",
+        "label": "Thriller & Suspense"
+      },
+      {
+        "id": "romance",
+        "key": "ROMANCE",
+        "label": "Romance"
+      },
+      {
+        "id": "horror",
+        "key": "HORROR",
+        "label": "Horror"
+      },
+      {
+        "id": "adventure",
+        "key": "ADVENTURE",
+        "label": "Adventure"
+      },
+      {
+        "id": "war",
+        "key": "WAR",
+        "label": "War & Military"
+      },
+      {
+        "id": "historical",
+        "key": "HISTORICAL",
+        "label": "Historical"
+      },
+      {
+        "id": "literary",
+        "key": "LITERARY",
+        "label": "Literary Fiction"
+      },
+      {
+        "id": "humor",
+        "key": "HUMOR",
+        "label": "Humor & Comedy"
+      },
+      {
+        "id": "western",
+        "key": "WESTERN",
+        "label": "Western"
+      },
+      {
+        "id": "sports",
+        "key": "SPORTS",
+        "label": "Sports"
+      },
+      {
+        "id": "family",
+        "key": "FAMILY",
+        "label": "Family & Relationships"
+      },
+      {
+        "id": "classics",
+        "key": "CLASSICS",
+        "label": "Classics"
+      },
+      {
+        "id": "mythology",
+        "key": "MYTHOLOGY",
+        "label": "Mythology & Folklore"
+      },
+      {
+        "id": "litrpg",
+        "key": "LITRPG",
+        "label": "LitRPG & Progression"
+      },
+      {
+        "id": "media",
+        "key": "MEDIA",
+        "label": "Media & Pop Culture"
+      },
+      {
+        "id": "biography",
+        "key": "BIOGRAPHY",
+        "label": "Biography & Memoir"
+      },
+      {
+        "id": "history",
+        "key": "HISTORY",
+        "label": "History"
+      },
+      {
+        "id": "science",
+        "key": "SCIENCE",
+        "label": "Science"
+      },
+      {
+        "id": "self_help",
+        "key": "SELF_HELP",
+        "label": "Self-Help"
+      },
+      {
+        "id": "business",
+        "key": "BUSINESS",
+        "label": "Business & Economics"
+      },
+      {
+        "id": "philosophy",
+        "key": "PHILOSOPHY",
+        "label": "Philosophy"
+      },
+      {
+        "id": "psychology",
+        "key": "PSYCHOLOGY",
+        "label": "Psychology & Mental Health"
+      },
+      {
+        "id": "religion",
+        "key": "RELIGION",
+        "label": "Religion & Spirituality"
+      },
+      {
+        "id": "true_crime",
+        "key": "TRUE_CRIME",
+        "label": "True Crime"
+      },
+      {
+        "id": "politics",
+        "key": "POLITICS",
+        "label": "Politics"
+      },
+      {
+        "id": "cooking",
+        "key": "COOKING",
+        "label": "Cooking & Food"
+      },
+      {
+        "id": "travel",
+        "key": "TRAVEL",
+        "label": "Travel"
+      },
+      {
+        "id": "art",
+        "key": "ART",
+        "label": "Art & Visual Arts"
+      },
+      {
+        "id": "music",
+        "key": "MUSIC",
+        "label": "Music"
+      },
+      {
+        "id": "technology",
+        "key": "TECHNOLOGY",
+        "label": "Technology"
+      },
+      {
+        "id": "health",
+        "key": "HEALTH",
+        "label": "Health & Wellness"
+      },
+      {
+        "id": "nature",
+        "key": "NATURE",
+        "label": "Nature & Environment"
+      },
+      {
+        "id": "essays",
+        "key": "ESSAYS",
+        "label": "Essays & Journalism"
+      },
+      {
+        "id": "education",
+        "key": "EDUCATION",
+        "label": "Education & Learning"
+      },
+      {
+        "id": "social",
+        "key": "SOCIAL",
+        "label": "Social Sciences"
+      },
+      {
+        "id": "reference",
+        "key": "REFERENCE",
+        "label": "Reference"
+      },
+      {
+        "id": "crafts",
+        "key": "CRAFTS",
+        "label": "Crafts & Hobbies"
+      },
+      {
+        "id": "lgbtq",
+        "key": "LGBTQ",
+        "label": "LGBTQ+"
+      }
+    ]
+  },
+  "VibeAxiom": {
+    "type": "string",
+    "description": "Suggested axiom signals for a vibe: how the world works.",
+    "suggested": true,
+    "values": [
+      {
+        "id": "magic",
+        "key": "MAGIC",
+        "label": "Fantasy / Magic"
+      },
+      {
+        "id": "science",
+        "key": "SCIENCE",
+        "label": "Science Fiction"
+      },
+      {
+        "id": "realistic",
+        "key": "REALISTIC",
+        "label": "Realistic / Literary"
+      }
+    ]
+  },
+  "VibeAudience": {
+    "type": "string",
+    "description": "Suggested audience signals for a vibe.",
+    "suggested": true,
+    "values": [
+      {
+        "id": "young_adult",
+        "key": "YOUNG_ADULT",
+        "label": "Young Adult (YA)"
+      },
+      {
+        "id": "middle_grade",
+        "key": "MIDDLE_GRADE",
+        "label": "Middle Grade"
+      },
+      {
+        "id": "children",
+        "key": "CHILDREN",
+        "label": "Children's"
+      },
+      {
+        "id": "erotica",
+        "key": "EROTICA",
+        "label": "Erotica"
+      },
+      {
+        "id": "smut",
+        "key": "SMUT",
+        "label": "Spicy / Steamy"
+      }
+    ]
+  },
+  "VibeFormat": {
+    "type": "string",
+    "description": "Suggested format signals for a vibe.",
+    "suggested": true,
+    "values": [
+      {
+        "id": "graphic_novel",
+        "key": "GRAPHIC_NOVEL",
+        "label": "Graphic Novel & Comics"
+      },
+      {
+        "id": "audio",
+        "key": "AUDIO",
+        "label": "Audiobook"
+      },
+      {
+        "id": "drama",
+        "key": "DRAMA",
+        "label": "Drama & Theatre"
+      },
+      {
+        "id": "short_form",
+        "key": "SHORT_FORM",
+        "label": "Short Stories & Novellas"
+      },
+      {
+        "id": "poetry",
+        "key": "POETRY",
+        "label": "Poetry"
+      }
+    ]
+  },
+  "VibeSeries": {
+    "type": "string",
+    "description": "Suggested series signals for a vibe: where in a series a book sits.",
+    "suggested": true,
+    "values": [
+      {
+        "id": "first",
+        "key": "FIRST",
+        "label": "First in series"
+      },
+      {
+        "id": "standalone",
+        "key": "STANDALONE",
+        "label": "Not part of a series"
+      },
+      {
+        "id": "first_or_standalone",
+        "key": "FIRST_OR_STANDALONE",
+        "label": "First in series or standalone"
+      }
+    ]
+  },
+  "DynamicSignalCategory": {
+    "type": "string",
+    "description": "Signals the server fills in from the reader's own activity.",
+    "suggested": true,
+    "values": [
+      {
+        "id": "recently_read_books",
+        "key": "RECENTLY_READ_BOOKS",
+        "label": "Recently read books"
+      },
+      {
+        "id": "recently_read_authors",
+        "key": "RECENTLY_READ_AUTHORS",
+        "label": "Recently read authors"
+      },
+      {
+        "id": "recent_rated_books",
+        "key": "RECENT_RATED_BOOKS",
+        "label": "Recently rated books"
+      }
+    ]
+  }
+}

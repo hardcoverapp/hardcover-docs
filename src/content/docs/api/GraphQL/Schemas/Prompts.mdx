@@ -6,6 +6,11 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
+
+## Scopes and limits
+
+<SchemaAccess typeName="prompts" queries={["prompts", "prompt_answers", "prompt_books_summary"]} />
 
 ## Schema Relationships
 

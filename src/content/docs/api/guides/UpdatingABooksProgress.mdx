@@ -1,15 +1,153 @@
 ---
 title: Updating a Book's Progress and Dates Read
+description: Log reading progress in pages or time, start and finish a read, and record or fix the dates of past reads.
 category: guide
 layout: /src/layouts/documentation.astro
-draft: true
 ---
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
 ## Introduction
 
-This guide will show you how to update a book's progress and dates read.
+This guide shows how to log progress on a book, start and finish reading it, and record the dates of reads, including
+ones from before someone used Hardcover.
 
-### Example Request
-<GraphQLExplorer query={``} description='' />
+Each time a reader goes through a book is a **read** (a row in `user_book_reads`), belonging to their library entry for
+that book (a `user_books` row). The server keeps them in step for you:
+
+- Setting a library entry's status to Currently Reading (`2`) starts a read, a new one on a re-read. Setting it to Read
+  (`3`) finishes it.
+- Starting, progress and finishing each get a journal entry. Don't write those entries yourself, or they'll appear twice.
+- Progress that reaches the end of the edition finishes the read and marks the book Read.
+
+## Related Schemas
+- [User Books](/api/graphql/schemas/userbooks)
+- [Editions](/api/graphql/schemas/editions)
+
+## Find the Read in Progress
+
+Progress goes on the read that's started and not yet finished. Replace `##USER_ID##` with your user id and `427578`
+with the book's id.
+
+<GraphQLExplorer query={`
+query ReadInProgress {
+    user_books(where: {user_id: {_eq: ##USER_ID##}, book_id: {_eq: 427578}}) {
+        id
+        status_id
+        user_book_reads(where: {finished_at: {_is_null: true}}, order_by: {id: desc}, limit: 1) {
+            id
+            started_at
+            progress_pages
+            progress_seconds
+            edition {
+                pages
+                audio_seconds
+            }
+        }
+    }
+}
+`} description={`
+    Your library entry for a book, with the read you're in the middle of and its edition's length.
+`}
+    title="Read in Progress"
+    presentation='json'
+/>
+
+## Update Progress
+
+Set `progress_pages`, or `progress_seconds` for an audiobook, on that read. To show a percentage, work it out from the
+edition's `pages` or `audio_seconds`. To log progress after the fact, `action_at` dates the journal entry to when it
+happened.
+
+<GraphQLExplorer query={`
+mutation UpdateProgress {
+    update_user_book_read(id: 123, object: {progress_pages: 142, action_at: "2026-09-24T21:00:00-06:00"}) {
+        error
+        user_book_read {
+            id
+            progress_pages
+            started_at
+            finished_at
+        }
+    }
+}
+`} description={`
+    Records page 142 on read 123, dated to the evening it happened.
+`}
+    title="Update Progress"
+/>
+
+## Start, Finish and Re-read
+
+Change the library entry's status, and the server starts or finishes the read. Setting Currently Reading on a book
+already read starts a second read, so a re-read keeps its own dates and progress.
+
+<GraphQLExplorer query={`
+mutation FinishReading {
+    update_user_book(id: 456, object: {status_id: 3}) {
+        error
+        user_book {
+            id
+            status_id
+        }
+    }
+}
+`} description={`
+    Marks library entry 456 as Read, which finishes the read in progress.
+`}
+    title="Finish Reading"
+/>
+
+## Record a Past Read
+
+For a read from before someone used Hardcover, add it with the dates they remember. `finished_at_precision` says how
+exact the finished date is: `1` for the day, `2` for only the month, `3` for only the year. The server writes the
+journal entries for it.
+
+<GraphQLExplorer query={`
+mutation AddPastRead {
+    insert_user_book_read(user_book_id: 456, user_book_read: {
+        started_at: "2018-06-01"
+        finished_at: "2018-06-30"
+        finished_at_precision: 2
+    }) {
+        error
+        user_book_read {
+            id
+            started_at
+            finished_at
+        }
+    }
+}
+`} description={`
+    Adds a read finished sometime in June 2018 to library entry 456.
+`}
+    title="Record a Past Read"
+/>
+
+## Fix or Remove a Read's Dates
+
+`update_user_book_read` changes only the fields you send, and `null` clears a date. `delete_user_book_read` removes a
+read.
+
+<GraphQLExplorer query={`
+mutation FixReadDates {
+    update_user_book_read(id: 123, object: {started_at: "2018-06-03"}) {
+        error
+        user_book_read {
+            id
+            started_at
+            finished_at
+        }
+    }
+}
+`} description={`
+    Moves read 123's start to June 3rd, leaving everything else as it was.
+`}
+    title="Fix a Read's Dates"
+/>
+
+## Using the TypeScript SDK
+
+The [TypeScript SDK](/sdk/typescript/) finds the read in progress, converts a percentage using the edition, and handles
+re-reads for you. See [Track reading, including a re-read](/sdk/typescript/0.1/guides/track-reading/).

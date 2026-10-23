@@ -9,5 +9,9 @@
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
-  }
+  },
+  "exclude": [
+    "dist",
+    "src/components/SdkExplorer/examples"
+  ]
 }

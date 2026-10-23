@@ -6,11 +6,16 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
 import {Aside} from "@astrojs/starlight/components";
 
 ## What Is an Edition?
 
 An Edition in Hardcover represents a specific published version of a book. While a book is the conceptual work (e.g., "Pride and Prejudice"), an edition is a particular physical or digital manifestation with specific attributes like ISBN, publisher, format, and release date. Multiple editions of the same book may exist with different publishers, languages, formats, or cover art.
+
+## Scopes and limits
+
+<SchemaAccess typeName="editions" />
 
 ## Schema Relationships
 

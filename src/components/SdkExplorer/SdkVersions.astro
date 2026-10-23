@@ -1,0 +1,28 @@
+---
+/** The TypeScript SDK's documented versions, newest first, from the synced catalogs. */
+import { versions } from "./lib/catalog";
+import { prereleaseLabel, releaseOf } from "./lib/releases";
+---
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Version</th>
+            <th scope="col">Status</th>
+            <th scope="col">Docs</th>
+        </tr>
+    </thead>
+    <tbody>
+        {versions.map((version, i) => (
+            <tr>
+                <th scope="row">{releaseOf("typescript", version) ?? `${version}.x`}</th>
+                <td>{[i === 0 ? "Latest" : "Older", prereleaseLabel("typescript", version) ? "pre-release" : ""].filter(Boolean).join(", ")}</td>
+                <td>
+                    <a href={`/sdk/typescript/${version}/getting-started/`}>Getting started</a> ·{" "}
+                    <a href={`/sdk/typescript/${version}/`}>Overview</a> ·{" "}
+                    <a href={`/sdk/typescript/${version}/resources/library/`}>Resources</a>
+                </td>
+            </tr>
+        ))}
+    </tbody>
+</table>

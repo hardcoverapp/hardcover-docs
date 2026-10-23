@@ -15,6 +15,12 @@
         "title": "Note",
         "text": "The rules and guidelines included in the standards sections of this documentation are intended to provide a general framework to guide new librarians, provide examples about how to handle common editing scenarios, and present consistency across the site. That said, no two books are the same, and so it is impossible for any single standard to be perfectly applicable in all situations. If you believe a particular work does not fit into these standards or have suggestions for improvement, please let us know in the <a>#librarians</a> Discord channel."
       }
+    },
+    "sdk": {
+      "prereleaseBanner": {
+        "title": "Pre-release",
+        "text": "Version {version} is a pre-release, so names and behavior may still change before it's stable. The <changelog>changelog</changelog> says what changed and how to update. Something getting in your way? <issues>Open an issue</issues>."
+      }
     }
   },
   "sidebar": {
@@ -27,6 +33,17 @@
       "schemas": "Schemas",
       "actions": "Actions & Scopes",
       "patLinkBuilder": "PAT Link Builder"
+    },
+    "sdk": {
+      "title": "SDKs",
+      "typescript": "TypeScript",
+      "overview": "Overview",
+      "resources": "Resources",
+      "gettingStarted": "Getting started",
+      "changelog": "Changelog",
+      "versions": "Versions",
+      "guides": "Guides",
+      "clientAndHelpers": "Client and helpers"
     },
     "community": {
       "title": "Community",
@@ -318,11 +335,12 @@
         "dev": {
           "tag": "For developers",
           "title": "Build with the API",
-          "description": "Query books, editions, and reading data over GraphQL — authentication, schema, and recipes.",
+          "description": "Query books, editions, and reading data over GraphQL, or with an official SDK. Authentication, schema, and recipes.",
           "gettingStarted": "Getting started",
           "firstRequest": "Making your first request",
           "auth": "Authentication & tokens",
-          "schema": "GraphQL schema reference"
+          "schema": "GraphQL schema reference",
+          "sdk": "Official SDKs"
         },
         "lib": {
           "tag": "For librarians",
@@ -367,6 +385,10 @@
       "layout": "Layout",
       "showLabels": "Show Labels",
       "hideLabels": "Hide Labels"
+    },
+    "scopes": {
+      "required": "Scopes:",
+      "readType": "Reading {type} needs"
     }
   }
 }

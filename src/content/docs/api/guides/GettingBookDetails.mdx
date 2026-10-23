@@ -10,6 +10,73 @@ import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro'
 - [Books](/api/graphql/schemas/books)
 - [Editions](/api/graphql/schemas/editions)
 
+## Getting a Book and Its Main Editions by Slug
+
+A book's `slug` is the last part of its address on Hardcover (`hardcover.app/books/project-hail-mary`), and it's
+unique, so it finds exactly one book. Each book has a default edition per format, the one Hardcover shows for it:
+`default_physical_edition`, `default_ebook_edition` and `default_audio_edition`. To find the most read or newest
+edition instead, sort the book's `editions` and take the first.
+
+<GraphQLExplorer query={`
+query GetBookBySlug {
+    books(where: {slug: {_eq: "project-hail-mary"}}) {
+        id
+        title
+        subtitle
+        slug
+        release_date
+        users_count
+        rating
+        contributions(where: {contributor_role: {slug: {_eq: "author"}}}) {
+            author {
+                name
+                slug
+            }
+        }
+        default_physical_edition {
+            id
+            edition_format
+            isbn_13
+            pages
+            release_date
+            publisher {
+                name
+            }
+        }
+        default_ebook_edition {
+            id
+            edition_format
+            isbn_13
+            release_date
+        }
+        default_audio_edition {
+            id
+            edition_format
+            audio_seconds
+            release_date
+        }
+        most_read: editions(order_by: {users_count: desc}, limit: 1) {
+            id
+            edition_format
+            users_count
+        }
+        newest: editions(order_by: {release_date: desc_nulls_last}, limit: 1) {
+            id
+            edition_format
+            release_date
+        }
+    }
+}
+`} description={`
+    Project Hail Mary with its author, its default physical, ebook and audio editions, and its most read and newest editions.
+`}
+    title="Book by Slug"
+    presentation='json'
+/>
+
+`most_read` and `newest` are aliases: names you choose for each copy of `editions`, so one query can ask for it
+twice with different sorting.
+
 ## Getting All Editions of a Book
 <GraphQLExplorer query={`
 query GetEditionsFromTitle {

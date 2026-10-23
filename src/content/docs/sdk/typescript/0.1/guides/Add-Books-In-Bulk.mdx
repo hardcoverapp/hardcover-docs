@@ -1,0 +1,40 @@
+---
+title: Add books in bulk
+description: Scan barcodes into a list, or bring in books another service knows by its own ids.
+slug: sdk/typescript/0.1/guides/add-books-in-bulk
+layout: /src/layouts/documentation.astro
+sidebar:
+  order: 3
+---
+
+import SdkExample from '@/components/SdkExplorer/SdkExample.astro';
+
+Two common ways books arrive in bulk: someone scans the barcodes on a shelf, or they bring a library over from
+another service. Both match books exactly and never guess, and both tell you what didn't match so your app can ask.
+
+## Scan one barcode
+
+A barcode names one specific edition, so a scan is looked up by ISBN-13 or ISBN-10, never through search. Spaces and
+hyphens are fine. If nothing matches (or it's a UPC, which Hardcover doesn't use), offer a title search instead.
+
+<SdkExample version="0.1" file="bulk-scan-to-list" fn="scanToList" />
+
+## Scan a whole shelf
+
+`lists.addBooks` takes the raw scanner output. It looks every code up in one request, adds the exact editions in
+batches paced to stay inside your rate limit, and returns anything it couldn't add in `notAdded`, with the reason.
+Adding a book that's already on the list is harmless.
+
+<SdkExample version="0.1" file="bulk-scan-to-list" fn="bulkScanToList" />
+
+## Bring in books from another service
+
+`books.findByExternalIds` looks up a whole list of another service's ids, such as Goodreads or Open Library ids from
+an export, in one request. When the match names an exact edition, it's added as that edition.
+
+<SdkExample version="0.1" file="catalog" fn="importFromGoodreads" />
+
+## Related
+
+- [Lists](/sdk/typescript/0.1/resources/lists/) and [Books](/sdk/typescript/0.1/resources/books/)
+- [Rate limits](/sdk/typescript/0.1/#rate-limits): why large imports pace themselves

@@ -1,0 +1,23 @@
+---
+/**
+ * An SDK method you can try: <SdkExplorer method="library.add" version="0.1" />.
+ * `values` overrides the catalog's examples, by input path
+ * (e.g. { bookId: "386446", "options.status": "Read" }).
+ */
+import { SdkExplorerIsland } from "./SdkExplorerIsland.tsx";
+
+interface Props {
+    method: string;
+    /** The SDK minor version the page documents; the newest when left out. */
+    version?: string;
+    values?: Record<string, string | boolean>;
+    /** The page already shows the summary and scopes. */
+    compact?: boolean;
+}
+
+const { method, version, values, compact = false } = Astro.props;
+---
+
+<div class="not-content">
+    <SdkExplorerIsland method={method} version={version} values={values} compact={compact} client:only="react" />
+</div>

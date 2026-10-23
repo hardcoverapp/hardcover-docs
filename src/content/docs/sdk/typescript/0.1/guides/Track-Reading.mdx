@@ -1,0 +1,35 @@
+---
+title: Track reading, including a re-read
+description: Start a book, log progress in pages, percent or time, finish it and read it again, with the server keeping the history.
+slug: sdk/typescript/0.1/guides/track-reading
+layout: /src/layouts/documentation.astro
+sidebar:
+  order: 2
+---
+
+import SdkExample from '@/components/SdkExplorer/SdkExample.astro';
+
+This guide follows one book over a few weeks: added and started, progress logged, finished, then read again.
+It uses two resources: [library](/sdk/typescript/0.1/resources/library/) for the book's status and
+[reads](/sdk/typescript/0.1/resources/reads/) for each time through it.
+
+## What the server does for you
+
+- **Status drives reads.** Setting a book to Currently Reading starts a read (a new one on a re-read), and Read
+  finishes it.
+- **The journal writes itself.** Starting, progress and finishing each get a journal entry. Don't add your own for
+  these, or they'll appear twice.
+- **100% finishes.** Progress of 100% finishes the read and marks the book Read.
+
+## The whole story
+
+Log progress in whatever unit your app has: pages, a percentage (converted using the read's edition), or seconds
+for audiobooks. `setProgress` always targets the read in progress, so it's right after a re-read too. To log
+something after the fact, `occurredAt` dates the journal entry to when it happened.
+
+<SdkExample version="0.1" file="reading-progress" fn="readingProgress" />
+
+## Related
+
+- [A reader's year](/sdk/typescript/0.1/guides/a-readers-year/): adding reads from before someone used Hardcover
+- [Journal](/sdk/typescript/0.1/resources/journal/): notes and quotes, which only the reader can write

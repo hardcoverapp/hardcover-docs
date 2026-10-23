@@ -1,0 +1,166 @@
+/* Scope pill: the scope name, with its meaning in a tooltip that opens on
+   hover and keyboard focus. Escape hides it (see ScopePill.astro). */
+
+.scope-pill {
+    position: relative;
+    display: inline-flex;
+    vertical-align: baseline;
+    /* Breathing room when pills wrap onto several lines, as in a table cell. */
+    margin-block: 0.12rem;
+    margin-inline-end: 0.2rem;
+    border-radius: 999px;
+    cursor: help;
+}
+
+/* Two classes, to win over the docs' own inline code style. */
+.scope-pill > code.scope-pill-name {
+    font-size: 0.78em;
+    padding: 0.12em 0.6em;
+    border-radius: 999px;
+    border: 1px solid var(--hc-indigo-line);
+    background: var(--hc-indigo-soft);
+    color: var(--hc-ink);
+    white-space: nowrap;
+}
+
+.scope-pill[data-kind="write"] > code.scope-pill-name {
+    border-color: var(--hc-closed-line);
+    background: var(--hc-closed-soft);
+}
+
+.scope-pill:focus-visible {
+    outline: 2px solid var(--hc-indigo);
+    outline-offset: 2px;
+}
+
+/* The tooltip: a raised card with an accent edge and an arrow to its pill,
+   so it stands apart from the page text around it. */
+.scope-pill-tip {
+    --tip-accent: var(--hc-indigo);
+    --tip-accent-soft: var(--hc-indigo-soft);
+
+    position: absolute;
+    left: -0.5rem;
+    top: calc(100% + 0.6rem);
+    z-index: 30;
+    display: grid;
+    gap: 0.45rem;
+    width: max-content;
+    max-width: min(22rem, 85vw);
+    padding: 0.75rem 0.9rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--tip-accent) 45%, var(--hc-rule));
+    border-top: 3px solid var(--tip-accent);
+    /* Tinted toward the accent, so it lifts off the page in both themes. */
+    background: color-mix(in srgb, var(--hc-card-2, var(--hc-card)) 90%, var(--tip-accent));
+    color: var(--hc-ink);
+    /* A soft drop for depth, and an inner highlight in place of an outer glow. */
+    box-shadow:
+        0 8px 24px -8px rgb(0 0 0 / 0.3),
+        inset 0 0 0 1px color-mix(in srgb, var(--tip-accent) 20%, transparent);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: normal;
+    text-align: left;
+    /* Out of the layout while closed, so a hidden tooltip near the edge of a
+       table or column never makes it scroll. */
+    display: none;
+}
+
+.scope-pill[data-kind="write"] .scope-pill-tip {
+    --tip-accent: var(--hc-closed);
+    --tip-accent-soft: var(--hc-closed-soft);
+}
+
+/* Arrow pointing up at the pill, in the accent color. */
+.scope-pill-tip::before {
+    content: "";
+    position: absolute;
+    left: 1.1rem;
+    top: -9px;
+    border: 6px solid transparent;
+    border-bottom-color: var(--tip-accent);
+    border-top: 0;
+}
+
+/* A hover bridge over the gap, so moving onto the tooltip doesn't close it. */
+.scope-pill-tip::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -0.75rem;
+    height: 0.75rem;
+}
+
+.scope-pill-tip-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.6rem;
+}
+
+.scope-pill .scope-pill-tip code {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0;
+    background: none;
+    border: 0;
+    color: var(--hc-ink);
+}
+
+.scope-pill-tip-kind {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    color: var(--tip-accent);
+    background: var(--tip-accent-soft);
+}
+
+.scope-pill-tip-body {
+    display: block;
+    color: var(--hc-ink);
+}
+
+.scope-pill-tip-foot {
+    display: block;
+    padding-top: 0.45rem;
+    border-top: 1px solid color-mix(in srgb, var(--tip-accent) 30%, var(--hc-rule));
+    font-size: 0.78rem;
+    color: var(--hc-ink-2);
+}
+
+/* One divider above the footer lines, not one each. */
+.scope-pill-tip-foot + .scope-pill-tip-foot {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.scope-pill .scope-pill-tip-foot code {
+    font-weight: 500;
+    font-size: 0.75rem;
+}
+
+/* The tooltip stays open while the pointer moves onto it, so it can be read and selected. */
+.scope-pill:is(:hover, :focus-visible):not(.is-dismissed) .scope-pill-tip {
+    display: grid;
+}
+
+/* A short fade in as it opens. */
+@media (prefers-reduced-motion: no-preference) {
+    .scope-pill:is(:hover, :focus-visible):not(.is-dismissed) .scope-pill-tip {
+        transition: opacity 140ms ease, transform 140ms ease;
+
+        @starting-style {
+            opacity: 0;
+            transform: translateY(-2px);
+        }
+    }
+}
+
+

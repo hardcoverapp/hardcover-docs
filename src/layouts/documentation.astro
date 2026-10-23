@@ -5,6 +5,8 @@ import {uCFirst, useTranslation} from "@/lib/utils";
 import type { FrontmatterConfig } from '@/types';
 import { Components } from "@/components";
 import LocalDate from "@/components/LocalDate.astro";
+import PrereleaseBanner from "@/components/SdkExplorer/PrereleaseBanner.astro";
+import { prereleaseLabel } from "@/components/SdkExplorer/lib/releases";
 
 // Pages outside api/ that should still show the API disclaimer banner.
 const API_BANNER_ROUTES = ['contributing/api-docs'];
@@ -15,6 +17,11 @@ const locale = Astro.currentLocale;
 const route = Astro.locals.starlightRoute;
 const slug = route?.locale ? route.id.replace(`${route.locale}/`, '') : route?.id ?? '';
 const showApiBanner = slug.startsWith('api/') || API_BANNER_ROUTES.includes(slug);
+
+// Every page of a pre-release SDK version (sdk/typescript/0.1/..., or a tagged
+// release like 1.0.0-beta.2) says so.
+const [, sdkLanguage, sdkVersion] = Astro.url.pathname.match(/\/sdk\/([^/]+)\/(\d+\.\d+)(\/|$)/) ?? [];
+const prerelease = sdkLanguage && sdkVersion ? prereleaseLabel(sdkLanguage, sdkVersion) : undefined;
 
 // Prefer Starlight's resolved last-updated (git commit date when there's no
 // frontmatter override) over the raw frontmatter value.
@@ -38,5 +45,6 @@ const resolvedLastUpdated =
 <hr>
 
 {showApiBanner && <Components.banners.api locale={locale} client:only="react"/>}
+{prerelease && <PrereleaseBanner language={sdkLanguage} label={prerelease} locale={locale}/>}
 
 <slot/>

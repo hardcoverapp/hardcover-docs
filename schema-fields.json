@@ -999,6 +999,12 @@
       "hasArgs": false
     },
     {
+      "name": "primary_override",
+      "type": "Boolean",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "updated_at",
       "type": "timestamp!",
       "description": "",
@@ -1897,6 +1903,12 @@
       "hasArgs": false
     },
     {
+      "name": "notifier_user",
+      "type": "users",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
       "name": "notifier_user_id",
       "type": "Int!",
       "description": "",
@@ -2181,6 +2193,12 @@
       "type": "timestamp!",
       "description": "",
       "hasArgs": false
+    },
+    {
+      "name": "custom",
+      "type": "jsonb",
+      "description": "",
+      "hasArgs": true
     },
     {
       "name": "edition",
@@ -2843,6 +2861,12 @@
       "type": "Int!",
       "description": "",
       "hasArgs": false
+    },
+    {
+      "name": "viewer_buddy_read_privacy_setting_id",
+      "type": "Int",
+      "description": "Per-book buddy-read setting, only on the viewer's own row",
+      "hasArgs": false
     }
   ],
   "users": [
@@ -3283,6 +3307,12 @@
       "type": "[user_flags!]!",
       "description": "An array relationship",
       "hasArgs": true
+    },
+    {
+      "name": "user_setting",
+      "type": "user_settings",
+      "description": "An object relationship",
+      "hasArgs": false
     },
     {
       "name": "username",

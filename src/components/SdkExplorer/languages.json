@@ -1,0 +1,326 @@
+{
+  "$comment": "Source for the README language matrix. Edit here, then run `node scripts/render-matrix.mjs`. Resources with both halves have separate read and write rows. Status values: done, partial, planned, n/a. A resource row (res-*) can be done only if `examples` maps it to an existing file under the language's path (spec/05).",
+  "features": [
+    {
+      "id": "transport",
+      "group": "Core",
+      "label": "GraphQL transport + raw query escape hatch"
+    },
+    {
+      "id": "errors",
+      "group": "Core",
+      "label": "Normalized error taxonomy"
+    },
+    {
+      "id": "action-envelopes",
+      "group": "Core",
+      "label": "Action envelope unwrapping (`error` / `errors`)"
+    },
+    {
+      "id": "rate-limit",
+      "group": "Core",
+      "label": "Rate-limit pacing, 429 backoff, request batching"
+    },
+    {
+      "id": "codegen",
+      "group": "Core",
+      "label": "Types generated from `shared/operations`"
+    },
+    {
+      "id": "auth-pat",
+      "group": "Auth",
+      "label": "Personal access token"
+    },
+    {
+      "id": "auth-pkce",
+      "group": "Auth",
+      "label": "OAuth authorization code + PKCE"
+    },
+    {
+      "id": "auth-device",
+      "group": "Auth",
+      "label": "OAuth device grant"
+    },
+    {
+      "id": "auth-refresh",
+      "group": "Auth",
+      "label": "Refresh rotation + revoke"
+    },
+    {
+      "id": "res-me",
+      "group": "Resources",
+      "label": "`me` (read)"
+    },
+    {
+      "id": "res-books",
+      "group": "Resources",
+      "label": "`books` / `editions` (read)"
+    },
+    {
+      "id": "res-authors",
+      "group": "Resources",
+      "label": "`authors` (read)"
+    },
+    {
+      "id": "res-series",
+      "group": "Resources",
+      "label": "`series` (read)"
+    },
+    {
+      "id": "res-users",
+      "group": "Resources",
+      "label": "`users`: profiles, follows, blocks"
+    },
+    {
+      "id": "res-social",
+      "group": "Resources",
+      "label": "`activities`, `likes`, friends on a book"
+    },
+    {
+      "id": "res-notifications",
+      "group": "Resources",
+      "label": "`notifications`: list, unread count, mark read"
+    },
+    {
+      "id": "res-search",
+      "group": "Resources",
+      "label": "`search` (read)"
+    },
+    {
+      "id": "res-library-read",
+      "group": "Resources",
+      "label": "`library` (user books): read"
+    },
+    {
+      "id": "res-library-write",
+      "group": "Resources",
+      "label": "`library` (user books): write"
+    },
+    {
+      "id": "res-reads-read",
+      "group": "Resources",
+      "label": "`reads` (dates + progress): read"
+    },
+    {
+      "id": "res-reads-write",
+      "group": "Resources",
+      "label": "`reads` (dates + progress): write"
+    },
+    {
+      "id": "res-journal-read",
+      "group": "Resources",
+      "label": "`journal`: read"
+    },
+    {
+      "id": "res-journal-write",
+      "group": "Resources",
+      "label": "`journal`: write"
+    },
+    {
+      "id": "res-lists-read",
+      "group": "Resources",
+      "label": "`lists`: read"
+    },
+    {
+      "id": "res-lists-write",
+      "group": "Resources",
+      "label": "`lists`: write"
+    },
+    {
+      "id": "res-goals-read",
+      "group": "Resources",
+      "label": "`goals`: read"
+    },
+    {
+      "id": "res-goals-write",
+      "group": "Resources",
+      "label": "`goals`: write"
+    },
+    {
+      "id": "res-vibes-read",
+      "group": "Resources",
+      "label": "`vibes`: read"
+    },
+    {
+      "id": "res-vibes-write",
+      "group": "Resources",
+      "label": "`vibes`: write (Supporter perk)"
+    },
+    {
+      "id": "res-prompts-read",
+      "group": "Resources",
+      "label": "`prompts`: read"
+    },
+    {
+      "id": "res-prompts-write",
+      "group": "Resources",
+      "label": "`prompts`: write (ask, answer, follow)"
+    },
+    {
+      "id": "stats",
+      "group": "Resources",
+      "label": "`stats` (optional module): period totals and breakdowns"
+    },
+    {
+      "id": "test-mock",
+      "group": "Testing",
+      "label": "Mock transport + shared fixtures"
+    },
+    {
+      "id": "test-conformance",
+      "group": "Testing",
+      "label": "Shared conformance suite passes"
+    },
+    {
+      "id": "test-contract",
+      "group": "Testing",
+      "label": "Contract tests vs `api-snapshot`"
+    },
+    {
+      "id": "test-live-read",
+      "group": "Testing",
+      "label": "Live integration tests: reads (opt-in)"
+    },
+    {
+      "id": "test-live-write",
+      "group": "Testing",
+      "label": "Live integration tests: writes (opt-in, real-user flows)"
+    },
+    {
+      "id": "rt-web",
+      "group": "Runtimes",
+      "label": "Node + browser (docs site)"
+    },
+    {
+      "id": "rt-react-native",
+      "group": "Runtimes",
+      "label": "React Native (Hermes)"
+    },
+    {
+      "id": "published",
+      "group": "Release",
+      "label": "Published to package registry"
+    }
+  ],
+  "languages": [
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "path": "packages/typescript",
+      "package": "@hardcover/sdk (npm)",
+      "tier": "first",
+      "support": {
+        "transport": "done",
+        "errors": "done",
+        "action-envelopes": "done",
+        "rate-limit": "done",
+        "codegen": "done",
+        "auth-pat": "done",
+        "auth-pkce": "done",
+        "auth-device": "done",
+        "auth-refresh": "done",
+        "test-mock": "partial",
+        "test-conformance": "done",
+        "test-contract": "done",
+        "rt-web": "done",
+        "test-live-read": "done",
+        "res-me": "done",
+        "res-library-read": "done",
+        "res-library-write": "done",
+        "test-live-write": "done",
+        "res-reads-read": "done",
+        "res-reads-write": "done",
+        "res-lists-read": "done",
+        "res-lists-write": "done",
+        "res-search": "done",
+        "res-books": "done",
+        "res-journal-read": "done",
+        "res-journal-write": "done",
+        "res-goals-read": "done",
+        "res-goals-write": "done",
+        "rt-react-native": "partial",
+        "res-vibes-read": "done",
+        "res-vibes-write": "done",
+        "res-prompts-read": "done",
+        "res-prompts-write": "done",
+        "res-authors": "done",
+        "res-series": "done",
+        "res-users": "done",
+        "res-social": "done",
+        "res-notifications": "done",
+        "stats": "done",
+        "published": "done"
+      },
+      "examples": {
+        "res-me": "examples/quick-start.ts",
+        "res-library-read": "examples/quick-start.ts",
+        "res-library-write": "examples/shelve-a-book.ts",
+        "res-reads-read": "examples/reading-progress.ts",
+        "res-reads-write": "examples/reading-progress.ts",
+        "res-lists-read": "examples/bulk-scan-to-list.ts",
+        "res-lists-write": "examples/bulk-scan-to-list.ts",
+        "res-search": "examples/search.ts",
+        "res-books": "examples/books.ts",
+        "res-journal-read": "examples/journal.ts",
+        "res-journal-write": "examples/journal.ts",
+        "res-goals-read": "examples/goals.ts",
+        "res-goals-write": "examples/goals.ts",
+        "res-vibes-read": "examples/vibes.ts",
+        "res-vibes-write": "examples/vibes.ts",
+        "res-prompts-read": "examples/prompts.ts",
+        "res-prompts-write": "examples/prompts.ts",
+        "res-authors": "examples/catalog.ts",
+        "res-series": "examples/catalog.ts",
+        "res-users": "examples/social.ts",
+        "res-social": "examples/social.ts",
+        "res-notifications": "examples/notifications.ts",
+        "stats": "examples/stats.ts"
+      }
+    },
+    {
+      "id": "swift",
+      "name": "Swift",
+      "path": "packages/swift",
+      "package": "TBD (SwiftPM)",
+      "tier": "next",
+      "support": {
+        "rt-web": "n/a",
+        "rt-react-native": "n/a"
+      }
+    },
+    {
+      "id": "jvm",
+      "name": "Kotlin (Java-friendly)",
+      "path": "packages/kotlin",
+      "package": "TBD (Maven Central)",
+      "tier": "next",
+      "support": {
+        "rt-web": "n/a",
+        "rt-react-native": "n/a"
+      }
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "path": "packages/python",
+      "package": "TBD (PyPI)",
+      "tier": "next",
+      "support": {
+        "rt-web": "n/a",
+        "rt-react-native": "n/a"
+      }
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "path": "packages/ruby",
+      "package": "TBD (RubyGems)",
+      "tier": "next",
+      "support": {
+        "rt-web": "n/a",
+        "rt-react-native": "n/a"
+      },
+      "examples": {}
+    }
+  ]
+}

@@ -9,10 +9,27 @@ import {useTranslation} from './src/lib/utils'
 import {SOCIAL_LINKS} from './src/lib/social';
 import rehypeExternalLinks from './src/plugins/rehype-external-links.mjs';
 import {unified} from '@astrojs/markdown-remark';
+import {readdirSync} from 'node:fs';
+import {prereleaseLabel} from './src/components/SdkExplorer/lib/releases';
 
 // The one host whose traffic is real. Everything else — preview builds, the
 // testing server, a local `astro preview` — must not report into it.
 const docsHost = new URL(URLS.DOCS).hostname;
+
+// The SDK minor versions with docs ("0.1"), newest first: one per synced
+// catalog (scripts/sync-sdk-catalog.mjs).
+function sdkVersions(language) {
+    if (language !== 'typescript') return [];
+
+    return readdirSync('./src/components/SdkExplorer/catalogs')
+        .filter((file) => file.endsWith('.json'))
+        .map((file) => file.replace(/\.json$/, ''))
+        .sort((a, b) => {
+            const [aMajor, aMinor] = a.split('.').map(Number);
+            const [bMajor, bMinor] = b.split('.').map(Number);
+            return bMajor - aMajor || bMinor - aMinor;
+        });
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -217,6 +234,53 @@ export default defineConfig({
                         }
                     }
                 ]
+            },
+            {
+                label: useTranslation('sidebar.sdk.title', 'en'),
+                collapsed: true,
+                items: [
+                    {
+                        label: useTranslation('sidebar.sdk.overview', 'en'),
+                        slug: 'sdk',
+                    },
+                    {
+                        label: useTranslation('sidebar.sdk.typescript', 'en'),
+                        items: [
+                            {
+                                label: useTranslation('sidebar.sdk.overview', 'en'),
+                                slug: 'sdk/typescript',
+                            },
+                            {
+                                label: useTranslation('sidebar.sdk.changelog', 'en'),
+                                slug: 'sdk/typescript/changelog',
+                            },
+                            // One group per documented minor version, newest first and open.
+                            ...sdkVersions('typescript').map((version, i) => ({
+                                label: `${version}.x`,
+                                // Pre-releases (0.x, or tagged like 1.0.0-beta.2) say so, like the
+                                // banner on their pages; the newest stable version is Latest, in green.
+                                badge: prereleaseLabel('typescript', version)
+                                    ? 'Pre-release'
+                                    : i === 0 ? { text: 'Latest', variant: 'success' } : undefined,
+                                collapsed: i > 0,
+                                items: [
+                                    { label: useTranslation('sidebar.sdk.overview', 'en'), slug: `sdk/typescript/${version}` },
+                                    { label: useTranslation('sidebar.sdk.gettingStarted', 'en'), slug: `sdk/typescript/${version}/getting-started` },
+                                    { label: useTranslation('sidebar.sdk.clientAndHelpers', 'en'), slug: `sdk/typescript/${version}/client-and-helpers` },
+                                    {
+                                        label: useTranslation('sidebar.sdk.guides', 'en'),
+                                        items: [{ autogenerate: { directory: `sdk/typescript/${version}/guides` } }],
+                                    },
+                                    {
+                                        label: useTranslation('sidebar.sdk.resources', 'en'),
+                                        collapsed: true,
+                                        items: [{ autogenerate: { directory: `sdk/typescript/${version}/resources` } }],
+                                    },
+                                ],
+                            })),
+                        ],
+                    },
+                ],
             },
             {
                 label: useTranslation('sidebar.contributing.title', 'en'),

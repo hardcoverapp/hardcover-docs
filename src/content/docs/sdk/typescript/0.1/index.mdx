@@ -1,0 +1,100 @@
+---
+title: TypeScript SDK 0.1
+description: Version 0.1 of the official TypeScript client for the Hardcover API.
+slug: sdk/typescript/0.1
+layout: /src/layouts/documentation.astro
+---
+
+`@hardcover/sdk` is the official TypeScript client for the Hardcover API. It
+runs in Node 22.12+, browsers, Deno, Bun and React Native, with no
+dependencies. It handles what every app would otherwise repeat: signing users
+in and keeping their tokens fresh, rate limits, retries, and typed results and
+errors.
+
+New here? [Getting started](/sdk/typescript/0.1/getting-started/) installs it
+from npm and makes a first call. The guides then walk through whole tasks:
+
+- [Sign people in](/sdk/typescript/0.1/guides/sign-in/)
+- [Track reading, including a re-read](/sdk/typescript/0.1/guides/track-reading/)
+- [Add books in bulk](/sdk/typescript/0.1/guides/add-books-in-bulk/)
+- [Keep a library in sync](/sdk/typescript/0.1/guides/sync-a-library/)
+- [A reader's year](/sdk/typescript/0.1/guides/a-readers-year/)
+- [Handle errors and test your app](/sdk/typescript/0.1/guides/errors-and-testing/)
+
+## Errors
+
+Every failure is a typed error. The ones apps usually handle:
+
+| Error | Means |
+|---|---|
+| `ScopeError` | The token lacks a scope; `missingScopes` lists them. |
+| `RateLimitError` | Too many requests; `retryAfterSeconds` says how long to wait. |
+| `SignedOutError` | An OAuth sign-in ended; show sign-in again. |
+| `NotFoundError` | Something the method needed doesn't exist. |
+| `NetworkError`, `ServerError` | Reads are already retried; writes are never sent twice. |
+
+## Paging
+
+List methods return one page at a time: `{ items, limit, offset, hasMore }`.
+To go through every page, hand any list method to `allPages`:
+
+```ts
+import { allPages } from "@hardcover/sdk";
+
+for await (const book of allPages((page) => hc.authors.books(authorId, page))) {
+  console.log(book.title);
+}
+```
+
+Each list has a most it returns per request, shown on its method's `limit`
+(100 for lists and activities, 1,000 for books). Asking for more is safe: the
+client sends that list's most, and `hasMore` still tells you whether there's
+another page.
+
+## Rate limits
+
+The client paces itself from the API's rate-limit headers, so a burst of calls
+waits instead of failing, and it backs off when other apps share your budget.
+Pass `batch: true` to send concurrent reads as one request.
+
+## Reading stats
+
+`@hardcover/sdk/stats` computes a reader's stats for a year, a month or their
+whole history, the same way the Stats page on hardcover.app does. See
+[Stats](/sdk/typescript/0.1/resources/stats/).
+
+```ts
+import { readingStats, period } from "@hardcover/sdk/stats";
+
+const year = await readingStats(hc, period.thisYear({ timeZone: "America/Denver" }));
+```
+
+## Testing
+
+`MockTransport` from `@hardcover/sdk/testing` drives a real client with
+canned responses, so your tests exercise the same code your app runs.
+
+```ts
+import { MockTransport } from "@hardcover/sdk/testing";
+```
+
+## Resources
+
+Each resource page lists its methods with their scopes, parameters and a live
+example: [Library](/sdk/typescript/0.1/resources/library/),
+[Reads](/sdk/typescript/0.1/resources/reads/),
+[Lists](/sdk/typescript/0.1/resources/lists/),
+[Search](/sdk/typescript/0.1/resources/search/),
+[Books](/sdk/typescript/0.1/resources/books/),
+[Authors](/sdk/typescript/0.1/resources/authors/),
+[Series](/sdk/typescript/0.1/resources/series/),
+[Journal](/sdk/typescript/0.1/resources/journal/),
+[Goals](/sdk/typescript/0.1/resources/goals/),
+[Vibes](/sdk/typescript/0.1/resources/vibes/),
+[Prompts](/sdk/typescript/0.1/resources/prompts/),
+[Users](/sdk/typescript/0.1/resources/users/),
+[Likes](/sdk/typescript/0.1/resources/likes/),
+[Activities](/sdk/typescript/0.1/resources/activities/),
+[Notifications](/sdk/typescript/0.1/resources/notifications/),
+[Me](/sdk/typescript/0.1/resources/me/) and
+[Stats](/sdk/typescript/0.1/resources/stats/).

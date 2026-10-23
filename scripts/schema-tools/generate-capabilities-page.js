@@ -23,16 +23,32 @@ function describe(operation, fieldDef) {
   return description;
 }
 
-function operationCell(operation) {
-  if (operation in schemaTypes) {
-    return `<a href="/api/graphql/schemas/${operation}">${escapeHtml(operation)}</a>`;
-  }
-  return escapeHtml(operation);
+// Action and table names are long snake_case words; <wbr> lets them break
+// after each underscore, so the table fits the page instead of scrolling sideways.
+function breakable(text) {
+  return escapeHtml(text).replaceAll("_", "_<wbr/>");
 }
 
+// A schema page's URL comes from its file name (BookSeries.mdx → /bookseries/),
+// not the action name (book_series).
+function schemaPageUrl(operation) {
+  const file = schemaTypes[operation].split("/").pop().replace(/\.mdx$/, "");
+  return `/api/graphql/schemas/${file.toLowerCase()}/`;
+}
+
+function operationCell(operation) {
+  const name = breakable(operation);
+
+  if (operation in schemaTypes) {
+    return `<a href="${schemaPageUrl(operation)}">${name}</a>`;
+  }
+  return name;
+}
+
+// Each scope as a pill, with what it allows in a tooltip (from capabilities.json).
 function scopesCell(scopeNames) {
   if (!scopeNames.length) return "None documented";
-  return scopeNames.join(", ");
+  return scopeNames.map((scope) => `<ScopePill scope="${escapeHtml(scope)}" />`).join(" ");
 }
 
 const rows = { query: [], mutation: [] };
@@ -62,7 +78,7 @@ rows.mutation.sort((a, b) => a.operation.localeCompare(b.operation));
 
 function renderTable(entries) {
   const lines = [];
-  lines.push("<table>");
+  lines.push('<table class="actions-table">');
   lines.push("    <thead>");
   lines.push("    <tr>");
   lines.push("        <th>Action</th>");
@@ -74,8 +90,8 @@ function renderTable(entries) {
   for (const { operation, scopes, description } of entries) {
     lines.push("    <tr>");
     lines.push(`        <td>${operationCell(operation)}</td>`);
-    lines.push(`        <td>${scopesCell(scopes)}</td>`);
-    lines.push(`        <td>${escapeHtml(description)}</td>`);
+    lines.push(`        <td data-label="Scopes">${scopesCell(scopes)}</td>`);
+    lines.push(`        <td data-label="Description">${breakable(description)}</td>`);
     lines.push("    </tr>");
   }
   lines.push("    </tbody>");
@@ -89,6 +105,8 @@ description: Every GraphQL action recognized by the capabilities system, and whi
 category: reference
 layout: /src/layouts/documentation.astro
 ---
+
+import ScopePill from '@/components/ScopePill/ScopePill.astro';
 
 Each action below is a GraphQL query or mutation root field.
 
