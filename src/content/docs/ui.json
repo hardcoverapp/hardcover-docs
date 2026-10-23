@@ -41,7 +41,8 @@
       "resources": "Resources",
       "gettingStarted": "Getting started",
       "changelog": "Changelog",
-      "versions": "Versions"
+      "versions": "Versions",
+      "guides": "Guides"
     },
     "community": {
       "title": "Community",

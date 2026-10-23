@@ -1,0 +1,52 @@
+{
+  "$comment": "Which SDK example functions each resource page shows, with a title. Examples that walk across several steps or resources are guides instead (src/content/docs/sdk/typescript/<version>/guides). A test checks every exported example function is shown exactly once, here or in a guide, so a new example in the SDK can't be missed.",
+  "notShown": [{ "file": "quick-start", "fn": "quickStart", "why": "Getting started covers it." }],
+  "resources": {
+    "library": [
+      { "file": "shelve-a-book", "fn": "shelveABook", "title": "Shelve a book" },
+      { "file": "year-in-review", "fn": "ownedEditions", "title": "Editions the reader owns" }
+    ],
+    "lists": [
+      { "file": "shared-lists", "fn": "rankAList", "title": "Rank a list" },
+      { "file": "shared-lists", "fn": "followAList", "title": "Follow a list" },
+      { "file": "shared-lists", "fn": "editTogether", "title": "Edit a list together" }
+    ],
+    "search": [
+      { "file": "search", "fn": "searchBooks", "title": "Search books" },
+      { "file": "search", "fn": "tunedSearch", "title": "Tune a search" }
+    ],
+    "books": [
+      { "file": "books", "fn": "bookDetails", "title": "A book's details" },
+      { "file": "books", "fn": "exactIsbnLookup", "title": "Look editions up by ISBN" },
+      { "file": "catalog", "fn": "editionById", "title": "An edition by id" },
+      { "file": "books", "fn": "trendingAndBatches", "title": "Trending books, fetched in one batch" },
+      { "file": "books", "fn": "trendingOnePerSeries", "title": "Trending, one book per series" },
+      { "file": "books", "fn": "newReleases", "title": "New releases" },
+      { "file": "social", "fn": "friendsWhoReadIt", "title": "Friends who read it" }
+    ],
+    "authors": [{ "file": "catalog", "fn": "authorPage", "title": "An author's page" }],
+    "series": [{ "file": "catalog", "fn": "readingOrder", "title": "A series in reading order" }],
+    "journal": [
+      { "file": "journal", "fn": "notesAndQuotes", "title": "Notes and quotes" },
+      { "file": "journal", "fn": "tidyUp", "title": "Tidy up entries" },
+      { "file": "journal", "fn": "manualStatusEntry", "title": "A status entry written by hand" }
+    ],
+    "goals": [{ "file": "goals", "fn": "readingChallenge", "title": "A reading challenge" }],
+    "vibes": [
+      { "file": "vibes", "fn": "cozyMysteries", "title": "Build a vibe" },
+      { "file": "vibes", "fn": "browseVibes", "title": "Browse vibes" }
+    ],
+    "prompts": [
+      { "file": "prompts", "fn": "browsePrompts", "title": "Browse prompts" },
+      { "file": "prompts", "fn": "promptsForABook", "title": "Prompts a book answers" },
+      { "file": "prompts", "fn": "answerAPrompt", "title": "Answer a prompt" },
+      { "file": "prompts", "fn": "askAPrompt", "title": "Ask a prompt" }
+    ],
+    "users": [
+      { "file": "social", "fn": "aReadersProfile", "title": "A reader's profile" },
+      { "file": "social", "fn": "connections", "title": "Follow and block readers" }
+    ],
+    "activities": [{ "file": "social", "fn": "yourFeed", "title": "Your feed" }],
+    "notifications": [{ "file": "notifications", "fn": "notificationBell", "title": "The notification bell" }]
+  }
+}

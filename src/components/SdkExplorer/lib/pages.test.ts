@@ -28,7 +28,7 @@ it("generated pages have no unescaped braces or angle brackets in prose", () => 
       .forEach((line, i) => {
         // Code blocks, frontmatter, imports, comments and components are meant to be code.
         if (line.startsWith("```")) fenced = !fenced;
-        if (fenced || /^(```|---|import |\{\/\*|<SdkExplorer |title:|description:|slug:|layout:)/.test(line)) return;
+        if (fenced || /^(```|---|import |\{\/\*|<SdkExplorer |<SdkExample |title:|description:|slug:|layout:)/.test(line)) return;
 
         // Inline code and scope pills are literal; check what's outside them.
         const prose = line.replace(/`[^`]*`/g, "").replace(/<ScopePill scope="[^"]+" \/>/g, "");

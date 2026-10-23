@@ -268,6 +268,10 @@ export default defineConfig({
                                     { label: useTranslation('sidebar.sdk.overview', 'en'), slug: `sdk/typescript/${version}` },
                                     { label: useTranslation('sidebar.sdk.gettingStarted', 'en'), slug: `sdk/typescript/${version}/getting-started` },
                                     {
+                                        label: useTranslation('sidebar.sdk.guides', 'en'),
+                                        items: [{ autogenerate: { directory: `sdk/typescript/${version}/guides` } }],
+                                    },
+                                    {
                                         label: useTranslation('sidebar.sdk.resources', 'en'),
                                         collapsed: true,
                                         items: [{ autogenerate: { directory: `sdk/typescript/${version}/resources` } }],

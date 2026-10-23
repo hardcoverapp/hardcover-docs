@@ -12,5 +12,9 @@
     "customConditions": [
       "@hardcover/source"
     ]
-  }
+  },
+  "exclude": [
+    "dist",
+    "src/components/SdkExplorer/examples"
+  ]
 }

@@ -1,0 +1,61 @@
+---
+title: Sign people in
+description: Sign readers in with OAuth from a mobile app, a TV or a command-line tool, and let the SDK look after their tokens.
+slug: sdk/typescript/0.1/guides/sign-in
+layout: /src/layouts/documentation.astro
+sidebar:
+  order: 1
+---
+
+import SdkExample from '@/components/SdkExplorer/SdkExample.astro';
+
+When your app acts for other readers, sign them in with [OAuth](/api/oauth/) instead of asking them to paste a
+token. The SDK's `OAuthSession` owns their tokens from then on: it refreshes them before they expire, never spends
+a refresh token twice, stores each new pair before using it, and tells you once when someone needs to sign in again.
+
+Your app decides three things: its client id and redirect URI, the scopes it asks for, and where tokens are stored.
+
+## Before you start
+
+Register your app on hardcover.app under **Account → Developer apps**. Add the exact redirect URI the app will use,
+such as `yourapp://oauth/callback`, and note the client id.
+
+## 1. Create a session
+
+Create one session when the app starts and hand it to the client. Store tokens somewhere secure: on React Native,
+`secureStore` keeps them in the Keychain or Keystore. `onSignedOut` runs once if the reader signs out, revokes your
+app on the website, or their sign-in expires.
+
+<SdkExample version="0.1" file="sign-in" fn="createSession" />
+
+## 2. Sign in
+
+Ask only for the scopes your app uses; the reader sees them on the consent screen. `completeAuthorization` checks
+the response really answers this sign-in, exchanges the code and stores the tokens.
+
+<SdkExample version="0.1" file="sign-in" fn="signIn" />
+
+## 3. Use the client
+
+From here every request just works, across app launches too. If the reader has been signed out, requests fail with
+`SignedOutError`, after `onSignedOut` has already run.
+
+<SdkExample version="0.1" file="sign-in" fn="myShelf" />
+
+## 4. Sign out
+
+Signing out revokes the tokens on Hardcover, so your app leaves the reader's authorized apps, and clears the store.
+
+<SdkExample version="0.1" file="sign-in" fn="signOut" />
+
+## TVs and command-line tools
+
+On a device without a good browser, show a short code instead. The reader approves it on their phone at
+hardcover.app/link, and the session picks it up.
+
+<SdkExample version="0.1" file="sign-in" fn="signInOnTv" />
+
+## Related
+
+- [OAuth](/api/oauth/): flows, scopes and how consent works
+- [Errors](/sdk/typescript/0.1/#errors): `SignedOutError` and the rest

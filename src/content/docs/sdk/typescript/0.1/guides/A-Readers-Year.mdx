@@ -1,0 +1,46 @@
+---
+title: A reader's year
+description: Gather a reader's finished books for a year, fill in reads from before they used Hardcover, and show stats that match the site.
+slug: sdk/typescript/0.1/guides/a-readers-year
+layout: /src/layouts/documentation.astro
+sidebar:
+  order: 5
+---
+
+import SdkExample from '@/components/SdkExplorer/SdkExample.astro';
+
+A year in review pulls together the reader's finished reads, their books, and stats like the ones on the Stats page
+at hardcover.app.
+
+## Every book they finished
+
+`reads.finished` returns reads finished in a date range, each with its book and edition, a page at a time.
+`allPages` walks every page for you.
+
+<SdkExample version="0.1" file="year-in-review" fn="yearInReview" />
+
+## Fill in a read from before Hardcover
+
+Readers often remember reading something years ago without the exact dates. Add the read with the dates they know
+and how precise those are; the server writes the journal entries.
+
+<SdkExample version="0.1" file="year-in-review" fn="logAnOldRead" />
+
+## Stats that match the site
+
+`@hardcover/sdk/stats` counts books, pages, listening time, ratings, formats, genres and authors the same way the
+Stats page does. It's a separate entry point, so apps that don't show stats don't ship it. The reader's time zone
+decides which year "this year" is.
+
+<SdkExample version="0.1" file="stats" fn="yearInReview" />
+
+## Compare periods
+
+To show several periods, fetch the reader's data once and compute each period from it, with no more requests.
+
+<SdkExample version="0.1" file="stats" fn="compareYears" />
+
+## Related
+
+- [Stats](/sdk/typescript/0.1/resources/stats/): every stats function and period
+- [Track reading](/sdk/typescript/0.1/guides/track-reading/): how reads are started and finished

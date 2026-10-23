@@ -9,7 +9,7 @@
 // The catalog is saved under the SDK's minor version (catalogs/0.1.json), so
 // each version keeps its own pages. Syncing a new minor version adds a
 // catalog; older ones stay as they were released.
-import { copyFileSync, existsSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, cpSync, existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const repo = resolve(process.env.SDK_REPO ?? "../hardcover-sdk");
@@ -17,8 +17,9 @@ const catalog = resolve(repo, "shared/catalog.json");
 const changelog = resolve(repo, "packages/typescript/CHANGELOG.md");
 const pkg = resolve(repo, "packages/typescript/package.json");
 const languages = resolve(repo, "languages.json");
+const examples = resolve(repo, "packages/typescript/examples");
 
-for (const file of [catalog, changelog, pkg, languages]) {
+for (const file of [catalog, changelog, pkg, languages, examples]) {
   if (!existsSync(file)) {
     console.error(`Missing ${file}. Set SDK_REPO to a community-sdk checkout.`);
     process.exit(1);
@@ -39,6 +40,13 @@ for (const [source, target] of targets) {
   copyFileSync(source, resolve(target));
   console.log(`Copied ${source} → ${target}`);
 }
+
+// The SDK's examples, which the SDK type-checks in CI, shown as-is in this
+// version's guides and resource pages. Replaced whole, so a removed example goes too.
+const examplesTarget = resolve(`src/components/SdkExplorer/examples/${minor}`);
+rmSync(examplesTarget, { recursive: true, force: true });
+cpSync(examples, examplesTarget, { recursive: true, filter: (path) => !path.endsWith("README.md") });
+console.log(`Copied ${examples} → src/components/SdkExplorer/examples/${minor}`);
 
 // Record the release this version is at, so a tagged one (1.0.0-beta.2) is
 // shown as a pre-release until the plain release (1.0.0) is synced.
