@@ -218,7 +218,7 @@
       "badge": "Community showcase",
       "title": "Built with ",
       "titleAccent": "Hardcover",
-      "tagline": "Apps, scripts, and tools the community has built on the API — from e-ink displays to terminal clients. Open a pull request to add yours.",
+      "tagline": "Apps, scripts, and tools the community has built on the API.",
       "stats": {
         "projects": "projects",
         "categories": "categories",
