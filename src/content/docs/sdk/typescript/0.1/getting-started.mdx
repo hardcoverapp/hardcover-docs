@@ -7,6 +7,7 @@ layout: /src/layouts/documentation.astro
 
 import SdkExplorer from '@/components/SdkExplorer/SdkExplorer.astro';
 import {LinkButton, Tabs, TabItem} from "@astrojs/starlight/components";
+import { URLS } from '@/Consts';
 
 ## Install
 
@@ -44,7 +45,7 @@ bun add @hardcover/sdk@^0.1
 </TabItem>
 </Tabs>
 
-<LinkButton href="https://www.npmjs.com/package/@hardcover/sdk" variant="secondary" icon="external" iconPlacement="end">
+<LinkButton href={URLS.SDK_NPM_TYPESCRIPT} variant="secondary" icon="external" iconPlacement="end">
 @hardcover/sdk on npm
 </LinkButton>
 

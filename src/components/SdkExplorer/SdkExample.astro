@@ -4,6 +4,7 @@
  *   <SdkExample version="0.1" file="reading-progress" fn="readingProgress" />
  */
 import { Code } from "@astrojs/starlight/components";
+import { URLS } from "@/Consts";
 import { exampleCode } from "./lib/examples";
 
 interface Props {
@@ -14,7 +15,7 @@ interface Props {
 
 const { version, file, fn } = Astro.props;
 const code = exampleCode(version, file, fn);
-const source = `https://github.com/hardcoverapp/community-sdk/blob/main/packages/typescript/examples/${file}.ts`;
+const source = `${URLS.SDK_GITHUB}/blob/main/packages/typescript/examples/${file}.ts`;
 ---
 
 <Code code={code} lang="ts" title={`${file}.ts`} wrap />
