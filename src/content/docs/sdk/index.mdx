@@ -5,9 +5,10 @@ layout: /src/layouts/documentation.astro
 ---
 
 import SdkMatrix from '@/components/SdkExplorer/SdkMatrix.astro';
+import { URLS } from '@/Consts';
 
 Hardcover's official SDKs are client libraries for the [Hardcover API](/api/getting-started/), maintained by
-the Hardcover team and [open to contributions](https://github.com/hardcoverapp/community-sdk). Every language
+the Hardcover team and <a href={URLS.SDK_GITHUB}>open to contributions</a>. Every language
 shares one contract: the same operations, enums, errors and behavior tests, so an SDK in one language works like
 the others.
 
@@ -39,7 +40,6 @@ Java), Python and Ruby follow once the shared contract has proven itself.
 
 ## Contributing
 
-The SDKs are developed in the open at
-[hardcoverapp/community-sdk](https://github.com/hardcoverapp/community-sdk). Bug reports and ideas are welcome as
+The SDKs are developed in the open in the <a href={URLS.SDK_GITHUB}>SDK repository</a>. Bug reports and ideas are welcome as
 issues, and the repository explains how a new language is added: a language is ready once it passes the shared
 behavior tests.

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 // Copies the TypeScript SDK's method catalog and changelog, and the language
-// matrix, from a community-sdk checkout into the docs. Run after the SDK
+// matrix, from an SDK repo checkout into the docs. Run after the SDK
 // changes, then `npm run generate:sdk-pages`.
 //
 //   npm run sync:sdk-catalog                    from ../hardcover-sdk
-//   SDK_REPO=/path/to/community-sdk npm run sync:sdk-catalog
+//   SDK_REPO=/path/to/hardcover-sdk npm run sync:sdk-catalog
 //
 // The catalog is saved under the SDK's minor version (catalogs/0.1.json), so
 // each version keeps its own pages. Syncing a new minor version adds a
@@ -23,7 +23,7 @@ const errors = resolve(repo, "shared/errors.json");
 
 for (const file of [catalog, changelog, pkg, languages, examples, enums, errors]) {
   if (!existsSync(file)) {
-    console.error(`Missing ${file}. Set SDK_REPO to a community-sdk checkout.`);
+    console.error(`Missing ${file}. Set SDK_REPO to an SDK repo checkout.`);
     process.exit(1);
   }
 }

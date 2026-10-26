@@ -25,6 +25,10 @@ export const URLS = {
     GITHUB_EDIT: 'https://github.com/hardcoverapp/hardcover-docs/edit/main/',
     GITHUB_DEV: 'https://github.dev/hardcoverapp/hardcover-docs/blob/main/',
 
+    SDK_GITHUB: 'https://github.com/hardcoverapp/hardcover-sdk',
+    SDK_ISSUES: 'https://github.com/hardcoverapp/hardcover-sdk/issues',
+    SDK_NPM_TYPESCRIPT: 'https://www.npmjs.com/package/@hardcover/sdk',
+
     ISSUES: 'https://github.com/hardcoverapp/hardcover-docs/issues',
     CREATE_ISSUE: 'https://github.com/hardcoverapp/hardcover-docs/issues/new?template=bug_report.yml',
     SUGGEST_FEATURE: 'https://github.com/hardcoverapp/hardcover-docs/issues/new?template=feature_request.yml',
