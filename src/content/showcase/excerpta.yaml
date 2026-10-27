@@ -1,0 +1,58 @@
+name: "Excerpta"
+slug: "excerpta"
+summary: "A reading journal for iPhone and iPad, with two-way Hardcover sync"
+description: |
+  Excerpta is a book tracker that doubles as a reading journal. Every book gets a timeline of the quotes you kept, the pages you read, and how each day felt. Paste your Hardcover API token in Settings → Hardcover to connect.
+
+  With Sync Library on:
+  - Reading status, rating, review, progress, and start and finish dates sync both ways
+  - Books you add on Hardcover show up in Excerpta
+  - Your owned books and your yearly reading goal stay in step
+  - New quotes go to your Hardcover reading journal
+  - Sync Shelves and Lists pairs your shelves with your Hardcover lists
+
+  With Hardcover connected:
+  - Discovery shows trending books and the most anticipated releases, plus readers' Lists, Prompts and Vibes
+  - Book Details shows a book's Hardcover ratings, Moods and Similar Books
+  - Series and genres fill in from Hardcover as you add books
+
+  When a book changes in both places, Excerpta's version wins. Hidden books never sync.
+
+  Excerpta is free to download. Everything above is part of Excerpta Unbound, free for seven days with the yearly plan, then monthly, yearly, or a one-time lifetime purchase. Requires iOS 26.2 or later.
+
+author:
+  name: "Trevor Tarakjian"
+  github: "trevware"
+  hardcover: "trevorjames"
+
+links:
+  - label: "App Store"
+    url: "https://apps.apple.com/app/id6762711085"
+    type: "store"
+  - label: "Website"
+    url: "https://excerpta.ink"
+    type: "website"
+
+categories:
+  - "Mobile App"
+  - "Integration"
+
+tags:
+  - "ios"
+  - "ipados"
+  - "reading-journal"
+  - "quotes"
+  - "two-way-sync"
+
+screenshots:
+  - src: "/showcase/excerpta/sync.webp"
+    alt: "Book Details for Iron Flame by Rebecca Yarros, with the status, dates and ownership that sync to Hardcover"
+  - src: "/showcase/excerpta/discover.webp"
+    alt: "Discovery showing Hardcover Prompts, each with the books readers picked"
+  - src: "/showcase/excerpta/moods.webp"
+    alt: "Book Details for Iron Flame with its Hardcover ratings, Genres, Moods and Similar Books"
+
+dateAdded: 2026-10-27
+dateUpdated: 2026-10-27
+
+featured: false
