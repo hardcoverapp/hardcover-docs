@@ -168,6 +168,23 @@ Trending books, in trending order. At most 100 per call; page on with `offset`.
 
 <SdkExplorer method="books.trending" version="0.1" compact />
 
+## similar
+
+`hc.books.similar(bookId, options?)`
+
+Books like this one, most similar first: the site's "Similar books". Up to 100 in all; empty until the site has built the list (`updatedAt` is null).
+
+**Scopes:** <ScopePill scope="read:catalog" />
+
+| Parameter | Type | Required | Notes |
+|---|---|---|---|
+| `bookId` | number | yes | 427578 is Project Hail Mary |
+| `options` | object |  | Only the fields you set are sent. |
+| `options.limit` | number |  | Page size, 25 by default. At most 1,000: a larger one is sent as 1,000. |
+| `options.offset` | number |  | Offset |
+
+<SdkExplorer method="books.similar" version="0.1" compact />
+
 ## Examples
 
 From the SDK's own examples, which it type-checks on every change.
@@ -175,6 +192,10 @@ From the SDK's own examples, which it type-checks on every change.
 ### A book's details
 
 <SdkExample version="0.1" file="books" fn="bookDetails" />
+
+### Similar books
+
+<SdkExample version="0.1" file="books" fn="similarBooks" />
 
 ### Look editions up by ISBN
 

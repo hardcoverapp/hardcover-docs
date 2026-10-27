@@ -2561,6 +2561,46 @@
               ]
             }
           ]
+        },
+        {
+          "name": "similar",
+          "summary": "Books like this one, most similar first: the site's \"Similar books\". Up to 100 in all; empty until the site has built the list (`updatedAt` is null).",
+          "scopes": [
+            "read:catalog"
+          ],
+          "writes": false,
+          "destructive": false,
+          "returns": "SimilarBooks",
+          "params": [
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "427578 is Project Hail Mary",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "options",
+              "kind": "options",
+              "required": false,
+              "fields": [
+                {
+                  "name": "limit",
+                  "kind": "number",
+                  "label": "Limit",
+                  "example": 10,
+                  "max": 1000,
+                  "hint": "Page size, 25 by default. At most 1,000: a larger one is sent as 1,000."
+                },
+                {
+                  "name": "offset",
+                  "kind": "number",
+                  "label": "Offset"
+                }
+              ]
+            }
+          ]
         }
       ]
     },

@@ -24,13 +24,13 @@ export async function yearInReview(hc: HardcoverClient) {
 export async function compareYears(hc: HardcoverClient) {
   const data = await fetchStatsData(hc);
 
-  const thisYear = computeStats(data, period.year(2025));
-  const lastYear = computeStats(data, period.year(2024));
+  const lastYear = computeStats(data, period.year(2025));
+  const yearBefore = computeStats(data, period.year(2024));
   const life = computeStats(data, period.life());
 
   return {
-    booksChange: thisYear.books - lastYear.books,
-    averageRating: thisYear.ratings.average,
+    booksChange: lastYear.books - yearBefore.books,
+    averageRating: lastYear.ratings.average,
     audiobookShare: life.formats.find((f) => f.label === "Audiobooks")!.reads / Math.max(life.reads, 1),
   };
 }

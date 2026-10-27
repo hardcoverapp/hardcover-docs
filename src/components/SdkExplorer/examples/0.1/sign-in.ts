@@ -44,7 +44,7 @@ export async function myShelf(client: HardcoverClient) {
     return await client.library.list();
   } catch (error) {
     // onSignedOut already ran; the request needs a signed-in user.
-    if (error instanceof SignedOutError) return [];
+    if (error instanceof SignedOutError) return null;
     throw error;
   }
 }
