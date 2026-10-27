@@ -1,6 +1,6 @@
 ---
 title: Client and helpers
-description: The client's options, running any query, paging, dates, goals, transports, testing, OAuth building blocks, and every enum and error.
+description: The client's options, running any query, JSON columns, paging, dates, goals, transports, testing, OAuth building blocks, and every enum and error.
 slug: sdk/typescript/0.1/client-and-helpers
 layout: /src/layouts/documentation.astro
 ---
@@ -54,6 +54,40 @@ const { books } = await hc.graphql<{ books: { title: string }[] }>(
   "query { books(where: {slug: {_eq: \"project-hail-mary\"}}) { title } }",
 );
 ```
+
+## JSON columns
+
+Some fields are stored as JSON snapshots rather than as their own tables, like a book's cover (`cachedImage`), its
+credits (`cachedContributors`) and its main series (`cachedFeaturedSeries`). The SDK types them wherever they appear,
+in resource results and in `request`, so they need no casts:
+
+```ts wrap
+const book = await hc.books.getBySlug("red-rising");
+if (book) {
+  const { series, position } = book.cachedFeaturedSeries;
+  console.log(book.cachedImage.url, series ? `${series.name} #${position}` : "standalone");
+}
+```
+
+The shapes are what the API returns today, not a guarantee, so every field is optional. An empty column is `{}`
+(or `[]` for a list), so a book with no series reads `series` as `undefined` rather than throwing.
+
+| Type | Fields |
+|---|---|
+| `CachedImage` | `cachedImage`, `cachedHeaderImage` (books), `cachedCover` (users) |
+| `CachedContributor[]` | `cachedContributors` |
+| `CachedFeaturedSeries` | `cachedFeaturedSeries` |
+| `CachedTags` | `cachedTags`, tags grouped by category ("Genre", "Mood", …) |
+| `CachedGenre[]` | `cachedGenres` (users) |
+| `RatingCount[]` | `ratingsDistribution` (books), ratings per star value |
+| `number[]` | `cachedSimilarBookIds` (books), `cachedBookIds` (vibes) |
+
+Keys inside these columns are camelCase, the same as in search results. Since 0.1.1, the few that the API stores
+in snake_case (`color_name`, `contributor_role_id`, `books_count` and the others listed in the
+[changelog](/sdk/typescript/changelog/)) also arrive in camelCase (`colorName`, `contributorRoleId`, `booksCount`).
+The snake_case keys still work but are deprecated, and a later minor version removes them.
+
+`graphql` returns what the API sends, unchanged and untyped.
 
 ## Paging
 

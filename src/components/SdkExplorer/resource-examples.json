@@ -17,6 +17,7 @@
     ],
     "books": [
       { "file": "books", "fn": "bookDetails", "title": "A book's details" },
+      { "file": "books", "fn": "similarBooks", "title": "Similar books" },
       { "file": "books", "fn": "exactIsbnLookup", "title": "Look editions up by ISBN" },
       { "file": "catalog", "fn": "editionById", "title": "An edition by id" },
       { "file": "books", "fn": "trendingAndBatches", "title": "Trending books, fetched in one batch" },
