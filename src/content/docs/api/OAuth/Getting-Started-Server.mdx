@@ -7,6 +7,7 @@ layout: /src/layouts/documentation.astro
 
 import { URLS } from "@/Consts";
 import ImageComponent from "@/components/ImageComponent.astro";
+import ScopePill from '@/components/ScopePill/ScopePill.astro';
 
 This guide will walk you through making a confidential client, an app that runs on a server you control (server-rendered, or a backend-for-frontend behind an SPA), using hardcover OAuth. Like the [SPA guide](/api/oauth/getting-started-spa) this is a bare bones example, there's a bunch of hardening you'd want to add for production, but this is the shape of it.
 
@@ -26,7 +27,7 @@ For this guide you only need to set the Application Type (pick "Web app (server-
 
 Once you create it you'll be shown a client secret, this is only ever shown once (unless you rotate it). Copy it into wherever your server reads secrets from (an env var, a secret manager, etc.) never commit it into your repo.
 
-For this guide you will only need the `read:me:content` scope. The examples run a plain HTTP server on `localhost:8080`, so the Redirect URI is `http://localhost:8080/callback`, since this is loopback it's fine over `http`, if you're hosting this for real you'll need `https`.
+For this guide you will only need the <ScopePill scope="read:me:content" /> scope. The examples run a plain HTTP server on `localhost:8080`, so the Redirect URI is `http://localhost:8080/callback`, since this is loopback it's fine over `http`, if you're hosting this for real you'll need `https`.
 
 ## Step 0: Discovery
 

@@ -1,15 +1,99 @@
 ---
 title: Updating Reading Journal
+description: Read a book's journal, and add, edit and remove the notes and quotes only a reader can write.
 category: guide
 layout: /src/layouts/documentation.astro
-draft: true
 ---
+
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 
 ## Introduction
 
-This guide will walk you through how to update a book's reading journal.
-This includes updating the progress of the book, the dates read, and the notes you've taken.
+The reading journal is a reader's history with a book: when they started and finished, their progress, ratings,
+reviews, and their own notes and quotes.
 
-### Example Request
-<GraphQLExplorer query={``} description='' />
+Most of it is written by the server. When you change a book's status, progress, rating or review, or add it to a list,
+the server adds the journal entry for you. Writing those yourself would show them twice. What only the reader can
+write are **notes** and **quotes**, and that's what this guide covers. See
+[Updating a Book's Progress and Dates Read](/api/guides/updatingabooksprogress/) for the rest.
+
+## Related Schemas
+- [Reading Journals](/api/graphql/schemas/readingjournals)
+
+## Read a Book's Journal
+
+Replace `##USER_ID##` with your user id and `427578` with the book's id.
+
+<GraphQLExplorer query={`
+query BookJournal {
+    reading_journals(
+        where: {user_id: {_eq: ##USER_ID##}, book_id: {_eq: 427578}}
+        order_by: {action_at: desc}
+    ) {
+        id
+        event
+        entry
+        action_at
+        privacy_setting_id
+    }
+}
+`} description={`
+    Every journal entry you have for a book, newest first.
+`}
+    title="A Book's Journal"
+    presentation='json'
+/>
+
+## Add a Note or Quote
+
+Set `event` to `note` or `quote`. `privacy_setting_id` is required: `1` for everyone, `2` for followers, `3` for only
+you. `tags` can be empty.
+
+<GraphQLExplorer query={`
+mutation AddQuote {
+    insert_reading_journal(object: {
+        book_id: 427578
+        event: "quote"
+        entry: "The line you want to remember."
+        privacy_setting_id: 1
+        tags: []
+    }) {
+        errors
+        reading_journal {
+            id
+            event
+            entry
+        }
+    }
+}
+`} description={`
+    Adds a quote to your journal for a book, visible to everyone.
+`}
+    title="Add a Quote"
+/>
+
+## Edit or Remove an Entry
+
+`update_reading_journal` changes only the fields you send. `delete_reading_journal` removes an entry.
+
+<GraphQLExplorer query={`
+mutation EditNote {
+    update_reading_journal(id: 789, object: {entry: "Rereading this one every summer.", privacy_setting_id: 2}) {
+        errors
+        reading_journal {
+            id
+            entry
+            privacy_setting_id
+        }
+    }
+}
+`} description={`
+    Rewrites journal entry 789 and shows it to followers only.
+`}
+    title="Edit a Note"
+/>
+
+## Using the TypeScript SDK
+
+The [TypeScript SDK](/sdk/typescript/) defaults a note's privacy to the reader's own setting and explains which events
+the server writes. See the [journal methods](/sdk/typescript/0.1/resources/journal/).

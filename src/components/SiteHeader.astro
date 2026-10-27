@@ -6,18 +6,19 @@
  * (/api, /librarians) get the search-forward bar; every other page gets the
  * section links plus an "Open app" CTA.
  *
- * Starlight's own Search / ThemeSelect / LanguageSelect are kept as-is (just
- * restyled) so ⌘K, i18n and the mobile menu keep working. The three top-level
+ * Starlight's own Search / LanguageSelect are kept as-is (just restyled) so ⌘K
+ * and i18n keep working. The theme select is replaced by DisplayPrefs, which
+ * adds text size. The three top-level
  * children are preserved because Starlight's header grid targets them.
  */
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
-import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 
 // Our own overrides, not Starlight's defaults — importing the defaults here
 // would silently bypass them, since a replaced Header no longer resolves the
 // `virtual:starlight/components/*` indirection that applies overrides.
+import DisplayPrefs from './DisplayPrefs.astro';
 import SiteTitle from './SiteTitle.astro';
 import SocialIcons from './SocialIcons.astro';
 
@@ -83,9 +84,9 @@ const {hasSidebar, sidebar} = Astro.locals.starlightRoute;
                                     <div class="sl-flex menu-socials">
                                         <SocialIcons/>
                                     </div>
-                                    <ThemeSelect/>
                                     <LanguageSelect/>
                                 </div>
+                                <DisplayPrefs inline/>
                             </div>
                         </div>
                     </details>
@@ -98,7 +99,7 @@ const {hasSidebar, sidebar} = Astro.locals.starlightRoute;
         <div class="sl-flex social-icons">
             <SocialIcons/>
         </div>
-        <ThemeSelect/>
+        <DisplayPrefs/>
         <LanguageSelect/>
         <a class="open-app" href={URLS.APP} target="_blank" rel="noreferrer noopener">{t('ui.nav.openApp')}</a>
     </div>
@@ -274,7 +275,7 @@ const {hasSidebar, sidebar} = Astro.locals.starlightRoute;
     }
 
     .site-nav-link {
-        font-size: 14px;
+        font-size: 0.875rem;
         color: var(--hc-ink-2);
         text-decoration: none;
         white-space: nowrap;
@@ -431,7 +432,7 @@ const {hasSidebar, sidebar} = Astro.locals.starlightRoute;
         background: var(--hc-ink);
         color: var(--hc-paper);
         border: 1px solid var(--hc-ink);
-        font-size: 13.5px;
+        font-size: 0.8438rem;
         font-weight: 600;
         padding: 9px 15px;
         border-radius: 9px;
@@ -447,7 +448,7 @@ const {hasSidebar, sidebar} = Astro.locals.starlightRoute;
         background: var(--hc-ink);
         color: var(--hc-paper);
         border: 1px solid var(--hc-ink);
-        font-size: 13.5px;
+        font-size: 0.8438rem;
         font-weight: 600;
         padding: 9px 15px;
         border-radius: 9px;

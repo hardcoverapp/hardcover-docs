@@ -1,0 +1,54 @@
+name: "Hardcover for Zepp OS"
+slug: "zeppos-hardcover"
+summary: "Browse your Hardcover library and update reading progress from an Amazfit watch"
+description: |
+  An unofficial, free Hardcover companion for Zepp OS watches. Browse your books and update your reading progress from your wrist, with the Zepp app on your paired phone handling requests to the Hardcover GraphQL API.
+
+  - Browse Currently Reading, Want to Read, and Read.
+  - See book covers, authors, reading progress, and your ratings.
+  - Update your absolute current page or percentage.
+  - Move books between the three reading statuses.
+  - View locally cached books while offline, then synchronize through your phone.
+
+  The app has been tested on an Amazfit Bip 6 paired with Zepp on iPhone. Other rectangular-screen build targets have had their layouts reviewed but have not been tested on hardware. Round watches are not included in the current release package.
+
+  The source and installation instructions are publicly available on GitHub. Installation currently uses Zepp developer mode and a personal Hardcover API token entered in the miniapp settings on the phone. A Zepp store listing is not yet available. The app has no in-app purchases and is not affiliated with Hardcover or Zepp Health.
+
+author:
+  name: "Fidélis"
+  github: "Fiddelis"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/Fiddelis/zeppos-hardcover"
+    type: "github"
+  - label: "Installation instructions"
+    url: "https://github.com/Fiddelis/zeppos-hardcover#install-with-developer-mode"
+    type: "docs"
+
+categories:
+  - "Integration"
+  - "Mobile App"
+
+screenshots:
+  - src: "/showcase/zeppos-hardcover/01-reading-progress-status.png"
+    alt: "Amazfit Bip 6 screenshots showing a Hardcover book cover and progress, the current page editor, and reading status controls"
+    origin: "center"
+  - src: "/showcase/zeppos-hardcover/02-library-lists.png"
+    alt: "Amazfit Bip 6 screenshots showing Hardcover Want to Read and Read lists, including personal book ratings"
+    origin: "center"
+
+tags:
+  - "zepp-os"
+  - "amazfit"
+  - "smartwatch"
+  - "reading-progress"
+  - "library"
+
+dateAdded: 2026-10-13
+dateUpdated: 2026-10-13
+featured: false
+
+stats:
+  githubStars: 1
+  lastPushed: "2026-10-14"

@@ -6,11 +6,16 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
 
 ## What Is a User?
 
 Users are the people who use the Hardcover platform.
 Users can perform actions like adding books to their shelves, following other users, and writing reviews.
+
+## Scopes and limits
+
+<SchemaAccess typeName="users" queries={["users", "follows"]} />
 
 ## Schema Relationships
 
@@ -356,6 +361,11 @@ Users can perform actions like adding books to their shelves, following other us
         <td>user_flags</td>
         <td>[user_flags!]!</td>
         <td>Flags filed by this user</td>
+    </tr>
+    <tr>
+        <td>user_setting</td>
+        <td>user_settings</td>
+        <td>An object relationship</td>
     </tr>
     <tr>
         <td>username</td>

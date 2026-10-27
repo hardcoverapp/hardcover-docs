@@ -6,11 +6,16 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
 import {Aside} from "@astrojs/starlight/components";
 
 ## What Is a Country?
 
 A Country in Hardcover represents the country of publication for books and editions. This information helps users discover literature from specific regions, understand publishing markets, and explore global literary traditions. Countries use standardized codes for consistency and integration.
+
+## Scopes and limits
+
+<SchemaAccess typeName="countries" />
 
 ## Schema Relationships
 

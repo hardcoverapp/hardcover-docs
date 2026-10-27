@@ -1,0 +1,32 @@
+---
+title: Keep a library in sync
+description: Keep a local copy of a reader's library up to date, fetching only what changed since the last sync.
+slug: sdk/typescript/0.1/guides/sync-a-library
+layout: /src/layouts/documentation.astro
+sidebar:
+  order: 4
+---
+
+import SdkExample from '@/components/SdkExplorer/SdkExample.astro';
+
+An offline-first app keeps its own copy of the reader's library. Instead of fetching everything each time,
+`library.changes` returns what changed since a cursor from the last sync.
+
+## How it works
+
+- **The first sync** starts with no cursor and returns the whole library, a page at a time.
+- **Each page** comes with a new cursor. Save the entries and the cursor together, and keep going while `hasMore`.
+- **Upsert by id.** A sync may send an entry you already have; replace it.
+- **Removals** don't show up as changes, because the API deletes entries outright. Once per sync, pass the ids you
+  hold as `knownIds`, and the reply lists the ones that are gone in `removedIds`.
+
+## The sync
+
+Your app supplies the storage, shaped like `LibraryStore` below. Run the sync when the app opens or the reader pulls
+to refresh.
+
+<SdkExample version="0.1" file="sync-library" fn="syncLibrary" />
+
+## Related
+
+- [Library](/sdk/typescript/0.1/resources/library/): every library method, including `changes`

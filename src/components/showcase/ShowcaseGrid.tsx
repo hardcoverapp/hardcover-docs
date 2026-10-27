@@ -20,14 +20,16 @@ function Spark({ size = 13 }: { size?: number }) {
 function SectionHead({ title, sub, count }: { title: string; sub: string; count: number }) {
   return (
     <div className="mb-5 flex items-baseline gap-3.5 border-b border-border pb-3.5">
-      <h2 className="m-0 border-0 p-0 font-serif text-[30px] tracking-[-0.02em] text-foreground">{title}</h2>
-      <span className="text-[13.5px] text-muted-foreground">{sub}</span>
-      <span className="ml-auto font-mono text-[12.5px] text-muted-foreground">{count}</span>
+      <h2 className="m-0 border-0 p-0 font-serif text-[1.875rem] tracking-[-0.02em] text-foreground">{title}</h2>
+      <span className="text-[0.8438rem] text-muted-foreground">{sub}</span>
+      <span className="ml-auto font-mono text-[0.7812rem] text-muted-foreground">{count}</span>
     </div>
   );
 }
 
-const gridClass = 'grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3';
+// Columns are sized in rem so larger text sizes drop to fewer, wider cards
+// instead of squeezing the same number of columns.
+const gridClass = 'grid gap-[1.125rem] grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))]';
 
 export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
   const [search, setSearch] = useState('');
@@ -130,23 +132,23 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
   return (
     <div className="not-content">
       {/* Hero */}
-      <div className="inline-flex items-center gap-2 rounded-full border border-indigo-line bg-indigo-soft px-[13px] py-1.5 text-[12.5px] text-primary">
+      <div className="inline-flex items-center gap-2 rounded-full border border-indigo-line bg-indigo-soft px-[0.8125rem] py-1.5 text-[0.7812rem] text-primary">
         <Spark /> {t('ui.showcase.badge')}
       </div>
-      <div className="mt-[22px] grid grid-cols-1 items-end gap-10 lg:grid-cols-[1.5fr_1fr]">
+      <div className="mt-[1.375rem] grid grid-cols-1 items-end gap-10 lg:grid-cols-[1.5fr_1fr]">
         <div>
           <h1 className="m-0 border-0 p-0 font-serif text-[clamp(2.5rem,6vw,3.5rem)] font-[450] leading-[0.98] tracking-[-0.025em] text-foreground">
             {t('ui.showcase.title')}<em className="italic text-primary">{t('ui.showcase.titleAccent')}</em>.
           </h1>
-          <p className="m-0 mt-4 max-w-[480px] text-[16.5px] leading-[1.55] text-[var(--hc-ink-2)]">
+          <p className="m-0 mt-4 max-w-[30rem] text-[1.0312rem] leading-[1.55] text-[var(--hc-ink-2)]">
 {t('ui.showcase.tagline')}
           </p>
         </div>
         <div className="flex justify-start gap-7 lg:justify-end">
           {stats.map(([value, label]) => (
             <div key={label} className="text-left lg:text-right">
-              <div className="font-serif text-[34px] leading-none text-foreground">{value}</div>
-              <div className="mt-[5px] text-[11px] uppercase tracking-[0.08em] text-muted-foreground">{label}</div>
+              <div className="font-serif text-[2.125rem] leading-none text-foreground">{value}</div>
+              <div className="mt-[0.3125rem] text-[0.6875rem] uppercase tracking-[0.08em] text-muted-foreground">{label}</div>
             </div>
           ))}
         </div>
@@ -171,10 +173,10 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
         <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-primary">
           <Spark /> {t('ui.showcase.rules.badge')}
         </span>
-        <span className="text-[13.5px] text-[var(--hc-ink-2)]">
+        <span className="text-[0.8438rem] text-[var(--hc-ink-2)]">
 {t('ui.showcase.rules.text')}
         </span>
-        <a href="/showcase/submit" className="ml-auto inline-flex items-center gap-1.5 text-[13px] text-primary no-underline">
+        <a href="/showcase/submit" className="ml-auto inline-flex items-center gap-1.5 text-[0.8125rem] text-primary no-underline">
           {t('ui.showcase.rules.link')}
         </a>
       </div>
@@ -233,17 +235,17 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
       <section className="mt-12">
         <div className="relative flex flex-wrap items-center justify-between gap-7 overflow-hidden rounded-2xl bg-primary px-8 py-7 text-[var(--hc-indigo-ink)]">
           <div>
-            <h3 className="m-0 mb-1.5 border-0 p-0 font-serif text-[26px] leading-tight text-[var(--hc-indigo-ink)]">
+            <h3 className="m-0 mb-1.5 border-0 p-0 font-serif text-[1.625rem] leading-tight text-[var(--hc-indigo-ink)]">
               Built something with the API?
             </h3>
-            <p className="m-0 max-w-[480px] text-sm leading-snug opacity-90">
+            <p className="m-0 max-w-[30rem] text-sm leading-snug opacity-90">
               Add it to the showcase by opening a pull request against the docs repo — title, description, and a
               category are all it takes to be listed.
             </p>
           </div>
           <a
             href="/showcase/submit"
-            className="inline-flex flex-shrink-0 items-center gap-2 rounded-[10px] bg-[var(--hc-indigo-ink)] px-5 py-3 text-sm font-semibold text-primary no-underline"
+            className="inline-flex flex-shrink-0 items-center gap-2 rounded-[0.625rem] bg-[var(--hc-indigo-ink)] px-5 py-3 text-sm font-semibold text-primary no-underline"
           >
             Submit via PR
           </a>

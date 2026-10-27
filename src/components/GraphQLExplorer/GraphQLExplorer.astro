@@ -3,6 +3,7 @@ import {Code, Tabs, TabItem} from '@astrojs/starlight/components';
 import {useTranslation} from "@/lib/utils";
 import {ExplorerIsland} from './ExplorerIsland.tsx';
 import {isMutation} from './lib/policy';
+import ScopeRequirements from '@/components/ScopePill/ScopeRequirements.astro';
 
 const locale = Astro.currentLocale;
 
@@ -26,6 +27,8 @@ const {
 // previously let a `Mutation {` document get a tab it would then refuse to run.
 const mutation = isMutation(query ?? '');
 ---
+
+{query && <ScopeRequirements query={query} />}
 
 <Tabs>
     <TabItem label={useTranslation("ui.graphQLExplorer.query", locale)} icon="document">

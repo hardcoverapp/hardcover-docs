@@ -15,6 +15,29 @@ process.stderr.write = (chunk, ...rest) => {
     return realStderrWrite(chunk, ...rest);
 };
 
+// Recent Node versions define their own global `localStorage`, which is
+// undefined unless Node starts with --localstorage-file, and it hides jsdom's.
+// Give tests a working in-memory one whenever the global isn't usable.
+class MemoryStorage {
+    #items = new Map();
+    get length() { return this.#items.size; }
+    key(index) { return [...this.#items.keys()][index] ?? null; }
+    getItem(key) { return this.#items.has(String(key)) ? this.#items.get(String(key)) : null; }
+    setItem(key, value) { this.#items.set(String(key), String(value)); }
+    removeItem(key) { this.#items.delete(String(key)); }
+    clear() { this.#items.clear(); }
+}
+
+for (const name of ['localStorage', 'sessionStorage']) {
+    if (typeof globalThis[name]?.clear !== 'function') {
+        const storage = new MemoryStorage();
+        Object.defineProperty(globalThis, name, { value: storage, configurable: true, writable: true });
+        if (typeof window !== 'undefined' && window !== globalThis) {
+            Object.defineProperty(window, name, { value: storage, configurable: true, writable: true });
+        }
+    }
+}
+
 // Mock ResizeObserver for recharts
 global.ResizeObserver = class ResizeObserver {
     constructor(callback) {

@@ -12,11 +12,13 @@ We are currently looking for contributions in the following areas:
 - Bug Fixes: Help us fix bugs in the documentation site.
 - Reporting Issues: Report any issues you encounter with the documentation
   site.
-  [Create an Issue](https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=)
+  [Create an Issue](https://github.com/hardcoverapp/hardcover-docs/issues/new?template=bug_report.yml)
 - Feature Requests: Share your ideas for new features or improvements to the documentation
   site.
-  [Suggest a Feature](https://github.com/hardcoverapp/hardcover-docs/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=)
+  [Suggest a Feature](https://github.com/hardcoverapp/hardcover-docs/issues/new?template=feature_request.yml)
 - Librarian Guides: Share your expertise by writing guides on how to use the Librarian tools.
+- Showcase Projects: Built something with the Hardcover API? Add it to the community showcase.
+  [Add Your Project](https://docs.hardcover.app/showcase/submit/)
 
 ## Finding Something to Work On
 
@@ -56,8 +58,8 @@ To contribute to Hardcover, follow these steps:
 8. Commit your changes.
 9. Push your changes to your fork on GitHub.
 10. Create a pull request to the main Hardcover Docs Repository.
-11. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have
-	submitted a pull request.
+11. When your pull request is ready for review, let us know by leaving a comment on it tagging `@KylieBenfield`, or by
+	posting in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) (#API, #librarians, or tagging `@revelry`).
 12. Wait for feedback and review from the Hardcover team.
 13. Make any requested changes.
 14. Once your pull request is approved, it will be merged into the main branch.
@@ -72,20 +74,26 @@ To contribute to Hardcover, follow these steps:
 3. Make your changes in the editor.
 4. Preview your changes for formatting and accuracy.
 5. Submit your changes opening a pull request.
-6. Notify the Hardcover team, namely `@revelry` in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) that you have
-   submitted a pull request.
+6. When your pull request is ready for review, let us know by leaving a comment on it tagging `@KylieBenfield`, or by
+   posting in the [Hardcover Discord](https://discord.gg/edGpYN8ym8) (#API, #librarians, or tagging `@revelry`).
 7. Wait for feedback and review from the Hardcover team.
 8. Make any requested changes.
 9. Once your pull request is approved, it will be merged into the main branch.
 10. Celebrate your contribution!
 11. Continue contributing to Hardcover!
 
+Changes to the Librarian guides also need sign-off from the Hardcover librarians team before they're merged.
+
 ### For Contribution Suggestions
 
 If you have a suggestion for a contribution, but don't want to make the changes yourself, follow these steps:
 
-1. Create a new issue on the [Issues Board](https://github.com/hardcoverapp/hardcover-docs/issues)
-2. Provide a detailed description of the bug or feature request.
+1. [Open a new issue](https://github.com/hardcoverapp/hardcover-docs/issues/new/choose) and pick the form that fits:
+   - Report a problem with the docs
+   - Suggest an improvement
+   - Submit a project to the showcase
+   - Report a showcase project
+2. Fill out the form. No technical knowledge is needed.
 3. Wait for feedback and review from the Hardcover team.
 
 ## FAQ
@@ -97,7 +105,7 @@ If you have a suggestion for a contribution, but don't want to make the changes 
 Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory.
 Each file is exposed as a route based on its file name.
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+Images for doc pages go in `src/content/images/` and are embedded with the `ImageComponent`.
 
 Static assets, like favicons, can be placed in the `public/` directory.
 
@@ -108,8 +116,8 @@ Each Markdown file can include frontmatter to provide metadata about the documen
 | Field           | Description                                                                                                                                                                             | Required    |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
 | title           | String containing the title of the page                                                                                                                                                 | Yes         |
-| category        | String of the category the page should be included in `guide` or `reference`                                                                                                            | Yes         |
-| layout          | relative path to `/src/layouts/documentation.astro`                                                                                                                                     | Yes         |
+| category        | `guide`, `reference`, or `tool`. Shown as a badge at the top of the page by the documentation layout                                                                                    | Recommended |
+| layout          | Required for doc pages. Use `/src/layouts/documentation.astro`, which adds the last updated date and category badge                                                                  | Yes         |
 | description     | String containing the descriptive text to use in HTML meta tags                                                                                                                         | Recommended |
 | lastUpdated     | String in the format `YYYY-MM-DD HH:MM:SS`                                                                                                                                              | Recommended |
 | draft           | Boolean value determining whether the page should be hidden from the production site                                                                                                    | No          |
@@ -130,7 +138,7 @@ title: Getting Started with the API
 description: Get started with the Hardcover GraphQL API.
 category: guide
 lastUpdated: 2025-02-01 17:03:00
-layout: ../../layouts/documentation.astro
+layout: /src/layouts/documentation.astro
 ---
 ```
 

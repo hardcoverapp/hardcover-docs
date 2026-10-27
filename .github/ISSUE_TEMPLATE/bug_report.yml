@@ -1,0 +1,38 @@
+name: Report a problem with the docs
+description: Something on a docs page is wrong, outdated, confusing, or broken.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the Hardcover docs! You don't need to know anything about code to fill this out.
+  - type: input
+    id: page
+    attributes:
+      label: Which page?
+      description: Paste the link to the page, or tell us its title.
+      placeholder: https://docs.hardcover.app/...
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong?
+      description: Describe what you noticed. A broken link, a wrong step, something that doesn't match what you see on Hardcover, or anything else.
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: What should it say instead?
+      description: If you know the correct information, share it here. It's fine to leave this blank.
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Optional. Drag and drop images here if they help explain the problem.
+  - type: input
+    id: username
+    attributes:
+      label: Your Hardcover or Discord username
+      description: Optional. Lets us follow up with you if we have questions.

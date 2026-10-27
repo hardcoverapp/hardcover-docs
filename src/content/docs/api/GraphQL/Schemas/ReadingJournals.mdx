@@ -6,7 +6,12 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
 
+
+## Scopes and limits
+
+<SchemaAccess typeName="reading_journals" queries={["reading_journals", "reading_journals_summary"]} />
 
 ## Schema Relationships
 
@@ -42,6 +47,11 @@ import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
         <td>created_at</td>
         <td>timestamp!</td>
         <td>Creation time</td>
+    </tr>
+    <tr>
+        <td>custom</td>
+        <td>jsonb</td>
+        <td></td>
     </tr>
     <tr>
         <td>edition</td>

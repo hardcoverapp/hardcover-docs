@@ -6,7 +6,12 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
 
+
+## Scopes and limits
+
+<SchemaAccess typeName="tags" queries={["tags", "taggings", "tag_categories", "taggable_counts"]} />
 
 ## Schema Relationships
 

@@ -6,6 +6,11 @@ layout: /src/layouts/documentation.astro
 
 import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
 import SchemaGraph from '@/components/SchemaGraph/SchemaGraph.astro';
+import SchemaAccess from '@/components/ScopePill/SchemaAccess.astro';
+
+## Scopes and limits
+
+<SchemaAccess typeName="books" />
 
 ## Schema Relationships
 
@@ -503,25 +508,58 @@ query GetEditionsFromTitle {
     title="Editions from Title"
 />
 
-### Create a New Book
+### Get Trending Books
+
+`books_trending` returns the ids of the books most readers finished in a window: `week`, `month` (the default),
+`three_month`, `one_year` or `all`. It returns ids only, 25 by default and at most 100 per request, in ranked order;
+page with `offset`. Look the books up with a second query, such as `books(where: {id: {_in: [...]}})`.
+
 <GraphQLExplorer query={`
-mutation {
-      createBook(input: {
-            title: "My First Book",
-            pages: 300,
-            release_date: "2024-09-07"
-            description: "This is my first book."
-        }) {
-        book {
-              title
-              pages
-              release_date
-              description
-        }
-      }
+{
+    books_trending(duration: week, limit: 10) {
+        ids
+        error
+    }
 }
 `} description={`
-    This mutation will create a new book with the specified title, number of pages, release date, and description.
+    The 10 books the most readers finished this week, as book ids in ranked order.
+`}
+    title="Trending Books"
+/>
+
+### Create a New Book
+
+Books are created from the details of their first edition. If the book is already on Hardcover, you get
+that book back instead of a duplicate, and new books are limited to 50 per account per day.
+
+<GraphQLExplorer query={`
+mutation {
+    insert_book(
+        edition: {
+            dto: {
+                title: "My First Book"
+                page_count: 300
+                release_date: "2024-09-07"
+            }
+        }
+    ) {
+        id
+        created
+        matched_by
+        throttled
+        errors
+        edition {
+            id
+            book {
+                id
+                title
+                slug
+            }
+        }
+    }
+}
+`} description={`
+    This mutation creates a book with the given title, page count and release date. If it already exists, created is false and matched_by says how it was found. Over the daily limit, throttled is true and nothing is created. Any problems are listed in errors.
 `}
     title="Create Book"
 />

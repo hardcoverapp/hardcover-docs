@@ -1,0 +1,17 @@
+---
+/** A scope pill on a doc page: <ScopePill scope="read:library" />. */
+import { ScopePill as Pill } from "./ScopePill.tsx";
+
+interface Props {
+    scope: string;
+}
+
+const { scope } = Astro.props;
+---
+
+<Pill scope={scope} />
+
+<script>
+    import { dismissTooltipsOnEscape } from "./dismiss";
+    dismissTooltipsOnEscape();
+</script>

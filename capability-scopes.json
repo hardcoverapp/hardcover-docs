@@ -853,6 +853,15 @@
     ],
     "write": []
   },
+  "user_settings": {
+    "read": [
+      "read:me",
+      "read:me:content",
+      "read:me:email",
+      "read:me:roles"
+    ],
+    "write": []
+  },
   "users": {
     "read": [
       "read:users"
@@ -1182,6 +1191,18 @@
       "read:account"
     ],
     "write": []
+  },
+  "collection_import_result_create_book": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
+  },
+  "collection_import_result_match": {
+    "read": [],
+    "write": [
+      "write:library"
+    ]
   },
   "collection_import_result_reimport": {
     "read": [],

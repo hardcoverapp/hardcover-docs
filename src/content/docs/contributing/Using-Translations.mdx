@@ -2,19 +2,19 @@
 title: Using Translations in Doc Pages
 category: guide
 description: Technical documentation on how to use translations in documentation pages.
-layout: /src/layouts/librarians.astro
+layout: /src/layouts/documentation.astro
 ---
 
 This document is relevant when you are building new components or expanding existing ones.
 It is not used for translating the documentation pages themselves.
 
-See [Translating Documentation Guide](./translating-documentation) for more information on how to translate documentation pages.
+See [Translating Documentation Guide](/contributing/translating-documentation) for more information on how to translate documentation pages.
 
 ## Using Translations in React Components
 When using translations in React components, you can use the `useTranslation` utility function from `@/lib/utils` to translate strings.
 This function takes a string as an argument and returns the translated string based on the provided locale.
 
-Currently, translations must be defined in the `src/content/docs/{LANG}/ui.json` file, where `{LANG}` is the language code for the translation.
+Currently, translations must be defined in `src/content/docs/ui.json` for English and `src/content/docs/{LANG}/ui.json` for other languages, where `{LANG}` is the language code for the translation.
 
 ### Basic Example
 ```ts

@@ -5,6 +5,8 @@ category: reference
 layout: /src/layouts/documentation.astro
 ---
 
+import ScopePill from '@/components/ScopePill/ScopePill.astro';
+
 Each action below is a GraphQL query or mutation root field.
 
 To call it with an access token (OAuth or PAT), the token needs at least one of the listed scopes,
@@ -16,7 +18,7 @@ generates a link that pre-selects them on the New API Key form for your users.
 
 ## Queries
 
-<table>
+<table class="actions-table">
     <thead>
     <tr>
         <th>Action</th>
@@ -26,781 +28,776 @@ generates a link that pre-selects them on the New API Key form for your users.
     </thead>
     <tbody>
     <tr>
-        <td><a href="/api/graphql/schemas/activities">activities</a></td>
-        <td>read:social</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/activities/">activities</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>activities_by_pk</td>
-        <td>read:social</td>
-        <td>fetch data from the table: "activities" using primary key columns</td>
+        <td>activities_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch data from the table: "activities" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/authors">authors</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "authors"</td>
+        <td><a href="/api/graphql/schemas/authors/">authors</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "authors"</td>
     </tr>
     <tr>
-        <td>authors_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "authors" using primary key columns</td>
+        <td>authors_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "authors" using primary key columns</td>
     </tr>
     <tr>
-        <td>book_categories</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "book_categories"</td>
+        <td>book_<wbr/>categories</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "book_<wbr/>categories"</td>
     </tr>
     <tr>
-        <td>book_categories_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "book_categories" using primary key columns</td>
+        <td>book_<wbr/>categories_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "book_<wbr/>categories" using primary key columns</td>
     </tr>
     <tr>
-        <td>book_characters</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td>book_<wbr/>characters</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>book_characters_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "book_characters" using primary key columns</td>
+        <td>book_<wbr/>characters_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "book_<wbr/>characters" using primary key columns</td>
     </tr>
     <tr>
-        <td>book_collections</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "book_collections"</td>
+        <td>book_<wbr/>collections</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "book_<wbr/>collections"</td>
     </tr>
     <tr>
-        <td>book_collections_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "book_collections" using primary key columns</td>
+        <td>book_<wbr/>collections_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "book_<wbr/>collections" using primary key columns</td>
     </tr>
     <tr>
-        <td>book_import_statuses</td>
-        <td>None documented</td>
-        <td></td>
+        <td>book_<wbr/>import_<wbr/>statuses</td>
+        <td data-label="Scopes">None documented</td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>book_mappings</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td>book_<wbr/>mappings</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>book_mappings_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "book_mappings" using primary key columns</td>
+        <td>book_<wbr/>mappings_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "book_<wbr/>mappings" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/book_series">book_series</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/bookseries/">book_<wbr/>series</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>book_series_aggregate</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An aggregate relationship</td>
+        <td>book_<wbr/>series_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>book_series_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "book_series" using primary key columns</td>
+        <td>book_<wbr/>series_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "book_<wbr/>series" using primary key columns</td>
     </tr>
     <tr>
-        <td>book_statuses</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "book_statuses"</td>
+        <td>book_<wbr/>statuses</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "book_<wbr/>statuses"</td>
     </tr>
     <tr>
-        <td>book_statuses_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "book_statuses" using primary key columns</td>
+        <td>book_<wbr/>statuses_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "book_<wbr/>statuses" using primary key columns</td>
     </tr>
     <tr>
-        <td>bookles</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "bookles"</td>
+        <td><a href="/api/graphql/schemas/books/">books</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>bookles_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "bookles" using primary key columns</td>
+        <td>books_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/books">books</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td>books_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "books" using primary key columns</td>
     </tr>
     <tr>
-        <td>books_aggregate</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An aggregate relationship</td>
+        <td>books_<wbr/>trending</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">books_<wbr/>trending (from/to are deprecated)</td>
     </tr>
     <tr>
-        <td>books_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "books" using primary key columns</td>
+        <td><a href="/api/graphql/schemas/characters/">characters</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "characters"</td>
     </tr>
     <tr>
-        <td>books_trending</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>books_trending (from/to are deprecated)</td>
+        <td>characters_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "characters" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/characters">characters</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "characters"</td>
+        <td>collection_<wbr/>import_<wbr/>results</td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>characters_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "characters" using primary key columns</td>
+        <td>collection_<wbr/>import_<wbr/>results_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description">fetch data from the table: "collection_<wbr/>import_<wbr/>results" using primary key columns</td>
     </tr>
     <tr>
-        <td>collection_import_results</td>
-        <td>read:account</td>
-        <td>An array relationship</td>
+        <td>collection_<wbr/>imports</td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>collection_import_results_by_pk</td>
-        <td>read:account</td>
-        <td>fetch data from the table: "collection_import_results" using primary key columns</td>
+        <td>collection_<wbr/>imports_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description">fetch data from the table: "collection_<wbr/>imports" using primary key columns</td>
     </tr>
     <tr>
-        <td>collection_imports</td>
-        <td>read:account</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/contributions/">contributions</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>collection_imports_by_pk</td>
-        <td>read:account</td>
-        <td>fetch data from the table: "collection_imports" using primary key columns</td>
+        <td>contributions_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/contributions">contributions</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td>contributions_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "contributions" using primary key columns</td>
     </tr>
     <tr>
-        <td>contributions_aggregate</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An aggregate relationship</td>
+        <td>contributor_<wbr/>role_<wbr/>categories</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "contributor_<wbr/>role_<wbr/>categories"</td>
     </tr>
     <tr>
-        <td>contributions_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "contributions" using primary key columns</td>
+        <td>contributor_<wbr/>role_<wbr/>categories_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "contributor_<wbr/>role_<wbr/>categories" using primary key columns</td>
     </tr>
     <tr>
-        <td>contributor_role_categories</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "contributor_role_categories"</td>
+        <td>contributor_<wbr/>role_<wbr/>specializations</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "contributor_<wbr/>role_<wbr/>specializations"</td>
     </tr>
     <tr>
-        <td>contributor_role_categories_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "contributor_role_categories" using primary key columns</td>
+        <td>contributor_<wbr/>role_<wbr/>specializations_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "contributor_<wbr/>role_<wbr/>specializations" using primary key columns</td>
     </tr>
     <tr>
-        <td>contributor_role_specializations</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "contributor_role_specializations"</td>
+        <td>contributor_<wbr/>roles</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "contributor_<wbr/>roles"</td>
     </tr>
     <tr>
-        <td>contributor_role_specializations_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "contributor_role_specializations" using primary key columns</td>
+        <td>contributor_<wbr/>roles_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "contributor_<wbr/>roles" using primary key columns</td>
     </tr>
     <tr>
-        <td>contributor_roles</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "contributor_roles"</td>
+        <td>contributor_<wbr/>specializations</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "contributor_<wbr/>specializations"</td>
     </tr>
     <tr>
-        <td>contributor_roles_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "contributor_roles" using primary key columns</td>
+        <td>contributor_<wbr/>specializations_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "contributor_<wbr/>specializations" using primary key columns</td>
     </tr>
     <tr>
-        <td>contributor_specializations</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "contributor_specializations"</td>
+        <td><a href="/api/graphql/schemas/countries/">countries</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "countries"</td>
     </tr>
     <tr>
-        <td>contributor_specializations_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "contributor_specializations" using primary key columns</td>
+        <td>countries_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "countries" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/countries">countries</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "countries"</td>
+        <td><a href="/api/graphql/schemas/editions/">editions</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>countries_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "countries" using primary key columns</td>
+        <td>editions_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "editions" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/editions">editions</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td>filter_<wbr/>list_<wbr/>entities</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>editions_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "editions" using primary key columns</td>
+        <td>filter_<wbr/>list_<wbr/>entities_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>filter_list_entities</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An array relationship</td>
+        <td>filter_<wbr/>list_<wbr/>entities_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">fetch data from the table: "filter_<wbr/>list_<wbr/>entities" using primary key columns</td>
     </tr>
     <tr>
-        <td>filter_list_entities_aggregate</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An aggregate relationship</td>
+        <td>filter_<wbr/>list_<wbr/>subscriptions</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>filter_list_entities_by_pk</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>fetch data from the table: "filter_list_entities" using primary key columns</td>
+        <td>filter_<wbr/>list_<wbr/>subscriptions_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>filter_list_subscriptions</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An array relationship</td>
+        <td>filter_<wbr/>list_<wbr/>subscriptions_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">fetch data from the table: "filter_<wbr/>list_<wbr/>subscriptions" using primary key columns</td>
     </tr>
     <tr>
-        <td>filter_list_subscriptions_aggregate</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An aggregate relationship</td>
+        <td>filter_<wbr/>lists</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">fetch data from the table: "filter_<wbr/>lists"</td>
     </tr>
     <tr>
-        <td>filter_list_subscriptions_by_pk</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>fetch data from the table: "filter_list_subscriptions" using primary key columns</td>
+        <td>filter_<wbr/>lists_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">fetch aggregated fields from the table: "filter_<wbr/>lists"</td>
     </tr>
     <tr>
-        <td>filter_lists</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>fetch data from the table: "filter_lists"</td>
+        <td>filter_<wbr/>lists_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">fetch data from the table: "filter_<wbr/>lists" using primary key columns</td>
     </tr>
     <tr>
-        <td>filter_lists_aggregate</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>fetch aggregated fields from the table: "filter_lists"</td>
+        <td>flag_<wbr/>statuses</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "flag_<wbr/>statuses"</td>
     </tr>
     <tr>
-        <td>filter_lists_by_pk</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>fetch data from the table: "filter_lists" using primary key columns</td>
+        <td>flag_<wbr/>statuses_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "flag_<wbr/>statuses" using primary key columns</td>
     </tr>
     <tr>
-        <td>flag_statuses</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "flag_statuses"</td>
+        <td>followed_<wbr/>lists</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>flag_statuses_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "flag_statuses" using primary key columns</td>
+        <td>followed_<wbr/>lists_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">fetch data from the table: "followed_<wbr/>lists" using primary key columns</td>
     </tr>
     <tr>
-        <td>followed_lists</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An array relationship</td>
+        <td>followed_<wbr/>prompts</td>
+        <td data-label="Scopes"><ScopePill scope="read:prompts" /> <ScopePill scope="read:prompts:following" /> <ScopePill scope="read:prompts:private" /> <ScopePill scope="read:prompts:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>followed_lists_by_pk</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>fetch data from the table: "followed_lists" using primary key columns</td>
+        <td>followed_<wbr/>prompts_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:prompts" /> <ScopePill scope="read:prompts:following" /> <ScopePill scope="read:prompts:private" /> <ScopePill scope="read:prompts:public" /></td>
+        <td data-label="Description">fetch data from the table: "followed_<wbr/>prompts" using primary key columns</td>
     </tr>
     <tr>
-        <td>followed_prompts</td>
-        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
-        <td>An array relationship</td>
+        <td>followed_<wbr/>user_<wbr/>books</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch data from the table: "followed_<wbr/>user_<wbr/>books"</td>
     </tr>
     <tr>
-        <td>followed_prompts_by_pk</td>
-        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
-        <td>fetch data from the table: "followed_prompts" using primary key columns</td>
+        <td>followed_<wbr/>user_<wbr/>books_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch aggregated fields from the table: "followed_<wbr/>user_<wbr/>books"</td>
     </tr>
     <tr>
-        <td>followed_user_books</td>
-        <td>read:social</td>
-        <td>fetch data from the table: "followed_user_books"</td>
+        <td>followed_<wbr/>users</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>followed_user_books_aggregate</td>
-        <td>read:social</td>
-        <td>fetch aggregated fields from the table: "followed_user_books"</td>
+        <td>followed_<wbr/>users_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch data from the table: "followed_<wbr/>users" using primary key columns</td>
     </tr>
     <tr>
-        <td>followed_users</td>
-        <td>read:social</td>
-        <td>An array relationship</td>
+        <td>following_<wbr/>user_<wbr/>books</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch data from the table: "following_<wbr/>user_<wbr/>books"</td>
     </tr>
     <tr>
-        <td>followed_users_by_pk</td>
-        <td>read:social</td>
-        <td>fetch data from the table: "followed_users" using primary key columns</td>
-    </tr>
-    <tr>
-        <td>following_user_books</td>
-        <td>read:social</td>
-        <td>fetch data from the table: "following_user_books"</td>
-    </tr>
-    <tr>
-        <td>following_user_books_aggregate</td>
-        <td>read:social</td>
-        <td>fetch aggregated fields from the table: "following_user_books"</td>
+        <td>following_<wbr/>user_<wbr/>books_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch aggregated fields from the table: "following_<wbr/>user_<wbr/>books"</td>
     </tr>
     <tr>
         <td>follows</td>
-        <td>read:social</td>
-        <td>An array relationship</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>follows_aggregate</td>
-        <td>read:social</td>
-        <td>An aggregate relationship</td>
+        <td>follows_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>follows_by_pk</td>
-        <td>read:social</td>
-        <td>fetch data from the table: "follows" using primary key columns</td>
+        <td>follows_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch data from the table: "follows" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/goals">goals</a></td>
-        <td>read:goals, read:goals:following, read:goals:private, read:goals:public</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/goals/">goals</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:goals" /> <ScopePill scope="read:goals:following" /> <ScopePill scope="read:goals:private" /> <ScopePill scope="read:goals:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>goals_by_pk</td>
-        <td>read:goals, read:goals:following, read:goals:private, read:goals:public</td>
-        <td>fetch data from the table: "goals" using primary key columns</td>
+        <td>goals_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:goals" /> <ScopePill scope="read:goals:following" /> <ScopePill scope="read:goals:private" /> <ScopePill scope="read:goals:public" /></td>
+        <td data-label="Description">fetch data from the table: "goals" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/images">images</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/images/">images</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>images_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "images" using primary key columns</td>
+        <td>images_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "images" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/languages">languages</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "languages"</td>
+        <td><a href="/api/graphql/schemas/languages/">languages</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "languages"</td>
     </tr>
     <tr>
-        <td>languages_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "languages" using primary key columns</td>
+        <td>languages_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "languages" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/likes">likes</a></td>
-        <td>read:social</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/likes/">likes</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>likes_by_pk</td>
-        <td>read:social</td>
-        <td>fetch data from the table: "likes" using primary key columns</td>
+        <td>likes_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch data from the table: "likes" using primary key columns</td>
     </tr>
     <tr>
         <td>links</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "links"</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "links"</td>
     </tr>
     <tr>
-        <td>links_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "links" using primary key columns</td>
+        <td>links_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "links" using primary key columns</td>
     </tr>
     <tr>
-        <td>list_books</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An array relationship</td>
+        <td>list_<wbr/>books</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>list_books_aggregate</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An aggregate relationship</td>
+        <td>list_<wbr/>books_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>list_books_by_pk</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>fetch data from the table: "list_books" using primary key columns</td>
+        <td>list_<wbr/>books_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">fetch data from the table: "list_<wbr/>books" using primary key columns</td>
     </tr>
     <tr>
-        <td>list_members</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An array relationship</td>
+        <td>list_<wbr/>members</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>list_members_by_pk</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>fetch data from the table: "list_members" using primary key columns</td>
+        <td>list_<wbr/>members_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">fetch data from the table: "list_<wbr/>members" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/lists">lists</a></td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/lists/">lists</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>lists_aggregate</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>An aggregate relationship</td>
+        <td>lists_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>lists_by_pk</td>
-        <td>read:lists, read:lists:following, read:lists:private, read:lists:public</td>
-        <td>fetch data from the table: "lists" using primary key columns</td>
+        <td>lists_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:lists" /> <ScopePill scope="read:lists:following" /> <ScopePill scope="read:lists:private" /> <ScopePill scope="read:lists:public" /></td>
+        <td data-label="Description">fetch data from the table: "lists" using primary key columns</td>
     </tr>
     <tr>
         <td>me</td>
-        <td>read:me, read:me:content, read:me:email, read:me:roles</td>
-        <td>execute function "me" which returns "users"</td>
+        <td data-label="Scopes"><ScopePill scope="read:me" /> <ScopePill scope="read:me:content" /> <ScopePill scope="read:me:email" /> <ScopePill scope="read:me:roles" /></td>
+        <td data-label="Description">execute function "me" which returns "users"</td>
     </tr>
     <tr>
         <td>newsletter</td>
-        <td>read:account</td>
-        <td></td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>notification_channels</td>
-        <td>read:notifications</td>
-        <td>fetch data from the table: "notification_channels"</td>
+        <td>notification_<wbr/>channels</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">fetch data from the table: "notification_<wbr/>channels"</td>
     </tr>
     <tr>
-        <td>notification_channels_by_pk</td>
-        <td>read:notifications</td>
-        <td>fetch data from the table: "notification_channels" using primary key columns</td>
+        <td>notification_<wbr/>channels_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">fetch data from the table: "notification_<wbr/>channels" using primary key columns</td>
     </tr>
     <tr>
-        <td>notification_deliveries</td>
-        <td>read:notifications</td>
-        <td>An array relationship</td>
+        <td>notification_<wbr/>deliveries</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>notification_deliveries_aggregate</td>
-        <td>read:notifications</td>
-        <td>An aggregate relationship</td>
+        <td>notification_<wbr/>deliveries_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>notification_deliveries_by_pk</td>
-        <td>read:notifications</td>
-        <td>fetch data from the table: "notification_deliveries" using primary key columns</td>
+        <td>notification_<wbr/>deliveries_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">fetch data from the table: "notification_<wbr/>deliveries" using primary key columns</td>
     </tr>
     <tr>
-        <td>notification_settings</td>
-        <td>read:notifications</td>
-        <td>fetch data from the table: "notification_settings"</td>
+        <td>notification_<wbr/>settings</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">fetch data from the table: "notification_<wbr/>settings"</td>
     </tr>
     <tr>
-        <td>notification_settings_by_pk</td>
-        <td>read:notifications</td>
-        <td>fetch data from the table: "notification_settings" using primary key columns</td>
+        <td>notification_<wbr/>settings_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">fetch data from the table: "notification_<wbr/>settings" using primary key columns</td>
     </tr>
     <tr>
-        <td>notification_types</td>
-        <td>read:notifications</td>
-        <td>fetch data from the table: "notification_types"</td>
+        <td>notification_<wbr/>types</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">fetch data from the table: "notification_<wbr/>types"</td>
     </tr>
     <tr>
-        <td>notification_types_by_pk</td>
-        <td>read:notifications</td>
-        <td>fetch data from the table: "notification_types" using primary key columns</td>
+        <td>notification_<wbr/>types_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">fetch data from the table: "notification_<wbr/>types" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/notifications">notifications</a></td>
-        <td>read:notifications</td>
-        <td>fetch data from the table: "notifications"</td>
+        <td><a href="/api/graphql/schemas/notifications/">notifications</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">fetch data from the table: "notifications"</td>
     </tr>
     <tr>
-        <td>notifications_by_pk</td>
-        <td>read:notifications</td>
-        <td>fetch data from the table: "notifications" using primary key columns</td>
+        <td>notifications_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:notifications" /></td>
+        <td data-label="Description">fetch data from the table: "notifications" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/platforms">platforms</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "platforms"</td>
+        <td><a href="/api/graphql/schemas/platforms/">platforms</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "platforms"</td>
     </tr>
     <tr>
-        <td>platforms_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "platforms" using primary key columns</td>
+        <td>platforms_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "platforms" using primary key columns</td>
     </tr>
     <tr>
-        <td>privacy_settings</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "privacy_settings"</td>
+        <td>privacy_<wbr/>settings</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "privacy_<wbr/>settings"</td>
     </tr>
     <tr>
-        <td>privacy_settings_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "privacy_settings" using primary key columns</td>
+        <td>privacy_<wbr/>settings_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "privacy_<wbr/>settings" using primary key columns</td>
     </tr>
     <tr>
-        <td>prompt_answers</td>
-        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
-        <td>An array relationship</td>
+        <td>prompt_<wbr/>answers</td>
+        <td data-label="Scopes"><ScopePill scope="read:prompts" /> <ScopePill scope="read:prompts:following" /> <ScopePill scope="read:prompts:private" /> <ScopePill scope="read:prompts:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>prompt_answers_aggregate</td>
-        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
-        <td>An aggregate relationship</td>
+        <td>prompt_<wbr/>answers_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:prompts" /> <ScopePill scope="read:prompts:following" /> <ScopePill scope="read:prompts:private" /> <ScopePill scope="read:prompts:public" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>prompt_answers_by_pk</td>
-        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
-        <td>fetch data from the table: "prompt_answers" using primary key columns</td>
+        <td>prompt_<wbr/>answers_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:prompts" /> <ScopePill scope="read:prompts:following" /> <ScopePill scope="read:prompts:private" /> <ScopePill scope="read:prompts:public" /></td>
+        <td data-label="Description">fetch data from the table: "prompt_<wbr/>answers" using primary key columns</td>
     </tr>
     <tr>
-        <td>prompt_books_summary</td>
-        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
-        <td>fetch data from the table: "prompt_books_summary"</td>
+        <td>prompt_<wbr/>books_<wbr/>summary</td>
+        <td data-label="Scopes"><ScopePill scope="read:prompts" /> <ScopePill scope="read:prompts:following" /> <ScopePill scope="read:prompts:private" /> <ScopePill scope="read:prompts:public" /></td>
+        <td data-label="Description">fetch data from the table: "prompt_<wbr/>books_<wbr/>summary"</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/prompts">prompts</a></td>
-        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/prompts/">prompts</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:prompts" /> <ScopePill scope="read:prompts:following" /> <ScopePill scope="read:prompts:private" /> <ScopePill scope="read:prompts:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>prompts_by_pk</td>
-        <td>read:prompts, read:prompts:following, read:prompts:private, read:prompts:public</td>
-        <td>fetch data from the table: "prompts" using primary key columns</td>
+        <td>prompts_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:prompts" /> <ScopePill scope="read:prompts:following" /> <ScopePill scope="read:prompts:private" /> <ScopePill scope="read:prompts:public" /></td>
+        <td data-label="Description">fetch data from the table: "prompts" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/publishers">publishers</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "publishers"</td>
+        <td><a href="/api/graphql/schemas/publishers/">publishers</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "publishers"</td>
     </tr>
     <tr>
-        <td>publishers_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "publishers" using primary key columns</td>
+        <td>publishers_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "publishers" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/reading_formats">reading_formats</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "reading_formats"</td>
+        <td><a href="/api/graphql/schemas/readingformats/">reading_<wbr/>formats</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "reading_<wbr/>formats"</td>
     </tr>
     <tr>
-        <td>reading_formats_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "reading_formats" using primary key columns</td>
+        <td>reading_<wbr/>formats_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "reading_<wbr/>formats" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/reading_journals">reading_journals</a></td>
-        <td>read:journal, read:journal:following, read:journal:private, read:journal:public</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/readingjournals/">reading_<wbr/>journals</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:journal" /> <ScopePill scope="read:journal:following" /> <ScopePill scope="read:journal:private" /> <ScopePill scope="read:journal:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>reading_journals_by_pk</td>
-        <td>read:journal, read:journal:following, read:journal:private, read:journal:public</td>
-        <td>fetch data from the table: "reading_journals" using primary key columns</td>
+        <td>reading_<wbr/>journals_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:journal" /> <ScopePill scope="read:journal:following" /> <ScopePill scope="read:journal:private" /> <ScopePill scope="read:journal:public" /></td>
+        <td data-label="Description">fetch data from the table: "reading_<wbr/>journals" using primary key columns</td>
     </tr>
     <tr>
-        <td>reading_journals_summary</td>
-        <td>read:journal, read:journal:following, read:journal:private, read:journal:public</td>
-        <td>fetch data from the table: "reading_journals_summary"</td>
+        <td>reading_<wbr/>journals_<wbr/>summary</td>
+        <td data-label="Scopes"><ScopePill scope="read:journal" /> <ScopePill scope="read:journal:following" /> <ScopePill scope="read:journal:private" /> <ScopePill scope="read:journal:public" /></td>
+        <td data-label="Description">fetch data from the table: "reading_<wbr/>journals_<wbr/>summary"</td>
     </tr>
     <tr>
-        <td>referrals_for_user</td>
-        <td>read:account</td>
-        <td></td>
+        <td>referrals_<wbr/>for_<wbr/>user</td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
         <td>search</td>
-        <td>read:catalog, read:catalog:search</td>
-        <td></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/series">series</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "series"</td>
+        <td><a href="/api/graphql/schemas/series/">series</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "series"</td>
     </tr>
     <tr>
-        <td>series_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "series" using primary key columns</td>
+        <td>series_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "series" using primary key columns</td>
     </tr>
     <tr>
         <td>subscriptions</td>
-        <td>read:account</td>
-        <td></td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>tag_categories</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "tag_categories"</td>
+        <td>tag_<wbr/>categories</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "tag_<wbr/>categories"</td>
     </tr>
     <tr>
-        <td>tag_categories_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "tag_categories" using primary key columns</td>
+        <td>tag_<wbr/>categories_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "tag_<wbr/>categories" using primary key columns</td>
     </tr>
     <tr>
-        <td>taggable_counts</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td>taggable_<wbr/>counts</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>taggable_counts_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "taggable_counts" using primary key columns</td>
+        <td>taggable_<wbr/>counts_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "taggable_<wbr/>counts" using primary key columns</td>
     </tr>
     <tr>
         <td>taggings</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>taggings_aggregate</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An aggregate relationship</td>
+        <td>taggings_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>taggings_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "taggings" using primary key columns</td>
+        <td>taggings_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "taggings" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/tags">tags</a></td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/tags/">tags</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>tags_aggregate</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>An aggregate relationship</td>
+        <td>tags_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>tags_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "tags" using primary key columns</td>
+        <td>tags_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "tags" using primary key columns</td>
     </tr>
     <tr>
-        <td>user_blocks</td>
-        <td>read:social</td>
-        <td>fetch data from the table: "user_blocks"</td>
+        <td>user_<wbr/>blocks</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>blocks"</td>
     </tr>
     <tr>
-        <td>user_blocks_by_pk</td>
-        <td>read:social</td>
-        <td>fetch data from the table: "user_blocks" using primary key columns</td>
+        <td>user_<wbr/>blocks_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:social" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>blocks" using primary key columns</td>
     </tr>
     <tr>
-        <td>user_book_reads</td>
-        <td>read:library, read:library:following, read:library:private, read:library:public</td>
-        <td>An array relationship</td>
+        <td>user_<wbr/>book_<wbr/>reads</td>
+        <td data-label="Scopes"><ScopePill scope="read:library" /> <ScopePill scope="read:library:following" /> <ScopePill scope="read:library:private" /> <ScopePill scope="read:library:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>user_book_reads_aggregate</td>
-        <td>read:library, read:library:following, read:library:private, read:library:public</td>
-        <td>An aggregate relationship</td>
+        <td>user_<wbr/>book_<wbr/>reads_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:library" /> <ScopePill scope="read:library:following" /> <ScopePill scope="read:library:private" /> <ScopePill scope="read:library:public" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>user_book_reads_by_pk</td>
-        <td>read:library, read:library:following, read:library:private, read:library:public</td>
-        <td>fetch data from the table: "user_book_reads" using primary key columns</td>
+        <td>user_<wbr/>book_<wbr/>reads_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:library" /> <ScopePill scope="read:library:following" /> <ScopePill scope="read:library:private" /> <ScopePill scope="read:library:public" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>book_<wbr/>reads" using primary key columns</td>
     </tr>
     <tr>
-        <td>user_book_statuses</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "user_book_statuses"</td>
+        <td>user_<wbr/>book_<wbr/>statuses</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>book_<wbr/>statuses"</td>
     </tr>
     <tr>
-        <td>user_book_statuses_aggregate</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch aggregated fields from the table: "user_book_statuses"</td>
+        <td>user_<wbr/>book_<wbr/>statuses_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch aggregated fields from the table: "user_<wbr/>book_<wbr/>statuses"</td>
     </tr>
     <tr>
-        <td>user_book_statuses_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "user_book_statuses" using primary key columns</td>
+        <td>user_<wbr/>book_<wbr/>statuses_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>book_<wbr/>statuses" using primary key columns</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/user_books">user_books</a></td>
-        <td>read:library, read:library:following, read:library:private, read:library:public</td>
-        <td>An array relationship</td>
+        <td><a href="/api/graphql/schemas/userbooks/">user_<wbr/>books</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:library" /> <ScopePill scope="read:library:following" /> <ScopePill scope="read:library:private" /> <ScopePill scope="read:library:public" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>user_books_aggregate</td>
-        <td>read:library, read:library:following, read:library:private, read:library:public</td>
-        <td>An aggregate relationship</td>
+        <td>user_<wbr/>books_<wbr/>aggregate</td>
+        <td data-label="Scopes"><ScopePill scope="read:library" /> <ScopePill scope="read:library:following" /> <ScopePill scope="read:library:private" /> <ScopePill scope="read:library:public" /></td>
+        <td data-label="Description">An aggregate relationship</td>
     </tr>
     <tr>
-        <td>user_books_by_pk</td>
-        <td>read:library, read:library:following, read:library:private, read:library:public</td>
-        <td>fetch data from the table: "user_books" using primary key columns</td>
+        <td>user_<wbr/>books_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:library" /> <ScopePill scope="read:library:following" /> <ScopePill scope="read:library:private" /> <ScopePill scope="read:library:public" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>books" using primary key columns</td>
     </tr>
     <tr>
-        <td>user_flags</td>
-        <td>read:account</td>
-        <td>An array relationship</td>
+        <td>user_<wbr/>flags</td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>user_flags_by_pk</td>
-        <td>read:account</td>
-        <td>fetch data from the table: "user_flags" using primary key columns</td>
+        <td>user_<wbr/>flags_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>flags" using primary key columns</td>
     </tr>
     <tr>
-        <td>user_referrals</td>
-        <td>read:account</td>
-        <td>fetch data from the table: "user_referrals"</td>
+        <td>user_<wbr/>referrals</td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>referrals"</td>
     </tr>
     <tr>
-        <td>user_referrals_by_pk</td>
-        <td>read:account</td>
-        <td>fetch data from the table: "user_referrals" using primary key columns</td>
+        <td>user_<wbr/>referrals_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:account" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>referrals" using primary key columns</td>
     </tr>
     <tr>
-        <td>user_statuses</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "user_statuses"</td>
+        <td>user_<wbr/>settings</td>
+        <td data-label="Scopes"><ScopePill scope="read:me" /> <ScopePill scope="read:me:content" /> <ScopePill scope="read:me:email" /> <ScopePill scope="read:me:roles" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>settings"</td>
     </tr>
     <tr>
-        <td>user_statuses_by_pk</td>
-        <td>read:catalog, read:catalog:data, read:catalog:search</td>
-        <td>fetch data from the table: "user_statuses" using primary key columns</td>
+        <td>user_<wbr/>statuses</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>statuses"</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/users">users</a></td>
-        <td>read:users</td>
-        <td>An array relationship</td>
+        <td>user_<wbr/>statuses_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>statuses" using primary key columns</td>
     </tr>
     <tr>
-        <td>users_aggregate_by_created_at_date</td>
-        <td>read:users</td>
-        <td>fetch data from the table: "users_aggregate_by_created_at_date"</td>
+        <td><a href="/api/graphql/schemas/users/">users</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:users" /></td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
-        <td>users_by_pk</td>
-        <td>read:users</td>
-        <td>fetch data from the table: "users" using primary key columns</td>
+        <td>users_<wbr/>aggregate_<wbr/>by_<wbr/>created_<wbr/>at_<wbr/>date</td>
+        <td data-label="Scopes"><ScopePill scope="read:users" /></td>
+        <td data-label="Description">fetch data from the table: "users_<wbr/>aggregate_<wbr/>by_<wbr/>created_<wbr/>at_<wbr/>date"</td>
     </tr>
     <tr>
-        <td><a href="/api/graphql/schemas/vibes">vibes</a></td>
-        <td>read:vibes, read:vibes:following, read:vibes:private, read:vibes:public</td>
-        <td>fetch data from the table: "vibes"</td>
+        <td>users_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:users" /></td>
+        <td data-label="Description">fetch data from the table: "users" using primary key columns</td>
     </tr>
     <tr>
-        <td>vibes_by_pk</td>
-        <td>read:vibes, read:vibes:following, read:vibes:private, read:vibes:public</td>
-        <td>fetch data from the table: "vibes" using primary key columns</td>
+        <td><a href="/api/graphql/schemas/vibes/">vibes</a></td>
+        <td data-label="Scopes"><ScopePill scope="read:vibes" /> <ScopePill scope="read:vibes:following" /> <ScopePill scope="read:vibes:private" /> <ScopePill scope="read:vibes:public" /></td>
+        <td data-label="Description">fetch data from the table: "vibes"</td>
+    </tr>
+    <tr>
+        <td>vibes_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:vibes" /> <ScopePill scope="read:vibes:following" /> <ScopePill scope="read:vibes:private" /> <ScopePill scope="read:vibes:public" /></td>
+        <td data-label="Description">fetch data from the table: "vibes" using primary key columns</td>
     </tr>
     </tbody>
 </table>
 
 ## Mutations
 
-<table>
+<table class="actions-table">
     <thead>
     <tr>
         <th>Action</th>
@@ -810,489 +807,499 @@ generates a link that pre-selects them on the New API Key form for your users.
     </thead>
     <tbody>
     <tr>
-        <td>add_to_default_filter_list</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>add_<wbr/>to_<wbr/>default_<wbr/>filter_<wbr/>list</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>book_mapping_normalize</td>
-        <td>write:catalog, write:catalog:map</td>
-        <td></td>
+        <td>book_<wbr/>mapping_<wbr/>normalize</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:map" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>book_normalize</td>
-        <td>write:catalog, write:catalog:edit</td>
-        <td></td>
+        <td>book_<wbr/>normalize</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>collection_import_result_reimport</td>
-        <td>write:library</td>
-        <td></td>
+        <td>collection_<wbr/>import_<wbr/>result_<wbr/>create_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>collection_import_retry</td>
-        <td>write:library</td>
-        <td></td>
+        <td>collection_<wbr/>import_<wbr/>result_<wbr/>match</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_activities</td>
-        <td>write:social</td>
-        <td>delete data from the table: "activities"</td>
+        <td>collection_<wbr/>import_<wbr/>result_<wbr/>reimport</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_activities_by_pk</td>
-        <td>write:social</td>
-        <td>delete single row from the table: "activities"</td>
+        <td>collection_<wbr/>import_<wbr/>retry</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_book_mapping</td>
-        <td>write:catalog, write:catalog:map</td>
-        <td></td>
+        <td>delete_<wbr/>activities</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description">delete data from the table: "activities"</td>
     </tr>
     <tr>
-        <td>delete_filter_list</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>delete_<wbr/>activities_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description">delete single row from the table: "activities"</td>
     </tr>
     <tr>
-        <td>delete_filter_list_entity</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>delete_<wbr/>book_<wbr/>mapping</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:map" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_filter_list_subscription</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>delete_<wbr/>filter_<wbr/>list</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_follow</td>
-        <td>write:social</td>
-        <td></td>
+        <td>delete_<wbr/>filter_<wbr/>list_<wbr/>entity</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_followed_list</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>delete_<wbr/>filter_<wbr/>list_<wbr/>subscription</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_followed_prompt</td>
-        <td>write:prompts</td>
-        <td></td>
+        <td>delete_<wbr/>follow</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_followed_user</td>
-        <td>write:social</td>
-        <td></td>
+        <td>delete_<wbr/>followed_<wbr/>list</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_followed_users</td>
-        <td>write:social</td>
-        <td>delete data from the table: "followed_users"</td>
+        <td>delete_<wbr/>followed_<wbr/>prompt</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_followed_users_by_pk</td>
-        <td>write:social</td>
-        <td>delete single row from the table: "followed_users"</td>
+        <td>delete_<wbr/>followed_<wbr/>user</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_goal</td>
-        <td>write:goals</td>
-        <td></td>
+        <td>delete_<wbr/>followed_<wbr/>users</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description">delete data from the table: "followed_<wbr/>users"</td>
     </tr>
     <tr>
-        <td>delete_like</td>
-        <td>write:social</td>
-        <td></td>
+        <td>delete_<wbr/>followed_<wbr/>users_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description">delete single row from the table: "followed_<wbr/>users"</td>
     </tr>
     <tr>
-        <td>delete_list</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>delete_<wbr/>goal</td>
+        <td data-label="Scopes"><ScopePill scope="write:goals" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_list_book</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>delete_<wbr/>like</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_list_member</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>delete_<wbr/>list</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_prompt_answer</td>
-        <td>write:prompts</td>
-        <td></td>
+        <td>delete_<wbr/>list_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_prompts</td>
-        <td>write:prompts</td>
-        <td>delete data from the table: "prompts"</td>
+        <td>delete_<wbr/>list_<wbr/>member</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_prompts_by_pk</td>
-        <td>write:prompts</td>
-        <td>delete single row from the table: "prompts"</td>
+        <td>delete_<wbr/>prompt_<wbr/>answer</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_reading_journal</td>
-        <td>write:library</td>
-        <td></td>
+        <td>delete_<wbr/>prompts</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description">delete data from the table: "prompts"</td>
     </tr>
     <tr>
-        <td>delete_reading_journals_for_book</td>
-        <td>write:library</td>
-        <td></td>
+        <td>delete_<wbr/>prompts_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description">delete single row from the table: "prompts"</td>
     </tr>
     <tr>
-        <td>delete_user_blocks</td>
-        <td>write:social</td>
-        <td>delete data from the table: "user_blocks"</td>
+        <td>delete_<wbr/>reading_<wbr/>journal</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_user_blocks_by_pk</td>
-        <td>write:social</td>
-        <td>delete single row from the table: "user_blocks"</td>
+        <td>delete_<wbr/>reading_<wbr/>journals_<wbr/>for_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_user_book</td>
-        <td>write:library</td>
-        <td></td>
+        <td>delete_<wbr/>user_<wbr/>blocks</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description">delete data from the table: "user_<wbr/>blocks"</td>
     </tr>
     <tr>
-        <td>delete_user_book_read</td>
-        <td>write:library</td>
-        <td></td>
+        <td>delete_<wbr/>user_<wbr/>blocks_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description">delete single row from the table: "user_<wbr/>blocks"</td>
     </tr>
     <tr>
-        <td>delete_vibe</td>
-        <td>write:vibes</td>
-        <td></td>
+        <td>delete_<wbr/>user_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>edition_normalize</td>
-        <td>write:catalog, write:catalog:edit</td>
-        <td></td>
+        <td>delete_<wbr/>user_<wbr/>book_<wbr/>read</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>edition_owned</td>
-        <td>write:library</td>
-        <td></td>
+        <td>delete_<wbr/>vibe</td>
+        <td data-label="Scopes"><ScopePill scope="write:vibes" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_author</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>edition_<wbr/>normalize</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_block</td>
-        <td>write:social</td>
-        <td></td>
+        <td>edition_<wbr/>owned</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_book</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>insert_<wbr/>author</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_book_mapping</td>
-        <td>write:catalog, write:catalog:map</td>
-        <td></td>
+        <td>insert_<wbr/>block</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_character</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>insert_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_collection_import</td>
-        <td>write:library</td>
-        <td></td>
+        <td>insert_<wbr/>book_<wbr/>mapping</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:map" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_edition</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>insert_<wbr/>character</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_filter_list</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>insert_<wbr/>collection_<wbr/>import</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_filter_list_entity</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>insert_<wbr/>edition</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_follow</td>
-        <td>write:social</td>
-        <td></td>
+        <td>insert_<wbr/>filter_<wbr/>list</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_followed_user</td>
-        <td>write:social</td>
-        <td></td>
+        <td>insert_<wbr/>filter_<wbr/>list_<wbr/>entity</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_goal</td>
-        <td>write:goals</td>
-        <td></td>
+        <td>insert_<wbr/>follow</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_image</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>insert_<wbr/>followed_<wbr/>user</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_list</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>insert_<wbr/>goal</td>
+        <td data-label="Scopes"><ScopePill scope="write:goals" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_list_book</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>insert_<wbr/>image</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_list_member</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>insert_<wbr/>list</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_notification_settings</td>
-        <td>write:notifications</td>
-        <td>insert data into the table: "notification_settings"</td>
+        <td>insert_<wbr/>list_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_notification_settings_one</td>
-        <td>write:notifications</td>
-        <td>insert a single row into the table: "notification_settings"</td>
+        <td>insert_<wbr/>list_<wbr/>member</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_prompt</td>
-        <td>write:prompts</td>
-        <td></td>
+        <td>insert_<wbr/>notification_<wbr/>settings</td>
+        <td data-label="Scopes"><ScopePill scope="write:notifications" /></td>
+        <td data-label="Description">insert data into the table: "notification_<wbr/>settings"</td>
     </tr>
     <tr>
-        <td>insert_prompt_answer</td>
-        <td>write:prompts</td>
-        <td></td>
+        <td>insert_<wbr/>notification_<wbr/>settings_<wbr/>one</td>
+        <td data-label="Scopes"><ScopePill scope="write:notifications" /></td>
+        <td data-label="Description">insert a single row into the table: "notification_<wbr/>settings"</td>
     </tr>
     <tr>
-        <td>insert_publisher</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>insert_<wbr/>prompt</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_reading_journal</td>
-        <td>write:library</td>
-        <td></td>
+        <td>insert_<wbr/>prompt_<wbr/>answer</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_serie</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td>insert_series</td>
+        <td>insert_<wbr/>publisher</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_user_blocks</td>
-        <td>write:social</td>
-        <td>insert data into the table: "user_blocks"</td>
+        <td>insert_<wbr/>reading_<wbr/>journal</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>insert_user_blocks_one</td>
-        <td>write:social</td>
-        <td>insert a single row into the table: "user_blocks"</td>
+        <td>insert_<wbr/>serie</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description">insert_<wbr/>series</td>
     </tr>
     <tr>
-        <td>insert_user_book</td>
-        <td>write:library</td>
-        <td></td>
+        <td>insert_<wbr/>user_<wbr/>blocks</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description">insert data into the table: "user_<wbr/>blocks"</td>
     </tr>
     <tr>
-        <td>insert_user_book_read</td>
-        <td>write:library</td>
-        <td></td>
+        <td>insert_<wbr/>user_<wbr/>blocks_<wbr/>one</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description">insert a single row into the table: "user_<wbr/>blocks"</td>
     </tr>
     <tr>
-        <td>insert_vibe</td>
-        <td>write:vibes</td>
-        <td></td>
+        <td>insert_<wbr/>user_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_author</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>insert_<wbr/>user_<wbr/>book_<wbr/>read</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_book</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>insert_<wbr/>vibe</td>
+        <td data-label="Scopes"><ScopePill scope="write:vibes" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_character</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>update_<wbr/>author</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_collection_import_results</td>
-        <td>write:library</td>
-        <td>update data of the table: "collection_import_results"</td>
+        <td>update_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_collection_import_results_many</td>
-        <td>write:library</td>
-        <td>update multiples rows of table: "collection_import_results"</td>
+        <td>update_<wbr/>character</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_edition</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>update_<wbr/>collection_<wbr/>import_<wbr/>results</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description">update data of the table: "collection_<wbr/>import_<wbr/>results"</td>
     </tr>
     <tr>
-        <td>update_filter_list</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>update_<wbr/>collection_<wbr/>import_<wbr/>results_<wbr/>many</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description">update multiples rows of table: "collection_<wbr/>import_<wbr/>results"</td>
     </tr>
     <tr>
-        <td>update_goal</td>
-        <td>write:goals</td>
-        <td></td>
+        <td>update_<wbr/>edition</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_goal_progress</td>
-        <td>write:goals</td>
-        <td></td>
+        <td>update_<wbr/>filter_<wbr/>list</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_list</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>update_<wbr/>goal</td>
+        <td data-label="Scopes"><ScopePill scope="write:goals" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_list_books</td>
-        <td>write:lists</td>
-        <td>update data of the table: "list_books"</td>
+        <td>update_<wbr/>goal_<wbr/>progress</td>
+        <td data-label="Scopes"><ScopePill scope="write:goals" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_list_books_by_pk</td>
-        <td>write:lists</td>
-        <td>update single row of the table: "list_books"</td>
+        <td>update_<wbr/>list</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_list_books_many</td>
-        <td>write:lists</td>
-        <td>update multiples rows of table: "list_books"</td>
+        <td>update_<wbr/>list_<wbr/>books</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description">update data of the table: "list_<wbr/>books"</td>
     </tr>
     <tr>
-        <td>update_list_member</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>update_<wbr/>list_<wbr/>books_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description">update single row of the table: "list_<wbr/>books"</td>
     </tr>
     <tr>
-        <td>update_notification_deliveries</td>
-        <td>write:notifications</td>
-        <td>update data of the table: "notification_deliveries"</td>
+        <td>update_<wbr/>list_<wbr/>books_<wbr/>many</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description">update multiples rows of table: "list_<wbr/>books"</td>
     </tr>
     <tr>
-        <td>update_notification_deliveries_many</td>
-        <td>write:notifications</td>
-        <td>update multiples rows of table: "notification_deliveries"</td>
+        <td>update_<wbr/>list_<wbr/>member</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_notification_settings</td>
-        <td>write:notifications</td>
-        <td>update data of the table: "notification_settings"</td>
+        <td>update_<wbr/>notification_<wbr/>deliveries</td>
+        <td data-label="Scopes"><ScopePill scope="write:notifications" /></td>
+        <td data-label="Description">update data of the table: "notification_<wbr/>deliveries"</td>
     </tr>
     <tr>
-        <td>update_notification_settings_many</td>
-        <td>write:notifications</td>
-        <td>update multiples rows of table: "notification_settings"</td>
+        <td>update_<wbr/>notification_<wbr/>deliveries_<wbr/>many</td>
+        <td data-label="Scopes"><ScopePill scope="write:notifications" /></td>
+        <td data-label="Description">update multiples rows of table: "notification_<wbr/>deliveries"</td>
     </tr>
     <tr>
-        <td>update_prompt</td>
-        <td>write:prompts</td>
-        <td></td>
+        <td>update_<wbr/>notification_<wbr/>settings</td>
+        <td data-label="Scopes"><ScopePill scope="write:notifications" /></td>
+        <td data-label="Description">update data of the table: "notification_<wbr/>settings"</td>
     </tr>
     <tr>
-        <td>update_prompt_answers</td>
-        <td>write:prompts</td>
-        <td>update data of the table: "prompt_answers"</td>
+        <td>update_<wbr/>notification_<wbr/>settings_<wbr/>many</td>
+        <td data-label="Scopes"><ScopePill scope="write:notifications" /></td>
+        <td data-label="Description">update multiples rows of table: "notification_<wbr/>settings"</td>
     </tr>
     <tr>
-        <td>update_prompt_answers_by_pk</td>
-        <td>write:prompts</td>
-        <td>update single row of the table: "prompt_answers"</td>
+        <td>update_<wbr/>prompt</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_prompt_answers_many</td>
-        <td>write:prompts</td>
-        <td>update multiples rows of table: "prompt_answers"</td>
+        <td>update_<wbr/>prompt_<wbr/>answers</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description">update data of the table: "prompt_<wbr/>answers"</td>
     </tr>
     <tr>
-        <td>update_publisher</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>update_<wbr/>prompt_<wbr/>answers_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description">update single row of the table: "prompt_<wbr/>answers"</td>
     </tr>
     <tr>
-        <td>update_reading_journal</td>
-        <td>write:library</td>
-        <td></td>
+        <td>update_<wbr/>prompt_<wbr/>answers_<wbr/>many</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description">update multiples rows of table: "prompt_<wbr/>answers"</td>
     </tr>
     <tr>
-        <td>update_serie</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>update_<wbr/>publisher</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_user_book</td>
-        <td>write:library</td>
-        <td></td>
+        <td>update_<wbr/>reading_<wbr/>journal</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_user_book_read</td>
-        <td>write:library</td>
-        <td></td>
+        <td>update_<wbr/>serie</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>update_vibe</td>
-        <td>write:vibes</td>
-        <td></td>
+        <td>update_<wbr/>user_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>upsert_book</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>update_<wbr/>user_<wbr/>book_<wbr/>read</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>upsert_filter_list_subscription</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>update_<wbr/>vibe</td>
+        <td data-label="Scopes"><ScopePill scope="write:vibes" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>upsert_followed_list</td>
-        <td>write:lists</td>
-        <td></td>
+        <td>upsert_<wbr/>book</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>upsert_followed_prompt</td>
-        <td>write:prompts</td>
-        <td></td>
+        <td>upsert_<wbr/>filter_<wbr/>list_<wbr/>subscription</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>upsert_like</td>
-        <td>write:social</td>
-        <td></td>
+        <td>upsert_<wbr/>followed_<wbr/>list</td>
+        <td data-label="Scopes"><ScopePill scope="write:lists" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>upsert_tags</td>
-        <td>write:catalog, write:catalog:append, write:catalog:edit</td>
-        <td></td>
+        <td>upsert_<wbr/>followed_<wbr/>prompt</td>
+        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>upsert_user_book_reads</td>
-        <td>write:library</td>
-        <td>upsert_user_book_read</td>
+        <td>upsert_<wbr/>like</td>
+        <td data-label="Scopes"><ScopePill scope="write:social" /></td>
+        <td data-label="Description"></td>
+    </tr>
+    <tr>
+        <td>upsert_<wbr/>tags</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description"></td>
+    </tr>
+    <tr>
+        <td>upsert_<wbr/>user_<wbr/>book_<wbr/>reads</td>
+        <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description">upsert_<wbr/>user_<wbr/>book_<wbr/>read</td>
     </tr>
     </tbody>
 </table>

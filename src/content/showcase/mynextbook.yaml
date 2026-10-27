@@ -1,0 +1,44 @@
+name: "MyNextBook"
+slug: "mynextbook"
+summary: "Book recommendation site with \"books like X\" pages and genre best-of lists"
+description: |
+  MyNextBook is a book recommendation website, free to browse. Pick a book you liked and it suggests similar reads, or browse ranked best-of lists by genre.
+
+  It uses the Hardcover GraphQL API for book metadata: covers, descriptions, page counts, publication years, and each book's aggregate rating and rating count. Hardcover ratings are always labelled as Hardcover data (for example "4.29 (5.1K ratings on Hardcover)"). Only book-level aggregates are used, never an individual reader's rating or review.
+
+  Features:
+  - "Books like X" pages with similar-book picks for thousands of titles
+  - Best-of lists by genre (fantasy, science fiction, romance, mystery and more)
+  - Covers, descriptions and average Hardcover ratings on book cards
+  - Open Library as a fallback source when Hardcover has no rating, labelled as such
+
+author:
+  name: "Pouya Rezazadeh"
+  github: "PouyaREZ"
+
+links:
+  - label: "Website"
+    url: "https://mynextbook.ai"
+    type: "website"
+
+categories:
+  - "Web App"
+
+tags:
+  - "recommendations"
+  - "discovery"
+  - "ratings"
+  - "books"
+
+screenshots:
+  - src: "/showcase/mynextbook/01-books-like.webp"
+    alt: "A books-like page for The Hobbit showing its cover, description and average Hardcover rating, followed by similar books"
+  - src: "/showcase/mynextbook/02-best-list.webp"
+    alt: "The best fantasy books list, each entry with a cover and its rating on Hardcover"
+  - src: "/showcase/mynextbook/03-books-like-index.webp"
+    alt: "The books-like index, a grid of book covers with Hardcover ratings"
+
+dateAdded: 2026-10-18
+dateUpdated: 2026-10-18
+
+featured: false

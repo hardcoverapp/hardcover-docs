@@ -1,0 +1,40 @@
+---
+title: Handle errors and test your app
+description: The errors apps usually handle, writes that may have landed, and testing your code against a real client without the network.
+slug: sdk/typescript/0.1/guides/errors-and-testing
+layout: /src/layouts/documentation.astro
+sidebar:
+  order: 6
+---
+
+import SdkExample from '@/components/SdkExplorer/SdkExample.astro';
+
+Every failure is a typed error, and `operationName` says which call failed. The client already retries reads and
+paces itself to the rate limit, so the errors that reach your app are the ones it should decide about.
+
+## The errors apps handle
+
+| Error | What to do |
+|---|---|
+| `ScopeError` | The token lacks scopes, listed in `missingScopes`. Ask for them. |
+| `AuthenticationError` | The token expired or was revoked. Sign in again. |
+| `RateLimitError` | The daily limit is spent, or the API stayed busy. Wait `retryAfterSeconds`. |
+| `ActionError` | The API refused a write; `messages` say why. Show them. |
+| `NetworkError`, `TimeoutError` | The request didn't finish. For a write, `mayHaveSucceeded` says it might have landed. |
+
+Writes are never retried automatically, because sending one twice could add something twice. When
+`mayHaveSucceeded` is true, check before trying again.
+
+<SdkExample version="0.1" file="errors-and-testing" fn="handleErrors" />
+
+## Test without the network
+
+`MockTransport` from `@hardcover/sdk/testing` drives a real client with canned responses, so your tests run the same
+code your app does, including error handling. `transport.requests` records every request the client sent.
+
+<SdkExample version="0.1" file="errors-and-testing" fn="testWithoutTheNetwork" />
+
+## Related
+
+- [Errors](/sdk/typescript/0.1/#errors) in the overview
+- [Response codes](/api/getting-started/) the API returns

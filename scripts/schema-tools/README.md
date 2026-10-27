@@ -29,6 +29,7 @@ gitignored.
 | `fetch-capabilities.js` | Get updated capabilities.json | - | capabilities.json |
 | `extract-capability-scopes.js` | Index operations to required scopes | capabilities.json | capability-scopes.json |
 | `extract-capability-field-scopes.js` | Get scopes that affect columns | capabilities.json, schema.json | capability-field-scopes.json |
+| `extract-row-limits.js` | Most rows each query returns to API tokens (needs an app checkout, `APP_REPO`, default `../app`; skipped without one) | app Hasura metadata | row-limits.json |
 | `generate-schema-tables.js` | Generate markdown tables | schema-fields.json | schema-tables/*.md |
 | `update-schema-docs.js` | Update MDX documentation | schema-tables/*.md | Schemas/*.mdx |
 | `add-schema-graphs.js` | Add SchemaGraph to new pages | - | Schemas/*.mdx |
@@ -49,6 +50,7 @@ node scripts/schema-tools/convert-schema.js
 node scripts/schema-tools/fetch-capabilities.js
 node scripts/schema-tools/extract-capability-scopes.js
 node scripts/schema-tools/extract-capability-field-scopes.js
+node scripts/schema-tools/extract-row-limits.js
 node scripts/schema-tools/extract-schema-fields.js
 node scripts/schema-tools/generate-schema-tables.js
 node scripts/schema-tools/update-schema-docs.js

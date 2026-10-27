@@ -1,0 +1,302 @@
+---
+/**
+ * Display settings: theme and text size. Replaces Starlight's theme <select>.
+ * Renders as a button with a popover, or `inline` inside menus that are
+ * already panels of their own (site menu, mobile menu footer).
+ *
+ * Theme reads and writes Starlight's own `starlight-theme` key, so its
+ * ThemeProvider still applies the saved theme before first paint. Text size is
+ * applied before paint by the inline script in astro.config.mjs.
+ */
+import {Icon} from '@astrojs/starlight/components';
+import {useTranslation} from '@/lib/utils';
+
+interface Props {
+    inline?: boolean;
+}
+
+const {inline = false} = Astro.props;
+const locale = Astro.currentLocale;
+const t = (key: string) => useTranslation(key, locale);
+const panelId = `display-prefs-${Math.random().toString(36).slice(2, 8)}`;
+
+const themes = [
+    {value: 'auto', icon: 'laptop', label: Astro.locals.t('themeSelect.auto')},
+    {value: 'light', icon: 'sun', label: Astro.locals.t('themeSelect.light')},
+    {value: 'dark', icon: 'moon', label: Astro.locals.t('themeSelect.dark')},
+] as const;
+
+const sizes = [
+    {value: 'small', preview: '0.85rem'},
+    {value: 'default', preview: '1rem'},
+    {value: 'large', preview: '1.2rem'},
+    {value: 'xlarge', preview: '1.4rem'},
+] as const;
+---
+
+<display-prefs class:list={['display-prefs', {inline}]}>
+    {!inline && (
+        <button type="button" class="dp-toggle" aria-expanded="false" aria-controls={panelId}
+                aria-label={t('ui.display.button')} title={t('ui.display.button')}>
+            <Icon name="setting" size="1.25rem"/>
+        </button>
+    )}
+    <div class="dp-panel" id={panelId} hidden={!inline}>
+        <div class="dp-group" role="group" aria-label={t('ui.display.theme')}>
+            <span class="dp-label">{t('ui.display.theme')}</span>
+            <div class="dp-options">
+                {themes.map((theme) => (
+                    <button type="button" class="dp-option" data-theme-value={theme.value} aria-pressed="false">
+                        <Icon name={theme.icon} size="1.05rem"/>
+                        <span>{theme.label}</span>
+                    </button>
+                ))}
+            </div>
+        </div>
+        <div class="dp-group" role="group" aria-label={t('ui.display.textSize')}>
+            <span class="dp-label">{t('ui.display.textSize')}</span>
+            <div class="dp-options">
+                {sizes.map((size) => (
+                    <button type="button" class="dp-option dp-size" data-text-size={size.value} aria-pressed="false"
+                            aria-label={t(`ui.display.${size.value}`)} title={t(`ui.display.${size.value}`)}>
+                        <span aria-hidden="true" style={`font-size: ${size.preview}`}>A</span>
+                    </button>
+                ))}
+            </div>
+        </div>
+    </div>
+</display-prefs>
+
+<script>
+    type Theme = 'auto' | 'light' | 'dark';
+
+    const THEME_KEY = 'starlight-theme';
+    const SIZE_KEY = 'hc-text-size';
+    const SIZES = ['small', 'default', 'large', 'xlarge'];
+
+    const read = (key: string) => {
+        try {
+            return localStorage.getItem(key) ?? '';
+        } catch {
+            return '';
+        }
+    };
+
+    const write = (key: string, value: string) => {
+        try {
+            if (value) localStorage.setItem(key, value);
+            else localStorage.removeItem(key);
+        } catch {
+            // Storage blocked: the choice still applies for this page view.
+        }
+    };
+
+    const loadTheme = (): Theme => {
+        const stored = read(THEME_KEY);
+        return stored === 'light' || stored === 'dark' ? stored : 'auto';
+    };
+
+    const loadSize = () => {
+        const stored = read(SIZE_KEY);
+        return SIZES.includes(stored) ? stored : 'default';
+    };
+
+    const systemTheme = () => (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+
+    // Every instance on the page (header, site menu, mobile menu) reflects the
+    // same state, so changes re-sync all of them.
+    function syncAll() {
+        const theme = loadTheme();
+        const size = loadSize();
+        document.querySelectorAll('display-prefs').forEach((el) => {
+            el.querySelectorAll<HTMLButtonElement>('[data-theme-value]').forEach((b) =>
+                b.setAttribute('aria-pressed', String(b.dataset.themeValue === theme)));
+            el.querySelectorAll<HTMLButtonElement>('[data-text-size]').forEach((b) =>
+                b.setAttribute('aria-pressed', String(b.dataset.textSize === size)));
+        });
+    }
+
+    function setTheme(theme: Theme) {
+        // Starlight stores an empty string for auto.
+        write(THEME_KEY, theme === 'auto' ? '' : theme);
+        document.documentElement.dataset.theme = theme === 'auto' ? systemTheme() : theme;
+        syncAll();
+    }
+
+    function setSize(size: string) {
+        write(SIZE_KEY, size === 'default' ? '' : size);
+        if (size === 'default') delete document.documentElement.dataset.textSize;
+        else document.documentElement.dataset.textSize = size;
+        syncAll();
+    }
+
+    matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+        if (loadTheme() === 'auto') setTheme('auto');
+    });
+
+    class DisplayPrefs extends HTMLElement {
+        connectedCallback() {
+            const toggle = this.querySelector<HTMLButtonElement>('.dp-toggle');
+            const panel = this.querySelector<HTMLElement>('.dp-panel');
+
+            this.addEventListener('click', (event) => {
+                const target = (event.target as HTMLElement).closest<HTMLButtonElement>('button');
+                if (!target) return;
+                if (target === toggle && panel) {
+                    const open = panel.hidden;
+                    panel.hidden = !open;
+                    toggle.setAttribute('aria-expanded', String(open));
+                } else if (target.dataset.themeValue) {
+                    setTheme(target.dataset.themeValue as Theme);
+                } else if (target.dataset.textSize) {
+                    setSize(target.dataset.textSize);
+                }
+            });
+
+            if (toggle && panel) {
+                const close = (refocus: boolean) => {
+                    if (panel.hidden) return;
+                    panel.hidden = true;
+                    toggle.setAttribute('aria-expanded', 'false');
+                    if (refocus) toggle.focus();
+                };
+                document.addEventListener('click', (event) => {
+                    if (!this.contains(event.target as Node)) close(false);
+                });
+                this.addEventListener('keydown', (event) => {
+                    if (event.key === 'Escape') close(true);
+                });
+            }
+
+            syncAll();
+        }
+    }
+
+    customElements.define('display-prefs', DisplayPrefs);
+</script>
+
+<style>
+    .display-prefs {
+        position: relative;
+        display: inline-flex;
+    }
+
+    .dp-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.375rem;
+        height: 2.375rem;
+        border: 1px solid var(--hc-indigo-line);
+        border-radius: 0.5625rem;
+        background: var(--hc-indigo-soft);
+        color: var(--hc-indigo);
+        cursor: pointer;
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .dp-toggle:hover,
+    .dp-toggle[aria-expanded='true'] {
+        background: var(--hc-indigo);
+        color: var(--hc-indigo-ink);
+    }
+
+    .dp-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 1.125rem;
+    }
+
+    .dp-panel[hidden] {
+        display: none;
+    }
+
+    .display-prefs:not(.inline) .dp-panel {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        z-index: 20;
+        width: max-content;
+        min-width: 20rem;
+        padding: 1.125rem;
+        border: 1px solid var(--hc-rule);
+        border-radius: 0.875rem;
+        background: var(--hc-card);
+        box-shadow: var(--sl-shadow-lg);
+    }
+
+    .display-prefs.inline {
+        display: flex;
+        width: 100%;
+    }
+
+    .display-prefs.inline .dp-panel {
+        width: 100%;
+        padding-block: 0.75rem;
+    }
+
+    .dp-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .dp-label {
+        font-size: var(--sl-text-xs);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--hc-ink-2, var(--sl-color-gray-3));
+    }
+
+    .dp-options {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .dp-option {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 2.75rem;
+        padding: 0.5rem 0.875rem;
+        border: 1px solid var(--hc-indigo-line);
+        border-radius: 0.5625rem;
+        background: var(--hc-indigo-soft);
+        color: var(--hc-indigo);
+        font-size: var(--sl-text-sm);
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .dp-option:hover {
+        border-color: var(--hc-indigo);
+    }
+
+    .dp-option[aria-pressed='true'] {
+        background: var(--hc-indigo);
+        border-color: var(--hc-indigo);
+        color: var(--hc-indigo-ink);
+    }
+
+    .dp-size span {
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .dp-toggle:focus-visible,
+    .dp-option:focus-visible {
+        outline: 2px solid var(--hc-indigo);
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .dp-toggle,
+        .dp-option {
+            transition: none;
+        }
+    }
+</style>

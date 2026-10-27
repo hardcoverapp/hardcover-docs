@@ -1,0 +1,96 @@
+---
+title: Getting an Author's Books and Editions
+description: Guide to getting every book by an author, with each book's editions, starting from the author's slug
+category: guide
+layout: /src/layouts/documentation.astro
+---
+
+import GraphQLExplorer from '@/components/GraphQLExplorer/GraphQLExplorer.astro';
+import { Aside } from '@astrojs/starlight/components';
+
+## Introduction
+
+This guide shows how to get every book by an author, and each book's editions, starting from the author's `slug`:
+the last part of their address on Hardcover (`hardcover.app/authors/andy-weir`).
+
+## Related Schemas
+- [Authors](/api/graphql/schemas/authors)
+- [Contributions](/api/graphql/schemas/contributions)
+- [Books](/api/graphql/schemas/books)
+- [Editions](/api/graphql/schemas/editions)
+
+## Explanation
+
+An author is connected to their books through `contributions`. Each contribution has a role, so filter on the
+author role to leave out books they only translated or narrated:
+
+```graphql
+contributions(where: {contributor_role: {slug: {_eq: "author"}}}) {
+# ...
+```
+
+Contributions can point at a whole book or at a single edition. Keep the ones for books:
+
+```graphql
+contributions(where: {contributable_type: {_eq: "Book"}}) {
+# ...
+```
+
+As in [Getting All Books in a Series](/api/guides/gettingbooksinseries/), filter out books merged into another
+(`canonical_id` is set) and partial books, which hold only part of another book:
+
+```graphql
+contributions(where: {book: {canonical_id: {_is_null: true}, is_partial_book: {_eq: false}}}) {
+# ...
+```
+
+Sorting by the number of readers puts an author's best-known books first, ahead of translations and duplicates
+that haven't been merged yet.
+
+### Example Request
+<GraphQLExplorer query={`
+query GetAuthorsBooks {
+    authors(where: {slug: {_eq: "andy-weir"}}) {
+        name
+        slug
+        books_count
+        contributions(
+            where: {
+                contributable_type: {_eq: "Book"}
+                contributor_role: {slug: {_eq: "author"}}
+                book: {canonical_id: {_is_null: true}, is_partial_book: {_eq: false}}
+            }
+            order_by: {book: {users_count: desc}}
+        ) {
+            book {
+                title
+                slug
+                release_date
+                editions(order_by: {users_count: desc}, limit: 5) {
+                    id
+                    edition_format
+                    isbn_13
+                    release_date
+                    publisher {
+                        name
+                    }
+                }
+            }
+        }
+    }
+}
+`} description={`
+    Every book by Andy Weir, most read first, each with its five most read editions.
+`}
+    title="Author's Books and Editions"
+    presentation='json'
+/>
+
+<Aside type="note">
+    Each list is capped: an author's contributions at 100 and a book's editions at 5,000 per request. For an author
+    with more than 100 books, add `limit` and `offset` to `contributions` and page through. The
+    [schema pages](/api/graphql/schemas/contributions/) list each query's cap.
+</Aside>
+
+You can help clean up an author's books by going to any duplicate and clicking `Flag` > `Flag as duplicate`.
+See [Merging Standards](/librarians/standards/mergingstandards/#merging-books).

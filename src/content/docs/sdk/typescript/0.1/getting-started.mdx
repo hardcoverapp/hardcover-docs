@@ -1,0 +1,115 @@
+---
+title: Getting started
+description: Install the TypeScript SDK 0.1 from npm and make your first call.
+slug: sdk/typescript/0.1/getting-started
+layout: /src/layouts/documentation.astro
+---
+
+import SdkExplorer from '@/components/SdkExplorer/SdkExplorer.astro';
+import {LinkButton, Tabs, TabItem} from "@astrojs/starlight/components";
+import { URLS } from '@/Consts';
+
+## Install
+
+`@hardcover/sdk` is published on npm. It runs in Node 22.12+, browsers, Deno,
+Bun and React Native, and has no dependencies.
+
+<Tabs syncKey="package-manager">
+<TabItem label="npm">
+
+```sh
+npm install @hardcover/sdk@^0.1
+```
+
+</TabItem>
+<TabItem label="pnpm">
+
+```sh
+pnpm add @hardcover/sdk@^0.1
+```
+
+</TabItem>
+<TabItem label="Yarn">
+
+```sh
+yarn add @hardcover/sdk@^0.1
+```
+
+</TabItem>
+<TabItem label="Bun">
+
+```sh
+bun add @hardcover/sdk@^0.1
+```
+
+</TabItem>
+</Tabs>
+
+<LinkButton href={URLS.SDK_NPM_TYPESCRIPT} variant="secondary" icon="external" iconPlacement="end">
+@hardcover/sdk on npm
+</LinkButton>
+
+Before 1.0 a new minor version (0.2) may rename things, so `^0.1` keeps you on
+0.1.x until you choose to update. The [changelog](/sdk/typescript/changelog/)
+says what changes in each version and how to update.
+
+## Get a token
+
+Create a [personal access token](/api/getting-started/) with the scopes your
+app needs. Each method's page lists the scopes it uses. Keep tokens out of
+source control and out of browser bundles; apps that act for other people sign
+them in with [OAuth](#signing-people-in) instead.
+
+## Make a call
+
+```ts
+import { HardcoverClient, UserBookStatus } from "@hardcover/sdk";
+
+const hc = new HardcoverClient({
+  token: process.env.HARDCOVER_TOKEN,
+  userAgent: "my-app/1.0",
+});
+
+const me = await hc.me.get();
+const reading = await hc.library.list({ status: UserBookStatus.CurrentlyReading });
+```
+
+`userAgent` names your app in the API's logs, so problems can be traced back to
+it. Try the same call with your own token:
+
+<SdkExplorer method="library.list" version="0.1" />
+
+## Signing people in
+
+`@hardcover/sdk/oauth` signs people in with [OAuth](/api/oauth/) and keeps
+their tokens working: it refreshes them before they expire, never spends a
+refresh token twice, stores each new pair before using it, and tells you once
+when the person needs to sign in again. You decide where tokens are stored.
+
+```ts
+import { HardcoverClient } from "@hardcover/sdk";
+import { OAuthSession, secureStore } from "@hardcover/sdk/oauth";
+
+const session = new OAuthSession({
+  clientId: "your-client-id",
+  redirectUri: "yourapp://oauth/callback",
+  store: secureStore(SecureStore, "hardcover-tokens"), // Keychain / Keystore
+  onSignedOut: () => showSignIn(),
+});
+const hc = new HardcoverClient({ auth: session });
+
+const attempt = session.authorize({ scopes: ["read:me:content", "read:library"] });
+// Open attempt.url in a browser, then hand the redirect back:
+await session.completeAuthorization(redirectUrl, attempt);
+```
+
+TVs and command-line tools use `session.signInWithDevice(...)`, which shows a
+short code to enter at hardcover.app/link.
+
+## Next
+
+- The guides walk through whole tasks: [signing people in](/sdk/typescript/0.1/guides/sign-in/),
+  [tracking reading](/sdk/typescript/0.1/guides/track-reading/),
+  [adding books in bulk](/sdk/typescript/0.1/guides/add-books-in-bulk/) and more.
+- The [overview](/sdk/typescript/0.1/) covers errors, rate limits, stats and testing.
+- Each [resource](/sdk/typescript/0.1/resources/library/) page lists its methods, with an explorer for each.

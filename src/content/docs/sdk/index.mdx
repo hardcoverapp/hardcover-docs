@@ -1,0 +1,45 @@
+---
+title: SDKs
+description: Hardcover's official API clients, what they handle for your app, and what each language supports.
+layout: /src/layouts/documentation.astro
+---
+
+import SdkMatrix from '@/components/SdkExplorer/SdkMatrix.astro';
+import { URLS } from '@/Consts';
+
+Hardcover's official SDKs are client libraries for the [Hardcover API](/api/getting-started/), maintained by
+the Hardcover team and <a href={URLS.SDK_GITHUB}>open to contributions</a>. Every language
+shares one contract: the same operations, enums, errors and behavior tests, so an SDK in one language works like
+the others.
+
+The API decides what you can do; an SDK passes its answers through and takes care of what every app would
+otherwise build for itself:
+
+- **Typed resources** for the library, reads, lists, journal, goals, vibes, prompts, books, authors, series,
+  people, activity and notifications, all in one consistent shape.
+- **Rate limits.** It paces itself from the API's headers, backs off when other apps share your budget, and can
+  combine concurrent reads into one request.
+- **Signing people in** with OAuth (browser with PKCE, or a device code for TVs and command-line tools). The SDK
+  owns the tokens: it refreshes and stores them, and tells you once when someone needs to sign in again.
+- **Errors** with one name per failure, such as a missing scope spelled out or a failed action's reason.
+- **Paging** that never asks for more than the API returns, with a helper to walk every page.
+- **Details apps get wrong**, like cleaning up ISBNs and keeping a local copy of a library in sync.
+- **Reading stats** for a year, a month or a reader's whole history, counted the way the Stats page on
+  hardcover.app counts them.
+
+## Languages
+
+<SdkMatrix part="languages" />
+
+TypeScript comes first, since the docs site and the Hardcover app are its first users. Swift, Kotlin (usable from
+Java), Python and Ruby follow once the shared contract has proven itself.
+
+## What each language supports
+
+<SdkMatrix part="features" />
+
+## Contributing
+
+The SDKs are developed in the open in the <a href={URLS.SDK_GITHUB}>SDK repository</a>. Bug reports and ideas are welcome as
+issues, and the repository explains how a new language is added: a language is ready once it passes the shared
+behavior tests.

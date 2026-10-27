@@ -1,0 +1,25 @@
+---
+import LocalDate from './LocalDate.astro';
+
+const { lastUpdated } = Astro.locals.starlightRoute;
+---
+
+{
+    lastUpdated && (
+        <p data-footer-last-updated>
+            {Astro.locals.t('page.lastUpdated')}{' '}
+            <LocalDate date={lastUpdated} />
+        </p>
+    )
+}
+
+<script>
+    // On pages short enough that the layout's header date and this one are both
+    // on screen at load, keep only the header date. Measured once so dates don't
+    // flicker while reading.
+    const footer = document.querySelector<HTMLElement>('[data-footer-last-updated]');
+    const header = document.querySelector('[data-header-last-updated]');
+    if (footer && header && footer.getBoundingClientRect().top < window.innerHeight) {
+        footer.hidden = true;
+    }
+</script>

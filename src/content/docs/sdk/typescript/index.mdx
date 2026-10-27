@@ -1,0 +1,32 @@
+---
+title: TypeScript SDK
+description: The official TypeScript client for the Hardcover API, its versions and changelog.
+layout: /src/layouts/documentation.astro
+---
+
+import SdkVersions from '@/components/SdkExplorer/SdkVersions.astro';
+import {LinkButton} from "@astrojs/starlight/components";
+import { URLS } from '@/Consts';
+
+`@hardcover/sdk` is the official TypeScript client for the Hardcover API. It
+runs in Node 22.12+, browsers, Deno, Bun and React Native, with no
+dependencies, and handles what every app would otherwise repeat: signing users
+in and keeping their tokens fresh, rate limits, retries, and typed results and
+errors.
+
+<LinkButton href={URLS.SDK_NPM_TYPESCRIPT} variant="secondary" icon="external" iconPlacement="end">
+@hardcover/sdk on npm
+</LinkButton>
+
+## Versions
+
+Each minor version has its own guides and examples, so the docs match the
+version you install.
+
+<SdkVersions />
+
+## Changelog
+
+The [changelog](/sdk/typescript/changelog/) lists what changed in each
+version, and before 1.0, what to change when you update to a new minor
+version.

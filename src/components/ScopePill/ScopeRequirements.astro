@@ -1,0 +1,40 @@
+---
+/**
+ * "Scopes: read:catalog read:library" above a GraphQL example, worked out from
+ * its query. Renders nothing when the query needs no listed scope.
+ */
+import { queryScopes } from "@/data/queryScopes";
+import { useTranslation } from "@/lib/utils";
+import ScopePill from "./ScopePill.astro";
+
+interface Props {
+    query?: string;
+    scopes?: string[];
+}
+
+const { query = "", scopes = queryScopes(query) } = Astro.props;
+const locale = Astro.currentLocale;
+---
+
+{scopes.length > 0 && (
+    <p class="scope-requirements">
+        <span class="scope-requirements-label">{useTranslation("ui.scopes.required", locale)}</span>
+        {scopes.map((scope) => <ScopePill scope={scope} />)}
+    </p>
+)}
+
+<style>
+    .scope-requirements {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.2rem 0.35rem;
+        margin-block: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .scope-requirements-label {
+        font-weight: 600;
+        color: var(--hc-ink-2);
+    }
+</style>

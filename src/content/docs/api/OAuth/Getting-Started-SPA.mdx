@@ -7,6 +7,7 @@ layout: /src/layouts/documentation.astro
 
 import { URLS } from "@/Consts";
 import ImageComponent from "@/components/ImageComponent.astro";
+import ScopePill from '@/components/ScopePill/ScopePill.astro';
 
 This guide will walk you through the steps for making a simple Single Page App (SPA) application using hardcover OAuth, this is going to be a basic example, and there are a bunch of improvements you can make, but this is the bare bones.
 
@@ -24,7 +25,7 @@ For this guide you only need to set the Application Type, Name, OAuth Redirect U
 
 <ImageComponent imagePath="/src/content/images/api/oauth/new_app_spa_oauth.png" description="OAuth information, the redirect URI's and allowed scopes." />
 
-For this guide you will only need the `read:me:content` scope, but you can set whatever scopes you need.
+For this guide you will only need the <ScopePill scope="read:me:content" /> scope, but you can set whatever scopes you need.
 And I will be using `python -m http.server` to serve it, so I am setting the Redirect URI to `http://localhost/` and `http://localhost/index.html`. Since this is loopback (localhost) the port does not matter, but if you are going to host this publicly you will have to use https, and if you are not using port 443 (omitted by default) you will have to specify the port.
 
 After you click create you will be taken to the apps info page, when you are here, copy the client ID, this is how hardcover will know what app is doing the authentication.
