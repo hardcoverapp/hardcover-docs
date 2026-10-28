@@ -10,6 +10,7 @@
 // each version keeps its own pages. Syncing a new minor version adds a
 // catalog; older ones stay as they were released.
 import { copyFileSync, cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
 
 const repo = resolve(process.env.SDK_REPO ?? "../hardcover-sdk");
@@ -49,6 +50,11 @@ const examplesTarget = resolve(`src/components/SdkExplorer/examples/${minor}`);
 rmSync(examplesTarget, { recursive: true, force: true });
 cpSync(examples, examplesTarget, { recursive: true, filter: (path) => !path.endsWith("README.md") });
 console.log(`Copied ${examples} → src/components/SdkExplorer/examples/${minor}`);
+
+// The SDK commit these came from, so a docs PR shows which SDK state it pins.
+const commit = execFileSync("git", ["-C", repo, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+writeFileSync(resolve(examplesTarget, "SDK_COMMIT"), `${commit}\n`);
+console.log(`Recorded SDK commit ${commit}`);
 
 // The enums and errors every SDK shares, for this version's reference page.
 mkdirSync(resolve(`src/components/SdkExplorer/reference/${minor}`), { recursive: true });
