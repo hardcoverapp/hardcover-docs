@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import JSZip from "jszip";
+import { strToU8, zipSync } from "fflate";
 import { stripSections } from "@/components/CodeExamples/lib/codeSnippets";
 import {
   loadManifests,
@@ -22,23 +22,17 @@ export async function getStaticPaths() {
   });
 }
 
-export const GET: APIRoute = async ({ params, props }) => {
+export const GET: APIRoute = ({ params, props }) => {
   const { entry, dirFiles } = props as { entry: Entry; dirFiles: string[] };
-  const zip = new JSZip();
   // Nested under a folder named after the key, so extracting doesn't scatter
   // files into whatever directory the reader extracted it into.
-  for (const file of [entry.file, ...(entry.files ?? []), ...dirFiles]) {
-    zip.file(
+  const files = Object.fromEntries(
+    [entry.file, ...(entry.files ?? []), ...dirFiles].map((file) => [
       `${params.key}/${file}`,
-      stripSections(rawFiles[`/src/examples/${params.dir}/${file}`]).code,
-    );
-  }
-  const buffer = await zip.generateAsync({
-    type: "arraybuffer",
-    compressionOptions: { level: 9 },
-    compression: "DEFLATE",
-  });
-  return new Response(buffer, {
+      strToU8(stripSections(rawFiles[`/src/examples/${params.dir}/${file}`]).code),
+    ]),
+  );
+  return new Response(zipSync(files, { level: 9 }), {
     headers: {
       "Content-Type": "application/zip",
       "Content-Disposition": `attachment; filename="${params.key}.zip"`,
