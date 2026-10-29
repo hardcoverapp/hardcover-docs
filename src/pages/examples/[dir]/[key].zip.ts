@@ -15,26 +15,30 @@ export async function getStaticPaths() {
       "items" in manifest
         ? manifest.items
         : Object.values(manifest.groups).flat();
-    return entries.map((entry) => ({
-      params: {
-        dir,
-        key: `${dir}-${"key" in entry ? entry.key : entry.label}`,
-      },
-      props: { entry, dirFiles: manifest.files ?? [] },
-    }));
+    return entries.map((entry) => {
+      const key = "key" in entry ? entry.key : entry.label;
+      return {
+        params: { dir, key: `${dir}-${key}` },
+        props: { entry, dir, key, dirFiles: manifest.files ?? [] },
+      };
+    });
   });
 }
 
 export const GET: APIRoute = ({ params, props }) => {
-  const { entry, dirFiles } = props as { entry: Entry; dirFiles: string[] };
-  const key = params.key.slice(params.dir.length + 1);
+  const { entry, dir, key, dirFiles } = props as {
+    entry: Entry;
+    dir: string;
+    key: string;
+    dirFiles: string[];
+  };
 
   // Nested under a folder named after the key, so extracting doesn't scatter
   // files into whatever directory the reader extracted it into.
   const files = Object.fromEntries(
     [entry.file, ...(entry.files ?? []), ...dirFiles].map((file) => [
       `${key}/${file}`,
-      strToU8(stripSections(rawFiles[`/src/examples/${params.dir}/${file}`]).code),
+      strToU8(stripSections(rawFiles[`/src/examples/${dir}/${file}`]).code),
     ]),
   );
   return new Response(zipSync(files, { level: 9 }), {
