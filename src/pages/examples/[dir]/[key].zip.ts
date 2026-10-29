@@ -16,7 +16,10 @@ export async function getStaticPaths() {
         ? manifest.items
         : Object.values(manifest.groups).flat();
     return entries.map((entry) => ({
-      params: { dir, key: "key" in entry ? entry.key : entry.label },
+      params: {
+        dir,
+        key: `${dir}-${"key" in entry ? entry.key : entry.label}`,
+      },
       props: { entry, dirFiles: manifest.files ?? [] },
     }));
   });
@@ -24,11 +27,13 @@ export async function getStaticPaths() {
 
 export const GET: APIRoute = ({ params, props }) => {
   const { entry, dirFiles } = props as { entry: Entry; dirFiles: string[] };
+  const key = params.key.slice(params.dir.length + 1);
+
   // Nested under a folder named after the key, so extracting doesn't scatter
   // files into whatever directory the reader extracted it into.
   const files = Object.fromEntries(
     [entry.file, ...(entry.files ?? []), ...dirFiles].map((file) => [
-      `${params.key}/${file}`,
+      `${key}/${file}`,
       strToU8(stripSections(rawFiles[`/src/examples/${params.dir}/${file}`]).code),
     ]),
   );

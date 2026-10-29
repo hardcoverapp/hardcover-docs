@@ -54,7 +54,7 @@ for (const [groupLabel, entries] of groupedEntries) {
                 <p>
                   <a href={`${URLS.GITHUB}blob/main/src/examples/${dir}/${entry.file}`}>View on GitHub</a>
                   {' • '}
-                  <a href={`/examples/${dir}/${entryKey}.zip`}>Download zip ({fileCount} file{fileCount === 1 ? '' : 's'})</a>
+                  <a href={`/examples/${dir}/${dir}-${entryKey}.zip`}>Download zip ({fileCount} file{fileCount === 1 ? '' : 's'})</a>
                 </p>
                 <Code code={code} lang={meta.lang} />
                 <div class="my-4">

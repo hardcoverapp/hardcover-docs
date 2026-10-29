@@ -26,7 +26,7 @@ const entries: { entry: Entry; group?: string }[] = toGroupList(manifest).flatMa
       <li>
         <a href={href}>{meta.label}</a>
         {' • '}
-        <a href={`/examples/${dir}/${key}.zip`}>zip</a>
+        <a href={`/examples/${dir}/${dir}-${key}.zip`}>zip</a>
       </li>
     );
   })}
