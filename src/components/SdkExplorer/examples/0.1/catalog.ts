@@ -47,8 +47,9 @@ export async function importFromGoodreads(hc: HardcoverClient, goodreadsIds: str
   const missing = goodreadsIds.filter((id) => !found.has(id));
 
   for (const match of matches) {
-    // editionId is the exact edition when the mapping names one.
-    await hc.library.add(match.book.id, match.editionId ? { editionId: match.editionId } : {});
+    // editionId is the exact edition when the mapping names one. imported keeps
+    // the whole list out of your followers' feeds.
+    await hc.library.add(match.book.id, { editionId: match.editionId ?? undefined, imported: true });
   }
 
   console.log(`${matches.length} added, ${missing.length} to search for by hand`);

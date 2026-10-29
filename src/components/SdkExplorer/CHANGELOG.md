@@ -5,7 +5,7 @@ Changes to `@hardcover/sdk`, newest first. The format follows
 [Semantic Versioning](https://semver.org/). Before 1.0, a minor version (0.2.0)
 may rename or remove things; each one is listed here with what to change.
 
-## 0.1.1 - Unreleased
+## 0.1.1 - 2026-10-29
 
 More of what the site shows, typed, and one naming fix. Nothing is removed;
 the deprecated keys below still work.
@@ -25,6 +25,9 @@ the deprecated keys below still work.
   `CachedImage`, and `{}` when there's no banner, which is most of the time.
 - **A reader's genres.** User profiles include `cachedGenres`, their most-read
   genres with a count each (new `CachedGenre`).
+- **Quiet imports.** `library.add(bookId, { imported: true })` adds a book
+  without posting it to followers' feeds, for bulk imports and syncs (new
+  `LibraryAddOptions`). The Goodreads import example uses it.
 - **Staff flag.** User profiles include `admin`, true for Hardcover staff, for
   showing the site's "Team" badge.
 - **More typed JSON columns.** `cachedSimilarBookIds` on books and

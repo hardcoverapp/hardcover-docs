@@ -317,6 +317,12 @@
                   "kind": "datetime",
                   "label": "When it happened",
                   "hint": "Leave empty for now. Backdates the journal entry"
+                },
+                {
+                  "name": "imported",
+                  "kind": "boolean",
+                  "label": "Imported",
+                  "hint": "Add quietly, without posting to followers' feeds. For bulk imports"
                 }
               ]
             }
