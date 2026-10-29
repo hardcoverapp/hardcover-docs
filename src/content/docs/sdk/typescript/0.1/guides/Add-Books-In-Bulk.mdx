@@ -30,7 +30,8 @@ Adding a book that's already on the list is harmless.
 ## Bring in books from another service
 
 `books.findByExternalIds` looks up a whole list of another service's ids, such as Goodreads or Open Library ids from
-an export, in one request. When the match names an exact edition, it's added as that edition.
+an export, in one request. When the match names an exact edition, it's added as that edition. Pass `imported: true`
+so the whole import doesn't post to your followers' feeds.
 
 <SdkExample version="0.1" file="catalog" fn="importFromGoodreads" />
 
