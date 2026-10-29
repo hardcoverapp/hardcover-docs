@@ -3,7 +3,7 @@
  * One function from the SDK's examples, as the SDK wrote and type-checks it:
  *   <SdkExample version="0.1" file="reading-progress" fn="readingProgress" />
  */
-import { Code } from "@astrojs/starlight/components";
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
 import { URLS } from "@/Consts";
 import { exampleCode } from "./lib/examples";
 
@@ -18,8 +18,12 @@ const code = exampleCode(version, file, fn);
 const source = `${URLS.SDK_GITHUB}/blob/main/packages/typescript/examples/${file}.ts`;
 ---
 
-<Code code={code} lang="ts" title={`${file}.ts`} wrap />
-<p class="sdk-example-source"><a href={source}>See the whole example on GitHub</a></p>
+<Tabs syncKey="sdk-lang">
+    <TabItem label="TypeScript">
+        <Code code={code} lang="ts" title={`${file}.ts`} wrap />
+        <p class="sdk-example-source"><a href={source}>See the whole example on GitHub</a></p>
+    </TabItem>
+</Tabs>
 
 <style>
     .sdk-example-source {
