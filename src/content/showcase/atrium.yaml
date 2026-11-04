@@ -1,0 +1,72 @@
+name: "Atrium"
+slug: "atrium"
+summary: "One library for your books, movies, TV, anime, games and manga, with Hardcover sync"
+description: |
+  Atrium is a web app (installable on iPhone and Android) for keeping everything you read, watch and play in one library. Books sit next to movies, shows, anime, games and manga, with the same statuses, ratings, stats and year in review.
+
+  Free to use. One connected app syncs automatically for free, so a free account can keep Hardcover in sync every day; Atrium Pro syncs all of them.
+
+  How Atrium uses Hardcover:
+  - **Hardcover sync:** sign in with Hardcover (OAuth, read-only scopes) and the books you shelve there arrive in Atrium every day with their status, rating and finish date. Atrium never writes to your Hardcover account and never reads reviews, journals or lists.
+  - **Hardcover import:** upload your Hardcover CSV export and every book matches directly by its Hardcover book id, no guessing.
+  - **Book catalogue:** search, book pages, series order and upcoming releases come from Hardcover's catalogue, with the Hardcover reader rating shown and linked to the book on Hardcover.
+  - **Goodreads imports matched through Hardcover:** Goodreads ids are mapped to Hardcover books in batches, so a Goodreads export lands on the right editions.
+
+  Also in Atrium:
+  - Works on phones: install it on your iPhone or Android home screen as an app (PWA), no app store needed
+  - Imports from Goodreads, StoryGraph, Letterboxd, MyAnimeList, AniList, Steam, Trakt and more
+  - Reading stats and insights, plus a shareable year-in-review recap
+  - Up Next and an upcoming-releases calendar
+  - Free export of your whole library, always
+
+  Atrium respects the API's rate limits (per-token pacing that reads the RateLimit headers), sends a descriptive User-Agent, and only reads a person's Hardcover library on their behalf after they sign in.
+
+author:
+  name: "David Stöckli"
+  github: "suctorialdave"
+  hardcover: "suctorialdave"
+
+links:
+  - label: "Website"
+    url: "https://atriumlibrary.com"
+    type: "website"
+  - label: "Open the app"
+    url: "https://atriumlibrary.com/app/"
+    type: "demo"
+  - label: "Moving from Goodreads"
+    url: "https://atriumlibrary.com/moving-from/goodreads"
+    type: "docs"
+
+categories:
+  - "Web App"
+  - "Integration"
+
+screenshots:
+  - src: "/showcase/atrium/01-book-page.webp"
+    alt: "A book page with the Hardcover reader rating, series position and the rest of the series"
+    origin: "top"
+  - src: "/showcase/atrium/02-library.webp"
+    alt: "Atrium library with books next to movies, TV, anime, games and manga tabs"
+    origin: "top"
+  - src: "/showcase/atrium/03-upcoming.webp"
+    alt: "Upcoming book releases from Hardcover's catalogue, with the most anticipated titles and a monthly calendar"
+    origin: "top"
+  - src: "/showcase/atrium/04-insights.webp"
+    alt: "Reading insights for books: top author, languages, rating trend and backlog"
+    origin: "top"
+  - src: "/showcase/atrium/05-hardcover-import.webp"
+    alt: "A finished Hardcover import: the books arrived in Atrium and Hardcover now syncs daily"
+
+tags:
+  - "web-app"
+  - "pwa"
+  - "oauth"
+  - "sync"
+  - "import"
+  - "reading-stats"
+  - "media-tracker"
+
+dateAdded: 2026-11-02
+dateUpdated: 2026-11-02
+
+featured: false
