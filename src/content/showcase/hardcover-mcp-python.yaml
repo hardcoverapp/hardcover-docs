@@ -1,0 +1,48 @@
+name: "Hardcover MCP for AI Assistants"
+slug: "hardcover-mcp-python"
+summary: "Read and update your Hardcover library from Claude and other AI assistants"
+description: |
+  An MCP (Model Context Protocol) server that connects AI assistants such as Claude Code, Claude Desktop, and VS Code to your Hardcover account. Ask things like "what did I read in May?", "add Project Hail Mary to my want-to-read list", or "which of my finished books aren't on any list yet?", and the assistant answers and acts using your library.
+
+  A local Python server published on PyPI (`uvx hardcover-mcp`), with 28 tools covering reading and writing across most of the API:
+  - Library: status, ratings, reviews, private notes, ownership, and which of your lists a book is on
+  - Reading dates and progress, including audiobook time
+  - Lists: create and edit them, and put a book on several lists in one call
+  - Reading goals, the reading journal (notes and quotes), following people, and the activity feed
+  - Catalog: books, editions, authors, series, publishers, trending books, vibes, and community prompts
+
+  Your API key stays on your machine. Write tools can be hidden with a read-only mode, you can load only the toolsets you need, and the README has links to create a key with exactly the scopes it uses. It follows Hardcover's rate limits, and the interface is stable since 1.0.
+
+author:
+  name: "Kristian Edlund"
+  github: "kristianedlund"
+  hardcover: "edlund"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/kristianedlund/hardcover-mcp"
+    type: "github"
+  - label: "PyPI"
+    url: "https://pypi.org/project/hardcover-mcp/"
+    type: "store"
+
+categories:
+  - "Integration"
+
+screenshots:
+  - src: "/showcase/hardcover-mcp-python/01-next-read.webp"
+    alt: "A Claude conversation answering \"Based on what I've rated highest, what should I read next from my want-to-read list?\""
+    origin: "top"
+
+tags:
+  - "mcp"
+  - "claude"
+  - "llm"
+  - "ai"
+  - "python"
+  - "open-source"
+
+dateAdded: 2026-11-03
+dateUpdated: 2026-11-03
+
+featured: false
