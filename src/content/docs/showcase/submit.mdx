@@ -168,6 +168,22 @@ picks:
       A paragraph on how we're using it or the problem it solves. Markdown, up to 500 characters.
 ```
 
+## Using the Showcase Data
+
+The docs site is the source of truth for the showcase. Every deploy publishes it in two formats:
+
+- [`/showcase.json`](/showcase.json) - every project with all its fields. Use this to build your own listings
+- [`/showcase.xml`](/showcase.xml) - an RSS feed of new projects, newest first
+
+Both can be fetched from any site, including from the browser. Things to rely on in the JSON:
+
+- `slug` is permanent and safe to use as an ID
+- `version` only changes for breaking changes. New fields can appear at any time
+- `description` and pick `why` text are Markdown
+- `dates.added` is when the project joined the showcase, `dates.entryUpdated` when its showcase entry was last updated (set by hand in its pull request), `dates.repoPushed` the last push to its GitHub repo, `dates.starsUpdated` when its star count last changed, and `dates.latest` the newest of these
+- `repoPushed` and `starsUpdated` only exist for open source projects, and `starsUpdated` appears after a project's star count first changes
+- Star counts and repo dates are refreshed nightly
+
 ## Reporting a Project
 
 Spotted a problem with a project already in the showcase? Let us know if a project has broken links, is no longer maintained, has stopped working with Hardcover, or has a listing that's inaccurate or misleading.

@@ -4,6 +4,19 @@ description: Discover projects built with the Hardcover API
 tableOfContents: false
 template: splash
 next: false
+head:
+  - tag: link
+    attrs:
+      rel: alternate
+      type: application/rss+xml
+      title: Hardcover Community Showcase
+      href: /showcase.xml
+  - tag: link
+    attrs:
+      rel: alternate
+      type: application/json
+      title: Hardcover Community Showcase
+      href: /showcase.json
 ---
 
 import Showcase from '@/components/showcase/Showcase.astro';
