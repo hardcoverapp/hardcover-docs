@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { getCategoryIcon, hueFromName, isOpenSource } from './ShowcaseCard';
-import { getLastActivity, isRepoActive, resolveProjectLinks } from '@/lib/showcase';
+import { facetLabel, getLastActivity, isRepoActive, resolveProjectLinks } from '@/lib/showcase';
 import { useTranslation as t } from '@/lib/utils';
 import type { ShowcaseProject } from './types';
 
@@ -19,7 +19,7 @@ interface ProjectDetailProps {
   title: React.ReactNode;
   /** Extra header controls beside Share (the modal's close button). */
   actions?: React.ReactNode;
-  /** Omit to render categories/tags as static chips rather than filters. */
+  /** Omit to render categories/tags/facets as static chips rather than filters. */
   onCategoryClick?: (category: string) => void;
   onTagClick?: (tag: string) => void;
   /** The modal scrolls its own body; a page scrolls normally. */
@@ -55,6 +55,33 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-[var(--hc-ink-3)]">
       {children}
+    </div>
+  );
+}
+
+function ChipSection({ label, chips, display, onClick }: {
+  label: string;
+  chips: string[];
+  display: (chip: string) => string;
+  onClick?: (chip: string) => void;
+}) {
+  if (chips.length === 0) return null;
+  return (
+    <div className="mt-[1.125rem]">
+      <SectionLabel>{label}</SectionLabel>
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((chip) => (
+          <button
+            key={chip}
+            onClick={() => onClick?.(chip)}
+            className={`rounded-full border border-border bg-muted px-[0.5625rem] py-[0.1875rem] text-[0.75rem] text-[var(--hc-ink-3)] transition-colors ${
+              onClick ? 'cursor-pointer hover:border-indigo-line hover:text-primary' : ''
+            }`}
+          >
+            {display(chip)}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -245,25 +272,9 @@ export function ProjectDetail({
           </div>
         </div>
 
-        {/* Tags */}
-        {project.tags && project.tags.length > 0 && (
-          <div className="mt-[1.125rem]">
-            <SectionLabel>{t('ui.showcase.detail.tags')}</SectionLabel>
-            <div className="flex flex-wrap gap-1.5">
-              {project.tags.map((tag) => (
-                <button
-                  key={tag}
-                  onClick={() => onTagClick?.(tag)}
-                  className={`rounded-full border border-border bg-muted px-[0.5625rem] py-[0.1875rem] text-[0.75rem] text-[var(--hc-ink-3)] transition-colors ${
-                    onTagClick ? 'cursor-pointer hover:border-indigo-line hover:text-primary' : ''
-                  }`}
-                >
-                  #{tag}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        <ChipSection label={t('ui.showcase.detail.worksWith')} chips={[...project.platforms, ...project.formats]} display={facetLabel} onClick={onTagClick} />
+        <ChipSection label={t('ui.showcase.detail.features')} chips={project.features} display={facetLabel} onClick={onTagClick} />
+        <ChipSection label={t('ui.showcase.detail.tags')} chips={project.tags ?? []} display={(tag) => `#${tag}`} onClick={onTagClick} />
 
         {/* Meta table */}
         <div className="mt-5 mb-1.5">

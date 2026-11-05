@@ -1,5 +1,6 @@
 import type { ShowcaseProject, ShowcaseLink } from '@/components/showcase/types';
 import { isOpenSource } from '@/components/showcase/ShowcaseCard';
+import { humanize } from '@/lib/utils';
 
 /**
  * Pure showcase-project logic shared by the detail card/modal. Extracted from
@@ -66,4 +67,22 @@ export function getLastActivity(project: ShowcaseProject): Date | undefined {
 export function isRepoActive(project: ShowcaseProject, now: number = Date.now()): boolean {
   if (!isOpenSource(project) || !project.stats?.lastPushed) return false;
   return (now - new Date(project.stats.lastPushed).getTime()) / 86400000 <= 90;
+}
+
+// Names whose casing or punctuation humanize() can't work out.
+const FACET_LABELS: Record<string, string> = {
+  ios: 'iOS',
+  ipados: 'iPadOS',
+  macos: 'macOS',
+  koreader: 'KOReader',
+  trmnl: 'TRMNL',
+  mcp: 'MCP',
+  'ai-assistant': 'AI assistant',
+  'self-hosted': 'Self-hosted',
+  'two-way-sync': 'Two-way sync',
+};
+
+/** Display label for a platform, format or feature value. */
+export function facetLabel(value: string): string {
+  return FACET_LABELS[value] ?? humanize(value);
 }

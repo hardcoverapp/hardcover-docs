@@ -3,6 +3,7 @@ import { ShowcaseCard, isOpenSource } from './ShowcaseCard';
 import { ShowcaseModal } from './ShowcaseModal';
 import { ShowcaseFilters, type SourceFilter } from './ShowcaseFilters';
 import { useTranslation as t } from '@/lib/utils';
+import { facetLabel } from '@/lib/showcase';
 import type { ShowcaseProject } from './types';
 
 interface ShowcaseGridProps {
@@ -63,6 +64,7 @@ export function ShowcaseGrid({ projects }: ShowcaseGridProps) {
         p.description.toLowerCase().includes(q) ||
         p.author.name.toLowerCase().includes(q) ||
         (p.tags?.some((t) => t.toLowerCase().includes(q)) ?? false) ||
+        [...p.platforms, ...p.formats, ...p.features].some((f) => f.includes(q) || facetLabel(f).toLowerCase().includes(q)) ||
         p.categories.some((c) => c.toLowerCase().includes(q))
       );
     }

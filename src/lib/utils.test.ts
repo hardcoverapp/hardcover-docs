@@ -1,5 +1,5 @@
 import {describe, expect, test} from 'vitest'
-import {cn, uCFirst} from "./utils.ts";
+import {cn, humanize, uCFirst} from "./utils.ts";
 
 describe('uCFirst', () => {
     test('with mode "first" / default', () => {
@@ -22,6 +22,16 @@ describe('uCFirst', () => {
         expect(uCFirst('hello world', 'sentences')).toBe('Hello world');
         expect(uCFirst('hello world!', 'sentences')).toBe('Hello world!');
         expect(uCFirst('hello world. how are you?', 'sentences')).toBe('Hello world. How are you?');
+    });
+});
+
+describe('humanize', () => {
+    test('replaces dashes and underscores with spaces and capitalizes the first letter', () => {
+        expect(humanize('progress-sync')).toBe('Progress sync');
+        expect(humanize('reading_stats')).toBe('Reading stats');
+        expect(humanize('two--way__sync')).toBe('Two way sync');
+        expect(humanize('web')).toBe('Web');
+        expect(humanize('')).toBe('');
     });
 });
 

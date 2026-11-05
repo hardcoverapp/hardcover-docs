@@ -26,6 +26,16 @@ links:
 categories:
   - 'Web App'
 
+platforms:
+  - 'web'
+
+features:
+  - 'import'
+  - 'metadata'
+
+connects:
+  - 'api'
+
 dateAdded: 2026-10-03
 dateUpdated: 2026-10-03
 
@@ -45,6 +55,5 @@ screenshots:
 tags:
   - 'library'
   - 'virtual bookshelf'
-  - 'web-app'
 
 featured: false

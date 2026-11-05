@@ -24,9 +24,17 @@ links:
 categories:
   - "Web App"
 
-tags:
+platforms:
+  - "web"
+
+features:
   - "recommendations"
-  - "discovery"
+  - "metadata"
+
+connects:
+  - "api"
+
+tags:
   - "ratings"
   - "books"
 

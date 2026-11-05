@@ -49,8 +49,20 @@ links:
 categories:
   - "Browser Extension"  # See full list below
 
-dateAdded: 2025-01-15  # Today's date
-dateUpdated: 2025-01-15
+features:              # At least one, see full list below
+  - "progress-sync"
+
+# Optional - see the lists below
+platforms:
+  - "chrome"
+formats:
+  - "ebook"
+connects:
+  - "api"
+  - "pat"
+
+dateAdded: 2025-01-15    # Today's date
+dateUpdated: 2025-01-15  # Bump whenever you update this entry
 
 # Optional
 screenshots:
@@ -58,13 +70,13 @@ screenshots:
     alt: "Description of screenshot"
     origin: "top"  # Optional crop position: top (default), center, bottom, or a percentage like "8%"
 
-tags:
-  - "relevant"
-  - "tags"
+tags:                  # Free-form keywords, like your tech stack
+  - "rust"
+  - "open-source"
 
 featured: false  # Set by maintainers
 
-# Optional - GitHub stats (updated manually or by script)
+# Optional - GitHub stats (updated nightly by script, no need to add these)
 stats:
   githubStars: 100
 ```
@@ -82,6 +94,41 @@ stats:
 - Integration
 - Automation
 - Other
+
+## Features
+
+What your project does with Hardcover. Pick at least one.
+
+- `client` - a Hardcover app: readers update their Hardcover library directly from it
+- `progress-sync` - reading done in another app or device is sent to Hardcover
+- `two-way-sync` - also pulls changes made on Hardcover back. Add `progress-sync` too
+- `library-sync` - keeps a library in another app in step with Hardcover
+- `import` - brings books in from Hardcover or other services
+- `reading-stats`, `goals`, `journal`, `lists`, `reviews`
+- `recommendations`, `discovery`, `release-tracking`
+- `metadata` - looks up or displays Hardcover book data
+- `librarian-tools` - helps Hardcover librarians edit book data
+- `developer-tools` - made for developers, like client libraries
+- `ai-assistant` - connects Hardcover to AI assistants
+- `notes`, `dashboard`
+
+## Platforms
+
+Where your project runs or what it plugs into: `ios`, `ipados`, `android`, `web`, `macos`, `windows`, `linux`, `terminal`, `chrome`, `firefox`, `kobo`, `kindle`, `koreader`, `trmnl`, `smartwatch`, `obsidian`, `audiobookshelf`, `mcp`, `self-hosted`
+
+## Formats
+
+Only list formats your project handles specifically. Leave it out if it works the same for any book: `ebook`, `audiobook`, `print`
+
+## Connects
+
+How your project talks to Hardcover. List exactly one of `api` (the GraphQL API directly) or `sdk` (the [Hardcover SDK](/sdk/)), plus how readers connect:
+
+- `oauth` - readers sign in with Hardcover
+- `pat` - readers paste a personal API token
+- `export` - reads a Hardcover CSV export
+
+Need a value that isn't listed? Suggest it in your pull request.
 
 ## Screenshot Tips
 
@@ -108,6 +155,18 @@ Featured projects appear at the top of the showcase and get extra visibility. To
 - **Active maintenance** - Project should be functional and reasonably maintained
 
 Projects without screenshots or with non-English screenshots can still be listed but won't be eligible for featuring.
+
+## Staff Picks
+
+Each month the Hardcover team picks projects to highlight, each with a short note on why. Picks are added by maintainers:
+
+```yaml
+picks:
+  - month: "2026-11"   # YYYY-MM
+    by: "username"     # Picker's Hardcover username
+    why: |
+      A paragraph on how we're using it or the problem it solves. Markdown, up to 500 characters.
+```
 
 ## Reporting a Project
 

@@ -25,10 +25,17 @@ categories:
   - "Integration"
   - "Desktop App"
 
-tags:
+platforms:
   - "obsidian"
+
+features:
+  - "library-sync"
   - "notes"
-  - "sync"
+
+connects:
+  - "api"
+
+tags:
   - "open-source"
 
 screenshots:

@@ -26,11 +26,18 @@ categories:
   - "E-ink Display"
   - "Widget"
 
-tags:
+platforms:
   - "trmnl"
-  - "e-ink"
-  - "open-source"
+
+features:
   - "dashboard"
+  - "goals"
+
+connects:
+  - "api"
+
+tags:
+  - "open-source"
 
 dateAdded: 2025-12-31
 dateUpdated: 2025-12-31

@@ -32,6 +32,18 @@ links:
 categories:
   - "Integration"
 
+platforms:
+  - "mcp"
+  - "web"
+  - "self-hosted"
+
+features:
+  - "ai-assistant"
+
+connects:
+  - "api"
+  - "oauth"
+
 screenshots:
   - src: "/showcase/hardcover-oauth-mcp/01-claude-update-progress.png"
     alt: "Claude updating reading progress on Hardcover through the Hardcover OAuth MCP connector"
@@ -41,11 +53,8 @@ screenshots:
     alt: "Hardcover's Authorized Apps page listing Hardcover OAuth MCP, with its scopes, sessions, and a button to revoke access"
 
 tags:
-  - "mcp"
   - "claude"
   - "llm"
-  - "ai"
-  - "oauth"
   - "cloudflare-workers"
   - "open-source"
 

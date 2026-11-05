@@ -30,10 +30,18 @@ categories:
   - "Web App"
   - "Automation"
 
+platforms:
+  - "web"
+
+features:
+  - "release-tracking"
+
+connects:
+  - "api"
+
 tags:
   - "rss"
   - "feeds"
-  - "releases"
   - "open-source"
 
 dateAdded: 2025-12-31

@@ -30,10 +30,21 @@ categories:
   - "Integration"
   - "Web App"
 
+platforms:
+  - "web"
+
+formats:
+  - "ebook"
+  - "audiobook"
+
+features:
+  - "metadata"
+
+connects:
+  - "api"
+
 tags:
   - "api"
-  - "metadata"
-  - "audiobooks"
   - "amazon"
   - "audible"
 

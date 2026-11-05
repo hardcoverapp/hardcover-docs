@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import {
+    facetLabel,
     getLastActivity,
     hostname,
     isRepoActive,
@@ -18,6 +19,11 @@ function project(overrides: Partial<ShowcaseProject> = {}): ShowcaseProject {
         author: { name: 'Kylie' },
         links: [],
         categories: ['Other'],
+        platforms: [],
+        formats: [],
+        features: ['client'],
+        connects: [],
+        picks: [],
         dateAdded: new Date('2025-01-01'),
         dateUpdated: new Date('2025-06-01'),
         ...overrides,
@@ -100,5 +106,16 @@ describe('isRepoActive', () => {
     });
     test('false for closed-source projects regardless of dates', () => {
         expect(isRepoActive(project({ links: [web('https://x.com')] }), now)).toBe(false);
+    });
+});
+
+describe('facetLabel', () => {
+    test('humanizes plain values', () => {
+        expect(facetLabel('progress-sync')).toBe('Progress sync');
+        expect(facetLabel('audiobook')).toBe('Audiobook');
+    });
+    test('uses the fixed casing for names humanize gets wrong', () => {
+        expect(facetLabel('ios')).toBe('iOS');
+        expect(facetLabel('two-way-sync')).toBe('Two-way sync');
     });
 });

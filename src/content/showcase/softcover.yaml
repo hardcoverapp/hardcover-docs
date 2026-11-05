@@ -28,8 +28,24 @@ links:
 categories:
   - "Mobile App"
 
-tags:
+platforms:
   - "ios"
+  - "ipados"
+
+formats:
+  - "audiobook"
+
+features:
+  - "client"
+  - "reading-stats"
+  - "goals"
+  - "discovery"
+  - "release-tracking"
+
+connects:
+  - "api"
+
+tags:
   - "swift"
   - "widget"
   - "open-source"

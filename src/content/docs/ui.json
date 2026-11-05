@@ -270,6 +270,8 @@
         "previousScreenshot": "Previous screenshot",
         "nextScreenshot": "Next screenshot",
         "categories": "Categories",
+        "worksWith": "Works with",
+        "features": "Features",
         "tags": "Tags",
         "source": "Source",
         "sourceOpen": "Open source — fork it, contribute, or read the code",

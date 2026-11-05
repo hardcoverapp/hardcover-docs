@@ -41,6 +41,23 @@ categories:
   - "Web App"
   - "Integration"
 
+platforms:
+  - "web"
+  - "ios"
+  - "android"
+
+features:
+  - "library-sync"
+  - "import"
+  - "reading-stats"
+  - "release-tracking"
+  - "discovery"
+
+connects:
+  - "api"
+  - "oauth"
+  - "export"
+
 screenshots:
   - src: "/showcase/atrium/01-book-page.webp"
     alt: "A book page with the Hardcover reader rating, series position and the rest of the series"
@@ -58,12 +75,7 @@ screenshots:
     alt: "A finished Hardcover import: the books arrived in Atrium and Hardcover now syncs daily"
 
 tags:
-  - "web-app"
   - "pwa"
-  - "oauth"
-  - "sync"
-  - "import"
-  - "reading-stats"
   - "media-tracker"
 
 dateAdded: 2026-11-02

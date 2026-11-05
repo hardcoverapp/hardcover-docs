@@ -27,11 +27,21 @@ categories:
   - "E-ink Display"
   - "Integration"
 
-tags:
+platforms:
   - "koreader"
-  - "e-reader"
-  - "sync"
-  - "progress-tracking"
+
+formats:
+  - "ebook"
+
+features:
+  - "progress-sync"
+  - "journal"
+  - "reviews"
+
+connects:
+  - "api"
+
+tags:
   - "open-source"
 
 screenshots:

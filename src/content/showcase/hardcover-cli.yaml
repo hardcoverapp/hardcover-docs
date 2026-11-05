@@ -28,11 +28,22 @@ categories:
   - "CLI Tool"
   - "Integration"
 
-tags:
-  - "cli"
+platforms:
   - "terminal"
+
+features:
+  - "client"
+  - "journal"
+  - "lists"
+  - "goals"
+  - "discovery"
+
+connects:
+  - "api"
+  - "pat"
+
+tags:
   - "rust"
-  - "library-management"
   - "open-source"
 
 dateAdded: 2026-03-16

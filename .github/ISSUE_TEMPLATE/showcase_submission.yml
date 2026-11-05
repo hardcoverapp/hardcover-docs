@@ -76,6 +76,82 @@ body:
         - Other
     validations:
       required: true
+  - type: dropdown
+    id: features
+    attributes:
+      label: What it does with Hardcover
+      description: Pick everything that fits. See the [feature list](https://docs.hardcover.app/showcase/submit/#features) for what each one means.
+      multiple: true
+      options:
+        - client
+        - progress-sync
+        - two-way-sync
+        - library-sync
+        - import
+        - reading-stats
+        - goals
+        - journal
+        - lists
+        - reviews
+        - recommendations
+        - discovery
+        - release-tracking
+        - metadata
+        - librarian-tools
+        - developer-tools
+        - ai-assistant
+        - notes
+        - dashboard
+    validations:
+      required: true
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Platforms
+      description: Where it runs or what it plugs into.
+      multiple: true
+      options:
+        - ios
+        - ipados
+        - android
+        - web
+        - macos
+        - windows
+        - linux
+        - terminal
+        - chrome
+        - firefox
+        - kobo
+        - kindle
+        - koreader
+        - trmnl
+        - smartwatch
+        - obsidian
+        - audiobookshelf
+        - mcp
+        - self-hosted
+  - type: dropdown
+    id: formats
+    attributes:
+      label: Formats
+      description: Only if it handles specific formats. Leave empty if it works the same for any book.
+      multiple: true
+      options:
+        - ebook
+        - audiobook
+        - print
+  - type: dropdown
+    id: connects
+    attributes:
+      label: How it connects to Hardcover
+      description: The API directly or the Hardcover SDK, plus how readers sign in.
+      multiple: true
+      options:
+        - api
+        - sdk
+        - oauth
+        - pat
+        - export
   - type: textarea
     id: screenshots
     attributes:

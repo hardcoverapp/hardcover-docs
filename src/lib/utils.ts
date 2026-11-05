@@ -54,6 +54,18 @@ export const uCFirst = (str: string, mode: 'words' | 'sentences' | 'first' = 'fi
     }
 };
 
+/**
+ * Turns a slug-style value into a readable label: separators become spaces and
+ * the first letter is capitalized.
+ *
+ * @example
+ * ```ts
+ * humanize("progress-sync") // "Progress sync"
+ * humanize("reading_stats") // "Reading stats"
+ * ```
+ */
+export const humanize = (str: string) => uCFirst(str.replace(/[-_]+/g, ' '));
+
 
 /**
  * Utility function to get the translation for a given key and locale
