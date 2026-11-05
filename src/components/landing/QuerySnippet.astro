@@ -1,9 +1,12 @@
 ---
 /**
- * QuerySnippet — decorative terminal-style card showing an example GraphQL
- * query and its response, with a query/response toggle. Static + a tiny inline
- * script for the tabs. Copy from the design mock.
+ * QuerySnippet — decorative terminal-style card showing an example request
+ * through the SDK (the default tab), the same GraphQL query, and the response.
+ * Static + a tiny inline script for the tabs. Copy from the design mock.
  */
+import { latestRelease } from '@/components/SdkExplorer/lib/releases';
+
+const sdkEndpoint = `@hardcover/sdk ${latestRelease('typescript') ?? ''}`.trim();
 const qHTML = `<span style="color:#c792ea">query</span> <span style="color:#82aaff">CurrentlyReading</span> {
   <span style="color:#f78c6c">user_books</span>(
     <span style="color:#c3e88d">where</span>: {
@@ -22,6 +25,13 @@ const qHTML = `<span style="color:#c792ea">query</span> <span style="color:#82aa
     }
   }
 }`;
+const sHTML = `<span style="color:#c792ea">import</span> { <span style="color:#82aaff">HardcoverClient</span>, <span style="color:#82aaff">UserBookStatus</span> } <span style="color:#c792ea">from</span> <span style="color:#ecc48d">"@hardcover/sdk"</span>;
+
+<span style="color:#c792ea">const</span> hc = <span style="color:#c792ea">new</span> <span style="color:#82aaff">HardcoverClient</span>({ <span style="color:#c3e88d">token</span>: process.env.<span style="color:#c3e88d">HARDCOVER_TOKEN</span> });
+
+<span style="color:#c792ea">const</span> reading = <span style="color:#c792ea">await</span> hc.library.<span style="color:#82aaff">list</span>({
+  <span style="color:#c3e88d">status</span>: <span style="color:#82aaff">UserBookStatus</span>.<span style="color:#c3e88d">CurrentlyReading</span>,
+});`;
 const rHTML = `{
   <span style="color:#c3e88d">"data"</span>: {
     <span style="color:#c3e88d">"user_books"</span>: [
@@ -62,24 +72,28 @@ const rHTML = `{
     <span class="qsnip-dot" style="background:#febc2e"></span>
     <span class="qsnip-dot" style="background:#28c840"></span>
     <div class="qsnip-tabs">
-      <button type="button" class="qsnip-tab is-active" data-tab="query">query</button>
+      <button type="button" class="qsnip-tab is-active" data-tab="sdk">sdk</button>
+      <button type="button" class="qsnip-tab" data-tab="query">query</button>
       <button type="button" class="qsnip-tab" data-tab="response">response</button>
     </div>
-    <span class="qsnip-endpoint">POST /v1/graphql</span>
+    <span class="qsnip-endpoint">{sdkEndpoint}</span>
   </div>
-  <pre class="qsnip-pre" data-panel="query"><code set:html={qHTML} /></pre>
-  <pre class="qsnip-pre" data-panel="response" hidden><code set:html={rHTML} /></pre>
+  <pre class="qsnip-pre" data-panel="sdk" data-endpoint={sdkEndpoint}><code set:html={sHTML} /></pre>
+  <pre class="qsnip-pre" data-panel="query" data-endpoint="POST /v1/graphql" hidden><code set:html={qHTML} /></pre>
+  <pre class="qsnip-pre" data-panel="response" data-endpoint="POST /v1/graphql" hidden><code set:html={rHTML} /></pre>
 </div>
 
 <script>
   document.querySelectorAll<HTMLElement>('.qsnip').forEach((snip) => {
     const tabs = snip.querySelectorAll<HTMLButtonElement>('.qsnip-tab');
     const panels = snip.querySelectorAll<HTMLElement>('.qsnip-pre');
+    const endpoint = snip.querySelector<HTMLElement>('.qsnip-endpoint')!;
     tabs.forEach((tab) =>
       tab.addEventListener('click', () => {
         tabs.forEach((t) => t.classList.toggle('is-active', t === tab));
         panels.forEach((p) => {
           p.hidden = p.dataset.panel !== tab.dataset.tab;
+          if (!p.hidden) endpoint.textContent = p.dataset.endpoint ?? '';
         });
       })
     );

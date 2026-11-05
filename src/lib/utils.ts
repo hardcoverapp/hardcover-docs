@@ -101,7 +101,7 @@ export const useTranslation = (key: string, locale: string = 'en') => {
  * import { useTokenTranslation } from "@/lib/utils"
  * const name = "John";
  * const translation = useTokenTranslation("ui.token_greeting", "it", { "name": () => name });
- * // translation would be "Ciao John"
+ * // with "Ciao <name/>" (or "Ciao <name></name>"), translation would be "Ciao John"
  * ```
  */
 export const useTokenTranslation = (key: string, locale: string = 'en', tokens: object) => {
@@ -109,18 +109,10 @@ export const useTokenTranslation = (key: string, locale: string = 'en', tokens: 
 
     if (typeof node === 'string') {
         Object.entries(tokens).forEach(([key, value]) => {
-            const tokenRegex = new RegExp("\<" + key + "\>(.*?)\<\/" + key + "\>", 'g');
-            const matches = node.match(tokenRegex);
-
-            if (matches) {
-                matches.forEach((match: string) => {
-                    const tokenValue = match.replace(tokenRegex, '$1');
-                    let tokenReplacement = value(tokenValue);
-                    tokenReplacement = tokenReplacement.replace('{chunks}', tokenValue);
-
-                    node = node.replace(match, tokenReplacement);
-                });
-            }
+            // <key/> for a plain value, <key>text</key> to wrap text ({chunks} in the replacement)
+            const tokenRegex = new RegExp("<" + key + "\\s*/>|<" + key + ">(.*?)</" + key + ">", 'g');
+            node = node.replace(tokenRegex, (_: string, chunks: string = '') =>
+                value(chunks).replace('{chunks}', chunks));
         });
 
         return node;

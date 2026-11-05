@@ -318,7 +318,9 @@
     },
     "landing": {
       "hero": {
-        "badge": "GraphQL API · the same data as the app",
+        "badgeNew": "New",
+        "badgeSdk": "TypeScript SDK <version/> is out",
+        "badgeShowcase": "<name/> joined the showcase",
         "title": "Everything you need to ",
         "titleDev": "build with",
         "titleAnd": " and ",
