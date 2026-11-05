@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Updates GitHub star counts for all showcase projects.
+ * Updates GitHub star counts, last push dates, and the date the star count last
+ * changed for all showcase projects.
  *
  * Usage:
  *   node scripts/update-github-stars.js
@@ -82,16 +83,16 @@ function parseYaml(content) {
   return { githubUrl };
 }
 
-function updateYamlStars(content, stars, lastPushed) {
+function updateYamlStars(content, stars, lastPushed, starsChanged) {
   let updated = content;
 
   // Check if stats section exists
-  if (updated.includes('stats:')) {
+  if (/^stats:/m.test(updated)) {
     // Update or add githubStars
-    if (updated.includes('githubStars:')) {
-      updated = updated.replace(/githubStars:\s*\d+/, `githubStars: ${stars}`);
+    if (/^  githubStars:/m.test(updated)) {
+      updated = updated.replace(/^  githubStars:\s*\d+/m, `  githubStars: ${stars}`);
     } else {
-      updated = updated.replace(/stats:/, `stats:\n  githubStars: ${stars}`);
+      updated = updated.replace(/^stats:/m, `stats:\n  githubStars: ${stars}`);
     }
   } else {
     // Add stats section at the end
@@ -101,11 +102,21 @@ function updateYamlStars(content, stars, lastPushed) {
 
   // Update or add lastPushed
   if (lastPushed) {
-    if (updated.includes('lastPushed:')) {
-      updated = updated.replace(/lastPushed:\s*"[^"]*"/, `lastPushed: "${lastPushed}"`);
+    if (/^  lastPushed:/m.test(updated)) {
+      updated = updated.replace(/^  lastPushed:\s*"[^"]*"/m, `  lastPushed: "${lastPushed}"`);
     } else {
       // Insert after githubStars line
-      updated = updated.replace(/(githubStars:\s*\d+)/, `$1\n  lastPushed: "${lastPushed}"`);
+      updated = updated.replace(/^(  githubStars:\s*\d+)/m, `$1\n  lastPushed: "${lastPushed}"`);
+    }
+  }
+
+  // Dated only on a change, so an unchanged count doesn't produce a commit every night
+  if (starsChanged) {
+    const today = new Date().toISOString().split('T')[0];
+    if (/^  starsUpdated:/m.test(updated)) {
+      updated = updated.replace(/^  starsUpdated:\s*"[^"]*"/m, `  starsUpdated: "${today}"`);
+    } else {
+      updated = updated.replace(/^(  githubStars:\s*\d+)/m, `$1\n  starsUpdated: "${today}"`);
     }
   }
 
@@ -140,9 +151,9 @@ async function processFile(filePath) {
   const { stars, pushedAt } = result;
 
   // Check current values
-  const currentMatch = content.match(/githubStars:\s*(\d+)/);
+  const currentMatch = content.match(/^  githubStars:\s*(\d+)/m);
   const currentStars = currentMatch ? parseInt(currentMatch[1], 10) : null;
-  const currentPushedMatch = content.match(/lastPushed:\s*"([^"]*)"/);
+  const currentPushedMatch = content.match(/^  lastPushed:\s*"([^"]*)"/m);
   const currentPushed = currentPushedMatch ? currentPushedMatch[1] : null;
 
   if (currentStars === stars && currentPushed === pushedAt) {
@@ -150,7 +161,7 @@ async function processFile(filePath) {
     return { file: filename, status: 'unchanged', stars };
   }
 
-  const updatedContent = updateYamlStars(content, stars, pushedAt);
+  const updatedContent = updateYamlStars(content, stars, pushedAt, currentStars !== stars);
   fs.writeFileSync(filePath, updatedContent);
 
   console.log(`  Updated: stars ${currentStars ?? 'none'} -> ${stars}, lastPushed ${currentPushed ?? 'none'} -> ${pushedAt}`);
