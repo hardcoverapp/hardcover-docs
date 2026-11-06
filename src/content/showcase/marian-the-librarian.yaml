@@ -36,6 +36,17 @@ categories:
   - "Browser Extension"
   - "Integration"
 
+platforms:
+  - "chrome"
+  - "firefox"
+
+features:
+  - "librarian-tools"
+  - "metadata"
+
+connects:
+  - "api"
+
 screenshots:
   - src: "/showcase/marian-the-librarian/amazon-support.png"
     alt: "Marian extracting book data from an Amazon product page"
@@ -47,10 +58,6 @@ screenshots:
     alt: "Marian side panel showing extracted metadata"
 
 tags:
-  - "chrome"
-  - "firefox"
-  - "librarian"
-  - "metadata"
   - "open-source"
 
 dateAdded: 2025-12-31

@@ -25,11 +25,21 @@ categories:
   - "Browser Extension"
   - "Automation"
 
+platforms:
+  - "chrome"
+  - "kindle"
+
+formats:
+  - "ebook"
+
+features:
+  - "library-sync"
+
+connects:
+  - "api"
+
 tags:
   - "goodreads"
-  - "kindle"
-  - "sync"
-  - "chrome-extension"
   - "open-source"
 
 dateAdded: 2026-02-09

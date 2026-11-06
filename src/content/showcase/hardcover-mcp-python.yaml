@@ -29,16 +29,24 @@ links:
 categories:
   - "Integration"
 
+platforms:
+  - "mcp"
+
+features:
+  - "ai-assistant"
+
+connects:
+  - "api"
+  - "pat"
+
 screenshots:
   - src: "/showcase/hardcover-mcp-python/01-next-read.webp"
     alt: "A Claude conversation answering \"Based on what I've rated highest, what should I read next from my want-to-read list?\""
     origin: "top"
 
 tags:
-  - "mcp"
   - "claude"
   - "llm"
-  - "ai"
   - "python"
   - "open-source"
 

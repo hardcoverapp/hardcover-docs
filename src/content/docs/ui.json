@@ -270,6 +270,8 @@
         "previousScreenshot": "Previous screenshot",
         "nextScreenshot": "Next screenshot",
         "categories": "Categories",
+        "worksWith": "Works with",
+        "features": "Features",
         "tags": "Tags",
         "source": "Source",
         "sourceOpen": "Open source — fork it, contribute, or read the code",
@@ -316,7 +318,9 @@
     },
     "landing": {
       "hero": {
-        "badge": "GraphQL API · the same data as the app",
+        "badgeNew": "New",
+        "badgeSdk": "TypeScript SDK <version/> is out",
+        "badgeShowcase": "<name/> joined the showcase",
         "title": "Everything you need to ",
         "titleDev": "build with",
         "titleAnd": " and ",

@@ -34,6 +34,10 @@ const MyComponent = () => {
 You can also use dynamic tokens in a translation string.<br/>
 However, the returned string will need to be sanitized before being rendered.
 
+Tokens come in two forms:
+- `<name/>` is replaced with a value, like a version number: `"TypeScript SDK <version/> is out"`
+- `<a>text</a>` wraps translated text, which the replacement gets as `{chunks}`, like a link
+
 #### Example
 ```ts
 import {URLS} from "@/Consts";

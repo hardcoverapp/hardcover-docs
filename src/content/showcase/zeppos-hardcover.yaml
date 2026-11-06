@@ -30,6 +30,16 @@ categories:
   - "Integration"
   - "Mobile App"
 
+platforms:
+  - "smartwatch"
+
+features:
+  - "client"
+
+connects:
+  - "api"
+  - "pat"
+
 screenshots:
   - src: "/showcase/zeppos-hardcover/01-reading-progress-status.png"
     alt: "Amazfit Bip 6 screenshots showing a Hardcover book cover and progress, the current page editor, and reading status controls"
@@ -41,8 +51,6 @@ screenshots:
 tags:
   - "zepp-os"
   - "amazfit"
-  - "smartwatch"
-  - "reading-progress"
   - "library"
 
 dateAdded: 2026-10-13

@@ -28,9 +28,21 @@ links:
 categories:
   - "Web App"
 
+platforms:
+  - "web"
+
+formats:
+  - "print"
+
+features:
+  - "lists"
+  - "recommendations"
+
+connects:
+  - "api"
+
 tags:
   - "giveaway"
-  - "lists"
   - "books"
 
 screenshots:

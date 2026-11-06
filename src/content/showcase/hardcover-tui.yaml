@@ -24,11 +24,18 @@ categories:
   - "CLI Tool"
   - "Integration"
 
+platforms:
+  - "terminal"
+
+features:
+  - "client"
+  - "journal"
+
+connects:
+  - "api"
+
 tags:
   - "tui"
-  - "terminal"
-  - "cli"
-  - "progress-tracking"
   - "open-source"
   - "go"
   - "bubbletea"

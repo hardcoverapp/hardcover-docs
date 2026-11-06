@@ -37,12 +37,25 @@ categories:
   - "Mobile App"
   - "Integration"
 
-tags:
+platforms:
   - "ios"
   - "ipados"
-  - "reading-journal"
-  - "quotes"
+
+features:
+  - "progress-sync"
   - "two-way-sync"
+  - "library-sync"
+  - "journal"
+  - "lists"
+  - "goals"
+  - "discovery"
+
+connects:
+  - "api"
+  - "pat"
+
+tags:
+  - "quotes"
 
 screenshots:
   - src: "/showcase/excerpta/sync.webp"

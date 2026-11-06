@@ -21,10 +21,15 @@ links:
 categories:
   - "Integration"
 
+features:
+  - "developer-tools"
+
+connects:
+  - "api"
+
 tags:
   - "rust"
   - "wrapper"
-  - "sdk"
   - "graphql"
 
 dateAdded: 2026-09-11

@@ -26,9 +26,14 @@ links:
 categories:
   - "Integration"
 
+features:
+  - "developer-tools"
+
+connects:
+  - "api"
+
 tags:
   - "python"
-  - "sdk"
   - "graphql"
   - "open-source"
 

@@ -25,10 +25,20 @@ categories:
   - "E-ink Display"
   - "Integration"
 
-tags:
+platforms:
   - "kobo"
-  - "e-reader"
-  - "reading-progress"
+
+formats:
+  - "ebook"
+
+features:
+  - "progress-sync"
+  - "reviews"
+
+connects:
+  - "api"
+
+tags:
   - "open-source"
   - "c++"
 

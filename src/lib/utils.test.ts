@@ -1,5 +1,5 @@
 import {describe, expect, test} from 'vitest'
-import {cn, uCFirst} from "./utils.ts";
+import {cn, humanize, uCFirst, useTokenTranslation} from "./utils.ts";
 
 describe('uCFirst', () => {
     test('with mode "first" / default', () => {
@@ -22,6 +22,16 @@ describe('uCFirst', () => {
         expect(uCFirst('hello world', 'sentences')).toBe('Hello world');
         expect(uCFirst('hello world!', 'sentences')).toBe('Hello world!');
         expect(uCFirst('hello world. how are you?', 'sentences')).toBe('Hello world. How are you?');
+    });
+});
+
+describe('humanize', () => {
+    test('replaces dashes and underscores with spaces and capitalizes the first letter', () => {
+        expect(humanize('progress-sync')).toBe('Progress sync');
+        expect(humanize('reading_stats')).toBe('Reading stats');
+        expect(humanize('two--way__sync')).toBe('Two way sync');
+        expect(humanize('web')).toBe('Web');
+        expect(humanize('')).toBe('');
     });
 });
 
@@ -53,5 +63,17 @@ describe('cn', () => {
         expect(cn('text-center', false)).toBe('text-center');
         expect(cn(false, 'text-blue-500')).toBe('text-blue-500');
         expect(cn(false, false)).toBe('');
+    });
+});
+
+describe('useTokenTranslation', () => {
+    test('wrapping tokens pass their text through {chunks}', () => {
+        const text = useTokenTranslation('pages.api.disclaimerBanner.text', 'en', {a: () => '<b>{chunks}</b>'});
+        expect(text).toContain('<b>#api</b> Discord channel');
+    });
+
+    test('self-closing tokens are replaced with a value', () => {
+        expect(useTokenTranslation('ui.landing.hero.badgeSdk', 'en', {version: () => '0.2.0'}))
+            .toBe('TypeScript SDK 0.2.0 is out');
     });
 });

@@ -30,11 +30,22 @@ categories:
   - "Mobile App"
   - "Integration"
 
-tags:
+platforms:
   - "ios"
-  - "e-reader"
-  - "audiobooks"
-  - "reading-progress"
+  - "ipados"
+
+formats:
+  - "ebook"
+  - "audiobook"
+
+features:
+  - "progress-sync"
+  - "two-way-sync"
+  - "reviews"
+
+connects:
+  - "api"
+  - "pat"
 
 screenshots:
   - src: "/showcase/justread/hardcover-sync.webp"

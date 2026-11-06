@@ -25,10 +25,17 @@ categories:
   - "Integration"
   - "Desktop App"
 
-tags:
+platforms:
   - "obsidian"
-  - "reading-tracker"
-  - "book-tracker"
+
+features:
+  - "client"
+  - "notes"
+
+connects:
+  - "api"
+
+tags:
   - "open-source"
 
 screenshots:

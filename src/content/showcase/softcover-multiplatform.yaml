@@ -34,6 +34,23 @@ categories:
   - "Mobile App"
   - "Desktop App"
 
+platforms:
+  - "android"
+  - "windows"
+  - "macos"
+  - "linux"
+
+formats:
+  - "audiobook"
+
+features:
+  - "client"
+  - "reading-stats"
+  - "discovery"
+
+connects:
+  - "api"
+
 dateAdded: 2026-07-23
 dateUpdated: 2026-07-23
 
@@ -48,7 +65,6 @@ screenshots:
     alt: "Explore screen showing trending books and series suggestions"
 
 tags:
-  - "android"
   - "desktop"
   - "kotlin"
   - "kotlin-multiplatform"

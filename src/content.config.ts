@@ -1,46 +1,13 @@
 import { defineCollection } from 'astro:content';
-import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 import { docsLoader} from "@astrojs/starlight/loaders";
 import { docsSchema } from '@astrojs/starlight/schema';
 
+import { showcaseSchema } from './lib/showcase-schema';
+
 const showcaseCollection = defineCollection({
 	loader: glob({ pattern: '**/*.yaml', base: './src/content/showcase' }),
-	schema: z.object({
-		name: z.string(),
-		slug: z.string(),
-		summary: z.string(),
-		description: z.string(),
-		author: z.object({
-			name: z.string(),
-			github: z.string().optional(),
-			hardcover: z.string().optional(),
-		}).refine((author) => author.github || author.hardcover, {
-			message: 'author needs a github or hardcover username',
-		}),
-		links: z.array(z.object({
-			label: z.string(),
-			url: z.url(),
-			type: z.enum(['website', 'github', 'store', 'docs', 'demo']),
-		})),
-		categories: z.array(z.string()).min(1),
-		dateAdded: z.coerce.date(),
-		dateUpdated: z.coerce.date(),
-		screenshots: z.array(z.object({
-			src: z.string(),
-			alt: z.string(),
-			origin: z.union([
-				z.enum(['top', 'center', 'bottom']),
-				z.string().regex(/^(100|[1-9]?\d)%$/),
-			]).optional(),
-		})).optional(),
-		tags: z.array(z.string()).optional(),
-		featured: z.boolean().default(false),
-		stats: z.object({
-			githubStars: z.number().optional(),
-			lastPushed: z.string().optional(),
-		}).optional(),
-	}),
+	schema: showcaseSchema,
 });
 
 export const collections = {

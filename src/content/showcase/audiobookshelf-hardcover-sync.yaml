@@ -27,10 +27,21 @@ categories:
   - "Automation"
   - "Integration"
 
-tags:
+platforms:
   - "audiobookshelf"
-  - "audiobooks"
-  - "sync"
+  - "self-hosted"
+
+formats:
+  - "audiobook"
+
+features:
+  - "progress-sync"
+  - "library-sync"
+
+connects:
+  - "api"
+
+tags:
   - "docker"
   - "go"
   - "open-source"

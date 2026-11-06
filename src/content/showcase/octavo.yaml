@@ -32,9 +32,18 @@ links:
 categories:
   - "Mobile App"
 
-tags:
+platforms:
   - "ios"
-  - "iphone"
+
+features:
+  - "client"
+  - "goals"
+
+connects:
+  - "api"
+  - "pat"
+
+tags:
   - "swift"
   - "swiftui"
   - "swiftdata"

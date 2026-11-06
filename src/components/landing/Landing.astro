@@ -1,5 +1,7 @@
 ---
-import { useTranslation } from '@/lib/utils';
+import { useTokenTranslation, useTranslation } from '@/lib/utils';
+import { latestChangelogRelease } from '@/lib/landing-news';
+import sdkChangelog from '../SdkExplorer/CHANGELOG.md?raw';
 import { getCollection } from 'astro:content';
 import PathCard from './PathCard.astro';
 import QuerySnippet from './QuerySnippet.astro';
@@ -37,6 +39,21 @@ const libLinks = [
   { label: t('ui.landing.paths.lib.merging'), href: '/librarians/standards/mergingstandards' },
   { label: t('ui.landing.paths.lib.faq'), href: '/librarians/faq' },
 ];
+// Whichever is newer: the latest SDK release or the latest showcase project.
+const sdkRelease = latestChangelogRelease(sdkChangelog);
+const newestProject = showcaseEntries
+  .map((entry) => entry.data)
+  .sort((a, b) => b.dateAdded.getTime() - a.dateAdded.getTime())[0];
+const news = sdkRelease && (!newestProject || sdkRelease.date >= newestProject.dateAdded)
+  ? {
+      text: useTokenTranslation('ui.landing.hero.badgeSdk', locale, { version: () => sdkRelease.version }),
+      href: '/sdk/typescript/changelog',
+    }
+  : newestProject && {
+      text: useTokenTranslation('ui.landing.hero.badgeShowcase', locale, { name: () => newestProject.name }),
+      href: `/showcase/${newestProject.slug}`,
+    };
+
 const tryChips = ['getting started', 'authentication', 'mutations', 'editions', 'librarian roles'];
 ---
 
@@ -44,9 +61,12 @@ const tryChips = ['getting started', 'authentication', 'mutations', 'editions', 
   <!-- Split hero: pitch + example query/response -->
   <section class="hero">
     <div class="hero-copy">
-      <div class="hero-badge">
-        <span class="hero-v1">v1</span> {t('ui.landing.hero.badge')}
-      </div>
+      {news && (
+        <a class="hero-badge" href={news.href}>
+          <span class="hero-badge-label">{t('ui.landing.hero.badgeNew')}</span> {news.text}
+          <span aria-hidden="true">→</span>
+        </a>
+      )}
       <h1 class="hero-title">
         {t('ui.landing.hero.title')}<em class="em-dev">{t('ui.landing.hero.titleDev')}</em>{t('ui.landing.hero.titleAnd')}<em class="em-lib">{t('ui.landing.hero.titleLib')}</em>{t('ui.landing.hero.titleEnd')}
       </h1>
@@ -170,8 +190,15 @@ const tryChips = ['getting started', 'authentication', 'mutations', 'editions', 
     padding: 0.375rem 0.8125rem;
     border-radius: 999px;
     margin-bottom: 1.5rem;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
   }
-  .hero-v1 {
+  .hero-badge:hover,
+  .hero-badge:focus-visible {
+    border-color: var(--hc-indigo);
+    color: var(--hc-ink);
+  }
+  .hero-badge-label {
     font-family: var(--font-mono);
     color: var(--hc-indigo);
   }
