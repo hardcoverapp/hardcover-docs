@@ -55,14 +55,14 @@ export interface ShowcaseProject {
 }
 
 export const CATEGORIES = [
-  'Browser Extension',
   'Mobile App',
+  'Desktop App',
   'Web App',
+  'Browser Extension',
   'CLI Tool',
+  'Widget',
   'E-ink Display',
   'Home Automation',
-  'Desktop App',
-  'Widget',
   'Integration',
   'Automation',
   'Other',
@@ -72,15 +72,15 @@ export type Category = typeof CATEGORIES[number];
 
 /** Where a project runs or what it plugs into. */
 export const PLATFORMS = [
-  'ios', 'ipados', 'android', 'web', 'macos', 'windows', 'linux', 'terminal',
-  'chrome', 'firefox', 'kobo', 'kindle', 'koreader', 'trmnl', 'smartwatch',
+  'ios', 'ipados', 'android', 'macos', 'windows', 'linux', 'web', 'chrome',
+  'firefox', 'terminal', 'kindle', 'kobo', 'koreader', 'smartwatch', 'trmnl',
   'obsidian', 'audiobookshelf', 'mcp', 'self-hosted',
 ] as const;
 
 export type Platform = typeof PLATFORMS[number];
 
 /** Only formats a project handles specifically; empty means format-agnostic. */
-export const FORMATS = ['ebook', 'audiobook', 'print'] as const;
+export const FORMATS = ['print', 'ebook', 'audiobook'] as const;
 
 export type Format = typeof FORMATS[number];
 
@@ -90,9 +90,9 @@ export type Format = typeof FORMATS[number];
  */
 export const FEATURES = [
   'client', 'progress-sync', 'two-way-sync', 'library-sync', 'import',
-  'reading-stats', 'goals', 'journal', 'lists', 'reviews', 'recommendations',
-  'discovery', 'release-tracking', 'metadata', 'librarian-tools',
-  'developer-tools', 'ai-assistant', 'notes', 'dashboard',
+  'reading-stats', 'goals', 'journal', 'reviews', 'lists', 'notes',
+  'dashboard', 'discovery', 'recommendations', 'release-tracking', 'metadata',
+  'librarian-tools', 'developer-tools', 'ai-assistant',
 ] as const;
 
 export type Feature = typeof FEATURES[number];
