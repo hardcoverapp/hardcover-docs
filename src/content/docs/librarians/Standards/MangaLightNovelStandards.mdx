@@ -13,38 +13,34 @@ import {Aside} from "@astrojs/starlight/components";
 
 <ImageComponent imagePath="/src/content/images/librarians/manga_series_naming.png" description="Example of light novel series naming on Hardcover" />
 
-As with [books](/librarians/standards/bookstandards/#titles--translations) of any kind, we should use the official English title whenever possible with manga and light novels.
+As with [book titles](/librarians/standards/bookstandards/#titles--translations), use the official English series title whenever one exists. Choose the cover edition separately for each volume with manga and light novels.
 
-If the series is only available in Japanese (meaning there are no English editions), retain the original Japanese title using Romaji (Latin alphabet) in square brackets.
+- **If an English edition exists for the volume**, use the official English series title and select an English edition as the book’s cover edition.
+- **If an official English series translation of the title exists, but the volume has no English edition**, use the official English series title and select an original-language edition as the book’s cover edition.
+- **If no official English series title exists**, use the original Japanese title followed by its rōmaji transliteration in square brackets. Select an original-language edition as the book’s cover edition, even if translations into other languages are available.
 
-**Example:**
+**Example**
+
 - 小悪魔ティーリと救世主!? [Koakuma Teeri to Kyuuseishu!?]
 
-If the series has been translated into other languages but not English, use the same format, and use the original edition as the Book's cover edition. However, if the series has an official English translated name for translations, even if there is no English edition, that is taken as the English name and kept, but the default editions will be in the original language.
+If a series has an official English title, **use that title on its own.** Do not change an existing official English series title to a combined English–Japanese title. This applies whether the Japanese title is added before or after the English title, even if another book tracker or manga site uses that format.
 
-If an English edition exists, use the official English title and the English edition as the Book's cover edition.
-
-**Note:** Series names should not be renamed to match Japanese-English naming conventions used by other book trackers or manga related websites. Avoid combining Japanese and English titles when an official English title is available.
-
-Other sites may use formats such as:
-
-"スパイファミリー [Spy x Family]"
-
-In this situatuion, this format is invalid on Hardcover. We use the official English name as given by the publisher, which in this case is 'Spy x Family'.
+For example, keep `Spy x Family` as the series title. Do not change it to `スパイファミリー [Spy x Family]` or `Spy x Family [スパイファミリー]`.
 
 <Aside type="note">
-It's recommended to rename series as a last step as there are currently known issues around Goodreads imports creating a duplicate series which would have to be merged.
+Before renaming an existing series, update the title and format disambiguation, where needed, on at least one book in that series. This gives Hardcover a chance to refresh its mappings and associate the book with the correct series.
 
-If a series slug contains a year or appears unnecessarily long, it may be possible to reclaim a shorter slug reserved from past deduplication. Report these to the Hardcover team for assistance.
+Before merging apparent duplicates, check the books linked to each series and verify their series IDs, especially if either series name lacks a format qualifier. Merge the records only if they represent the same series in the same format.
+
+If a series slug contains a year or appears unnecessarily long, it may be possible to reclaim a shorter slug reserved from past deduplication. Report these cases to the Hardcover team for assistance.
 </Aside>
 
 ### Disambiguating Light Novels from Manga
 
-Some series exist in both manga and light novel formats. To help users distinguish between the two, it's necessary to disambiguate.
+If a series exists in both manga and light novel formats, append `(Manga)` or `(Light Novel)` to the series title to distinguish the two. Use title case for the text in parentheses.
 
-We recommend appending either "(Manga)" or "(Light Novel)" to the series title when both formats exist. The text in parentheses should be title-cased.
+**Examples**
 
-**Examples:**
 - Classroom of the Elite (Light Novel)
 - Classroom of the Elite (Manga)
 
@@ -52,16 +48,19 @@ We recommend appending either "(Manga)" or "(Light Novel)" to the series title w
 
 <ImageComponent imagePath="/src/content/images/librarians/manga_series_naming_2.png" description="Example of light novel series naming on Hardcover" />
 
+Use the following title format for manga and light novel books and their editions.
+
 Naming conventions and disambiguation may vary from publisher to publisher or across other book data platforms. Hardcover sets its own standards to maintain consistency.
 
 For books and all editions of manga and light novels, we follow the format:
 
 `{Series Title} ({Disambiguation}), Vol. {num}: {Subtitle}`
 
-Again, the text in parentheses should be title-cased. If a series has no disambiguation, that part may be omitted. That is expected for series published in only one format in its original language.
+Use title case for the disambiguation in parentheses. Do not include parentheses and their contents if the series does not need disambiguation, as is typically the case when the series was published in only one format in its original language.
 
-**Examples:**
+**Examples**
+
 - My Hero Academia (Manga), Vol. 2: Rage, You Damned Nerd
 - Overlord (Light Novel), Vol. 1: The Undead King
 
-**Note:** If the subtitle is part of the series name and is shared by every book in the series, it is considered part of the series title and can be kept with it. There is no need to split it off and add it after the volume number.
+**Shared series subtitles.** Place volume-specific subtitles after the volume number, as shown in the format guideline above. However, if *every volume shares the same subtitle as part of the series title*, keep it with the series title before the volume number.
