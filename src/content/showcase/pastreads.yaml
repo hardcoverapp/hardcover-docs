@@ -1,0 +1,77 @@
+name: "PastReads"
+slug: "pastreads"
+summary: "Sync and organize highlights from Kindle, Kobo, Apple Books and more, with book data from Hardcover"
+description: |
+  PastReads is a personal library for book highlights. Import from Kindle, Kobo, Apple Books, Google Play Books, KOReader, physical books (via photo), and more. Then edit, organize, favorite, tag, add notes, and revisit highlights with daily reviews.
+
+  How PastReads uses Hardcover:
+  - **Book metadata:** e-reader exports often include incomplete book metadata, so PastReads matches each book to Hardcover to fill in its title, authors and cover
+  - **Book search:** search and add books manually, with results from Hardcover and the option to pick a cover from any edition of a work
+
+  Also in PastReads:
+  - Apps for iPhone and Android, a web library, and a Chrome extension for highlighting web pages
+  - Desktop sync for macOS and Windows that imports from Kindle, Kobo and Apple Books
+  - Imports from Readwise, websites and YouTube
+  - Free plan with unlimited uploads, highlights and notes; PastReads Pro is a paid upgrade
+
+author:
+  name: "Jordy"
+  github: "Jordy-A"
+
+links:
+  - label: "Website"
+    url: "https://www.pastreads.com"
+    type: "website"
+  - label: "App Store"
+    url: "https://apps.apple.com/us/app/pastreads/id6765953167"
+    type: "store"
+  - label: "Google Play"
+    url: "https://play.google.com/store/apps/details?id=com.pastreads.mobile"
+    type: "store"
+  - label: "Chrome Web Store"
+    url: "https://chromewebstore.google.com/detail/pastreads-web-highlighter/jabdeombiekcdlfchpafmnjlaheejiho"
+    type: "store"
+
+categories:
+  - "Mobile App"
+  - "Web App"
+  - "Browser Extension"
+
+platforms:
+  - "ios"
+  - "android"
+  - "web"
+  - "chrome"
+  - "macos"
+  - "windows"
+
+formats:
+  - "ebook"
+  - "print"
+
+features:
+  - "metadata"
+
+connects:
+  - "api"
+
+screenshots:
+  - src: "/showcase/pastreads/01-library.webp"
+    alt: "The PastReads library on the web with book covers and collections, next to a daily review of highlights on iPhone"
+    origin: "top"
+  - src: "/showcase/pastreads/02-match-book.webp"
+    alt: "Matching a book to the catalog to get a better title and cover, with alternative covers to pick from"
+    origin: "center"
+  - src: "/showcase/pastreads/03-hardcover-metadata.webp"
+    alt: "Messy e-reader file names turned into clean titles, authors and covers using Hardcover"
+    origin: "center"
+
+tags:
+  - "highlights"
+  - "daily-review"
+  - "readwise"
+
+dateAdded: 2026-11-05
+dateUpdated: 2026-11-05
+
+featured: false
