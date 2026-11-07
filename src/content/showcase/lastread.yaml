@@ -1,0 +1,60 @@
+name: "Lastread"
+slug: "lastread"
+summary: "Syncs reading progress from a stock Kobo to Hardcover when you plug it in"
+description: |
+  Lastread keeps your Hardcover shelf in step with what you read on a Kobo e-reader: which books, how far, finished when. It reads the Kobo's own database over USB, so nothing is installed on the Kobo, and it works with books bought in the Kobo store.
+
+  You sign in with your Hardcover account (OAuth). When the Kobo is plugged in, Lastread sends status, progress and dates for the books you switched on. It places each book by ISBN, or by title and author together, and a book it cannot place waits for you to choose. If you change a status, a finish date or an edition on Hardcover, Lastread takes that over.
+
+  It starts as a dry run: a page on your own computer shows what the next sync would change, and nothing is sent until you say so.
+
+  There is a Mac app, a command-line tool for macOS and Linux, and a server mode for a household. Lastread is open source (MIT) and in beta. It is used daily with a Kobo Clara Colour and a Mac. Linux has not been tried with a real Kobo yet, and there is no Windows build. It does not sync highlights, notes or ratings.
+
+author:
+  name: "Merlijn Tishauser"
+  github: "merlijntishauser"
+  hardcover: "Merlijn"
+
+links:
+  - label: "Website"
+    url: "https://lastread.app/"
+    type: "website"
+  - label: "GitHub"
+    url: "https://github.com/merlijntishauser/lastread"
+    type: "github"
+
+categories:
+  - "Desktop App"
+  - "CLI Tool"
+  - "Integration"
+
+features:
+  - "progress-sync"
+
+platforms:
+  - "macos"
+  - "linux"
+  - "terminal"
+  - "kobo"
+  - "self-hosted"
+
+formats:
+  - "ebook"
+
+connects:
+  - "api"
+  - "oauth"
+
+dateAdded: 2026-11-07
+dateUpdated: 2026-11-07
+
+screenshots:
+  - src: "/showcase/lastread/01-books.png"
+    alt: "The Books page on a made-up shelf: each book with its progress on the Kobo, and a Hardcover column saying what the next sync changes, with 35% struck through and 37% written in"
+  - src: "/showcase/lastread/02-match.png"
+    alt: "A book that needs a Hardcover match: what the Kobo says about it, and a suggested Hardcover match to accept or search past"
+
+tags:
+  - "open-source"
+  - "python"
+  - "swift"
