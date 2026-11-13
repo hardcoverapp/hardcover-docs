@@ -1,0 +1,56 @@
+name: "Discord BookBot"
+slug: "discord-book-bot"
+summary: "Discord bot that answers {book title} in chat with book info and links from Hardcover"
+description: |
+  Talking about books on Discord? Put a book title or title+author in curly braces, like {The Everlasting} or {Charlotte's Reject by KR Treadway}, and BookBot will reply with info and links from Hardcover. You can also use the /book command to summon book info directly.
+
+  To install BookBot to a server or your account, click the "Add to Discord" link below. On a server, it will respond to all messages with {...}. On your account, curly braces won't work, but you can use the /book command anywhere, even in private DMs.
+
+  Features:
+  - Mention up to five books in one message and get a single reply
+  - Editing a message updates its reply
+  - Replies can be deleted with the Delete button, either by the person who asked or a moderator
+  - If the wrong book is found, use the "Wrong book?" button to privately select a different match from Hardcover
+  - Replies never ping anyone
+
+author:
+  name: "jackermy"
+  github: "bibliocholy-enjoyer"
+  hardcover: "lockesolarian"
+
+links:
+  - label: "GitHub"
+    url: "https://github.com/bibliocholy-enjoyer/discord-book-bot"
+    type: "github"
+  - label: "Add to Discord"
+    url: "https://discord.com/oauth2/authorize?client_id=1556911391733063774"
+    type: "website"
+  - label: "BookBot HQ Discord server"
+    url: "https://discord.gg/6qjApAQ556"
+    type: "demo"
+
+categories:
+  - "Integration"
+
+features:
+  - "metadata"
+
+connects:
+  - "api"
+
+tags:
+  - "discord"
+  - "bot"
+  - "python"
+  - "open-source"
+
+screenshots:
+  - src: "/showcase/discord-book-bot/01-book-replies.png"
+    alt: "A Discord message naming two books in curly braces, and BookBot's reply for each book"
+  - src: "/showcase/discord-book-bot/02-slash-command.png"
+    alt: "BookBot's reply to /book, with Wrong book? and Delete buttons"
+
+dateAdded: 2026-11-11
+dateUpdated: 2026-11-11
+
+featured: false
