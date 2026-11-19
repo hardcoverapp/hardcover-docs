@@ -1,0 +1,67 @@
+name: "Endpaper for WordPress"
+slug: "endpaper-wordpress"
+summary: "Show books, shelves and reading goals from Hardcover on your WordPress site."
+description: |
+  Endpaper is a free, unofficial WordPress plugin that brings your reading life from Hardcover to your own site, as blocks in the editor.
+
+  - **Book:** embed any book with its cover, description, rating and facts. Optionally add your own rating, shelf, progress or review.
+  - **Reading List:** show a shelf, like what you're currently reading, as a list or a grid of covers.
+  - **Reading Goal:** show your progress on a public Hardcover goal as a gauge or a progress bar.
+
+  The blocks inherit the typography and colors of your theme. Data from Hardcover is cached on your server and covers are saved on your own site, so visitors' browsers don't contact Hardcover.
+
+author:
+  name: "Anders Norén"
+  github: "andersnoren"
+  # hardcover: "your-hardcover-username"
+
+links:
+  - label: "WordPress.org"
+    url: "https://wordpress.org/plugins/endpaper/"
+    type: "website"
+  - label: "GitHub"
+    url: "https://github.com/andersnoren/endpaper"
+    type: "github"
+  - label: "Launch post"
+    url: "https://andersnoren.se/introducing-endpaper-hardcover-book-blocks-for-wordpress/"
+    type: "website"
+
+categories:
+  - "Integration"
+
+features:
+  - "metadata"
+  - "lists"
+  - "goals"
+  - "reviews"
+
+platforms:
+  - "web"
+
+connects:
+  - "api"
+  - "pat"
+
+dateAdded: 2026-11-19
+dateUpdated: 2026-11-19
+
+screenshots:
+  - src: "/showcase/endpaper-wordpress/01-card-styles.jpg"
+    alt: "Book blocks in the Card style, each with its own colors, fonts and cover"
+  - src: "/showcase/endpaper-wordpress/02-book-block.png"
+    alt: "The Book block, showing a book's cover, rating and details"
+  - src: "/showcase/endpaper-wordpress/03-editor-search.png"
+    alt: "Searching Hardcover for a book or an author in the block editor"
+  - src: "/showcase/endpaper-wordpress/04-reading-list.png"
+    alt: "The Reading List block as a list of currently reading books"
+  - src: "/showcase/endpaper-wordpress/05-reading-goal.png"
+    alt: "The Reading Goal block as a gauge"
+
+tags:
+  - "wordpress"
+  - "wordpress-plugin"
+  - "gutenberg"
+  - "php"
+  - "open-source"
+
+featured: false
