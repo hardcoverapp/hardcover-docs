@@ -13,7 +13,7 @@ description: |
 author:
   name: "Anders Norén"
   github: "andersnoren"
-  # hardcover: "your-hardcover-username"
+  hardcover: "andersnoren"
 
 links:
   - label: "WordPress.org"
