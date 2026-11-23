@@ -18,6 +18,11 @@ may rename or remove things; each one is listed here with what to change.
   accepts an edition of that book.
 - **Author country.** `authors.get` and `authors.getBySlug` return `country`
   (`id`, `name`, `code2`), or null when none is set.
+- **`likedByMe` on activities.** Every activity from `forUser`, `forBook` and
+  `following` says whether the signed-in reader liked it, for a filled heart.
+  It's in the same request. `forUser` and `forBook` need `read:me:content` for
+  it (`following` already did); without that scope it's `null` and nothing
+  else changes.
 
 ### Changed
 
@@ -27,6 +32,12 @@ may rename or remove things; each one is listed here with what to change.
   `hardcover-sdk-typescript/<version>`.
 
 ### Fixed
+
+- **Ratings distribution, typed and in order.** `RatingCount`'s `rating` and
+  `count` are no longer optional (the site always writes both), and
+  `ratingsDistribution` now really is lowest first, as documented; the site
+  stores it in no particular order. It still lists only star values someone
+  gave, so fill in the missing steps with zero for a histogram.
 
 - **`prompts.delete` works again.** The API replaced the table delete it used
   with a `delete_prompt` action. A missing prompt, or one that isn't yours,

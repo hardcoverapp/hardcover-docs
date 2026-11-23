@@ -4705,7 +4705,7 @@
       "methods": [
         {
           "name": "forUser",
-          "summary": "A reader's activity, newest first.",
+          "summary": "A reader's activity, newest first, each with likedByMe.",
           "scopes": [
             "read:social"
           ],
@@ -4750,7 +4750,7 @@
         },
         {
           "name": "forBook",
-          "summary": "Activity about a book, newest first.",
+          "summary": "Activity about a book, newest first, each with likedByMe.",
           "scopes": [
             "read:social"
           ],
@@ -4790,7 +4790,7 @@
         },
         {
           "name": "following",
-          "summary": "Activity from the people you follow, newest first.",
+          "summary": "Activity from the people you follow, newest first, each with likedByMe.",
           "scopes": [
             "read:me:content",
             "read:social"
