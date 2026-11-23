@@ -1306,6 +1306,61 @@
           ]
         },
         {
+          "name": "setEdition",
+          "summary": "Changes the edition a book on a list shows, or null for the book's default edition. The edition must belong to that book.",
+          "scopes": [
+            "read:lists",
+            "write:lists"
+          ],
+          "writes": true,
+          "destructive": false,
+          "returns": "ListBookRow",
+          "params": [
+            {
+              "name": "listId",
+              "kind": "number",
+              "label": "List id",
+              "hint": "One of your lists' ids, from lists.mine",
+              "required": true,
+              "exampleFrom": {
+                "method": "lists.mine",
+                "args": [
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            },
+            {
+              "name": "bookId",
+              "kind": "number",
+              "label": "Book id",
+              "hint": "A book already on the list",
+              "required": true,
+              "example": 427578
+            },
+            {
+              "name": "editionId",
+              "kind": "number",
+              "label": "Edition id",
+              "hint": "An edition of this book, from books.editions. Empty uses the default edition (null)",
+              "required": true,
+              "nullable": true,
+              "exampleFrom": {
+                "method": "books.editions",
+                "args": [
+                  427578,
+                  {
+                    "limit": 1
+                  }
+                ],
+                "pick": "items.0.id"
+              }
+            }
+          ]
+        },
+        {
           "name": "addBooks",
           "summary": "Bulk add by ISBN, e.g. from a shelf of barcode scans. Exact matches only: anything without an exact edition is reported, never guessed.",
           "scopes": [

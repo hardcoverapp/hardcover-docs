@@ -12,6 +12,39 @@ Changes to `@hardcover/sdk`, newest first. The format follows
 [Semantic Versioning](https://semver.org/). Before 1.0, a minor version (0.2.0)
 may rename or remove things; each one is listed here with what to change.
 
+## 0.1.2 - Unreleased
+
+### Added
+
+- **SDK header.** Every request, OAuth included, carries
+  `X-Hardcover-Client: hardcover-sdk-typescript/<version>`. Browsers don't let
+  `fetch` set User-Agent, so this is how Hardcover sees SDK calls from web
+  apps too.
+- **`lists.setEdition(listId, bookId, editionId)`.** Changes the edition a book
+  on a list shows, or `null` for the book's default edition. The server only
+  accepts an edition of that book.
+- **Author country.** `authors.get` and `authors.getBySlug` return `country`
+  (`id`, `name`, `code2`), or null when none is set.
+
+### Changed
+
+- **Your User-Agent, as given.** When you pass `userAgent`, it's sent as is
+  instead of with ` hardcover-sdk-typescript/<version>` appended, since the
+  new header already names the SDK. Without one, User-Agent is still
+  `hardcover-sdk-typescript/<version>`.
+
+### Fixed
+
+- **`prompts.delete` works again.** The API replaced the table delete it used
+  with a `delete_prompt` action. A missing prompt, or one that isn't yours,
+  still throws `NotFoundError`. The server now refuses prompts with more than
+  10 answers, or that other readers have answered or bookmarked, as
+  `ActionError` with its reason.
+- **Small percent steps save.** `reads.setProgress({ percent })` sends the
+  percent along with the page or second it converts to, so the server keeps
+  it as typed. Before, a 1% step on a short book could round to the same page
+  and not change anything.
+
 ## 0.1.1 - 2026-10-29
 
 More of what the site shows, typed, and one naming fix. Nothing is removed;

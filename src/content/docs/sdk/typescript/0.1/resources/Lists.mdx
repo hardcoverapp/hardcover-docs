@@ -155,6 +155,22 @@ Takes a book off a list. Returns false if it wasn't on it.
 
 <SdkExplorer method="lists.removeBook" version="0.1" compact />
 
+## setEdition
+
+`hc.lists.setEdition(listId, bookId, editionId)`
+
+Changes the edition a book on a list shows, or null for the book's default edition. The edition must belong to that book.
+
+**Scopes:** <ScopePill scope="read:lists" /> <ScopePill scope="write:lists" /> · **Changes data.** The explorer previews the request without sending it.
+
+| Parameter | Type | Required | Notes |
+|---|---|---|---|
+| `listId` | number | yes | One of your lists' ids, from lists.mine |
+| `bookId` | number | yes | A book already on the list |
+| `editionId` | number | yes | An edition of this book, from books.editions. Empty uses the default edition (null) |
+
+<SdkExplorer method="lists.setEdition" version="0.1" compact />
+
 ## addBooks
 
 `hc.lists.addBooks(listId, codes)`
