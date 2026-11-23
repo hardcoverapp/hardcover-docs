@@ -24,6 +24,7 @@ input AuthorInputType {
   bio: String
   born_date: date
   born_year: Int
+  country_id: Int
   curation_status: String
   death_date: date
   death_year: Int
@@ -237,6 +238,7 @@ input DatesReadInput {
   finished_at: date
   finished_at_precision: Int
   id: Int
+  progress: Float
   progress_pages: Int
   progress_seconds: Int
   started_at: date
@@ -426,6 +428,26 @@ type InsertBlockOutput {
   error: String
   id: Int
   user_block: user_blocks
+}
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_array_comparison_exp {
+  """is the array contained in the given array value"""
+  _contained_in: [Int!]
+
+  """does the array contain the given value"""
+  _contains: [Int!]
+  _eq: [Int!]
+  _gt: [Int!]
+  _gte: [Int!]
+  _in: [[Int!]!]
+  _is_null: Boolean
+  _lt: [Int!]
+  _lte: [Int!]
+  _neq: [Int!]
+  _nin: [[Int!]!]
 }
 
 """
@@ -744,6 +766,10 @@ type SuccessType {
   success: Boolean!
 }
 
+type SystemVibesType {
+  ids: [Int!]!
+}
+
 input TagsDtoInput {
   ContentWarning: [DtoTag]
   Genre: [DtoTag]
@@ -795,11 +821,13 @@ input UserBookCreateInput {
   review_markdown: String
   review_slate: jsonb
   reviewed_at: date
+  source: UserBookSourceSlug
   sponsored_review: Boolean
   status_id: Int
   url: String
   user_date: date
   user_start_date: date
+  viewed_edition_id: Int
 }
 
 type UserBookDeleteType {
@@ -819,6 +847,27 @@ type UserBookReadIdType {
   error: String
   id: Int
   user_book_read: user_book_reads
+}
+
+enum UserBookSourceSlug {
+  author
+  book_page
+  club
+  discover
+  discussion
+  feed
+  home
+  list
+  other
+  profile
+  prompt
+  search
+  series
+  similar
+  trending
+  upcoming
+  vibes
+  wrapped
 }
 
 input UserBookUpdateInput {
@@ -858,6 +907,17 @@ type UserIdType {
   errors: [String]
   id: Int
   user: users
+}
+
+type UserSettingsIdType {
+  errors: [String]
+  id: Int
+  user_setting: user_settings
+}
+
+input UserSettingsInput {
+  new_release_language_ids: [Int!]
+  new_release_reading_format_ids: [Int!]
 }
 
 type ValidateReceiptType {
@@ -1288,6 +1348,10 @@ type authors {
   ): contributions_aggregate!
 
   """An object relationship"""
+  country: countries
+  country_id: Int
+
+  """An object relationship"""
   creator: users
   death_date: date
   death_year: Int
@@ -1345,6 +1409,7 @@ input authors_avg_order_by {
   books_count: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_year: order_by
   gender_id: order_by
   id: order_by
@@ -1372,6 +1437,8 @@ input authors_bool_exp {
   canonical_id: Int_comparison_exp
   contributions: contributions_bool_exp
   contributions_aggregate: contributions_aggregate_bool_exp
+  country: countries_bool_exp
+  country_id: Int_comparison_exp
   creator: users_bool_exp
   death_date: date_comparison_exp
   death_year: Int_comparison_exp
@@ -1406,6 +1473,7 @@ input authors_max_order_by {
   born_date: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_date: order_by
   death_year: order_by
   gender_id: order_by
@@ -1433,6 +1501,7 @@ input authors_min_order_by {
   born_date: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_date: order_by
   death_year: order_by
   gender_id: order_by
@@ -1463,6 +1532,8 @@ input authors_order_by {
   canonical: authors_order_by
   canonical_id: order_by
   contributions_aggregate: contributions_aggregate_order_by
+  country: countries_order_by
+  country_id: order_by
   creator: users_order_by
   death_date: order_by
   death_year: order_by
@@ -1514,6 +1585,9 @@ enum authors_select_column {
 
   """column name"""
   canonical_id
+
+  """column name"""
+  country_id
 
   """column name"""
   death_date
@@ -1584,6 +1658,7 @@ input authors_stddev_order_by {
   books_count: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_year: order_by
   gender_id: order_by
   id: order_by
@@ -1600,6 +1675,7 @@ input authors_stddev_pop_order_by {
   books_count: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_year: order_by
   gender_id: order_by
   id: order_by
@@ -1616,6 +1692,7 @@ input authors_stddev_samp_order_by {
   books_count: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_year: order_by
   gender_id: order_by
   id: order_by
@@ -1645,6 +1722,7 @@ input authors_stream_cursor_value_input {
   born_year: Int
   cached_image: jsonb
   canonical_id: Int
+  country_id: Int
   death_date: date
   death_year: Int
   gender_id: Int
@@ -1675,6 +1753,7 @@ input authors_sum_order_by {
   books_count: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_year: order_by
   gender_id: order_by
   id: order_by
@@ -1691,6 +1770,7 @@ input authors_var_pop_order_by {
   books_count: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_year: order_by
   gender_id: order_by
   id: order_by
@@ -1707,6 +1787,7 @@ input authors_var_samp_order_by {
   books_count: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_year: order_by
   gender_id: order_by
   id: order_by
@@ -1723,6 +1804,7 @@ input authors_variance_order_by {
   books_count: order_by
   born_year: order_by
   canonical_id: order_by
+  country_id: order_by
   death_year: order_by
   gender_id: order_by
   id: order_by
@@ -6116,6 +6198,23 @@ input contributions_variance_order_by {
 columns and relationships of "contributor_role_categories"
 """
 type contributor_role_categories {
+  """An array relationship"""
+  contributor_roles(
+    """distinct select on columns"""
+    distinct_on: [contributor_roles_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contributor_roles_order_by!]
+
+    """filter the rows returned"""
+    where: contributor_roles_bool_exp
+  ): [contributor_roles!]!
   group: Int!
   id: Int!
   name: String!
@@ -6128,6 +6227,7 @@ input contributor_role_categories_bool_exp {
   _and: [contributor_role_categories_bool_exp!]
   _not: contributor_role_categories_bool_exp
   _or: [contributor_role_categories_bool_exp!]
+  contributor_roles: contributor_roles_bool_exp
   group: Int_comparison_exp
   id: Int_comparison_exp
   name: String_comparison_exp
@@ -6137,6 +6237,7 @@ input contributor_role_categories_bool_exp {
 Ordering options when selecting data from "contributor_role_categories".
 """
 input contributor_role_categories_order_by {
+  contributor_roles_aggregate: contributor_roles_aggregate_order_by
   group: order_by
   id: order_by
   name: order_by
@@ -6179,7 +6280,13 @@ columns and relationships of "contributor_role_specializations"
 """
 type contributor_role_specializations {
   blurb: String
+
+  """An object relationship"""
+  contributor_role: contributor_roles
   contributor_role_id: Int!
+
+  """An object relationship"""
+  contributor_specialization: contributor_specializations
   contributor_specialization_id: Int!
   description: String
   id: Int!
@@ -6192,6 +6299,32 @@ type contributor_role_specializations {
 }
 
 """
+order by aggregate values of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_aggregate_order_by {
+  avg: contributor_role_specializations_avg_order_by
+  count: order_by
+  max: contributor_role_specializations_max_order_by
+  min: contributor_role_specializations_min_order_by
+  stddev: contributor_role_specializations_stddev_order_by
+  stddev_pop: contributor_role_specializations_stddev_pop_order_by
+  stddev_samp: contributor_role_specializations_stddev_samp_order_by
+  sum: contributor_role_specializations_sum_order_by
+  var_pop: contributor_role_specializations_var_pop_order_by
+  var_samp: contributor_role_specializations_var_samp_order_by
+  variance: contributor_role_specializations_variance_order_by
+}
+
+"""
+order by avg() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_avg_order_by {
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  id: order_by
+}
+
+"""
 Boolean expression to filter rows from the table "contributor_role_specializations". All fields are combined with a logical 'AND'.
 """
 input contributor_role_specializations_bool_exp {
@@ -6199,7 +6332,9 @@ input contributor_role_specializations_bool_exp {
   _not: contributor_role_specializations_bool_exp
   _or: [contributor_role_specializations_bool_exp!]
   blurb: String_comparison_exp
+  contributor_role: contributor_roles_bool_exp
   contributor_role_id: Int_comparison_exp
+  contributor_specialization: contributor_specializations_bool_exp
   contributor_specialization_id: Int_comparison_exp
   description: String_comparison_exp
   id: Int_comparison_exp
@@ -6209,11 +6344,37 @@ input contributor_role_specializations_bool_exp {
 }
 
 """
+order by max() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_max_order_by {
+  blurb: order_by
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  description: order_by
+  id: order_by
+  librarian_instructions: order_by
+}
+
+"""
+order by min() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_min_order_by {
+  blurb: order_by
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  description: order_by
+  id: order_by
+  librarian_instructions: order_by
+}
+
+"""
 Ordering options when selecting data from "contributor_role_specializations".
 """
 input contributor_role_specializations_order_by {
   blurb: order_by
+  contributor_role: contributor_roles_order_by
   contributor_role_id: order_by
+  contributor_specialization: contributor_specializations_order_by
   contributor_specialization_id: order_by
   description: order_by
   id: order_by
@@ -6252,6 +6413,33 @@ enum contributor_role_specializations_select_column {
 }
 
 """
+order by stddev() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_stddev_order_by {
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  id: order_by
+}
+
+"""
+order by stddev_pop() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_stddev_pop_order_by {
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  id: order_by
+}
+
+"""
+order by stddev_samp() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_stddev_samp_order_by {
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  id: order_by
+}
+
+"""
 Streaming cursor of the table "contributor_role_specializations"
 """
 input contributor_role_specializations_stream_cursor_input {
@@ -6275,11 +6463,68 @@ input contributor_role_specializations_stream_cursor_value_input {
 }
 
 """
+order by sum() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_sum_order_by {
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  id: order_by
+}
+
+"""
+order by var_pop() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_var_pop_order_by {
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  id: order_by
+}
+
+"""
+order by var_samp() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_var_samp_order_by {
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  id: order_by
+}
+
+"""
+order by variance() on columns of table "contributor_role_specializations"
+"""
+input contributor_role_specializations_variance_order_by {
+  contributor_role_id: order_by
+  contributor_specialization_id: order_by
+  id: order_by
+}
+
+"""
 columns and relationships of "contributor_roles"
 """
 type contributor_roles {
   blurb: String
+
+  """An object relationship"""
+  contributor_role_category: contributor_role_categories
   contributor_role_category_id: Int!
+
+  """An array relationship"""
+  contributor_role_specializations(
+    """distinct select on columns"""
+    distinct_on: [contributor_role_specializations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contributor_role_specializations_order_by!]
+
+    """filter the rows returned"""
+    where: contributor_role_specializations_bool_exp
+  ): [contributor_role_specializations!]!
   description: String
   id: Int!
   librarian_instructions: String
@@ -6293,6 +6538,31 @@ type contributor_roles {
 }
 
 """
+order by aggregate values of table "contributor_roles"
+"""
+input contributor_roles_aggregate_order_by {
+  avg: contributor_roles_avg_order_by
+  count: order_by
+  max: contributor_roles_max_order_by
+  min: contributor_roles_min_order_by
+  stddev: contributor_roles_stddev_order_by
+  stddev_pop: contributor_roles_stddev_pop_order_by
+  stddev_samp: contributor_roles_stddev_samp_order_by
+  sum: contributor_roles_sum_order_by
+  var_pop: contributor_roles_var_pop_order_by
+  var_samp: contributor_roles_var_samp_order_by
+  variance: contributor_roles_variance_order_by
+}
+
+"""
+order by avg() on columns of table "contributor_roles"
+"""
+input contributor_roles_avg_order_by {
+  contributor_role_category_id: order_by
+  id: order_by
+}
+
+"""
 Boolean expression to filter rows from the table "contributor_roles". All fields are combined with a logical 'AND'.
 """
 input contributor_roles_bool_exp {
@@ -6300,7 +6570,9 @@ input contributor_roles_bool_exp {
   _not: contributor_roles_bool_exp
   _or: [contributor_roles_bool_exp!]
   blurb: String_comparison_exp
+  contributor_role_category: contributor_role_categories_bool_exp
   contributor_role_category_id: Int_comparison_exp
+  contributor_role_specializations: contributor_role_specializations_bool_exp
   description: String_comparison_exp
   id: Int_comparison_exp
   librarian_instructions: String_comparison_exp
@@ -6310,10 +6582,38 @@ input contributor_roles_bool_exp {
   slug: String_comparison_exp
 }
 
+"""
+order by max() on columns of table "contributor_roles"
+"""
+input contributor_roles_max_order_by {
+  blurb: order_by
+  contributor_role_category_id: order_by
+  description: order_by
+  id: order_by
+  librarian_instructions: order_by
+  name: order_by
+  slug: order_by
+}
+
+"""
+order by min() on columns of table "contributor_roles"
+"""
+input contributor_roles_min_order_by {
+  blurb: order_by
+  contributor_role_category_id: order_by
+  description: order_by
+  id: order_by
+  librarian_instructions: order_by
+  name: order_by
+  slug: order_by
+}
+
 """Ordering options when selecting data from "contributor_roles"."""
 input contributor_roles_order_by {
   blurb: order_by
+  contributor_role_category: contributor_role_categories_order_by
   contributor_role_category_id: order_by
+  contributor_role_specializations_aggregate: contributor_role_specializations_aggregate_order_by
   description: order_by
   id: order_by
   librarian_instructions: order_by
@@ -6356,6 +6656,30 @@ enum contributor_roles_select_column {
 }
 
 """
+order by stddev() on columns of table "contributor_roles"
+"""
+input contributor_roles_stddev_order_by {
+  contributor_role_category_id: order_by
+  id: order_by
+}
+
+"""
+order by stddev_pop() on columns of table "contributor_roles"
+"""
+input contributor_roles_stddev_pop_order_by {
+  contributor_role_category_id: order_by
+  id: order_by
+}
+
+"""
+order by stddev_samp() on columns of table "contributor_roles"
+"""
+input contributor_roles_stddev_samp_order_by {
+  contributor_role_category_id: order_by
+  id: order_by
+}
+
+"""
 Streaming cursor of the table "contributor_roles"
 """
 input contributor_roles_stream_cursor_input {
@@ -6380,10 +6704,60 @@ input contributor_roles_stream_cursor_value_input {
 }
 
 """
+order by sum() on columns of table "contributor_roles"
+"""
+input contributor_roles_sum_order_by {
+  contributor_role_category_id: order_by
+  id: order_by
+}
+
+"""
+order by var_pop() on columns of table "contributor_roles"
+"""
+input contributor_roles_var_pop_order_by {
+  contributor_role_category_id: order_by
+  id: order_by
+}
+
+"""
+order by var_samp() on columns of table "contributor_roles"
+"""
+input contributor_roles_var_samp_order_by {
+  contributor_role_category_id: order_by
+  id: order_by
+}
+
+"""
+order by variance() on columns of table "contributor_roles"
+"""
+input contributor_roles_variance_order_by {
+  contributor_role_category_id: order_by
+  id: order_by
+}
+
+"""
 columns and relationships of "contributor_specializations"
 """
 type contributor_specializations {
   blurb: String
+
+  """An array relationship"""
+  contributor_role_specializations(
+    """distinct select on columns"""
+    distinct_on: [contributor_role_specializations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contributor_role_specializations_order_by!]
+
+    """filter the rows returned"""
+    where: contributor_role_specializations_bool_exp
+  ): [contributor_role_specializations!]!
   description: String
   id: Int!
   librarian_instructions: String
@@ -6398,6 +6772,7 @@ input contributor_specializations_bool_exp {
   _not: contributor_specializations_bool_exp
   _or: [contributor_specializations_bool_exp!]
   blurb: String_comparison_exp
+  contributor_role_specializations: contributor_role_specializations_bool_exp
   description: String_comparison_exp
   id: Int_comparison_exp
   librarian_instructions: String_comparison_exp
@@ -6409,6 +6784,7 @@ Ordering options when selecting data from "contributor_specializations".
 """
 input contributor_specializations_order_by {
   blurb: order_by
+  contributor_role_specializations_aggregate: contributor_role_specializations_aggregate_order_by
   description: order_by
   id: order_by
   librarian_instructions: order_by
@@ -11105,6 +11481,7 @@ input list_books_bool_exp {
 input type for incrementing numeric columns in table "list_books"
 """
 input list_books_inc_input {
+  edition_id: Int
   position: Int
 }
 
@@ -11285,6 +11662,7 @@ enum list_books_select_column_list_books_aggregate_bool_exp_bool_or_arguments_co
 input type for updating data in table "list_books"
 """
 input list_books_set_input {
+  edition_id: Int
   position: Int
   reason: String
 }
@@ -12468,21 +12846,11 @@ type mutation_root {
   """delete_pin"""
   delete_pin(pinnable_id: Int!, pinnable_type: String!): PinDeleteType
 
+  """delete_prompt"""
+  delete_prompt(id: Int!): PromptIdType
+
   """delete_prompt_answer"""
   delete_prompt_answer(id: Int!): PromptAnswerIdType
-
-  """
-  delete data from the table: "prompts"
-  """
-  delete_prompts(
-    """filter the rows which have to be deleted"""
-    where: prompts_bool_exp!
-  ): prompts_mutation_response
-
-  """
-  delete single row from the table: "prompts"
-  """
-  delete_prompts_by_pk(id: Int!): prompts
 
   """delete_reading_journal"""
   delete_reading_journal(id: Int!): DeleteReadingJournalOutput
@@ -12518,6 +12886,9 @@ type mutation_root {
 
   """email_user_delete_confirmation"""
   email_user_delete_confirmation: SuccessType
+
+  """ensure_system_vibes"""
+  ensure_system_vibes: SystemVibesType
 
   """insert_author"""
   insert_author(object: AuthorInputType!): AuthorIdType
@@ -12889,8 +13260,13 @@ type mutation_root {
   """update_reading_journal"""
   update_reading_journal(id: Int!, object: ReadingJournalUpdateType!): ReadingJournalOutput
 
-  """update_serie"""
+  """
+  DEPRECATED: alias of update_series (grammatically incorrect singular, #2401). Will be removed after a deprecation window; use update_series.
+  """
   update_serie(id: Int!, series: SeriesInputType!): SeriesIdType
+
+  """Update a series (successor to the deprecated update_serie,"""
+  update_series(id: Int!, series: SeriesInputType!): SeriesIdType
 
   """update_user"""
   update_user(user: update_user_input!): UserIdType
@@ -12903,6 +13279,9 @@ type mutation_root {
 
   """update_user_privacy_setting"""
   update_user_privacy_setting(privacy_setting_id: Int!): UserIdType
+
+  """update_user_settings"""
+  update_user_settings(object: UserSettingsInput!): UserSettingsIdType
 
   """update_vibe"""
   update_vibe(id: Int!, object: VibeInput!): VibeIdType
@@ -15122,17 +15501,6 @@ input prompts_min_order_by {
   users_count: order_by
 }
 
-"""
-response of any mutation on the table "prompts"
-"""
-type prompts_mutation_response {
-  """number of rows affected by the mutation"""
-  affected_rows: Int!
-
-  """data from the rows affected by the mutation"""
-  returning: [prompts!]!
-}
-
 """Ordering options when selecting data from "prompts"."""
 input prompts_order_by {
   answers_count: order_by
@@ -15825,9 +16193,7 @@ type query_root {
   """
   contributor_role_categories_by_pk(id: Int!): contributor_role_categories
 
-  """
-  fetch data from the table: "contributor_role_specializations"
-  """
+  """An array relationship"""
   contributor_role_specializations(
     """distinct select on columns"""
     distinct_on: [contributor_role_specializations_select_column!]
@@ -15850,9 +16216,7 @@ type query_root {
   """
   contributor_role_specializations_by_pk(id: Int!): contributor_role_specializations
 
-  """
-  fetch data from the table: "contributor_roles"
-  """
+  """An array relationship"""
   contributor_roles(
     """distinct select on columns"""
     distinct_on: [contributor_roles_select_column!]
@@ -17247,6 +17611,9 @@ type query_root {
     """filter the rows returned"""
     where: user_settings_bool_exp
   ): [user_settings!]!
+
+  """fetch data from the table: "user_settings" using primary key columns"""
+  user_settings_by_pk(id: bigint!): user_settings
 
   """
   fetch data from the table: "user_statuses"
@@ -18675,9 +19042,7 @@ type subscription_root {
     where: contributor_role_categories_bool_exp
   ): [contributor_role_categories!]!
 
-  """
-  fetch data from the table: "contributor_role_specializations"
-  """
+  """An array relationship"""
   contributor_role_specializations(
     """distinct select on columns"""
     distinct_on: [contributor_role_specializations_select_column!]
@@ -18714,9 +19079,7 @@ type subscription_root {
     where: contributor_role_specializations_bool_exp
   ): [contributor_role_specializations!]!
 
-  """
-  fetch data from the table: "contributor_roles"
-  """
+  """An array relationship"""
   contributor_roles(
     """distinct select on columns"""
     distinct_on: [contributor_roles_select_column!]
@@ -20774,6 +21137,9 @@ type subscription_root {
     where: user_settings_bool_exp
   ): [user_settings!]!
 
+  """fetch data from the table: "user_settings" using primary key columns"""
+  user_settings_by_pk(id: bigint!): user_settings
+
   """
   fetch data from the table in a streaming manner: "user_settings"
   """
@@ -22031,6 +22397,7 @@ input timestamptz_comparison_exp {
 }
 
 input update_user_input {
+  account_activity_comments: Boolean
   account_book_club_invites: Boolean
   account_book_club_invites_privacy_setting_id: Int
   account_buddy_read_invites: Boolean
@@ -24578,6 +24945,19 @@ type user_settings {
     """JSON select path"""
     path: String
   ): jsonb!
+  created_at: timestamp!
+  id: bigint!
+  new_release_language_ids: [Int!]!
+  new_release_reading_format_ids: [Int!]!
+  shelf_showdown(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  updated_at: timestamp!
+
+  """An object relationship"""
+  user: users
+  user_id: Int!
 }
 
 """
@@ -24588,11 +24968,27 @@ input user_settings_bool_exp {
   _not: user_settings_bool_exp
   _or: [user_settings_bool_exp!]
   contributor_role_lists: jsonb_comparison_exp
+  created_at: timestamp_comparison_exp
+  id: bigint_comparison_exp
+  new_release_language_ids: Int_array_comparison_exp
+  new_release_reading_format_ids: Int_array_comparison_exp
+  shelf_showdown: jsonb_comparison_exp
+  updated_at: timestamp_comparison_exp
+  user: users_bool_exp
+  user_id: Int_comparison_exp
 }
 
 """Ordering options when selecting data from "user_settings"."""
 input user_settings_order_by {
   contributor_role_lists: order_by
+  created_at: order_by
+  id: order_by
+  new_release_language_ids: order_by
+  new_release_reading_format_ids: order_by
+  shelf_showdown: order_by
+  updated_at: order_by
+  user: users_order_by
+  user_id: order_by
 }
 
 """
@@ -24601,6 +24997,27 @@ select columns of table "user_settings"
 enum user_settings_select_column {
   """column name"""
   contributor_role_lists
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  new_release_language_ids
+
+  """column name"""
+  new_release_reading_format_ids
+
+  """column name"""
+  shelf_showdown
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  user_id
 }
 
 """
@@ -24617,6 +25034,13 @@ input user_settings_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input user_settings_stream_cursor_value_input {
   contributor_role_lists: jsonb
+  created_at: timestamp
+  id: bigint
+  new_release_language_ids: [Int!]
+  new_release_reading_format_ids: [Int!]
+  shelf_showdown: jsonb
+  updated_at: timestamp
+  user_id: Int
 }
 
 """

@@ -195,7 +195,7 @@ generates a link that pre-selects them on the New API Key form for your users.
     <tr>
         <td>contributor_<wbr/>role_<wbr/>specializations</td>
         <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
-        <td data-label="Description">fetch data from the table: "contributor_<wbr/>role_<wbr/>specializations"</td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
         <td>contributor_<wbr/>role_<wbr/>specializations_<wbr/>by_<wbr/>pk</td>
@@ -205,7 +205,7 @@ generates a link that pre-selects them on the New API Key form for your users.
     <tr>
         <td>contributor_<wbr/>roles</td>
         <td data-label="Scopes"><ScopePill scope="read:catalog" /> <ScopePill scope="read:catalog:data" /> <ScopePill scope="read:catalog:search" /></td>
-        <td data-label="Description">fetch data from the table: "contributor_<wbr/>roles"</td>
+        <td data-label="Description">An array relationship</td>
     </tr>
     <tr>
         <td>contributor_<wbr/>roles_<wbr/>by_<wbr/>pk</td>
@@ -754,8 +754,13 @@ generates a link that pre-selects them on the New API Key form for your users.
     </tr>
     <tr>
         <td>user_<wbr/>settings</td>
-        <td data-label="Scopes"><ScopePill scope="read:me" /> <ScopePill scope="read:me:content" /> <ScopePill scope="read:me:email" /> <ScopePill scope="read:me:roles" /></td>
+        <td data-label="Scopes"><ScopePill scope="read:settings" /></td>
         <td data-label="Description">fetch data from the table: "user_<wbr/>settings"</td>
+    </tr>
+    <tr>
+        <td>user_<wbr/>settings_<wbr/>by_<wbr/>pk</td>
+        <td data-label="Scopes"><ScopePill scope="read:settings" /></td>
+        <td data-label="Description">fetch data from the table: "user_<wbr/>settings" using primary key columns</td>
     </tr>
     <tr>
         <td>user_<wbr/>statuses</td>
@@ -927,19 +932,14 @@ generates a link that pre-selects them on the New API Key form for your users.
         <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_<wbr/>prompt_<wbr/>answer</td>
+        <td>delete_<wbr/>prompt</td>
         <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
         <td data-label="Description"></td>
     </tr>
     <tr>
-        <td>delete_<wbr/>prompts</td>
+        <td>delete_<wbr/>prompt_<wbr/>answer</td>
         <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
-        <td data-label="Description">delete data from the table: "prompts"</td>
-    </tr>
-    <tr>
-        <td>delete_<wbr/>prompts_<wbr/>by_<wbr/>pk</td>
-        <td data-label="Scopes"><ScopePill scope="write:prompts" /></td>
-        <td data-label="Description">delete single row from the table: "prompts"</td>
+        <td data-label="Description"></td>
     </tr>
     <tr>
         <td>delete_<wbr/>reading_<wbr/>journal</td>
@@ -984,6 +984,11 @@ generates a link that pre-selects them on the New API Key form for your users.
     <tr>
         <td>edition_<wbr/>owned</td>
         <td data-label="Scopes"><ScopePill scope="write:library" /></td>
+        <td data-label="Description"></td>
+    </tr>
+    <tr>
+        <td>ensure_<wbr/>system_<wbr/>vibes</td>
+        <td data-label="Scopes"><ScopePill scope="write:vibes" /></td>
         <td data-label="Description"></td>
     </tr>
     <tr>
@@ -1249,7 +1254,12 @@ generates a link that pre-selects them on the New API Key form for your users.
     <tr>
         <td>update_<wbr/>serie</td>
         <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
-        <td data-label="Description"></td>
+        <td data-label="Description">DEPRECATED: alias of update_<wbr/>series (grammatically incorrect singular, #2401). Will be removed after a deprecation window; use update_<wbr/>series.</td>
+    </tr>
+    <tr>
+        <td>update_<wbr/>series</td>
+        <td data-label="Scopes"><ScopePill scope="write:catalog" /> <ScopePill scope="write:catalog:append" /> <ScopePill scope="write:catalog:edit" /></td>
+        <td data-label="Description">Update a series (successor to the deprecated update_<wbr/>serie,</td>
     </tr>
     <tr>
         <td>update_<wbr/>user_<wbr/>book</td>

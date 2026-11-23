@@ -165,6 +165,18 @@
       "hasArgs": true
     },
     {
+      "name": "country",
+      "type": "countries",
+      "description": "An object relationship",
+      "hasArgs": false
+    },
+    {
+      "name": "country_id",
+      "type": "Int",
+      "description": "",
+      "hasArgs": false
+    },
+    {
       "name": "creator",
       "type": "users",
       "description": "An object relationship",
