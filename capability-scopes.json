@@ -855,10 +855,13 @@
   },
   "user_settings": {
     "read": [
-      "read:me",
-      "read:me:content",
-      "read:me:email",
-      "read:me:roles"
+      "read:settings"
+    ],
+    "write": []
+  },
+  "user_settings_by_pk": {
+    "read": [
+      "read:settings"
     ],
     "write": []
   },
@@ -1462,19 +1465,13 @@
       "write:prompts"
     ]
   },
+  "delete_prompt": {
+    "read": [],
+    "write": [
+      "write:prompts"
+    ]
+  },
   "delete_prompt_answer": {
-    "read": [],
-    "write": [
-      "write:prompts"
-    ]
-  },
-  "delete_prompts": {
-    "read": [],
-    "write": [
-      "write:prompts"
-    ]
-  },
-  "delete_prompts_by_pk": {
     "read": [],
     "write": [
       "write:prompts"
@@ -1654,6 +1651,12 @@
       "write:vibes"
     ]
   },
+  "ensure_system_vibes": {
+    "read": [],
+    "write": [
+      "write:vibes"
+    ]
+  },
   "insert_vibe": {
     "read": [],
     "write": [
@@ -1806,6 +1809,14 @@
     ]
   },
   "update_serie": {
+    "read": [],
+    "write": [
+      "write:catalog",
+      "write:catalog:append",
+      "write:catalog:edit"
+    ]
+  },
+  "update_series": {
     "read": [],
     "write": [
       "write:catalog",

@@ -38,6 +38,7 @@
         "read:prompts:following",
         "read:prompts:private",
         "read:prompts:public",
+        "read:settings",
         "read:social",
         "read:users",
         "read:vibes",
@@ -126,9 +127,8 @@
         "delete_list",
         "delete_list_book",
         "delete_list_member",
+        "delete_prompt",
         "delete_prompt_answer",
-        "delete_prompts",
-        "delete_prompts_by_pk",
         "delete_reading_journal",
         "delete_reading_journals_for_book",
         "delete_user_blocks",
@@ -140,6 +140,7 @@
         "edition_owned",
         "editions",
         "editions_by_pk",
+        "ensure_system_vibes",
         "filter_list_entities",
         "filter_list_entities_aggregate",
         "filter_list_entities_by_pk",
@@ -280,6 +281,7 @@
         "update_publisher",
         "update_reading_journal",
         "update_serie",
+        "update_series",
         "update_user_book",
         "update_user_book_read",
         "update_vibe",
@@ -306,6 +308,7 @@
         "user_referrals",
         "user_referrals_by_pk",
         "user_settings",
+        "user_settings_by_pk",
         "user_statuses",
         "user_statuses_by_pk",
         "users",
@@ -316,7 +319,8 @@
       ],
       "columns": [
         "email",
-        "librarian_roles"
+        "librarian_roles",
+        "user_setting"
       ],
       "arguments": [
         "review",
@@ -883,8 +887,7 @@
         "read:me:roles"
       ],
       "operations": [
-        "me",
-        "user_settings"
+        "me"
       ],
       "columns": [
         "email",
@@ -898,8 +901,7 @@
       "description": "Your public profile (id, username, name, avatar)",
       "implies": [],
       "operations": [
-        "me",
-        "user_settings"
+        "me"
       ],
       "columns": [],
       "arguments": []
@@ -912,8 +914,7 @@
         "read:me:content"
       ],
       "operations": [
-        "me",
-        "user_settings"
+        "me"
       ],
       "columns": [
         "email"
@@ -927,11 +928,24 @@
       "description": "Your Hardcover roles (librarian_roles, including hardcover_admin for staff)",
       "implies": [],
       "operations": [
-        "me",
-        "user_settings"
+        "me"
       ],
       "columns": [
         "librarian_roles"
+      ],
+      "arguments": []
+    },
+    {
+      "scope": "read:settings",
+      "action": "read",
+      "description": "Your settings (release filters, Shelf Showdown preferences)",
+      "implies": [],
+      "operations": [
+        "user_settings",
+        "user_settings_by_pk"
+      ],
+      "columns": [
+        "user_setting"
       ],
       "arguments": []
     },
@@ -1241,9 +1255,8 @@
       "implies": [],
       "operations": [
         "delete_followed_prompt",
+        "delete_prompt",
         "delete_prompt_answer",
-        "delete_prompts",
-        "delete_prompts_by_pk",
         "insert_prompt",
         "insert_prompt_answer",
         "update_prompt",
@@ -1303,6 +1316,7 @@
       "implies": [],
       "operations": [
         "delete_vibe",
+        "ensure_system_vibes",
         "insert_vibe",
         "update_vibe"
       ],
@@ -1339,6 +1353,7 @@
         "update_edition",
         "update_publisher",
         "update_serie",
+        "update_series",
         "upsert_book",
         "upsert_tags"
       ],
@@ -1369,6 +1384,7 @@
         "update_edition",
         "update_publisher",
         "update_serie",
+        "update_series",
         "upsert_book",
         "upsert_tags"
       ],
@@ -1395,6 +1411,7 @@
         "update_edition",
         "update_publisher",
         "update_serie",
+        "update_series",
         "upsert_book",
         "upsert_tags"
       ],
@@ -2002,28 +2019,20 @@
       "calls_internal": true
     },
     {
+      "operation": "delete_prompt",
+      "type": "write",
+      "tables": [
+        "prompts"
+      ],
+      "calls_internal": true
+    },
+    {
       "operation": "delete_prompt_answer",
       "type": "write",
       "tables": [
         "prompt_answers"
       ],
       "calls_internal": true
-    },
-    {
-      "operation": "delete_prompts",
-      "type": "delete",
-      "tables": [
-        "prompts"
-      ],
-      "calls_internal": false
-    },
-    {
-      "operation": "delete_prompts_by_pk",
-      "type": "delete",
-      "tables": [
-        "prompts"
-      ],
-      "calls_internal": false
     },
     {
       "operation": "delete_reading_journal",
@@ -2112,6 +2121,12 @@
         "editions"
       ],
       "calls_internal": false
+    },
+    {
+      "operation": "ensure_system_vibes",
+      "type": "write",
+      "tables": [],
+      "calls_internal": true
     },
     {
       "operation": "filter_list_entities",
@@ -3230,6 +3245,14 @@
       "calls_internal": true
     },
     {
+      "operation": "update_series",
+      "type": "write",
+      "tables": [
+        "series"
+      ],
+      "calls_internal": true
+    },
+    {
       "operation": "update_user_book",
       "type": "write",
       "tables": [
@@ -3431,6 +3454,14 @@
     },
     {
       "operation": "user_settings",
+      "type": "read",
+      "tables": [
+        "user_settings"
+      ],
+      "calls_internal": false
+    },
+    {
+      "operation": "user_settings_by_pk",
       "type": "read",
       "tables": [
         "user_settings"

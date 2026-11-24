@@ -62,7 +62,7 @@
   "user_books": null,
   "user_flags": null,
   "user_referrals": 1000,
-  "user_settings": null,
+  "user_settings": 1,
   "user_statuses": null,
   "users": 100,
   "users_aggregate_by_created_at_date": null,
