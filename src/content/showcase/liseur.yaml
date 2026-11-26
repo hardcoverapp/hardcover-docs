@@ -1,0 +1,73 @@
+name: "Liseur"
+slug: "liseur"
+summary: "Open-source Android EPUB reader that reports your reading to Hardcover"
+description: |
+  Liseur is a free, open-source EPUB reader and remote library client for Android, with a Kindle-inspired reading experience. It has no ads and no account of its own.
+
+  With a Hardcover API token, Liseur can tell Hardcover what you are reading:
+  - Reports reading status, progress, and start and finish dates as you read, either automatically when you close a book or with Push to Hardcover from the reader menu
+  - Syncs ratings and reviews both ways
+  - Matches each book to a Hardcover edition, with a full-screen edition picker that searches by title or ISBN
+  - Fills in book details such as publisher, publication date and genres from Hardcover with Update from Hardcover
+  - Sync can be turned off for a single book
+
+  Reading features:
+  - Library with shelves, series, a home screen and a cover grid
+  - Reading statistics, highlights, notes, dictionary lookup and read aloud
+  - Reading companion with character profiles and a map of character relationships
+  - Connects to OPDS servers such as Calibre-Web and Komga
+
+  Hardcover sync is in the Google Play build of the app. The F-Droid and GitHub builds don't include it.
+
+author:
+  name: "Chmouel Boudjnah"
+  github: "chmouel"
+  hardcover: "samchmou"
+
+links:
+  - label: "Google Play"
+    url: "https://play.google.com/store/apps/details?id=com.chmouel.liseur"
+    type: "store"
+  - label: "GitHub"
+    url: "https://github.com/chmouel/liseur"
+    type: "github"
+  - label: "F-Droid"
+    url: "https://f-droid.org/en/packages/com.chmouel.liseur/"
+    type: "store"
+
+categories:
+  - "Mobile App"
+
+features:
+  - "progress-sync"
+  - "reviews"
+  - "metadata"
+
+platforms:
+  - "android"
+
+formats:
+  - "ebook"
+
+connects:
+  - "api"
+  - "pat"
+
+dateAdded: 2026-11-26
+dateUpdated: 2026-11-26
+
+screenshots:
+  - src: "/showcase/liseur/01-hardcover.jpg"
+    alt: "Hardcover in Liseur: the Hardcover panel in Book details, the edition picker, and the Hardcover sync settings"
+  - src: "/showcase/liseur/02-reading.jpg"
+    alt: "Liseur home screen, library shelves, and the reader with read aloud"
+  - src: "/showcase/liseur/03-companion-stats.jpg"
+    alt: "Reading companion character profile, character relationship map, and reading stats"
+
+tags:
+  - "kotlin"
+  - "epub"
+  - "opds"
+  - "open-source"
+
+featured: false
