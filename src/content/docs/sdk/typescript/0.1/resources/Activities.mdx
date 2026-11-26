@@ -19,7 +19,7 @@ Each method below has a live example. [Examples](#examples) at the end show them
 
 `hc.activities.forUser(userId, options?)`
 
-A reader's activity, newest first.
+A reader's activity, newest first, each with likedByMe.
 
 **Scopes:** <ScopePill scope="read:social" />
 
@@ -36,7 +36,7 @@ A reader's activity, newest first.
 
 `hc.activities.forBook(bookId, options?)`
 
-Activity about a book, newest first.
+Activity about a book, newest first, each with likedByMe.
 
 **Scopes:** <ScopePill scope="read:social" />
 
@@ -53,7 +53,7 @@ Activity about a book, newest first.
 
 `hc.activities.following(options?)`
 
-Activity from the people you follow, newest first.
+Activity from the people you follow, newest first, each with likedByMe.
 
 **Scopes:** <ScopePill scope="read:me:content" /> <ScopePill scope="read:social" />
 
