@@ -1,0 +1,82 @@
+name: "Readest"
+slug: "readest"
+summary: "Open-source ebook reader for every platform that syncs progress and notes to Hardcover"
+description: |
+  Readest is a free, open-source ebook reader for macOS, Windows, Linux, iOS, iPadOS, Android and the web. It opens EPUB, PDF, MOBI, AZW3, FB2, CBZ, TXT and Markdown, and sends what you read to Hardcover.
+
+  Hardcover sync:
+  - Sign in with your Hardcover account, no API token to copy
+  - Sends reading progress as pages read, or as time listened when your Hardcover read is on an audiobook edition
+  - Adds the book to your Hardcover library as Currently Reading and marks it Read when you finish
+  - Sends highlights as quotes and notes as journal entries, with your account's default privacy, and updates entries already on Hardcover instead of duplicating them
+  - Auto Sync while you read, or push progress and notes yourself from the book menu
+  - Matches books by ISBN, then by title and author; Link Book lets you pick the Hardcover book when the match is wrong
+  - Follows Hardcover's API rate limits
+
+  Hardcover sync is free. Turn it on in Settings → Integrations → Hardcover.
+
+author:
+  name: "Readest"
+  github: "readest"
+
+links:
+  - label: "Website"
+    url: "https://readest.com"
+    type: "website"
+  - label: "GitHub"
+    url: "https://github.com/readest/readest"
+    type: "github"
+  - label: "App Store"
+    url: "https://apps.apple.com/app/id6738622779"
+    type: "store"
+  - label: "Google Play"
+    url: "https://play.google.com/store/apps/details?id=com.bilingify.readest"
+    type: "store"
+  - label: "Web App"
+    url: "https://web.readest.com"
+    type: "demo"
+
+categories:
+  - "Mobile App"
+  - "Desktop App"
+  - "Web App"
+
+platforms:
+  - "ios"
+  - "ipados"
+  - "android"
+  - "macos"
+  - "windows"
+  - "linux"
+  - "web"
+
+formats:
+  - "ebook"
+
+features:
+  - "progress-sync"
+  - "journal"
+
+connects:
+  - "api"
+  - "oauth"
+
+screenshots:
+  - src: "/showcase/readest/01-hardcover-sync.webp"
+    alt: "Reading The Great Gatsby with the book menu open on Hardcover Sync: Push Progress, Push Notes and Link Book"
+  - src: "/showcase/readest/02-link-book.webp"
+    alt: "Link Hardcover Book dialog listing Hardcover search results for Hamlet with covers, pages and reader counts"
+  - src: "/showcase/readest/03-library.webp"
+    alt: "Library of classic ebooks shown as a cover grid"
+
+tags:
+  - "open-source"
+  - "typescript"
+  - "rust"
+  - "tauri"
+  - "nextjs"
+
+dateAdded: 2026-11-26
+dateUpdated: 2026-11-26
+
+featured: false
